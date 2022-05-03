@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>組態選項與範例</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="組態選項與範例" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/trident/trident-use/ontap-nas-examples.html" />
+	<meta property="og:description" content="瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/trident/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。">
+  <meta name="keywords" content=" map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx"><!-- Icons -->
+  <link rel="icon" href="/zh-tw/trident/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/trident/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-tw/trident/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/trident/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/trident/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-tw/trident/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-tw/trident/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-tw/trident/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-tw/trident/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-tw/trident/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-tw/trident/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/trident/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/trident/css/custom-dropdown.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/trident/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-tw/trident/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/trident/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel='stylesheet' href='/zh-tw/trident/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
+    if (document.location.hostname === "docs.netapp.com") {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = "72570c5c-fe30-465f-b0e0-b77f7fb4ae34";
+      head.appendChild(onetrustScript);
+    }
+
+    function OptanonWrapper() { }
+
+    if (document.location.hostname === "docs.netapp.com") {
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+      head.appendChild(adobe);
+
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id=UA-81697994-3";
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-81697994-3');
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/trident/js/na-search.js'></script><script src='/zh-tw/trident/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-tw/trident/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/trident/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-tw/trident/js/na-utility.js'></script>
+  <script src='/zh-tw/trident/js/clouddocs.js'></script>
+  <script src='/zh-tw/trident/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-tw/trident/js/toc.js'></script>
+  <script src='/zh-tw/trident/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/zh-tw/trident/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/trident/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/trident/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/trident/js/jszip.min.js'></script>
+  <script src='/zh-tw/trident/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/trident/issues/new?body=Page%3A%20[組態選項與範例](https://docs.netapp.com/zh-tw/trident/trident-use/ontap-nas-examples.html)" class="page-nav-contribute-link" role="button"><img src="/zh-tw/trident/images/discuss-sm.svg" class="github-icon" />要求變更文件</a><a target="_blank" href="https://github.com/NetAppDocs/trident/blob/main/trident-use/ontap-nas-examples.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-tw/trident/images/edit-sm.svg" class="github-icon" />編輯此頁面</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-tw/trident/images/article-sm.svg" class="github-icon" />瞭解如何作出貢獻</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此頁面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">產品與解決方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支援與訓練</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社群</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">部落格</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客戶成功案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-tw/trident/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-tw/trident/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-tw/trident/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-tw/trident/search.html"
+          data-type="widget" 
+          data-placeholder="搜尋文件" 
+          data-no-results-found="找不到符合 {query} 的相關結果。" 
+          data-did-you-mean="搜尋 {suggestion}。" 
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？" 
+          data-results-found="找到 {hitCount} 筆結果"  
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/trident/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">繁體中文</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/trident/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-examples.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/trident/trident-use/ontap-nas-examples.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ko-kr/trident/trident-use/ontap-nas-examples.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/trident/trident-use/ontap-nas-examples.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-tw/trident/trident-use/ontap-nas-examples.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>可用的 PDF<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        
+        
+        
+        <a target="_blank" href="/zh-tw/trident/pdfs/fullsite-sidebar/Astra_Trident_22_04文件.pdf" >
+          <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>此文件網站（PDF 格式）</a>
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/概念.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            概念
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/開始使用.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            開始使用
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/與Trident營運者一起部署.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            與Trident營運者一起部署
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/使用tridentctl部署.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            使用tridentctl部署
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/管理Astra_Trident.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            管理Astra Trident
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/使用Astra_Trident.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            使用Astra Trident
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/設定後端.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            設定後端
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/使用ONTAP_SAN驅動程式設定後端.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            使用ONTAP SAN驅動程式設定後端
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/使用ONTAP_NetApp_NAS驅動程式設定後端.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            使用ONTAP NetApp NAS驅動程式設定後端
+          </a>
+          
+
+
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/zh-tw/trident/pdfs/pages/trident-use/ontap-nas-examples.pdf" >
+    <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/執行Volume作業.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            執行Volume作業
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/適合Docker的Astra_Trident.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            適合Docker的Astra Trident
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/使用Volume.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            使用Volume
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/最佳實務做法與建議.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            最佳實務做法與建議
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/trident/pdfs/sidebar/參考資料.pdf" 
+            
+          >
+            <img src="/zh-tw/trident/images/pdf.png" width="16" height="16"/>
+            參考資料
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/zh-tw/trident/images/pdf-zip.png" width="16" height="16"/>
+      <pre>個別 PDF 文件的集合<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/index.html">
+        Astra Trident文件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-rn.html">
+        版本資訊
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 概念</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-concepts/intro.html">
+        Astra Trident簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-concepts/ontap-drivers.html">
+        驅動程式ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-concepts/provisioning.html">
+        資源配置
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-concepts/snapshots.html">
+        Volume快照
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-concepts/virtual-storage-pool.html">
+        虛擬儲存資源池
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-concepts/vol-access-groups.html">
+        Volume存取群組
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 開始使用</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-get-started/quickstart.html">
+        歡迎試用
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-get-started/requirements.html">
+        需求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-get-started/kubernetes-deploy.html">
+        部署總覽
+      </a></li><li class="subfolders "><a href="/zh-tw/trident/trident-get-started/kubernetes-deploy-operator.html">
+        <div class="na-navbar-padding"> 與Trident營運者一起部署</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-get-started/kubernetes-customize-deploy.html">
+        自訂Trident營運者部署
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/trident/trident-get-started/kubernetes-deploy-tridentctl.html">
+        <div class="na-navbar-padding"> 使用tridentctl部署</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html">
+        自訂試用部署
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-get-started/kubernetes-postdeployment.html">
+        接下來呢？
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理Astra Trident</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-managing-k8s/upgrade-trident.html">
+        升級Astra Trident
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-managing-k8s/upgrade-operator.html">
+        與營運者一起升級
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-managing-k8s/upgrade-tridentctl.html">
+        使用tridentctl進行升級
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-managing-k8s/uninstall-trident.html">
+        解除安裝Astra Trident
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-managing-k8s/downgrade-trident.html">
+        降級Astra Trident
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用Astra Trident</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/trident/trident-use/backends.html">
+        <div class="na-navbar-padding"> 設定後端</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/anf.html">
+        設定ANF後端
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/ads.html">
+        設定ADS後端
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/gcp.html">
+        針對GCP後端設定CVS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/element.html">
+        設定NetApp HCI 一個不只是功能的SolidFire 後端
+      </a></li><li class="subfolders "><a href="/zh-tw/trident/trident-use/ontap-san.html">
+        <div class="na-navbar-padding"> 使用ONTAP SAN驅動程式設定後端</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/ontap-san-prep.html">
+        準備
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/ontap-san-examples.html">
+        組態選項與範例
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/trident/trident-use/ontap-nas.html">
+        <div class="na-navbar-padding"> 使用ONTAP NetApp NAS驅動程式設定後端</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/ontap-nas-prep.html">
+        準備
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/ontap-nas-examples.html">
+        組態選項與範例
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/trident-fsx.html">
+        使用Astra Trident搭配Amazon FSX for NetApp ONTAP 解決方案
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/backend-kubectl.html">
+        使用kubecl建立後端
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/backend_ops_kubectl.html">
+        以KECBECVL執行後端管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/backend_ops_tridentctl.html">
+        使用tridentctl執行後端管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/backend_options.html">
+        在後端管理選項之間切換
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/manage-stor-class.html">
+        管理儲存類別
+      </a></li><li class="subfolders "><a href="/zh-tw/trident/trident-use/vol-operations.html">
+        <div class="na-navbar-padding"> 執行Volume作業</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/csi-topology.html">
+        使用「csi拓撲」
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/vol-snapshots.html">
+        使用快照
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/vol-expansion.html">
+        展開Volume
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/vol-import.html">
+        匯入磁碟區
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/worker-node-prep.html">
+        準備工作節點
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/automatic-workernode.html">
+        自動準備工作節點
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-use/monitor-trident.html">
+        監控Astra Trident
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 適合Docker的Astra Trident</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-docker/prereqs-docker.html">
+        部署的先決條件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-docker/deploy-docker.html">
+        部署Astra Trident
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-docker/upgrade-uninstall-docker.html">
+        升級或解除安裝Trident
+      </a></li><li class="subfolders "><a href="/zh-tw/trident/trident-docker/volumes-docker.html">
+        <div class="na-navbar-padding"> 使用Volume</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-docker/volume-driver-options.html">
+        驅動程式專屬的Volume選項
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-docker/collect-logs-docker.html">
+        收集記錄
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-docker/multiple-instances-docker.html">
+        管理多個Astra Trident執行個體
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-docker/stor-config.html">
+        儲存組態選項
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-docker/known-issues-docker.html">
+        已知問題
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/faq.html">
+        常見問題集
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/get-help.html">
+        支援
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/troubleshooting.html">
+        疑難排解
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 最佳實務做法與建議</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reco/deploy-reco.html">
+        部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reco/storage-config-best-practices.html">
+        儲存組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reco/integrate-trident.html">
+        Astra Trident整合
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reco/backup.html">
+        資料保護
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reco/security-reco.html">
+        安全性
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 參考資料</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reference/trident-ports.html">
+        Astra Trident連接埠
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reference/rest-api.html">
+        Astra Trident REST API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reference/trident-cl.html">
+        命令列選項
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reference/k8s-netapp.html">
+        與Kubernetes整合的NetApp產品
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reference/objects.html">
+        Kubernetes和Astra Trident物件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/trident-reference/tridentctl.html">
+        tridentctl命令和選項
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/earlier-versions.html">
+        舊版
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/trident/legal.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-tw/trident/">Astra&nbsp;Trident</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-tw/trident/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">組態選項與範例</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-05-03 11:50:10 +0000">05/03/2022</time>
+    
+  
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="後端組態選項">後端組態選項</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>如需後端組態選項、請參閱下表：</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">參數</th>
+<th class="tableblock halign-left valign-top">說明</th>
+<th class="tableblock halign-left valign-top">預設</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「分度」</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">永遠為1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「torageDriverName」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">儲存驅動程式名稱</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「ONTAP-NAS」、「ONTAP-NAS-節約 型」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」、「ONTAP-san經濟型」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「後端名稱」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">自訂名稱或儲存後端</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">驅動程式名稱+「_」+ dataLIF</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《馬納格門達利》</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">叢集或SVM管理LIF的IP位址</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「10.0.0.1」、「[2001:1234:abcd:::fefo]」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「DataLIF」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">傳輸協定LIF的IP位址。IPv6使用方括弧。設定後無法更新</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">除非另有說明、否則由SVM衍生</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「AutoExpportPolicy」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">啟用自動匯出原則建立與更新[布 林值]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">錯</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《AutoExpportCIDR》（自動匯出CTR）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">啟用「AutoExpportPolicy」時、用來篩選Kubernetes節點IP的CIDR清單</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[「0.00.0/0」、「：/0」]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《標籤》</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">套用到磁碟區的任意JSON-格式化標籤集</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「用戶端憑證」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用戶端憑證的Base64編碼值。用於憑證型驗證</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「clientPrivate Key」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用戶端私密金鑰的Base64編碼值。用於憑證型驗證</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「可信賴的CACertifcate」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">受信任CA憑證的Base64編碼值。選用。用於憑證型驗證</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《使用者名稱》</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">連線至叢集/ SVM的使用者名稱。用於認證型驗證</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">密碼</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">連線至叢集/ SVM的密碼。用於認證型驗證</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《虛擬機器》</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要使用的儲存虛擬機器</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果指定SVM "managementLIF"則衍生</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「igroupName」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要使用之SAN磁碟區的igroup名稱</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「Trident -&lt;後端-UUID&gt;」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「toragePrefix」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在SVM中配置新磁碟區時所使用的前置碼。設定後無法更新</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「Trident」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「限制Aggregateusage」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果使用率高於此百分比、則無法進行資源配置。*不適用於Amazon FSX for ONTAP Sfor Sfor *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「」（預設不強制執行）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《限制Volume大小》</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果要求的磁碟區大小高於經濟驅動程式的此值、則無法進行資源配置。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「」（預設不強制執行）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《lunsPerFlexvol》</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「100」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「DebugTraceFlags」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「方法」：true｝</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「nfsMountOptions」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">以逗號分隔的NFS掛載選項清單</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"qtreesPerFlexvol"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">每FlexVol 個邊的最大qtree數、必須在範圍內[50、300]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「200」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《useREST》</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">使用ONTAP Isrest API的布林參數。<strong>技術預覽</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">錯</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="附註">
+</td>
+<td class="content">
+「useREST」是一種建議用於測試環境、而非用於正式作業工作負載的技術預覽。當設為「true」時、Astra Trident會使用ONTAP 「Isrest API」與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取「ONTAP 發揮作用」應用程式。這對預先定義的「vsadmin」和「叢集管理」角色感到滿意。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>若要與ONTAP 此叢集通訊、您應該提供驗證參數。這可能是安全登入或安裝憑證的使用者名稱/密碼。</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/warning.svg" alt="警告">
+</td>
+<td class="content">
+如果您使用Amazon FSX for NetApp ONTAP Sendbackend、請勿指定「limitAggregateusage」參數。Amazon FSx for NetApp ONTAP 的「fsxadmin」和「vsadmin」角色不包含擷取Aggregate使用量並透過Astra Trident加以限制的必要存取權限。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/warning.svg" alt="警告">
+</td>
+<td class="content">
+除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用「debugTraceFlags」。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="附註">
+</td>
+<td class="content">
+建立後端時、請記住、建立後無法修改「dataLIF」和「儲存前置字元」。若要更新這些參數、您需要建立新的後端。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>可以為「managementLIF」選項指定完整網域名稱（FQDN）。也可以為「dataLIF」選項指定FQDN、在這種情況下、FQDN將用於NFS裝載作業。如此一來、您就能建立循環DNS、在多個資料生命期之間實現負載平衡。</p>
+</div>
+<div class="paragraph">
+<p>所有ONTAP 的不完整驅動程式也可設定為IPv6位址。請務必使用「-use IPv6」旗標來安裝Astra Trident。必須謹慎定義方括弧內的「managementLIF」IPv6位址。</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/warning.svg" alt="警告">
+</td>
+<td class="content">
+使用IPv6位址時、請務必在方括弧內定義「managementLIF」和「dataLIF」（若包含在後端定義中）、例如[28e8：d9fb:a825:b7bf:69a8：d02f：9e7b:3555]。如果未提供「data LIF」、Astra Trident會從SVM擷取IPv6資料LIF。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>使用「AutoExport Policy」（自動匯出原則）和「AutoExport CIDR」（自動匯出CTR）選項、「csi Trident」（SCSI Trident）可以自動管理匯出原則。所有的ONTAP-NAS-*驅動程式均支援此功能。</p>
+</div>
+<div class="paragraph">
+<p>對於「ONTAP-NAS-EAS-經濟」驅動程式、「limitVolume Sizes」選項也會限制其管理的qtree和LUN磁碟區大小上限、而「qtreesPerFlexvol'」選項則可自訂每FlexVol 個經濟體系的最大配額樹數。</p>
+</div>
+<div class="paragraph">
+<p>可以使用「nfsMountOptions」參數來指定掛載選項。Kubernetes持續磁碟區的掛載選項通常會在儲存類別中指定、但如果儲存類別中未指定掛載選項、則Astra Trident會改回使用儲存後端組態檔中指定的掛載選項。如果儲存類別或組態檔中未指定掛載選項、則Astra Trident不會在相關的持續磁碟區上設定任何掛載選項。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="附註">
+</td>
+<td class="content">
+Astra Trident在所有使用「ONTAP-NAS」和「ONTAP-NAS-flexgroup」建立的磁碟區的「Comments」（註解）欄位中設定資源配置標籤。根據所使用的驅動程式、意見會設定在FlexVol 以下項目上：（「ONTAP-NAS」）或FlexGroup （「ONTAP-NAS-flexgroup」）。Astra Trident會在儲存資源池配置時、將儲存資源池上的所有標籤複製到儲存磁碟區。儲存管理員可以定義每個儲存資源池的標籤、並將儲存資源池中建立的所有磁碟區分組。這是根據後端組態中提供的一組可自訂標籤、方便區分磁碟區的方法。
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="用於資源配置磁碟區的後端組態選項">用於資源配置磁碟區的後端組態選項</h3>
+<div class="paragraph">
+<p>您可以在組態的特定區段中、使用這些選項來控制預設配置每個Volume的方式。如需範例、請參閱下列組態範例。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">參數</th>
+<th class="tableblock halign-left valign-top">說明</th>
+<th class="tableblock halign-left valign-top">預設</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"paceAllocate（配置）"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LUN的空間分配</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「真的」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《保護區》</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">空間保留模式；「無」（精簡）或「Volume」（完整）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「無」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「快照原則」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要使用的Snapshot原則</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「無」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「qosPolicy」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《adaptiveQosPolicy》</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy。不受ONTAP-NAS-經濟支援。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「快照保留區」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">保留給快照「0」的磁碟區百分比</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果「快照原則」為「無」、則其他為「」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「PlitOnClone」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">建立複本時、從其父複本分割複本</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「假」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">加密</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">啟用NetApp Volume加密</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「假」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">《生態樣式》</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">新磁碟區的安全樣式</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「UNIX」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「分層政策」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">分層原則以使用「無」</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP 9.5之前的SVM-DR組態為「純快照」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unix權限</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">新磁碟區的模式</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「777」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">snapshotDir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">控制「.snapshot」目錄的可見度</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「假」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">匯出原則</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要使用的匯出原則</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「預設」</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">安全性樣式</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">新磁碟區的安全樣式</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">「UNIX」</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="附註">
+</td>
+<td class="content">
+搭配Astra Trident使用QoS原則群組需要ONTAP 使用更新版本的版本。建議使用非共用的QoS原則群組、並確保原則群組會個別套用至每個組成群組。共享的QoS原則群組將強制所有工作負載的總處理量上限。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>以下是已定義預設值的範例：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "backendName": "customBackendName",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "labels": {"k8scluster": "dev1", "backend": "dev1-nasbackend"},
+  "svm": "trident_svm",
+  "username": "cluster-admin",
+  "password": "password",
+  "limitAggregateUsage": "80%",
+  "limitVolumeSize": "50Gi",
+  "nfsMountOptions": "nfsvers=4",
+  "debugTraceFlags": {"api":false, "method":true},
+  "defaults": {
+    "spaceReserve": "volume",
+    "qosPolicy": "premium",
+    "exportPolicy": "myk8scluster",
+    "snapshotPolicy": "default",
+    "snapshotReserve": "10"
+  }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>對於「ONTAP-NAS」和「ONTAP-NAS-flexGroups」、Astra Trident現在採用新的計算方法、確保FlexVol 利用snapshotReserve百分比和PVc正確調整其規模。當使用者要求使用PVCs時、Astra Trident會FlexVol 使用新的計算方式、建立原始的包含更多空間的候選區。此計算可確保使用者在永久虛擬磁碟中獲得所要求的可寫入空間、且空間不得小於所要求的空間。在v21.07之前、當使用者要求使用PVC（例如5GiB）、快照保留區達到50%時、他們只能獲得2.5GiB的可寫入空間。這是因為使用者要求的是整個磁碟區、而「快照保留區」則是其中的一個百分比。使用Trident 21.07時、使用者要求的是可寫入空間、而Astra Trident則將「快照保留區」編號定義為整個Volume的百分比。這不適用於「ONTAP-NAS-經濟」。請參閱下列範例以瞭解此功能的運作方式：</p>
+</div>
+<div class="paragraph">
+<p>計算方式如下：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Total volume size = (PVC requested size) / (1 - (snapshotReserve percentage) / 100)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>對於snapshotReserve = 50%、而PVc要求= 5GiB、磁碟區總大小為2/0.5 = 10GiB、可用大小為5GiB、這是使用者在PVC要求中要求的大小。「volume show（Volume show）命令應顯示類似以下範例的結果：</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../media/volume-show-nas.png" alt="顯示Volume show命令的輸出。">
+</div>
+</div>
+<div class="paragraph">
+<p>在升級Astra Trident時、先前安裝的現有後端會按照上述說明來配置磁碟區。對於在升級之前建立的磁碟區、您應該調整其磁碟區大小、以便觀察變更。例如、較早前使用「快照保留區=50」的2GiB室早導致磁碟區提供1GiB的可寫入空間。例如、將磁碟區大小調整為3GiB、可讓應用程式在6 GiB磁碟區上擁有3GiB的可寫入空間。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="最低組態範例">最低組態範例</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>下列範例顯示基本組態、讓大部分參數保留預設值。這是定義後端最簡單的方法。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="附註">
+</td>
+<td class="content">
+如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX、建議您指定lifs的DNS名稱、而非IP位址。
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="ontap-nas驅動程式搭配憑證型驗證">ONTAP - NAS驅動程式搭配憑證型驗證</h3>
+<div class="paragraph">
+<p>這是最小的後端組態範例。「clientCertificate」、「clientPrivate Key」和「Trusted CACertifate」（選用、如果使用信任的CA）會分別填入「backend.json」、並採用用戶端憑證、私密金鑰和信任的CA憑證的64編碼值。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+  "version": 1,
+  "backendName": "DefaultNASBackend",
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.15",
+  "svm": "nfs_svm",
+  "clientCertificate": "ZXR0ZXJwYXB...ICMgJ3BhcGVyc2",
+  "clientPrivateKey": "vciwKIyAgZG...0cnksIGRlc2NyaX",
+  "trustedCACertificate": "zcyBbaG...b3Igb3duIGNsYXNz",
+  "storagePrefix": "myPrefix_"
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ontap-nas驅動程式搭配自動匯出原則">ONTAP - NAS驅動程式搭配自動匯出原則</h3>
+<div class="paragraph">
+<p>本範例說明如何指示Astra Trident使用動態匯出原則來自動建立及管理匯出原則。這對「ONTAP-NAS-節約」和「ONTAP-NAS-Flexgroup」驅動程式的運作方式相同。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "labels": {"k8scluster": "test-cluster-east-1a", "backend": "test1-nasbackend"},
+    "autoExportPolicy": true,
+    "autoExportCIDRs": ["10.0.0.0/24"],
+    "username": "admin",
+    "password": "secret",
+    "nfsMountOptions": "nfsvers=4",
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ontap-nas-flexgroup驅動程式">ONTAP-NAS-flexgroup驅動程式</h3>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "ontap-nas-flexgroup",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "labels": {"k8scluster": "test-cluster-east-1b", "backend": "test1-ontap-cluster"},
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret",
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ontap-nas驅動程式搭配ipv6">ONTAP - NAS驅動程式搭配IPv6</h3>
+<div class="listingblock">
+<div class="content">
+<pre>{
+ "version": 1,
+ "storageDriverName": "ontap-nas",
+ "backendName": "nas_ipv6_backend",
+ "managementLIF": "[5c5d:5edf:8f:7657:bef8:109b:1b41:d491]",
+ "labels": {"k8scluster": "test-cluster-east-1a", "backend": "test1-ontap-ipv6"},
+ "svm": "nas_ipv6_svm",
+ "username": "vsadmin",
+ "password": "netapp123"
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ontap-nas-經濟驅動程式">ONTAP-NAS-經濟驅動程式</h3>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "ontap-nas-economy",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret"
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="虛擬儲存資源池的後端範例">虛擬儲存資源池的後端範例</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>在下圖所示的範例後端定義檔中、會針對所有儲存資源池設定特定的預設值、例如「無的儲存資源保留」、「假的資源配置」、以及「假的加密」。虛擬儲存資源池是在儲存區段中定義。</p>
+</div>
+<div class="paragraph">
+<p>在此範例中、有些儲存資源池會設定自己的「資源保留」、「資源配置」和「加密」值、有些資源池會覆寫上述設定的預設值。</p>
+</div>
+<div class="sect2">
+<h3 id="ontap-nas驅動程式">ONTAP-NAS驅動程式</h3>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    {
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "admin",
+    "password": "secret",
+    "nfsMountOptions": "nfsvers=4",
+
+    "defaults": {
+          "spaceReserve": "none",
+          "encryption": "false",
+          "qosPolicy": "standard"
+    },
+    "labels":{"store":"nas_store", "k8scluster": "prod-cluster-1"},
+    "region": "us_east_1",
+    "storage": [
+        {
+            "labels":{"app":"msoffice", "cost":"100"},
+            "zone":"us_east_1a",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "true",
+                "unixPermissions": "0755",
+                "adaptiveQosPolicy": "adaptive-premium"
+            }
+        },
+        {
+            "labels":{"app":"slack", "cost":"75"},
+            "zone":"us_east_1b",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"app":"wordpress", "cost":"50"},
+            "zone":"us_east_1c",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0775"
+            }
+        },
+        {
+            "labels":{"app":"mysqldb", "cost":"25"},
+            "zone":"us_east_1d",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "false",
+                "unixPermissions": "0775"
+            }
+        }
+    ]
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ontap-nas-flexgroup驅動程式-2">ONTAP-NAS-flexgroup驅動程式</h3>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "ontap-nas-flexgroup",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret",
+
+    "defaults": {
+          "spaceReserve": "none",
+          "encryption": "false"
+    },
+    "labels":{"store":"flexgroup_store", "k8scluster": "prod-cluster-1"},
+    "region": "us_east_1",
+    "storage": [
+        {
+            "labels":{"protection":"gold", "creditpoints":"50000"},
+            "zone":"us_east_1a",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"protection":"gold", "creditpoints":"30000"},
+            "zone":"us_east_1b",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"protection":"silver", "creditpoints":"20000"},
+            "zone":"us_east_1c",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0775"
+            }
+        },
+        {
+            "labels":{"protection":"bronze", "creditpoints":"10000"},
+            "zone":"us_east_1d",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "false",
+                "unixPermissions": "0775"
+            }
+        }
+    ]
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ontap-nas-經濟驅動程式-2">ONTAP-NAS-經濟驅動程式</h3>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "ontap-nas-economy",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret",
+
+    "defaults": {
+          "spaceReserve": "none",
+          "encryption": "false"
+    },
+    "labels":{"store":"nas_economy_store"},
+    "region": "us_east_1",
+    "storage": [
+        {
+            "labels":{"department":"finance", "creditpoints":"6000"},
+            "zone":"us_east_1a",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"department":"legal", "creditpoints":"5000"},
+            "zone":"us_east_1b",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"department":"engineering", "creditpoints":"3000"},
+            "zone":"us_east_1c",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0775"
+            }
+        },
+        {
+            "labels":{"department":"humanresource", "creditpoints":"2000"},
+            "zone":"us_east_1d",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "false",
+                "unixPermissions": "0775"
+            }
+        }
+    ]
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="將後端對應至storageclass">將後端對應至StorageClass</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>下列StorageClass定義係指上述虛擬儲存資源池。使用「parameters.selector`」欄位、每個StorageClass都會呼叫哪些虛擬資源池可用於裝載磁碟區。磁碟區將會在所選的虛擬資源池中定義各個層面。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>第一部StorageClass（「protection黃金級」）將對應至「ONTAP-NAS Flexgroup」後端的第一個、第二個虛擬儲存集區、以及「ONTAP-SAN」後端的第一個虛擬儲存集區。這是唯一提供金級保護的資源池。</p>
+</li>
+<li>
+<p>第二個StorageClass（「protection非gold」）將對應至第三個、第四個虛擬儲存集區、位於「ONTAP-NAS」後端、第二個是第三個虛擬儲存集區、位於「ONTAP-SAN」後端。這是唯一提供金級以外保護層級的資源池。</p>
+</li>
+<li>
+<p>第三個StorageClass（「app-mysqldb」）將對應至「ontap-nas」後端的第四個虛擬儲存資源池、以及「ontap-san經濟」後端的第三個虛擬儲存資源池。這些是唯一提供mysqldb類型應用程式儲存池組態的集區。</p>
+</li>
+<li>
+<p>第四個StorageClass（「protection－silver－creditpoints－20k」）將對應至第三個虛擬儲存資源池（位於「ONTAP－NAS－flexgroup」後端）、第二個虛擬儲存資源池（位於「ONTAP－san」後端）。這些資源池是唯一能以20000個信用點數提供金級保護的資源池。</p>
+</li>
+<li>
+<p>第五個StorageClass（'creditpoint-5k'）將對應到第二個位於「ONTAP-NAS經濟」後端的虛擬儲存資源池、以及位於「ONTAP-SAN」後端的第三個虛擬儲存資源池。這些是唯一提供5000個信用點數的資源池產品。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Astra Trident將決定選取哪個虛擬儲存資源池、並確保符合儲存需求。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: protection-gold
+provisioner: netapp.io/trident
+parameters:
+  selector: "protection=gold"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: protection-not-gold
+provisioner: netapp.io/trident
+parameters:
+  selector: "protection!=gold"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: app-mysqldb
+provisioner: netapp.io/trident
+parameters:
+  selector: "app=mysqldb"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: protection-silver-creditpoints-20k
+provisioner: netapp.io/trident
+parameters:
+  selector: "protection=silver; creditpoints=20000"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: creditpoints-5k
+provisioner: netapp.io/trident
+parameters:
+  selector: "creditpoints=5000"
+  fsType: "ext4"</pre>
+</div>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">legal-terms</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">legal-privacy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">legal-cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">cookie-settings</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <span class="n-footer__fine-print">對我們的網站有任何意見或要求？</span>
+              <a target="_self" href="javascript:netapp_mailto()">請與我們聯絡</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://docs.netapp.com/zh-tw/announcements/">公告</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/trident/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/trident/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/trident/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/trident/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/trident/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/trident/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/trident/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/trident/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/trident/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/trident/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/trident/js/www-ntap.js'></script>
+    <script src='/zh-tw/trident/js/tabbed-blocks.js'></script>
+  </body></html>

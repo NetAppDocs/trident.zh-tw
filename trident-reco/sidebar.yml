@@ -1,0 +1,14 @@
+---
+section: trident-reco
+title: 最佳實務做法與建議
+entries:
+- title: 部署
+  url: "/trident-reco/deploy-reco.html"
+- title: 儲存組態
+  url: "/trident-reco/storage-config-best-practices.html"
+- title: Astra Trident整合
+  url: "/trident-reco/integrate-trident.html"
+- title: 資料保護
+  url: "/trident-reco/backup.html"
+- title: 安全性
+  url: "/trident-reco/security-reco.html"

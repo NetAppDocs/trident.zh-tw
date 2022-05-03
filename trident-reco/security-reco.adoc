@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/security-reco.html 
+keywords: security, chap, trident, namespace 
+summary: 請使用此處列出的建議、確保您的Astra Trident安裝安全無虞。 
+---
+= 安全性
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+請使用此處列出的建議、確保您的Astra Trident安裝安全無虞。
+
+
+
+== 在自己的命名空間中執行Astra Trident
+
+防止應用程式、應用程式管理員、使用者及管理應用程式存取Astra Trident物件定義或Pod、以確保可靠的儲存並封鎖潛在的惡意活動、這一點非常重要。
+
+若要將其他應用程式和使用者與Astra Trident區隔開、請務必在Kubernetes命名空間（「trident」）中安裝Astra Trident。將Astra Trident放在自己的命名空間中、可確保只有Kubernetes管理人員能夠存取Astra Trident Pod、以及儲存在命名式CRD物件中的成品（例如後端和CHAP機密）。您應該確保只允許系統管理員存取Astra Trident命名空間、進而存取「tridentctl」應用程式。
+
+
+
+== 使用CHAP驗證搭配ONTAP 使用支援SAN的功能
+
+Astra Trident支援ONTAP 以CHAP為基礎的驗證功能、適用於各種SAN工作負載（使用「ONTAP-SAN」和「ONTAP-san經濟」驅動程式）。NetApp建議使用雙向CHAP搭配Astra Trident進行主機與儲存後端之間的驗證。
+
+針對使用SAN儲存驅動程式的幕後作業、Astra Trident可設定雙向CHAP、並透過「tridentctl」管理CHAP使用者名稱和機密。ONTAP請參閱 link:../trident-use/ontap-san-prep.html["請按這裡"^] 瞭解Astra Trident如何在ONTAP 不景點上設定CHAP。
+
+
+NOTE: Trident 20.04及更新版本提供對支援不支援的CHAP ONTAP 。
+
+
+
+== 使用CHAP驗證NetApp HCI 搭配不景和SolidFire 不景的後端
+
+NetApp建議部署雙向CHAP、以確保主機與NetApp HCI 支援功能及SolidFire 支援功能之間的驗證。Astra Trident使用每個租戶包含兩個CHAP密碼的秘密物件。當Trident安裝為「csi佈建程式」時、它會管理CHAP機密、並將其儲存在個別PV的「tridentvolume」（Tridentvolume）CR物件中。建立PV時、「csi Astra Trident」會使用CHAP機密來啟動iSCSI工作階段、NetApp HCI 並透過CHAP與該系統進行通訊SolidFire 。
+
+
+NOTE: 由csi Trident建立的磁碟區不會與任何Volume存取群組相關聯。
+
+在非csi前端中、磁碟區作為工作節點上的裝置附加作業是由Kubernetes處理。建立磁碟區之後、Astra Trident會呼叫NetApp HCI / SolidFire系統、以便在該租戶的機密資訊尚未存在時擷取機密資訊。然後、Astra Trident將機密傳給Kubernetes。位於每個節點上的Kubelet可透過Kubernetes API存取機密資料、並使用它們在存取磁碟區的每個節點與磁碟區所在的NetApp HCI / SolidFire系統之間執行/啟用CHAP。

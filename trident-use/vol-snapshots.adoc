@@ -1,0 +1,164 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-snapshots.html 
+keywords: volumes, on-demand volume snapshots, create snapshots, backends, kubernetes, create PVCs, PVCs 
+summary: 從2001版Astra Trident開始、您可以在Kubernetes層建立持續Volume（PV）的快照。您可以使用這些快照來維護由Astra Trident所建立之磁碟區的時間點複本、並排程建立其他磁碟區（複本）。 
+---
+= 使用快照
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+從2001版Astra Trident開始、您可以在Kubernetes層建立PV快照。您可以使用這些快照來維護由Astra Trident所建立之磁碟區的時間點複本、並排程建立其他磁碟區（複本）。Volume Snapshot可支援「ONTAP-NAS」、「ONTAP-SAN」、「ONTAP-SAN經濟」、「Poolidfire - SAN」、「GCP - CVS」、 以及「azure-NetApp-file-fil」驅動程式。
+
+
+NOTE: 此功能可從Kubernetes 1.17（試用版）取得、GA版本為1.20。若要瞭解從試用版移轉至GA所涉及的變更、請參閱 https://kubernetes.io/blog/2020/12/10/kubernetes-1.20-volume-snapshot-moves-to-ga/["版本部落格"^]。隨着GA的問世、推出了「v1」API版本、並向下相容於「v1Beta1」快照。
+
+.您需要的是 #8217 ；需要的是什麼
+* 建立Volume快照需要建立外部快照控制器、以及一些自訂資源定義（CRD）。這是正在使用的Kubernetes Orchestrator的責任（例如：Kubeadm,GKe, OpenShift）。
+
+
+您可以建立外部快照控制器和快照客戶需求日、如下所示：
+
+. 建立Volume Snapshot客戶需求日：
++
+[listing]
+----
+$ cat snapshot-setup.sh
+#!/bin/bash
+# Create volume snapshot CRDs
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
+----
+. 在所需的命名空間中建立Snapshot控制器。編輯下方的Yaml清單以修改命名空間。
++
+
+NOTE: 如果在GKE環境中設定隨需磁碟區快照、請勿建立快照控制器。GKE使用內建的隱藏式快照控制器。
+
+
+
+[listing]
+----
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
+----
+
+TIP: 「csi Snapshotter」提供 https://github.com/kubernetes-csi/external-snapshotter#validating-webhook["正在驗證Webhook"^] 協助使用者驗證現有的v1Beta1快照、並確認它們是有效的資源物件。驗證Webhook會自動標示無效的快照物件、並防止未來建立無效物件。驗證Webhook是由Kubernetes Orchestrator部署。請參閱指示以手動部署驗證Webhook https://github.com/kubernetes-csi/external-snapshotter/blob/release-3.0/deploy/kubernetes/webhook-example/README.md["請按這裡"^]。尋找無效快照資訊清單的範例 https://github.com/kubernetes-csi/external-snapshotter/tree/release-3.0/examples/kubernetes["請按這裡"^]。
+
+以下範例說明使用快照所需的架構、並說明如何建立及使用快照。
+
+
+
+== 步驟1：設定Volume SnapshotClass
+
+在建立Volume Snapshot之前、請先設定 link:../trident-reference/objects.html["「Volume SnapshotClass」"^]。
+
+[listing]
+----
+$ cat snap-sc.yaml
+#Use apiVersion v1 for Kubernetes 1.20 and above. For Kubernetes 1.17 - 1.19, use apiVersion v1beta1.
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: csi-snapclass
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+----
+《driver》指的是Astra Trident的csi驅動程式。「刪除原則」可以是「刪除」或「保留」。當設定為「保留」時、即使刪除「Volume Snapshot」物件、也會保留儲存叢集上的基礎實體快照。
+
+
+
+== 步驟2：建立現有PVc的快照
+
+[listing]
+----
+$ cat snap.yaml
+#Use apiVersion v1 for Kubernetes 1.20 and above. For Kubernetes 1.17 - 1.19, use apiVersion v1beta1.
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: pvc1-snap
+spec:
+  volumeSnapshotClassName: csi-snapclass
+  source:
+    persistentVolumeClaimName: pvc1
+----
+快照是針對名為「pvc1」的永久虛擬資料建立、快照名稱則設為「pvc1-snap」。
+
+[listing]
+----
+$ kubectl create -f snap.yaml
+volumesnapshot.snapshot.storage.k8s.io/pvc1-snap created
+
+$ kubectl get volumesnapshots
+NAME                   AGE
+pvc1-snap              50s
+----
+這會建立一個「Volume Snapshot」物件。Volume Snapshot類似於一個PVC、並與代表實際快照的「Volume SnapshotContent」物件相關聯。
+
+您可以透過描述「pvc1-snap」Volume Snapshot的「Volume SnapshotContent」物件來識別該物件。
+
+[listing]
+----
+$ kubectl describe volumesnapshots pvc1-snap
+Name:         pvc1-snap
+Namespace:    default
+.
+.
+.
+Spec:
+  Snapshot Class Name:    pvc1-snap
+  Snapshot Content Name:  snapcontent-e8d8a0ca-9826-11e9-9807-525400f3f660
+  Source:
+    API Group:
+    Kind:       PersistentVolumeClaim
+    Name:       pvc1
+Status:
+  Creation Time:  2019-06-26T15:27:29Z
+  Ready To Use:   true
+  Restore Size:   3Gi
+.
+.
+----
+「快照內容名稱」可識別提供此快照的Volume SnapshotContent物件。「Ready to use」（準備使用）參數表示Snapshot可用於建立新的PVc。
+
+
+
+== 步驟3：從Volume Snapshot建立PVCS
+
+請參閱下列範例、瞭解如何使用快照建立永久虛擬資料：
+
+[listing]
+----
+$ cat pvc-from-snap.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-from-snap
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: golden
+  resources:
+    requests:
+      storage: 3Gi
+  dataSource:
+    name: pvc1-snap
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+----
+「Data來源」顯示、必須使用名為「pvc1-snap」的Volume Snapshot建立PVc作為資料來源。這會指示Astra Trident從快照建立一個永久虛擬資料。建立好永久虛擬基礎架構之後、就能將它附加到Pod上、就像使用任何其他永久虛擬基礎架構一樣使用。
+
+
+NOTE: 刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。若要刪除Astra Trident磁碟區、則應移除該磁碟區的快照。
+
+
+
+== 如需詳細資訊、請參閱
+
+* link:../trident-concepts/snapshots.html["Volume快照"^]
+* link:../trident-reference/objects.html["「Volume SnapshotClass」"^]
+

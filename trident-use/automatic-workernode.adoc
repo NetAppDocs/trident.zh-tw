@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: trident-use/automatic-workernode.html 
+keywords: beta feature, trident, automatic worker node, worker node prep, preparation, NFS, iSCSI 
+summary: Astra Trident可自動在Kubernetes叢集中的節點上安裝所需的NFS和iSCSI工具。 
+---
+= 自動準備工作節點
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Astra Trident可自動在Kubernetes叢集中的節點上安裝所需的「NFS」和「iSCSI」工具。這是*試用版功能*、*不適用於*正式作業叢集。目前、此功能適用於執行* CentOS、RHEL及Ubuntu *的節點。
+
+針對這項功能、Astra Trident提供新的安裝旗標：「-enable節點準備」、適用於以「tridentctl」部署的安裝。對於使用Trident運算子的部署、請使用布林選項「enableNodePrep」。
+
+
+WARNING: 「啟用節點準備」安裝選項可讓Astra Trident安裝、並確保在工作節點上掛載磁碟區時、NFS和iSCSI套件及/或服務會執行。這是*試用版功能*、適用於*不符合*正式作業使用資格的開發/測試環境。
+
+當使用「tridentctl」部署的Astra Trident安裝包含「-enable節點準備」旗標時、會發生以下情況：
+
+. 在安裝過程中、Astra Trident會登錄其執行的節點。
+. 當提出持續磁碟區宣告（PVc）要求時、Astra Trident會從其管理的其中一個後端建立PV。
+. 在Pod中使用永久虛擬磁碟時、需要使用Astra Trident將磁碟區掛載到執行Pod的節點上。Astra Trident會嘗試安裝所需的NFS/iSCSI用戶端公用程式、並確保所需的服務處於作用中狀態。這是在掛載磁碟區之前完成的。
+
+
+在第一次嘗試掛載磁碟區時、只需準備一次工作節點。只要Astra Trident以外的任何變更都不會接觸到「NFS」和「iSCSI」公用程式、所有後續的Volume掛載就會成功。
+
+如此一來、Astra Trident就能確保Kubernetes叢集中的所有節點都具備必要的公用程式、以掛載及附加磁碟區。對於NFS磁碟區、匯出原則也應該允許掛載磁碟區。Trident可以自動管理每個後端的匯出原則、也可以管理頻外的匯出原則。

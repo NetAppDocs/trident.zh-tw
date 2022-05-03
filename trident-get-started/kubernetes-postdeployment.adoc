@@ -1,0 +1,182 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-postdeployment.html 
+keywords: deploy, astra trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator, trident backend, storage class, create backend, create storage class, provision volume, mount volume 
+summary: 部署Astra Trident之後、您可以繼續建立後端、建立儲存類別、配置磁碟區、以及將磁碟區掛載至Pod。 
+---
+= 接下來呢？
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+部署Astra Trident之後、您可以繼續建立後端、建立儲存類別、配置磁碟區、以及將磁碟區掛載至Pod。
+
+
+
+== 步驟1：建立後端
+
+您現在可以繼續建立後端、由Astra Trident用來配置磁碟區。若要這麼做、請建立包含必要參數的「backend.json」檔案。不同後端類型的組態檔範例可在「shame-INPUT」目錄中找到。
+
+請參閱 link:../trident-use/backends.html["請按這裡"^] 如需如何為後端類型設定檔案的詳細資訊、請參閱。
+
+[listing]
+----
+cp sample-input/<backend template>.json backend.json
+vi backend.json
+----
+[listing]
+----
+./tridentctl -n trident create backend -f backend.json
++-------------+----------------+--------------------------------------+--------+---------+
+|    NAME     | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++-------------+----------------+--------------------------------------+--------+---------+
+| nas-backend | ontap-nas      | 98e19b74-aec7-4a3d-8dcf-128e5033b214 | online |       0 |
++-------------+----------------+--------------------------------------+--------+---------+
+----
+如果建立失敗、表示後端組態有問題。您可以執行下列命令來檢視記錄、以判斷原因：
+
+[listing]
+----
+./tridentctl -n trident logs
+----
+解決問題之後、只要返回此步驟的開頭、然後再試一次即可。如需更多疑難排解秘訣、請參閱 link:../troubleshooting.html["疑難排解"^] 區段。
+
+
+
+== 步驟2：建立儲存類別
+
+Kubernetes使用者使用指定的持續磁碟區宣告（PVCS）來配置磁碟區 https://kubernetes.io/docs/concepts/storage/storage-classes/["儲存類別"^] 依名稱。使用者會隱藏詳細資料、但儲存類別會識別該類別所使用的資源配置程式（本例中為Trident）、以及該類別對資源配置程式的意義。
+
+建立儲存類別Kubernetes使用者要指定何時需要磁碟區。類別的組態需要建構您在上一個步驟中建立的後端、以便Astra Trident使用它來配置新的磁碟區。
+
+最簡單的儲存類別是以安裝程式隨附的「slam-filed/storage－class-csi．yaml.templ」檔案為基礎、以儲存驅動程式名稱取代「_backend_typ__」。
+
+[listing]
+----
+./tridentctl -n trident get backend
++-------------+----------------+--------------------------------------+--------+---------+
+|    NAME     | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++-------------+----------------+--------------------------------------+--------+---------+
+| nas-backend | ontap-nas      | 98e19b74-aec7-4a3d-8dcf-128e5033b214 | online |       0 |
++-------------+----------------+--------------------------------------+--------+---------+
+
+cp sample-input/storage-class-csi.yaml.templ sample-input/storage-class-basic-csi.yaml
+
+# Modify __BACKEND_TYPE__ with the storage driver field above (e.g., ontap-nas)
+vi sample-input/storage-class-basic-csi.yaml
+----
+這是Kubernetes物件、所以您可以使用「kubectl」在Kubernetes中建立。
+
+[listing]
+----
+kubectl create -f sample-input/storage-class-basic-csi.yaml
+----
+現在您應該會看到Kubernetes和Astra Trident中的* basic、csi *儲存類別、而Astra Trident應該已經在後端探索集區。
+
+[listing]
+----
+kubectl get sc basic-csi
+NAME         PROVISIONER             AGE
+basic-csi    csi.trident.netapp.io   15h
+
+./tridentctl -n trident get storageclass basic-csi -o json
+{
+  "items": [
+    {
+      "Config": {
+        "version": "1",
+        "name": "basic-csi",
+        "attributes": {
+          "backendType": "ontap-nas"
+        },
+        "storagePools": null,
+        "additionalStoragePools": null
+      },
+      "storage": {
+        "ontapnas_10.0.0.1": [
+          "aggr1",
+          "aggr2",
+          "aggr3",
+          "aggr4"
+        ]
+      }
+    }
+  ]
+}
+----
+
+
+== 步驟3：配置第一個Volume
+
+現在您可以動態配置第一個Volume了。這是透過建立Kubernetes來完成 https://kubernetes.io/docs/concepts/storage/persistent-volumes["持續磁碟區宣告"^] （PVc）物件。
+
+為使用您剛建立之儲存類別的磁碟區建立一個永久虛擬磁碟。
+
+請參閱「shame-INPUT / PVC-base-csi。yaml」範例。請確定儲存類別名稱符合您所建立的名稱。
+
+[listing]
+----
+kubectl create -f sample-input/pvc-basic-csi.yaml
+
+kubectl get pvc --watch
+NAME      STATUS    VOLUME                                     CAPACITY   ACCESS MODES  STORAGECLASS   AGE
+basic     Pending                                                                       basic          1s
+basic     Pending   pvc-3acb0d1c-b1ae-11e9-8d9f-5254004dfdb7   0                        basic          5s
+basic     Bound     pvc-3acb0d1c-b1ae-11e9-8d9f-5254004dfdb7   1Gi        RWO           basic          7s
+----
+
+
+== 步驟4：在Pod中掛載磁碟區
+
+現在讓我們掛載磁碟區。我們將推出一個將PV掛載到「/usr/share/ngines/html」下的「恩靈思」Pod。
+
+[listing]
+----
+cat << EOF > task-pv-pod.yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: task-pv-pod
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+       claimName: basic
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+EOF
+kubectl create -f task-pv-pod.yaml
+----
+[listing]
+----
+# Wait for the pod to start
+kubectl get pod --watch
+
+# Verify that the volume is mounted on /usr/share/nginx/html
+kubectl exec -it task-pv-pod -- df -h /usr/share/nginx/html
+
+# Delete the pod
+kubectl delete pod task-pv-pod
+----
+此時、Pod（應用程式）不再存在、但磁碟區仍然存在。如果需要、您可以從其他Pod使用。
+
+若要刪除磁碟區、請刪除請款：
+
+[listing]
+----
+kubectl delete pvc basic
+----
+您現在可以執行其他工作、例如：
+
+* link:../trident-use/backends.html["設定其他後端。"^]
+* link:../trident-use/manage-stor-class.html["建立其他儲存類別。"^]
+

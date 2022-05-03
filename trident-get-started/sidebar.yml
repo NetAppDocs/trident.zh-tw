@@ -1,0 +1,22 @@
+---
+section: trident-get-started
+title: 開始使用
+entries:
+- title: 歡迎試用
+  url: "/trident-get-started/quickstart.html"
+- title: 需求
+  url: "/trident-get-started/requirements.html"
+- title: 部署總覽
+  url: "/trident-get-started/kubernetes-deploy.html"
+- title: 與Trident營運者一起部署
+  url: "/trident-get-started/kubernetes-deploy-operator.html"
+  entries:
+  - title: 自訂Trident營運者部署
+    url: "/trident-get-started/kubernetes-customize-deploy.html"
+- title: 使用tridentctl部署
+  url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
+  entries:
+  - title: 自訂試用部署
+    url: "/trident-get-started/kubernetes-customize-deploy-tridentctl.html"
+- title: 接下來呢？
+  url: "/trident-get-started/kubernetes-postdeployment.html"

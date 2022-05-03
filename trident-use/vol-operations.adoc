@@ -1,0 +1,20 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-operations.html 
+keywords: snapshots, volumes, csi topology, storage classes, pv, pvc, persistent volumes, persistent volume claims, backends, expand volumes, import volumes 
+summary: Astra Trident提供多項管理磁碟區的功能。瞭解Astra Trident為Volume提供的功能。 
+---
+= 執行Volume作業
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+深入瞭解Astra Trident提供的功能、協助您管理磁碟區。
+
+* link:csi-topology.html["使用「csi拓撲」"^]
+* link:vol-snapshots.html["使用快照"^]
+* link:vol-expansion.html["展開Volume"^]
+* link:vol-import.html["匯入磁碟區"^]
+

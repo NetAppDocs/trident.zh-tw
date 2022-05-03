@@ -1,0 +1,92 @@
+---
+settings:
+  name: Astra Trident
+  platform: ''
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: zh-tw,us-en,ja-jp,zh-cn,ko-kr
+sidebar:
+  entries:
+  - title: Astra Trident文件
+    url: "/index.html"
+  - title: 版本資訊
+    url: "/trident-rn.html"
+  - section: trident-concepts
+  - section: trident-get-started
+  - section: trident-managing-k8s
+  - section: trident-use
+  - section: trident-docker
+  - title: 常見問題集
+    url: "/faq.html"
+  - title: 支援
+    url: "/get-help.html"
+  - title: 疑難排解
+    url: "/troubleshooting.html"
+  - section: trident-reco
+  - section: trident-reference
+  - title: 舊版
+    url: "/earlier-versions.html"
+  - title: 法律聲明
+    url: "/legal.html"
+homepage:
+  tiles:
+  - title: 開始使用
+    links:
+    - title: Astra Trident簡介
+      url: "/trident-concepts/intro.html"
+    - title: Astra Trident的需求
+      url: "/trident-get-started/requirements.html"
+    - title: 新增功能
+      url: trident-rn.html
+    - title: 歡迎試用
+      url: "/trident-get-started/quickstart.html"
+    - title: 常見問題集
+      url: "/faq.html"
+  - title: 部署Astra Trident
+    links:
+    - title: 與Trident營運者一起部署
+      url: "/trident-get-started/kubernetes-deploy-operator.html"
+    - title: 使用tridentctl部署
+      url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
+    - title: 部署適用於Docker的Astra Trident
+      url: "/trident-docker/deploy-docker.html"
+  - title: 升級Astra Trident
+    links:
+    - title: 與Trident營運者一起升級
+      url: "/trident-managing-k8s/upgrade-operator.html"
+    - title: 使用tridentctl進行升級
+      url: "/trident-managing-k8s/upgrade-tridentctl.html"
+  - title: 使用Astra Trident
+    links:
+    - title: 設定後端
+      url: "/trident-use/backends.html"
+    - title: 使用kubecl建立後端
+      url: "/trident-use/backend-kubectl.html"
+    - title: 在後端管理選項之間切換
+      url: "/trident-use/backend_options.html"
+    - title: 管理儲存類別
+      url: "/trident-use/manage-stor-class.html"
+    - title: 執行Volume作業
+      url: "/trident-use/vol-operations.html"
+    - title: 監控Astra Trident
+      url: "/trident-use/monitor-trident.html"
+  - title: 示範教學課程
+    links:
+    - title: Astra Trident影片
+      url: https://tv.netapp.com/detail/video/5995831475001/using-trident-with-kubernetes
+  - title: 部落格社群
+    links:
+    - title: Astra部落格
+      url: https://cloud.netapp.com/blog/topic/astra
+    - title: Astra Trident部落格
+      url: https://netapp.io/persistent-storage-provisioner-for-kubernetes/
+    - title: Kubernetes Hub
+      url: https://cloud.netapp.com/kubernetes-hub
+    - title: NetApp.IO
+      url: https://netapp.io/
+    - title: 可寬延
+      url: https://netapppub.slack.com/
+product-family: {}

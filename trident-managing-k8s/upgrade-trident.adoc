@@ -1,0 +1,84 @@
+---
+sidebar: sidebar 
+permalink: trident-managing-k8s/upgrade-trident.html 
+keywords: upgrade, trident, methods, operator, tridentctl, helm 
+summary: Astra Trident依照每季發行時段進行、每一日曆年發行四個主要版本。每個新版本均以舊版為基礎、提供新功能與效能增強功能、以及錯誤修正與改善功能。我們建議您每年至少升級一次、以善用Astra Trident的新功能。 
+---
+= 升級Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Astra Trident依照每季發行時段進行、每一日曆年發行四個主要版本。每個新版本均以舊版為基礎、提供新功能與效能增強功能、以及錯誤修正與改善功能。我們建議您每年至少升級一次、以善用Astra Trident的新功能。
+
+
+NOTE: 若要升級至未來五個版本的版本、您必須執行多步驟升級。
+
+
+
+== 判斷要升級的版本
+
+* 您可以從「yY-1.MM」版本和任何中間版本升級至「y.MM」版本。例如、您可以直接從19.07或更新版本升級至20.07（包括點版本、例如19.07.1）。
+* 如果您有較早的版本、應該執行多步驟升級。這需要您先升級至最新版本、以符合您的四個版本。例如、如果您執行的是18.07、想要升級至20.07版本、請依照下列指示執行多步驟升級程序：
++
+** 第一次從18.07升級至19.07。請參閱個別版本的文件、以取得升級的特定指示。
+** 然後從19.07升級至20.07。
+
+
+
+
+
+IMPORTANT: 所有19.04版及更早版本的升級、都需要將Astra Trident的中繼資料從自己的「etcd」移轉至CRD物件。請務必查看版本文件、瞭解升級的運作方式。
+
+
+WARNING: 升級時、務必在Astra Trident使用的「torageClasses」中提供「參數.FSType」。您可以刪除並重新建立「儲存類別」、而不會中斷現有的磁碟區。這是強制實施的一項**要求 https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["安全性內容"^] 適用於SAN磁碟區。。 https://github.com/NetApp/trident/tree/master/trident-installer/sample-input["範例輸入"^] 目錄包含範例、例如 https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-basic.yaml.templ["「torage-class-base.yaml.templl」"^] 和 https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-bronze-default.yaml[""torage-class-bone-default.yaml""^]。如需詳細資訊、請參閱 link:../trident-rn.html["已知問題"^]。
+
+
+
+== 我應該選擇哪種升級途徑？
+
+您可以使用下列其中一種方法來升級：
+
+* 使用Trident運算子。
+* 使用「tridentctl」。
+
+
+
+WARNING: 現在、自Kubernetes 1.20開始、「csi Volume Snapshot」就是GA的一項功能。升級Astra Trident時、必須先移除所有先前的Alpha Snapshot CRS和CRD（Volume Snapshot類別、Volume Snapshot和Volume Snapshot內容）、才能執行升級。請參閱 https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["這篇部落格"^] 瞭解將Alpha快照移轉至測試版/GA規格所需的步驟。
+
+如果符合下列條件、您可以使用Trident運算子進行升級：
+
+* 您執行的是「csi Trident」（19.07及更新版本）。
+* 您有一個CRD型Trident版本（19.07及更新版本）。
+* 您正在執行自訂安裝（使用自訂YAML）。
+
+
+
+WARNING: 如果您使用的是以「etcd」為基礎的Trident版本（19.04或更早版本）、請勿使用運算子來升級Trident。
+
+如果您不想使用操作員、或是擁有操作員無法支援的自訂安裝、您可以使用「tridentctl」進行升級。這是Trident 19.04及更早版本的首選升級方法。
+
+
+
+== 操作員變更
+
+Astra Trident的21.01版為營運者帶來了一些重要的架構變更、如下所示：
+
+* 運算子現在*叢集範圍*。Trident運算子先前的執行個體（20.04到20.10版）為*命名空間範圍*。叢集範圍內的運算子具有下列優點：
++
+** 資源責任：營運者現在可在叢集層級管理與Astra Trident安裝相關的資源。在安裝Astra Trident時、營運者使用「擁有者參考資料」來建立及維護數項資源。在叢集範圍內的資源上維護「擁有者參考資料」、可能會在OpenShift等Kubernetes經銷商上產生錯誤。叢集範圍的運算子可減輕此問題。對於自動修復和修補Trident資源、這是必要的需求。
+** 卸載期間清理：完整移除Astra Trident將需要刪除所有相關資源。命名空間範圍的運算子可能會在移除叢集範圍的資源（例如叢集角色、叢集角色繫結和Podcast安全性原則）時遇到問題、並導致不完整的清理。叢集範圍的運算子可消除此問題。使用者可以完全解除安裝Astra Trident、並視需要重新安裝。
+
+
+* 現在、「TridentProvisioner」取代為「TridentOrchestrator」、做為用來安裝和管理Astra Trident的自訂資源。此外、「TridentOrchestrator」規格也引進了新的領域。使用者可以指定命名空間Trident必須使用「pec.namespace`」欄位來安裝/升級。您可以參考範例 https://github.com/NetApp/trident/blob/stable/v21.01/deploy/crds/tridentorchestrator_cr.yaml["請按這裡"^]。
+
+
+
+
+== 如需詳細資訊、請參閱
+
+* link:upgrade-operator.html["使用Trident營運者進行升級"^]
+* link:upgrade-tridentctl.html["使用「tridentctl」進行升級"]
+

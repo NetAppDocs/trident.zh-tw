@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/deploy-reco.html 
+keywords: deployment, deploy, trident, namespace 
+summary: 部署Astra Trident時、請使用此處列出的建議。 
+---
+= 部署
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+部署Astra Trident時、請使用此處列出的建議。
+
+
+
+== 部署至專屬命名空間
+
+https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["命名空間"^] 在不同的應用程式之間提供管理分離、是資源共用的障礙。例如、某個命名空間的某個永久虛電路無法從另一個命名空間使用。Astra Trident為Kubernetes叢集中的所有命名空間提供PV資源、並因此運用具有較高權限的服務帳戶。
+
+此外、存取Trident Pod可能會讓使用者存取儲存系統認證和其他敏感資訊。請務必確保應用程式使用者和管理應用程式無法存取Trident物件定義或Pod本身。
+
+
+
+== 使用配額和範圍限制來控制儲存使用量
+
+Kubernetes有兩項功能、一旦結合、就能提供強大的機制來限制應用程式的資源使用量。。 https://kubernetes.io/docs/concepts/policy/resource-quotas/#storage-resource-quota["儲存配額機制"^] 可讓系統管理員針對每個命名空間來實作全域和儲存類別的容量和物件數使用限制。此外、請使用 https://kubernetes.io/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage["範圍限制"^] 確保在將要求轉送至資源配置程式之前、永久虛擬機器要求的最小值和最大值都在內。
+
+這些值是以每個命名空間為基礎來定義、這表示每個命名空間都應該定義符合其資源需求的值。如需相關資訊、請參閱此處 https://netapp.io/2017/06/09/self-provisioning-storage-kubernetes-without-worry["如何運用配額"^]。

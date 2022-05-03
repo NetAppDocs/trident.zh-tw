@@ -1,0 +1,309 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/storage-config-best-practices.html 
+keywords: kubernetes, clusters, nodes, components, master, compute 
+summary: Kubernetes叢集通常由兩種類型的節點組成、每種節點負責不同的功能層面。 
+---
+= 儲存組態
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+NetApp產品組合中的每個儲存平台都有獨特的功能、無論應用程式是否為容器化的應用程式帶來好處。Trident可搭配ONTAP 使用沒有一個平台比其他平台更適合所有應用程式和案例、不過在選擇平台時、應考慮應用程式和管理裝置團隊的需求。
+
+您應該遵循主機作業系統的基礎最佳實務做法、以及您所使用的傳輸協定。或者、您可能想要考慮在可用的情況下、將應用程式最佳實務做法與後端、儲存類別和永久虛擬基礎架構設定整合、以最佳化特定應用程式的儲存。
+
+
+
+== 最佳實務做法ONTAP Cloud Volumes ONTAP
+
+瞭解設定ONTAP 適用於Cloud Volumes ONTAP Trident的功能性及功能性的最佳實務做法。
+
+以下建議是設定ONTAP 以容器化工作負載為基礎的功能指南、這些功能會消耗Trident動態配置的磁碟區。每個項目都應考量及評估是否適合您的環境。
+
+
+
+=== 使用Trident專用的SVM
+
+儲存虛擬機器（SVM）可隔離ONTAP 及管理各個客戶在一個系統上的區隔。將SVM專用於應用程式可委派權限、並可套用最佳實務做法來限制資源使用量。
+
+SVM管理有多種選項可供選擇：
+
+* 在後端組態中提供叢集管理介面、以及適當的認證、然後指定SVM名稱。
+* 使用ONTAP 支援功能的支援中心或CLI、為SVM建立專屬的管理介面。
+* 與NFS資料介面共用管理角色。
+
+
+在每種情況下、介面都應該位於DNS中、而且在設定Trident時、應該使用DNS名稱。這有助於推動一些DR案例、例如不使用網路身分保留功能的SVM-DR。
+
+不過、您並不偏好為SVM設定專屬或共享的管理LIF、不過您應該確保網路安全性原則符合您選擇的方法。無論如何、管理LIF都應透過DNS存取、以達到最大的靈活度 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-dap/GUID-B9E36563-1C7A-48F5-A9FF-1578B99AADA9.html["SVM-DR"^] 與Trident搭配使用。
+
+
+
+=== 限制最大Volume數
+
+根據軟體版本和硬體平台、系統可提供最大的Volume數。ONTAP請參閱 https://hwu.netapp.com/["NetApp Hardware Universe"^] 針對您的特定平台和ONTAP 版本、決定確切的限制。當磁碟區數用盡時、資源配置作業不僅會針對Trident、也會針對所有儲存要求失敗。
+
+Trident的「ONTAP-NAS」和「ONTAP-SAN」驅動程式會為每個建立的Kubernetes持續Volume（PV）提供FlexVolume。「ONTAP-NAS-P節約」驅動程式可為每200個PV建立約一個FlexVolume（可設定為50到300個）。「ONTAP-san經濟型」驅動程式可為每100個PV建立約一個FlexVolume（可設定為50到200個）。若要避免Trident佔用儲存系統上的所有可用磁碟區、您應該在SVM上設定限制。您可以從命令列執行此動作：
+
+[listing]
+----
+vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
+----
+「最大用量（max volume）的值會根據您環境的幾項特定條件而有所不同：
+
+* 在叢集中現有的Volume數量ONTAP
+* 您預期在Trident外部配置其他應用程式的Volume數量
+* Kubernetes應用程式預期會使用的持續磁碟區數量
+
+
+「最大容量」值是ONTAP 指在整個叢集中所有節點上配置的總Volume、而非在個別ONTAP 的節點上配置的總Volume。因此ONTAP 、您可能會遇到一些情況、例如、某個叢集節點的資源配置量可能遠高於或低於其他節點。
+
+舉例ONTAP 來說、雙節點的「叢集」最多可裝載2000個FlexVolumes。將最大Volume數設為1250似乎非常合理。不過、如果只有 https://library.netapp.com/ecmdocs/ECMP1368859/html/GUID-3AC7685D-B150-4C1F-A408-5ECEB3FF0011.html["集合體"^] 從某個節點指派給SVM、或是從某個節點指派的集合體無法根據（例如、由於容量）進行資源配置、則另一個節點會成為所有Trident資源配置磁碟區的目標。這表示在達到「最大磁碟區」值之前、該節點可能會達到磁碟區限制、進而影響使用該節點的Trident和其他Volume作業。*您可以確保叢集中每個節點的集合體都指派給Trident使用的SVM、數量相等、藉此避免這種情況。*
+
+
+
+=== 限制Trident所建立的Volume大小上限
+
+若要設定Trident可建立的磁碟區大小上限、請在「backend.json」定義中使用「limitVolume Sizes」參數。
+
+除了控制儲存陣列的磁碟區大小、您也應該善用Kubernetes功能。
+
+
+
+=== 設定Trident使用雙向CHAP
+
+您可以在後端定義中指定CHAP啟動器和目標使用者名稱和密碼、並在SVM上啟用Trident啟用CHAP。Trident使用後端組態中的「useCHAP」參數來驗證iSCSI連線、以ONTAP CHAP作為後端點。Trident 20.04及更新版本提供雙向CHAP支援。
+
+
+
+=== 建立並使用SVM QoS原則
+
+運用ONTAP 套用至SVM的SVM的SQoS原則、限制Trident佈建磁碟區所耗用的IOPS數量。這對我們有幫助 http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-perf-mon/GUID-77DF9BAF-4ED7-43F6-AECE-95DFB0680D2F.html?cp=7_1_2_1_2["預防欺凌"^] 或失控的容器、避免影響Trident SVM以外的工作負載。
+
+您可以在幾個步驟中建立SVM的QoS原則。如ONTAP 需最準確的資訊、請參閱您的版次更新文件。以下範例建立QoS原則、將SVM可用的總IOPS限制為5000。
+
+[source, console]
+----
+# create the policy group for the SVM
+qos policy-group create -policy-group <policy_name> -vserver <svm_name> -max-throughput 5000iops
+
+# assign the policy group to the SVM, note this will not work
+# if volumes or files in the SVM have existing QoS policies
+vserver modify -vserver <svm_name> -qos-policy-group <policy_name>
+----
+此外、如果ONTAP 您的版本支援此功能、您可以考慮使用QoS下限來保證容器化工作負載的處理量。調適性QoS與SVM層級原則不相容。
+
+容器化工作負載專用的IOPS數量取決於許多層面。其中包括：
+
+* 使用儲存陣列的其他工作負載。如果有其他工作負載與Kubernetes部署無關、請善用儲存資源、確保這些工作負載不會意外受到不良影響。
+* 預期的工作負載會在容器中執行。如果將在容器中執行高IOPS需求的工作負載、低QoS原則會導致不良體驗。
+
+
+請務必記住、在SVM層級指派的QoS原則會導致所有已配置給SVM的磁碟區共用相同的IOPS集區。如果其中一種或少數幾種容器化應用程式的IOPS需求較高、可能會成為其他容器化工作負載的一大功臣。如果是這種情況、您可能需要考慮使用外部自動化來指派每個Volume QoS原則。
+
+
+IMPORTANT: 如果您的版本早於ONTAP 9.8、您應該將QoS原則群組指派給SVM * Only *。
+
+
+
+=== 為Trident建立QoS原則群組
+
+服務品質（QoS）可確保關鍵工作負載的效能不會因競爭工作負載而降級。支援QoS原則群組的QoS選項可用於磁碟區、並可讓使用者定義一或多個工作負載的處理量上限。ONTAP如需QoS的詳細資訊、請參閱 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-perf-mon/GUID-77DF9BAF-4ED7-43F6-AECE-95DFB0680D2F.html["保證QoS的處理量"^]。您可以在後端或儲存資源池中指定QoS原則群組、並將其套用至該資源池或後端中建立的每個磁碟區。
+
+包含兩種QoS原則群組：傳統和可調適。ONTAP傳統原則群組可在IOPS中提供最大（或最小）的單位處理量（在較新版本中）。調適性QoS會自動將處理量調整至工作負載大小、並隨著工作負載大小變更、維持IOPS與TBs的比率。當您在大型部署中管理數百個或數千個工作負載時、這項優勢就相當顯著。
+
+建立QoS原則群組時、請考量下列事項：
+
+* 您應該在後端組態的「故障」區塊中設定「qosPolicy」金鑰。請參閱下列後端組態範例：
+
+
+[source, console]
+----
+  {
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "managementLIF": "0.0.0.0",
+    "dataLIF": "0.0.0.0",
+    "svm": "svm0",
+    "username": "user",
+    "password": "pass",
+    "defaults": {
+      "qosPolicy": "standard-pg"
+    },
+    "storage": [
+      {
+        "labels": {"performance": "extreme"},
+        "defaults": {
+          "adaptiveQosPolicy": "extremely-adaptive-pg"
+        }
+      },
+      {
+        "labels": {"performance": "premium"},
+        "defaults": {
+          "qosPolicy": "premium-pg"
+        }
+      }
+    ]
+  }
+----
+* 您應該為每個Volume套用原則群組、以便每個Volume都能獲得原則群組指定的整個處理量。不支援共用原則群組。
+
+
+如需QoS原則群組的詳細資訊、請參閱 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-980/TOC__qos.html["Sof 9.8 QoS命令ONTAP"^]。
+
+
+
+=== 限制Kubernetes叢集成員存取儲存資源
+
+限制存取Trident所建立的NFS磁碟區和iSCSI LUN、是Kubernetes部署安全態勢的重要元件。這樣做可防止非Kubernetes叢集一部分的主機存取磁碟區、並可能意外修改資料。
+
+請務必瞭解命名空間是Kubernetes中資源的邏輯邊界。假設相同命名空間中的資源可以共用、但重要的是、沒有跨命名空間功能。這表示即使PV是全域物件、但只有在同一個命名空間中的Pod才能存取它們。*確保命名空間在適當時用於提供分隔是非常重要的。*
+
+大多數組織對於Kubernetes內容中的資料安全性、主要關注的是、容器中的程序可以存取掛載到主機的儲存設備、但不適用於容器。  https://en.wikipedia.org/wiki/Linux_namespaces["命名空間"^] 旨在防止這類入侵。不過、有一個例外：特殊權限容器。
+
+與正常情況相比、特權容器的執行主機層級權限大幅增加。依預設不會拒絕這些功能、因此請務必使用停用該功能 https://kubernetes.io/docs/concepts/policy/pod-security-policy/["Pod安全性原則"^]。
+
+對於需要從Kubernetes和外部主機存取的磁碟區、儲存設備應以傳統方式進行管理、由系統管理員引進PV、而非由Trident管理。這可確保只有在Kubernetes和外部主機中斷連線且不再使用磁碟區時、才會銷毀儲存磁碟區。此外、也可以套用自訂匯出原則、以便從Kubernetes叢集節點和Kubernetes叢集以外的目標伺服器存取。
+
+對於具有專屬基礎架構節點（例如OpenShift）或其他無法排程給使用者應用程式的節點的部署、應使用個別的匯出原則來進一步限制對儲存資源的存取。這包括為部署至這些基礎架構節點的服務（例如OpenShift Metrics和記錄服務）、以及部署至非基礎架構節點的標準應用程式建立匯出原則。
+
+
+
+=== 使用專屬的匯出原則
+
+您應該確保每個後端都有一個匯出原則、只允許存取Kubernetes叢集中的節點。Trident可從20.04版開始自動建立及管理匯出原則。如此一來、Trident就能限制對Kubernetes叢集中節點所配置之磁碟區的存取、並簡化節點的新增/刪除作業。
+
+或者、您也可以手動建立匯出原則、並以一或多個匯出規則填入、以處理每個節點存取要求：
+
+* 使用「vserver匯出原則建立」ONTAP 的flexcli命令來建立匯出原則。
+* 使用「vserver匯出原則規則create」ONTAP 的CLI命令、將規則新增至匯出原則。
+
+
+執行這些命令可讓您限制哪些Kubernetes節點可以存取資料。
+
+
+
+=== 停用應用程式SVM的showmount
+
+「show mount」功能可讓NFS用戶端查詢SVM、以取得可用的NFS匯出清單。部署到Kubernetes叢集的Pod可針對資料LIF發出「show mount -e」命令、並接收可用掛載的清單、包括無法存取的掛載。雖然這本身並不是安全威脅、但它確實提供不必要的資訊、可能有助於未獲授權的使用者連線至NFS匯出。
+
+您應該使用SVM層級ONTAP 的CLI命令來停用「show mount」：
+
+[listing]
+----
+vserver nfs modify -vserver <svm_name> -showmount disabled
+----
+
+
+== 最佳實務做法SolidFire
+
+瞭解設定SolidFire Trident之用的功能完善的功能。
+
+
+
+=== 建立SolidFire 支援帳戶
+
+每SolidFire 個驗證帳戶都代表唯一的磁碟區擁有者、並會收到自己的挑戰握手驗證傳輸協定（CHAP）認證資料。您可以使用帳戶名稱和相對CHAP認證、或是透過Volume存取群組、來存取指派給帳戶的磁碟區。帳戶最多可指派2、000個磁碟區、但一個磁碟區只能屬於一個帳戶。
+
+
+
+=== 建立QoS原則
+
+如果您想建立並儲存可套用至許多Volume的標準化服務品質設定、請使用SolidFire 「服務品質（QoS）」原則。
+
+您可以設定每個Volume的QoS參數。設定三個可設定的參數來定義QoS、以確保每個Volume的效能：最小IOPS、最大IOPS和爆發IOPS。
+
+以下是4KB區塊大小的可能最小、最大和尖峰IOPS值。
+
+[cols="5*"]
+|===
+| IOPS參數 | 定義 | 最小價值 | 預設值 | 最大價值（4KB） 
+
+
+ a| 
+最小IOPS
+ a| 
+保證磁碟區效能等級。
+| 50  a| 
+50
+ a| 
+15000
+
+
+
+ a| 
+最大IOPS
+ a| 
+效能不會超過此限制。
+| 50  a| 
+15000
+ a| 
+20萬
+
+
+
+ a| 
+暴增IOPS
+ a| 
+在短時間暴增案例中允許的最大IOPS。
+| 50  a| 
+15000
+ a| 
+20萬
+
+|===
+
+NOTE: 雖然最大IOPS和爆發IOPS可設定為高達20、000、但實際的Volume最大效能卻受到叢集使用量和每節點效能的限制。
+
+區塊大小和頻寬會直接影響IOPS的數量。隨著區塊大小增加、系統會將頻寬增加至處理較大區塊大小所需的層級。隨著頻寬增加、系統能夠達到的IOPS數量也隨之減少。請參閱 https://www.netapp.com/pdf.html?item=/media/10502-tr-4644pdf.pdf["服務品質SolidFire"^] 如需QoS和效能的詳細資訊、請參閱。
+
+
+
+=== 驗證SolidFire
+
+Element支援兩種驗證方法：CHAP和Volume Access Groups（VAG）。CHAP使用CHAP傳輸協定驗證主機到後端的驗證。Volume存取群組可控制對其所配置之Volume的存取。NetApp建議使用CHAP進行驗證、因為它更簡單、而且沒有擴充限制。
+
+
+NOTE: Trident搭配增強的csi佈置程式、可支援使用CHAP驗證。VAG只能在傳統的非csi操作模式下使用。
+
+CHAP驗證（驗證啟動器是否為預定的Volume使用者）僅支援帳戶型存取控制。如果您使用CHAP進行驗證、則有兩個選項可供使用：單向CHAP和雙向CHAP。單向CHAP使用SolidFire 驗證帳戶名稱和啟動器密碼來驗證Volume存取。雙向CHAP選項提供最安全的驗證磁碟區方法、因為磁碟區會透過帳戶名稱和啟動器密碼來驗證主機、然後主機會透過帳戶名稱和目標密碼來驗證磁碟區。
+
+但是、如果無法啟用CHAP且需要VAG、請建立存取群組、然後將主機啟動器和磁碟區新增至存取群組。您新增至存取群組的每個IQN都可以使用或不使用CHAP驗證來存取群組中的每個磁碟區。如果iSCSI啟動器設定為使用CHAP驗證、則會使用帳戶型存取控制。如果iSCSI啟動器未設定為使用CHAP驗證、則會使用Volume Access Group存取控制。
+
+
+
+== 哪裡可以找到更多資訊？
+
+以下列出部分最佳實務做法文件。搜尋 https://www.netapp.com/search/["NetApp資料庫"^] 適用於最新版本。
+
+*《*》ONTAP
+
+* https://www.netapp.com/us/media/tr-4067.pdf["NFS最佳實務與實作指南"^]
+* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["SAN管理指南"^] （適用於iSCSI）
+* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-iscsi-rhel-cg/home.html["適用於RHEL的iSCSI Express組態"^]
+
+
+*元件軟體*
+
+* https://www.netapp.com/pdf.html?item=/media/10507-tr4639pdf.pdf["設定SolidFire 適用於Linux的功能"^]
+
+
+*《*》NetApp HCI
+
+* https://docs.netapp.com/us-en/hci/docs/hci_prereqs_overview.html["部署先決條件NetApp HCI"^]
+* https://docs.netapp.com/us-en/hci/docs/concept_nde_access_overview.html["存取NetApp部署引擎"^]
+
+
+*應用程式最佳實務做法資訊*
+
+* https://www.netapp.com/us/media/tr-4722.pdf["MySQL ONTAP 的最佳實務做法"^]
+* https://www.netapp.com/pdf.html?item=/media/10510-tr-4605.pdf["MySQL SolidFire 的最佳實務做法"^]
+* http://www.netapp.com/us/media/tr-4635.pdf["NetApp SolidFire 的功能與Cassandra"^]
+* http://www.netapp.com/us/media/tr-4606.pdf["Oracle SolidFire 的最佳實務做法"^]
+* http://www.netapp.com/us/media/tr-4610.pdf["PostgreSQL SolidFire 的最佳實務做法"^]
+
+
+並非所有應用程式都有特定的準則、請務必與您的NetApp團隊合作並使用 https://www.netapp.com/search/["NetApp資料庫"^] 以尋找最新的文件。

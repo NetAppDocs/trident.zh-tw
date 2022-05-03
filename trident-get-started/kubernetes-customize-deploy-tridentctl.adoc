@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-customize-deploy-tridentctl.html 
+keywords: deploy, astra trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator 
+summary: Trident的安裝程式可讓您自訂屬性。 
+---
+= 自訂試用部署
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Trident安裝程式可讓您自訂屬性。例如、如果您已將Trident映像複製到私有儲存庫、則可以使用「-trident映像」來指定映像名稱。如果您已將Trident映像及所需的csi sidecar映像複製到私有儲存庫、最好使用「-image-registry」交換器來指定該儲存庫的位置、此開關的格式為「<registry FQDN（登錄FQDN）>[:port]」。
+
+若要讓Astra Trident自動為您設定工作節點、請使用「-enable節點準備」。如需其運作方式的詳細資訊、請參閱 link:../trident-use/automatic-workernode.html["請按這裡"^]。
+
+
+NOTE: 自動工作節點準備是*試用版功能*、僅適用於非正式作業環境。
+
+如果您使用Kubernetes的發佈方式、而其中的「kubelet」將資料保留在通常「/var/lib/kubelet」以外的路徑上、您可以使用「-kubelet-dir」來指定替代路徑。
+
+如果您需要自訂安裝、而不需要安裝程式的引數允許、也可以自訂部署檔案。使用「-generame-custom-yaml」參數、可在安裝程式的「設置」目錄中建立下列Yaml檔案：
+
+* 《三叉叢集繫結.yaml》
+* 《三叉部署：yaml》
+* 《三叉怪怪怪怪怪怪怪怪怪怪怪怪怪怪怪怪怪怪怪怪怪怪
+* 《Trident - clusterroy.yaml》
+* 《三叉魔魔怪、yaml》
+* 《Trident服務：yaml》
+* 《Trident命名空間.yaml》
+* 「Trident服務帳戶」。yaml
+
+
+產生這些檔案之後、您可以根據自己的需求加以修改、然後使用「-use自訂-yaml」來安裝自訂部署。
+
+[listing]
+----
+./tridentctl install -n trident --use-custom-yaml
+----

@@ -1,0 +1,435 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/integrate-trident.html 
+keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual storage pool, cvs, gcp, volumes 
+summary: Kubernetes叢集通常由兩種類型的節點組成、每種節點負責不同的功能層面。 
+---
+= 整合Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+若要整合Astra Trident、下列設計與架構元素需要整合：驅動程式選擇與部署、儲存類別設計、虛擬儲存資源池設計、持續磁碟區宣告（PVc）、使用Astra Trident對儲存資源配置、磁碟區作業及OpenShift服務部署的影響。
+
+
+
+== 驅動程式選擇與部署
+
+
+
+=== 選擇ONTAP 一個後端驅動程式以供使用
+
+共有四種不同的後端驅動程式可供ONTAP 使用。這些驅動程式會因使用的傳輸協定以及儲存系統上的磁碟區配置方式而有所差異。因此、請仔細考量要部署的驅動程式。
+
+較高層級的應用程式若有需要共用儲存設備的元件（多個Pod存取相同的PVc）、則以NAS為基礎的驅動程式將是預設選擇、而區塊型iSCSI驅動程式則可滿足非共用儲存設備的需求。根據應用程式的需求、以及儲存設備和基礎架構團隊的舒適度來選擇傳輸協定。一般而言、大多數應用程式的差異不大、因此通常是根據是否需要共用儲存設備（如果有多個Pod需要同時存取）來決定。
+
+以下列出五個ONTAP 驅動程式供作幕後之用：
+
+* 「ONTAP-NAS」：每個提供的PV都是ONTAP 完整的FlexVolume。
+* 「ONTAP-NAS-EAS'：每個已配置的PV都是qtree、每個FlexVolume可設定的qtree數量（預設值為200）。
+* 「ONTAP-NAS-flexgroup」：每個PV均以ONTAP FlexGroup 完整的形式配置、並使用指派給SVM的所有集合體。
+* 「ONTAP-san」：每個已配置的PV都是其FlexVolume內的LUN。
+* 「ONTAP-san經濟」：每個配置的PV都是LUN、每個FlexVolume有可設定的LUN數量（預設值為100）。
+
+
+在這三種NAS驅動程式之間選擇、會對應用程式可用的功能產生一些影響。
+
+請注意、在下表中、並非所有功能都透過Astra Trident公開。如果需要這些功能、儲存管理員必須在資源配置後套用部分功能。上標註可區分每項功能和驅動程式的功能。
+
+[cols="20,10,10,10,10,10,10,10"]
+|===
+| ASNAS驅動程式ONTAP | 快照 | 複製 | 動態匯出原則 | 多重附加 | QoS | 調整大小 | 複寫 
+
+
+| 「ONTAP-NAS」 | 是的 | 是的 | 是註腳：5[] | 是的 | 是註腳：1[] | 是的 | 是註腳：1[] 
+
+
+| 《ONTAP-NANAS經濟》 | 是註腳：3[] | 是註腳：3[] | 是註腳：5[] | 是的 | 是註腳：3[] | 是的 | 是註腳：3[] 
+
+
+| 「ONTAP-NAA-flexgroup」 | 是註腳：1[] | 否 | 是註腳：5[] | 是的 | 是註腳：1[] | 是的 | 是註腳：1[] 
+|===
+Astra Trident提供2個ONTAP SAN驅動程式來支援功能如下所示。
+
+[cols="20,10,10,10,10,10,10,10"]
+|===
+| 支援SAN驅動程式ONTAP | 快照 | 複製 | 多重附加 | 雙向CHAP | QoS | 調整大小 | 複寫 
+
+
+| 「ONTAP-SAN」 | 是的 | 是的 | 是註腳：4[] | 是的 | 是註腳：1[] | 是的 | 是註腳：1[] 
+
+
+| 《ONTAP-san經濟》 | 是的 | 是的 | 是註腳：4[] | 是的 | 是註腳：3[] | 是註腳：1[] | 是註腳：3[] 
+|===
+[verse]
+上表的註腳：是註腳：1[]：不受Astra Trident管理是註腳：2[]：由Astra Trident管理、但不受PV精細控制是註腳：3[]：不受Astra Trident管理而非PV精細控制是註腳：4[]：支援原始區塊Volume是註腳：5[]：受Ci Trident支援
+
+非PV精細的功能會套用至整個FlexVolume、而所有PV（即共享FlexVols中的qtree或LUN）都會共用一個共同排程。
+
+如以上表格所示、「ONTAP-NAS」與「ONTAP-NAS經濟」之間的大部分功能都相同。不過、由於「ONTAP - NAS經濟」驅動程式限制了以每個PV精細度控制排程的能力、因此這可能會特別影響您的災難恢復與備份規劃。對於想要在ONTAP 不支援的儲存設備上使用永久虛擬複製功能的開發團隊、只有在使用「ONTAP-NAS」、「ONTAP-SAN」或「ONTAP-SAN經濟」驅動程式時、才有可能做到這一點。
+
+
+NOTE: 「Poolidfire - san」驅動程式也能複製PVCS。
+
+
+
+=== 選擇Cloud Volumes ONTAP 一個後端驅動程式以供使用
+
+支援資料控管功能、並提供企業級的儲存功能、適用於各種使用案例、包括檔案共用、區塊層級儲存設備（NFS、SMB / CIFS及iSCSI）Cloud Volumes ONTAP 。Cloud Volume ONTAP 的相容驅動程式為「ONTAP-NAS」、「ONTAP-NAS經濟」、「ONTAP-SAN」和「ONTAP-SAN經濟」。適用於ONTAP Azure的Cloud Volume供應、適用於ONTAP GCP的Cloud Volume供應。
+
+
+
+=== 選擇Amazon FSX ONTAP for Sfor Sfa的後端驅動程式
+
+Amazon FSX ONTAP for VMware可讓客戶運用熟悉的NetApp功能、效能和管理功能、同時充分發揮儲存AWS資料的簡易性、敏捷度、安全性和擴充性。FSX ONTAP for FSfor支援ONTAP的許多檔案系統功能和管理API。Cloud Volume ONTAP 的相容驅動程式為「ONTAP-NAS」、「ONTAP-NAAS-經濟」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」和「ONTAP-san經濟」。
+
+
+
+=== 選擇NetApp HCI / SolidFire的後端驅動程式
+
+NetApp HCI / SolidFire平台搭配使用的「Poolidfire」驅動程式、可協助管理員根據QoS限制、為Trident設定元素後端。如果您想要設計後端、以便針對Trident提供的磁碟區設定特定的QoS限制、請在後端檔案中使用「type」參數。管理員也可以使用「limitVolume Siz」參數、限制儲存設備上可建立的磁碟區大小。目前、磁碟區大小調整和磁碟區複寫等元素儲存功能不支援使用「Poolidfire - san」驅動程式。這些作業應透過Element Software Web UI手動完成。
+
+[cols="20,10,10,10,10,10,10,10"]
+|===
+| 驅動程式SolidFire | 快照 | 複製 | 多重附加 | CHAP | QoS | 調整大小 | 複寫 
+
+
+| 「olidfire - san」 | 是的 | 是的 | 是註腳：2[] | 是的 | 是的 | 是的 | 是註腳：1[] 
+|===
+[verse]
+註腳：是註腳：1[]：不受Astra Trident管理是註腳：2[]：支援原始區塊磁碟區
+
+
+
+=== 選擇Azure NetApp Files 一個後端驅動程式以供使用
+
+Astra Trident使用「azure-NetApp-files」驅動程式來管理 link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] 服務：
+
+如需此驅動程式及其設定方式的詳細資訊、請參閱 link:https://azure.microsoft.com/en-us/services/netapp/["Astra Trident的Azure NetApp Files 後端組態、適用於"^]。
+
+[cols="20,10,10,10,10,10,10"]
+|===
+| 驅動程式Azure NetApp Files | 快照 | 複製 | 多重附加 | QoS | 展開 | 複寫 
+
+
+| 《azure-NetApp-fil形》 | 是的 | 是的 | 是的 | 是的 | 是的 | 是註腳：1[] 
+|===
+[verse]
+註腳：是註腳：1[]：不由Astra Trident管理
+
+
+
+=== 選擇一套後端驅動程式Cloud Volumes Service 以供運用GCP進行功能
+
+Astra Trident使用「GCP-CVS」驅動程式、在Cloud Volumes Service GCP後端連結到該功能。若要在Trident上設定GCP後端、您必須在後端檔案中指定「ProjectNumber」、「apiRegion」和「apiKey」。專案編號可在GCP入口網站找到、API金鑰必須取自您在GCP上設定Cloud Volumes API存取時所建立的服務帳戶私密金鑰檔案。Astra Trident可在兩個磁碟區中建立CVS磁碟區 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["服務類型"^]：
+
+. * CVS：基礎CVS服務類型、提供高分區可用度、效能等級有限/中等。
+. * CVS效能*：效能最佳化的服務類型、最適合重視效能的正式作業工作負載。您可以從三種獨特的服務層級中進行選擇：「標準」、「優質」和「極致」。目前、要配置的CVS效能磁碟區大小下限為100 GiB、而CVS磁碟區則必須至少為300 GiB。CVS未來版本可能會移除此限制。
+
+
+
+CAUTION: 使用預設CVS服務類型["scorageClass=software"部署後端時、使用者*必須取得GCP上子1TiB Volume功能的存取權*、才能取得相關專案編號和專案ID的存取權。這是Trident配置子1TiB磁碟區所需的功能。如果沒有、則對於小於600 GiB的PVCs、Volume建立*將會失敗*。使用 link:https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["這份表格"^] 以取得對低於1TiB磁碟區的存取權。
+
+[cols="20,10,10,10,10,10,10"]
+|===
+| CVS for GCP驅動程式 | 快照 | 複製 | 多重附加 | QoS | 展開 | 複寫 
+
+
+| 《GCP—CVS》 | 是的 | 是的 | 是的 | 是的 | 是的 | 是註腳：1[] 
+|===
+[verse]
+註腳：是註腳：1[]：不由Astra Trident管理
+
+「GCP-CVS」驅動程式使用虛擬儲存資源池。虛擬儲存池會將後端抽象化、讓Astra Trident決定磁碟區的放置位置。系統管理員會在backend.json檔案中定義虛擬儲存池。儲存類別會使用標籤來識別虛擬儲存資源池。
+
+
+
+== 儲存層級設計
+
+需要設定並套用個別的儲存類別、才能建立Kubernetes儲存類別物件。本節將討論如何為應用程式設計儲存類別。
+
+
+
+=== 專為特定後端使用率而設計的儲存類別
+
+篩選功能可在特定的儲存類別物件內使用、以決定要搭配該特定儲存類別使用的儲存資源池或集區集區集區。儲存類別可設定三組篩選器：「儲存設備」、「其他儲存設備」及/或「排除儲存設備」。
+
+「儲存池」參數有助於將儲存區限制在符合任何指定屬性的集區集區集區。「addionalStoragePools」參數可用來擴充Astra Trident用來進行資源配置的資源池集區集區、以及由屬性和「儲存池」參數所選取的資源池集區集區集區集區集區集區集區。您可以單獨使用參數或同時使用兩者、以確保已選取適當的儲存資源池集區集區。
+
+「exclude StoragePools」參數是用來明確排除列出的符合屬性的集區集區集區集區。
+
+
+
+=== 模擬QoS原則的儲存類別設計
+
+如果您想設計儲存類別來模擬服務品質原則、請建立儲存類別、並將「媒體」屬性設定為「HDD」或「SD」。根據儲存類別中提及的「媒體」屬性、Trident會選擇適當的後端、以提供「HDD」或「sd」集合體、以符合媒體屬性、然後將磁碟區的資源配置導向特定的集合體。因此、我們可以建立儲存等級Premium、將「媒體」屬性設為「sd」、可歸類為優質QoS原則。我們可以建立另一個儲存類別標準、將媒體屬性設為「HDD」、並將其歸類為標準QoS原則。我們也可以使用儲存類別中的「IOPS」屬性、將資源配置重新導向至可定義為QoS原則的元素應用裝置。
+
+
+
+=== 儲存等級設計、可根據特定功能來使用後端
+
+儲存類別可設計用於將Volume資源配置導向特定後端、啟用精簡與完整資源配置、快照、複製及加密等功能。若要指定要使用的儲存設備、請建立儲存設備類別、以指定啟用所需功能的適當後端。
+
+
+
+=== 虛擬儲存資源池的儲存等級設計
+
+所有Astra Trident後端均可使用虛擬儲存資源池。您可以使用任何Astra Trident提供的驅動程式、為任何後端定義虛擬儲存池。
+
+虛擬儲存資源池可讓系統管理員在後端建立抽象層級、以便透過儲存類別進行參考、以提高磁碟區在後端的靈活度與效率。不同的後端可以使用相同的服務類別來定義。此外、您也可以在相同的後端上建立多個儲存資源池、但其特性不同。當儲存類別設定為具有特定標籤的選取器時、Astra Trident會選擇符合所有選取器標籤的後端來放置磁碟區。如果「儲存類別」選取器標籤符合多個儲存資源池、Astra Trident會選擇其中一個來配置磁碟區。
+
+
+
+== 虛擬儲存資源池設計
+
+建立後端時、您通常可以指定一組參數。系統管理員無法以相同的儲存認證和一組不同的參數來建立另一個後端。隨著虛擬儲存資源池的推出、此問題已獲得緩和。虛擬儲存資源池是後端與Kubernetes儲存類別之間引進的層級抽象、可讓系統管理員定義參數及標籤、並以不受後端限制的方式透過Kubernetes儲存類別做為選取元來參照。您可以使用Astra Trident為所有支援的NetApp後端定義虛擬儲存池。這份清單包括SolidFire/NetApp HCI、ONTAP 《關於Cloud Volumes Service GCP的功能、功能、功能、功能Azure NetApp Files 、功能、以及
+
+
+NOTE: 定義虛擬儲存集區時、建議您不要嘗試重新排列後端定義中現有虛擬集區的順序。此外、建議您不要編輯/修改現有虛擬資源池的屬性、改為定義新的虛擬資源池。
+
+
+
+=== 設計虛擬儲存資源池、以模擬不同的服務層級/QoS
+
+您可以設計虛擬儲存池來模擬服務類別。使用適用於Azure NetApp Files 支援功能的Cloud Volume Service for效益的虛擬資源池實作、讓我們來看看如何設定不同的服務類別。使用代表不同效能等級的多個標籤來設定ANF後端。將「最大效能」設定為適當的效能層級、並在每個標籤下加入其他必要的層面。現在請建立不同的Kubernetes儲存類別、以便對應至不同的虛擬儲存資源池。使用「parameters.selector`」欄位、每個StorageClass都會呼叫哪些虛擬資源池可用於裝載磁碟區。
+
+
+
+=== 設計虛擬集區以指派特定的層面集區
+
+可從單一儲存後端設計多個具有特定層面的虛擬儲存集區。若要這麼做、請使用多個標籤來設定後端、並在每個標籤下設定所需的層面。現在、請使用「parameters.selector`」欄位來建立不同的Kubernetes儲存類別、該欄位會對應至不同的虛擬儲存資源池。在後端上進行資源配置的磁碟區、將會在所選的虛擬儲存資源池中定義各個層面。
+
+
+
+=== 會影響儲存資源配置的永久儲存設備特性
+
+超出所要求儲存類別的部分參數、可能會影響Astra Trident在建立永久虛擬儲存設備時的資源配置決策程序。
+
+
+
+=== 存取模式
+
+透過永久虛擬網路申請儲存時、其中一個必填欄位是存取模式。所需的模式可能會影響所選的後端、以裝載儲存要求。
+
+Astra Trident會嘗試將所使用的儲存傳輸協定與根據下列對照表所指定的存取方法配對。這與基礎儲存平台無關。
+
+[cols="20,30,30,30"]
+|===
+|  | ReadWriteOnce | ReadOnlyMany | ReadWriteMany 
+
+
+| iSCSI | 是的 | 是的 | 是（原始區塊） 
+
+
+| NFS | 是的 | 是的 | 是的 
+|===
+如果要求將ReadWriteMany永久虛擬磁碟提交至Trident部署、但未設定NFS後端、則不會配置任何磁碟區。因此、申請者應使用適合其應用程式的存取模式。
+
+
+
+== Volume作業
+
+
+
+=== 修改持續磁碟區
+
+持續磁碟區除了兩個例外、都是Kubernetes中不可變的物件。建立後、即可修改回收原則和大小。不過、這並不妨礙在Kubernetes外部修改磁碟區的某些部分。這可能是理想的做法、以便針對特定應用程式自訂磁碟區、確保容量不會意外耗用、或是單純地將磁碟區移至不同的儲存控制器。
+
+
+NOTE: Kubernetes樹狀目錄內建資源配置程式目前不支援NFS或iSCSI PV的磁碟區大小調整作業。Astra Trident支援同時擴充NFS和iSCSI磁碟區。
+
+PV的連線詳細資料無法在建立後修改。
+
+
+
+=== 建立隨需磁碟區快照
+
+Astra Trident支援隨需磁碟區快照建立、並使用csi架構從快照建立PVCS。Snapshot提供便利的方法來維護資料的時間點複本、並使Kubernetes中的來源PV在生命週期上獨立不受影響。這些快照可用於複製PVCS。
+
+
+
+=== 從快照建立磁碟區
+
+Astra Trident也支援從Volume快照建立PersistentVolumes。為達成此目標、只要建立一個PersistentVolume Claim、並將「資料來源」提及為需要建立磁碟區的必要快照即可。Astra Trident會利用快照上的資料建立磁碟區、以處理此永久虛擬磁碟。有了這項功能、您可以跨區域複製資料、建立測試環境、完整取代毀損或毀損的正式作業磁碟區、或擷取特定檔案和目錄、然後將它們傳輸到其他附加磁碟區。
+
+
+
+=== 在叢集中移動磁碟區
+
+儲存管理員能夠在ONTAP 整個叢集中的集合體和控制器之間、不中斷營運地將磁碟區移至儲存使用者。此作業不會影響Astra Trident或Kubernetes叢集、只要目的地Aggregate是Astra Trident所使用的SVM能夠存取的集合體。重要的是、如果新將Aggregate新增至SVM、則需要重新將其新增至Astra Trident來重新整理後端。這會觸發Astra Trident重新清查SVM、以便辨識新的Aggregate。
+
+然而、Astra Trident並不支援跨後端移動磁碟區。這包括在同一個叢集內的SVM之間、叢集之間或不同的儲存平台（即使該儲存系統是連接至Astra Trident的儲存系統）。
+
+如果將磁碟區複製到其他位置、則磁碟區匯入功能可用於將目前的磁碟區匯入Astra Trident。
+
+
+
+=== 展開Volume
+
+Astra Trident支援調整NFS和iSCSI PV的大小。這可讓使用者透過Kubernetes層直接調整磁碟區大小。所有主要的NetApp儲存平台皆可進行Volume擴充、包括ONTAP ：NetApp、SolidFire/NetApp HCI及Cloud Volumes Service 背後端點。若要稍後允許擴充、請在與磁碟區相關的StorageClass中將「owVolume Expansion」設為「true」。每當需要調整「持續Volume」的大小時、請在「持續Volume」中編輯「s.pec.resistices.resistices.storage」註釋、使其符合所需的Volume大小。Trident會自動調整儲存叢集上的磁碟區大小。
+
+
+
+=== 將現有磁碟區匯入Kubernetes
+
+Volume匯入功能可將現有的儲存磁碟區匯入Kubernetes環境。目前支援的驅動程式有「ONTAP-NAS」、「ONTAP-NAs-flexgroup」、「Poolidfire - san」、「azure-NetApp-fil卻」和「GCP - CVS」。當將現有應用程式移轉至Kubernetes或發生災難恢復時、此功能非常實用。
+
+使用ONTAP 支援功能的支援功能和「Poolidfire - san」驅動程式時、請使用命令「tridentctl import volume <backend-name><volume-name>-f /path/PVC.yaml」、將現有的磁碟區匯入要由Astra Trident管理的Kubernetes。匯入Volume命令中使用的PVc Yaml或Json檔案會指向儲存類別、以將Astra Trident識別為資源配置程式。使用NetApp HCI / SolidFire後端時、請確定磁碟區名稱是唯一的。如果磁碟區名稱重複、請將磁碟區複製成唯一名稱、以便磁碟區匯入功能能夠區分它們。
+
+如果使用「azure-netapp-files」或「gcp-CVS」驅動程式、請使用命令「tridentctl匯入Volume <後端名稱>< Volume path>-f /path/pcv.yaml」、將磁碟區匯入要由Astra Trident管理的Kubernetes。如此可確保唯一的Volume參考。
+
+執行上述命令時、Astra Trident會在後端找到磁碟區並讀取其大小。它會自動新增（必要時覆寫）設定的PVc Volume大小。Astra Trident接著會建立新的PV、Kubernetes則會將PVc繫結至PV。
+
+如果部署的容器需要特定匯入的PVc、則會保持擱置狀態、直到PVC/PV配對透過Volume匯入程序繫結為止。在PVC/PV配對繫結之後、如果沒有其他問題、則應啟動容器。
+
+
+
+== 部署OpenShift服務
+
+OpenShift加值叢集服務可為叢集管理員和託管的應用程式提供重要功能。這些服務所使用的儲存設備可以使用節點本機資源進行資源配置、但這通常會限制服務的容量、效能、可恢復性及永續性。運用企業儲存陣列來提供這些服務的容量、可大幅改善服務品質、不過OpenShift和儲存管理員應該密切合作、以決定每個服務的最佳選項。Red Hat文件應充分運用、以判斷需求、並確保符合規模調整與效能需求。
+
+
+
+=== 登錄服務
+
+登錄的儲存設備部署與管理已記錄在中 link:https://netapp.io/["NetApp.IO"^] 在中 link:https://netapp.io/2017/08/24/deploying-the-openshift-registry-using-netapp-storage/["部落格"^]。
+
+
+
+=== 記錄服務
+
+如同其他OpenShift服務、記錄服務是使用Ansible搭配庫存檔案所提供的組態參數（即k.a.）來部署主機、提供給教戰手冊。其中包括兩種安裝方法：在初始OpenShift安裝期間部署記錄、以及在安裝OpenShift之後部署記錄。
+
+
+CAUTION: 從Red Hat OpenShift版本3.9起、官方文件建議您不要使用NFS來執行記錄服務、因為您擔心資料毀損。這是以Red Hat測試其產品為基礎。ONTAP的NFS伺服器沒有這些問題、可以輕鬆地回溯記錄部署。最後、記錄服務的通訊協定選擇取決於您、只要知道兩者在使用NetApp平台時都能順利運作、而且如果您偏好NFS、就沒有理由不使用NFS。
+
+如果您選擇使用NFS搭配記錄服務、則必須將Ansible變數「openshift_enable _unsupported_configurations」設為「true」、以避免安裝程式失敗。
+
+
+
+==== 開始使用
+
+記錄服務可選擇性地同時部署給應用程式、以及OpenShift叢集本身的核心作業。如果您選擇部署作業記錄、將變數「openshift_logging_use」指定為「true」、就會建立兩個服務執行個體。控制作業記錄執行個體的變數包含「ops」、而應用程式執行個體則不包含。
+
+根據部署方法設定Ansible變數非常重要、因為這樣才能確保基礎服務使用正確的儲存設備。讓我們來看看每種部署方法的選項。
+
+
+NOTE: 下表僅包含與記錄服務相關的儲存組態變數。您可以在中找到其他選項 link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["RedHat OpenShift記錄文件"^] 應根據您的部署情況來審查、設定及使用。
+
+下表中的變數會使用提供的詳細資料、產生Ansible教戰手冊、為記錄服務建立PV和PVc。這種方法的彈性遠低於OpenShift安裝後使用元件安裝方針、不過如果您有現有的磁碟區可用、這是一個選項。
+
+[cols="40,40"]
+|===
+| 變動 | 詳細資料 
+
+
+| "openshift_logging_storage _gin" | 設定為「NFS」、讓安裝程式為記錄服務建立NFS PV。 
+
+
+| "openshift_logging_storage主機" | NFS主機的主機名稱或IP位址。這應該設定為虛擬機器的資料LIF。 
+
+
+| "openshift_logging_storage、nfs_directory" | NFS匯出的掛載路徑。例如、如果磁碟區已連接為「/openshift_logging」、您就會將該路徑用於此變數。 
+
+
+| "openshift_logging_storage磁碟區名稱" | 要建立之PV的名稱、例如「PV_ose記錄」。 
+
+
+| "openshift_logging_storage磁碟區大小" | NFS匯出的大小、例如「100Gi」。 
+|===
+如果您的OpenShift叢集已在執行中、因此已部署及設定Trident、則安裝程式可以使用動態資源配置來建立磁碟區。需要設定下列變數。
+
+[cols="40,40"]
+|===
+| 變動 | 詳細資料 
+
+
+| 「openshift_logging_es _PVC_Dynamic」 | 設為true可使用動態資源配置的磁碟區。 
+
+
+| 「openshift_logging_es _PVC_storage _class_name」 | 將在PVc中使用的儲存類別名稱。 
+
+
+| 「openshift_logging_es _PVC_size」 | 在永久虛擬磁碟中要求的磁碟區大小。 
+
+
+| 「openshift_logging_es _PVC_prefix」 | 記錄服務使用的PVCS前置詞。 
+
+
+| 「openshift_logging_es _ops_PVC_Dynamic」 | 設為「true」、以動態配置的磁碟區用於作業記錄執行個體。 
+
+
+| 「openshift_logging_es _ops_PVC_storage儲存設備類別名稱」 | 作業記錄執行個體的儲存類別名稱。 
+
+
+| 「openshift_logging_es _ops_PVC_Size' | 作業執行個體的Volume要求大小。 
+
+
+| 「openshift_logging_es_ops_PVC_prefix」 | ops執行個體PVCS的前置詞。 
+|===
+
+
+==== 部署記錄堆疊
+
+如果您將記錄部署為初始OpenShift安裝程序的一部分、則只需遵循標準部署程序即可。Ansible會設定及部署所需的服務和OpenShift物件、以便在可執行的完成後立即提供服務。
+
+不過、如果您在初始安裝之後進行部署、Ansible將需要使用元件方針。不同版本的OpenShift可能會稍微改變此程序、因此請務必閱讀並遵循 link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["RedHat OpenShift Container Platform 3.11文件"^] 適用於您的版本。
+
+
+
+== 度量服務
+
+度量服務可針對OpenShift叢集的狀態、資源使用率及可用度、提供寶貴的資訊給系統管理員。此外、也需要Pod自動擴充功能、許多組織會使用度量服務的資料來支付費用和/或顯示應用程式。
+
+如同記錄服務和OpenShift整體、Ansible可用於部署度量服務。此外、如同記錄服務、度量服務也可在叢集初始設定期間或使用元件安裝方法運作之後進行部署。下表包含在設定度量服務的持續儲存時、重要的變數。
+
+
+NOTE: 下表僅包含與度量服務相關的儲存組態相關變數。文件中還有許多其他選項、您應該根據部署情況來檢閱、設定及使用。
+
+[cols="40,40"]
+|===
+| 變動 | 詳細資料 
+
+
+| "openshift_imization_storage類型" | 設定為「NFS」、讓安裝程式為記錄服務建立NFS PV。 
+
+
+| "openshift_imization_storage主機" | NFS主機的主機名稱或IP位址。這應該設定為SVM的資料LIF。 
+
+
+| "openshift_imization_storage、nfs_directory" | NFS匯出的掛載路徑。例如、如果磁碟區已連接為「/openshift_度量」、您就會使用該路徑來處理此變數。 
+
+
+| "openshift_imization_storage磁碟區名稱" | 要建立之PV的名稱、例如「PV_ose度量」。 
+
+
+| "openshift_imization_storage磁碟區大小" | NFS匯出的大小、例如「100Gi」。 
+|===
+如果您的OpenShift叢集已在執行中、因此已部署及設定Trident、則安裝程式可以使用動態資源配置來建立磁碟區。需要設定下列變數。
+
+[cols="40,40"]
+|===
+| 變動 | 詳細資料 
+
+
+| "openshift_imization_cassandra _PVC_prefix" | 用於度量PVCS的前置詞。 
+
+
+| "openshift_imization_cassandra _PVC_Size" | 要要求的磁碟區大小。 
+
+
+| "openshift_imensits_cassandra儲存設備類型" | 用於度量的儲存類型、必須設定為動態、Ansible才能建立具有適當儲存類別的PVCS。 
+
+
+| "openshift_imization_cassanda_PVC_storage _class_name" | 要使用的儲存類別名稱。 
+|===
+
+
+=== 部署度量服務
+
+在您的主機/庫存檔案中定義適當的可Ansible變數後、使用Ansible部署服務。如果您是在OpenShift安裝時間進行部署、則會自動建立及使用PV。如果您使用元件教戰手冊進行部署、則在OpenShift安裝之後、Ansible會建立任何需要的PVCS、並在Astra Trident為其配置儲存設備之後、部署該服務。
+
+上述變數及部署程序可能會隨OpenShift的每個版本而變更。請務必檢閱並遵循 link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["RedHat的OpenShift部署指南"^] 以供您的環境使用。

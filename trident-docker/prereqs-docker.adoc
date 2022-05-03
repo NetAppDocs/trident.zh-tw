@@ -1,0 +1,102 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/prereqs-docker.html 
+keywords: deploy, astra trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config 
+summary: 您必須先在主機上安裝並設定必要的傳輸協定先決條件、才能部署Astra Trident。 
+---
+= 部署的先決條件
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+您必須先在主機上安裝並設定必要的傳輸協定先決條件、才能部署Astra Trident。
+
+* 確認您的部署符合所有的 link:../trident-get-started/requirements.html["需求"^]。
+* 確認您安裝的Docker版本受支援。如果您的Docker版本過時、 https://docs.docker.com/engine/install/["安裝或更新"^]。
+
+
+[listing]
+----
+docker --version
+----
+* 確認已在您的主機上安裝及設定通訊協定先決條件：
+
+
+[cols="3*"]
+|===
+| 傳輸協定 | 作業系統 | 命令 
+
+
+| NFS  a| 
+RHEL/CentOS
+ a| 
+「Udo yum install -y ns-utils」
+
+
+
+| NFS  a| 
+Ubuntu / DEBIAN
+ a| 
+「Udo apt-Get install -y nfs通用」
+
+
+
+| iSCSI  a| 
+RHEL/CentOS
+ a| 
+. 安裝下列系統套件：
++
+「Udo yum install -y lsscsi iscsi-initiator－utils sg3_utils device-mapper-multipath'
+
+. 啟動多重路徑精靈：
++
+「Udo mpathconf --enable --with _docathd y」
+
+. 確保已啟用並執行「iscsid」和「multipathd」：
++
+「Udo systemctl enable iscsid multipathd」「show systemcl start iscsid multipathd」
+
+. 探索iSCSI目標：
++
+「Udo iscsiadm -m flexdb -t -p <data_lif_ip>--fiscose'」
+
+. 登入探索到的iSCSI目標：
++
+「Udo iscsiadm -m nodes -p <data_Lif_ip>--login'
+
+. 啟用並啟動「iSCSI」：
++
+「Udo systemctl enable iscsi」、「show systemcl start iscsi」
+
+
+
+
+
+| iSCSI  a| 
+Ubuntu / DEBIAN
+ a| 
+. 安裝下列系統套件：
++
+「Udo apt-Get install -y open-iscsi sg3-utils multipath-tools scsitols」
+
+. 啟用多重路徑：
++
+「Udo tee /etc/multipath.conf」<-'EOF'預設值｛user_fusive_names yes focs_multipaths yes｝EOF Sudo服務多重路徑工具重新啟動。
+
+. 確保運行的是"iscsid"和"multipathd"：
++
+「Udo服務open-iSCSI start Sudo服務multipath-ttools start」
+
+. 探索iSCSI目標：
++
+「Udo iscsiadm -m flexdb -t -p <data_lif_ip>--fiscose'」
+
+. 登入探索到的iSCSI目標：
++
+「Udo iscsiadm -m nodes -p <data_Lif_ip>--login'
+
+
+
+|===

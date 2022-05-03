@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/upgrade-uninstall-docker.html 
+keywords: uninstall, astra trident, trident for docker, docker, upgrade trident for docker 
+summary: 您可以安全地升級適用於Docker的Astra Trident、而不會對使用中的磁碟區造成任何影響。在升級過程中、針對外掛程式的「docker volume」命令將會短暫失敗、而在外掛程式再次執行之前、應用程式將無法掛載磁碟區。在大多數情況下、這是幾秒鐘的事。 
+---
+= 升級或解除安裝Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+您可以安全地升級適用於Docker的Astra Trident、而不會對使用中的磁碟區造成任何影響。在升級過程中、針對外掛程式的「docker volume」命令將會短暫失敗、而在外掛程式再次執行之前、應用程式將無法掛載磁碟區。在大多數情況下、這是幾秒鐘的事。
+
+
+
+== 升級
+
+執行下列步驟以升級適用於Docker的Astra Trident。
+
+.步驟
+. 列出現有的磁碟區：
++
+[listing]
+----
+docker volume ls
+DRIVER              VOLUME NAME
+netapp:latest       my_volume
+----
+. 停用外掛程式：
++
+[listing]
+----
+docker plugin disable -f netapp:latest
+docker plugin ls
+ID                  NAME                DESCRIPTION                          ENABLED
+7067f39a5df5        netapp:latest       nDVP - NetApp Docker Volume Plugin   false
+----
+. 升級外掛程式：
++
+[listing]
+----
+docker plugin upgrade --skip-remote-check --grant-all-permissions netapp:latest netapp/trident-plugin:21.07
+----
++
+
+NOTE: 18.01版的Astra Trident取代了nDVP。您應該直接從「NetApp/ndvp-plugin」映像升級至「NetApp/triident外掛程式」映像。
+
+. 啟用外掛程式：
++
+[listing]
+----
+docker plugin enable netapp:latest
+----
+. 確認外掛程式已啟用：
++
+[listing]
+----
+docker plugin ls
+ID                  NAME                DESCRIPTION                             ENABLED
+7067f39a5df5        netapp:latest       Trident - NetApp Docker Volume Plugin   true
+----
+. 確認磁碟區可見：
++
+[listing]
+----
+docker volume ls
+DRIVER              VOLUME NAME
+netapp:latest       my_volume
+----
++
+
+IMPORTANT: 如果您要從舊版的Astra Trident（20.10之前版本）升級至Astra Trident 20.10或更新版本、可能會發生錯誤。如需詳細資訊、請參閱 link:known-issues-docker.html["已知問題"^]。如果您遇到錯誤、請先停用外掛程式、然後移除外掛程式、再傳遞額外的組態參數來安裝所需的Astra Trident版本：「Docker外掛程式安裝NetApp/Trident外掛程式：20.10 -別名NetApp --贈與All權限config=config.json」
+
+
+
+
+
+== 解除安裝
+
+執行下列步驟以解除安裝適用於Docker的Astra Trident。
+
+.步驟
+. 移除外掛程式所建立的任何磁碟區。
+. 停用外掛程式：
++
+[listing]
+----
+docker plugin disable netapp:latest
+docker plugin ls
+ID                  NAME                DESCRIPTION                          ENABLED
+7067f39a5df5        netapp:latest       nDVP - NetApp Docker Volume Plugin   false
+----
+. 移除外掛程式：
++
+[listing]
+----
+docker plugin rm netapp:latest
+----
+

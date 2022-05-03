@@ -1,0 +1,58 @@
+---
+section: trident-use
+title: 使用Astra Trident
+entries:
+- title: 設定後端
+  url: "/trident-use/backends.html"
+  entries:
+  - title: 設定ANF後端
+    url: "/trident-use/anf.html"
+  - title: 設定ADS後端
+    url: "/trident-use/ads.html"
+  - title: 針對GCP後端設定CVS
+    url: "/trident-use/gcp.html"
+  - title: 設定NetApp HCI 一個不只是功能的SolidFire 後端
+    url: "/trident-use/element.html"
+  - title: 使用ONTAP SAN驅動程式設定後端
+    url: "/trident-use/ontap-san.html"
+    entries:
+    - title: 準備
+      url: "/trident-use/ontap-san-prep.html"
+    - title: 組態選項與範例
+      url: "/trident-use/ontap-san-examples.html"
+  - title: 使用ONTAP NetApp NAS驅動程式設定後端
+    url: "/trident-use/ontap-nas.html"
+    entries:
+    - title: 準備
+      url: "/trident-use/ontap-nas-prep.html"
+    - title: 組態選項與範例
+      url: "/trident-use/ontap-nas-examples.html"
+  - title: 使用Astra Trident搭配Amazon FSX for NetApp ONTAP 解決方案
+    url: "/trident-use/trident-fsx.html"
+- title: 使用kubecl建立後端
+  url: "/trident-use/backend-kubectl.html"
+- title: 以KECBECVL執行後端管理
+  url: "/trident-use/backend_ops_kubectl.html"
+- title: 使用tridentctl執行後端管理
+  url: "/trident-use/backend_ops_tridentctl.html"
+- title: 在後端管理選項之間切換
+  url: "/trident-use/backend_options.html"
+- title: 管理儲存類別
+  url: "/trident-use/manage-stor-class.html"
+- title: 執行Volume作業
+  url: "/trident-use/vol-operations.html"
+  entries:
+  - title: 使用「csi拓撲」
+    url: "/trident-use/csi-topology.html"
+  - title: 使用快照
+    url: "/trident-use/vol-snapshots.html"
+  - title: 展開Volume
+    url: "/trident-use/vol-expansion.html"
+  - title: 匯入磁碟區
+    url: "/trident-use/vol-import.html"
+- title: 準備工作節點
+  url: "/trident-use/worker-node-prep.html"
+- title: 自動準備工作節點
+  url: "/trident-use/automatic-workernode.html"
+- title: 監控Astra Trident
+  url: "/trident-use/monitor-trident.html"

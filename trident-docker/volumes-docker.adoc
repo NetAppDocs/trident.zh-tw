@@ -1,0 +1,132 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/volumes-docker.html 
+keywords: create volumes, astra trident, trident for docker, docker, docker volume 
+summary: 若要建立磁碟區、請使用標準的「docker volume」命令、並在需要時指定Astra Trident驅動程式名稱。 
+---
+= 使用Volume
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+您可以使用標準的「磁碟區」命令、並在需要時指定Astra Trident驅動程式名稱、輕鬆建立、複製及移除磁碟區。
+
+
+
+== 建立Volume
+
+* 使用預設名稱建立具有驅動程式的磁碟區：
++
+[listing]
+----
+docker volume create -d netapp --name firstVolume
+----
+* 建立具有特定Astra Trident執行個體的Volume：
++
+[listing]
+----
+docker volume create -d ntap_bronze --name bronzeVolume
+----
++
+
+NOTE: 如果您未指定任何 link:volume-driver-options.html["選項"^]，將使用驅動程式的預設值。
+
+* 覆寫預設的Volume大小。請參閱下列範例、以使用驅動程式建立20GiB磁碟區：
++
+[listing]
+----
+docker volume create -d netapp --name my_vol --opt size=20G
+----
++
+
+TIP: Volume大小以包含整數值的字串表示、並提供選用單位（例如：10g、20GB、3TiB）。如果未指定單位、則預設值為G大小單位可以表示為2（B、KiB、mib、GiB、TiB）或10（B、KB、MB、GB、TB）的冪。簡寫單元使用2（G = GiB、T = TiB、…）的權力。
+
+
+
+
+
+== 移除Volume
+
+* 移除Volume就像移除任何其他Docker Volume一樣：
++
+[listing]
+----
+docker volume rm firstVolume
+----
++
+
+IMPORTANT: 使用「Poolidfire - san」驅動程式時、上述範例會刪除及清除磁碟區。
+
+
+
+執行下列步驟以升級適用於Docker的Astra Trident。
+
+
+
+== 複製磁碟區
+
+使用「ONTAP-NAS」、「ONTAP-SAN」、「Poolidfire - SAN」和「GCP - CVS儲存驅動程式」時、Astra Trident可以複製磁碟區。使用「ONTAP-NAS-flexgroup」或「ONTAP-NAS-節約」驅動程式時、不支援複製。從現有磁碟區建立新磁碟區、將會產生新的快照。
+
+* 檢查磁碟區以列舉快照：
++
+[listing]
+----
+docker volume inspect <volume_name>
+----
+* 從現有的Volume建立新的Volume。這將會產生新的快照：
++
+[listing]
+----
+docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_volume>
+----
+* 從磁碟區上現有的快照建立新磁碟區。這不會建立新的快照：
++
+[listing]
+----
+docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_volume> -o fromSnapshot=<source_snap_name>
+----
+
+
+
+
+=== 範例
+
+[listing]
+----
+[me@host ~]$ docker volume inspect firstVolume
+
+[
+    {
+        "Driver": "ontap-nas",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker-volumes/ontap-nas/netappdvp_firstVolume",
+        "Name": "firstVolume",
+        "Options": {},
+        "Scope": "global",
+        "Status": {
+            "Snapshots": [
+                {
+                    "Created": "2017-02-10T19:05:00Z",
+                    "Name": "hourly.2017-02-10_1505"
+                }
+            ]
+        }
+    }
+]
+
+[me@host ~]$ docker volume create -d ontap-nas --name clonedVolume -o from=firstVolume
+clonedVolume
+
+[me@host ~]$ docker volume rm clonedVolume
+[me@host ~]$ docker volume create -d ontap-nas --name volFromSnap -o from=firstVolume -o fromSnapshot=hourly.2017-02-10_1505
+volFromSnap
+
+[me@host ~]$ docker volume rm volFromSnap
+----
+
+
+== 存取外部建立的磁碟區
+
+如果容器沒有分割區、而且Astra Trident支援其檔案系統、則您可以使用Trident * Only *來存取外部建立的區塊裝置（或其複製）（例如：無法透過Astra Trident存取「ext4」格式的「dev/sdc1」）。

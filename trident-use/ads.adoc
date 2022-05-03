@@ -1,0 +1,257 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ads.html 
+keywords: trident backend, astra data store, storage class 
+summary: 瞭解如何使用提供的範例組態、為Astra Trident安裝設定Astra Data Store（廣告）後端。 
+---
+= 設定Astra Data Store後端
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+瞭解如何使用提供的範例組態、為Astra Trident安裝設定Astra Data Store（廣告）後端。
+
+以設定及使用 https://cloud.netapp.com/astra-data-store["Astra資料儲存區"^] 後端、您需要下列項目：
+
+* 支援的廣告儲存系統。請參閱 link:https://docs.netapp.com/us-en/astra-data-store/index.html["Astra Data Store預覽文件"^] 以取得詳細資料。
+* Kubernetes叢集代管廣告的認證資料。Kubernetes叢集託管廣告的命名空間必須專供此Astra Trident後端所建立及管理的磁碟區、快照及匯出原則資源使用。Kubernetes叢集託管廣告必須提供「Kubeconfig」、以支援：
++
+** 讀取「astrad-system」命名空間中的所有物件
+** 在為此Astra Trident後端使用所建立的命名空間中讀取/寫入物件
+** 列出所有叢集命名空間
+
+
+
+
+
+
+== 後端組態選項
+
+如需後端組態選項、請參閱下表：
+
+[cols="3"]
+|===
+| 參數 | 說明 | 預設 
+
+
+| 「分度」 |  | 永遠為1 
+
+
+| 「torageDriverName」 | 儲存驅動程式名稱 | 「astrads - NAS」 
+
+
+| 「後端名稱」 | 自訂名稱或儲存後端 | ads叢集名稱 
+
+
+| 《叢集》 | 適用的資源名稱 |  
+
+
+| 命名空間 | Astra Trident將在命名空間中建立所有的AADS自訂資源 |  
+
+
+| 《Kbeconfig》 | 適用於ads Kubernetes叢集的認證資料（Base64 compact Json） | 「nfsMountOptions」 
+
+
+| 精細控制NFS掛載選項 | "版本=4.1" | 「AutoExpportPolicy」 
+
+
+| 啟用自動匯出原則建立與更新[布 林值] | 錯 | 《AutoExpportCIDR》（自動匯出CTR） 
+
+
+| 啟用「AutoExpportPolicy」時、用來篩選Kubernetes節點IP的CIDR清單 | ["0.00.0.0/0"、":/0"] | 《限制Volume大小》 
+
+
+| 如果要求的磁碟區大小高於此值、則資源配置失敗 | ""（預設不強制執行） | 「DebugTraceFlags」 
+
+
+| 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、"method"：true｝ | null | 《標籤》 
+|===
+
+CAUTION: 除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用「debugTraceFlags」。
+
+
+NOTE: 您應該先將「Kebeconfig」值從Yaml轉換為精簡Json格式、然後再轉換為Base64格式、再將其納入後端組態。
+
+每個後端都會在裝載ADS的Kubernetes叢集上的單一命名空間中配置磁碟區。若要在其他命名空間中建立磁碟區、您可以定義其他後端。可以將ADS磁碟區附加到託管叢集中的任何命名空間、任何其他Kubernetes叢集、或是可以掛載NFS共用的任何位置。
+
+您可以在組態檔的特殊區段中、使用這些選項來控制每個Volume的預設資源配置。
+
+請參閱下列組態範例。
+
+[cols=",,"]
+|===
+| 參數 | 說明 | 預設 
+
+
+| 「匯出政策」 | 要使用的匯出原則 | "預設" 
+
+
+| 「unixPermissions」 | 新磁碟區的模式、必須為八進位、且開頭為「0」 | 「0777」 
+
+
+| 「快照保留區」 | 保留給快照的磁碟區百分比 | 「5」 
+
+
+| 「napshotDir | 控制「.snapshot」目錄的可見度 | "假" 
+
+
+| 「qosPolicy」 | 要指派給所建立磁碟區的QoS原則 | " 
+|===
+
+NOTE: 對於在AIT後端建立的所有磁碟區、Astra Trident會在儲存資源池配置時、將儲存資源池上的所有標籤複製到儲存磁碟區。儲存管理員可以定義每個儲存資源池的標籤、並將每個儲存資源池所建立的所有磁碟區分組。這是根據後端組態檔中提供的一組可自訂標籤、方便區分磁碟區的方法。
+
+
+
+== 範例1：最小後端組態
+
+這是絕對最低的後端組態。
+
+.展開範例
+====
+[source, CLI]
+----
+{
+    "version": 1,
+    "storageDriverName": "astrads-nas",
+    "cluster": "astrads-sti-c6220-09-10-11-12",
+    "namespace": "test",
+    "kubeconfig": "eyJjdXJyZW50LWNvbnRleHQiOiJmZWRlcmFsLWNvbnRleHQiLCJhcGlWZXJzaW9uIjoidjEiLCJjbHVzdGVycyI6W3siY2x1c3RlciI6eyJhcGktdmVyc2lvbiI6InYxIiwic2VydmVyIjoiaHR0cDovL2Nvdy5vcmc6ODA4MCJ9LCJuYW1lIjoiY293LWNsdXN0ZXIifSx7ImNsdXN0ZXIiOnsiY2VydGlmaWNhdGUtYXV0aG9yaXR5IjoicGF0aC90by9teS9jYWZpbGUiLCJzZXJ2ZXIiOiJodHRwczovL2hvcnNlLm9yZzo0NDQzIn0sIm5hbWUiOiJob3JzZS1jbHVzdGVyIn0seyJjbHVzdGVyIjp7Imluc2VjdXJlLXNraXAtdGxzLXZlcmlmeSI6dHJ1ZSwic2VydmVyIjoiaHR0cHM6Ly9waWcub3JnOjQ0MyJ9LCJuYW1lIjoicGlnLWNsdXN0ZXIifV0sImNvbnRleHRzIjpbeyJjb250ZXh0Ijp7ImNsdXN0ZXIiOiJob3JzZS1jbHVzdGVyIiwibmFtZXNwYWNlIjoiY2hpc2VsLW5zIiwidXNlciI6ImdyZWVuLXVzZXIifSwibmFtZSI6ImZlZGVyYWwtY29udGV4dCJ9LHsiY29udGV4dCI6eyJjbHVzdGVyIjoicGlnLWNsdXN0ZXIiLCJuYW1lc3BhY2UiOiJzYXctbnMiLCJ1c2VyIjoiYmxhY2stdXNlciJ9LCJuYW1lIjoicXVlZW4tYW5uZS1jb250ZXh0In1dLCJraW5kIjoiQ29uZmlnIiwicHJlZmVyZW5jZXMiOnsiY29sb3JzIjp0cnVlfSwidXNlcnMiOlt7Im5hbWUiOiJibHVlLXVzZXIiLCJ1c2VyIjp7InRva2VuIjoiYmx1ZS10b2tlbiJ9fSx7Im5hbWUiOiJncmVlbi11c2VyIiwidXNlciI6eyJjbGllbnQtY2VydGlmaWNhdGUiOiJwYXRoL3RvL215L2NsaWVudC9jZXJ0IiwiY2xpZW50LWtleSI6InBhdGgvdG8vbXkvY2xpZW50L2tleSJ9fV19"
+}
+----
+====
+
+
+== 範例2：單一服務層級組態
+
+此範例顯示後端檔案、可將相同層面套用至所有Astra Trident建立的儲存設備。
+
+.展開範例
+====
+[source, CLI]
+----
+{
+    "version": 1,
+        "storageDriverName": "astrads-nas",
+        "cluster": "astrads-sti-c6220-09-10-11-12",
+        "namespace": "test",
+        "kubeconfig": "eyJjdXJyZW50LWNvbnRleHQiOiJmZWRlcmFsLWNvbnRleHQiLCJhcGlWZXJzaW9uIjoidjEiLCJjbHVzdGVycyI6W3siY2x1c3RlciI6eyJhcGktdmVyc2lvbiI6InYxIiwic2VydmVyIjoiaHR0cDovL2Nvdy5vcmc6ODA4MCJ9LCJuYW1lIjoiY293LWNsdXN0ZXIifSx7ImNsdXN0ZXIiOnsiY2VydGlmaWNhdGUtYXV0aG9yaXR5IjoicGF0aC90by9teS9jYWZpbGUiLCJzZXJ2ZXIiOiJodHRwczovL2hvcnNlLm9yZzo0NDQzIn0sIm5hbWUiOiJob3JzZS1jbHVzdGVyIn0seyJjbHVzdGVyIjp7Imluc2VjdXJlLXNraXAtdGxzLXZlcmlmeSI6dHJ1ZSwic2VydmVyIjoiaHR0cHM6Ly9waWcub3JnOjQ0MyJ9LCJuYW1lIjoicGlnLWNsdXN0ZXIifV0sImNvbnRleHRzIjpbeyJjb250ZXh0Ijp7ImNsdXN0ZXIiOiJob3JzZS1jbHVzdGVyIiwibmFtZXNwYWNlIjoiY2hpc2VsLW5zIiwidXNlciI6ImdyZWVuLXVzZXIifSwibmFtZSI6ImZlZGVyYWwtY29udGV4dCJ9LHsiY29udGV4dCI6eyJjbHVzdGVyIjoicGlnLWNsdXN0ZXIiLCJuYW1lc3BhY2UiOiJzYXctbnMiLCJ1c2VyIjoiYmxhY2stdXNlciJ9LCJuYW1lIjoicXVlZW4tYW5uZS1jb250ZXh0In1dLCJraW5kIjoiQ29uZmlnIiwicHJlZmVyZW5jZXMiOnsiY29sb3JzIjp0cnVlfSwidXNlcnMiOlt7Im5hbWUiOiJibHVlLXVzZXIiLCJ1c2VyIjp7InRva2VuIjoiYmx1ZS10b2tlbiJ9fSx7Im5hbWUiOiJncmVlbi11c2VyIiwidXNlciI6eyJjbGllbnQtY2VydGlmaWNhdGUiOiJwYXRoL3RvL215L2NsaWVudC9jZXJ0IiwiY2xpZW50LWtleSI6InBhdGgvdG8vbXkvY2xpZW50L2tleSJ9fV19",
+        "defaults": {
+            "exportPolicy": "myexportpolicy1",
+            "qosPolicy": "bronze",
+            "snapshotReserve": "10"
+        },
+        "labels": {"cloud": "on-prem", "creator": "ads-cluster-1", "performance": "bronze"}
+}
+----
+====
+
+
+== 範例3：虛擬儲存池組態
+
+此範例顯示使用虛擬儲存資源池設定的後端定義檔案、以及參照回溯的StorageClass。
+
+.展開範例
+====
+[source, CLI]
+----
+{
+    "version": 1,
+    "storageDriverName": "astrads-nas",
+    "cluster": "astrads-sti-c6220-09-10-11-12",
+    "namespace": "test",
+    "kubeconfig": "eyJjdXJyZW50LWNvbnRleHQiOiJmZWRlcmFsLWNvbnRleHQiLCJhcGlWZXJzaW9uIjoidjEiLCJjbHVzdGVycyI6W3siY2x1c3RlciI6eyJhcGktdmVyc2lvbiI6InYxIiwic2VydmVyIjoiaHR0cDovL2Nvdy5vcmc6ODA4MCJ9LCJuYW1lIjoiY293LWNsdXN0ZXIifSx7ImNsdXN0ZXIiOnsiY2VydGlmaWNhdGUtYXV0aG9yaXR5IjoicGF0aC90by9teS9jYWZpbGUiLCJzZXJ2ZXIiOiJodHRwczovL2hvcnNlLm9yZzo0NDQzIn0sIm5hbWUiOiJob3JzZS1jbHVzdGVyIn0seyJjbHVzdGVyIjp7Imluc2VjdXJlLXNraXAtdGxzLXZlcmlmeSI6dHJ1ZSwic2VydmVyIjoiaHR0cHM6Ly9waWcub3JnOjQ0MyJ9LCJuYW1lIjoicGlnLWNsdXN0ZXIifV0sImNvbnRleHRzIjpbeyJjb250ZXh0Ijp7ImNsdXN0ZXIiOiJob3JzZS1jbHVzdGVyIiwibmFtZXNwYWNlIjoiY2hpc2VsLW5zIiwidXNlciI6ImdyZWVuLXVzZXIifSwibmFtZSI6ImZlZGVyYWwtY29udGV4dCJ9LHsiY29udGV4dCI6eyJjbHVzdGVyIjoicGlnLWNsdXN0ZXIiLCJuYW1lc3BhY2UiOiJzYXctbnMiLCJ1c2VyIjoiYmxhY2stdXNlciJ9LCJuYW1lIjoicXVlZW4tYW5uZS1jb250ZXh0In1dLCJraW5kIjoiQ29uZmlnIiwicHJlZmVyZW5jZXMiOnsiY29sb3JzIjp0cnVlfSwidXNlcnMiOlt7Im5hbWUiOiJibHVlLXVzZXIiLCJ1c2VyIjp7InRva2VuIjoiYmx1ZS10b2tlbiJ9fSx7Im5hbWUiOiJncmVlbi11c2VyIiwidXNlciI6eyJjbGllbnQtY2VydGlmaWNhdGUiOiJwYXRoL3RvL215L2NsaWVudC9jZXJ0IiwiY2xpZW50LWtleSI6InBhdGgvdG8vbXkvY2xpZW50L2tleSJ9fV19",
+
+    "autoExportPolicy": true,
+    "autoExportCIDRs": ["10.211.55.0/24"],
+
+    "labels": {"cloud": "on-prem", "creator": "ads-cluster-1"},
+    "defaults": {"snapshotReserve": "5"},
+
+    "storage": [
+        {
+            "labels": {"performance": "gold", "cost": "3"},
+            "defaults": {
+                "qosPolicy": "gold",
+                "snapshotReserve": "10"
+            }
+         },
+         {
+            "labels": {"performance": "silver", "cost": "2"},
+            "defaults": {"qosPolicy": "silver"}
+         },
+         {
+            "labels": {"performance": "bronze", "cost": "1"},
+            "defaults": {"qosPolicy": "bronze"}
+         }
+     ]
+}
+----
+====
+下列StorageClass定義係指上述儲存資源池。您可以使用「parameters.selector`」欄位、為每個StorageClass指定用於裝載磁碟區的虛擬集區。磁碟區將會在所選的虛擬資源池中定義各個層面。
+
+.展開範例
+====
+[source, CLI]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ads
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: astrads-nas
+allowVolumeExpansion: true
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ads-gold
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: astrads-nas
+  selector: performance=gold
+allowVolumeExpansion: true
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ads-silver
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: astrads-nas
+  selector: performance=silver
+allowVolumeExpansion: true
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ads-bronze
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: astrads-nas
+  selector: performance=bronze
+allowVolumeExpansion: true
+----
+====
+
+
+== 接下來呢？
+
+建立後端組態檔之後、請執行下列命令：
+
+[listing]
+----
+tridentctl create backend -f <backend-file>
+----
+如果後端建立失敗、表示後端組態有問題。您可以執行下列命令來檢視記錄、以判斷原因：
+
+[listing]
+----
+tridentctl logs
+----
+識別並修正組態檔的問題之後、您可以再次執行create命令。

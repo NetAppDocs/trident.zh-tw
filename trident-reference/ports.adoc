@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/trident-ports.html 
+keywords: astra trident, port, ports 
+summary: 深入瞭解Astra Trident透過哪些連接埠進行通訊。 
+---
+= Astra Trident連接埠
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+深入瞭解Astra Trident透過哪些連接埠進行通訊。
+
+Astra Trident透過下列連接埠進行通訊：
+
+[cols="2,4"]
+|===
+| 連接埠 | 目的 
+
+
+| 8443. | 後端通道HTTPS 
+
+
+| 8001 | Prometheus指標端點 
+
+
+| 8000 | Trident REST伺服器 
+
+
+| 17546 | Trident取消安裝套件所使用的活動/整備度探針連接埠 
+|===
+
+NOTE: 在安裝期間、可使用「-Probe-port'」旗標來變更活動力/整備度探針連接埠。請務必確認工作節點上的其他程序並未使用此連接埠。

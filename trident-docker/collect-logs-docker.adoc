@@ -1,0 +1,60 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/collect-logs-docker.html 
+keywords: deploy, astra trident, trident for docker, docker, logs, binary, managed plugin 
+summary: 您可以收集記錄以協助疑難排解。收集記錄的方法會因執行Docker外掛程式的方式而有所不同。 
+---
+= 收集記錄
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+您可以收集記錄以協助疑難排解。收集記錄的方法會因執行Docker外掛程式的方式而有所不同。
+
+.步驟
+. 如果您使用建議的託管外掛程式方法執行Astra Trident（亦即使用「docker plugin」命令）、請依照下列方式檢視：
++
+[listing]
+----
+# docker plugin ls
+ID                  NAME                DESCRIPTION                          ENABLED
+4fb97d2b956b        netapp:latest       nDVP - NetApp Docker Volume Plugin   false
+# journalctl -u docker | grep 4fb97d2b956b
+----
++
+標準記錄層級應可讓您診斷大多數問題。如果您發現這還不夠、可以啟用偵錯記錄。
+
+. 若要啟用除錯記錄、請安裝已啟用除錯記錄的外掛程式：
++
+[listing]
+----
+docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
+----
++
+或者、當外掛程式已安裝時、請啟用偵錯記錄功能：
+
++
+[listing]
+----
+docker plugin disable <plugin>
+docker plugin set <plugin> debug=true
+docker plugin enable <plugin>
+----
+. 如果您在主機上執行二進位檔本身、則記錄檔可在主機的「/var/log/netappdvp」目錄中使用。若要啟用偵錯記錄、請在執行外掛程式時指定「-DEBUG」。
+
+
+
+
+=== 一般疑難排解秘訣
+
+* 新使用者最常遇到的問題是組態錯誤、導致外掛程式無法初始化。發生這種情況時、當您嘗試安裝或啟用外掛程式時、可能會看到如下訊息：
++
+「精靈的錯誤回應：請撥打UNIX /run / dock/plugins/<id>/NetApp.sock：Connect：沒有這類檔案或目錄」
+
++
+這表示外掛程式無法啟動。幸運的是、外掛程式是以全方位的記錄功能打造而成、可協助您診斷大部分可能遇到的問題。
+
+* 如果將PV掛載到容器時發生問題、請確定已安裝並執行「rpcbind」。使用主機作業系統所需的套件管理程式、檢查「rpcbind」是否正在執行。您可以執行「stystemctl狀態rpcbind」或其等效項目來檢查rpcbind服務的狀態。
+

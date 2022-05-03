@@ -1,0 +1,172 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/backup.html 
+keywords: security, chap, trident, namespace 
+summary: 瞭解NetApp儲存平台提供的資料保護與可恢復性選項。Astra Trident可配置磁碟區、以充分利用其中的部分功能。對於每個應用程式、您都應該擁有完整的資料保護與還原策略、而且需要持續性。 
+---
+= 資料保護
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+瞭解NetApp儲存平台提供的資料保護與可恢復性選項。Astra Trident可配置磁碟區、以充分利用其中的部分功能。對於每個應用程式、您都應該有持續性需求的資料保護與還原策略。
+
+
+
+== 備份etcd叢集資料
+
+Astra Trident將其中繼資料儲存在Kubernetes叢集的「etcd」資料庫中。定期備份「etcd」叢集資料、對於在災難情況下恢復Kubernetes叢集而言、非常重要。
+
+.步驟
+. 使用「etcctll snapshot SAVE」命令、您可以擷取「etcd」叢集的時間點快照：
++
+[listing]
+----
+sudo docker run --rm -v /backup:/backup \
+  --network host \
+  -v /etc/kubernetes/pki/etcd:/etc/kubernetes/pki/etcd \
+  --env ETCDCTL_API=3 \
+  k8s.gcr.io/etcd-amd64:3.2.18 \
+  etcdctl --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/healthcheck-client.crt \
+  --key=/etc/kubernetes/pki/etcd/healthcheck-client.key \
+  snapshot save /backup/etcd-snapshot.db
+----
++
+此命令可藉由旋轉etcd容器來建立etcd快照、並將其儲存在「/Backup」目錄中。
+
+. 發生災難時、您可以使用etcd快照來啟動Kubernetes叢集。使用「etcctll snapshot還原」命令、還原擷取至「/var/lib/etcd」資料夾的特定快照。還原之後、請確認「/var/lib/etcd」資料夾是否已填入「member」資料夾。以下是「etcdctl snapshot還原」命令的範例：
++
+[listing]
+----
+# etcdctl snapshot restore '/backup/etcd-snapshot-latest.db' ; mv /default.etcd/member/ /var/lib/etcd/
+----
+. 初始化Kubernetes叢集之前、請複製所有必要的憑證。
+. 使用「-ignore預先執行錯誤= DirAvailable」-var-lib-etcd標誌建立叢集。
+. 叢集啟動後、請確定已啟動kube系統Pod。
+. 使用「kubectl Get crd」命令來驗證Trident所建立的自訂資源是否存在、並擷取Trident物件、以確保所有資料都可用。
+
+
+
+
+== 使用ONTAP 不含資訊的快照來恢復日期
+
+快照提供應用程式資料的時間點還原選項、因此扮演著重要角色。不過、快照本身並不是備份、因此無法防止儲存系統故障或其他災難。但是、在大多數情況下、它們都是一種方便、快速且簡單的資料恢復方法。瞭ONTAP 解如何使用「支援資料快照」技術來備份磁碟區、以及如何還原。
+
+* 如果未在後端定義快照原則、則預設使用「無」原則。如此一ONTAP 來、我們便無法自動擷取快照。不過、儲存管理員可以手動擷取快照、或是透過ONTAP 功能完善的管理介面變更快照原則。這不會影響Trident作業。
+* Snapshot目錄預設為隱藏。這有助於實現使用「ONTAP-NAS」和「ONTAP-NAS經濟」驅動程式所配置之磁碟區的最大相容性。使用「ONTAP-NAS」和「ONTAP-NAS經濟」驅動程式時、請啟用「.snapshot」目錄、讓應用程式能夠直接從快照中恢復資料。
+* 使用「Volume Snapshot Restore」ONTAP （Volume Snapshot還原）CLI命令、將磁碟區還原至先前快照中記錄的狀態。還原快照複本時、還原作業會覆寫現有的Volume組態。建立Snapshot複本之後、對磁碟區中資料所做的任何變更都會遺失。
+
+
+[listing]
+----
+cluster1::*> volume snapshot restore -vserver vs0 -volume vol3 -snapshot vol3_snap_archive
+----
+
+
+== 使用ONTAP 功能複寫資料
+
+複寫資料對於防止儲存陣列故障所造成的資料遺失、扮演著重要的角色。
+
+
+NOTE: 如需ONTAP 深入瞭解有關資訊複寫技術的資訊、請參閱 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/GUID-A9A2F347-3E05-4F80-9E9C-CEF8F0A2F8E1.html["本文檔 ONTAP"^]。
+
+
+
+=== SnapMirror儲存虛擬機器（SVM）複寫
+
+您可以使用 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/GUID-8B187484-883D-4BB4-A1BC-35AC278BF4DC.html["SnapMirror"^] 複寫完整的SVM、其中包括其組態設定及其磁碟區。發生災難時、您可以啟動SnapMirror目的地SVM、開始提供資料服務。還原系統時、您可以切換回主要系統。
+
+Astra Trident無法自行設定複寫關係、因此儲存管理員可以使用ONTAP的SnapMirror SVM複寫功能、將磁碟區自動複寫到災難恢復（DR）目的地。
+
+如果您打算使用SnapMirror SVM複寫功能、或是目前正在使用此功能、請考慮下列事項：
+
+* 您應該為每個啟用SVM災難恢復的SVM建立不同的後端。
+* 您應該設定儲存類別、以便在需要時、不要選取複寫的後端。這一點非常重要、因為如此一來、您就不必將不需要保護複寫關係的磁碟區配置到支援SVM-DR的後端。
+* 應用程式管理員應瞭解複寫資料所需的額外成本與複雜度、並在使用資料複寫之前、先決定恢復計畫。
+* 啟動SnapMirror目的地SVM之前、請先停止所有排程的SnapMirror傳輸、中止所有進行中的SnapMirror傳輸、中斷複寫關係、停止來源SVM、然後啟動SnapMirror目的地SVM。
+* Astra Trident不會自動偵測SVM故障。因此，當發生故障時，系統管理員應該執行「tridentctl後端更新」命令，以觸發Trident的容錯移轉到新的後端。
+
+
+以下是SVM設定步驟的總覽：
+
+* 在來源與目的地叢集與SVM之間設定對等關係。
+* 使用「副類型DP目的地」選項建立目的地SVM。
+* 建立複寫工作排程、以確保複寫會在所需的時間間隔執行。
+* 使用「idente-preserve true」選項、建立從目的地SVM到來源SVM的SnapMirror複寫、以確保來源SVM組態和來源SVM介面複製到目的地。從目的地SVM初始化SnapMirror SVM複寫關係。
+
+
+image::SVMDR1.PNG[顯示設定SVM所需的步驟。]
+
+
+
+==== Trident的災難恢復工作流程
+
+Astra Trident 19.07及更新版本使用Kubernetes CRD來儲存及管理自己的狀態。它使用Kubernetes叢集的「etcd」來儲存中繼資料。我們假設Kubernetes的「etcd」資料檔案和憑證都儲存在NetApp FlexVolume上。此FlexVolume位於SVM中、與次要站台的目的地SVM有SnapMirror SVM-DR關係。
+
+下列步驟說明如何在發生災難時、使用Astra Trident來還原單一主Kubernetes叢集：
+
+. 如果來源SVM故障、請啟動SnapMirror目的地SVM。為達成此目的、您應該停止排程的SnapMirror傳輸、中止進行中的SnapMirror傳輸、中斷複寫關係、停止來源SVM、以及啟動目的地SVM。
+. 從目的地SVM、將包含Kubernetes「etcd」資料檔案和憑證的磁碟區掛載到主機上、主機將設定為主節點。
+. 複製所有必要的Kubernetes叢集憑證、這些憑證位於「/etc/Kubernetes /PKI」下、而etcd「m十二」檔案則位於「/var/lib/etcd」下。
+. 使用帶有「-ignore preflas-errors = DirAvailable - var-lib-etcd」旗標的「kubeadm init」命令建立Kubernetes叢集。Kubernetes節點使用的主機名稱應與來源Kubernetes叢集相同。
+. 執行「kubectl Get crd」命令、確認所有Trident自訂資源是否都已啟動並擷取Trident物件、以驗證所有資料是否可用。
+. 執行「/tridentctl update backend <backend-name>-f <backend-jser-file>-n <namedes>'命令、更新所有必要的後端、以反映新的目的地SVM名稱。
+
+
+
+NOTE: 對於應用程式持續磁碟區、當目的地SVM啟動時、Trident所配置的所有磁碟區都會開始提供資料。使用上述步驟在目的地端設定Kubernetes叢集之後、所有的部署和Pod都會啟動、而且容器化應用程式應該能順利執行、不會發生任何問題。
+
+
+
+=== SnapMirror Volume複寫
+
+SnapMirror Volume複寫是一項災難恢復功能、可從Volume層級的主要儲存設備進行容錯移轉至目的地儲存設備。ONTAPSnapMirror透過同步快照、在次要儲存設備上建立主要儲存設備的Volume複本或鏡射。
+
+以下是ONTAP 關於SnapMirror Volume複寫設定步驟的總覽：
+
+* 在磁碟區所在的叢集與從磁碟區提供資料的SVM之間設定對等關係。
+* 建立SnapMirror原則、以控制關係的行為、並指定該關係的組態屬性。
+* 使用建立目的地Volume與來源Volume之間的SnapMirror關係 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-970/snapmirror__create.html["命令napmirror create"^] 並指派適當的SnapMirror原則。
+* 建立SnapMirror關係之後、請初始化關係、以便完成從來源磁碟區到目的地磁碟區的基礎傳輸。
+
+
+image::SM1.PNG[顯示SnapMirror Volume複寫設定。]
+
+
+
+==== 適用於Trident的SnapMirror Volume災難恢復工作流程
+
+下列步驟說明如何使用Astra Trident來復原單一主Kubernetes叢集。
+
+. 發生災難時、請停止所有排程的SnapMirror傳輸、並中止所有進行中的SnapMirror傳輸。中斷目的地與來源磁碟區之間的複寫關係、使目的地磁碟區變成讀取/寫入。
+. 從目的地SVM、將包含Kubernetes「etcd」資料檔案和憑證的磁碟區掛載到主機上、主機將設定為主節點。
+. 複製所有必要的Kubernetes叢集憑證、這些憑證位於「/etc/Kubernetes /PKI」下、而etcd「m十二」檔案則位於「/var/lib/etcd」下。
+. 使用帶有"-ignore preflas-errors = DirAvailable - var-lib-etcd"標記的"kubeadm init"命令來建立Kubernetes叢集。主機名稱應與來源Kubernetes叢集相同。
+. 執行「kubectl Get crd」命令、確認所有Trident自訂資源是否都已啟動並擷取Trident物件、以確保所有資料都可用。
+. 清理先前的後端、並在Trident上建立新的後端。指定目的地SVM的新管理與資料LIF、新SVM名稱及密碼。
+
+
+
+
+==== 應用程式持續磁碟區的災難恢復工作流程
+
+下列步驟說明在發生災難時、如何為容器化工作負載提供SnapMirror目的地磁碟區：
+
+. 停止所有排程的SnapMirror傳輸、並中止所有進行中的SnapMirror傳輸。中斷目的地與來源磁碟區之間的複寫關係、使目的地磁碟區變成讀取/寫入。清除使用與來源SVM上磁碟區連結之PVc的部署。
+. 使用上述步驟在目的地端設定Kubernetes叢集之後、請從Kubernetes叢集清除部署、PVCS和PV。
+. 指定新的管理與資料LIF、新的SVM名稱和目的地SVM密碼、在Trident上建立新的後端。
+. 使用「Trident匯入」功能、將所需的磁碟區匯入為與新的PVc繫結的PV。
+. 使用新建立的PVCS重新部署應用程式部署。
+
+
+
+
+== 使用元素快照來恢復資料
+
+設定磁碟區的快照排程、並確保每隔一段時間擷取快照、以備份元素磁碟區上的資料。您應該使用元素UI或API來設定快照排程。目前無法透過「Poolidfire - san」驅動程式、將快照排程設定為磁碟區。
+
+在資料毀損的情況下、您可以使用元素UI或API、選擇特定的快照、然後手動將磁碟區復原至快照。這會還原自建立快照以來對磁碟區所做的任何變更。

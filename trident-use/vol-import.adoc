@@ -1,0 +1,240 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-import.html 
+keywords: volumes, on-demand volume snapshots, import volumes, drivers, tridenctl import, pv, persistent volumes 
+summary: 您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入為Kubernetes PV。 
+---
+= 匯入磁碟區
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入為Kubernetes PV。
+
+
+
+== 支援Volume匯入的驅動程式
+
+下表說明支援匯入磁碟區的驅動程式、以及這些磁碟區所引進的版本。
+
+[cols="2*"]
+|===
+| 驅動程式 | 版本 
+
+
+| 「ONTAP-NAS」  a| 
+19.04
+
+
+
+| 「ONTAP-NAA-flexgroup」  a| 
+19.04
+
+
+
+| 「olidfire - san」  a| 
+19.04
+
+
+
+| 《azure-NetApp-fil形》  a| 
+19.04
+
+
+
+| 《GCP—CVS》  a| 
+19.04
+
+
+
+| 「ONTAP-SAN」  a| 
+19.04
+
+|===
+
+
+== 為什麼要匯入磁碟區？
+
+將Volume匯入Trident的使用案例有多種：
+
+* 容器化應用程式、並重新使用現有的資料集
+* 將資料集的複本用於暫時性應用程式
+* 重建故障的Kubernetes叢集
+* 在災難恢復期間移轉應用程式資料
+
+
+
+
+== 匯入如何運作？
+
+Volume匯入程序會使用持續磁碟區宣告（PVc）檔案來建立PVc。至少、PVc檔案應包含名稱、命名空間、存取模式及storageClassName欄位、如下例所示。
+
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: my_claim
+  namespace: my_namespace
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: my_storage_class
+----
+「tridentctl」用戶端用於匯入現有的儲存磁碟區。Trident會持續儲存Volume中繼資料並建立PVc和PV、以匯入Volume。
+
+[listing]
+----
+$ tridentctl import volume <backendName> <volumeName> -f <path-to-pvc-file>
+----
+若要匯入儲存磁碟區、請指定包含該磁碟區的Astra Trident後端名稱、以及唯一識別儲存區上該磁碟區的名稱（例如ONTAP FlexVol ：Wsel, Element Volume、CVS Volume path）。儲存磁碟區必須允許讀取/寫入存取、且可由指定的Astra Trident後端存取。需要「-f]字串引數、並指定Yaml或Json PVc檔案的路徑。
+
+當Astra Trident收到匯入磁碟區要求時、現有的磁碟區大小會在PVc中決定及設定。儲存驅動程式匯入磁碟區之後、PV會以PVc的ClaimRef建立。在PV中、回收原則一開始設定為「需要」。Kubernetes成功繫結了PVc和PV之後、系統會更新回收原則以符合儲存類別的回收原則。如果儲存類別的回收原則為「刪除」、則儲存磁碟區會在刪除PV時刪除。
+
+當使用「-NO-Manage」引數匯入磁碟區時、Trident不會在物件生命週期的永久虛擬磁碟或PV上執行任何額外作業。由於Trident會忽略「無管理」物件的PV和PVc事件、因此在刪除PV時不會刪除儲存磁碟區。此外、也會忽略其他作業、例如Volume Clone和Volume resize。如果您想要將Kubernetes用於容器化工作負載、但想要管理Kubernetes以外儲存磁碟區的生命週期、則此選項非常實用。
+
+將註釋新增至PVc和PV、這有兩種用途、表示已匯入磁碟區、以及是否管理了PVc和PV。不應修改或移除此附註。
+
+Trident 19.07及更新版本可處理PV的附加元件、並在匯入磁碟區時掛載磁碟區。對於使用舊版Astra Trident的匯入、資料路徑不會有任何作業、而且磁碟區匯入不會驗證是否可以掛載磁碟區。如果在Volume匯入時發生錯誤（例如StorageClass不正確）、您可以將PV上的回收原則變更為「保留」、刪除PVC和PV、然後重新嘗試Volume匯入命令來恢復。
+
+
+
+== ONTAP-NAS和ONTAP-NAA-Flexgroup匯入
+
+每個使用「ONTAP-NAS」驅動程式建立的Volume FlexVol 、都是ONTAP 一個在整個叢集上的功能。使用「ONTAP-NAS」驅動程式匯入FlexVols的運作方式相同。已存在於某個叢集上的一個功能、可以匯入為「ONTAP-NAS」的PVc。FlexVol ONTAP同樣地FlexGroup 、也可以將此數據匯入為「ONTAP-NAS-Flexgroup」PVCS。
+
+
+IMPORTANT: 若要由Trident匯入某個類型的Rw。ONTAP如果磁碟區是DP類型、則它是SnapMirror目的地磁碟區；在將磁碟區匯入Trident之前、您應該先中斷鏡射關係。
+
+
+IMPORTANT: 「ONTAP-NAS」驅動程式無法匯入及管理qtree。「ONTAP-NAS」和「ONTAP-NAS-flexgroup」驅動程式不允許重複的Volume名稱。
+
+例如、若要在名為「ONTAP_NAS」的後端匯入名為「manended_volume」的磁碟區、請使用下列命令：
+
+[listing]
+----
+$ tridentctl import volume ontap_nas managed_volume -f <path-to-pvc-file>
+
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-bf5ad463-afbb-11e9-8d9f-5254004dfdb7 | 1.0 GiB | standard      | file     | c5a6f6a4-b052-423b-80d4-8fb491a14a22 | online | true    |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+----
+若要匯入名為「Unmanaged _volume」（在「ONTAP_NAS後端」上）的磁碟區（Trident無法管理）、請使用下列命令：
+
+[listing]
+----
+$ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-manage
+
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-df07d542-afbc-11e9-8d9f-5254004dfdb7 | 1.0 GiB | standard      | file     | c5a6f6a4-b052-423b-80d4-8fb491a14a22 | online | false   |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+----
+使用「-no－管理」引數時、Trident不會重新命名磁碟區、也不會驗證磁碟區是否已掛載。如果未手動掛載磁碟區、則磁碟區匯入作業會失敗。
+
+
+NOTE: 已修正先前使用自訂Unix權限 匯入磁碟區的錯誤。您可以在您的PVc定義或後端組態中指定unixPermissions、並指示Astra Trident依此匯入磁碟區。
+
+
+
+== ONTAP-SAN匯入
+
+Astra Trident也能匯入ONTAP 包含單一LUN的SAN FlexVols。這與「ONTAP-SAN」驅動程式一致、因為它會為FlexVol 每個實體磁碟和FlexVol 一個LUN在整個過程中建立一個版本。您可以使用「tridentctl import'」命令、方法與其他情況相同：
+
+* 請加入「ONTAP-SAN」後端名稱。
+* 請提供FlexVol 需要匯入的名稱。請記住FlexVol 、這個功能只包含一個必須匯入的LUN。
+* 提供必須搭配「-f」旗標使用的PVc定義路徑。
+* 您可以選擇管理或不受管理的永久虛擬網路。根據預設、Trident會管理PVc、並在FlexVol 後端重新命名該LUN。若要匯入為非託管磁碟區、請傳遞「-no－管理」旗標。
+
+
+
+TIP: 匯入未受管理的「ONTAP-SAN」Volume時、您應確定FlexVol 將位於該功能的LUN命名為「lun0」、並對應至具有所需啟動器的igroup。Astra Trident會自動處理這項作業、以便進行託管匯入。
+
+然後Astra Trident會匯入FlexVol 該等物件、並將其與PVc定義建立關聯。Astra Trident也將FlexVol 該等數據重新命名為「PVC-<uuid>'格式、FlexVol 並將LUN重新命名為「lun0」。
+
+
+TIP: 建議匯入沒有現有作用中連線的磁碟區。如果您要匯入使用中的Volume、請先複製該Volume、然後再執行匯入。
+
+
+
+=== 範例
+
+若要匯入FlexVol 在「ONTAP_san預設」後端上出現的「onta-san託管」功能、請執行「tridentctl匯入」命令：
+
+[listing]
+----
+$ tridentctl import volume ontapsan_san_default ontap-san-managed -f pvc-basic-import.yaml -n trident -d
+
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE  | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-d6ee4f54-4e40-4454-92fd-d00fc228d74a | 20 MiB | basic         | block    | cd394786-ddd5-4470-adc3-10c5ce4ca757 | online | true    |
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+----
+
+IMPORTANT: 若要由Astra Trident匯入某個類型的RW磁碟區。ONTAP如果磁碟區為DP類型、則為SnapMirror目的地磁碟區；您應該先中斷鏡射關係、再將磁碟區匯入Astra Trident。
+
+
+
+== 元素匯入
+
+您可以使用NetApp Element Trident將支援功能的軟體/NetApp HCI磁碟區匯入Kubernetes叢集。您需要Astra Trident後端的名稱、以及磁碟區的獨特名稱和PVc檔案、作為「tridentctl import'」命令的引數。
+
+[listing]
+----
+$ tridentctl import volume element_default element-managed -f pvc-basic-import.yaml -n trident -d
+
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE  | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-970ce1ca-2096-4ecd-8545-ac7edc24a8fe | 10 GiB | basic-element | block    | d3ba047a-ea0b-43f9-9c42-e38e58301c49 | online | true    |
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+----
+
+NOTE: Element驅動程式支援重複的Volume名稱。如果有重複的Volume名稱、Trident的Volume匯入程序會傳回錯誤。因應措施是複製磁碟區、並提供唯一的磁碟區名稱。然後匯入複製的Volume。
+
+
+
+== GCP-CVS匯入
+
+
+TIP: 若要匯入以NetApp Cloud Volumes Service 支援的GCP磁碟區、請使用磁碟區路徑來識別該磁碟區、而非其名稱。
+
+若要在後端匯入名為「gcpcvs_YEppr」的「gcp-CVS」磁碟區、並將磁碟區路徑匯入為「adj統 法社-jolly Swift」、請使用下列命令：
+
+[listing]
+----
+$ tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -n trident
+
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE  | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-a46ccab7-44aa-4433-94b1-e47fc8c0fa55 | 93 GiB | gcp-storage   | file     | e1a6e65b-299e-4568-ad05-4f0a105c888f | online | true    |
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+----
+
+NOTE: Volume路徑是Volume匯出路徑的一部分、位於：/之後。例如、如果匯出路徑為「10.0.0.1：/統法社-jolly Swift」、則Volume路徑為「adj統 法社-jolly Swift」。
+
+
+
+== Azure與NetApp檔案匯入
+
+若要在後端匯入名為「azurenetappfiles_40517」的「azure-netapp-fil」磁碟區、並使用磁碟區路徑「importvol1」、請執行下列命令：
+
+[listing]
+----
+$ tridentctl import volume azurenetappfiles_40517 importvol1 -f <path-to-pvc-file> -n trident
+
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-0ee95d60-fd5c-448d-b505-b72901b3a4ab | 100 GiB | anf-storage   | file     | 1c01274f-d94b-44a3-98a3-04c953c9a51e | online | true    |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+----
+
+NOTE: anf磁碟區的磁碟區路徑會出現在裝載路徑中的：/之後。例如、如果掛載路徑為「10.0.0.2：/importvol1」、則磁碟區路徑為「importvol1」。

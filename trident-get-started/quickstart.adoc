@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/quickstart.html 
+keywords: kubernetes cluster, simple installation, Kubernetes installation 
+summary: 如果您剛開始使用Kubernetes、請依照指示安裝Kubernetes來試用。這些說明提供了一個裸機、單節點叢集、Trident可與該叢集整合以供示範之用。 
+---
+= 歡迎試用
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+NetApp提供立即可用的實驗室映像、您可以透過申請 link:https://www.netapp.com/us/try-and-buy/test-drive/index.aspx["NetApp試用"^]。測試磁碟機提供您一個沙箱環境、其中安裝並設定了三節點Kubernetes叢集和Astra Trident。這是熟悉Astra Trident並探索其特色的絕佳方式。
+
+另一個選項是查看 link:https://kubernetes.io/docs/setup/independent/install-kubeadm/["Kubeadm安裝指南"] 由Kubernetes提供。
+
+
+NOTE: 您不應該在正式作業中使用這些指令所建置的Kubernetes叢集。請使用經銷商提供的正式作業部署指南、建立正式作業就緒的叢集。
+
+如果這是您第一次使用Kubernetes、請熟悉這些概念和工具 link:https://kubernetes.io/docs/home/["請按這裡"^]。

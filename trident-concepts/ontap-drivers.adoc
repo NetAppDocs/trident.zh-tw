@@ -1,0 +1,98 @@
+---
+sidebar: sidebar 
+permalink: trident-concepts/ontap-drivers.html 
+keywords: trident backend, AFF, FAS, ONTAP Select, Cloud, Amazon FSx for NetApp ONTAP, drivers, ONTAP drivers 
+summary: 瞭解如何在您的Trident安裝中建立及使用Element後端。 
+---
+= 驅動程式ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Astra Trident提供五ONTAP 種獨特的Intel儲存驅動程式、可與ONTAP 各種叢集進行通訊。深入瞭解每個驅動程式如何處理磁碟區的建立、存取控制及其功能。
+
+[cols="5"]
+|===
+| 驅動程式 | 傳輸協定 | Volume模式 | 支援的存取模式 | 支援的檔案系統 
+
+
+| 「ONTAP-NAS」  a| 
+NFS
+ a| 
+檔案系統
+ a| 
+rwo、rwx、ROX
+ a| 
+」、NFS
+
+
+
+| 《ONTAP-NANAS經濟》  a| 
+NFS
+ a| 
+檔案系統
+ a| 
+rwo、rwx、ROX
+ a| 
+」、NFS
+
+
+
+| 「ONTAP-NAA-flexgroup」  a| 
+NFS
+ a| 
+檔案系統
+ a| 
+rwo、rwx、ROX
+ a| 
+」、NFS
+
+
+
+| 「ONTAP-SAN」  a| 
+iSCSI
+ a| 
+區塊
+ a| 
+rwo、ROX、rwx
+ a| 
+無檔案系統。原始區塊裝置
+
+
+
+| 「ONTAP-SAN」  a| 
+iSCSI
+ a| 
+檔案系統
+ a| 
+Rwo、ROX
+ a| 
+《xfs》、《ext3》、《ext4》
+
+
+
+| 《ONTAP-san經濟》  a| 
+iSCSI
+ a| 
+區塊
+ a| 
+rwo、ROX、rwx
+ a| 
+無檔案系統。原始區塊裝置
+
+
+
+| 《ONTAP-san經濟》  a| 
+iSCSI
+ a| 
+檔案系統
+ a| 
+Rwo、ROX
+ a| 
+《xfs》、《ext3》、《ext4》
+
+|===
+
+NOTE: 使用安全角色（使用者名稱/密碼）的登入認證、或使用安裝在叢集上的私密金鑰和憑證、即可驗證支援服務。ONTAP ONTAP您可以更新現有的後端、以「tridentctl update backend」從一個驗證模式移到另一個驗證模式。

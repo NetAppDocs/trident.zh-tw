@@ -1,0 +1,50 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/rest-api.html 
+keywords: rest api, get, post, json, object, backends 
+summary: 如果您偏好與Astra Trident的REST API互動、您可以直接使用REST端點。 
+---
+= Astra Trident REST API
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+而 link:tridentctl.html["tridentctl命令和選項"^] 這是與Astra Trident REST API互動最簡單的方法、您可以視需要直接使用REST端點。
+
+這對於在非Kubernetes部署中使用Astra Trident做為獨立二進位檔的進階安裝來說非常有用。
+
+為了提高安全性、Astra Trident的「REST API」在Pod內部執行時、預設僅限使用localhost。若要變更此行為、您必須在Pod組態中設定Astra Trident的「位址」引數。
+
+API的運作方式如下：
+
+
+
+== 取得
+
+* 「Get <trident位址>/trident / v1/<object-type >」：列出該類型的所有物件。
+* 「Get <trident位址>/trident / v1/<object-typed>/<object-name>」：取得命名物件的詳細資料。
+
+
+
+
+== 貼文
+
+「POST <trident位址>/trident / v1/<object-type>」：建立指定類型的物件。
+
+* 需要Json組態才能建立物件。如需每種物件類型的規格、請參閱 link:tridentctl.html[""tridentctl"命令和選項"]。
+* 如果物件已經存在、行為會有所不同：後端會更新現有物件、而其他所有物件類型都會使作業失敗。
+
+
+
+
+== 刪除
+
+「刪除<trident位址>/trident / v1/<object-typed>/<object-name>：刪除命名的資源。
+
+
+NOTE: 與後端或儲存類別相關聯的磁碟區將繼續存在、必須分別刪除。如需詳細資訊、請參閱 link:tridentctl.html[""tridentctl"命令和選項"]。
+
+如需這些API的名稱範例、請傳遞DEBUG（`-d'）旗標。如需詳細資訊、請參閱 link:tridentctl.html[""tridentctl"命令和選項"]。

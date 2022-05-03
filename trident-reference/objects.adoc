@@ -1,0 +1,443 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/objects.html 
+keywords: kubernetes objects, trident objects, persistent volume claim, storage class, backend, snapshot 
+summary: Kubernetes與Trident、Trident與Storage、Kubernetes與儲存設備之間有幾個資源物件、分別是它們之間的關係。其中有些物件是透過Kubernetes進行管理、其他物件則是透過Trident進行管理。 
+---
+= Kubernetes和Trident物件
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+您可以透過讀取和寫入資源物件、使用REST API與Kubernetes和Trident互動。Kubernetes與Trident、Trident與Storage、Kubernetes與儲存設備之間有幾個資源物件、分別是它們之間的關係。其中有些物件是透過Kubernetes進行管理、其他物件則是透過Trident進行管理。
+
+
+
+== 物件如何彼此互動？
+
+瞭解物件、物件的適用範圍及其互動方式、最簡單的方法可能是遵循Kubernetes使用者的單一儲存要求：
+
+. 使用者會建立一個「PeristentVolume Claim」、要求系統管理員先前設定的Kubernetes「torageClass」中的特定大小的新「PersistentVolume」。
+. Kubernetes「torageClass」可將Trident識別為其資源配置程式、並包含可告知Trident如何為所要求的類別資源配置Volume的參數。
+. Trident查看自己的「儲存類」、其名稱與用來為類別配置磁碟區的「後端」和「儲存類」相符。
+. Trident會在相符的後端上配置儲存設備、並建立兩個物件：Kubernetes的「PeristentVolume」、告訴Kubernetes如何尋找、掛載及處理Volume、以及Trident中保留「PeristentVolume」與實際儲存設備之間關係的Volume。
+. Kubernetes將「PeristentVolume Claim」連結到新的「PeristentVolume」。在執行的任何主機上、包含PeristentVolume的「PeristentVolume Claim」掛載的Pod。
+. 使用者使用指向Trident的「Volume SnapshotClass」建立現有的永久虛擬磁碟的「Volume Snapshot」。
+. Trident會識別與該PVc相關聯的磁碟區、並在其後端建立磁碟區快照。它也會建立「Volume SnapshotContent」、指示Kubernetes如何識別快照。
+. 使用者可以使用「Volume Snapshot」作為來源來建立「PeristentVolume Claim」。
+. Trident會識別所需的快照、並執行建立「PeristentVolume」和「Volume」所需的相同步驟。
+
+
+
+TIP: 如需進一步瞭解Kubernetes物件、我們強烈建議您閱讀 https://kubernetes.io/docs/concepts/storage/persistent-volumes/["持續磁碟區"^] Kubernetes文件的一節。
+
+
+
+== Kubernetes PeristentVolume Claim物件
+
+Kubernetes「PeristentVolume Claim」物件是Kubernetes叢集使用者所提出的儲存要求。
+
+除了標準規格之外、Trident還可讓使用者指定下列Volume專屬附註、以覆寫您在後端組態中設定的預設值：
+
+[cols=",,"]
+|===
+| 註釋 | Volume選項 | 支援的驅動程式 
+
+
+| trident.netapp.io/fileSystem | 檔案系統 | ONTAP-SAN、solidfire-san、Eseries -iSCSI、ONTAP-san經濟型 
+
+
+| trident.netapp.io/cloneFromPVC | cloneSourceVolume | ONTAP-NAS、ONTAP-SAN、solidfire-san、azure-NetApp-Files、GCP-CVS、 ONTAP-san經濟型 
+
+
+| trident.netapp.io/splitOnClone | 分岔OnClone | ONTAP-NAS、ONTAP-SAN 
+
+
+| trident.netapp.io/protocol | 傳輸協定 | 任何 
+
+
+| trident.netapp.io/exportPolicy | 匯出原則 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS- Flexgroup 
+
+
+| trident.netapp.io/snapshotPolicy | Snapshot原則 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN 
+
+
+| trident.netapp.io/snapshotReserve | Snapshot保留區 | ONTAP-NAS、ONTAP-NAs-flexgroup、ONTAP-SAN、GCP-CVS 
+
+
+| trident.netapp.io/snapshotDirectory | Snapshot目錄 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS- Flexgroup 
+
+
+| trident.netapp.io/unixPermissions | unix權限 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS- Flexgroup 
+
+
+| trident.netapp.io/blockSize | 區塊大小 | solidfire-san 
+|===
+如果建立的PV具有「刪除」回收原則、則當PV釋出時（亦即使用者刪除PVc時）、Trident會同時刪除PV和備用Volume。如果刪除動作失敗、Trident會將PV標示為這樣、並定期重試該作業、直到成功或手動刪除PV為止。如果PV使用「+Retain +」原則、Trident會忽略它、並假設系統管理員會從Kubernetes和後端進行清理、以便在移除之前備份或檢查磁碟區。請注意、刪除PV並不會導致Trident刪除背板Volume。您應該使用REST API（「tridentctl」）將其移除。
+
+Trident支援使用csi規格建立Volume Snapshot：您可以建立Volume Snapshot、並將其作為資料來源來複製現有的PVCS。如此一來、PV的時間點複本就能以快照形式呈現給Kubernetes。快照可用來建立新的PV。請參閱「+隨需磁碟區快照+」、瞭解這項功能的運作方式。
+
+Trident也提供「cloneFromPVc」和「shplitOnClone」註釋、以建立複本。您可以使用這些附註來複製一個PVC,而不需要使用csi實作（在Kubernetes 1.13及更早版本上）或Kubernetes版本不支援beta Volume Snapshot（Kubernetes 1.16及更早版本）。請記住、Trident 19.10支援從PVc複製的csi工作流程。
+
+
+NOTE: 您可以將「cloneFromPVc」和「shplitOnClone」註解搭配「csi Trident」以及傳統的非csi前端使用。
+
+以下是一個範例：如果使用者已經有一個名為「mysql"的PVC,則使用者可以使用「trident.netapp.io/cloneFromPVC: mySQL」之類的註解來建立一個名為「mysqlclone」的新PVC.使用此註釋集、Trident會複製對應於mySQL PVc的磁碟區、而非從頭開始配置磁碟區。
+
+請考量以下幾點：
+
+* 我們建議您複製閒置的Volume。
+* 一個PVc及其複本應位於相同的Kubernetes命名空間中、且具有相同的儲存類別。
+* 有了「ONTAP-NAS」和「ONTAP-SAN」驅動程式、可能需要將「trident.netapp.io/splitOnClone`」標註與「trident.netapp.io/cloneFromPVC`」一起設定。Trident將trident.netapp.io/splitOnClone`設為「true」、將複製的磁碟區從父磁碟區分割出來、因此將複製的磁碟區的生命週期與其父磁碟區完全分離、而犧牲部分儲存效率。如果不將「trident.netapp.io/splitOnClone`」設定為「假」、則會減少後端的空間使用量、而犧牲父磁碟區與複製磁碟區之間的相依性、使父磁碟區無法刪除、除非先刪除複本。分割實體複製是合理的做法、是將空的資料庫磁碟區複製到磁碟區及其實體複製環境、以大幅分散差異、而非ONTAP 受益於由NetApp提供的儲存效率。
+
+
+「shample-input」目錄包含可與Trident搭配使用的PVc定義範例。請參閱Trident Volume物件、以取得與Trident Volume相關的參數和設定完整說明。
+
+
+
+== Kubernetes PersistentVolume物件
+
+Kubernetes「PersistentVolume」物件代表Kubernetes叢集可用的儲存設備。它的生命週期與使用它的Pod無關。
+
+
+NOTE: Trident會建立「PeristentVolume」物件、並根據其所配置的磁碟區、自動在Kubernetes叢集上登錄。您不需要自行管理。
+
+當您建立參照Trident型「TorageClass」的PVc時、Trident會使用對應的儲存類別來配置新的Volume、並針對該Volume登錄新的PV。在設定已配置的Volume和對應的PV時、Trident遵循下列規則：
+
+* Trident會產生Kubernetes的PV名稱、以及用來配置儲存設備的內部名稱。在這兩種情況下、都是確保名稱在其範圍內是唯一的。
+* 磁碟區的大小會盡可能接近在室早中所要求的大小、不過視平台而定、磁碟區可能會四捨五入至最接近的可分配數量。
+
+
+
+
+== Kubernetes StorageClass物件
+
+Kubernetes的「torageClass」物件是以名稱在「PeristentVolume Claims」中指定、以一組內容來配置儲存設備。儲存類別本身會識別要使用的資源配置程式、並根據資源配置程式所瞭解的方式來定義該組內容。
+
+這是需要由系統管理員建立及管理的兩個基本物件之一。另一個是Trident後端物件。
+
+使用Trident的Kubernetes「torageClass」物件看起來像這樣：
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1beta1
+kind: StorageClass
+metadata:
+  name: <Name>
+provisioner: csi.trident.netapp.io
+mountOptions: <Mount Options>
+parameters:
+  <Trident Parameters>
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
+----
+這些參數是Trident專屬的、可告訴Trident如何為類別配置Volume。
+
+儲存類別參數包括：
+
+[cols=",,,"]
+|===
+| 屬性 | 類型 | 必要 | 說明 
+
+
+| 屬性 | map[stric]字串 | 否 | 請參閱以下「屬性」一節 
+
+
+| storagePools | map[stringList | 否 | 將後端名稱對應至中的儲存資源池清單 
+
+
+| 其他StoragePools | map[stringList | 否 | 將後端名稱對應至中的儲存資源池清單 
+
+
+| 排除StoragePools | map[stringList | 否 | 將後端名稱對應至中的儲存資源池清單 
+|===
+儲存屬性及其可能值可分類為儲存資源池選擇屬性和Kubernetes屬性。
+
+
+
+=== 儲存資源池選擇屬性
+
+這些參數決定應使用哪些Trident託管儲存資源池來配置特定類型的磁碟區。
+
+[cols=",,,,,"]
+|===
+| 屬性 | 類型 | 價值 | 優惠 | 申請 | 支援者 
+
+
+| 媒體1^ | 字串 | HDD、混合式、SSD | 資源池包含此類型的媒體、混合式表示兩者 | 指定的媒體類型 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-san 
+
+
+| 資源配置類型 | 字串 | 纖薄、厚實 | Pool支援此資源配置方法 | 指定的資源配置方法 | 厚：全ONTAP 系列支援iSCSI；薄型：全ONTAP 系列支援整合式SAN 
+
+
+| 後端類型 | 字串  a| 
+ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-san、 Eseries - iSCSI、GCP-CVS、azure-NetApp-Files、ONTAP-san經濟型
+| 集區屬於此類型的後端 | 指定後端 | 所有驅動程式 
+
+
+| 快照 | 布爾 | 對、錯 | 集區支援具有快照的磁碟區 | 已啟用快照的Volume | ONTAP-NAS、ONTAP-SAN、Solidfire-SAN、GCP-CVS 
+
+
+| 複製 | 布爾 | 對、錯 | 資源池支援複製磁碟區 | 已啟用複本的Volume | ONTAP-NAS、ONTAP-SAN、Solidfire-SAN、GCP-CVS 
+
+
+| 加密 | 布爾 | 對、錯 | 資源池支援加密磁碟區 | 已啟用加密的Volume | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS- FlexGroups、ONTAP-SAN 
+
+
+| IOPS | 內部 | 正整數 | 集區能夠保證此範圍內的IOPS | Volume保證這些IOPS | solidfire-san 
+|===
+^1^：ONTAP Select 不受支援
+
+在大多數情況下、所要求的值會直接影響資源配置、例如、要求完整資源配置會導致資源配置較為密集的Volume。不過、元素儲存資源池會使用其提供的IOPS下限和上限來設定QoS值、而非所要求的值。在此情況下、要求的值僅用於選取儲存資源池。
+
+理想情況下、您可以單獨使用「屬性」來建構儲存設備的品質、以滿足特定類別的需求。Trident會自動探索並選取符合您指定「屬性」的_all_儲存集區。
+
+如果您發現自己無法使用「屬性」來自動選取適合某個類別的資源池、您可以使用「儲存池」和「其他儲存池」參數來進一步精簡資源池、甚至選取特定的資源池集區。
+
+您可以使用「儲存池」參數、進一步限制符合任何指定「屬性」的集區集區集區。換句話說、Trident會使用由「屬性」和「儲存庫」參數所識別的資源池交會來進行資源配置。您可以單獨使用參數、也可以同時使用兩者。
+
+您可以使用「addionalStoragePools」參數來擴充Trident用來資源配置的資源池集區集區集區、而不論「attributes」和「scoragePools」參數所選取的任何資源池為何。
+
+您可以使用「排除StoragePools」參數來篩選Trident用於資源配置的資源池集區集區。使用此參數會移除任何相符的集區。
+
+在「儲存池」和「其他儲存池」參數中、每個項目的格式均為「<backender>:<storagePoollist>'」、其中「<storagePoollist>'」是以逗號分隔的儲存池清單、用於指定的後端。例如、「addionalStoragePools」的值可能會像是「ontapnas_192.168.1.100:solidgr1、aggr2、aggrfire、192.168.1.101：Bronze」。這些清單接受後端值和清單值的regex值。您可以使用「tridentctl Get backend」來取得後端及其資源池的清單。
+
+
+
+=== Kubernetes屬性
+
+這些屬性在動態資源配置期間、不會影響Trident選擇儲存資源池/後端。相反地、這些屬性只會提供Kubernetes持續磁碟區所支援的參數。工作節點負責檔案系統建立作業、可能需要檔案系統公用程式、例如xfsprogs。
+
+[cols=",,,,,"]
+|===
+| 屬性 | 類型 | 價值 | 說明 | 相關驅動因素 | Kubernetes版本 
+
+
+| FSType | 字串 | ext4、ext3、xfs等 | 區塊磁碟區的檔案系統類型 | solidfire-san、ontap、nap、nap、nas經濟、ontap、nas、flexgroup、ontap、san、 ONTAP-san經濟型、E系列-iSCSI | 全部 
+
+
+| owVolume擴充 | 布林值 | 對、錯 | 啟用或停用對增加PVc大小的支援 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、ONTAP-san經濟型、 solidfire-san、gcp-CVS、azure-netapp檔案 | 1.11+ 
+
+
+| Volume BindingMode | 字串 | 立即、WaitForFirst消費者 | 選擇何時進行磁碟區繫結和動態資源配置 | 全部 | 1.17以上 
+|===
+[TIP]
+====
+* 「FSType」參數用於控制SAN LUN所需的檔案系統類型。此外、Kubernetes也會在儲存類別中使用「FSType」表示檔案系統存在。只有在設定「FSType」時、才能使用Pod的「fsGroup」安全內容來控制Volume擁有權。請參閱 link:https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["Kubernetes：設定Pod或Container的安全內容"^] 如需使用「fsGroup」內容設定磁碟區所有權的總覽。Kubernetes只會在下列情況下套用「fsGroup」值：
++
+** 「FSType」是在儲存類別中設定的。
+** PVc存取模式為rwo。
+
+
++
+對於NFS儲存驅動程式、檔案系統已存在做為NFS匯出的一部分。為了使用「fsGroup」、儲存類別仍需指定「FSType」。您可以將其設定為「NFS」或任何非null值。
+
+* 請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/vol-expansion.html["展開Volume"^] 如需磁碟區擴充的詳細資料、
+* Trident安裝程式套裝組合提供多個範例儲存類別定義、可與Trident搭配使用、位於「sham-INPUT /儲存設備類別-*。yaml」。刪除Kubernetes儲存類別也會刪除對應的Trident儲存類別。
+
+
+====
+
+
+== Kubernetes Volume SnapshotClass物件
+
+Kubernetes的「Volume SnapshotClass」物件類似於「儲存類別」。它們有助於定義多種儲存類別、並由Volume Snapshot參考、以將快照與所需的Snapshot類別建立關聯。每個Volume Snapshot都與單一Volume Snapshot類別相關聯。
+
+系統管理員應定義「Volume SnapshotClass」、以建立快照。建立具有下列定義的Volume Snapshot類別：
+
+[source, yaml]
+----
+apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshotClass
+metadata:
+  name: csi-snapclass
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+----
+對Kubernetes而言、「driver」是指Trident處理「Cig-snapClass」類別的Volume快照要求。「刪除原則」指定必須刪除快照時要採取的動作。當「刪除原則」設定為「刪除」時、刪除快照時、就會移除儲存叢集上的Volume Snapshot物件和基礎Snapshot。或者、將其設為「保留」、表示保留「Volume SnapshotContent」和實體快照。
+
+
+
+== Kubernetes Volume Snapshot物件
+
+Kubernetes「Volume Snapshot」物件是建立磁碟區快照的要求。就像使用者針對磁碟區所提出的要求一樣、磁碟區快照是使用者建立現有虛擬磁碟快照的要求。
+
+當磁碟區快照要求出現時、Trident會自動管理後端磁碟區的快照建立、並建立獨特的「Volume SnapshotContent」物件來公開快照。您可以從現有的PVCS建立快照、並在建立新的PVCS時、將快照作為DataSource使用。
+
+
+NOTE: Volume Snapshot的生命週期與來源PVCs無關：即使刪除來源PVCs、快照仍會持續存在。刪除具有相關快照的永久虛擬磁碟時、Trident會將此永久虛擬磁碟的備份磁碟區標示為*刪除*狀態、但不會將其完全移除。刪除所有相關的快照時、即會移除該磁碟區。
+
+
+
+== Kubernetes Volume SnapshotContent物件
+
+Kubernetes「Volume SnapshotContent」物件代表從已配置的磁碟區擷取的快照。它類似於「PersistentVolume」、代表儲存叢集上已配置的快照。與「PeristentVolume Claim」和「PeristentVolume」物件類似、建立快照時、「Volume SnapshotContent」物件會維持一對一的對應、以對應「Volume Snapshot」物件、該物件已要求建立快照。
+
+
+NOTE: Trident會建立「Volume SnapshotContent」物件、並根據其所配置的磁碟區、自動在Kubernetes叢集上登錄。您不需要自行管理。
+
+「Volume SnapshotContent」物件包含可唯一識別快照的詳細資料、例如「快照資料」。此「快照處理」是PV名稱與「Volume SnapshotContent」物件名稱的獨特組合。
+
+當快照要求出現時、Trident會在後端建立快照。建立快照之後、Trident會設定「Volume SnapshotContent」物件、並將快照公開給Kubernetes API。
+
+
+
+== Kubernetes Custom資源 定義物件
+
+Kubernetes自訂資源是Kubernetes API中由系統管理員定義的端點、用於將類似物件分組。Kubernetes支援建立自訂資源來儲存物件集合。您可以執行「kubecl Get crds」來取得這些資源定義。
+
+自訂資源定義（CRD）及其相關的物件中繼資料會由Kubernetes儲存在其中繼資料儲存區中。如此一來、您就不需要另外建立Trident的儲存區。
+
+從19.07版開始、Trident使用許多「CustomResourceDefinition」物件來保留Trident物件的身分、例如Trident後端、Trident儲存類別和Trident Volume。這些物件由Trident管理。此外、「csi Volume Snapshot」架構也引進了定義Volume快照所需的部分CRD。
+
+CRD是Kubernetes建構。上述資源的物件是由Trident所建立。例如、當使用「tridentctl」建立後端時、Kubernetes會建立一個對應的「tridentbackend」CRD物件供其使用。
+
+以下是Trident客戶需求日的幾點重點：
+
+* 安裝Trident時、會建立一組客戶需求日、並可像使用任何其他資源類型一樣使用。
+* 從舊版Trident（使用「etcd」來維護狀態）升級時、Trident安裝程式會從「etcd」金鑰值資料儲存區移轉資料、並建立對應的CRD物件。
+* 使用「tridentctl uninstall」命令解除安裝Trident時、會刪除Trident Pod、但不會清除建立的CRD。請參閱 link:../trident-managing-k8s/uninstall-trident.html["解除安裝Trident"^] 瞭解如何徹底移除Trident並從頭重新設定。
+
+
+
+
+== Trident StorageClass物件
+
+Trident會為Kubernetes「torageClass」物件建立相符的儲存類別、並在其資源配置程式欄位中指定「csi.trident.netapp.io`/`netapp.io/trident`」。儲存類別名稱與Kubernetes「torageClass」物件的名稱相符。
+
+
+NOTE: 使用Kubernetes、當Kubernetes「torageClass」以Trident做為資源配置程式登錄時、就會自動建立這些物件。
+
+儲存類別包含一組磁碟區需求。Trident會將這些需求與每個儲存資源池中的屬性相符；如果符合、則該儲存資源池是使用該儲存類別來配置磁碟區的有效目標。
+
+您可以使用REST API建立儲存類別組態、以直接定義儲存類別。不過、在Kubernetes部署中、我們預期在登錄新的Kubernetes「torageClass」物件時、會建立這些物件。
+
+
+
+== Trident後端物件
+
+後端代表儲存供應商、其中Trident會配置磁碟區；單一Trident執行個體可管理任何數量的後端。
+
+
+NOTE: 這是您自己建立和管理的兩種物件類型之一。另一個是Kubernetes的「torageClass」物件。
+
+如需如何建構這些物件的詳細資訊、請參閱後端組態。
+
+
+
+== Trident StoragePool物件
+
+儲存資源池代表可在每個後端上進行資源配置的不同位置。就支援而言ONTAP 、這些項目對應於SVM中的集合體。對於NetApp HCI / SolidFire、這些服務會對應到系統管理員指定的QoS頻段。就架構而言、這些項目對應於雲端供應商所在的地區。Cloud Volumes Service每個儲存資源池都有一組獨特的儲存屬性、可定義其效能特性和資料保護特性。
+
+與此處的其他物件不同、儲存資源池候選項目一律會自動探索及管理。
+
+
+
+== Trident Volume物件
+
+Volume是資源配置的基本單位、包含NFS共用和iSCSI LUN等後端端點。在Kubernetes中、這些內容直接對應到「PersistentVolumes」。建立磁碟區時、請確定它有一個儲存類別、決定該磁碟區可以配置的位置及大小。
+
+
+NOTE: 在Kubernetes中、會自動管理這些物件。您可以檢視這些資源、以查看資源配置的Trident內容。
+
+
+TIP: 刪除具有相關快照的PV時、對應的Trident Volume會更新為*刪除*狀態。若要刪除Trident磁碟區、您應該移除該磁碟區的快照。
+
+Volume組態會定義已配置磁碟區應具備的內容。
+
+[cols=",,,"]
+|===
+| 屬性 | 類型 | 必要 | 說明 
+
+
+| 版本 | 字串 | 否 | Trident API版本（「1」） 
+
+
+| 名稱 | 字串 | 是的 | 要建立的Volume名稱 
+
+
+| storageClass | 字串 | 是的 | 配置Volume時使用的儲存類別 
+
+
+| 尺寸 | 字串 | 是的 | 要配置的磁碟區大小（以位元組為單位） 
+
+
+| 傳輸協定 | 字串 | 否 | 要使用的傳輸協定類型；「檔案」或「區塊」 
+
+
+| 內部名稱 | 字串 | 否 | 儲存系統上的物件名稱；由Trident產生 
+
+
+| cloneSourceVolume | 字串 | 否 | Sname（NAS、SAN）& S--*：要複製的磁碟區名稱ONTAP SolidFire 
+
+
+| 分岔OnClone | 字串 | 否 | 例（NAS、SAN）：從父實體分割複本ONTAP 
+
+
+| Snapshot原則 | 字串 | 否 | S--*：快照原則ONTAP 
+
+
+| Snapshot保留區 | 字串 | 否 | Sing-*：保留給快照的磁碟區百分比ONTAP 
+
+
+| 匯出原則 | 字串 | 否 | ONTAP-NAS*：要使用的匯出原則 
+
+
+| Snapshot目錄 | 布爾 | 否 | ONTAP-NAS*：快照目錄是否可見 
+
+
+| unix權限 | 字串 | 否 | ONTAP-NAS*：初始UNIX權限 
+
+
+| 區塊大小 | 字串 | 否 | S--*：區塊/區段大小SolidFire 
+
+
+| 檔案系統 | 字串 | 否 | 檔案系統類型 
+|===
+Trident在建立磁碟區時會產生「內部名稱」。這包括兩個步驟。首先、它會將儲存前置詞（預設的「Trident」或後端組態中的前置詞）預先加上磁碟區名稱、以「<prefix>-<volume名稱>」格式命名。然後、它會繼續清理名稱、取代後端不允許的字元。對於後端、它會以底線取代連字號（因此內部名稱會變成「<prefix>_<volume名稱>」）ONTAP 。對於元素後端、它會以連字號取代底線。
+
+您可以使用Volume組態、使用REST API直接配置磁碟區、但在Kubernetes部署中、我們預期大多數使用者都會使用標準的Kubernetes「PeristentVolume Claim」方法。Trident會自動建立此Volume物件、做為資源配置程序的一部分。
+
+
+
+== Trident Snapshot物件
+
+快照是磁碟區的時間點複本、可用來配置新的磁碟區或還原狀態。在Kubernetes中、這些物件會直接對應到「Volume SnapshotContent」物件。每個快照都與一個Volume相關聯、該磁碟區是快照資料的來源。
+
+每個「napshot」物件都包含下列內容：
+
+[cols=",,,"]
+|===
+| 屬性 | 類型 | 必要 | 說明 
+
+
+| 版本 | 字串  a| 
+是的
+| Trident API版本（「1」） 
+
+
+| 名稱 | 字串  a| 
+是的
+| Trident Snapshot物件的名稱 
+
+
+| 內部名稱 | 字串  a| 
+是的
+| 儲存系統上Trident Snapshot物件的名稱 
+
+
+| Volume名稱 | 字串  a| 
+是的
+| 為其建立快照的持續Volume名稱 
+
+
+| Volume內部名稱 | 字串  a| 
+是的
+| 儲存系統上相關Trident Volume物件的名稱 
+|===
+
+NOTE: 在Kubernetes中、會自動管理這些物件。您可以檢視這些資源、以查看資源配置的Trident內容。
+
+當Kubernetes「Volume Snapshot」物件要求建立時、Trident會在備份儲存系統上建立Snapshot物件。此快照物件的「內部名稱」是將前置詞「sfapshot-」與「Volume Snapshot」物件的「UID」（例如、「sfapshot-e8d8a0ca-9826-11e9-9807-525400f3f660」）結合在一起產生的。「Volume Name」（Volume名稱）和「Volume InternalName」（磁碟區內部名稱）會透過取得備用磁碟區的詳細資料來填入資料。

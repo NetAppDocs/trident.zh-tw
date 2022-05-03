@@ -1,0 +1,322 @@
+---
+sidebar: sidebar 
+permalink: trident-use/anf.html 
+keywords: trident backend, azure netapp files 
+summary: 瞭Azure NetApp Files 解如何使用所提供的範例組態、將功能驗證設定為Trident安裝的後端。 
+---
+= 設定Azure NetApp Files 一個靜態後端
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+瞭Azure NetApp Files 解如何使用提供的範例組態、將靜態（anf）設定為Astra Trident安裝的後端。
+
+
+NOTE: 該支援服務不支援低於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、Astra Trident會自動建立100-GB磁碟區。
+
+若要設定及使用 https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] 後端、您需要下列項目：
+
+* Azure訂閱提供的「SubscriptionID」Azure NetApp Files （含功能不支援的功能）。
+* 來自於的「TenantId」、「clientID」和「clientSecret」 https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal["應用程式註冊"^] 在Azure Active Directory中、具備Azure NetApp Files 充分的權限執行此功能。應用程式登錄應使用Azure預先定義的「擁有者」或「貢獻者」角色。
++
+
+TIP: 若要深入瞭解Azure內建角色、請參閱 https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Azure文件"^]。
+
+* Azure的「位置」至少包含一個 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["委派的子網路"^]。從Trident 22.01起、「位置」參數是後端組態檔最上層的必填欄位。會忽略虛擬資源池中指定的位置值。
+* 如果Azure NetApp Files 您是第一次使用或是在新的位置使用、則需要進行一些初始組態。請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["快速入門指南"^]。
+
+
+Trident會根據後端組態（子網路、虛擬網路、服務層級和位置）、在所要求位置可用的容量集區上建立ANF磁碟區、並符合所要求的服務層級和子網路。
+
+
+NOTE: 附註：Astra Trident不支援手動QoS容量資源池。
+
+
+
+== 後端組態選項
+
+如需後端組態選項、請參閱下表：
+
+[cols="3"]
+|===
+| 參數 | 說明 | 預設 
+
+
+| 「分度」 |  | 永遠為1 
+
+
+| 「torageDriverName」 | 儲存驅動程式名稱 | 「Azure - NetApp-Files」 
+
+
+| 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+隨機字元 
+
+
+| 《訂閱ID》 | Azure訂閱的訂閱ID |  
+
+
+| 「TenantId」 | 應用程式註冊的租戶ID |  
+
+
+| "clientID" | 應用程式註冊的用戶端ID |  
+
+
+| 「客戶機密」 | 應用程式註冊的用戶端機密 |  
+
+
+| 《服務層級》 | 其中一種是「標準」、「高級」或「超高」 | ""（隨機） 
+
+
+| 位置 | 要建立新磁碟區的Azure位置名稱 |  
+
+
+| 《服務層級》 | 其中一種是「標準」、「高級」或「超高」 | ""（隨機） 
+
+
+| "來源群組" | 用於篩選已探索資源的資源群組清單 | 「[]」（無篩選器） 
+
+
+| 《netappAccounts》 | 篩選探索資源的NetApp帳戶清單 | 「[]」（無篩選器） 
+
+
+| 《容量Pools》 | 用於篩選已探索資源的容量集區清單 | 「[]」（無篩選器、隨機） 
+
+
+| 「虛擬化網路」 | 具有委派子網路的虛擬網路名稱 | " 
+
+
+| 《Subnet》 | 委派給「icrosoft.Netapp/volumes`」的子網路名稱 | " 
+
+
+| 「nfsMountOptions」 | 精細控制NFS掛載選項。 | "nfsves=3" 
+
+
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗 | ""（預設不強制執行） 
+
+
+| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：「\{"API"：假、「方法」：真、「探索」：true｝。除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用此功能。 | null 
+|===
+
+WARNING: 如果嘗試建立永久虛擬基礎架構時發生「找不到容量資源池」錯誤、您的應用程式登錄可能沒有相關的必要權限和資源（子網路、虛擬網路、容量資源池）。Astra Trident會在啟用偵錯功能時、記錄在建立後端時所探索到的Azure資源。請務必檢查是否使用適當的角色。
+
+
+NOTE: 如果您想使用NFS 4.1版掛載磁碟區、可以在以逗號分隔的掛載選項清單中加入「nfsves=4'」、以選擇NFS v4.1。儲存類別中設定的任何掛載選項、都會覆寫在後端組態檔中設定的掛載選項。
+
+可以使用短名稱或全限定名稱來指定"sourceGroups"、"netappAccounts"、"capacityPools、"virtualNetwork（虛擬化網路）和"shubnet"的值。簡短名稱可能會比對同名的多個資源、因此在大多數情況下、建議使用完整名稱。「資源群組」、「netappAccounts」和「capacityPools」值是篩選器、可將探索到的資源集限制在此儲存後端可用的資源集、並可任意組合指定。完整名稱格式如下：
+
+[cols="2"]
+|===
+| 類型 | 格式 
+
+
+| 資源群組 | <資源群組> 
+
+
+| NetApp帳戶 | 資源群組//<NetApp帳戶> 
+
+
+| 容量資源池 | 資源群組//<NetApp帳戶>/<容量資源池> 
+
+
+| 虛擬網路 | 資源群組//<虛擬網路> 
+
+
+| 子網路 | 資源群組//<虛擬網路>/<子網路> 
+|===
+您可以在組態檔的特殊區段中指定下列選項、以控制預設的每個Volume佈建方式。請參閱下列組態範例。
+
+[cols=",,"]
+|===
+| 參數 | 說明 | 預設 
+
+
+| 「匯出規則」 | 新磁碟區的匯出規則 | 「0.00.0.0/0」 
+
+
+| 「napshotDir | 控制.snapshot目錄的可見度 | "假" 
+
+
+| 《大小》 | 新磁碟區的預設大小 | 100公克 
+
+
+| 「unixPermissions」 | 新磁碟區的UNIX權限（4個八進位數字） | ""（預覽功能、訂閱時需要白名單） 
+|===
+「匯出規則」值必須是以逗號分隔的清單、以CIDR表示法列出所有的IPv4位址或IPv4子網路組合。
+
+
+NOTE: 對於在ANF後端上建立的所有磁碟區、Astra Trident會將儲存資源池上的所有標籤複製到資源配置時的儲存磁碟區。儲存管理員可以定義每個儲存資源池的標籤、並將儲存資源池中建立的所有磁碟區分組。這是根據後端組態中提供的一組可自訂標籤、方便區分磁碟區的方法。
+
+
+
+== 範例1：最低組態
+
+這是絕對最低的後端組態。使用此組態、Astra Trident會在設定的位置探索所有NetApp帳戶、容量集區和委派給ANF的子網路、並隨機將新磁碟區放在其中一個集區和子網路上。
+
+當您剛開始使用ANF並嘗試各種功能時、這種組態是理想的選擇、但實際上您想要為您所配置的磁碟區提供額外的範圍。
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "azure-netapp-files",
+    "subscriptionID": "9f87c765-4774-fake-ae98-a721add45451",
+    "tenantID": "68e4f836-edc1-fake-bff9-b2d865ee56cf",
+    "clientID": "dd043f63-bf8e-fake-8076-8de91e5713aa",
+    "clientSecret": "SECRET",
+    "location": "eastus"
+}
+----
+
+
+== 範例2：使用容量集區篩選器的特定服務層級組態
+
+此後端組態可將磁碟區置於Azure的「東向」位置、位於「超」容量資源池中。Astra Trident會自動探索該位置委派給ANF的所有子網路、並隨機在其中一個磁碟區上放置新磁碟區。
+
+[listing]
+----
+    {
+        "version": 1,
+        "storageDriverName": "azure-netapp-files",
+        "subscriptionID": "9f87c765-4774-fake-ae98-a721add45451",
+        "tenantID": "68e4f836-edc1-fake-bff9-b2d865ee56cf",
+        "clientID": "dd043f63-bf8e-fake-8076-8de91e5713aa",
+        "clientSecret": "SECRET",
+        "location": "eastus",
+        "serviceLevel": "Ultra",
+        "capacityPools": [
+            "application-group-1/account-1/ultra-1",
+            "application-group-1/account-1/ultra-2"
+],
+    }
+----
+
+
+== 範例3：進階組態
+
+此後端組態可進一步將磁碟區放置範圍縮小至單一子網路、並修改部分Volume資源配置預設值。
+
+[listing]
+----
+    {
+        "version": 1,
+        "storageDriverName": "azure-netapp-files",
+        "subscriptionID": "9f87c765-4774-fake-ae98-a721add45451",
+        "tenantID": "68e4f836-edc1-fake-bff9-b2d865ee56cf",
+        "clientID": "dd043f63-bf8e-fake-8076-8de91e5713aa",
+        "clientSecret": "SECRET",
+        "location": "eastus",
+        "serviceLevel": "Ultra",
+        "capacityPools": [
+            "application-group-1/account-1/ultra-1",
+            "application-group-1/account-1/ultra-2"
+],
+        "virtualNetwork": "my-virtual-network",
+        "subnet": "my-subnet",
+        "nfsMountOptions": "vers=3,proto=tcp,timeo=600",
+        "limitVolumeSize": "500Gi",
+        "defaults": {
+            "exportRule": "10.0.0.0/24,10.0.1.0/24,10.0.2.100",
+            "snapshotDir": "true",
+            "size": "200Gi",
+            "unixPermissions": "0777"
+=======
+        }
+    }
+----
+
+
+== 範例4：虛擬儲存池組態
+
+此後端組態可在單一檔案中定義多個儲存集區。當您有多個容量集區支援不同的服務層級、而且想要在Kubernetes中建立代表這些層級的儲存類別時、這很有用。
+
+[listing]
+----
+    {
+        "version": 1,
+        "storageDriverName": "azure-netapp-files",
+        "subscriptionID": "9f87c765-4774-fake-ae98-a721add45451",
+        "tenantID": "68e4f836-edc1-fake-bff9-b2d865ee56cf",
+        "clientID": "dd043f63-bf8e-fake-8076-8de91e5713aa",
+        "clientSecret": "SECRET",
+        "location": "eastus",
+        "resourceGroups": ["application-group-1"],
+        "nfsMountOptions": "vers=3,proto=tcp,timeo=600",
+        "labels": {
+            "cloud": "azure"
+        },
+        "location": "eastus",
+
+        "storage": [
+            {
+                "labels": {
+                    "performance": "gold"
+                },
+                "serviceLevel": "Ultra",
+                "capacityPools": ["ultra-1", "ultra-2"]
+            },
+            {
+                "labels": {
+                    "performance": "silver"
+                },
+                "serviceLevel": "Premium",
+                "capacityPools": ["premium-1"]
+            },
+            {
+                "labels": {
+                    "performance": "bronze"
+                },
+                "serviceLevel": "Standard",
+                "capacityPools": ["standard-1", "standard-2"]
+            }
+        ]
+    }
+----
+下列「儲存類別」定義是指上述的儲存資源池。您可以使用「parameters.selector`」欄位、為每個「儲存類別」指定用於裝載磁碟區的虛擬資源池。該磁碟區會在所選的資源池中定義各個層面。
+
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gold
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "performance=gold"
+allowVolumeExpansion: true
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: silver
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "performance=silver"
+allowVolumeExpansion: true
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: bronze
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "performance=bronze"
+allowVolumeExpansion: true
+----
+
+
+== 接下來呢？
+
+建立後端組態檔之後、請執行下列命令：
+
+[listing]
+----
+tridentctl create backend -f <backend-file>
+----
+如果後端建立失敗、表示後端組態有問題。您可以執行下列命令來檢視記錄、以判斷原因：
+
+[listing]
+----
+tridentctl logs
+----
+識別並修正組態檔的問題之後、您可以再次執行create命令。

@@ -1,0 +1,261 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/requirements.html 
+keywords: trident requirements, supported front ends, supported backends, kubernetes cluster, cluster requirements, version requirements, supported versions, host configuration, host os, system configuration, host operating system, fsx 
+summary: 請先檢閱支援的前端、後端及主機組態、開始著手。 
+---
+= 需求
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+請先檢閱支援的前端、後端及主機組態、開始著手。
+
+
+NOTE: 若要瞭解Astra Trident使用的連接埠、請參閱 link:../trident-reference/trident-ports.html["請按這裡"^]。
+
+
+
+== 支援的前端（協調器）
+
+Astra Trident支援多個容器引擎和協調器、包括：
+
+* Anthos on -Prem（VMware）和Anthos on裸機1.8、1.9、1.10
+* Kubernetes 1.18或更新版本（最新版本：1.23）
+* Mirantis Kubernetes Engine 3.4
+* OpenShift 4.7、4.8、4.9、4.10.
+
+
+這些版本支援Trident運算子：
+
+* Anthos on -Prem（VMware）和Anthos on裸機1.8、1.9、1.10
+* Kubernetes 1.18或更新版本（最新版本：1.23）
+* OpenShift 4.7、4.8、4.9、4.10.
+
+
+
+NOTE: Red Hat OpenShift Container Platform使用者若使用4.6-8以下的任何版本、可能會看到其初始化程式名稱.iSCSI檔案為空白。這是RedHat所識別的錯誤、可透過OpenShift 4.6-8加以修正。請參閱 https://access.redhat.com/errata/RHSA-2020:5259/["錯誤修正公告"^]。NetApp建議您在OpenShift 4.6.8及更新版本上使用Astra Trident。
+
+Astra Trident也能與其他全管理且自我管理的Kubernetes產品搭配使用、包括Google Kubernetes Engine（GKE）、Amazon Elastic Kubernetes Services（EKS）、Azure Kubernetes Service（KS）、Rancher及VMware Tanzu Portfolio。
+
+
+
+== 支援的後端（儲存）
+
+若要使用Astra Trident、您需要下列一或多個支援的後端：
+
+* Amazon FSX for NetApp ONTAP 產品
+* Azure NetApp Files
+* Astra資料儲存區
+* Cloud Volumes ONTAP
+* 適用於 GCP Cloud Volumes Service
+* FAS/AFF/選取9.3或更新版本
+* NetApp All SAN Array ASA （ESAN）
+* NetApp HCI / Element軟體11或更新版本
+
+
+
+
+== 功能需求
+
+下表摘要說明此Astra Trident版本的可用功能及其支援的Kubernetes版本。
+
+[cols="3"]
+|===
+| 功能 | Kubernetes版本 | 需要功能閘道？ 
+
+
+| csi Trident  a| 
+1.17及更新版本
+ a| 
+否
+
+
+
+| Volume Snapshot  a| 
+1.17及更新版本
+ a| 
+否
+
+
+
+| 來自Volume Snapshot的PVc  a| 
+1.17及更新版本
+ a| 
+否
+
+
+
+| iSCSI PV調整大小  a| 
+1.17及更新版本
+ a| 
+否
+
+
+
+| 資訊雙向CHAP ONTAP  a| 
+1.17及更新版本
+ a| 
+否
+
+
+
+| 動態匯出原則  a| 
+1.17及更新版本
+ a| 
+否
+
+
+
+| Trident運算子  a| 
+1.17及更新版本
+ a| 
+否
+
+
+
+| 自動工作者節點準備（試用版）  a| 
+1.17及更新版本
+ a| 
+否
+
+
+
+| csi拓撲  a| 
+1.17及更新版本
+ a| 
+否
+
+|===
+
+
+== 已測試的主機作業系統
+
+依預設、Astra Trident會在容器中執行、因此會在任何Linux工作者上執行。不過、這些員工必須能夠使用標準NFS用戶端或iSCSI啟動器來掛載Astra Trident提供的磁碟區、視您使用的後端而定。
+
+儘管Astra Trident並未正式「支援」特定作業系統、但下列Linux套裝作業系統仍可正常運作：
+
+* 受OpenShift Container Platform支援的RedHat CoreOS（RMCOS）版本
+* RHEL或CentOS 7.4或更新版本
+* Ubuntu 18.04或更新版本
+
+
+「tridentctl」公用程式也可在任何這些Linux版本上執行。
+
+
+
+== 主機組態
+
+視使用中的後端而定、應該在叢集中的所有員工上安裝NFS和/或iSCSI公用程式。請參閱 link:../trident-use/worker-node-prep.html["請按這裡"^] 以取得更多資訊。
+
+
+
+== 儲存系統組態
+
+Astra Trident可能需要對儲存系統進行一些變更、才能使用後端組態。請參閱 link:../trident-use/backends.html["請按這裡"^] 以取得詳細資料。
+
+
+
+== Container映像和對應的Kubernetes版本
+
+對於空拍安裝、下列清單是安裝Astra Trident所需的容器映像參考資料。使用「tridentctl images)」命令來驗證所需的容器映像清單。
+
+[cols="2"]
+|===
+| Kubernetes版本 | Container映像 
+
+
+| v1.17.0版  a| 
+* NetApp/Trident：22.04.0
+* NetApp/Trident自動支援：22.04
+* k8s.gcr.io/sig-storage / csi佈建程式：v2.2.2
+* k8s.gcr.io/sig-storage / csi附加程式：v3.4.0
+* k8s.gcr.io/sig-storage / csi大小調整程式：v1.4.1
+* k8s.gcr.io/sig-storage / csi快照記錄：v3.0.3
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5.0
+* NetApp/Trident營運者：22.04.0（選用）
+
+
+
+
+| v1.18.0  a| 
+* NetApp/Trident：22.04.0
+* NetApp/Trident自動支援：22.04
+* k8s.gcr.io/sig-storage / csi佈建程式：v2.2.2
+* k8s.gcr.io/sig-storage / csi附加程式：v3.4.0
+* k8s.gcr.io/sig-storage / csi大小調整程式：v1.4.1
+* k8s.gcr.io/sig-storage / csi快照記錄：v3.0.3
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5.0
+* NetApp/Trident營運者：22.04.0（選用）
+
+
+
+
+| v1.19.0版  a| 
+* NetApp/Trident：22.04.0
+* NetApp/Trident自動支援：22.04
+* k8s.gcr.io/sig-storage / csi佈建程式：v2.2.2
+* k8s.gcr.io/sig-storage / csi附加程式：v3.4.0
+* k8s.gcr.io/sig-storage / csi大小調整程式：v1.4.1
+* k8s.gcr.io/sig-storage / csi快照記錄：v3.0.3
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5.0
+* NetApp/Trident營運者：22.04.0（選用）
+
+
+
+
+| v1.20.0  a| 
+* NetApp/Trident：22.04.0
+* NetApp/Trident自動支援：22.04
+* k8s.gcr.io/sig-storage / csi佈建程式：v2.2.2
+* k8s.gcr.io/sig-storage / csi附加程式：v3.4.0
+* k8s.gcr.io/sig-storage / csi大小調整程式：v1.4.1
+* k8s.gcr.io/sig-storage / csi快照記錄：v3.0.3
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5.0
+* NetApp/Trident營運者：22.04.0（選用）
+
+
+
+
+| 1.21.0版  a| 
+* NetApp/Trident：22.04.0
+* NetApp/Trident自動支援：22.04
+* k8s.gcr.io/sig-storage / csi佈建程式：v2.2.2
+* k8s.gcr.io/sig-storage / csi附加程式：v3.4.0
+* k8s.gcr.io/sig-storage / csi大小調整程式：v1.4.1
+* k8s.gcr.io/sig-storage / csi快照記錄：v3.0.3
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5.0
+* NetApp/Trident營運者：22.04.0（選用）
+
+
+
+
+| 1.22.0版  a| 
+* NetApp/Trident：22.04.0
+* NetApp/Trident自動支援：22.04
+* k8s.gcr.io/sig-storage / csi佈建程式：v2.2.2
+* k8s.gcr.io/sig-storage / csi附加程式：v3.4.0
+* k8s.gcr.io/sig-storage / csi大小調整程式：v1.4.1
+* k8s.gcr.io/sig-storage / csi快照記錄：v3.0.3
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5.0
+* NetApp/Trident營運者：22.04.0（選用）
+
+
+
+
+| 1.23.0版  a| 
+* NetApp/Trident：22.04.0
+* NetApp/Trident自動支援：22.04
+* k8s.gcr.io/sig-storage / csi佈建程式：v2.2.2
+* k8s.gcr.io/sig-storage / csi附加程式：v3.4.0
+* k8s.gcr.io/sig-storage / csi大小調整程式：v1.4.1
+* k8s.gcr.io/sig-storage / csi快照記錄：v3.0.3
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5.0
+* NetApp/Trident營運者：22.04.0（選用）
+
+
+|===
+
+NOTE: 在Kubernetes版本1.20及更新版本上、只有在「v1」版本提供「volumesnapshots.snapshot.storage」CRD的情況下、才能使用已驗證的「k8s.gcr.io/sig-storage / csi快照：v4.x」映像。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「k8s.gcr.IO/SIG-storage / cscs-snapshotter：v3.x」影像。

@@ -1,0 +1,118 @@
+---
+sidebar: sidebar 
+permalink: trident-use/manage-stor-class.html 
+keywords: storage class, manage storage class, storage classes, kubernetes storage classes 
+summary: 您可以建立儲存類別、刪除儲存類別、以及檢視現有的儲存類別。 
+---
+= 管理儲存類別
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+尋找建立儲存類別、刪除儲存類別及檢視現有儲存類別的相關資訊。
+
+
+
+== 設計儲存類別
+
+請參閱 link:../trident-reference/objects.html["請按這裡"^] 以取得有關儲存類別及其設定方式的詳細資訊。
+
+
+
+== 建立儲存類別
+
+取得儲存類別檔案之後、請執行下列命令：
+
+[listing]
+----
+kubectl create -f <storage-class-file>
+----
+「<storage－class file」（儲存設備類別檔案）應以您的儲存設備類別檔案名稱取代。
+
+
+
+== 刪除儲存類別
+
+若要從Kubernetes刪除儲存類別、請執行下列命令：
+
+[listing]
+----
+kubectl delete storageclass <storage-class>
+----
+「<storage－class>'」應改用您的儲存類別。
+
+透過此儲存類別所建立的任何持續磁碟區都將維持不變、Astra Trident將繼續管理這些磁碟區。
+
+
+NOTE: Astra Trident會對其建立的磁碟區執行空白的「FSType」。對於iSCSI後端、建議在StorageClass中強制執行「參數.FSType」。您應該刪除「esixing StorageClass」、然後使用指定的「參數.FSType」重新建立。
+
+
+
+== 檢視現有的儲存類別
+
+* 若要檢視現有的Kubernetes儲存類別、請執行下列命令：
+
+
+[listing]
+----
+kubectl get storageclass
+----
+* 若要檢視Kubernetes儲存類別詳細資料、請執行下列命令：
+
+
+[listing]
+----
+kubectl get storageclass <storage-class> -o json
+----
+* 若要檢視Astra Trident的同步儲存類別、請執行下列命令：
+
+
+[listing]
+----
+tridentctl get storageclass
+----
+* 若要檢視Astra Trident的同步儲存類別詳細資料、請執行下列命令：
+
+
+[listing]
+----
+tridentctl get storageclass <storage-class> -o json
+----
+
+
+== 設定預設儲存類別
+
+Kubernetes 1.6新增了設定預設儲存類別的功能。如果使用者未在「持續磁碟區宣告」（PVc）中指定一個、則此儲存類別將用於配置「持續磁碟區」。
+
+* 在儲存類別定義中、將「shorageclass.Kubernetes.IO/as-default-Class」註釋設為true、以定義預設儲存類別。根據規格、任何其他值或不存在附註都會解譯為假。
+* 您可以使用下列命令、將現有的儲存類別設定為預設的儲存類別：
+
+
+[listing]
+----
+kubectl patch storageclass <storage-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+----
+* 同樣地、您也可以使用下列命令移除預設儲存類別註釋：
+
+
+[listing]
+----
+kubectl patch storageclass <storage-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+----
+Trident安裝程式套件中也有包含此附註的範例。
+
+
+NOTE: 在任何指定時間、您的叢集中都只應有一個預設儲存類別。Kubernetes在技術上並不妨礙您擁有多個儲存類別、但它的行為方式就如同完全沒有預設的儲存類別一樣。
+
+
+
+== 識別儲存類別的後端
+
+這是您可以用Json回答的問題類型範例、其中的「tridentctl」輸出用於Astra Trident後端物件。這會使用「jq」公用程式、您可能需要先安裝。
+
+[listing]
+----
+tridentctl get storageclass -o json | jq  '[.items[] | {storageClass: .Config.name, backends: [.storage]|unique}]'
+----

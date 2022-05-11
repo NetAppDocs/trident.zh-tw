@@ -169,7 +169,45 @@
   
   <!-- Start Page Toolbar -->
   
-  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/trident/issues/new?body=Page%3A%20[使用快照](https://docs.netapp.com/zh-tw/trident/trident-use/vol-snapshots.html)" class="page-nav-contribute-link" role="button"><img src="/zh-tw/trident/images/discuss-sm.svg" class="github-icon" />要求變更文件</a><a target="_blank" href="https://github.com/NetAppDocs/trident/blob/main/trident-use/vol-snapshots.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-tw/trident/images/edit-sm.svg" class="github-icon" />編輯此頁面</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-tw/trident/images/article-sm.svg" class="github-icon" />瞭解如何作出貢獻</a></div>
+  <div class="page-nav-toolbar"><div id="version-dropdown-new" class="custom-dropdown" >
+  <div class="custom-dropdown-select unselected" title="Astra Trident 22.04">
+    <label>Version</label>
+    <span translate="no" class="notranslate">Astra Trident 22.04</span>
+    <img src="/zh-tw/trident/images/chevron_up.svg" class="custom-icon chevrondown invisible" />
+    <img src="/zh-tw/trident/images/chevron_down.svg" class="custom-icon chevronup" />
+  </div>
+
+  <ul class="custom-dropdown-menu"><li>
+      
+      <a href="https://docs.netapp.com/zh-tw/trident/trident-use/vol-snapshots.html" target="_self">
+        <span translate="no" class="notranslate"><span>Astra Trident</span><span class="version"> 22.04</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-tw/trident-2201/trident-use/vol-snapshots.html" target="_self">
+        <span translate="no" class="notranslate"><span>Astra Trident</span><span class="version"> 22.01</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-tw/trident-2110/trident-use/vol-snapshots.html" target="_self">
+        <span translate="no" class="notranslate"><span>Astra Trident</span><span class="version"> 21.10</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/us-en/trident-2107/index.html" target="_self">
+        <span translate="no" class="notranslate"><span>Astra Trident</span><span class="version"> 21.07</span></span>
+      </a>
+                     
+    </li>
+    
+  </ul>
+</div><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/trident/issues/new?body=Page%3A%20[使用快照](https://docs.netapp.com/zh-tw/trident/trident-use/vol-snapshots.html)" class="page-nav-contribute-link" role="button"><img src="/zh-tw/trident/images/discuss-sm.svg" class="github-icon" />要求變更文件</a><a target="_blank" href="https://github.com/NetAppDocs/trident/blob/main/trident-use/vol-snapshots.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-tw/trident/images/edit-sm.svg" class="github-icon" />編輯此頁面</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-tw/trident/images/article-sm.svg" class="github-icon" />瞭解如何作出貢獻</a></div>
     <div class="page-nav-container">
       <nav class="page-nav-fixed">
         <div class="page-nav-title">在此頁面上</div>
@@ -1115,7 +1153,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-05-03 11:50:10 +0000">05/03/2022</time>
+    <time datetime="2022-05-11 18:53:23 +0000">05/11/2022</time>
     
   
 
@@ -1143,30 +1181,60 @@
 <div class="title">您需要的是 #8217 ；需要的是什麼</div>
 <ul>
 <li>
-<p>建立Volume快照需要建立外部快照控制器、以及一些自訂資源定義（CRD）。這是正在使用的Kubernetes Orchestrator的責任（例如：Kubeadm,GKe, OpenShift）。</p>
+<p>建立Volume快照需要建立外部快照控制器和自訂資源定義（CRD）。這是正在使用的Kubernetes Orchestrator的責任（例如：Kubeadm、GKE、OpenShift）。</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>您可以建立外部快照控制器和快照客戶需求日、如下所示：</p>
+<p>如果您的Kubernetes發佈版本未包含快照控制器和客戶需求日、您可以依照下列方式進行部署。</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>建立Volume Snapshot客戶需求日：</p>
+<p>建立Volume Snapshot客戶需求日。</p>
+<div class="paragraph">
+<p>對於Kubernetes 1.20及更新版本、請使用v1 Snapshot CRD搭配v5.0或更新版本的Snapshot元件。對於Kubernetes 1.17-1.19版、請使用v1beta1搭配v3.0.3快照元件。</p>
+</div>
+<div class="exampleblock tabbed-block">
+<div class="content">
+<div class="openblock">
+<div class="title">V5.0元件</div>
+<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ cat snapshot-setup.sh
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">$ cat snapshot-setup.sh
 #!/bin/bash
 # Create volume snapshot CRDs
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml</pre>
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="title">v3.0.3元件</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">$ cat snapshot-setup.sh
+#!/bin/bash
+# Create volume snapshot CRDs
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.3/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.3/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.3/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </li>
 <li>
 <p>在所需的命名空間中建立Snapshot控制器。編輯下方的Yaml清單以修改命名空間。</p>
+<div class="paragraph">
+<p>對於Kubernetes 1.20及更新版本、請使用5.0版或更新版本。對於Kubernetes 1.17-1.19版、請使用v3.0.3</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1179,14 +1247,34 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snaps
 </tr>
 </table>
 </div>
-</li>
-</ol>
-</div>
+<div class="exampleblock tabbed-block">
+<div class="content">
+<div class="openblock">
+<div class="title">V5.0控制器</div>
+<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml</pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="title">v3.0.3控制器</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.3/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.3/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1369,16 +1457,16 @@ spec:
               <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
             </li>
             <li class="n-footer__copyright-link">
-              <a href="https://www.netapp.com/company/legal/terms-of-use/">legal-terms</a>
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">條款與條件</a>
             </li>
             <li class="n-footer__copyright-link">
-              <a href="https://www.netapp.com/company/legal/privacy-policy/">legal-privacy</a>
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Privacy Policy</a>
             </li>
             <li class="n-footer__copyright-link">
-              <a href="https://www.netapp.com/company/legal/cookie-policy/">legal-cookies</a>
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie Policy</a>
             </li>
             <li class="n-footer__copyright-link">
-              <a class="ot-sdk-show-settings">cookie-settings</a>
+              <a class="ot-sdk-show-settings">Cookie 設定</a>
             </li>
           </ul>
         </div>

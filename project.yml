@@ -48,12 +48,12 @@ homepage:
   tiles:
   - title: 開始使用
     links:
+    - title: 版本資訊
+      url: trident-rn.html
     - title: Astra Trident簡介
       url: "/trident-concepts/intro.html"
     - title: Astra Trident的需求
       url: "/trident-get-started/requirements.html"
-    - title: 新增功能
-      url: trident-rn.html
     - title: 歡迎試用
       url: "/trident-get-started/quickstart.html"
     - title: 常見問題集

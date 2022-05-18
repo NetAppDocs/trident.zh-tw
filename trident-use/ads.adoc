@@ -108,7 +108,7 @@ NOTE: 對於在AIT後端建立的所有磁碟區、Astra Trident會在儲存資�
 
 這是絕對最低的後端組態。
 
-.展開範例
+.範例
 ====
 [source, CLI]
 ----
@@ -127,7 +127,7 @@ NOTE: 對於在AIT後端建立的所有磁碟區、Astra Trident會在儲存資�
 
 此範例顯示後端檔案、可將相同層面套用至所有Astra Trident建立的儲存設備。
 
-.展開範例
+.範例
 ====
 [source, CLI]
 ----
@@ -152,7 +152,7 @@ NOTE: 對於在AIT後端建立的所有磁碟區、Astra Trident會在儲存資�
 
 此範例顯示使用虛擬儲存資源池設定的後端定義檔案、以及參照回溯的StorageClass。
 
-.展開範例
+.範例
 ====
 [source, CLI]
 ----
@@ -191,7 +191,7 @@ NOTE: 對於在AIT後端建立的所有磁碟區、Astra Trident會在儲存資�
 ====
 下列StorageClass定義係指上述儲存資源池。您可以使用「parameters.selector`」欄位、為每個StorageClass指定用於裝載磁碟區的虛擬集區。磁碟區將會在所選的虛擬資源池中定義各個層面。
 
-.展開範例
+.範例
 ====
 [source, CLI]
 ----

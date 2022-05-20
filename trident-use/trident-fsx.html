@@ -1157,7 +1157,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-05-03 11:50:10 +0000">05/03/2022</time>
+    <time datetime="2022-05-20 20:31:28 +0000">05/20/2022</time>
     
   
 
@@ -1246,7 +1246,7 @@
 <p>適用於NetApp ONTAP 的Amazon FSX <a href="https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mgng-stor-tier-fp/GUID-5A78F93F-7539-4840-AB0B-4A6E3252CF84.html" target="_blank" rel="noopener">"FabricPool"</a> 管理儲存層。它可讓您根據資料是否經常存取、將資料儲存在一個層級中。</p>
 </div>
 <div class="paragraph">
-<p>Astra Trident希望以ONTAP 某個系統管理員或SVM系統管理員的身分執行、使用叢集「fsxadmin」使用者或「vsadmin」SVM使用者、或使用具有相同角色的不同名稱使用者。「fsxadmin」使用者只能取代「admin」叢集使用者。Astra Trident通常會使用「admin」叢集使用者來進行非Amazon FSX ONTAP 的部署。</p>
+<p>Astra Trident預期以「vsadmin」SVM使用者或具有相同角色之不同名稱的使用者身分執行。Amazon FSx for NetApp ONTAP 的使用者是「fsxadmin」使用者、只能有限地取代ONTAP 「admin」叢集使用者。不建議將「fsxadmin」使用者搭配Trident使用、因為「vsadmin」SVM使用者可以存取更多Astra Trident功能。</p>
 </div>
 <div class="sect2">
 <h3 id="驅動程式">驅動程式</h3>
@@ -1281,10 +1281,22 @@
 <div class="ulist">
 <ul>
 <li>
-<p>認證型：您可以將「fsxadmin」使用者用於您的檔案系統、或是為SVM設定的「vsadmin」使用者。我們建議您使用「vsadmin」使用者來設定後端。Astra Trident將使用此使用者名稱和密碼與FSX檔案系統通訊。</p>
+<p>憑證型：Astra Trident會使用SVM上安裝的憑證、與FSX檔案系統上的SVM進行通訊。</p>
 </li>
 <li>
-<p>憑證型：Astra Trident會使用SVM上安裝的憑證、與FSX檔案系統上的SVM進行通訊。</p>
+<p>認證型：您可以將「fsxadmin」使用者用於您的檔案系統、或是為SVM設定的「vsadmin」使用者。</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/warning.svg" alt="警告">
+</td>
+<td class="content">
+我們強烈建議您使用「vsadmin」使用者、而非「fssadmin」來設定後端。Astra Trident將使用此使用者名稱和密碼與FSX檔案系統通訊。
+</td>
+</tr>
+</table>
+</div>
 </li>
 </ul>
 </div>

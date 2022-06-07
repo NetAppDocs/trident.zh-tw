@@ -22,7 +22,7 @@ NOTE: 若要瞭解Astra Trident使用的連接埠、請參閱 link:../trident-re
 
 Astra Trident支援多個容器引擎和協調器、包括：
 
-* Anthos on -Prem（VMware）和Anthos on裸機1.8、1.9、1.10
+* Anthos on -Prem（VMware）和Anthos on裸機1.9、1.10、1.11
 * Kubernetes 1.18或更新版本（最新版本：1.23）
 * Mirantis Kubernetes Engine 3.4
 * OpenShift 4.7、4.8、4.9、4.10.
@@ -30,7 +30,7 @@ Astra Trident支援多個容器引擎和協調器、包括：
 
 這些版本支援Trident運算子：
 
-* Anthos on -Prem（VMware）和Anthos on裸機1.8、1.9、1.10
+* Anthos on -Prem（VMware）和Anthos on裸機1.9、1.10、1.11
 * Kubernetes 1.18或更新版本（最新版本：1.23）
 * OpenShift 4.7、4.8、4.9、4.10.
 

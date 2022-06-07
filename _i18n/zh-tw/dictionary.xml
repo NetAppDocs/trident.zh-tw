@@ -1557,7 +1557,6 @@
   <block id="0582c93c9857a8b6d0380be79128eefc" category="admonition">若要瞭解Astra Trident使用的連接埠、請參閱 <block ref="c6b87a878d50568ac1e654ad3964af7b" category="inline-link-macro-rx"></block>。</block>
   <block id="c777be7f669397b0a376fe32ca5cd9c3" category="section-title">支援的前端（協調器）</block>
   <block id="74aefc05d193afd5c50a0df882997656" category="paragraph">Astra Trident支援多個容器引擎和協調器、包括：</block>
-  <block id="76df2d4e2a105a35b5db1ce7b060bbe1" category="list-text">Anthos on -Prem（VMware）和Anthos on裸機1.8、1.9、1.10</block>
   <block id="679683afa169f4c501ded1ebe8a942e2" category="list-text">Kubernetes 1.18或更新版本（最新版本：1.23）</block>
   <block id="37696641960d6c73a7dadab603c1877e" category="list-text">Mirantis Kubernetes Engine 3.4</block>
   <block id="41b5e6bb7f3d484ece37970d944243a6" category="list-text">OpenShift 4.7、4.8、4.9、4.10.</block>
@@ -3164,4 +3163,5 @@
   <block id="de781ae8dbfd68aeef56f40c5dc767da" category="paragraph">Astra Trident預期以「vsadmin」SVM使用者或具有相同角色之不同名稱的使用者身分執行。Amazon FSx for NetApp ONTAP 的使用者是「fsxadmin」使用者、只能有限地取代ONTAP 「admin」叢集使用者。不建議將「fsxadmin」使用者搭配Trident使用、因為「vsadmin」SVM使用者可以存取更多Astra Trident功能。</block>
   <block id="d5d195efeafde24a6a22effd3dd39339" category="list-text">認證型：您可以將「fsxadmin」使用者用於您的檔案系統、或是為SVM設定的「vsadmin」使用者。</block>
   <block id="be5736bb27c63c0a404a25abaa033c45" category="admonition">我們強烈建議您使用「vsadmin」使用者、而非「fssadmin」來設定後端。Astra Trident將使用此使用者名稱和密碼與FSX檔案系統通訊。</block>
+  <block id="0b4a92a731cb582bd951a7aa481f0602" category="list-text">Anthos on -Prem（VMware）和Anthos on裸機1.9、1.10、1.11</block>
 </blocks>

@@ -11,7 +11,11 @@ summary: 您可以與Trident運算子一起部署Astra Trident。您可以手動
 :imagesdir: ../media/
 
 
-您可以與Trident運算子一起部署Astra Trident。您可以手動或使用Helm來部署Trident運算子。
+您可以使用Trident運算子來部署Astra Trident。您可以使用下列兩種方式之一來部署Trident運算子：
+
+* 使用Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["掌舵表"^]：Helm圖表可部署Trident運算子、並在單一步驟中安裝Trident。
+* 手動：Trident提供 link:https://github.com/NetApp/trident/blob/master/deploy/bundle.yaml["bunder.yaml"^] 可用於安裝運算子及建立關聯物件的檔案。
+
 
 
 TIP: 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"^]現在正是這麼做的好時機。
@@ -31,7 +35,7 @@ TIP: 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"^]�
 
 
 
-== 使用Helm部署Trident運算子
+== 部署Trident操作員、並使用Helm安裝Astra Trident
 
 使用Helm執行列出的步驟來部署Trident運算子。
 

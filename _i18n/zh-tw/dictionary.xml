@@ -1825,7 +1825,6 @@
   <block id="237bc513b62b16e8ddd1661150fb7f94" category="summary">您可以與Trident運算子一起部署Astra Trident。您可以手動或使用Helm來部署Trident運算子。</block>
   <block id="cba9c445dab954e3483f9e5bef9f12c5" category="doc">與Trident營運者一起部署</block>
   <block id="705db3afa1c1d4451f7b0f7f8552f1b5" category="list-text">您擁有執行Kubernetes 1.17及更新版本之受支援Kubernetes叢集的完整權限。</block>
-  <block id="f9589cad119238efbce2b063d5225fb4" category="section-title">使用Helm部署Trident運算子</block>
   <block id="8a414e5c564a0c9e7a0f799a3c8cf47c" category="paragraph">使用Helm執行列出的步驟來部署Trident運算子。</block>
   <block id="dc2d0674739dcd145f5287a7d619ee05" category="paragraph">除了上述先決條件之外、若要使用Helm部署Trident運算子、您還需要下列項目：</block>
   <block id="8f5e62e2d03d87aeaafa8d4776fb7a79" category="list-text">Kubernetes 1.17及更新版本</block>
@@ -3164,4 +3163,10 @@
   <block id="d5d195efeafde24a6a22effd3dd39339" category="list-text">認證型：您可以將「fsxadmin」使用者用於您的檔案系統、或是為SVM設定的「vsadmin」使用者。</block>
   <block id="be5736bb27c63c0a404a25abaa033c45" category="admonition">我們強烈建議您使用「vsadmin」使用者、而非「fssadmin」來設定後端。Astra Trident將使用此使用者名稱和密碼與FSX檔案系統通訊。</block>
   <block id="0b4a92a731cb582bd951a7aa481f0602" category="list-text">Anthos on -Prem（VMware）和Anthos on裸機1.9、1.10、1.11</block>
+  <block id="6173739ff97dc1bdcd8c5d867134724c" category="paragraph">您可以使用Trident運算子來部署Astra Trident。您可以使用下列兩種方式之一來部署Trident運算子：</block>
+  <block id="7d3f46589c43a64fd040e4f0e0691a86" category="inline-link-macro">掌舵表</block>
+  <block id="5d2b4e1d078f05c18e07065fa7df166d" category="list-text">使用Trident <block ref="cdacb2b0d49176a3c0d8cc9d693de833" category="inline-link-macro-rx"></block>：Helm圖表可部署Trident運算子、並在單一步驟中安裝Trident。</block>
+  <block id="0d472c887b61206765c1caa63a9290ec" category="inline-link-macro">bunder.yaml</block>
+  <block id="179000091737641056a247acf2c59dc4" category="list-text">手動：Trident提供 <block ref="6f41841ada1b81573b5db54c90d512f9" category="inline-link-macro-rx"></block> 可用於安裝運算子及建立關聯物件的檔案。</block>
+  <block id="c9ffe59301b588bbc33bb004cfd312ee" category="section-title">部署Trident操作員、並使用Helm安裝Astra Trident</block>
 </blocks>

@@ -125,8 +125,8 @@ NOTE: 從21.01開始、Trident運算子就是叢集範圍。若要使用Trident�
 +
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v21.04/trident-installer-21.04.tar.gz
-tar -xf trident-installer-21.04.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v22.04.0/trident-installer-22.04.0.tar.gz
+tar -xf trident-installer-22.04.0.tar.gz
 cd trident-installer
 ----
 . 使用適當的CRD資訊清單來建立「TridentOrchestrator」CRD。之後您將建立一個「TridentOrchestrator」自訂資源、以產生操作者的安裝。

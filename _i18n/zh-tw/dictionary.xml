@@ -3170,4 +3170,7 @@
   <block id="179000091737641056a247acf2c59dc4" category="list-text">手動：Trident提供 <block ref="6f41841ada1b81573b5db54c90d512f9" category="inline-link-macro-rx"></block> 可用於安裝運算子及建立關聯物件的檔案。</block>
   <block id="c9ffe59301b588bbc33bb004cfd312ee" category="section-title">部署Trident操作員、並使用Helm安裝Astra Trident</block>
   <block id="3f44baef815aed01560d6764fea49ebc" category="cell">用於CVS磁碟區的GCP網路</block>
+  <block id="6aef79110fe63635bdb5452c3a08ead7" category="section-title">使用Cloud Manager管理Kubernetes叢集</block>
+  <block id="865ec115b3646a7d42d94fd0d6f64ca5" category="inline-link-macro">使用Cloud Manager的Astra Trident</block>
+  <block id="70ef9708acb1f72d9648f625edc21d7b" category="paragraph">與 <block ref="d2f4359fbe3252be146a4ecb37a6f90e" category="inline-link-macro-rx"></block>、您可以升級至最新版的Astra Trident、新增及管理儲存類別、並將其連線至工作環境、以及使用Cloud Backup Service NetApp備份持續的Volume。Cloud Manager可手動或使用Helm、使用Trident營運者來支援Astra Trident部署。</block>
 </blocks>

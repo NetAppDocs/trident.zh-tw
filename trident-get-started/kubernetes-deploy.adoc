@@ -61,6 +61,12 @@ NOTE: 如果叢集升級至不受支援的版本、則操作員將無法安裝As
 
 
 
+==== 使用Cloud Manager管理Kubernetes叢集
+
+與 link:https://docs.netapp.com/us-en/cloud-manager-kubernetes/concept-kubernetes.html["使用Cloud Manager的Astra Trident"^]、您可以升級至最新版的Astra Trident、新增及管理儲存類別、並將其連線至工作環境、以及使用Cloud Backup Service NetApp備份持續的Volume。Cloud Manager可手動或使用Helm、使用Trident營運者來支援Astra Trident部署。
+
+
+
 === 為什麼要使用Helm？
 
 如果您有其他使用Helm管理的應用程式、從Astra Trident 21.01開始、您也可以使用Helm來管理部署。

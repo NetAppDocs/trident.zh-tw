@@ -127,7 +127,7 @@ NOTE: 如果叢集升級至不受支援的版本、則操作員將無法安裝As
 
 
 
-IMPORTANT: 如果您使用的是私有映像儲存庫、則應在私有登錄URL結尾加上Kubernetes 1.17之前的版本「/k8scsi」或Kubernetes 1.17之後的版本「/sig-storage」。在使用私有註冊表進行「tridentctl」部署時、您應該搭配「-trident映像」和「-autocomple-image」來搭配「-image登錄」。如果您使用Trident運算子來部署Astra Trident、請確定Orchestrator CR在安裝參數中包含「tridentImage」和「autosupportImage」。
+IMPORTANT: 如果您使用的是私有映像儲存庫、則應在私有登錄URL的結尾加上「/sig-storage」。在使用私有註冊表進行「tridentctl」部署時、您應該搭配「-trident映像」和「-autocomple-image」來搭配「-image登錄」。如果您使用Trident運算子來部署Astra Trident、請確定Orchestrator CR在安裝參數中包含「tridentImage」和「autosupportImage」。
 
 
 

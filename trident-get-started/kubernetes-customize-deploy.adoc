@@ -53,7 +53,7 @@ Trident運算子可讓您使用「TridentOrchestrator」規格中的屬性、自
 | 「TridentImage」 | 要安裝的Astra Trident映像 | 「NetApp/Trident：21.04」 
 
 
-| 「影像登錄」 | 內部登錄的路徑、格式為「<登錄FQDN >[:port]（/子路徑）」 | "k8s.gcr.io/sig-storage（k8s 1.17+）或kay.io/k8scsi" 
+| 「影像登錄」 | 內部登錄的路徑、格式為「<登錄FQDN >[:port]（/子路徑）」 | "k8s.gcr.io/sig-storage（k8s 1.19+）或kay.io/k8scsi" 
 
 
 | 《kubeletDir | 主機上的kubelet目錄路徑 | "/var/lib/kubelet" 
@@ -78,9 +78,6 @@ Trident運算子可讓您使用「TridentOrchestrator」規格中的屬性、自
 |===
 
 IMPORTANT: 「pec.namespace`」在「TridentOrchestrator」中指定、以表示要安裝哪個命名空間Astra Trident。此參數*無法在安裝Astra Trident之後更新*。嘗試這樣做會導致「TridentOrchestrator」狀態變更為「失敗」。Astra Trident不打算跨命名空間移轉。
-
-
-NOTE: 自動工作節點準備是*測試版功能*、僅適用於非正式作業環境。
 
 
 TIP: 如需格式化Pod參數的詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["將Pod指派給節點"^]。

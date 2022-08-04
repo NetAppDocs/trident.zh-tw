@@ -86,6 +86,9 @@ NOTE: 附註：Astra Trident不支援手動QoS容量資源池。
 | 《Subnet》 | 委派給「icrosoft.Netapp/volumes`」的子網路名稱 | " 
 
 
+| 《網路功能》 | 一個Volume的vnet功能集可以是「基本」或「標準」 | " 
+
+
 | 「nfsMountOptions」 | 精細控制NFS掛載選項。 | "nfsves=3" 
 
 
@@ -99,6 +102,9 @@ WARNING: 如果嘗試建立永久虛擬基礎架構時發生「找不到容量�
 
 
 NOTE: 如果您想使用NFS 4.1版掛載磁碟區、可以在以逗號分隔的掛載選項清單中加入「nfsves=4'」、以選擇NFS v4.1。儲存類別中設定的任何掛載選項、都會覆寫在後端組態檔中設定的掛載選項。
+
+
+NOTE: 。 https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["網路功能"^] 並非所有地區都提供此功能、可能必須在訂閱中啟用。如果在未啟用功能的情況下指定「networkFeatures」組態選項、則Trident中的Volume資源配置將會失敗。
 
 可以使用短名稱或全限定名稱來指定"sourceGroups"、"netappAccounts"、"capacityPools、"virtualNetwork（虛擬化網路）和"shubnet"的值。簡短名稱可能會比對同名的多個資源、因此在大多數情況下、建議使用完整名稱。「資源群組」、「netappAccounts」和「capacityPools」值是篩選器、可將探索到的資源集限制在此儲存後端可用的資源集、並可任意組合指定。完整名稱格式如下：
 
@@ -210,6 +216,7 @@ NOTE: 對於在ANF後端上建立的所有磁碟區、Astra Trident會將儲存�
 ],
         "virtualNetwork": "my-virtual-network",
         "subnet": "my-subnet",
+        "networkFeatures": "Standard",
         "nfsMountOptions": "vers=3,proto=tcp,timeo=600",
         "limitVolumeSize": "500Gi",
         "defaults": {
@@ -217,7 +224,6 @@ NOTE: 對於在ANF後端上建立的所有磁碟區、Astra Trident會將儲存�
             "snapshotDir": "true",
             "size": "200Gi",
             "unixPermissions": "0777"
-=======
         }
     }
 ----
@@ -238,6 +244,7 @@ NOTE: 對於在ANF後端上建立的所有磁碟區、Astra Trident會將儲存�
         "clientSecret": "SECRET",
         "location": "eastus",
         "resourceGroups": ["application-group-1"],
+        "networkFeatures": "Basic",
         "nfsMountOptions": "vers=3,proto=tcp,timeo=600",
         "labels": {
             "cloud": "azure"
@@ -250,7 +257,8 @@ NOTE: 對於在ANF後端上建立的所有磁碟區、Astra Trident會將儲存�
                     "performance": "gold"
                 },
                 "serviceLevel": "Ultra",
-                "capacityPools": ["ultra-1", "ultra-2"]
+                "capacityPools": ["ultra-1", "ultra-2"],
+                "networkFeatures": "Standard"
             },
             {
                 "labels": {

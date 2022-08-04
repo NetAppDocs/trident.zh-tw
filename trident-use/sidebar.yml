@@ -52,7 +52,5 @@ entries:
     url: "/trident-use/vol-import.html"
 - title: 準備工作節點
   url: "/trident-use/worker-node-prep.html"
-- title: 自動準備工作節點
-  url: "/trident-use/automatic-workernode.html"
 - title: 監控Astra Trident
   url: "/trident-use/monitor-trident.html"

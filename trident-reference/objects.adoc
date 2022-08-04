@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-reference/objects.html 
-keywords: kubernetes objects, trident objects, persistent volume claim, storage class, backend, snapshot 
+keywords: kubernetes objects, trident objects, persistent volume claim, storage class, backend, snapshot, priority class, system-node-critical, daemonset, resource quota, resourcequota, system node critical 
 summary: Kubernetes與Trident、Trident與Storage、Kubernetes與儲存設備之間有幾個資源物件、分別是它們之間的關係。其中有些物件是透過Kubernetes進行管理、其他物件則是透過Trident進行管理。 
 ---
 = Kubernetes和Trident物件
@@ -221,7 +221,7 @@ ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-sa
 | owVolume擴充 | 布林值 | 對、錯 | 啟用或停用對增加PVc大小的支援 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、ONTAP-san經濟型、 solidfire-san、gcp-CVS、azure-netapp檔案 | 1.11+ 
 
 
-| Volume BindingMode | 字串 | 立即、WaitForFirst消費者 | 選擇何時進行磁碟區繫結和動態資源配置 | 全部 | 1.17以上 
+| Volume BindingMode | 字串 | 立即、WaitForFirst消費者 | 選擇何時進行磁碟區繫結和動態資源配置 | 全部 | 1.19 - 1.24 
 |===
 [TIP]
 ====
@@ -234,7 +234,7 @@ ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-sa
 +
 對於NFS儲存驅動程式、檔案系統已存在做為NFS匯出的一部分。為了使用「fsGroup」、儲存類別仍需指定「FSType」。您可以將其設定為「NFS」或任何非null值。
 
-* 請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/vol-expansion.html["展開Volume"^] 如需磁碟區擴充的詳細資料、
+* 請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/vol-expansion.html["展開Volume"] 如需磁碟區擴充的詳細資料、
 * Trident安裝程式套裝組合提供多個範例儲存類別定義、可與Trident搭配使用、位於「sham-INPUT /儲存設備類別-*。yaml」。刪除Kubernetes儲存類別也會刪除對應的Trident儲存類別。
 
 
@@ -298,7 +298,7 @@ CRD是Kubernetes建構。上述資源的物件是由Trident所建立。例如、
 
 * 安裝Trident時、會建立一組客戶需求日、並可像使用任何其他資源類型一樣使用。
 * 從舊版Trident（使用「etcd」來維護狀態）升級時、Trident安裝程式會從「etcd」金鑰值資料儲存區移轉資料、並建立對應的CRD物件。
-* 使用「tridentctl uninstall」命令解除安裝Trident時、會刪除Trident Pod、但不會清除建立的CRD。請參閱 link:../trident-managing-k8s/uninstall-trident.html["解除安裝Trident"^] 瞭解如何徹底移除Trident並從頭重新設定。
+* 使用「tridentctl uninstall」命令解除安裝Trident時、會刪除Trident Pod、但不會清除建立的CRD。請參閱 link:../trident-managing-k8s/uninstall-trident.html["解除安裝Trident"] 瞭解如何徹底移除Trident並從頭重新設定。
 
 
 
@@ -323,7 +323,7 @@ NOTE: 使用Kubernetes、當Kubernetes「torageClass」以Trident做為資源配
 
 NOTE: 這是您自己建立和管理的兩種物件類型之一。另一個是Kubernetes的「torageClass」物件。
 
-如需如何建構這些物件的詳細資訊、請參閱後端組態。
+如需如何建構這些物件的詳細資訊、請參閱 link:../trident-use/backends.html["設定後端"]。
 
 
 
@@ -441,3 +441,51 @@ Trident在建立磁碟區時會產生「內部名稱」。這包括兩個步驟�
 NOTE: 在Kubernetes中、會自動管理這些物件。您可以檢視這些資源、以查看資源配置的Trident內容。
 
 當Kubernetes「Volume Snapshot」物件要求建立時、Trident會在備份儲存系統上建立Snapshot物件。此快照物件的「內部名稱」是將前置詞「sfapshot-」與「Volume Snapshot」物件的「UID」（例如、「sfapshot-e8d8a0ca-9826-11e9-9807-525400f3f660」）結合在一起產生的。「Volume Name」（Volume名稱）和「Volume InternalName」（磁碟區內部名稱）會透過取得備用磁碟區的詳細資料來填入資料。
+
+
+
+== Astra Trident資源配額物件
+
+Trident刪除程式會使用「系統節點關鍵」優先順序類別、這是Kubernetes中最高的優先順序類別、以確保Astra Trident能在正常節點關機期間識別及清理磁碟區、並讓Trident取消安裝Pod在資源壓力較高的叢集中、預先部署優先順序較低的工作負載。
+
+為達成此目標、Astra Trident採用「資源配額」物件、確保Trident的「系統節點關鍵」優先等級符合要求。在部署和建立實體化設定之前、Astra Trident會尋找「資源配額」物件、如果未發現、則會套用該物件。
+
+如果您需要對預設資源配額和優先順序類別的更多控制權、可以產生「custustry.yaml」、或使用Helm圖表來設定「資源配額」物件。
+
+以下是「資源配額」物件優先處理Trident的範例。
+
+[source, yaml]
+----
+apiVersion: <version>
+kind: ResourceQuota
+metadata:
+  name: trident-csi
+  labels:
+    app: node.csi.trident.netapp.io
+spec:
+  scopeSelector:
+     matchExpressions:
+       - operator : In
+         scopeName: PriorityClass
+         values: ["system-node-critical"]
+----
+如需資源配額的詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/policy/resource-quotas/["Kubernetes：資源配額"^]。
+
+
+
+=== 如果安裝失敗、請清除資源配額
+
+在極少數情況下、如果在建立「資源配額」物件之後安裝失敗、請先嘗試 link:../trident-managing-k8s/uninstall-trident.html["正在解除安裝"] 然後重新安裝。
+
+如果這不管用、請手動移除「資源配額」物件。
+
+
+
+=== 移除資源配額
+
+如果您偏好控制自己的資源配置、可以使用下列命令移除Astra Trident的「資源配額」物件：
+
+[source, cli]
+----
+kubectl delete quota trident-csi -n trident
+----

@@ -22,7 +22,7 @@ TIP: 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"^]�
 
 若要部署Astra Trident、必須符合下列先決條件：
 
-* 您擁有執行Kubernetes 1.17及更新版本之受支援Kubernetes叢集的完整權限。
+* 您擁有執行Kubernetes 1.19 - 1.24之受支援Kubernetes叢集的完整權限。
 * 您可以存取支援的NetApp儲存系統。
 * 您可以從所有Kubernetes工作節點掛載磁碟區。
 * 您的Linux主機已安裝並設定為管理您要使用的Kubernetes叢集。
@@ -41,7 +41,7 @@ TIP: 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"^]�
 
 除了上述先決條件之外、若要使用Helm部署Trident運算子、您還需要下列項目：
 
-* Kubernetes 1.17及更新版本
+* Kubernetes 1.19 - 1.24
 * Helm版本3
 
 
@@ -56,7 +56,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 +
 [listing]
 ----
-helm install <release-name> netapp-trident/trident-operator --version 22.1.0 --namespace <trident-namespace>
+helm install <release-name> netapp-trident/trident-operator --version 22.7.0 --namespace <trident-namespace>
 ----
 +
 
@@ -74,7 +74,7 @@ NOTE: 如果您尚未建立Trident的命名空間、可以將「-cree-namespace"
 
 [listing]
 ----
-$ helm install <name> netapp-trident/trident-operator --version 22.1.0 --set tridentDebug=true
+$ helm install <name> netapp-trident/trident-operator --version 22.7.0 --set tridentDebug=true
 ----
 Helm圖表中的「values.yaml」檔案提供金鑰清單及其預設值。
 
@@ -95,7 +95,7 @@ Helm圖表中的「values.yaml」檔案提供金鑰清單及其預設值。
 
 NOTE: 使用OpenShift時、請在所有範例中使用「oc"而非「kubecll」、然後先執行「ocLogin -u system:admin」或「occ login-u kube-admin」、以*系統：admin*登入。
 
-若要查看Kubernetes版本是否晚於1.17、請執行下列命令：
+若要驗證Kubernetes版本、請執行下列命令：
 
 [listing]
 ----
@@ -220,7 +220,6 @@ Status:
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                     true
-    Enable Node Prep:          false
     Image Pull Secrets:
     Image Registry:
     k8sTimeout:           30

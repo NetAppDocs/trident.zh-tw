@@ -33,7 +33,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+ dataLIF 
 
 
-| 《馬納格門達利》 | 叢集或SVM管理LIF的IP位址 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
+| 《馬納格門達利》 | 叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。此功能為*技術預覽*。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
 
 
 | 「DataLIF」 | 傳輸協定LIF的IP位址。IPv6使用方括弧。設定後無法更新 | 除非另有說明、否則由SVM衍生 
@@ -84,7 +84,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | 「限制Aggregateusage」 | 如果使用率高於此百分比、則無法進行資源配置。*不適用於Amazon FSX for ONTAP Sfor Sfor * | 「」（預設不強制執行） 
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於經濟驅動程式的此值、則無法進行資源配置。 | 「」（預設不強制執行） 
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。 | 「」（預設不強制執行） 
 
 
 | 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200] | 「100」 
@@ -93,11 +93,16 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「方法」：true｝ | null 
 
 
-| 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽* | 錯 
+| 《useREST》 | 使用ONTAP Isrest API的布林參數。*不支援MetroCluster 技術預覽*。 | 錯 
 |===
+[WARNING]
+.<code>useREST</code>注意事項
+====
+* 「useREST」是一種建議用於測試環境、而非用於正式作業工作負載的技術預覽。當設為「true」時、Astra Trident會使用ONTAP 「Isrest API」與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取「ONTAP 發揮作用」應用程式。這對預先定義的「vsadmin」和「叢集管理」角色感到滿意。
+* 《useREST》不受MetroCluster 支援。
 
-NOTE: 「useREST」是一種建議用於測試環境、而非用於正式作業工作負載的技術預覽。當設為「true」時、Astra Trident會使用ONTAP 「Isrest API」與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取「ONTAP 發揮作用」應用程式。這對預先定義的「vsadmin」和「叢集管理」角色感到滿意。
 
+====
 若要與ONTAP 此叢集通訊、您應該提供驗證參數。這可能是安全登入或安裝憑證的使用者名稱/密碼。
 
 

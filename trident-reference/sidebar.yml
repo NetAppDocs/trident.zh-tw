@@ -14,3 +14,5 @@ entries:
   url: "/trident-reference/objects.html"
 - title: tridentctl命令和選項
   url: "/trident-reference/tridentctl.html"
+- title: Pod安全標準（PSS）與安全內容限制（SCC）
+  url: "/trident-reference/pod-security.html"

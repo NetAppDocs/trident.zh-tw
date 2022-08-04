@@ -4,7 +4,7 @@ permalink: trident-concepts/intro.html
 keywords: product overview, astra trident, fsx, element, astra, google cloud, cvs 
 summary: Astra Trident是NetApp在Astra產品系列中所維護的完整支援開放原始碼專案。其設計旨在協助您使用業界標準介面（例如Container Storage介面（SCSI））來滿足容器化應用程式的持續需求。 
 ---
-= Astra Trident簡介
+= 瞭解Astra Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

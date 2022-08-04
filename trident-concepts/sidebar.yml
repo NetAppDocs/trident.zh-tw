@@ -2,7 +2,7 @@
 section: trident-concepts
 title: 概念
 entries:
-- title: Astra Trident簡介
+- title: 瞭解Astra Trident
   url: "/trident-concepts/intro.html"
 - title: 驅動程式ONTAP
   url: "/trident-concepts/ontap-drivers.html"

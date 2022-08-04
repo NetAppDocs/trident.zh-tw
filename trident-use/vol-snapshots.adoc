@@ -24,7 +24,7 @@ NOTE: 此功能可從Kubernetes 1.17（試用版）取得、GA版本為1.20。�
 
 . 建立Volume Snapshot客戶需求日。
 +
-對於Kubernetes 1.20及更新版本、請使用v1 Snapshot CRD搭配v5.0或更新版本的Snapshot元件。對於Kubernetes 1.17-1.19版、請使用v1beta1搭配v3.0.3快照元件。
+對於Kubernetes 1.20及更新版本、請使用v1 Snapshot CRD搭配v5.0或更新版本的Snapshot元件。對於Kubernetes 1.19、請使用v1beta1搭配v3.0.3快照元件。
 
 +
 [role="tabbed-block"]
@@ -56,7 +56,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snaps
 ====
 . 在所需的命名空間中建立Snapshot控制器。編輯下方的Yaml清單以修改命名空間。
 +
-對於Kubernetes 1.20及更新版本、請使用5.0版或更新版本。對於Kubernetes 1.17-1.19版、請使用v3.0.3
+對於Kubernetes 1.20及更新版本、請使用5.0版或更新版本。對於Kubernetes 1.19版、請使用v3.0.3
 
 +
 
@@ -98,7 +98,7 @@ TIP: 「csi Snapshotter」提供 https://github.com/kubernetes-csi/external-snap
 [listing]
 ----
 $ cat snap-sc.yaml
-#Use apiVersion v1 for Kubernetes 1.20 and above. For Kubernetes 1.17 - 1.19, use apiVersion v1beta1.
+#Use apiVersion v1 for Kubernetes 1.20 and above. For Kubernetes 1.19, use apiVersion v1beta1.
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
@@ -115,7 +115,7 @@ deletionPolicy: Delete
 [listing]
 ----
 $ cat snap.yaml
-#Use apiVersion v1 for Kubernetes 1.20 and above. For Kubernetes 1.17 - 1.19, use apiVersion v1beta1.
+#Use apiVersion v1 for Kubernetes 1.20 and above. For Kubernetes 1.19, use apiVersion v1beta1.
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshot
 metadata:

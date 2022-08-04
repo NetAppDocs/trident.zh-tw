@@ -19,7 +19,7 @@ summary: 您可以使用業者輕鬆升級現有的Astra Trident安裝。
 * 您應該安裝CRD型Trident。這代表19.07及更新版本的所有版本。如果您安裝的是基於SCSI的安裝、則很可能是以CRD為基礎的安裝。
 * 如果您已解除安裝了「csi Trident」、而且安裝中的中繼資料持續存在、您可以使用操作者進行升級。
 * 在特定Kubernetes叢集中的所有命名空間中、只應有一個Astra Trident安裝。
-* 您應該使用執行的Kubernetes叢集 link:requirements.html["1.17版及更新版本"^]。
+* 您應該使用執行的Kubernetes叢集 link:requirements.html["版本1.19 - 1.24"^]。
 * 如果存在Alpha Snapshot CRD、您應該使用「tridentctl obliviate alpha-snapshot -crd」來移除。這會刪除Alpha Snapshot規格的客戶需求日。如需應刪除/移轉的現有快照、請參閱 https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["這篇部落格"^]。
 
 

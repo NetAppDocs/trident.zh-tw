@@ -1532,7 +1532,6 @@
   <block id="0582c93c9857a8b6d0380be79128eefc" category="admonition">若要瞭解Astra Trident使用的連接埠、請參閱 <block ref="c6b87a878d50568ac1e654ad3964af7b" category="inline-link-macro-rx"></block>。</block>
   <block id="c777be7f669397b0a376fe32ca5cd9c3" category="section-title">支援的前端（協調器）</block>
   <block id="74aefc05d193afd5c50a0df882997656" category="paragraph">Astra Trident支援多個容器引擎和協調器、包括：</block>
-  <block id="37696641960d6c73a7dadab603c1877e" category="list-text">Mirantis Kubernetes Engine 3.4</block>
   <block id="201eb37826a33e35adff9119f25946bd" category="paragraph">這些版本支援Trident運算子：</block>
   <block id="8fad5c21cf613e120f249eadc62cda2f" category="paragraph">Astra Trident也能與其他全管理且自我管理的Kubernetes產品搭配使用、包括Google Kubernetes Engine（GKE）、Amazon Elastic Kubernetes Services（EKS）、Azure Kubernetes Service（KS）、Rancher及VMware Tanzu Portfolio。</block>
   <block id="f787cd4b6963b13f12fa53131f58ef6c" category="section-title">支援的後端（儲存）</block>
@@ -3313,4 +3312,5 @@
   <block id="c0f60be70f5b8a5bc6c7c8071f4481fb" category="list-text">* Kubernetes*：Trident取消程式集現在以系統節點關鍵優先順序類別執行。（<block ref="b04869f92878b510e393bc41361c825d" category="inline-link-macro-rx"></block>）</block>
   <block id="269e4d9baae2c39648f68ccfde3d8135" category="doc">Astra Trident 22.07文件</block>
   <block id="8f5cc6430613f1c12f36965050bb7197" category="sidebar">不和</block>
+  <block id="094a6e8342b02106129112ad2ff3d374" category="list-text">Mirantis Kubernetes Engine 3.5</block>
 </blocks>

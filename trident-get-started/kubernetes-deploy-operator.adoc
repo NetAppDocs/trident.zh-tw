@@ -121,7 +121,7 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 
 NOTE: 從21.01開始、Trident運算子就是叢集範圍。若要使用Trident營運者來安裝Trident、必須建立「TridentOrchestrator」自訂資源定義（CRD）並定義其他資源。在安裝Astra Trident之前、您應該先執行這些步驟來設定操作員。
 
-. 下載最新版本的 https://github.com/NetApp/trident/releases/latest["Trident安裝程式套裝組合"] 從_下載_區段擷取。
+. 請從下載並擷取最新版本的Trident安裝程式套件 link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]。
 +
 [listing]
 ----

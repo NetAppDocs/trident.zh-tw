@@ -38,16 +38,16 @@ image:screenshot-fsx-backup-disable.png["AWS主控台停用自動備份的快照
 
 如果您是Astra Trident的新手、請使用下列連結來熟悉您的操作：
 
-* link:../faq.html["常見問題集"^]
-* link:../trident-get-started/requirements.html["使用Astra Trident的要求"^]
-* link:../trident-get-started/kubernetes-deploy.html["部署Astra Trident"^]
-* link:../trident-reco/storage-config-best-practices.html["最佳實務做法、可設定ONTAP 適用於Cloud Volumes ONTAP NetApp ONTAP 的功能、包括功能、功能及Amazon FSX"^]
-* link:../trident-reco/integrate-trident.html#ontap["整合Astra Trident"^]
-* link:ontap-san.html["支援SAN後端組態ONTAP"^]
-* link:ontap-nas.html["ASNAS後端組態ONTAP"^]
+* link:../faq.html["常見問題集"]
+* link:../trident-get-started/requirements.html["使用Astra Trident的要求"]
+* link:../trident-get-started/kubernetes-deploy.html["部署Astra Trident"]
+* link:../trident-reco/storage-config-best-practices.html["最佳實務做法、可設定ONTAP 適用於Cloud Volumes ONTAP NetApp ONTAP 的功能、包括功能、功能及Amazon FSX"]
+* link:../trident-reco/integrate-trident.html#ontap["整合Astra Trident"]
+* link:ontap-san.html["支援SAN後端組態ONTAP"]
+* link:ontap-nas.html["ASNAS後端組態ONTAP"]
 
 
-深入瞭解驅動程式功能 link:../trident-concepts/ontap-drivers.html["請按這裡"^]。
+深入瞭解驅動程式功能 link:../trident-concepts/ontap-drivers.html["請按這裡"]。
 
 適用於NetApp ONTAP 的Amazon FSX https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mgng-stor-tier-fp/GUID-5A78F93F-7539-4840-AB0B-4A6E3252CF84.html["FabricPool"^] 管理儲存層。它可讓您根據資料是否經常存取、將資料儲存在一個層級中。
 
@@ -87,8 +87,8 @@ WARNING: 如果您嘗試同時提供*認證與認證*、後端建立將會失敗
 
 若要深入瞭解驗證、請參閱下列連結：
 
-* link:ontap-nas-prep.html["NAS ONTAP"^]
-* link:ontap-san-prep.html["SAN ONTAP"^]
+* link:ontap-nas-prep.html["NAS ONTAP"]
+* link:ontap-san-prep.html["SAN ONTAP"]
 
 
 
@@ -98,17 +98,17 @@ WARNING: 如果您嘗試同時提供*認證與認證*、後端建立將會失敗
 .您需要的是 #8217 ；需要的是什麼
 * 現有的Amazon EKS叢集或自行管理的Kubernetes叢集、已安裝「kubecll」。
 * 現有的Amazon FSX-適用於NetApp ONTAP 的支援資料系統和儲存虛擬機器（SVM）、可從叢集的工作節點存取。
-* 已準備好的工作節點 link:worker-node-prep.html["NFS和/或iSCSI"^]。
+* 已準備好的工作節點 link:worker-node-prep.html["NFS和/或iSCSI"]。
 +
 
 NOTE: 請務必遵循Amazon Linux和Ubuntu所需的節點準備步驟 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html["Amazon機器映像"^] （AMis）、視您的EKS AMI類型而定。
 
 
 
-如需其他Astra Trident需求、請參閱 link:../trident-get-started/requirements.html["請按這裡"^]。
+如需其他Astra Trident需求、請參閱 link:../trident-get-started/requirements.html["請按這裡"]。
 
 .步驟
-. 使用以下其中一種方式部署Astra Trident：./ Trident入門/ Kubernetes-Deploy .html[部署方法]。
+. 使用其中一項部署Astra Trident link:../trident-get-started/kubernetes-deploy.html["部署方法"]。
 . 設定Astra Trident如下：
 +
 .. 收集SVM的管理LIF DNS名稱。例如、使用AWS CLI執行下列命令後、在「Endings」->「管理」下找到「DNSName」項目：
@@ -119,7 +119,7 @@ aws fsx describe-storage-virtual-machines --region <file system region>
 ----
 
 
-. 建立及安裝驗證憑證。如果您使用的是「ONTAP-SAN」後端、請參閱 link:ontap-san.html["請按這裡"^]。如果您使用的是「ONTAP-NAS」後端、請參閱 link:ontap-nas.html["請按這裡"^]。
+. 建立及安裝驗證憑證。如果您使用的是「ONTAP-SAN」後端、請參閱 link:ontap-san.html["請按這裡"]。如果您使用的是「ONTAP-NAS」後端、請參閱 link:ontap-nas.html["請按這裡"]。
 +
 
 NOTE: 您可以使用SSH從任何位置登入檔案系統（例如安裝憑證）、而該SSH可連至檔案系統。使用「fsxadmin」使用者、您在建立檔案系統時設定的密碼、以及「AWS FSx file-systems」中的管理DNS名稱。
@@ -143,8 +143,8 @@ NOTE: 您可以使用SSH從任何位置登入檔案系統（例如安裝憑證�
 
 如需建立後端的相關資訊、請參閱下列連結：
 
-* link:ontap-nas.html["使用ONTAP NetApp NAS驅動程式設定後端"^]
-* link:ontap-san.html["使用ONTAP SAN驅動程式設定後端"^]
+* link:ontap-nas.html["使用ONTAP NetApp NAS驅動程式設定後端"]
+* link:ontap-san.html["使用ONTAP SAN驅動程式設定後端"]
 
 
 
@@ -153,7 +153,7 @@ NOTE: 不要指定"ontap－san "和"ONTAP－san經濟"驅動程序的"data Lif"�
 
 WARNING: 「limitAggregateusage」參數無法搭配「vsadmin」和「fsxadmin」使用者帳戶使用。如果您指定此參數、組態作業將會失敗。
 
-部署之後、請執行建立的步驟 link:../trident-get-started/kubernetes-postdeployment.html["儲存類別、配置磁碟區、然後將磁碟區掛載到Pod中"^]。
+部署之後、請執行建立的步驟 link:../trident-get-started/kubernetes-postdeployment.html["儲存類別、配置磁碟區、然後將磁碟區掛載到Pod中"]。
 
 
 

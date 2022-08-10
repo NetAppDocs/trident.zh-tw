@@ -12,11 +12,12 @@ summary: 如果您未執行最新版本、則可取得舊版Astra Trident的文�
 
 
 [role="lead"]
-如果您未執行Astra Trident 22.04、則可取得先前版本的文件。
+如果您未執行Astra Trident 22.07、則可取得先前版本的文件。
 
 
 NOTE: 若為21：07之前的版本、您將被重新導向至舊版文件網站。
 
+* https://docs.netapp.com/us-en/trident-2204/index.html["Astra Trident 22.04"^]
 * https://docs.netapp.com/us-en/trident-2201/index.html["Astra Trident 22.01"^]
 * https://docs.netapp.com/us-en/trident-2110/index.html["Astra Trident 21.10"^]
 * https://docs.netapp.com/us-en/trident-2107/index.html["Astra Trident 21.07"^]

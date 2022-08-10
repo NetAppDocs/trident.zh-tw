@@ -2237,7 +2237,6 @@
   <block id="3179d8563cd49690a141c34c045dfab8" category="paragraph">在非csi前端中、磁碟區作為工作節點上的裝置附加作業是由Kubernetes處理。建立磁碟區之後、Astra Trident會呼叫NetApp HCI / SolidFire系統、以便在該租戶的機密資訊尚未存在時擷取機密資訊。然後、Astra Trident將機密傳給Kubernetes。位於每個節點上的Kubelet可透過Kubernetes API存取機密資料、並使用它們在存取磁碟區的每個節點與磁碟區所在的NetApp HCI / SolidFire系統之間執行/啟用CHAP。</block>
   <block id="34c4dac14496e9c45d92f345d9392fc8" category="summary">如果您未執行最新版本、則可取得舊版Astra Trident的文件。</block>
   <block id="ba09ee47d11962c1ccd13d7e1f10e6c5" category="doc">較早版本的文件</block>
-  <block id="485e8e209b502a7975830960817b875e" category="paragraph">如果您未執行Astra Trident 22.04、則可取得先前版本的文件。</block>
   <block id="9f687b4e8cbf2fbb623b26b30fd92717" category="admonition">若為21：07之前的版本、您將被重新導向至舊版文件網站。</block>
   <block id="4af8991c21dff2f779496b8350d1124b" category="inline-link">Astra Trident 22.01</block>
   <block id="7669b0b69333e81c7c208aea3d1a3c6f" category="list-text"><block ref="7669b0b69333e81c7c208aea3d1a3c6f" category="inline-link-rx"></block></block>
@@ -3313,4 +3312,7 @@
   <block id="269e4d9baae2c39648f68ccfde3d8135" category="doc">Astra Trident 22.07文件</block>
   <block id="8f5cc6430613f1c12f36965050bb7197" category="sidebar">不和</block>
   <block id="094a6e8342b02106129112ad2ff3d374" category="list-text">Mirantis Kubernetes Engine 3.5</block>
+  <block id="adcc762b8bd0076278dedcc49cc85154" category="paragraph">如果您未執行Astra Trident 22.07、則可取得先前版本的文件。</block>
+  <block id="c53358822905bb04d312060d1cb568af" category="inline-link">Astra Trident 22.04</block>
+  <block id="fdd380631ba8063e7b8f842282a01e40" category="list-text"><block ref="fdd380631ba8063e7b8f842282a01e40" category="inline-link-rx"></block></block>
 </blocks>

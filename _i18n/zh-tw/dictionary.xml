@@ -3248,7 +3248,6 @@
   <block id="318a2b6d7e7889951c0d77c3d1ba8546" category="list-text">k8s.IO/SIG-storage / CSI-置 備程式：v3.2.1</block>
   <block id="df89a3576bef4d7cad64e69dfa24fdf9" category="list-text">k8s.io/sig-storage / csi快照記錄：v6.0.1</block>
   <block id="468bc1e7f7712a8dc9b91d063523cdff" category="cell">1.24.0版</block>
-  <block id="ec94999ad88afd0106b8352731ec0d9f" category="admonition">在Kubernetes版本1.20及更新版本上、只有在「v1」版本提供「volumesnapshots.snapshot.storage」CRD時、才能使用已驗證的「remipest.k8s.io/sig-storage」映像。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.IO/SIG-storage / csi快照記錄：v3.x」影像。</block>
   <block id="82e48d2f97b89a148187e2a719308e68" category="admonition">如果您使用的是私有映像儲存庫、則應在私有登錄URL的結尾加上「/sig-storage」。在使用私有註冊表進行「tridentctl」部署時、您應該搭配「-trident映像」和「-autocomple-image」來搭配「-image登錄」。如果您使用Trident運算子來部署Astra Trident、請確定Orchestrator CR在安裝參數中包含「tridentImage」和「autosupportImage」。</block>
   <block id="9bef5437c66d7ae75dabd12519ecc5ac" category="section-title">22.07的新功能</block>
   <block id="05759468b045fc55d22e8e6881dca01f" category="paragraph">** Kubernetes*</block>
@@ -3317,4 +3316,5 @@
   <block id="a1142049a82a11e90102d655bb7e234d" category="inline-link-macro">GitHub的_Assets區段</block>
   <block id="28b29acf4f44cae9d70c63d88b52ba30" category="list-text">請從下載並擷取最新版本的Trident安裝程式套件 <block ref="6a7c34d1e7545bd3ab5abc336e61eb7f" category="inline-link-macro-rx"></block>。</block>
   <block id="da434b04f7985eff0b8eba0189b03041" category="paragraph">您可以從下載並擷取最新版本的Trident安裝程式套件 <block ref="6a7c34d1e7545bd3ab5abc336e61eb7f" category="inline-link-macro-rx"></block>。</block>
+  <block id="deb871bb56992a4738611a0463ca443d" category="admonition">在Kubernetes版本1.20及更新版本上、只有在「v1」版本提供「volumesnapshots.snapshot.storage」（Volume snapshots.snapshot.storage）.k8s.io（R）CRD時、才使用已驗證的「remite.k8s.io」映像。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.IO/SIG-storage / csi快照記錄：v3.x」影像。</block>
 </blocks>

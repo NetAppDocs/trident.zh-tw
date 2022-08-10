@@ -242,4 +242,4 @@ Astra Trident可能需要對儲存系統進行一些變更、才能使用後端�
 
 |===
 
-NOTE: 在Kubernetes版本1.20及更新版本上、只有在「v1」版本提供「volumesnapshots.snapshot.storage」CRD時、才能使用已驗證的「remipest.k8s.io/sig-storage」映像。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.IO/SIG-storage / csi快照記錄：v3.x」影像。
+NOTE: 在Kubernetes版本1.20及更新版本上、只有在「v1」版本提供「volumesnapshots.snapshot.storage」（Volume snapshots.snapshot.storage）.k8s.io（R）CRD時、才使用已驗證的「remite.k8s.io」映像。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.IO/SIG-storage / csi快照記錄：v3.x」影像。

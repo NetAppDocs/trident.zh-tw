@@ -219,7 +219,7 @@ docker volume rm trident_2
 
 == 在系統啟動時啟動Astra Trident
 
-可在Git repo的「contrib / trident.service.example`」中找到系統型系統的單元檔案範例。若要搭配CentOS/RHEL使用檔案、請執行下列步驟：
+可在Git repo的「contrib / trident.service.example`」中找到系統型系統的單元檔案範例。若要搭配CentOS 7/RHEL使用檔案、請執行下列步驟：
 
 . 將檔案複製到正確的位置。
 +

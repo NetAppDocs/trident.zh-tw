@@ -280,7 +280,6 @@
   <block id="5ff2e3e853922fdb84ef21b85ffdac2e" category="list-text">在啟動容器時配置Docker Volume：</block>
   <block id="8f6a91f5f21d0478e3fd89095fc28ab9" category="list-text">移除Docker Volume：</block>
   <block id="e63e2a2b9c9184e703ff8d93bb92508b" category="section-title">在系統啟動時啟動Astra Trident</block>
-  <block id="34f4e076aba0519cebd8bb63617b2f7e" category="paragraph">可在Git repo的「contrib / trident.service.example`」中找到系統型系統的單元檔案範例。若要搭配CentOS/RHEL使用檔案、請執行下列步驟：</block>
   <block id="5b51496da86e5a2073e0c618390c3d2a" category="list-text">將檔案複製到正確的位置。</block>
   <block id="44103de0a164f687d305ad91e919d8ee" category="paragraph">如果執行多個執行個體、則應使用單元檔案的唯一名稱。</block>
   <block id="3223aadc84a3ccb4a3473ba01c895184" category="list-text">編輯檔案、變更說明（第2行）以符合驅動程式名稱和組態檔案路徑（第9行）、以反映您的環境。</block>
@@ -397,7 +396,6 @@
   <block id="1d1a594959ec615f56516f5d0f5e8ddb" category="cell">NFS</block>
   <block id="3fb1c9901f28248a22f47bd3917b5dc9" category="paragraph">RHEL/CentOS</block>
   <block id="e0b19bed1baf46134f4079471e193b01" category="paragraph">「Udo yum install -y ns-utils」</block>
-  <block id="7eaf289636bc8d4f8b29b333a0f32dc2" category="paragraph">Ubuntu / DEBIAN</block>
   <block id="1054b270f1635a3dd940e995cbc7ed78" category="paragraph">「Udo apt-Get install -y nfs通用」</block>
   <block id="e4e1c13bb0b14f6cb7608cbecea948ef" category="cell">iSCSI</block>
   <block id="8cd5b262d8d9950185128d052d55f7c8" category="list-text">安裝下列系統套件：</block>
@@ -1128,7 +1126,6 @@
   <block id="29ba980a9e9adedc9414ea868c74ebd5" category="section-title">iSCSI磁碟區</block>
   <block id="222194999a60d89dfcd0ff5867f49e88" category="paragraph">使用iSCSI磁碟區時、請考量下列事項：</block>
   <block id="12fe03bf2457cc4e4e90af10a2f7092f" category="list-text">Kubernetes叢集中的每個節點都必須具有唯一的IQN。*這是必要的先決條件*。</block>
-  <block id="aaa200e86b57cd2a527761ec2bf4b9b0" category="list-text">如果使用帶有「Poolidfire - san」驅動程式的RHcos 4.5或更新版本、或RHEL或CentOS 8.2或更新版本、請確定在「/etc/iscsi/iscsid.conf」中將CHAP驗證演算法設定為「md5」。</block>
   <block id="0bad70dcf33f40dcc0d528d58b9eac76" category="inline-link">RedHat的文件</block>
   <block id="dbb4705e17a1f8ba49af109d4f366609" category="list-text">使用執行RHEL/RedHat CoreOS搭配iSCSI PV的工作節點時、請務必在StorageClass中指定「disccard」掛載選項、以執行即時空間回收。請參閱<block ref="166e862efdc516354d90f75a38532ddd" category="inline-link-rx"></block>。</block>
   <block id="1a5157a00ea5806f553766d5b3b114fd" category="list-text">檢查iscsite-initier-utils版本是否為6.6.0.874-2.el7或更新版本：</block>
@@ -3234,7 +3231,6 @@
   <block id="ca3cbba69cf4bb9d3450c7c6c27983aa" category="list-text">OpenShift 4.7（支援於2022年8月24日結束）、4.8、4.9、4.10</block>
   <block id="d603df1e8927b05892b2c331ab76174c" category="list-text">Astra Data Store 22.05或更新版本</block>
   <block id="6b51834314ece904405eb0ce1a6e6bd8" category="list-text">NetApp HCI / Element軟體11或更新版本</block>
-  <block id="948a0e05793c0c2484acb4582f13d9f0" category="list-text">RHEL或CentOS 7.9或更新版本（最新版本9.10）</block>
   <block id="6ebf7ae9dffc55cf86792ea266344b3a" category="list-text">Ubuntu 18.04或更新版本（最新版本22.04）</block>
   <block id="ea3ab43acafe15e8b0f7e22cb2ad9cfd" category="list-text">NetApp/Trident：22.07.0</block>
   <block id="3e04900915c3d18500b5db27afcc7f36" category="list-text">NetApp/Trident自動支援：22.07</block>
@@ -3317,4 +3313,9 @@
   <block id="da434b04f7985eff0b8eba0189b03041" category="paragraph">您可以從下載並擷取最新版本的Trident安裝程式套件 <block ref="6a7c34d1e7545bd3ab5abc336e61eb7f" category="inline-link-macro-rx"></block>。</block>
   <block id="deb871bb56992a4738611a0463ca443d" category="admonition">在Kubernetes版本1.20及更新版本上、只有在「v1」版本提供「volumesnapshots.snapshot.storage」（Volume snapshots.snapshot.storage）.k8s.io（R）CRD時、才使用已驗證的「remite.k8s.io」映像。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.IO/SIG-storage / csi快照記錄：v3.x」影像。</block>
   <block id="756909f99bc1a720d318a5f5b94eb094" category="section-title">收集記錄以進行疑難排解</block>
+  <block id="98a2ec14e38e4acf26c70e52b70bf5f8" category="list-text">RHEL或CentOS 7.</block>
+  <block id="c5e9849ca6abd11c3d0615c338c6a231" category="paragraph">RHEL/CentOS 7.</block>
+  <block id="3d945423f8e9496c429a5d8c65b4604f" category="paragraph">Ubuntu</block>
+  <block id="269efd38c7d91afd7e1339da498a391f" category="list-text">如果使用RMCOS 4.5版或更新版本、或其他RHEL相容的Linux套裝作業系統搭配「Poolidfire - san」驅動程式、請確保在「/etc/iscsi/iscsid.conf」中將CHAP驗證演算法設定為「md5」。</block>
+  <block id="b437164523254b34902d49bbf5e996aa" category="paragraph">可在Git repo的「contrib / trident.service.example`」中找到系統型系統的單元檔案範例。若要搭配CentOS 7/RHEL使用檔案、請執行下列步驟：</block>
 </blocks>

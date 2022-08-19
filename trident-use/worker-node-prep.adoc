@@ -47,14 +47,14 @@ NOTE: 節點服務探索可識別探索到的服務、但無法保證服務已�
 
 
 | NFS  a| 
-RHEL/CentOS
+RHEL/CentOS 7.
  a| 
 「Udo yum install -y ns-utils」
 
 
 
 | NFS  a| 
-Ubuntu / DEBIAN
+Ubuntu
  a| 
 「Udo apt-Get install -y nfs通用」
 
@@ -69,7 +69,7 @@ NOTE: 您應確保NFS服務在開機期間啟動。
 使用iSCSI磁碟區時、請考量下列事項：
 
 * Kubernetes叢集中的每個節點都必須具有唯一的IQN。*這是必要的先決條件*。
-* 如果使用帶有「Poolidfire - san」驅動程式的RHcos 4.5或更新版本、或RHEL或CentOS 8.2或更新版本、請確定在「/etc/iscsi/iscsid.conf」中將CHAP驗證演算法設定為「md5」。
+* 如果使用RMCOS 4.5版或更新版本、或其他RHEL相容的Linux套裝作業系統搭配「Poolidfire - san」驅動程式、請確保在「/etc/iscsi/iscsid.conf」中將CHAP驗證演算法設定為「md5」。
 +
 [listing]
 ----
@@ -119,7 +119,7 @@ NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipat
 
 
 | iSCSI  a| 
-Ubuntu / DEBIAN
+Ubuntu
  a| 
 . 安裝下列系統套件：
 +

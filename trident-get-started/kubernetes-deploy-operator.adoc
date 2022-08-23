@@ -48,19 +48,19 @@ TIP: 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"^]�
 .步驟
 . 新增Trident的Helm儲存庫：
 +
-[listing]
+[source, cli]
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
 . 使用「helm install」命令並指定部署名稱。請參閱下列範例：
 +
-[listing]
+[source, cli]
 ----
-helm install <release-name> netapp-trident/trident-operator --version 22.7.0 --namespace <trident-namespace>
+helm install <release-name> netapp-trident/trident-operator --version 22.4.0 --create-namespace <trident-namespace>
 ----
 +
 
-NOTE: 如果您尚未建立Trident的命名空間、可以將「-cree-namespace"參數新增至「helm install」命令。然後、Helm會自動為您建立命名空間。
+NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參數不會建立其他命名空間。
 
 
 
@@ -72,7 +72,7 @@ NOTE: 如果您尚未建立Trident的命名空間、可以將「-cree-namespace"
 
 例如、若要變更預設值「debug」、請執行下列「-set」命令：
 
-[listing]
+[source, cli]
 ----
 $ helm install <name> netapp-trident/trident-operator --version 22.7.0 --set tridentDebug=true
 ----
@@ -97,19 +97,19 @@ NOTE: 使用OpenShift時、請在所有範例中使用「oc"而非「kubecll」�
 
 若要驗證Kubernetes版本、請執行下列命令：
 
-[listing]
+[source, cli]
 ----
 kubectl version
 ----
 若要查看您是否具有Kubernetes叢集管理員權限、請執行下列命令：
 
-[listing]
+[source, cli]
 ----
 kubectl auth can-i '*' '*' --all-namespaces
 ----
 若要驗證是否可以從Docker Hub啟動使用映像的Pod、並透過Pod網路連線至儲存系統、請執行下列命令：
 
-[listing]
+[source, cli]
 ----
 kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
   ping <management IP>
@@ -123,7 +123,7 @@ NOTE: 從21.01開始、Trident運算子就是叢集範圍。若要使用Trident�
 
 . 請從下載並擷取最新版本的Trident安裝程式套件 link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]。
 +
-[listing]
+[source, cli]
 ----
 wget https://github.com/NetApp/trident/releases/download/v22.04.0/trident-installer-22.04.0.tar.gz
 tar -xf trident-installer-22.04.0.tar.gz
@@ -134,7 +134,7 @@ cd trident-installer
 執行下列命令：
 
 +
-[listing]
+[source, cli]
 ----
 kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
 ----
@@ -148,7 +148,7 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.1
 Trident安裝程式包含定義這些資源的資訊清單。根據預設、運算子會部署在「Trident」命名空間中。如果「Trident」命名空間不存在、請使用下列資訊清單來建立名稱空間。
 
 +
-[listing]
+[source, cli]
 ----
 $ kubectl apply -f deploy/namespace.yaml
 ----
@@ -159,7 +159,7 @@ $ kubectl apply -f deploy/namespace.yaml
 執行下列命令、以更新Yaml清單、並使用「kustomization、yaml」產生您的「bunder.yaml」：
 
 +
-[listing]
+[source, cli]
 ----
 kubectl kustomize deploy/ > deploy/bundle.yaml
 ----
@@ -167,13 +167,13 @@ kubectl kustomize deploy/ > deploy/bundle.yaml
 執行下列命令以建立資源並部署營運者：
 
 +
-[listing]
+[source, cli]
 ----
 kubectl create -f deploy/bundle.yaml
 ----
 . 若要在部署後驗證操作員的狀態、請執行下列步驟：
 +
-[listing]
+[source, cli]
 ----
 $ kubectl get deployment -n <operator-namespace>
 NAME               READY   UP-TO-DATE   AVAILABLE   AGE
@@ -196,7 +196,7 @@ IMPORTANT: Kubernetes叢集中只應有*一個運算子執行個體*。請勿建
 
 您現在可以使用運算子來安裝Astra Trident！這需要建立「TridentOrchestrator」。Trident安裝程式隨附建立「TridentOrchestrator」的範例定義。這將開始在「Trident」命名空間中安裝。
 
-[listing]
+[source, cli]
 ----
 $ kubectl create -f deploy/crds/tridentorchestrator_cr.yaml
 tridentorchestrator.trident.netapp.io/trident created
@@ -268,7 +268,7 @@ Trident運算子可讓您使用「TridentOrchestrator」規格中的屬性、自
 
 您可以查看已建立的Pod、確認Astra Trident安裝是否已完成：
 
-[listing]
+[source, cli]
 ----
 $ kubectl get pod -n trident
 NAME                                READY   STATUS    RESTARTS   AGE
@@ -280,7 +280,7 @@ trident-operator-766f7b8658-ldzsv   1/1     Running   0           3m
 ----
 您也可以使用「tridentctl」來檢查安裝的Astra Trident版本。
 
-[listing]
+[source, cli]
 ----
 $ ./tridentctl -n trident version
 +----------------+----------------+

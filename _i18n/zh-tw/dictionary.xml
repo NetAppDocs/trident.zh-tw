@@ -1758,7 +1758,6 @@
   <block id="2e1b3f44683eee188be985693c4af5e1" category="list-text">Helm版本3</block>
   <block id="9c99c91edd7eddead4f870a324f880bd" category="list-text">新增Trident的Helm儲存庫：</block>
   <block id="bfd69e00e956b426c17001fc7ae7afbe" category="list-text">使用「helm install」命令並指定部署名稱。請參閱下列範例：</block>
-  <block id="e088e1f9fcd6d6a9509bd529db24c8f3" category="admonition">如果您尚未建立Trident的命名空間、可以將「-cree-namespace"參數新增至「helm install」命令。然後、Helm會自動為您建立命名空間。</block>
   <block id="e366a20246a41520da551be510c1d658" category="paragraph">安裝期間有兩種傳遞組態資料的方法：</block>
   <block id="a61e25800624ce452a1c4082ce082d9b" category="list-text">-`-Values（或`-f'）：指定具有置換的Yaml檔案。這可以多次指定、最右邊的檔案會優先。</block>
   <block id="7dc8a47a7055ee868486daae4c256916" category="list-text">-Set'：在命令列上指定置換項目。</block>
@@ -3318,4 +3317,5 @@
   <block id="3d945423f8e9496c429a5d8c65b4604f" category="paragraph">Ubuntu</block>
   <block id="269efd38c7d91afd7e1339da498a391f" category="list-text">如果使用RMCOS 4.5版或更新版本、或其他RHEL相容的Linux套裝作業系統搭配「Poolidfire - san」驅動程式、請確保在「/etc/iscsi/iscsid.conf」中將CHAP驗證演算法設定為「md5」。</block>
   <block id="b437164523254b34902d49bbf5e996aa" category="paragraph">可在Git repo的「contrib / trident.service.example`」中找到系統型系統的單元檔案範例。若要搭配CentOS 7/RHEL使用檔案、請執行下列步驟：</block>
+  <block id="134bf17c90c90b5aeed99dde262bf14d" category="admonition">如果您已經為Trident建立命名空間、則「-cree-namespacre」參數不會建立其他命名空間。</block>
 </blocks>

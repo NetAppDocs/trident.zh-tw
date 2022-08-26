@@ -568,62 +568,28 @@
   <block id="c54241e3258a450b02a723d6d751a4f1" category="list-text"><block ref="c54241e3258a450b02a723d6d751a4f1" category="inline-link-rx"></block></block>
   <block id="9d6ffa6ef31bd0b92876314219f18ef5" category="inline-link">Astra API文件</block>
   <block id="9c2cf0e947812ecb3fc0bfccaa8b3c61" category="list-text"><block ref="9c2cf0e947812ecb3fc0bfccaa8b3c61" category="inline-link-rx"></block></block>
-  <block id="3381a309aeefac050f7f5319f6757afe" category="summary">瞭解如何使用提供的範例組態、為Astra Trident安裝設定Astra Data Store（廣告）後端。</block>
-  <block id="83caf3e7a6bf2dcce3d7d6eab3c8905c" category="doc">設定Astra Data Store後端</block>
-  <block id="0b1c01b976c493a4217d6f4b772849b0" category="paragraph">瞭解如何使用提供的範例組態、為Astra Trident安裝設定Astra Data Store（廣告）後端。</block>
-  <block id="8035d5d39b2b48f6ec1a3133b688513c" category="inline-link">Astra資料儲存區</block>
-  <block id="efd5e8dbeec263f783a6cd6ac036c6a9" category="paragraph">以設定及使用<block ref="a026c15058b831feb6de8c4c836387ae" category="inline-link-rx"></block> 後端、您需要下列項目：</block>
-  <block id="c7f6917a3ac9bd1d4133a82dc3260748" category="list-text">Kubernetes叢集代管廣告的認證資料。Kubernetes叢集託管廣告的命名空間必須專供此Astra Trident後端所建立及管理的磁碟區、快照及匯出原則資源使用。Kubernetes叢集託管廣告必須提供「Kubeconfig」、以支援：</block>
-  <block id="cebbe731acfa0b8c520f355bcbfa6dd1" category="list-text">讀取「astrad-system」命名空間中的所有物件</block>
-  <block id="cb90bccb2cf5bc16b37e39d379d5a5ea" category="list-text">在為此Astra Trident後端使用所建立的命名空間中讀取/寫入物件</block>
-  <block id="2f191460bd4d4750f88513ea54101bed" category="list-text">列出所有叢集命名空間</block>
   <block id="15b7c7ffe264d7b8c61915ff2a6ef96c" category="section-title">後端組態選項</block>
   <block id="9d370350f8d0178b5dfbec9def10d13a" category="paragraph">如需後端組態選項、請參閱下表：</block>
   <block id="83f499a540b1323009c200d6f8cc9396" category="cell">參數</block>
   <block id="5aae2c40b50d296edbd4ba9cfb462b49" category="cell">儲存驅動程式名稱</block>
-  <block id="e269f9fe19f18e73c77815dddc019d7b" category="cell">「astrads - NAS」</block>
   <block id="5afd6479855e8d63f324b6ec2fa787b4" category="cell">自訂名稱或儲存後端</block>
-  <block id="5b4fc65310144922f0384b20a00bd6ae" category="cell">ads叢集名稱</block>
-  <block id="65e18a0bb1868a9c1e181302d4733dba" category="cell">《叢集》</block>
-  <block id="d24ec3d66e6303208e4767ec5cccbc76" category="cell">適用的資源名稱</block>
   <block id="f3f30d479f6e3b393d917a3b2f88c770" category="cell">命名空間</block>
-  <block id="a4c39aafd14948aacfcc4f9c6374a875" category="cell">Astra Trident將在命名空間中建立所有的AADS自訂資源</block>
-  <block id="995c6425a4a00f961b0c8a2000c5497c" category="cell">《Kbeconfig》</block>
-  <block id="dc37fa78a7cf3d9ae1dbf70f4430a142" category="cell">適用於ads Kubernetes叢集的認證資料（Base64 compact Json）</block>
-  <block id="e5f77e38f271802a5a75ecdffe577104" category="cell">"版本=4.1"</block>
   <block id="a0f3a965c12688befda99da850903dcb" category="cell">「AutoExpportPolicy」</block>
   <block id="4a5695a4c9eea28a296b0b2f210a15f8" category="cell">啟用自動匯出原則建立與更新[布 林值]</block>
   <block id="b4ad0dff08149092bc3e4b16572af575" category="cell">《AutoExpportCIDR》（自動匯出CTR）</block>
-  <block id="2949ef191693d444cc1f96962c1fd8ae" category="cell">啟用「AutoExpportPolicy」時、用來篩選Kubernetes節點IP的CIDR清單</block>
-  <block id="1abbe16b7053d16fb89efaebd94484be" category="cell">["0.00.0.0/0"、":/0"]</block>
   <block id="567c7f0eca746ed7513764be5ecf6d03" category="cell">""（預設不強制執行）</block>
   <block id="f2f2c7c3c767da610bd95934104674f6" category="cell">「DebugTraceFlags」</block>
-  <block id="857a0a2e6dd17cb6e0022d80855b338a" category="cell">疑難排解時要使用的偵錯旗標。範例：｛"API"：假、"method"：true｝</block>
   <block id="37a6259cc0c1dae299a7866489dff0bd" category="cell">null</block>
   <block id="eea443d4fcc24d4cd2cab08c2a6c062f" category="cell">《標籤》</block>
   <block id="88dce60232453383ab0d1c3c59cc931d" category="admonition">除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用「debugTraceFlags」。</block>
-  <block id="0ffdeb640d4a5fc9f33736feec8d274f" category="admonition">您應該先將「Kebeconfig」值從Yaml轉換為精簡Json格式、然後再轉換為Base64格式、再將其納入後端組態。</block>
-  <block id="5ef844cc326d7b10c0f674ac9b2b3c74" category="paragraph">每個後端都會在裝載ADS的Kubernetes叢集上的單一命名空間中配置磁碟區。若要在其他命名空間中建立磁碟區、您可以定義其他後端。可以將ADS磁碟區附加到託管叢集中的任何命名空間、任何其他Kubernetes叢集、或是可以掛載NFS共用的任何位置。</block>
-  <block id="f2319c1b13782c7170018cdd5fb7fd49" category="paragraph">您可以在組態檔的特殊區段中、使用這些選項來控制每個Volume的預設資源配置。</block>
-  <block id="77c62856cfaac230e7c2fd8139d7c2c8" category="paragraph">請參閱下列組態範例。</block>
   <block id="c1a0e97f953c948568aed6c134fc9711" category="cell">要使用的匯出原則</block>
   <block id="9aa82da0cffe247b84587c1cc8e32746" category="cell">"預設"</block>
-  <block id="ef616ce0e78a1254437e682f723bb5e6" category="cell">新磁碟區的模式、必須為八進位、且開頭為「0」</block>
-  <block id="6474dd374337126fa99c86e653ebfd64" category="cell">「0777」</block>
   <block id="31ed61cc3c85d0bb697cd12b77f37fd1" category="cell">保留給快照的磁碟區百分比</block>
-  <block id="5964a48430cb8e8190dbd855a8514a0c" category="cell">「5」</block>
   <block id="c07fbc0b2a1a865fe9e3a55c05b4f690" category="cell">"假"</block>
   <block id="84d2c2c768bd1900489bad5fb46b4aac" category="cell">「qosPolicy」</block>
-  <block id="115261f04e7f7d964bc608b63a82b482" category="cell">要指派給所建立磁碟區的QoS原則</block>
   <block id="9d4568c009d203ab10e33ea9953a0264" category="cell">"</block>
-  <block id="cf04ead37df0a76237b27de327c0cd03" category="admonition">對於在AIT後端建立的所有磁碟區、Astra Trident會在儲存資源池配置時、將儲存資源池上的所有標籤複製到儲存磁碟區。儲存管理員可以定義每個儲存資源池的標籤、並將每個儲存資源池所建立的所有磁碟區分組。這是根據後端組態檔中提供的一組可自訂標籤、方便區分磁碟區的方法。</block>
-  <block id="b53453343f074fd64ef7129def93f57d" category="section-title">範例1：最小後端組態</block>
   <block id="9fe036cdf8651713d44464a40094dc62" category="paragraph">這是絕對最低的後端組態。</block>
-  <block id="55c1dd55273b867b995333cc3abd250e" category="section-title">範例2：單一服務層級組態</block>
-  <block id="8f3db75549f212e0fdab2c542531a95e" category="paragraph">此範例顯示後端檔案、可將相同層面套用至所有Astra Trident建立的儲存設備。</block>
-  <block id="2b00c4aa6134b525e9355d880ecb0c8d" category="section-title">範例3：虛擬儲存池組態</block>
   <block id="fe8fbdb035f6bebecaf9a52e36d8a595" category="paragraph">此範例顯示使用虛擬儲存資源池設定的後端定義檔案、以及參照回溯的StorageClass。</block>
-  <block id="a2c81e41622f2e2616b33a689e229c72" category="paragraph">下列StorageClass定義係指上述儲存資源池。您可以使用「parameters.selector`」欄位、為每個StorageClass指定用於裝載磁碟區的虛擬集區。磁碟區將會在所選的虛擬資源池中定義各個層面。</block>
   <block id="3f297ef15cde0668e93b35f2752fd4fd" category="section-title">接下來呢？</block>
   <block id="3ad256eea0abb551eaab63c84aa3d1f9" category="paragraph">建立後端組態檔之後、請執行下列命令：</block>
   <block id="a61ed3c1ecae587dbee1f2c0ace81e3b" category="paragraph">如果後端建立失敗、表示後端組態有問題。您可以執行下列命令來檢視記錄、以判斷原因：</block>
@@ -3035,7 +3001,6 @@
   <block id="e08bfc79c5202517b3814efd6e82fb2c" category="sidebar">升級或解除安裝Trident</block>
   <block id="0460583622f03a52d7693094d6fa2452" category="sidebar">概念</block>
   <block id="cc4a0df2c635530d752308ab5a1c4b89" category="sidebar">設定ANF後端</block>
-  <block id="498784627f42c14468b84a1a351bd462" category="sidebar">設定ADS後端</block>
   <block id="58eaebf972358f1cf03d386a4ade1a0f" category="sidebar">接下來呢？</block>
   <block id="a20f982d79c3dd66d244ffe0f7d940ee" category="sidebar">最佳實務做法與建議</block>
   <block id="c91cf7abea9584bc1edbc8ff4948ada0" category="sidebar">Astra Trident整合</block>
@@ -3074,7 +3039,6 @@
   <block id="f3aff8b93ad58c4831861213ffc9bbe7" category="paragraph">從22.07年開始、Astra Trident會嘗試自動偵測節點是否能夠執行iSCSI或NFS服務。Astra Trident會為節點建立事件、以識別發現的服務。您可以使用下列命令來檢閱這些事件：</block>
   <block id="6a3314aee95c1c78527e5f122976ec80" category="paragraph">Trident也會識別Trident節點CR上為每個節點啟用的服務。若要檢視探索到的服務、請使用命令：</block>
   <block id="2b6ab5193160f5eaca51526b15f27e3a" category="admonition">節點服務探索可識別探索到的服務、但無法保證服務已正確設定。相反地、沒有探索到的服務並不保證磁碟區掛載會失敗。</block>
-  <block id="cf4aa5147f5ffc050878ff7f615b9f05" category="list-text">Astra Data Store 22.05或更新版本。請參閱 <block ref="14a53a0276a7d83573eeaa3a25171559" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
   <block id="a8a2b2d9e5637b41609ebc0c72058699" category="list-text">Kubernetes叢集執行1.19 - 1.24。</block>
   <block id="3bb4e1a94d47c9447ecf5ab6ce7c23de" category="cell">叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。此功能為*技術預覽*。</block>
   <block id="66896c99fb06e0b6c86498b249f8217a" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。</block>
@@ -3233,14 +3197,7 @@
   <block id="6ebf7ae9dffc55cf86792ea266344b3a" category="list-text">Ubuntu 18.04或更新版本（最新版本22.04）</block>
   <block id="ea3ab43acafe15e8b0f7e22cb2ad9cfd" category="list-text">NetApp/Trident：22.07.0</block>
   <block id="3e04900915c3d18500b5db27afcc7f36" category="list-text">NetApp/Trident自動支援：22.07</block>
-  <block id="0cdfc1d8350d0adcf6d641abf16a1046" category="list-text">k8s.IO/SIG-storage / CSI-置 備程式：v2.2.2</block>
-  <block id="ef50726ac477d7ed25cf94fd26f6e4ce" category="list-text">k8s.io/sig-storage / csi附加程式：v3.5.0</block>
-  <block id="c47f8ab6695c185dd1cc8187e762b91f" category="list-text">k8s.io/sig-storage / csi大小調整：v1.5.0</block>
-  <block id="a33ee60bce887d9934eaa4c257ba369e" category="list-text">k8s.io/sig-storage / csi快照記錄：v3.0.3</block>
-  <block id="b5df2cef5efcb0eb27dd766a59e4b345" category="list-text">k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5</block>
   <block id="465c644c0e7ced87df9adbc6d3657f18" category="list-text">NetApp/Trident營運者：22.07.0（選用）</block>
-  <block id="318a2b6d7e7889951c0d77c3d1ba8546" category="list-text">k8s.IO/SIG-storage / CSI-置 備程式：v3.2.1</block>
-  <block id="df89a3576bef4d7cad64e69dfa24fdf9" category="list-text">k8s.io/sig-storage / csi快照記錄：v6.0.1</block>
   <block id="468bc1e7f7712a8dc9b91d063523cdff" category="cell">1.24.0版</block>
   <block id="82e48d2f97b89a148187e2a719308e68" category="admonition">如果您使用的是私有映像儲存庫、則應在私有登錄URL的結尾加上「/sig-storage」。在使用私有註冊表進行「tridentctl」部署時、您應該搭配「-trident映像」和「-autocomple-image」來搭配「-image登錄」。如果您使用Trident運算子來部署Astra Trident、請確定Orchestrator CR在安裝參數中包含「tridentImage」和「autosupportImage」。</block>
   <block id="9bef5437c66d7ae75dabd12519ecc5ac" category="section-title">22.07的新功能</block>
@@ -3310,7 +3267,6 @@
   <block id="a1142049a82a11e90102d655bb7e234d" category="inline-link-macro">GitHub的_Assets區段</block>
   <block id="28b29acf4f44cae9d70c63d88b52ba30" category="list-text">請從下載並擷取最新版本的Trident安裝程式套件 <block ref="6a7c34d1e7545bd3ab5abc336e61eb7f" category="inline-link-macro-rx"></block>。</block>
   <block id="da434b04f7985eff0b8eba0189b03041" category="paragraph">您可以從下載並擷取最新版本的Trident安裝程式套件 <block ref="6a7c34d1e7545bd3ab5abc336e61eb7f" category="inline-link-macro-rx"></block>。</block>
-  <block id="deb871bb56992a4738611a0463ca443d" category="admonition">在Kubernetes版本1.20及更新版本上、只有在「v1」版本提供「volumesnapshots.snapshot.storage」（Volume snapshots.snapshot.storage）.k8s.io（R）CRD時、才使用已驗證的「remite.k8s.io」映像。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.IO/SIG-storage / csi快照記錄：v3.x」影像。</block>
   <block id="756909f99bc1a720d318a5f5b94eb094" category="section-title">收集記錄以進行疑難排解</block>
   <block id="98a2ec14e38e4acf26c70e52b70bf5f8" category="list-text">RHEL或CentOS 7.</block>
   <block id="c5e9849ca6abd11c3d0615c338c6a231" category="paragraph">RHEL/CentOS 7.</block>
@@ -3318,4 +3274,12 @@
   <block id="269efd38c7d91afd7e1339da498a391f" category="list-text">如果使用RMCOS 4.5版或更新版本、或其他RHEL相容的Linux套裝作業系統搭配「Poolidfire - san」驅動程式、請確保在「/etc/iscsi/iscsid.conf」中將CHAP驗證演算法設定為「md5」。</block>
   <block id="b437164523254b34902d49bbf5e996aa" category="paragraph">可在Git repo的「contrib / trident.service.example`」中找到系統型系統的單元檔案範例。若要搭配CentOS 7/RHEL使用檔案、請執行下列步驟：</block>
   <block id="134bf17c90c90b5aeed99dde262bf14d" category="admonition">如果您已經為Trident建立命名空間、則「-cree-namespacre」參數不會建立其他命名空間。</block>
+  <block id="b0b4b8e52878f03279584f43bc961472" category="list-text">k8s.gcr.io/sig-storage / csi佈建程式：v2.2.2</block>
+  <block id="2afb1f98073f71c0d17fc9ca4a9e90c1" category="list-text">k8s.gcr.io/sig-storage / csi附加程式：v3.5.0</block>
+  <block id="1df82264c4305cc7b13edf95e4c3ac44" category="list-text">k8s.gcr.io/sig-storage / csi大小調整：v1.5.0</block>
+  <block id="ca2e728c8f17fef48811518aaed4de43" category="list-text">k8s.gcr.io/sig-storage / csi快照記錄：v3.0.3</block>
+  <block id="c7a50ec55e482100e18c09b42c5f13ad" category="list-text">k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5</block>
+  <block id="300646415618445143d2c1ccbf8526a5" category="list-text">k8s.gcr.io/sig-storage / csi佈建程式：v3.2.1</block>
+  <block id="7e2f92592397ec9dbbc41011e750def4" category="list-text">k8s.gcr.io/sig-storage / cscs-snapshotter：v6.0.1</block>
+  <block id="92027c79fbf95308efaf2ec1db03f661" category="admonition">在Kubernetes版本1.20及更新版本上、只有當「v1」版本提供「volumesnapshots.snapshot.storage」（volumesnapshots.snapshotter：v6.x）影像時、才使用已驗證的「remite.k8s.gcr.io」（英文）CRD。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.gcr.io/sig-storage / cs-snapshotter：v3.x」映像。</block>
 </blocks>

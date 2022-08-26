@@ -167,11 +167,11 @@ Astra Trident可能需要對儲存系統進行一些變更、才能使用後端�
 | v1.19.0版  a| 
 * NetApp/Trident：22.07.0
 * NetApp/Trident自動支援：22.07
-* k8s.IO/SIG-storage / CSI-置 備程式：v2.2.2
-* k8s.io/sig-storage / csi附加程式：v3.5.0
-* k8s.io/sig-storage / csi大小調整：v1.5.0
-* k8s.io/sig-storage / csi快照記錄：v3.0.3
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
+* k8s.gcr.io/sig-storage / csi佈建程式：v2.2.2
+* k8s.gcr.io/sig-storage / csi附加程式：v3.5.0
+* k8s.gcr.io/sig-storage / csi大小調整：v1.5.0
+* k8s.gcr.io/sig-storage / csi快照記錄：v3.0.3
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5
 * NetApp/Trident營運者：22.07.0（選用）
 
 
@@ -180,11 +180,11 @@ Astra Trident可能需要對儲存系統進行一些變更、才能使用後端�
 | v1.20.0  a| 
 * NetApp/Trident：22.07.0
 * NetApp/Trident自動支援：22.07
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.2.1
-* k8s.io/sig-storage / csi附加程式：v3.5.0
-* k8s.io/sig-storage / csi大小調整：v1.5.0
-* k8s.io/sig-storage / csi快照記錄：v6.0.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
+* k8s.gcr.io/sig-storage / csi佈建程式：v3.2.1
+* k8s.gcr.io/sig-storage / csi附加程式：v3.5.0
+* k8s.gcr.io/sig-storage / csi大小調整：v1.5.0
+* k8s.gcr.io/sig-storage / cscs-snapshotter：v6.0.1
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5
 * NetApp/Trident營運者：22.07.0（選用）
 
 
@@ -193,11 +193,11 @@ Astra Trident可能需要對儲存系統進行一些變更、才能使用後端�
 | 1.21.0版  a| 
 * NetApp/Trident：22.07.0
 * NetApp/Trident自動支援：22.07
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.2.1
-* k8s.io/sig-storage / csi附加程式：v3.5.0
-* k8s.io/sig-storage / csi大小調整：v1.5.0
-* k8s.io/sig-storage / csi快照記錄：v6.0.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
+* k8s.gcr.io/sig-storage / csi佈建程式：v3.2.1
+* k8s.gcr.io/sig-storage / csi附加程式：v3.5.0
+* k8s.gcr.io/sig-storage / csi大小調整：v1.5.0
+* k8s.gcr.io/sig-storage / cscs-snapshotter：v6.0.1
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5
 * NetApp/Trident營運者：22.07.0（選用）
 
 
@@ -206,11 +206,11 @@ Astra Trident可能需要對儲存系統進行一些變更、才能使用後端�
 | 1.22.0版  a| 
 * NetApp/Trident：22.07.0
 * NetApp/Trident自動支援：22.07
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.2.1
-* k8s.io/sig-storage / csi附加程式：v3.5.0
-* k8s.io/sig-storage / csi大小調整：v1.5.0
-* k8s.io/sig-storage / csi快照記錄：v6.0.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
+* k8s.gcr.io/sig-storage / csi佈建程式：v3.2.1
+* k8s.gcr.io/sig-storage / csi附加程式：v3.5.0
+* k8s.gcr.io/sig-storage / csi大小調整：v1.5.0
+* k8s.gcr.io/sig-storage / cscs-snapshotter：v6.0.1
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5
 * NetApp/Trident營運者：22.07.0（選用）
 
 
@@ -219,11 +219,11 @@ Astra Trident可能需要對儲存系統進行一些變更、才能使用後端�
 | 1.23.0版  a| 
 * NetApp/Trident：22.07.0
 * NetApp/Trident自動支援：22.07
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.2.1
-* k8s.io/sig-storage / csi附加程式：v3.5.0
-* k8s.io/sig-storage / csi大小調整：v1.5.0
-* k8s.io/sig-storage / csi快照記錄：v6.0.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
+* k8s.gcr.io/sig-storage / csi佈建程式：v3.2.1
+* k8s.gcr.io/sig-storage / csi附加程式：v3.5.0
+* k8s.gcr.io/sig-storage / csi大小調整：v1.5.0
+* k8s.gcr.io/sig-storage / cscs-snapshotter：v6.0.1
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5
 * NetApp/Trident營運者：22.07.0（選用）
 
 
@@ -232,14 +232,14 @@ Astra Trident可能需要對儲存系統進行一些變更、才能使用後端�
 | 1.24.0版  a| 
 * NetApp/Trident：22.07.0
 * NetApp/Trident自動支援：22.07
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.2.1
-* k8s.io/sig-storage / csi附加程式：v3.5.0
-* k8s.io/sig-storage / csi大小調整：v1.5.0
-* k8s.io/sig-storage / csi快照記錄：v6.0.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
+* k8s.gcr.io/sig-storage / csi佈建程式：v3.2.1
+* k8s.gcr.io/sig-storage / csi附加程式：v3.5.0
+* k8s.gcr.io/sig-storage / csi大小調整：v1.5.0
+* k8s.gcr.io/sig-storage / cscs-snapshotter：v6.0.1
+* k8s.gcr.io/sig-storage / csi節點驅動程式登錄程式：v2.5
 * NetApp/Trident營運者：22.07.0（選用）
 
 
 |===
 
-NOTE: 在Kubernetes版本1.20及更新版本上、只有在「v1」版本提供「volumesnapshots.snapshot.storage」（Volume snapshots.snapshot.storage）.k8s.io（R）CRD時、才使用已驗證的「remite.k8s.io」映像。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.IO/SIG-storage / csi快照記錄：v3.x」影像。
+NOTE: 在Kubernetes版本1.20及更新版本上、只有當「v1」版本提供「volumesnapshots.snapshot.storage」（volumesnapshots.snapshotter：v6.x）影像時、才使用已驗證的「remite.k8s.gcr.io」（英文）CRD。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.gcr.io/sig-storage / cs-snapshotter：v3.x」映像。

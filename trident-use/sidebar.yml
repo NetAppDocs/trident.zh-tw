@@ -7,8 +7,6 @@ entries:
   entries:
   - title: 設定ANF後端
     url: "/trident-use/anf.html"
-  - title: 設定ADS後端
-    url: "/trident-use/ads.html"
   - title: 針對GCP後端設定CVS
     url: "/trident-use/gcp.html"
   - title: 設定NetApp HCI 一個不只是功能的SolidFire 後端

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-reco/security-reco.html 
-keywords: security, chap, trident, namespace 
+keywords: security, chap, trident, namespace, nve, nae, encryption, volume encryption, aggregate encryption 
 summary: 請使用此處列出的建議、確保您的Astra Trident安裝安全無虞。 
 ---
 = 安全性
@@ -27,7 +27,7 @@ summary: 請使用此處列出的建議、確保您的Astra Trident安裝安全�
 
 Astra Trident支援ONTAP 以CHAP為基礎的驗證功能、適用於各種SAN工作負載（使用「ONTAP-SAN」和「ONTAP-san經濟」驅動程式）。NetApp建議使用雙向CHAP搭配Astra Trident進行主機與儲存後端之間的驗證。
 
-針對使用SAN儲存驅動程式的幕後作業、Astra Trident可設定雙向CHAP、並透過「tridentctl」管理CHAP使用者名稱和機密。ONTAP請參閱 link:../trident-use/ontap-san-prep.html["請按這裡"^] 瞭解Astra Trident如何在ONTAP 不景點上設定CHAP。
+針對使用SAN儲存驅動程式的幕後作業、Astra Trident可設定雙向CHAP、並透過「tridentctl」管理CHAP使用者名稱和機密。ONTAP請參閱 link:../trident-use/ontap-san-prep.html["請按這裡"] 瞭解Astra Trident如何在ONTAP 不景點上設定CHAP。
 
 
 NOTE: Trident 20.04及更新版本提供對支援不支援的CHAP ONTAP 。
@@ -42,3 +42,31 @@ NetApp建議部署雙向CHAP、以確保主機與NetApp HCI 支援功能及Solid
 NOTE: 由csi Trident建立的磁碟區不會與任何Volume存取群組相關聯。
 
 在非csi前端中、磁碟區作為工作節點上的裝置附加作業是由Kubernetes處理。建立磁碟區之後、Astra Trident會呼叫NetApp HCI / SolidFire系統、以便在該租戶的機密資訊尚未存在時擷取機密資訊。然後、Astra Trident將機密傳給Kubernetes。位於每個節點上的Kubelet可透過Kubernetes API存取機密資料、並使用它們在存取磁碟區的每個節點與磁碟區所在的NetApp HCI / SolidFire系統之間執行/啟用CHAP。
+
+
+
+== Astra Trident如何與NVE和NAE搭配運作
+
+NetApp ONTAP 支援閒置資料加密、可在磁碟遭竊、退回或重新使用時、保護敏感資料。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["設定NetApp Volume Encryption總覽"^]。
+
+* 如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都將啟用NAE。
+* 如果後端未啟用NAE、則在Astra Trident中配置的任何Volume都會啟用NVE、除非您在後端組態中將NVE加密旗標設為「假」。
+
+
+[NOTE]
+====
+在啟用NAE的後端Astra Trident中建立的磁碟區、必須加密NVE或NAE。
+
+* 您可以在Trident後端組態中將NVE加密旗標設為「true」、以覆寫NAE加密、並以每個磁碟區為基礎使用特定的加密金鑰。
+* 在啟用NAE的後端將NVE加密旗標設為「假」、將會建立啟用NAE的Volume。您無法將NVE加密旗標設為「假」、以停用NAE加密。
+
+
+====
+* 您可以在Astra Trident中手動建立NVE磁碟區、方法是將NVE加密旗標明確設定為「true」。
+
+
+如需後端組態選項的詳細資訊、請參閱：
+
+* link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["支援SAN組態選項ONTAP"]
+* link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-examples.html["ASNAS確認選項ONTAP"]
+

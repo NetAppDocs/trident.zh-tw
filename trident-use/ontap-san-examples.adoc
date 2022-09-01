@@ -175,7 +175,7 @@ NOTE: Astra Trident在所有使用「ONTAP-san」驅動程式建立的磁碟區�
 | 「PlitOnClone」 | 建立複本時、從其父複本分割複本 | 「假」 
 
 
-| 加密 | 啟用NetApp Volume加密 | 「假」 
+| 加密 | 在新磁碟區上啟用NetApp Volume Encryption（NVE）；預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都會啟用NAE。如需詳細資訊、請參閱： link:../trident-reco/security-reco.html["Astra Trident如何與NVE和NAE搭配運作"]。 | 「假」 
 
 
 | 《生態樣式》 | 新磁碟區的安全樣式 | 「UNIX」 

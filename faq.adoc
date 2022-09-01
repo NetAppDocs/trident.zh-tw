@@ -311,7 +311,7 @@ Astra Trident將後端認證儲存為Kubernetes Secrets。
 
 === 如何透過Astra Trident搭配ONTAP 使用才能設定Volume加密？
 
-您可以使用後端定義檔中的加密參數、在Trident所提供的磁碟區上設定加密。
+您可以使用後端定義檔中的加密參數、在Trident所提供的磁碟區上設定加密。如需詳細資訊、請參閱： link:../trident-reco/security-reco.html["Astra Trident如何與NVE和NAE搭配運作"]
 
 
 

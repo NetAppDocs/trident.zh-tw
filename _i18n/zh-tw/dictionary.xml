@@ -73,7 +73,6 @@
   <block id="eb28cb6308c229ba4561cf02d78b9a07" category="paragraph">建立複本時從其父實體分割複本、預設為「假」</block>
   <block id="68934a3e9455fa72420237eb05902327" category="paragraph">錯</block>
   <block id="b091cbafedf94db98f17823d044434bd" category="cell">加密</block>
-  <block id="988726bbf32c455be56acbfb0da3aad0" category="paragraph">啟用NetApp Volume Encryption、預設為「假」</block>
   <block id="b326b5062b2f0e69046810717534cb09" category="paragraph">是的</block>
   <block id="ce46e8f3fc6eaddbe03115e0d62090ac" category="cell">「unixPermissions」</block>
   <block id="a3b703e23c8d0caf2b2fb4f46057013b" category="paragraph">NAS選項適用於已配置的NFS磁碟區、預設為「777」</block>
@@ -299,8 +298,6 @@
   <block id="91853d7e2338a1395280185fc93d4650" category="paragraph">這會將快照原則設定為所需的值。預設值為「無」、表示不會自動建立磁碟區的快照。除非您的儲存管理員加以修改、否則ONTAP 所有的各種系統都會有一個名為「預設」的原則、用來建立並保留六個每小時、每天兩個和每週兩個快照。快照中保留的資料可透過瀏覽至磁碟區任何目錄中的「.snapshot」目錄來還原。</block>
   <block id="b8a0fde33bd7662b7b9cb4158f04ef52" category="paragraph">這會將快照保留設定為所需的百分比。預設值為無值、表示ONTAP 如果您已選取snapshotPolicy、將選取snapshotReserve（通常為5%）、如果snapshotPolicy為無、則選取0%。您可以在組態檔中為所有ONTAP 的支援項目設定預設的snapshotReserve值、也可以將其用作所有ONTAP 不支援ONTAP-NAS-經濟功能的支援項目、作為所有支援項目的磁碟區建立選項。</block>
   <block id="0625856b9dc58db03a6e2c49b1f029e3" category="paragraph">當複製Volume時、ONTAP 這會導致停止實體複本、立即將其從父複本分割開來。預設值為「假」。部分複製磁碟區的使用案例、最好是在建立時立即將複本從父複本分割出來、因為不太可能有提高儲存效率的機會。例如，複製空白資料庫可節省大量時間，但儲存空間卻很少，因此最好立即分割實體複本。</block>
-  <block id="be94792f601f829d9b2be22553c6bf31" category="paragraph">這將在新磁碟區上啟用NetApp Volume Encryption（NVE）、預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。</block>
-  <block id="23038d88eea805ac06a26959fc129ca5" category="admonition">Trident目前不支援NetApp Aggregate Encryption（NAE）。</block>
   <block id="cdaf246fba737b75127faa65456baa30" category="paragraph">設定要用於磁碟區的分層原則。這會決定資料在非作用中（冷）時是否移至雲端層。</block>
   <block id="1c46d85ab16f6b373409ad15260b1b0a" category="paragraph">下列其他選項適用於NFS * Only *：</block>
   <block id="b145a4acc7a577d843f538580013776b" category="paragraph">這會控制Volume本身的權限設定。依預設、權限會設為「-rwxr-x-x'」、或是以數字表示法0755、而「root」則是擁有者。文字或數字格式皆可運作。</block>
@@ -1247,7 +1244,6 @@
   <block id="11f9fcd55c1d81cf352f86fe4cdfd444" category="cell">保留給快照「0」的磁碟區百分比</block>
   <block id="af6626456fa359992271ea88de34094f" category="cell">如果「快照原則」為「無」、則其他為「」</block>
   <block id="6f5c0c94b1a17baffd2c33facaa10db6" category="cell">建立複本時、從其父複本分割複本</block>
-  <block id="4ecb8b22870f9fb0645228cd38177c49" category="cell">啟用NetApp Volume加密</block>
   <block id="41da49bdd3fd88b2ddc6be7d6df1b335" category="cell">新磁碟區的安全樣式</block>
   <block id="4cda9f87625c6278fae1a50fcbbf96d3" category="cell">「UNIX」</block>
   <block id="592a5879ac095ef6ca504cc43a9d7939" category="cell">分層原則以使用「無」</block>
@@ -2172,7 +2168,6 @@
   <block id="47d7f9fac441e60d9523d256d02aa8ba" category="paragraph">若要將其他應用程式和使用者與Astra Trident區隔開、請務必在Kubernetes命名空間（「trident」）中安裝Astra Trident。將Astra Trident放在自己的命名空間中、可確保只有Kubernetes管理人員能夠存取Astra Trident Pod、以及儲存在命名式CRD物件中的成品（例如後端和CHAP機密）。您應該確保只允許系統管理員存取Astra Trident命名空間、進而存取「tridentctl」應用程式。</block>
   <block id="f40aef657c875e42158050f63dcfbb6f" category="section-title">使用CHAP驗證搭配ONTAP 使用支援SAN的功能</block>
   <block id="2738c60dc60977d9eb6af2bf2a98c193" category="paragraph">Astra Trident支援ONTAP 以CHAP為基礎的驗證功能、適用於各種SAN工作負載（使用「ONTAP-SAN」和「ONTAP-san經濟」驅動程式）。NetApp建議使用雙向CHAP搭配Astra Trident進行主機與儲存後端之間的驗證。</block>
-  <block id="c34904efabe33827baaa88ebf031ffab" category="paragraph">針對使用SAN儲存驅動程式的幕後作業、Astra Trident可設定雙向CHAP、並透過「tridentctl」管理CHAP使用者名稱和機密。ONTAP請參閱 <block ref="eda040c33c51e3cee067cf2f06789687" category="inline-link-macro-rx"></block> 瞭解Astra Trident如何在ONTAP 不景點上設定CHAP。</block>
   <block id="97f83fd51c89f4f9d3fc271b9f7291ab" category="admonition">Trident 20.04及更新版本提供對支援不支援的CHAP ONTAP 。</block>
   <block id="d4e0ad8fd8e11d87eb431051692db344" category="section-title">使用CHAP驗證NetApp HCI 搭配不景和SolidFire 不景的後端</block>
   <block id="b6a8ac29724d88dfaec657edda424d98" category="paragraph">NetApp建議部署雙向CHAP、以確保主機與NetApp HCI 支援功能及SolidFire 支援功能之間的驗證。Astra Trident使用每個租戶包含兩個CHAP密碼的秘密物件。當Trident安裝為「csi佈建程式」時、它會管理CHAP機密、並將其儲存在個別PV的「tridentvolume」（Tridentvolume）CR物件中。建立PV時、「csi Astra Trident」會使用CHAP機密來啟動iSCSI工作階段、NetApp HCI 並透過CHAP與該系統進行通訊SolidFire 。</block>
@@ -2862,7 +2857,6 @@
   <block id="ae6bc3659bb0be0a7d9f98a63775b7c2" category="section-title">如何將已配置的磁碟區設定為特定的匯出原則？</block>
   <block id="700a2008fea63d02c24b85f2f75d357e" category="paragraph">若要允許適當的主機存取磁碟區、請使用後端定義檔中設定的「exportPolicy」參數。</block>
   <block id="9d5813dee71bcbf3d3a03c62354c3e55" category="section-title">如何透過Astra Trident搭配ONTAP 使用才能設定Volume加密？</block>
-  <block id="5467ffdca7c34378117097446e6a4408" category="paragraph">您可以使用後端定義檔中的加密參數、在Trident所提供的磁碟區上設定加密。</block>
   <block id="ef1581716b653c4364dd5005dbe9e40a" category="section-title">什麼是透過ONTAP Astra Trident實作QoS for Sfor Sfor Sfor the S星？</block>
   <block id="f412d672b51ea3c57812ebf3be0ddccb" category="paragraph">使用「儲存類」來實作ONTAP QoS以利實現。</block>
   <block id="1c771b761835123a135e64f70567d768" category="section-title">如何透過Astra Trident指定精簡或完整的資源配置？</block>
@@ -3282,4 +3276,25 @@
   <block id="300646415618445143d2c1ccbf8526a5" category="list-text">k8s.gcr.io/sig-storage / csi佈建程式：v3.2.1</block>
   <block id="7e2f92592397ec9dbbc41011e750def4" category="list-text">k8s.gcr.io/sig-storage / cscs-snapshotter：v6.0.1</block>
   <block id="92027c79fbf95308efaf2ec1db03f661" category="admonition">在Kubernetes版本1.20及更新版本上、只有當「v1」版本提供「volumesnapshots.snapshot.storage」（volumesnapshots.snapshotter：v6.x）影像時、才使用已驗證的「remite.k8s.gcr.io」（英文）CRD。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.gcr.io/sig-storage / cs-snapshotter：v3.x」映像。</block>
+  <block id="76ab201466ec43d71ec9051f8a556457" category="paragraph">針對使用SAN儲存驅動程式的幕後作業、Astra Trident可設定雙向CHAP、並透過「tridentctl」管理CHAP使用者名稱和機密。ONTAP請參閱 <block ref="2e905590b15db776a189c7b5f90d9174" category="inline-link-macro-rx"></block> 瞭解Astra Trident如何在ONTAP 不景點上設定CHAP。</block>
+  <block id="ea4a2eeab32b5cd82414bd4a2fc3e8e6" category="section-title">Astra Trident如何與NVE和NAE搭配運作</block>
+  <block id="c638f77e97a62d0d11f775816222d62a" category="inline-link-macro">設定NetApp Volume Encryption總覽</block>
+  <block id="b65b10bf779c45e4940c255ecf83bdc3" category="paragraph">NetApp ONTAP 支援閒置資料加密、可在磁碟遭竊、退回或重新使用時、保護敏感資料。如需詳細資訊、請參閱 <block ref="e0b51490e5d435c82abc702d0a4ca15c" category="inline-link-macro-rx"></block>。</block>
+  <block id="2f96099170687a6fc94d47d5c9e1db78" category="list-text">如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都將啟用NAE。</block>
+  <block id="f2e4034ee02b84093370b28f55809870" category="list-text">如果後端未啟用NAE、則在Astra Trident中配置的任何Volume都會啟用NVE、除非您在後端組態中將NVE加密旗標設為「假」。</block>
+  <block id="82d9a35a126449139766a969834999ca" category="paragraph">在啟用NAE的後端Astra Trident中建立的磁碟區、必須加密NVE或NAE。</block>
+  <block id="1bb1c0791a9e9cff8de216ed44b1de31" category="list-text">您可以在Trident後端組態中將NVE加密旗標設為「true」、以覆寫NAE加密、並以每個磁碟區為基礎使用特定的加密金鑰。</block>
+  <block id="c376f853ae2704beeb8bbb6836ada303" category="list-text">在啟用NAE的後端將NVE加密旗標設為「假」、將會建立啟用NAE的Volume。您無法將NVE加密旗標設為「假」、以停用NAE加密。</block>
+  <block id="5991606c4d185f50bd7f678053004989" category="list-text">您可以在Astra Trident中手動建立NVE磁碟區、方法是將NVE加密旗標明確設定為「true」。</block>
+  <block id="b6c7fef7b7bcf035a4f4ad02ff8808c2" category="paragraph">如需後端組態選項的詳細資訊、請參閱：</block>
+  <block id="06c4db929b729ddf158ceb5cc15b122b" category="inline-link-macro">支援SAN組態選項ONTAP</block>
+  <block id="ba6742159ffc869573e70b67c08565e4" category="list-text"><block ref="ba6742159ffc869573e70b67c08565e4" category="inline-link-macro-rx"></block></block>
+  <block id="b17af583fc89a3146e5ae28b0712c99c" category="inline-link-macro">ASNAS確認選項ONTAP</block>
+  <block id="66299b6466e6eab6aeefa2ab995fca55" category="list-text"><block ref="66299b6466e6eab6aeefa2ab995fca55" category="inline-link-macro-rx"></block></block>
+  <block id="6d9333eebb991611d29a4f8b7cc21fec" category="cell">在新磁碟區上啟用NetApp Volume Encryption（NVE）；預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都會啟用NAE。如需詳細資訊、請參閱： <block ref="00deada136b55f176f599153703cf50d" category="inline-link-macro-rx"></block>。</block>
+  <block id="e6c17edbc8ff331856d1dc0b7667563c" category="paragraph">您可以使用後端定義檔中的加密參數、在Trident所提供的磁碟區上設定加密。如需詳細資訊、請參閱： <block ref="00deada136b55f176f599153703cf50d" category="inline-link-macro-rx"></block></block>
+  <block id="911675212835161abe9bce3f33c70af0" category="paragraph">在新磁碟區上啟用NetApp Volume Encryption（NVE）；預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。</block>
+  <block id="1811ba2842625864e8f6233e19051566" category="paragraph">如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都會啟用NAE。</block>
+  <block id="cd6eb5bfdf9299ea3a76e2eb822c8293" category="paragraph">如需詳細資訊、請參閱： <block ref="00deada136b55f176f599153703cf50d" category="inline-link-macro-rx"></block>。</block>
+  <block id="2bc97a247278d92f5552529c55ab7f0d" category="paragraph">在新磁碟區上啟用NetApp Volume Encryption（NVE）；預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。</block>
 </blocks>

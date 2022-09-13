@@ -561,8 +561,6 @@
   <block id="0ae0ea6967e9321db008cee4ad5f290c" category="list-text"><block ref="0ae0ea6967e9321db008cee4ad5f290c" category="inline-link-rx"></block></block>
   <block id="3a4b2c66d4bdac6ce0e3340c71a39eda" category="inline-link">Astra Control Center文件</block>
   <block id="ea643bf7aaf130341a17f697a7009368" category="list-text"><block ref="ea643bf7aaf130341a17f697a7009368" category="inline-link-rx"></block></block>
-  <block id="be1c3d3113c4023e29e8dd947523c711" category="inline-link">Astra Data Store文件</block>
-  <block id="c54241e3258a450b02a723d6d751a4f1" category="list-text"><block ref="c54241e3258a450b02a723d6d751a4f1" category="inline-link-rx"></block></block>
   <block id="9d6ffa6ef31bd0b92876314219f18ef5" category="inline-link">Astra API文件</block>
   <block id="9c2cf0e947812ecb3fc0bfccaa8b3c61" category="list-text"><block ref="9c2cf0e947812ecb3fc0bfccaa8b3c61" category="inline-link-rx"></block></block>
   <block id="15b7c7ffe264d7b8c61915ff2a6ef96c" category="section-title">後端組態選項</block>
@@ -2009,7 +2007,6 @@
   <block id="925b814524908630c07d45fc5a80028a" category="paragraph">儲存管理員能夠在ONTAP 整個叢集中的集合體和控制器之間、不中斷營運地將磁碟區移至儲存使用者。此作業不會影響Astra Trident或Kubernetes叢集、只要目的地Aggregate是Astra Trident所使用的SVM能夠存取的集合體。重要的是、如果新將Aggregate新增至SVM、則需要重新將其新增至Astra Trident來重新整理後端。這會觸發Astra Trident重新清查SVM、以便辨識新的Aggregate。</block>
   <block id="033dcaefcc578c987d32d4bdb6f6b1e2" category="paragraph">然而、Astra Trident並不支援跨後端移動磁碟區。這包括在同一個叢集內的SVM之間、叢集之間或不同的儲存平台（即使該儲存系統是連接至Astra Trident的儲存系統）。</block>
   <block id="302be77289f337115411c01846d9a489" category="paragraph">如果將磁碟區複製到其他位置、則磁碟區匯入功能可用於將目前的磁碟區匯入Astra Trident。</block>
-  <block id="a059bca2035a0befa11f641fdabde223" category="paragraph">Astra Trident支援調整NFS和iSCSI PV的大小。這可讓使用者透過Kubernetes層直接調整磁碟區大小。所有主要的NetApp儲存平台皆可進行Volume擴充、包括ONTAP ：NetApp、SolidFire/NetApp HCI及Cloud Volumes Service 背後端點。若要稍後允許擴充、請在與磁碟區相關的StorageClass中將「owVolume Expansion」設為「true」。每當需要調整「持續Volume」的大小時、請在「持續Volume」中編輯「s.pec.resistices.resistices.storage」註釋、使其符合所需的Volume大小。Trident會自動調整儲存叢集上的磁碟區大小。</block>
   <block id="40a28a40c11a193f8911cf4143a6ae6a" category="section-title">將現有磁碟區匯入Kubernetes</block>
   <block id="62e0abd2d56d565a2b31e85b446fa800" category="paragraph">Volume匯入功能可將現有的儲存磁碟區匯入Kubernetes環境。目前支援的驅動程式有「ONTAP-NAS」、「ONTAP-NAs-flexgroup」、「Poolidfire - san」、「azure-NetApp-fil卻」和「GCP - CVS」。當將現有應用程式移轉至Kubernetes或發生災難恢復時、此功能非常實用。</block>
   <block id="5d9f64103cac7a58da69304bc3320e98" category="paragraph">使用ONTAP 支援功能的支援功能和「Poolidfire - san」驅動程式時、請使用命令「tridentctl import volume &lt;backend-name&gt;&lt;volume-name&gt;-f /path/PVC.yaml」、將現有的磁碟區匯入要由Astra Trident管理的Kubernetes。匯入Volume命令中使用的PVc Yaml或Json檔案會指向儲存類別、以將Astra Trident識別為資源配置程式。使用NetApp HCI / SolidFire後端時、請確定磁碟區名稱是唯一的。如果磁碟區名稱重複、請將磁碟區複製成唯一名稱、以便磁碟區匯入功能能夠區分它們。</block>
@@ -2065,7 +2062,6 @@
   <block id="210ecadaccb6088b0dfbd2e6a0b5d0a0" category="inline-link-macro">RedHat OpenShift Container Platform 3.11文件</block>
   <block id="67f3e99678cc7c568f4ed29074cdc41c" category="paragraph">不過、如果您在初始安裝之後進行部署、Ansible將需要使用元件方針。不同版本的OpenShift可能會稍微改變此程序、因此請務必閱讀並遵循 <block ref="a2226808e95b8487c66dd3b8cbea118e" category="inline-link-macro-rx"></block> 適用於您的版本。</block>
   <block id="3dbf527ac3caf41ab150ec99a1737217" category="section-title">度量服務</block>
-  <block id="12a5438ab4c44c9ad4dec6edc191eb7a" category="paragraph">度量服務可針對OpenShift叢集的狀態、資源使用率及可用度、提供寶貴的資訊給系統管理員。此外、也需要Pod自動擴充功能、許多組織會使用度量服務的資料來支付費用和/或顯示應用程式。</block>
   <block id="d0ed828e153e9bad2da040ddf6ad8f45" category="paragraph">如同記錄服務和OpenShift整體、Ansible可用於部署度量服務。此外、如同記錄服務、度量服務也可在叢集初始設定期間或使用元件安裝方法運作之後進行部署。下表包含在設定度量服務的持續儲存時、重要的變數。</block>
   <block id="69aa4440020e49c654aeb910f38c6bb9" category="admonition">下表僅包含與度量服務相關的儲存組態相關變數。文件中還有許多其他選項、您應該根據部署情況來檢閱、設定及使用。</block>
   <block id="4f692d78f978a73b157571022c1d1ba7" category="cell">"openshift_imization_storage類型"</block>
@@ -3186,7 +3182,6 @@
   <block id="d85ea0185bbd496941944ab1e486ddb8" category="list-text">Kubernetes 1.19 - 1.24</block>
   <block id="0b0c130cbadeba098951b51bf8268b3f" category="paragraph">若要驗證Kubernetes版本、請執行下列命令：</block>
   <block id="ca3cbba69cf4bb9d3450c7c6c27983aa" category="list-text">OpenShift 4.7（支援於2022年8月24日結束）、4.8、4.9、4.10</block>
-  <block id="d603df1e8927b05892b2c331ab76174c" category="list-text">Astra Data Store 22.05或更新版本</block>
   <block id="6b51834314ece904405eb0ce1a6e6bd8" category="list-text">NetApp HCI / Element軟體11或更新版本</block>
   <block id="6ebf7ae9dffc55cf86792ea266344b3a" category="list-text">Ubuntu 18.04或更新版本（最新版本22.04）</block>
   <block id="ea3ab43acafe15e8b0f7e22cb2ad9cfd" category="list-text">NetApp/Trident：22.07.0</block>
@@ -3208,7 +3203,6 @@
   <block id="cab6f6f91105d87aa3f65650df43c553" category="inline-link-macro">GitHub問題#228</block>
   <block id="00ea108f36897d9ed3523b970b09e6ea" category="list-text">新增技術預覽功能可自動MetroCluster 切換偵測ONTAP 到不完整的驅動程式。（<block ref="0c9c84232975bfb33d3481050e5ef924" category="inline-link-macro-rx"></block>）</block>
   <block id="0b4fe975279063a2d1790cd061a8b8d1" category="list-text">** Kubernetes：*將支援的Kubernetes最低更新為1.19。</block>
-  <block id="582d0eb7263de5a3b80e9e2a917c494c" category="list-text">Astra Data Store（廣告）驅動程式已更新至v1bet1客戶需求日、因此此版本的Trident需要使用ADS 22.5.0或更新版本。</block>
   <block id="108e9d089b04380952a04c1021cdad80" category="list-text">後端組態不再允許在單一組態中使用多種驗證類型。</block>
   <block id="de278730ee66ed696db3f71d20aa30a5" category="list-text">AWS CVS驅動程式（自22.04年起已過時）已移除。</block>
   <block id="16cbbf51150ac75556b3850ff4a5a013" category="list-text">已從節點Pod移除不必要的SYS_ADMIN功能。</block>
@@ -3297,4 +3291,6 @@
   <block id="1811ba2842625864e8f6233e19051566" category="paragraph">如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都會啟用NAE。</block>
   <block id="cd6eb5bfdf9299ea3a76e2eb822c8293" category="paragraph">如需詳細資訊、請參閱： <block ref="00deada136b55f176f599153703cf50d" category="inline-link-macro-rx"></block>。</block>
   <block id="2bc97a247278d92f5552529c55ab7f0d" category="paragraph">在新磁碟區上啟用NetApp Volume Encryption（NVE）；預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。</block>
+  <block id="17d79009c5c2bb6bd570bb6f87552a2d" category="paragraph">Astra Trident支援調整NFS和iSCSI PV的大小。這可讓使用者透過Kubernetes層直接調整磁碟區大小。所有主要的NetApp儲存平台皆可進行Volume擴充、包括ONTAP ：NetApp、SolidFire/NetApp HCI及Cloud Volumes Service 背後端點。若要稍後允許擴充、請在與磁碟區相關的StorageClass中將「owVolume Expansion」設為「true」。每當需要調整「持續Volume」的大小時、請在「持續Volume」中編輯「s.pec.resistices.resistices.storage」註釋、使其符合所需的Volume大小。Trident會自動調整儲存叢集上的磁碟區大小。</block>
+  <block id="ee3d8ea22d8bf88f2f7fcd6d6dbf26d2" category="paragraph">度量服務可針對OpenShift叢集的狀態、資源使用率及可用度、提供寶貴的資訊給系統管理員。此外、也需要Pod自動擴充功能、許多組織會使用指標服務的資料來支付費用和/或顯示應用程式。</block>
 </blocks>

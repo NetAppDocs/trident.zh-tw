@@ -46,7 +46,6 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 === 棄用
 
 * ** Kubernetes：*將支援的Kubernetes最低更新為1.19。
-* Astra Data Store（廣告）驅動程式已更新至v1bet1客戶需求日、因此此版本的Trident需要使用ADS 22.5.0或更新版本。
 * 後端組態不再允許在單一組態中使用多種驗證類型。
 
 

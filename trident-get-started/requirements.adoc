@@ -45,7 +45,6 @@ Astra Trident也能與其他全管理且自我管理的Kubernetes產品搭配使
 
 * Amazon FSX for NetApp ONTAP 產品
 * Azure NetApp Files
-* Astra Data Store 22.05或更新版本
 * Cloud Volumes ONTAP
 * 適用於 GCP Cloud Volumes Service
 * FAS/AFF/選取9.3或更新版本

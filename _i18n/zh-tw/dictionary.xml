@@ -539,7 +539,6 @@
   <block id="d6601a8eb863a49ea065281f70a5956b" category="summary">Astra Trident是NetApp在Astra產品系列中所維護的完整支援開放原始碼專案。其設計旨在協助您使用業界標準介面（例如Container Storage介面（SCSI））來滿足容器化應用程式的持續需求。</block>
   <block id="bb453665f57f6823950856f7a9bad0c3" category="inline-link-macro">Astra產品系列</block>
   <block id="9f469e7cb13566d8a664e8ab4d46f9e1" category="paragraph">Astra Trident是由NetApp維護的完整支援開放原始碼專案、也是其中的一部分 <block ref="a1650a2308dbba03b9ca704756a5a37d" category="inline-link-macro-rx"></block>。其設計旨在協助您使用業界標準介面（例如Container Storage介面（SCSI））來滿足容器化應用程式的持續需求。</block>
-  <block id="5db45af67ca348841844b1b2503a2aee" category="paragraph">Astra Trident將Kubernetes叢集部署為Pod、為Kubernetes工作負載提供動態儲存協調服務。它可讓您的容器化應用程式快速輕鬆地使用NetApp廣泛產品組合中的持續儲存設備、包括ONTAP ：VMware的VMware產品組合（AFF/FAS/Select/Cloud / Amazon FSX for NetApp ONTAP ）、Element軟體（NetApp HCI / SolidFire）、Astra Data Store、Azure NetApp Files 以及VMware服務、Cloud Volumes Service 以及Google Cloud上的VMware。</block>
   <block id="7c738d9c13e4e5770c6b455ab345afd7" category="paragraph">Astra Trident也是NetApp Astra的一項基礎技術、運用NetApp領先業界的資料管理技術、提供快照、備份、複寫及複製等快照、備份、複寫及複製功能、為Kubernetes工作負載提供資料保護、災難恢復、可攜性及移轉使用案例。</block>
   <block id="4bd05efa612e48dd723de2bdd29f88e2" category="section-title">支援的Kubernetes叢集架構</block>
   <block id="85b179f2c10f76f0171b4d9d3f2d5171" category="paragraph">下列Kubernetes架構支援Astra Trident：</block>
@@ -3293,4 +3292,5 @@
   <block id="2bc97a247278d92f5552529c55ab7f0d" category="paragraph">在新磁碟區上啟用NetApp Volume Encryption（NVE）；預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。</block>
   <block id="17d79009c5c2bb6bd570bb6f87552a2d" category="paragraph">Astra Trident支援調整NFS和iSCSI PV的大小。這可讓使用者透過Kubernetes層直接調整磁碟區大小。所有主要的NetApp儲存平台皆可進行Volume擴充、包括ONTAP ：NetApp、SolidFire/NetApp HCI及Cloud Volumes Service 背後端點。若要稍後允許擴充、請在與磁碟區相關的StorageClass中將「owVolume Expansion」設為「true」。每當需要調整「持續Volume」的大小時、請在「持續Volume」中編輯「s.pec.resistices.resistices.storage」註釋、使其符合所需的Volume大小。Trident會自動調整儲存叢集上的磁碟區大小。</block>
   <block id="ee3d8ea22d8bf88f2f7fcd6d6dbf26d2" category="paragraph">度量服務可針對OpenShift叢集的狀態、資源使用率及可用度、提供寶貴的資訊給系統管理員。此外、也需要Pod自動擴充功能、許多組織會使用指標服務的資料來支付費用和/或顯示應用程式。</block>
+  <block id="5e5cb863d5fe17c205c3d2201a1a2235" category="paragraph">Astra Trident將Kubernetes叢集部署為Pod、為Kubernetes工作負載提供動態儲存協調服務。它可讓您的容器化應用程式快速輕鬆地使用NetApp廣泛產品組合中的持續儲存設備、包括ONTAP ：VMware的各種產品組合（AFF/FAS/Select/Cloud / Amazon FSX for NetApp ONTAP ）、Element軟體（NetApp HCI / SolidFire）、Azure NetApp Files 以及Google Cloud Volumes Service Cloud上的整套服務和功能。</block>
 </blocks>

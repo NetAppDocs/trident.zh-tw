@@ -42,7 +42,7 @@ sudo docker run --rm -v /backup:/backup \
 +
 [listing]
 ----
-# etcdctl snapshot restore '/backup/etcd-snapshot-latest.db' ; mv /default.etcd/member/ /var/lib/etcd/
+etcdctl snapshot restore '/backup/etcd-snapshot-latest.db' ; mv /default.etcd/member/ /var/lib/etcd/
 ----
 . 初始化Kubernetes叢集之前、請複製所有必要的憑證。
 . 使用「-ignore預先執行錯誤= DirAvailable」-var-lib-etcd標誌建立叢集。

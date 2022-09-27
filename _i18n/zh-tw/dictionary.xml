@@ -2236,7 +2236,6 @@
   <block id="1869e61179995eed8692bfc705434d2b" category="list-text">執行「helm清單」、確認圖表和應用程式版本都已升級。</block>
   <block id="1d0b5ffc29a6dba36314ccbba6a46038" category="admonition">若要在升級期間傳遞組態資料、請使用「-set」。</block>
   <block id="4a6b869a481b52472aa62cfa4d9d255e" category="paragraph">例如、若要變更預設值「tridentDebug」、請執行下列命令：</block>
-  <block id="6b30e95bff9143b45494dd9486e9515d" category="paragraph">如果您執行「$ tridentctl logs」、就會看到偵錯訊息。</block>
   <block id="ad00f75f90e86259efc5e8512fe4c23a" category="admonition">如果您在初始安裝期間設定任何非預設選項、請確定升級命令中已包含這些選項、否則這些值將會重設為預設值。</block>
   <block id="5c83dd886f5edc620e809e7800bc225f" category="section-title">從非營運者安裝升級</block>
   <block id="69f43f0aadf9091408f80d6d1e0fdd45" category="paragraph">如果您有符合上述先決條件的「SCSI Trident」執行個體、您可以升級至Trident運算子的最新版本。</block>
@@ -3293,4 +3292,6 @@
   <block id="17d79009c5c2bb6bd570bb6f87552a2d" category="paragraph">Astra Trident支援調整NFS和iSCSI PV的大小。這可讓使用者透過Kubernetes層直接調整磁碟區大小。所有主要的NetApp儲存平台皆可進行Volume擴充、包括ONTAP ：NetApp、SolidFire/NetApp HCI及Cloud Volumes Service 背後端點。若要稍後允許擴充、請在與磁碟區相關的StorageClass中將「owVolume Expansion」設為「true」。每當需要調整「持續Volume」的大小時、請在「持續Volume」中編輯「s.pec.resistices.resistices.storage」註釋、使其符合所需的Volume大小。Trident會自動調整儲存叢集上的磁碟區大小。</block>
   <block id="ee3d8ea22d8bf88f2f7fcd6d6dbf26d2" category="paragraph">度量服務可針對OpenShift叢集的狀態、資源使用率及可用度、提供寶貴的資訊給系統管理員。此外、也需要Pod自動擴充功能、許多組織會使用指標服務的資料來支付費用和/或顯示應用程式。</block>
   <block id="5e5cb863d5fe17c205c3d2201a1a2235" category="paragraph">Astra Trident將Kubernetes叢集部署為Pod、為Kubernetes工作負載提供動態儲存協調服務。它可讓您的容器化應用程式快速輕鬆地使用NetApp廣泛產品組合中的持續儲存設備、包括ONTAP ：VMware的各種產品組合（AFF/FAS/Select/Cloud / Amazon FSX for NetApp ONTAP ）、Element軟體（NetApp HCI / SolidFire）、Azure NetApp Files 以及Google Cloud Volumes Service Cloud上的整套服務和功能。</block>
+  <block id="e73292b954f1f9bb2feaf96e6032765a" category="paragraph">如果您執行「tridentctl logs」、就會看到偵錯訊息。</block>
+  <block id="f21f22dde0e0692333a7a28cce456b08" category="sidebar">所有Astra文件</block>
 </blocks>

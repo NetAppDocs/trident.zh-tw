@@ -23,7 +23,7 @@ summary: 瞭解如何使用「kubecll」來執行後端管理作業。
 
 [listing]
 ----
-$ kubectl delete tbc <tbc-name> -n trident
+kubectl delete tbc <tbc-name> -n trident
 ----
 Astra Trident並不會刪除「TridentBackendConfig」所使用的Kubernetes Secrets。Kubernetes使用者負責清除機密。刪除機密時必須小心。只有在後端未使用機密時、才應刪除這些機密。
 
@@ -35,7 +35,7 @@ Astra Trident並不會刪除「TridentBackendConfig」所使用的Kubernetes Sec
 
 [listing]
 ----
-$ kubectl get tbc -n trident
+kubectl get tbc -n trident
 ----
 您也可以執行「tridentctl Get backend -n trident」或「tridentctl Get backend -o yaml -n trident」、以取得所有後端的清單。這份清單也會包含以「tridentctl」建立的後端。
 
@@ -50,20 +50,20 @@ $ kubectl get tbc -n trident
 
 [listing]
 ----
-$ kubectl apply -f <updated-secret-file.yaml> -n trident
+kubectl apply -f <updated-secret-file.yaml> -n trident
 ----
 * 需要ONTAP 更新參數（例如使用的SVM名稱）。在這種情況下、「TridentBackendConfig」物件可直接透過Kubernetes更新。
 
 
 [listing]
 ----
-$ kubectl apply -f <updated-backend-file.yaml>
+kubectl apply -f <updated-backend-file.yaml>
 ----
 或者、您也可以執行下列命令來變更現有的「TridentBackendConfig」CR：
 
 [listing]
 ----
-$ kubectl edit tbc <tbc-name> -n trident
+kubectl edit tbc <tbc-name> -n trident
 ----
 如果後端更新失敗、後端仍會繼續維持其最後已知的組態。您可以執行「kubecl Get tbc <tbc-name>-o yaml -n trident」或「kubecl描述tbc <tbc-name>-n trident」來檢視記錄以判斷原因。
 

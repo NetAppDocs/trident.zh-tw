@@ -21,13 +21,13 @@ summary: 瞭解如何使用「tridentctl」來執行後端管理作業。
 
 [listing]
 ----
-$ tridentctl create backend -f <backend-file> -n trident
+tridentctl create backend -f <backend-file> -n trident
 ----
 如果後端建立失敗、表示後端組態有問題。您可以執行下列命令來檢視記錄、以判斷原因：
 
 [listing]
 ----
-$ tridentctl logs -n trident
+tridentctl logs -n trident
 ----
 識別並修正組態檔的問題之後、您只需再次執行「create」命令即可。
 
@@ -41,13 +41,13 @@ $ tridentctl logs -n trident
 +
 [listing]
 ----
-$ tridentctl get backend -n trident
+tridentctl get backend -n trident
 ----
 . 刪除後端：
 +
 [listing]
 ----
-$ tridentctl delete backend <backend-name> -n trident
+tridentctl delete backend <backend-name> -n trident
 ----
 
 
@@ -64,13 +64,13 @@ NOTE: 如果Astra Trident已從這個後端配置磁碟區和快照、但該後�
 +
 [listing]
 ----
-$ tridentctl get backend -n trident
+tridentctl get backend -n trident
 ----
 * 若要取得所有詳細資料、請執行下列命令：
 +
 [listing]
 ----
-$ tridentctl get backend -o json -n trident
+tridentctl get backend -o json -n trident
 ----
 
 
@@ -82,13 +82,13 @@ $ tridentctl get backend -o json -n trident
 
 [listing]
 ----
-$ tridentctl update backend <backend-name> -f <backend-file> -n trident
+tridentctl update backend <backend-name> -f <backend-file> -n trident
 ----
 如果後端更新失敗、表示後端組態有問題、或是您嘗試了無效的更新。您可以執行下列命令來檢視記錄、以判斷原因：
 
 [listing]
 ----
-$ tridentctl logs -n trident
+tridentctl logs -n trident
 ----
 識別並修正組態檔的問題之後、您只需再次執行「update」命令即可。
 
@@ -100,6 +100,6 @@ $ tridentctl logs -n trident
 
 [listing]
 ----
-$ tridentctl get backend -o json | jq '[.items[] | {backend: .name, storageClasses: [.storage[].storageClasses]|unique}]'
+tridentctl get backend -o json | jq '[.items[] | {backend: .name, storageClasses: [.storage[].storageClasses]|unique}]'
 ----
 這也適用於使用「TridentBackendConfig」建立的後端。

@@ -61,7 +61,7 @@ kubectl create -f 21.10.0/trident-installer/deploy/bundle.yaml -n trident
 +
 [listing]
 ----
-$ kubectl describe tprov trident -n trident | grep Message: -A 3
+kubectl describe tprov trident -n trident | grep Message: -A 3
 Message:  Trident installed
 Status:   Installed
 Version:  v20.10.1
@@ -75,12 +75,12 @@ NOTE: 如果狀態顯示「正在更新」、請務必先解決、再繼續。�
 [listing]
 ----
 # Download the release required [21.01]
-$ mkdir 21.07.1
-$ cd 21.07.1
-$ wget https://github.com/NetApp/trident/releases/download/v21.07.1/trident-installer-21.07.1.tar.gz
-$ tar -xf trident-installer-21.07.1.tar.gz
-$ cd trident-installer
-$ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
+mkdir 21.07.1
+cd 21.07.1
+wget https://github.com/NetApp/trident/releases/download/v21.07.1/trident-installer-21.07.1.tar.gz
+tar -xf trident-installer-21.07.1.tar.gz
+cd trident-installer
+kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
 ----
 . 使用命名空間範圍的運算子資訊清單來刪除。若要完成此步驟、您需要使用「bunder.yaml」檔案來部署命名空間範圍的運算子。您可以從取得「bunder.yaml」 https://github.com/NetApp/trident/blob/stable/v20.10/deploy/bundle.yaml["Trident儲存庫"^]。請務必使用適當的分行。
 +
@@ -91,11 +91,11 @@ NOTE: 刪除命名空間範圍的運算子之後、在安裝叢集範圍的運�
 [listing]
 ----
 #Ensure you are in the right directory
-$ pwd
-$ /root/20.10.1/trident-installer
+pwd
+/root/20.10.1/trident-installer
 
 #Delete the namespace-scoped operator
-$ kubectl delete -f deploy/bundle.yaml
+kubectl delete -f deploy/bundle.yaml
 serviceaccount "trident-operator" deleted
 clusterrole.rbac.authorization.k8s.io "trident-operator" deleted
 clusterrolebinding.rbac.authorization.k8s.io "trident-operator" deleted
@@ -103,7 +103,7 @@ deployment.apps "trident-operator" deleted
 podsecuritypolicy.policy "tridentoperatorpods" deleted
 
 #Confirm the Trident operator was removed
-$ kubectl get all -n trident
+kubectl get all -n trident
 NAME                               READY   STATUS    RESTARTS   AGE
 pod/trident-csi-68d979fb85-dsrmn   6/6     Running   12         99d
 pod/trident-csi-8jfhf              2/2     Running   6          105d
@@ -129,7 +129,7 @@ replicaset.apps/trident-csi-68d979fb85   1         1         1       105d
 +
 [listing]
 ----
-$  kubectl patch tprov <trident-provisioner-name> -n <trident-namespace> --type=merge -p '{"spec":{"debug":true}}'
+kubectl patch tprov <trident-provisioner-name> -n <trident-namespace> --type=merge -p '{"spec":{"debug":true}}'
 ----
 . 安裝叢集範圍的運算子。
 +
@@ -144,11 +144,11 @@ IMPORTANT: 使用叢集範圍的運算子來升級Astra Trident、會將「Tride
 [listing]
 ----
 #Ensure you are in the correct directory
-$ pwd
-$ /root/21.07.1/trident-installer
+pwd
+/root/21.07.1/trident-installer
 
 #Install the cluster-scoped operator in the **same namespace**
-$ kubectl create -f deploy/bundle.yaml
+kubectl create -f deploy/bundle.yaml
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created
 clusterrolebinding.rbac.authorization.k8s.io/trident-operator created
@@ -156,23 +156,23 @@ deployment.apps/trident-operator created
 podsecuritypolicy.policy/tridentoperatorpods created
 
 #All tridentProvisioners will be removed, including the CRD itself
-$ kubectl get tprov -n trident
+kubectl get tprov -n trident
 Error from server (NotFound): Unable to list "trident.netapp.io/v1, Resource=tridentprovisioners": the server could not find the requested resource (get tridentprovisioners.trident.netapp.io)
 
 #tridentProvisioners are replaced by tridentOrchestrator
-$ kubectl get torc
+kubectl get torc
 NAME      AGE
 trident   13s
 
 #Examine Trident pods in the namespace
-$ kubectl get pods -n trident
+kubectl get pods -n trident
 NAME                                READY   STATUS    RESTARTS   AGE
 trident-csi-79df798bdc-m79dc        6/6     Running   0          1m41s
 trident-csi-xrst8                   2/2     Running   0          1m41s
 trident-operator-5574dbbc68-nthjv   1/1     Running   0          1m52s
 
 #Confirm Trident has been updated to the desired version
-$ kubectl describe torc trident | grep Message -A 3
+kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
@@ -192,7 +192,7 @@ Version:                v21.07.1
 +
 [listing]
 ----
-$ helm upgrade <name> trident-operator-21.07.1.tgz
+helm upgrade <name> trident-operator-21.07.1.tgz
 ----
 +
 其中「trident操作者-21.07.1.tgz」代表您要升級的版本。
@@ -207,9 +207,9 @@ NOTE: 若要在升級期間傳遞組態資料、請使用「-set」。
 
 [listing]
 ----
-$ helm upgrade <name> trident-operator-21.07.1-custom.tgz --set tridentDebug=true
+helm upgrade <name> trident-operator-21.07.1-custom.tgz --set tridentDebug=true
 ----
-如果您執行「$ tridentctl logs」、就會看到偵錯訊息。
+如果您執行「tridentctl logs」、就會看到偵錯訊息。
 
 
 NOTE: 如果您在初始安裝期間設定任何非預設選項、請確定升級命令中已包含這些選項、否則這些值將會重設為預設值。
@@ -226,24 +226,24 @@ NOTE: 如果您在初始安裝期間設定任何非預設選項、請確定升�
 [listing]
 ----
 # Download the release required [21.07.1]
-$ mkdir 21.07.1
-$ cd 21.07.1
-$ wget https://github.com/NetApp/trident/releases/download/v21.07.1/trident-installer-21.07.1.tar.gz
-$ tar -xf trident-installer-21.07.1.tar.gz
-$ cd trident-installer
+mkdir 21.07.1
+cd 21.07.1
+wget https://github.com/NetApp/trident/releases/download/v21.07.1/trident-installer-21.07.1.tar.gz
+tar -xf trident-installer-21.07.1.tar.gz
+cd trident-installer
 ----
 . 從資訊清單建立「TridentOrchestrator」CRD。
 +
 [listing]
 ----
-$ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
+kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
 ----
 . 部署營運者。
 +
 [listing]
 ----
 #Install the cluster-scoped operator in the **same namespace**
-$ kubectl create -f deploy/bundle.yaml
+kubectl create -f deploy/bundle.yaml
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created
 clusterrolebinding.rbac.authorization.k8s.io/trident-operator created
@@ -261,7 +261,7 @@ trident-operator-5574dbbc68-nthjv   1/1     Running   0          1m30s
 [listing]
 ----
 #Create a tridentOrchestrator to initate a Trident install
-$ cat deploy/crds/tridentorchestrator_cr.yaml
+cat deploy/crds/tridentorchestrator_cr.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
 metadata:
@@ -270,7 +270,7 @@ spec:
   debug: true
   namespace: trident
 
-$ kubectl create -f deploy/crds/tridentorchestrator_cr.yaml
+kubectl create -f deploy/crds/tridentorchestrator_cr.yaml
 
 #Examine the pods in the Trident namespace
 NAME                                READY   STATUS    RESTARTS   AGE
@@ -279,7 +279,7 @@ trident-csi-xrst8                   2/2     Running   0          1m
 trident-operator-5574dbbc68-nthjv   1/1     Running   0          5m41s
 
 #Confirm Trident was upgraded to the desired version
-$ kubectl describe torc trident | grep Message -A 3
+kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed

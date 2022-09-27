@@ -87,7 +87,7 @@ spec:
 
 [listing]
 ----
-$ tridentctl import volume <backendName> <volumeName> -f <path-to-pvc-file>
+tridentctl import volume <backendName> <volumeName> -f <path-to-pvc-file>
 ----
 若要匯入儲存磁碟區、請指定包含該磁碟區的Astra Trident後端名稱、以及唯一識別儲存區上該磁碟區的名稱（例如ONTAP FlexVol ：Wsel, Element Volume、CVS Volume path）。儲存磁碟區必須允許讀取/寫入存取、且可由指定的Astra Trident後端存取。需要「-f]字串引數、並指定Yaml或Json PVc檔案的路徑。
 
@@ -115,7 +115,7 @@ IMPORTANT: 「ONTAP-NAS」驅動程式無法匯入及管理qtree。「ONTAP-NAS�
 
 [listing]
 ----
-$ tridentctl import volume ontap_nas managed_volume -f <path-to-pvc-file>
+tridentctl import volume ontap_nas managed_volume -f <path-to-pvc-file>
 
 +------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
 |                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
@@ -127,7 +127,7 @@ $ tridentctl import volume ontap_nas managed_volume -f <path-to-pvc-file>
 
 [listing]
 ----
-$ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-manage
+tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-manage
 
 +------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
 |                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
@@ -168,7 +168,7 @@ TIP: 建議匯入沒有現有作用中連線的磁碟區。如果您要匯入使
 
 [listing]
 ----
-$ tridentctl import volume ontapsan_san_default ontap-san-managed -f pvc-basic-import.yaml -n trident -d
+tridentctl import volume ontapsan_san_default ontap-san-managed -f pvc-basic-import.yaml -n trident -d
 
 +------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
 |                   NAME                   |  SIZE  | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
@@ -187,7 +187,7 @@ IMPORTANT: 若要由Astra Trident匯入某個類型的RW磁碟區。ONTAP如果�
 
 [listing]
 ----
-$ tridentctl import volume element_default element-managed -f pvc-basic-import.yaml -n trident -d
+tridentctl import volume element_default element-managed -f pvc-basic-import.yaml -n trident -d
 
 +------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
 |                   NAME                   |  SIZE  | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
@@ -209,7 +209,7 @@ TIP: 若要匯入以NetApp Cloud Volumes Service 支援的GCP磁碟區、請使�
 
 [listing]
 ----
-$ tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -n trident
+tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -n trident
 
 +------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
 |                   NAME                   |  SIZE  | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
@@ -228,7 +228,7 @@ NOTE: Volume路徑是Volume匯出路徑的一部分、位於：/之後。例如�
 
 [listing]
 ----
-$ tridentctl import volume azurenetappfiles_40517 importvol1 -f <path-to-pvc-file> -n trident
+tridentctl import volume azurenetappfiles_40517 importvol1 -f <path-to-pvc-file> -n trident
 
 +------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
 |                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |

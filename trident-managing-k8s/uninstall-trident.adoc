@@ -22,12 +22,12 @@ summary: 視Astra Trident的安裝方式而定、有多種選項可供您解除�
 [listing]
 ----
 #List the Helm release corresponding to the Astra Trident install.
-$ helm ls -n trident
+helm ls -n trident
 NAME          NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
 trident       trident         1               2021-04-20 00:26:42.417764794 +0000 UTC deployed        trident-operator-21.07.1        21.07.1
 
 #Uninstall Helm release to remove Trident
-$ helm uninstall trident -n trident
+helm uninstall trident -n trident
 release "trident" uninstalled
 ----
 
@@ -40,7 +40,7 @@ release "trident" uninstalled
 +
 [listing]
 ----
-$  kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"uninstall":true}}'
+kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"uninstall":true}}'
 ----
 +
 當「uninstall」旗標設定為「true」時、Trident操作者會解除安裝Trident、但不會移除TridentOrchestrator本身。如果您想要再次安裝Trident、請清理TridentOrchestrator並建立新的Trident。
@@ -50,7 +50,7 @@ $  kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"uni
 
 [listing]
 ----
-$ kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
+kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
 ----
 這會完全解除安裝Astra Trident、並清除所有與後端及其管理的磁碟區相關的中繼資料。後續安裝會視為全新安裝。
 

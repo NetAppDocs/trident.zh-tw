@@ -703,7 +703,6 @@
   <block id="725ae241ec74eed978f0b099030236b8" category="section-title">範例3：進階組態</block>
   <block id="3a050f4cfb1985247f813dd3432ed5e6" category="section-title">範例4：虛擬儲存池組態</block>
   <block id="198188b722e4e8ee2004b3bd2a9348ed" category="paragraph">此後端組態可在單一檔案中定義多個儲存集區。當您有多個容量集區支援不同的服務層級、而且想要在Kubernetes中建立代表這些層級的儲存類別時、這很有用。</block>
-  <block id="db471f3119123601d175fe8d2ef2dd0a" category="paragraph">下列「儲存類別」定義是指上述的儲存資源池。您可以使用「parameters.selector`」欄位、為每個「儲存類別」指定用於裝載磁碟區的虛擬資源池。該磁碟區會在所選的資源池中定義各個層面。</block>
   <block id="8f828c7344e7fe65d66237a25193068b" category="summary">瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設定支援功能的後端。ONTAP</block>
   <block id="b5c795328aa98beaf5bdc15b54a533c1" category="paragraph">瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設定支援功能的後端。ONTAP對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。</block>
   <block id="5475028f502d04bc17cdfdf613d28cbf" category="paragraph">請記住、您也可以執行多個驅動程式、並建立指向一個或多個驅動程式的儲存類別。例如、您可以設定使用「ONTAP-SAN」驅動程式的「SAN開發」類別、以及使用「ONTAP-SAN經濟」類別的「SAN預設」類別。</block>
@@ -3294,4 +3293,5 @@
   <block id="5e5cb863d5fe17c205c3d2201a1a2235" category="paragraph">Astra Trident將Kubernetes叢集部署為Pod、為Kubernetes工作負載提供動態儲存協調服務。它可讓您的容器化應用程式快速輕鬆地使用NetApp廣泛產品組合中的持續儲存設備、包括ONTAP ：VMware的各種產品組合（AFF/FAS/Select/Cloud / Amazon FSX for NetApp ONTAP ）、Element軟體（NetApp HCI / SolidFire）、Azure NetApp Files 以及Google Cloud Volumes Service Cloud上的整套服務和功能。</block>
   <block id="e73292b954f1f9bb2feaf96e6032765a" category="paragraph">如果您執行「tridentctl logs」、就會看到偵錯訊息。</block>
   <block id="f21f22dde0e0692333a7a28cce456b08" category="sidebar">所有Astra文件</block>
+  <block id="f943c993a92ee9c5049454147c981fc1" category="paragraph">下列「儲存類別」定義是指上述的儲存資源池。您可以使用「parameters.selector`」欄位、為每個「儲存類別」指定用於裝載磁碟區的虛擬資源池。該磁碟區會在所選的資源池中定義各個層面。</block>
 </blocks>

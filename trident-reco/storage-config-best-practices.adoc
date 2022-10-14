@@ -85,7 +85,7 @@ vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
 
 您可以在幾個步驟中建立SVM的QoS原則。如ONTAP 需最準確的資訊、請參閱您的版次更新文件。以下範例建立QoS原則、將SVM可用的總IOPS限制為5000。
 
-[source, console]
+[listing]
 ----
 # create the policy group for the SVM
 qos policy-group create -policy-group <policy_name> -vserver <svm_name> -max-throughput 5000iops
@@ -120,7 +120,7 @@ IMPORTANT: 如果您的版本早於ONTAP 9.8、您應該將QoS原則群組指派
 * 您應該在後端組態的「故障」區塊中設定「qosPolicy」金鑰。請參閱下列後端組態範例：
 
 
-[source, console]
+[listing]
 ----
   {
     "version": 1,

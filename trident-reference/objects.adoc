@@ -120,7 +120,7 @@ Kubernetes的「torageClass」物件是以名稱在「PeristentVolume Claims」�
 
 使用Trident的Kubernetes「torageClass」物件看起來像這樣：
 
-[source, yaml]
+[listing]
 ----
 apiVersion: storage.k8s.io/v1beta1
 kind: StorageClass
@@ -247,7 +247,7 @@ Kubernetes的「Volume SnapshotClass」物件類似於「儲存類別」。它�
 
 系統管理員應定義「Volume SnapshotClass」、以建立快照。建立具有下列定義的Volume Snapshot類別：
 
-[source, yaml]
+[listing]
 ----
 apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshotClass
@@ -454,7 +454,7 @@ Trident刪除程式會使用「系統節點關鍵」優先順序類別、這是K
 
 以下是「資源配額」物件優先處理Trident的範例。
 
-[source, yaml]
+[listing]
 ----
 apiVersion: <version>
 kind: ResourceQuota
@@ -485,7 +485,7 @@ spec:
 
 如果您偏好控制自己的資源配置、可以使用下列命令移除Astra Trident的「資源配額」物件：
 
-[source, cli]
+[listing]
 ----
 kubectl delete quota trident-csi -n trident
 ----

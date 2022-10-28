@@ -130,7 +130,7 @@ SnapMirror Volume複寫是一項災難恢復功能、可從Volume層級的主要
 
 * 在磁碟區所在的叢集與從磁碟區提供資料的SVM之間設定對等關係。
 * 建立SnapMirror原則、以控制關係的行為、並指定該關係的組態屬性。
-* 使用建立目的地Volume與來源Volume之間的SnapMirror關係 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-970/snapmirror__create.html["命令napmirror create"^] 並指派適當的SnapMirror原則。
+* 使用建立目的地Volume與來源Volume之間的SnapMirror關係 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-970/snapmirror__create.html["d9934e78a9254dde4a227181c30fa2d2"^] 並指派適當的SnapMirror原則。
 * 建立SnapMirror關係之後、請初始化關係、以便完成從來源磁碟區到目的地磁碟區的基礎傳輸。
 
 

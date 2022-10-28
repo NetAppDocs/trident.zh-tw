@@ -93,7 +93,7 @@ TIP: 「csi Snapshotter」提供 https://github.com/kubernetes-csi/external-snap
 
 == 步驟1：設定Volume SnapshotClass
 
-在建立Volume Snapshot之前、請先設定 link:../trident-reference/objects.html["「Volume SnapshotClass」"^]。
+在建立Volume Snapshot之前、請先設定 link:../trident-reference/objects.html["d7ca7162c394dee752c35d07a92823da"^]。
 
 [listing]
 ----
@@ -199,5 +199,5 @@ NOTE: 刪除具有相關快照的持續Volume時、對應的Trident Volume會更
 == 如需詳細資訊、請參閱
 
 * link:../trident-concepts/snapshots.html["Volume快照"^]
-* link:../trident-reference/objects.html["「Volume SnapshotClass」"^]
+* link:../trident-reference/objects.html["d7ca7162c394dee752c35d07a92823da"^]
 

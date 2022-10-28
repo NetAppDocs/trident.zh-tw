@@ -30,12 +30,10 @@ indexpage:
       url: "/trident-managing-k8s/upgrade-tridentctl.html"
   - title: 使用Astra Trident
     links:
+    - title: 準備工作節點
+      url: "/trident-use/worker-node-prep.html"
     - title: 設定後端
       url: "/trident-use/backends.html"
-    - title: 使用kubecl建立後端
-      url: "/trident-use/backend-kubectl.html"
-    - title: 在後端管理選項之間切換
-      url: "/trident-use/backend_options.html"
     - title: 管理儲存類別
       url: "/trident-use/manage-stor-class.html"
     - title: 執行Volume作業

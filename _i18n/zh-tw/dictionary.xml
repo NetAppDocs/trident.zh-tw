@@ -1061,7 +1061,6 @@
   <block id="46b189b23dfbd5f3f622a1c04590b05e" category="admonition">「csi Snapshotter」提供<block ref="927ab0e919f8034deab1249bed53a289" category="inline-link-rx"></block> 協助使用者驗證現有的v1Beta1快照、並確認它們是有效的資源物件。驗證Webhook會自動標示無效的快照物件、並防止未來建立無效物件。驗證Webhook是由Kubernetes Orchestrator部署。請參閱指示以手動部署驗證Webhook<block ref="07cb3cdda0599ec9f2e82062ecd12e82" category="inline-link-rx"></block>。尋找無效快照資訊清單的範例<block ref="bceda34f0850fc68d82f08741abbc69e" category="inline-link-rx"></block>。</block>
   <block id="f535be08d3997f1a801b132862d99a5c" category="paragraph">以下範例說明使用快照所需的架構、並說明如何建立及使用快照。</block>
   <block id="551730f3a084f9dee63029647e815d3a" category="section-title">步驟1：設定Volume SnapshotClass</block>
-  <block id="d7ca7162c394dee752c35d07a92823da" category="inline-link-macro">「Volume SnapshotClass」</block>
   <block id="b91e58d7d80a51e4fa86b9ab27dca505" category="paragraph">在建立Volume Snapshot之前、請先設定 <block ref="c740b46915208e935cb2017421ec0264" category="inline-link-macro-rx"></block>。</block>
   <block id="4744d2c82c1c470ab40280b2ebba0c08" category="paragraph">《driver》指的是Astra Trident的csi驅動程式。「刪除原則」可以是「刪除」或「保留」。當設定為「保留」時、即使刪除「Volume Snapshot」物件、也會保留儲存叢集上的基礎實體快照。</block>
   <block id="0ab6380edce0d0e7b8538ebf3215ebbd" category="section-title">步驟2：建立現有PVc的快照</block>
@@ -1682,7 +1681,6 @@
   <block id="4c774e8a2d80dbc16b0bf55be6c7b358" category="paragraph">如需自訂部署的詳細資訊、請參閱下列連結：</block>
   <block id="711011f15ff69da45006043e93ed8981" category="inline-link-macro">自訂您的營運者型部署</block>
   <block id="8f863c0ccd38c8782b36eedbea08fc5b" category="list-text"><block ref="8f863c0ccd38c8782b36eedbea08fc5b" category="inline-link-macro-rx"></block></block>
-  <block id="85cda507040c129ee606d4d8df583b90" category="inline-link-macro">自訂「tridentctl」型部署</block>
   <block id="16486d6f9e6411719306bdb76f0b34fa" category="list-text"><block ref="16486d6f9e6411719306bdb76f0b34fa" category="inline-link-macro-rx"></block></block>
   <block id="47c0166da57a75ed65ddb766c838a91c" category="section-title">遠端部署</block>
   <block id="761bf14d8b8339a8f345e63dc12c36bb" category="paragraph">以下是遠端部署程序的高階概觀：</block>
@@ -2134,7 +2132,6 @@
   <block id="19f60a36276037e5b82b5096d2ba7a5c" category="paragraph">以下是ONTAP 關於SnapMirror Volume複寫設定步驟的總覽：</block>
   <block id="c4e9d0a10c58301ad78e9e9bf74f9229" category="list-text">在磁碟區所在的叢集與從磁碟區提供資料的SVM之間設定對等關係。</block>
   <block id="b1c132fa6284fd6d42f93781032cd962" category="list-text">建立SnapMirror原則、以控制關係的行為、並指定該關係的組態屬性。</block>
-  <block id="d9934e78a9254dde4a227181c30fa2d2" category="inline-link">命令napmirror create</block>
   <block id="0a30bcd5b223c18be449821765a8ec07" category="list-text">使用建立目的地Volume與來源Volume之間的SnapMirror關係<block ref="bfbfdbcdb00ddafcc3e3ca740d1d316b" category="inline-link-rx"></block> 並指派適當的SnapMirror原則。</block>
   <block id="20872623d19783e0dbe00afcdcb9ba46" category="list-text">建立SnapMirror關係之後、請初始化關係、以便完成從來源磁碟區到目的地磁碟區的基礎傳輸。</block>
   <block id="af1fe101ed84f2b2bc465f0a9e92a35f" category="image-alt">顯示SnapMirror Volume複寫設定。</block>
@@ -2267,8 +2264,6 @@
   <block id="8d66ed6671344ec6017707c38250329c" category="admonition">所有19.04版及更早版本的升級、都需要將Astra Trident的中繼資料從自己的「etcd」移轉至CRD物件。請務必查看版本文件、瞭解升級的運作方式。</block>
   <block id="33966eba1ed0cde6afda5a97ffaffb09" category="inline-link">安全性內容</block>
   <block id="ceb268093ddd5aa9df1769eda5d1c8cd" category="inline-link">範例輸入</block>
-  <block id="9d267d893296d1b56789c03ad196afc8" category="inline-link">「torage-class-base.yaml.templl」</block>
-  <block id="4e4578e23d9d48bd9338b1581f884392" category="inline-link">"torage-class-bone-default.yaml"</block>
   <block id="1ca02e26ff81cefae18a0a8d994ca94a" category="admonition">升級時、務必在Astra Trident使用的「torageClasses」中提供「參數.FSType」。您可以刪除並重新建立「儲存類別」、而不會中斷現有的磁碟區。這是強制實施的一項**要求<block ref="cafe4c6014d8c45aaac70e49318f1a2a" category="inline-link-rx"></block> 適用於SAN磁碟區。。<block ref="25daec0b57549a6ad43dbc62a9e717ca" category="inline-link-rx"></block> 目錄包含範例、例如<block ref="d308f4d12b21bf269d64643e1eceeeb2" category="inline-link-rx"></block> 和<block ref="b6ff3ec2ac914a047085c08d5843e316" category="inline-link-rx"></block>。如需詳細資訊、請參閱 <block ref="139a59f2208174d2bf825b80dc580275" category="inline-link-macro-rx"></block>。</block>
   <block id="17cfb8bd7f378fa26b63ee73d467cb82" category="section-title">我應該選擇哪種升級途徑？</block>
   <block id="46940159293e259bcf0bb4df75448100" category="paragraph">您可以使用下列其中一種方法來升級：</block>
@@ -2289,7 +2284,6 @@
   <block id="6d68e880fd5e5254e122e99a78417abd" category="list-text">現在、「TridentProvisioner」取代為「TridentOrchestrator」、做為用來安裝和管理Astra Trident的自訂資源。此外、「TridentOrchestrator」規格也引進了新的領域。使用者可以指定命名空間Trident必須使用「pec.namespace`」欄位來安裝/升級。您可以參考範例<block ref="2890210b17eb9668a60ececdebcd5910" category="inline-link-rx"></block>。</block>
   <block id="7d224494dc0d22edaed4c965cdddffe6" category="inline-link-macro">使用Trident營運者進行升級</block>
   <block id="85f4fc5b4c12e5ede408e45a6d484dc1" category="list-text"><block ref="85f4fc5b4c12e5ede408e45a6d484dc1" category="inline-link-macro-rx"></block></block>
-  <block id="b41f68e89b7b02a9077fb800d31a2fbe" category="inline-link-macro">使用「tridentctl」進行升級</block>
   <block id="efb20f59615d4d5ee0437ba57aecbe50" category="list-text"><block ref="efb20f59615d4d5ee0437ba57aecbe50" category="inline-link-macro-rx"></block></block>
   <block id="f71fd95d4de4797557e6830c1448c945" category="summary">您可以使用「tridentctl」輕鬆升級現有的Astra Trident安裝。</block>
   <block id="2a21586f7990f8cb0f8951cd2ef7bc3b" category="doc">使用tridentctl進行升級</block>
@@ -2394,7 +2388,6 @@
   <block id="c34156b367bae1b376f09b89d3be7992" category="list-text">「Get &lt;trident位址&gt;/trident / v1/&lt;object-typed&gt;/&lt;object-name&gt;」：取得命名物件的詳細資料。</block>
   <block id="a02439ec229d8be0e74b0c1602392310" category="section-title">貼文</block>
   <block id="6692e2cd6834e6b9b2151799cac2a9f8" category="paragraph">「POST &lt;trident位址&gt;/trident / v1/&lt;object-type&gt;」：建立指定類型的物件。</block>
-  <block id="ce87eb03803d5633c163541464e9e7f2" category="inline-link-macro">"tridentctl"命令和選項</block>
   <block id="3d2bacacf0178e742d5abb2abc32d431" category="list-text">需要Json組態才能建立物件。如需每種物件類型的規格、請參閱 <block ref="e87a326653960de9774fcc58ee9fa490" category="inline-link-macro-rx"></block>。</block>
   <block id="5b2f45c3d098b61927afda859c9144f8" category="list-text">如果物件已經存在、行為會有所不同：後端會更新現有物件、而其他所有物件類型都會使作業失敗。</block>
   <block id="32f68a60cef40faedbc6af20298c1a1e" category="section-title">刪除</block>
@@ -2956,7 +2949,6 @@
   <block id="91186d69835ccf9911e356f74938c539" category="list-text">在多個Astra Trident執行個體之間使用後端時、每個後端組態檔都應該有不同的「儲存前置字元」值、以供ONTAP 後端使用、或是使用不同的「TenantName」作為SolidFire 後端。Astra Trident無法偵測其他Astra Trident執行個體所建立的磁碟區。嘗試在ONTAP 不穩定或SolidFire 不穩定的後端上建立現有的Volume是成功的、因為Astra Trident將建立Volume視為強大的作業。如果「儲存前置詞」或「TenantName」沒有不同、則在相同後端上建立的磁碟區可能會發生名稱衝突。</block>
   <block id="9bf4c601179068ff3574d2cf87536564" category="list-text">安裝Astra Trident（使用「tridentctl」或Trident運算子）並使用「tridentctl」來管理Astra Trident時、您應確保設定「KUBECCONFIG」環境變數。這是表示Kubernetes叢集「tridentctl」應該與之搭配使用的必要項目。在使用多個Kubernetes環境時、您應該確保「KUBECCONFIG」檔案的來源正確無誤。</block>
   <block id="6d791d3b45515fd8619e489b938f39e8" category="inline-link">掛載選項</block>
-  <block id="d4b9b9554fd820f43eae492d33e41167" category="inline-link">「torageClass」</block>
   <block id="a5c785ee36f0f2d14349653f744c8e3b" category="list-text">若要執行iSCSI PV的線上空間回收、工作節點上的基礎作業系統可能需要將掛載選項傳遞至磁碟區。對於需要「disccard」的RHEL/RedHat CoreOS執行個體來說、這是正確的做法<block ref="2ee633fb26bfccf07d490458d29f92a2" category="inline-link-rx"></block>；請確定您的隨附了捨棄掛載選項<block ref="b44436f062a8f5a535d8cafcffeb70b2" category="inline-link-rx"></block> 支援線上區塊捨棄。</block>
   <block id="c2ebda3702872aaa7ad44122f2343d7e" category="list-text">如果每個Kubernetes叢集有一個以上的Astra Trident執行個體、Astra Trident就無法與其他執行個體通訊、也無法探索他們所建立的其他磁碟區、如果叢集內有多個執行個體執行、就會導致非預期和不正確的行為。每個Kubernetes叢集只應有一個Astra Trident執行個體。</block>
   <block id="294f8c33b7ccdbcbf422998b64c9c931" category="list-text">如果在Astra Trident離線時、從Kubernetes刪除Astra Trident型的「torageClass」物件、則Astra Trident在其資料庫恢復連線時、不會從資料庫中移除對應的儲存類別。您應該使用「tridentctl」或REST API來刪除這些儲存類別。</block>
@@ -3294,4 +3286,6 @@
   <block id="f21f22dde0e0692333a7a28cce456b08" category="sidebar">所有Astra文件</block>
   <block id="f943c993a92ee9c5049454147c981fc1" category="paragraph">下列「儲存類別」定義是指上述的儲存資源池。您可以使用「parameters.selector`」欄位、為每個「儲存類別」指定用於裝載磁碟區的虛擬資源池。該磁碟區會在所選的資源池中定義各個層面。</block>
   <block id="08367c27454c4c2ca57c42b7991575f7" category="list-text">OpenShift 4.8、4.9、4.10、4.11</block>
+  <block id="5d40a2b5dc4a222fe46fe927bb2bb348" category="inline-link-macro">自訂您的&lt;block ref="c67fd1b99934afa248dfeb285a9a4191" prefix ="" CATORI='ine-code'/&gt;型部署</block>
+  <block id="d874cb235ec1b03394e3293dc2c95d44" category="inline-link-macro">使用&lt;block ref="c67fd1b99934afa248dfeb285a9a4191" prefix ="" CATORIORE ="ine-code'/&gt;進行升級</block>
 </blocks>

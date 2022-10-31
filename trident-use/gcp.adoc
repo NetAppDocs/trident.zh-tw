@@ -11,30 +11,24 @@ summary: 瞭Cloud Volumes Service 解如何使用提供的範例組態、將適�
 :imagesdir: ../media/
 
 
-瞭Cloud Volumes Service 解如何使用所提供的範例組態、將NetApp for Google Cloud Platform（GCP）設定為Astra Trident安裝的後端。
+瞭Cloud Volumes Service 解如何使用所提供的範例組態、將適用於Google Cloud Platform（GCP）的NetApp功能（CVS）設定為Astra Trident安裝的後端。
+
+Astra Trident支援預設CVS服務類型為on的磁碟區 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["GCP"^]。無論CVS服務類型允許的最小值為何、Astra Trident都不支援低於100 GiB的CVS磁碟區。因此、如果要求的磁碟區小於最小大小、Trident會自動建立100 GiB磁碟區。
+
+[NOTE]
+====
+* NetApp建議客戶使用低於1TiB的磁碟區來處理非正式作業工作負載。
+* 使用預設的CVS服務類型部署後端 `storageClass=software`、請註冊以存取GCP上的子1TiB Volume功能、以取得相關的專案編號和專案ID。這是Trident配置子1TiB磁碟區所需的功能。如果沒有、則低於600 GiB的PVCs *將會失敗*。
+* link:https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["註冊以存取低於1TiB的磁碟區。"]
 
 
-NOTE: 適用於Google Cloud的NetApp Cloud Volumes Service 支援的CVS效能磁碟區大小不得低於100 GiB、或CVS磁碟區大小不得低於300 GiB。如果所要求的磁碟區小於最小大小、Astra Trident會自動建立最小大小的磁碟區。
-
+====
 以設定及使用 https://cloud.netapp.com/cloud-volumes-service-for-gcp?utm_source=NetAppTrident_ReadTheDocs&utm_campaign=Trident["適用於 Google Cloud Cloud Volumes Service"^] 後端、您需要下列項目：
 
 * 使用NetApp CVS設定的Google Cloud帳戶
 * Google Cloud帳戶的專案編號
 * Google Cloud服務帳戶的角色為「netappcloudVolumes.admin」
 * CVS服務帳戶的API金鑰檔
-
-
-Astra Trident現在支援預設的較小磁碟區 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-type["GCP上的CVS服務類型"^]。對於以「儲存類別=軟體」建立的後端、現在磁碟區的資源配置大小最小為300 GiB。CVS目前在「管制可用度」下提供此功能、並不提供技術支援。使用者必須註冊才能存取低於1TiB的磁碟區 https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["請按這裡"^]。NetApp建議客戶使用低於1TiB的磁碟區來處理*非正式作業*的工作負載。
-
-
-NOTE: 使用預設CVS服務類型（「儲存類別=軟體」）部署後端時、使用者必須取得GCP上的子1TiB磁碟區功能、以取得相關專案編號和專案ID的存取權。這是Astra Trident配置子1TiB磁碟區所需的功能。如果沒有、則低於600 GiB的PVCS將無法建立Volume。使用取得對低於1TiB磁碟區的存取權 https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["這份表格"^]。
-
-由Astra Trident針對預設CVS服務層級所建立的磁碟區、將會配置如下：
-
-* 小於300 GiB的PVCS會導致Astra Trident建立300 GiB CVS Volume。
-* 介於300 GiB到600 GiB之間的PVCS會導致Astra Trident建立一個所需大小的CVS Volume。
-* 介於600 GiB和1 TiB之間的PVCS會導致Astra Trident建立1TiB CVS Volume。
-* 大於1 TiB的PVCS會導致Astra Trident建立所需大小的CVS Volume。
 
 
 

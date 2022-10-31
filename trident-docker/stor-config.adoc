@@ -458,22 +458,16 @@ QoS規格
 
 == GCP組態上的資訊（CVS）Cloud Volumes Service
 
-Trident現在支援使用預設CVS服務類型的較小磁碟區 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["GCP"^]。對於以「儲存類別=軟體」建立的後端、現在磁碟區的資源配置大小最小為300 GiB。* NetApp建議客戶使用低於1TiB的磁碟區來處理非正式作業工作負載*。CVS目前在「管制可用度」下提供此功能、並不提供技術支援。
+Astra Trident支援預設CVS服務類型為on的磁碟區 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["GCP"^]。無論CVS服務類型允許的最小值為何、Astra Trident都不支援低於100 GiB的CVS磁碟區。因此、如果要求的磁碟區小於最小大小、Trident會自動建立100 GiB磁碟區。
+
+[NOTE]
+====
+* NetApp建議客戶使用低於1TiB的磁碟區來處理非正式作業工作負載。
+* 使用預設的CVS服務類型部署後端 `storageClass=software`、請註冊以存取GCP上的子1TiB Volume功能、以取得相關的專案編號和專案ID。這是Trident配置子1TiB磁碟區所需的功能。如果沒有、則低於600 GiB的PVCs *將會失敗*。
+* link:https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["註冊以存取低於1TiB的磁碟區。"]
 
 
-NOTE: 註冊以存取低於1TiB的磁碟區 https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["請按這裡"^]。
-
-
-WARNING: 使用預設CVS服務類型「儲存類別=軟體」部署後端時、您應該取得GCP上的子1TiB Volume功能、以取得有關專案編號和專案ID的存取權。這是Trident配置子1TiB磁碟區所需的功能。如果沒有、則對於小於600 GiB的PVCs、Volume建立*將會失敗*。使用取得對低於1TiB磁碟區的存取權 https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["這份表格"^]。
-
-Trident針對預設CVS服務層級所建立的磁碟區將會配置如下：
-
-* 小於300 GiB的PVCS會導致Trident建立300 GiB CVS Volume。
-* 在300 GiB到600 GiB之間的PVCS會導致Trident建立一個所需大小的CVS Volume。
-* 在600 GiB和1 TiB之間的PVCS會導致Trident建立1TiB CVS Volume。
-* 大於1 TiB的PVCS會導致Trident建立所要求大小的CVS Volume。
-
-
+====
 除了全域組態值、在GCP上使用CVS時、也可使用這些選項。
 
 [cols="3*"]
@@ -545,9 +539,6 @@ NFS掛載選項；預設為「-o nfsver=3」
 |===
 
 NOTE: 如果使用共享VPC網路、您應該同時指定「ProjectNumber」和「hostProjectNumber」。在這種情況下、「專案編號」是服務專案、「主機專案編號」則是主機專案。
-
-
-NOTE: NetApp Cloud Volumes Service 適用於GCP的支援不支援大小小於100 GiB的CVS效能磁碟區、或大小小於300 GiB的CVS磁碟區。為了讓部署應用程式更輕鬆、Trident會在要求太小的磁碟區時、自動建立大小最小的磁碟區。
 
 在GCP上使用CVS時、可使用這些預設的Volume選項設定。
 

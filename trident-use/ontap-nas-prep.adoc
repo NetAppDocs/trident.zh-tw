@@ -4,7 +4,7 @@ permalink: trident-use/ontap-nas-prep.html
 keywords: trident backend, ontap nas, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups 
 summary: 瞭解如何準備使用ONTAP 不含NetApp功能的NAS驅動程式來設定功能完善的後端。ONTAP 
 ---
-= 準備
+= 準備使用ONTAP 不含NAS的驅動程式來設定後端
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

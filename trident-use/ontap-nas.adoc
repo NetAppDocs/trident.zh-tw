@@ -4,7 +4,7 @@ permalink: trident-use/ontap-nas.html
 keywords: trident backend, ontap nas, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, fsx 
 summary: 瞭解如何使用ONTAP NetApp NAS驅動程式設定功能的功能。ONTAP 
 ---
-= 使用ONTAP NetApp NAS驅動程式設定後端
+= 設定ONTAP 一個靜態NAS後端
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

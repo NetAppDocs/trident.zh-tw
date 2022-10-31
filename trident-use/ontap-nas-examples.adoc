@@ -4,7 +4,7 @@ permalink: trident-use/ontap-nas-examples.html
 keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx 
 summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。 
 ---
-= 組態選項與範例
+= 列舉NAS組態選項與範例ONTAP
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

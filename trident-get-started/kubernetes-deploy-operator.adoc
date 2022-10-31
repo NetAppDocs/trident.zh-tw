@@ -20,6 +20,23 @@ summary: 您可以與Trident運算子一起部署Astra Trident。您可以手動
 
 TIP: 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"^]現在正是這麼做的好時機。
 
+
+
+== 有關Astra Trident的重要資訊22.10
+
+*在升級至Astra Trident 22.10*之前、您必須先閱讀下列重要資訊
+
+[WARNING]
+.<strong>關於Astra Trident 22.10</strong>的重要資訊
+====
+* Kubernetes 1.25現在已在Trident中受到支援。升級至Kubernetes 1.25之前、您必須先升級至Astra Trident 22.10。
+* Astra Trident現在嚴格強制執行SAN環境中的多重路徑組態使用、建議使用的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
++
+使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
+
+
+
+====
 若要部署Astra Trident、必須符合下列先決條件：
 
 * 您擁有執行Kubernetes 1.19 - 1.24之受支援Kubernetes叢集的完整權限。
@@ -127,8 +144,8 @@ NOTE: 從21.01開始、Trident運算子就是叢集範圍。若要使用Trident�
 +
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v22.04.0/trident-installer-22.04.0.tar.gz
-tar -xf trident-installer-22.04.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v22.10.0/trident-installer-22.10.0.tar.gz
+tar -xf trident-installer-22.10.0.tar.gz
 cd trident-installer
 ----
 . 使用適當的CRD資訊清單來建立「TridentOrchestrator」CRD。之後您將建立一個「TridentOrchestrator」自訂資源、以產生操作者的安裝。
@@ -223,7 +240,7 @@ Status:
   Current Installation Params:
     IPv6:                      false
     Autosupport Hostname:
-    Autosupport Image:         netapp/trident-autosupport:21.04
+    Autosupport Image:         netapp/trident-autosupport:22.10
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                     true

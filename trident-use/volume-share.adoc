@@ -1,0 +1,153 @@
+---
+sidebar: sidebar 
+permalink: trident-use/volume-share.html 
+keywords: volref, volume reference, share, pvc, pv, nfs, namespace 
+summary:  
+---
+= 跨命名空間共用NFS磁碟區
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Astra TridentVolume Reference CR可讓您在一或多個Kubernetes命名空間中安全地共用ReadWriteMany（rwx）NFS磁碟區。此Kubernetes原生解決方案具有下列優點：
+
+* 多層存取控制、確保安全性
+* 可搭配所有Trident NFS Volume驅動程式使用
+* 不依賴tridentctl或任何其他非原生Kubernetes功能
+
+
+此圖說明兩個Kubernetes命名空間之間的NFS Volume共用。
+
+image::cross-namespace-sharing.png[跨命名空間共用的概念性圖表。]
+
+
+
+== 快速入門
+
+您只需幾個步驟就能設定NFS Volume共享。
+
+[role="quick-margin-para"]
+來源命名空間擁有者授予存取來源PVc中資料的權限。
+
+[role="quick-margin-para"]
+叢集管理員授予目的地命名空間擁有者建立TridentVolume Reference CR的權限。
+
+[role="quick-margin-para"]
+目的地命名空間的擁有者會建立TridentVolume Reference CR來參照來源PVC。
+
+[role="quick-margin-para"]
+目的地命名空間的擁有者會建立從屬的PVc、以使用來源PVc的資料來源。
+
+
+
+== 設定來源和目的地命名空間
+
+為了確保安全性、跨命名空間共用需要來源命名空間擁有者、叢集管理員和目的地命名空間擁有者的協同作業與行動。使用者角色會在每個步驟中指定。
+
+.步驟
+. *來源命名空間擁有者：*建立PVC (`pvc1`） (`namespace2`）使用 `shareToNamespace` 註釋：
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc1
+  namespace: namespace1
+  annotations:
+    trident.netapp.io/shareToNamespace: namespace2
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: trident-csi
+  resources:
+    requests:
+      storage: 100Gi
+----
++
+Astra Trident會建立PV及其後端NFS儲存磁碟區。
+
++
+[NOTE]
+====
+** 您可以使用以逗號分隔的清單、將永久虛擬儲存設備共用至多個命名空間。例如、 `trident.netapp.io/shareToNamespace: namespace2,namespace3,namespace4`。
+** 您可以使用共用至所有命名空間 `*`。例如、 `trident.netapp.io/shareToNamespace: *`
+** 您可以更新PVC,以納入 `shareToNamespace` 隨時註釋。
+
+
+====
+. *叢集管理：*建立自訂角色和KUbeconfig、以授予目的地命名空間擁有者權限、以便在目的地命名空間中建立TridentVolume Reference CR。
+. *目的地命名空間擁有者：*在參照來源命名空間的目的地命名空間中建立TridentVolume Reference CR `pvc1`。
++
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentVolumeReference
+metadata:
+  name: my-first-tvr
+  namespace: namespace2
+spec:
+  pvcName: pvc1
+  pvcNamespace: namespace1
+----
+. *目的地命名空間擁有者：*建立一個PVC (`pvc2`） (`namespace2`）使用 `shareFromPVC` 註釋以指定來源PVc。
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  annotations:
+    trident.netapp.io/shareFromPVC: namespace1/pvc1
+  name: pvc2
+  namespace: namespace2
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: trident-csi
+  resources:
+    requests:
+      storage: 100Gi
+----
++
+
+NOTE: 目的地PVc的大小必須小於或等於來源PVc。
+
+
+
+Astra Trident讀取 `shareFromPVC` 在目的地永久虛擬磁碟上註釋、並將目的地PV建立為從屬磁碟區、而其本身並無儲存資源指向來源PV並共用來源PV儲存資源。目的地的PVc和PV似乎正常連結。
+
+
+
+== 刪除共享Volume
+
+您可以刪除跨多個命名空間共用的磁碟區。Astra Trident會移除對來源命名空間上磁碟區的存取權、並維持對其他共用該磁碟區的命名空間的存取權。當所有參照磁碟區的命名空間都移除時、Astra Trident會刪除該磁碟區。
+
+
+
+== 使用tridentctl Get查詢從屬磁碟區
+
+使用[`tridentctl` 公用程式、您可以執行 `get` 取得從屬磁碟區的命令。如需詳細資訊、請參閱連結：../ Trident參考/ tridentctl.html[`tridentctl` 命令與選項]。
+
+[listing]
+----
+Usage:
+  tridentctl get [option]
+----
+旗標：
+
+* ``-h, --help`：Volume的說明。
+* `--parentOfSubordinate string`：將查詢限制在從屬來源Volume。
+* `--subordinateOf string`：將查詢限制在Volume的下屬。
+
+
+
+
+== 限制
+
+* Astra Trident無法防止目的地命名空間寫入共用磁碟區。您應該使用檔案鎖定或其他程序來防止覆寫共用Volume資料。
+* 您無法藉由移除來撤銷對來源PVc的存取權 `shareToNamespace` 或 `shareFromNamepace` 註釋或刪除 `TridentVolumeReference` CR.若要撤銷存取權、您必須刪除從屬的PVc。
+* 在從屬磁碟區上無法執行快照、複製和鏡射。
+

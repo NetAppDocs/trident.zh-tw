@@ -248,7 +248,7 @@ GCP驅動程式上的CVS磁碟區建立選項包括：
 
 
 | 《大小》  a| 
-磁碟區大小、CVS效能磁碟區的預設值為100 GiB、CVS磁碟區的預設值為300 GiB。
+Volume的大小、預設為100 GiB。
 
 
 
@@ -279,7 +279,7 @@ docker volume create -d netapp --name demo -o size=5T -o serviceLevel=premium
 ----
 
 
-CVS效能磁碟區的最小Volume大小為100 GiB、CVS磁碟區的最小Volume大小為300 GiB。
+最小Volume大小為100 GiB。
 
 
 

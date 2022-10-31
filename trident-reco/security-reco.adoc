@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-reco/security-reco.html 
-keywords: security, chap, trident, namespace, nve, nae, encryption, volume encryption, aggregate encryption 
+keywords: security, chap, trident, namespace, nve, nae, encryption, volume encryption, aggregate encryption, luks, linux unified key setup, encryption 
 summary: 請使用此處列出的建議、確保您的Astra Trident安裝安全無虞。 
 ---
 = 安全性
@@ -45,7 +45,7 @@ NOTE: 由csi Trident建立的磁碟區不會與任何Volume存取群組相關聯
 
 
 
-== Astra Trident如何與NVE和NAE搭配運作
+== 使用Astra Trident搭配NVE和NAE
 
 NetApp ONTAP 支援閒置資料加密、可在磁碟遭竊、退回或重新使用時、保護敏感資料。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["設定NetApp Volume Encryption總覽"^]。
 
@@ -68,5 +68,86 @@ NetApp ONTAP 支援閒置資料加密、可在磁碟遭竊、退回或重新使�
 如需後端組態選項的詳細資訊、請參閱：
 
 * link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["支援SAN組態選項ONTAP"]
-* link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-examples.html["ASNAS確認選項ONTAP"]
+* link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-examples.html["ASNAS組態選項ONTAP"]
+
+
+
+
+== 使用Linux統一金鑰設定（LUKS）啟用每個磁碟區、主機端的加密
+
+您可以在ONTAP Astra Trident上啟用Linux Unified Key Setup（LUKS）來加密支援的SAN和ONTAP 支援的SAN經濟版磁碟區。在Astra Trident中、LUKS加密的磁碟區會依照所建議的方式使用AES-XTS-plain64 cypher和模式 link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^]。
+
+如需ONTAP 有關支援不支援SAN的後端組態選項的詳細資訊、請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["支援SAN組態選項ONTAP"]
+
+.開始之前
+* 工作者節點必須安裝密碼設定2.1或更新版本。如需詳細資訊、請造訪 link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab：密碼設定"^]。
+* 基於效能考量、我們建議工作節點支援進階加密標準新增指令（AES-NI）。若要驗證AES-NI支援、請執行下列命令：
++
+[listing]
+----
+grep "aes" /proc/cpuinfo
+----
++
+如果沒有歸還任何內容、您的處理器就不支援AES-NI。如需AES-NI的詳細資訊、請造訪： link:https://www.intel.com/content/www/us/en/developer/articles/technical/advanced-encryption-standard-instructions-aes-ni.html["Intel：進階加密標準指令（AES-NI）"^]。
+
+
+
+.步驟
+. 在後端組態中定義LUKS加密屬性。
++
+[listing]
+----
+"storage": [
+    {
+        "labels":{"luks": "true"},
+        "zone":"us_east_1a",
+        "defaults": {
+            "luksEncryption": true
+        }
+    },
+    {
+        "labels":{"luks": "false"},
+        "zone":"us_east_1a",
+        "defaults": {
+            "luksEncryption": false
+        }
+    },
+]
+----
+. 使用 `parameters.selector` 使用LUKS加密定義儲存資源池。例如：
++
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: luks
+provisioner: netapp.io/trident
+parameters:
+  selector: "luks=true"
+  csi.storage.k8s.io/node-stage-secret-name: luks-\${pvc.name}
+  csi.storage.k8s.io/node-stage-secret-namespace: \${pvc.namespace}
+----
+. 建立包含LUKS通關密碼的秘密。例如：
++
+[listing]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: luks-pvc1
+stringData:
+  luks-passphrase-name: B
+  luks-passphrase: secretB
+  previous-luks-passphrase-name: A
+  previous-luks-passphrase: secretA
+----
+
+
+
+
+=== 限制
+
+* LUKS加密磁碟區將無法利用ONTAP 重複資料刪除技術和壓縮技術。
+* 目前不支援LUKS通關密碼輪替。若要變更密碼、請手動將資料從一個永久虛擬網路複製到另一個永久虛擬網路。
 

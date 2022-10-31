@@ -4,7 +4,7 @@ permalink: trident-use/ontap-san.html
 keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fsx 
 summary: 深入瞭解如何使用ONTAP 支援支援功能的SAN驅動程式來設定支援功能的後端。ONTAP 
 ---
-= 使用ONTAP 不支援的Cloud Volumes ONTAP SAN驅動程式來設定後端
+= 使用ONTAP SAN驅動程式設定後端
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

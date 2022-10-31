@@ -107,6 +107,8 @@ Usage:
 * 「Volume」：從Astra Trident取得一或多個Volume。
 
 
+`volume` 旗標：* ``-h, --help`：Volume的說明。* `--parentOfSubordinate string`：將查詢限制在從屬來源Volume。* `--subordinateOf string`：將查詢限制在Volume的下屬。
+
 
 
 == 映像

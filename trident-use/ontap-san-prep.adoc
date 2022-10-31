@@ -4,7 +4,7 @@ permalink: trident-use/ontap-san-prep.html
 keywords: trident backend, ontap san, ontap-san, ontap-san-economy 
 summary: 瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設定支援功能的後端。ONTAP 
 ---
-= 準備
+= 準備使用ONTAP 支援的SAN驅動程式來設定後端
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

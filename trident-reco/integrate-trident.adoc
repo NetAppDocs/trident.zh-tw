@@ -127,8 +127,10 @@ Astra Trident使用「azure-NetApp-files」驅動程式來管理 link:https://az
 Astra Trident使用「GCP-CVS」驅動程式、在Cloud Volumes Service GCP後端連結到該功能。若要在Trident上設定GCP後端、您必須在後端檔案中指定「ProjectNumber」、「apiRegion」和「apiKey」。專案編號可在GCP入口網站找到、API金鑰必須取自您在GCP上設定Cloud Volumes API存取時所建立的服務帳戶私密金鑰檔案。Astra Trident可在兩個磁碟區中建立CVS磁碟區 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["服務類型"^]：
 
 . * CVS：基礎CVS服務類型、提供高分區可用度、效能等級有限/中等。
-. * CVS效能*：效能最佳化的服務類型、最適合重視效能的正式作業工作負載。您可以從三種獨特的服務層級中進行選擇：「標準」、「優質」和「極致」。目前、要配置的CVS效能磁碟區大小下限為100 GiB、而CVS磁碟區則必須至少為300 GiB。CVS未來版本可能會移除此限制。
+. * CVS效能*：效能最佳化的服務類型、最適合重視效能的正式作業工作負載。共有三種獨特的服務層級可供選擇 [`standard`、 `premium`和 `extreme`]。
 
+
+CVS和CVS效能磁碟區大小下限為100 GiB。
 
 
 CAUTION: 使用預設CVS服務類型["scorageClass=software"部署後端時、使用者*必須取得GCP上子1TiB Volume功能的存取權*、才能取得相關專案編號和專案ID的存取權。這是Trident配置子1TiB磁碟區所需的功能。如果沒有、則對於小於600 GiB的PVCs、Volume建立*將會失敗*。使用 link:https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["這份表格"^] 以取得對低於1TiB磁碟區的存取權。

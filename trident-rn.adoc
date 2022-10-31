@@ -51,16 +51,16 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 * Kubernetes：
 +
-** 新增對Kubernetes 1.25的支援。
+** 新增對Kubernetes 1.25的支援。在升級至Kubernetes 1.25之前、您必須先將Astra Trident升級至22.10。
 ** 針對Trident部署和示範集新增了另一個ServiceAccount、ClusterRO容 和ClusterROlexBinding功能、以允許未來的權限增強功能。
-** 新增支援 link:../trident-use/volume-share.html["跨命名空間磁碟區共用"]。
+** 新增支援 link:https://docs.netapp.com/us-en/trident/trident-use/volume-share.html["跨命名空間磁碟區共用"]。
 
 
 * 所有Trident `ontap-*` 儲存驅動程式現在可搭配ONTAP 使用靜態API。
 * 新增運算子yaml (`bundle_post_1_25.yaml`）沒有 `PodSecurityPolicy` 支援Kubernetes 1.25。
-* 新增 link:../trident-reco/security-reco.html#use-linux-unified-key-setup-luks["支援LUKS加密磁碟區"] 適用於 `ontap-san` 和 `ontap-san-economy` 儲存驅動程式：
+* 新增 link:https://docs.netapp.com/us-en/trident/trident-reco/security-reco.html#enable-per-volume-host-side-encryption-using-linux-unified-key-setup-luks["支援LUKS加密磁碟區"] 適用於 `ontap-san` 和 `ontap-san-economy` 儲存驅動程式：
 * 新增對Windows Server 2019節點的支援。
-* 新增 link:../trident-use/anf.html["支援Windows節點上的SMB Volume"] 透過 `azure-netapp-files` 儲存驅動程式：
+* 新增 link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["支援Windows節點上的SMB Volume"] 透過 `azure-netapp-files` 儲存驅動程式：
 
 
 

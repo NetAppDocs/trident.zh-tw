@@ -55,5 +55,7 @@ entries:
     url: "/trident-use/vol-expansion.html"
   - title: 匯入磁碟區
     url: "/trident-use/vol-import.html"
+- title: 跨命名空間共用NFS磁碟區
+  url: "/trident-use/volume-share.html"
 - title: 監控Astra Trident
   url: "/trident-use/monitor-trident.html"

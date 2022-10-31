@@ -3259,17 +3259,13 @@
   <block id="4a9eb9834d90361e1b70e6ac3c8b9a5c" category="list-text">移除Astra Trident iSCSI工作流程中的精細重試次數、以快速失敗並縮短外部重試時間間隔。</block>
   <block id="08e9e62a917aaf944b6ff85929a9f1dd" category="list-text">修正當對應的多重路徑裝置已排清時、在排清iSCSI裝置時傳回錯誤的問題。</block>
   <block id="bc5611c731b034c5f323419d0258aa44" category="list-text">Kubernetes：</block>
-  <block id="abe9531089246868d8feb9fc90094ded" category="list-text">新增對Kubernetes 1.25的支援。</block>
   <block id="98f7f8fbd26f9272ad6a29f2fb6c930b" category="list-text">針對Trident部署和示範集新增了另一個ServiceAccount、ClusterRO容 和ClusterROlexBinding功能、以允許未來的權限增強功能。</block>
   <block id="609df46dff884c3eec4386eb8db4e358" category="inline-link-macro">跨命名空間磁碟區共用</block>
-  <block id="1e3f3077b23f32ee539108a794a4dbf0" category="list-text">新增支援 <block ref="15d011c7489618b0619a476c161a167b" category="inline-link-macro-rx"></block>。</block>
   <block id="09065204259df86d4fe38c35ea23f5af" category="list-text">所有Trident<block ref="aa44e980d222d5134b5e0d8a062e1543" prefix=" " category="inline-code"></block> 儲存驅動程式現在可搭配ONTAP 使用靜態API。</block>
   <block id="8485ea08789af7b6b7b44e024b526f9b" category="list-text">新增運算子yaml <block ref="5a02ebff4889c2de0379a0fb10bed282" prefix="(" category="inline-code"></block>）沒有<block ref="316707d12484dd3afede08839dee49bc" prefix=" " category="inline-code"></block> 支援Kubernetes 1.25。</block>
   <block id="26e871bef43095263845143b043aee4f" category="inline-link-macro">支援LUKS加密磁碟區</block>
-  <block id="9f3977bacc22a3fba29a00ba6c5cc576" category="list-text">新增 <block ref="261f23d09d0ceadbb1dc66073d75dd94" category="inline-link-macro-rx"></block> 適用於<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 和<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 儲存驅動程式：</block>
   <block id="30b044636a9c63ab4b202192eec30c1c" category="list-text">新增對Windows Server 2019節點的支援。</block>
   <block id="38b9dc57f44121e6d970b34eede9ad0d" category="inline-link-macro">支援Windows節點上的SMB Volume</block>
-  <block id="010b8885e154301004ffd0bf8bdeb32a" category="list-text">新增 <block ref="cb6afbce245edd6983ec2b18e6a61dda" category="inline-link-macro-rx"></block> 透過<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 儲存驅動程式：</block>
   <block id="af8a9d07c7391207db96957ab59cb459" category="list-text">** Kubernetes：*將支援的Kubernetes最低更新為1.20。</block>
   <block id="d667cfc8e8d6ec0c2352fe97b0f09e40" category="list-text">移除Astra Data Store（廣告）驅動程式。</block>
   <block id="9b363ea2db99fe0dc5e9b43f47a37f20" category="list-text">已移除的支援<block ref="a6105c0a611b41b08f1209506350279e" prefix=" " category="inline-code"></block> 和<block ref="8c319f28d81d1527a9428e9a5c2195f5" prefix=" " category="inline-code"></block> 選項<block ref="19b30dc119e514235b739e076be9b3cc" prefix=" " category="inline-code"></block> 在設定iSCSI的工作節點多重路徑時。</block>
@@ -3435,4 +3431,9 @@
   <block id="9ead1c7bd3c9e30f2ce85ab0768005fc" category="sidebar">準備設定ANF後端</block>
   <block id="74e5369c29dfffd1c167b754a55ac30d" category="sidebar">ANF組態選項和範例</block>
   <block id="ee7bdcae9fbde9976cf62161a22434cf" category="sidebar">準備使用ONTAP 不完善的NAS驅動程式來設定後端</block>
+  <block id="ef0f938ae67a04ac3370fe516c2a6baf" category="list-text">新增對Kubernetes 1.25的支援。在升級至Kubernetes 1.25之前、您必須先將Astra Trident升級至22.10。</block>
+  <block id="d041a310ba7cc2599250e64801594107" category="list-text">新增支援 <block ref="ca184a2eda203b6d98158bdf24e5cf7d" category="inline-link-macro-rx"></block>。</block>
+  <block id="9f010916f3fa12858d7cef8c56ca32b2" category="list-text">新增 <block ref="79adf4cd0300f2fbcb360d22cc5460b5" category="inline-link-macro-rx"></block> 適用於<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 和<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 儲存驅動程式：</block>
+  <block id="adbfe36f6399f2846983b2901604a962" category="list-text">新增 <block ref="40be42d37bc6014716dcd0a1d368ffb5" category="inline-link-macro-rx"></block> 透過<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 儲存驅動程式：</block>
+  <block id="f18a50f02f48551895d57b81dd288142" category="sidebar">跨命名空間共用NFS磁碟區</block>
 </blocks>

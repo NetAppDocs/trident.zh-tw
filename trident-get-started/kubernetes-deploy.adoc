@@ -78,9 +78,9 @@ NOTE: 如果叢集升級至不受支援的版本、則操作員將無法安裝As
 
 
 
-==== 使用Cloud Manager管理Kubernetes叢集
+==== 使用BlueXP（前身為Cloud Manager）管理Kubernetes叢集
 
-與 link:https://docs.netapp.com/us-en/cloud-manager-kubernetes/concept-kubernetes.html["使用Cloud Manager的Astra Trident"^]、您可以升級至最新版的Astra Trident、新增及管理儲存類別、並將其連線至工作環境、以及使用Cloud Backup Service NetApp備份持續的Volume。Cloud Manager可手動或使用Helm、使用Trident營運者來支援Astra Trident部署。
+與 link:https://docs.netapp.com/us-en/cloud-manager-kubernetes/concept-kubernetes.html["使用BlueXP的Astra Trident"^]、您可以升級至最新版的Astra Trident、新增及管理儲存類別、並將其連線至工作環境、以及使用Cloud Backup Service NetApp備份持續的Volume。BlueXP支援使用Trident操作者手動或使用Helm進行Astra Trident部署。
 
 
 

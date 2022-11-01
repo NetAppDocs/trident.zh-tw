@@ -2950,9 +2950,6 @@
   <block id="179000091737641056a247acf2c59dc4" category="list-text">手動：Trident提供 <block ref="6f41841ada1b81573b5db54c90d512f9" category="inline-link-macro-rx"></block> 可用於安裝運算子及建立關聯物件的檔案。</block>
   <block id="c9ffe59301b588bbc33bb004cfd312ee" category="section-title">部署Trident操作員、並使用Helm安裝Astra Trident</block>
   <block id="3f44baef815aed01560d6764fea49ebc" category="cell">用於CVS磁碟區的GCP網路</block>
-  <block id="6aef79110fe63635bdb5452c3a08ead7" category="section-title">使用Cloud Manager管理Kubernetes叢集</block>
-  <block id="865ec115b3646a7d42d94fd0d6f64ca5" category="inline-link-macro">使用Cloud Manager的Astra Trident</block>
-  <block id="70ef9708acb1f72d9648f625edc21d7b" category="paragraph">與 <block ref="d2f4359fbe3252be146a4ecb37a6f90e" category="inline-link-macro-rx"></block>、您可以升級至最新版的Astra Trident、新增及管理儲存類別、並將其連線至工作環境、以及使用Cloud Backup Service NetApp備份持續的Volume。Cloud Manager可手動或使用Helm、使用Trident營運者來支援Astra Trident部署。</block>
   <block id="1ea1b160621872df5909653ebde1bf7f" category="paragraph">您可以更新現有的後端、以便在認證型和憑證型方法之間移動。不過、一次只支援一種驗證方法。若要切換至不同的驗證方法、您必須從後端組態中移除現有方法。</block>
   <block id="7335992f174c029a990442aca68aacbd" category="admonition">如果您嘗試同時提供*認證與認證*、後端建立將會失敗、並在組態檔中提供多種驗證方法。</block>
   <block id="d1914bc190cdc3bc9eee6db0c81021bc" category="section-title">節點服務探索</block>
@@ -3436,4 +3433,7 @@
   <block id="adbfe36f6399f2846983b2901604a962" category="list-text">新增 <block ref="40be42d37bc6014716dcd0a1d368ffb5" category="inline-link-macro-rx"></block> 透過<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 儲存驅動程式：</block>
   <block id="f18a50f02f48551895d57b81dd288142" category="sidebar">跨命名空間共用NFS磁碟區</block>
   <block id="0da21d7acd742e8c3833231cf3efcc96" category="list-text">NetApp/Trident：22.10.0</block>
+  <block id="9a2de1d16997c70e89ecdce4706d67c3" category="section-title">使用BlueXP（前身為Cloud Manager）管理Kubernetes叢集</block>
+  <block id="fd1117c82327fbe8671f26e897ceb8f4" category="inline-link-macro">使用BlueXP的Astra Trident</block>
+  <block id="a76a1e164520105317267dc41b95e8ce" category="paragraph">與 <block ref="f8c16e8c21124ccc028d2db7fd32a98f" category="inline-link-macro-rx"></block>、您可以升級至最新版的Astra Trident、新增及管理儲存類別、並將其連線至工作環境、以及使用Cloud Backup Service NetApp備份持續的Volume。BlueXP支援使用Trident操作者手動或使用Helm進行Astra Trident部署。</block>
 </blocks>

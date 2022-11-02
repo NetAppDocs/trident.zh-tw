@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-reference/trident-ports.html 
+permalink: trident-reference/ports.html 
 keywords: astra trident, port, ports 
 summary: 深入瞭解Astra Trident透過哪些連接埠進行通訊。 
 ---

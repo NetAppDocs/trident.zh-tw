@@ -2160,8 +2160,6 @@
   <block id="683d018a2f7c70469fd74ba0eeae2a79" category="list-text">使用Trident安裝程式提供的資訊清單、建立「TridentOrchestrator」CRD。</block>
   <block id="ede3d39a1c5211985b126b3f166cf601" category="inline-link">Trident儲存庫</block>
   <block id="af39f09efb6e7b7133433dff92d0fffe" category="list-text">使用命名空間範圍的運算子資訊清單來刪除。若要完成此步驟、您需要使用「bunder.yaml」檔案來部署命名空間範圍的運算子。您可以從取得「bunder.yaml」<block ref="1403b813895a8a78c447fca96240f2ac" category="inline-link-rx"></block>。請務必使用適當的分行。</block>
-  <block id="5451265740f1553dff7af7814faa5277" category="inline-link-macro">參數清單</block>
-  <block id="8afea862003d4f613fcffecc022fb20c" category="admonition">刪除命名空間範圍的運算子之後、在安裝叢集範圍的運算子之前、您應該對Trident安裝參數進行必要的變更（例如、變更「tridentImage」、「autosupportImage」、「Private Image儲存庫」的值、以及提供「imagepolSecrets」）。如需可更新的完整參數清單、請參閱 <block ref="e5ef433069537d0999d9cf3f906affdb" category="inline-link-macro-rx"></block>。</block>
   <block id="5fbede7820945c99130183fd2fd0f4b3" category="paragraph">在這個階段、「Trident - oper-xxxxxx-xxxxx" pod會刪除。</block>
   <block id="86463d362af5835ff8c3fd6587fbd24f" category="list-text">（選用）如果需要修改安裝參數、請更新「TridentProvisioner」規格。這些變更可能包括：修改私有映像登錄以從擷取容器映像、啟用偵錯記錄或指定映像提取機密。</block>
   <block id="df486b34cec5fdfba24de79fe6b388d4" category="list-text">安裝叢集範圍的運算子。</block>
@@ -3436,4 +3434,6 @@
   <block id="fd1117c82327fbe8671f26e897ceb8f4" category="inline-link-macro">使用BlueXP的Astra Trident</block>
   <block id="a76a1e164520105317267dc41b95e8ce" category="paragraph">與 <block ref="f8c16e8c21124ccc028d2db7fd32a98f" category="inline-link-macro-rx"></block>、您可以升級至最新版的Astra Trident、新增及管理儲存類別、並將其連線至工作環境、以及使用Cloud Backup Service NetApp備份持續的Volume。BlueXP支援使用Trident操作者手動或使用Helm進行Astra Trident部署。</block>
   <block id="6ce33e8f1e198bf1c3583bc5ef789b75" category="paragraph">您可以使用後端定義檔中的加密參數、在Trident所提供的磁碟區上設定加密。如需詳細資訊、請參閱： <block ref="3260a21902518174ce8d9bfef42be276" category="inline-link-macro-rx"></block></block>
+  <block id="cae73b6a00921ef48cee176b0d4336fe" category="inline-link-macro">組態選項</block>
+  <block id="094d2b2ef4b98bdb0943b10cc4e305f4" category="admonition">您應該對Trident安裝參數進行必要的變更（例如、變更的值）<block ref="d771848c80f96e5954a8658655cf79d7" prefix=" " category="inline-code"></block>、<block ref="7ecc687ea7566f05fd13fde7be607bfc" prefix=" " category="inline-code"></block>、私有映像儲存庫、以及提供<block ref="0d9b54b29da54379cca6b8782b9faae5" prefix=" " category="inline-code"></block>）刪除命名空間範圍的運算子之後、安裝叢集範圍的運算子之前。如需可更新的完整參數清單、請參閱 <block ref="d752d8869a42e1b0fd341b92b54677e0" category="inline-link-macro-rx"></block>。</block>
 </blocks>

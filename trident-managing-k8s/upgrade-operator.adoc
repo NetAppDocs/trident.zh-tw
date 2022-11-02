@@ -85,7 +85,7 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.1
 . 使用命名空間範圍的運算子資訊清單來刪除。若要完成此步驟、您需要使用「bunder.yaml」檔案來部署命名空間範圍的運算子。您可以從取得「bunder.yaml」 https://github.com/NetApp/trident/blob/stable/v20.10/deploy/bundle.yaml["Trident儲存庫"^]。請務必使用適當的分行。
 +
 
-NOTE: 刪除命名空間範圍的運算子之後、在安裝叢集範圍的運算子之前、您應該對Trident安裝參數進行必要的變更（例如、變更「tridentImage」、「autosupportImage」、「Private Image儲存庫」的值、以及提供「imagepolSecrets」）。如需可更新的完整參數清單、請參閱 link:../trident-deploy-k8s/kubernetes-customize-deploy.html["參數清單"^]。
+NOTE: 您應該對Trident安裝參數進行必要的變更（例如、變更的值） `tridentImage`、 `autosupportImage`、私有映像儲存庫、以及提供 `imagePullSecrets`）刪除命名空間範圍的運算子之後、安裝叢集範圍的運算子之前。如需可更新的完整參數清單、請參閱 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy.html#configuration-options["組態選項"]。
 
 +
 [listing]

@@ -11,6 +11,7 @@ summary: 部署Astra Trident時、請使用此處列出的建議。
 :imagesdir: ../media/
 
 
+[role="lead"]
 部署Astra Trident時、請使用此處列出的建議。
 
 

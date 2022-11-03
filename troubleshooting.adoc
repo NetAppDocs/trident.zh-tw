@@ -11,6 +11,7 @@ summary: 請使用此處提供的指標來疑難排解安裝及使用Astra Tride
 :imagesdir: ../media/
 
 
+[role="lead"]
 請使用此處提供的指標來疑難排解安裝及使用Astra Trident時可能遇到的問題。
 
 

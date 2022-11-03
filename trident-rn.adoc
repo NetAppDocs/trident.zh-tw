@@ -11,6 +11,7 @@ summary: NetApp持續改善及強化其產品與服務。以下是最新版Astra
 :imagesdir: ../media/
 
 
+[role="lead"]
 版本資訊提供最新版Astra Trident的新功能、增強功能及錯誤修正資訊。
 
 

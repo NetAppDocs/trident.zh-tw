@@ -11,6 +11,7 @@ summary: 請使用此處列出的建議、確保您的Astra Trident安裝安全�
 :imagesdir: ../media/
 
 
+[role="lead"]
 請使用此處列出的建議、確保您的Astra Trident安裝安全無虞。
 
 
@@ -67,8 +68,8 @@ NetApp ONTAP 支援閒置資料加密、可在磁碟遭竊、退回或重新使�
 
 如需後端組態選項的詳細資訊、請參閱：
 
-* link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["支援SAN組態選項ONTAP"]
-* link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-examples.html["ASNAS組態選項ONTAP"]
+* link:../trident-use/ontap-san-examples.html["支援SAN組態選項ONTAP"]
+* link:../trident-use/ontap-nas-examples.html["ASNAS組態選項ONTAP"]
 
 
 
@@ -77,7 +78,7 @@ NetApp ONTAP 支援閒置資料加密、可在磁碟遭竊、退回或重新使�
 
 您可以在ONTAP Astra Trident上啟用Linux Unified Key Setup（LUKS）來加密支援的SAN和ONTAP 支援的SAN經濟版磁碟區。在Astra Trident中、LUKS加密的磁碟區會依照所建議的方式使用AES-XTS-plain64 cypher和模式 link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^]。
 
-如需ONTAP 有關支援不支援SAN的後端組態選項的詳細資訊、請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["支援SAN組態選項ONTAP"]
+如需ONTAP 有關支援不支援SAN的後端組態選項的詳細資訊、請參閱 link:../trident-use/ontap-san-examples.html["支援SAN組態選項ONTAP"]
 
 .開始之前
 * 工作者節點必須安裝密碼設定2.1或更新版本。如需詳細資訊、請造訪 link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab：密碼設定"^]。

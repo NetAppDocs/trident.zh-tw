@@ -11,6 +11,7 @@ summary: Trident運算子可讓您使用「TridentOrchestrator」規格中的屬
 :imagesdir: ../media/
 
 
+[role="lead"]
 Trident運算子可讓您使用中的屬性來自訂Astra Trident安裝 `TridentOrchestrator` 規格
 
 如果您想要自訂安裝內容以外的內容 `TridentOrchestrator` 參數允許、您應該考慮使用 `tridentctl` 產生可視需要修改的自訂Y反 洗錢清單。

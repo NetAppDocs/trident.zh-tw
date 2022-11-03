@@ -11,15 +11,9 @@ summary: 您可以使用「tridentctl」來部署Astra Trident。
 :imagesdir: ../media/
 
 
-您可以使用部署Astra Trident `tridentctl`。
+[role="lead"]
+您可以使用部署Astra Trident `tridentctl`。您最好先熟悉 link:../trident-concepts/intro.html["基本概念"]。以自訂您的 `tridentctl` 部署、請參閱 link:kubernetes-customize-deploy-tridentctl.html["自訂試用部署"]。
 
-[NOTE]
-====
-* 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"]現在正是這麼做的好時機。
-* 以自訂您的 `tridentctl` 部署、請參閱 link:kubernetes-customize-deploy-tridentctl.html["自訂試用部署"]。
-
-
-====
 
 
 == 有關Astra Trident的重要資訊22.10
@@ -37,6 +31,10 @@ summary: 您可以使用「tridentctl」來部署Astra Trident。
 
 
 ====
+
+
+== 驗證先決條件
+
 若要部署Astra Trident、必須符合下列先決條件：
 
 * 對支援的Kubernetes叢集擁有完整權限。

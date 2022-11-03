@@ -11,6 +11,7 @@ summary: 您可以安全地升級適用於Docker的Astra Trident、而不會對�
 :imagesdir: ../media/
 
 
+[role="lead"]
 您可以安全地升級適用於Docker的Astra Trident、而不會對使用中的磁碟區造成任何影響。在升級過程中、針對外掛程式的「docker volume」命令將會短暫失敗、而在外掛程式再次執行之前、應用程式將無法掛載磁碟區。在大多數情況下、這是幾秒鐘的事。
 
 

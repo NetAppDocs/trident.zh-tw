@@ -11,6 +11,7 @@ summary: 適用於Docker的Astra Trident可直接整合適用於NetApp儲存平�
 :imagesdir: ../media/
 
 
+[role="lead"]
 適用於Docker的Astra Trident可直接整合適用於NetApp儲存平台的Docker生態系統。它支援從儲存平台到Docker主機的儲存資源資源配置與管理、並提供架構、可在未來新增更多平台。
 
 多個Astra Trident執行個體可同時在同一個主機上執行。這可同時連線至多個儲存系統和儲存類型、並可自訂Docker磁碟區所使用的儲存設備。

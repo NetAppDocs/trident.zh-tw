@@ -11,10 +11,15 @@ summary: 深入瞭解Astra Trident如何使用Volume存取群組。
 :imagesdir: ../media/
 
 
+[role="lead"]
 深入瞭解Astra Trident的使用方式 https://docs.netapp.com/us-en/element-software/concepts/concept_solidfire_concepts_volume_access_groups.html["Volume存取群組"^]。
 
 
 NOTE: 如果您使用的是CHAP、建議您略過本節、以簡化管理並避免以下所述的擴充限制。此外、如果您在「csi」模式中使用Astra Trident、則可以忽略本節。Astra Trident在安裝為增強的SCSI資源配置程式時、會使用CHAP。
+
+
+
+== 深入瞭解Volume存取群組
 
 Astra Trident可使用Volume存取群組來控制其所配置之磁碟區的存取。如果停用CHAP、除非您在組態中指定一或多個存取群組ID、否則會尋找稱為「Trident」的存取群組。
 

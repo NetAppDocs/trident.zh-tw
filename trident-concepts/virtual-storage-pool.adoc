@@ -11,7 +11,12 @@ summary: 虛擬儲存資源池可在Astra Trident的儲存後端與Kubernetes的
 :imagesdir: ../media/
 
 
+[role="lead"]
 虛擬儲存資源池可在Astra Trident的儲存後端與Kubernetes的「torageClass」之間提供抽象層。系統管理員可透過通用的後端不受後端限制的方式、定義位置、效能及每個後端的保護等層面、而無需設定「儲存類別」、以指定要使用何種實體後端、後端集區或後端類型來滿足所需的條件。
+
+
+
+== 瞭解虛擬儲存資源池
 
 儲存管理員可在Json或Yaml定義檔案的任何Astra Trident後端上定義虛擬儲存池。
 

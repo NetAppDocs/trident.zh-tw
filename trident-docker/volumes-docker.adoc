@@ -11,6 +11,7 @@ summary: 若要建立磁碟區、請使用標準的「docker volume」命令、�
 :imagesdir: ../media/
 
 
+[role="lead"]
 您可以使用標準的「磁碟區」命令、並在需要時指定Astra Trident驅動程式名稱、輕鬆建立、複製及移除磁碟區。
 
 

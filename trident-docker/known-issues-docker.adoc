@@ -11,6 +11,7 @@ summary: 尋找使用Astra Trident搭配Docker時已知問題的相關資訊。
 :imagesdir: ../media/
 
 
+[role="lead"]
 尋找使用Astra Trident搭配Docker時已知問題和限制的相關資訊。
 
 

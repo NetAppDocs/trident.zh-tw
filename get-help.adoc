@@ -11,6 +11,7 @@ summary: NetApp以多種方式支援Trident。全年無休提供廣泛的免費�
 :imagesdir: ../media/
 
 
+[role="lead"]
 Astra Trident是正式支援的NetApp專案。您可以使用任何標準機制聯絡NetApp、取得所需的企業級支援。
 
 我們的Astra還有一個充滿活力的公共社群、由容器使用者（包括Astra Trident開發人員）所共同參與 link:https://discord.gg/NetApp["不和通路"^]。這是您提出專案相關一般問題、並與志同道合的同儕討論相關主題的好地方。

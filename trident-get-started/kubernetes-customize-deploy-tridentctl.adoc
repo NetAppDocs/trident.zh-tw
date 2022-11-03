@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-customize-deploy-tridentctl.html 
 keywords: deploy, astra trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator 
-summary: Trident的安裝程式可讓您自訂屬性。 
+summary: 您可以使用Astra Trident安裝程式來自訂部署。 
 ---
 = 自訂試用部署
 :hardbreaks:
@@ -11,7 +11,14 @@ summary: Trident的安裝程式可讓您自訂屬性。
 :imagesdir: ../media/
 
 
-Trident安裝程式可讓您自訂屬性。例如、如果您已將Trident映像複製到私有儲存庫、則可以使用「-trident映像」來指定映像名稱。如果您已將Trident映像及所需的csi sidecar映像複製到私有儲存庫、最好使用「-image-registry」交換器來指定該儲存庫的位置、此開關的格式為「<registry FQDN（登錄FQDN）>[:port]」。
+[role="lead"]
+您可以使用Astra Trident安裝程式來自訂部署。
+
+
+
+== 深入瞭解安裝程式
+
+Astra Trident安裝程式可讓您自訂屬性。例如、如果您已將Trident映像複製到私有儲存庫、則可以使用來指定映像名稱 `--trident-image`。如果您已將Trident映像及所需的csi sidecar映像複製到私有儲存庫、最好使用指定該儲存庫的位置 `--image-registry` 交換器、採用格式 `<registry FQDN>[:port]`。
 
 如果您使用Kubernetes的發佈方式、而其中的「kubelet」將資料保留在通常「/var/lib/kubelet」以外的路徑上、您可以使用「-kubelet-dir」來指定替代路徑。
 

@@ -11,6 +11,7 @@ summary: Kubernetes Pod安全標準（Ps）和Pod安全政策（Ps）定義權�
 :imagesdir: ../media/
 
 
+[role="lead"]
 Kubernetes Pod安全標準（Ps）和Pod安全政策（Ps）定義權限等級、並限制Pod的行為。OpenShift Security內容限制（SCC）同樣定義OpenShift Kubernetes Engine特有的Pod限制。為了提供此自訂功能、Astra Trident可在安裝期間啟用特定權限。以下各節詳細說明Astra Trident設定的權限。
 
 

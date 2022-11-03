@@ -11,7 +11,12 @@ summary: 深入瞭解Astra Trident如何為其驅動程式建立磁碟區快照�
 :imagesdir: ../media/
 
 
+[role="lead"]
 深入瞭解Astra Trident如何為其驅動程式建立磁碟區快照。
+
+
+
+== 深入瞭解Volume Snapshot建立
 
 * 對於「ONTAP-NAS」、「ONTAP-SAN」、「GCP-CVS」和「azure-NetApp-files'」等驅動程式、每個「持續Volume（PV）」都會對應FlexVol 到一個版本。因此、磁碟區快照會建立為NetApp快照。NetApp的Snapshot技術提供比競爭快照技術更高的穩定性、擴充性、可恢復性和效能。這些Snapshot複本無論在建立所需的時間、還是在儲存空間中、都能發揮極高的效率。
 * 對於「ONTAP-NAS-flexgroup」驅動程式、每個「持續Volume」（PV）都會對應FlexGroup 到一個VMware。因此、磁碟區快照會建立為NetApp FlexGroup 的「資訊快照」。NetApp的Snapshot技術提供比競爭快照技術更高的穩定性、擴充性、可恢復性和效能。這些Snapshot複本無論在建立所需的時間、還是在儲存空間中、都能發揮極高的效率。

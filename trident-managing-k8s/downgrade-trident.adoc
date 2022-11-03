@@ -11,7 +11,12 @@ summary: 瞭解降級至舊版Astra Trident的相關步驟。
 :imagesdir: ../media/
 
 
+[role="lead"]
 瞭解降級至舊版Astra Trident的相關步驟。
+
+
+
+== 何時降級
 
 您可能會考慮降級的原因有多種、例如：
 
@@ -20,11 +25,9 @@ summary: 瞭解降級至舊版Astra Trident的相關步驟。
 * 相依性問題、不成功和不完整的升級
 
 
+移至使用CRD的Astra Trident版本時、您應該考慮降級。由於Astra Trident使用CRD來維護狀態、因此所建立的所有儲存實體（後端、儲存類別、PV和Volume快照）都會建立關聯的CRD物件、而非寫入的資料 `trident` PV（由舊版Astra Trident使用）。新建立的PV、後端和儲存類別都會維護為CRD物件。
 
-
-== 何時降級
-
-移至使用CRD的Astra Trident版本時、您應該考慮降級。由於Astra Trident現在使用CRD來維護狀態、因此所建立的所有儲存實體（後端、儲存類別、PV和Volume快照）都會有相關的CRD物件、而非寫入「Trident」PV（由舊版Astra Trident所使用）的資料。新建立的PV、後端和儲存類別都會維護為CRD物件。如果您需要降級、則只能針對使用CRD（19.07及更新版本）執行的Astra Trident版本嘗試降級。這是為了確保在降級發生後、可以看到目前Astra Trident版本上執行的所有作業。
+僅嘗試降級使用CRD（19.07及更新版本）執行的Astra Trident版本。如此可確保在降級發生後、可以看到目前Astra Trident版本上執行的作業。
 
 
 

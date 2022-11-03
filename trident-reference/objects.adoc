@@ -11,6 +11,7 @@ summary: Kubernetes與Trident、Trident與Storage、Kubernetes與儲存設備之
 :imagesdir: ../media/
 
 
+[role="lead"]
 您可以透過讀取和寫入資源物件、使用REST API與Kubernetes和Trident互動。Kubernetes與Trident、Trident與Storage、Kubernetes與儲存設備之間有幾個資源物件、分別是它們之間的關係。其中有些物件是透過Kubernetes進行管理、其他物件則是透過Trident進行管理。
 
 

@@ -61,6 +61,7 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 * 新增 link:https://docs.netapp.com/us-en/trident/trident-reco/security-reco.html#enable-per-volume-host-side-encryption-using-linux-unified-key-setup-luks["支援LUKS加密磁碟區"] 適用於 `ontap-san` 和 `ontap-san-economy` 儲存驅動程式：
 * 新增對Windows Server 2019節點的支援。
 * 新增 link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["支援Windows節點上的SMB Volume"] 透過 `azure-netapp-files` 儲存驅動程式：
+* 目前市面上已普遍提供適用於整個過程的自動功能、例如針對不適用的驅動程式進行交換偵測。MetroCluster ONTAP
 
 
 

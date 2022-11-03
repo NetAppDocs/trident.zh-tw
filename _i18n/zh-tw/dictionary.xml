@@ -2955,14 +2955,12 @@
   <block id="6a3314aee95c1c78527e5f122976ec80" category="paragraph">Trident也會識別Trident節點CR上為每個節點啟用的服務。若要檢視探索到的服務、請使用命令：</block>
   <block id="2b6ab5193160f5eaca51526b15f27e3a" category="admonition">節點服務探索可識別探索到的服務、但無法保證服務已正確設定。相反地、沒有探索到的服務並不保證磁碟區掛載會失敗。</block>
   <block id="a8a2b2d9e5637b41609ebc0c72058699" category="list-text">Kubernetes叢集執行1.19 - 1.24。</block>
-  <block id="3bb4e1a94d47c9447ecf5ab6ce7c23de" category="cell">叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。此功能為*技術預覽*。</block>
   <block id="66896c99fb06e0b6c86498b249f8217a" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。</block>
   <block id="67183086f9356a825023b7315f5c3b99" category="cell">使用ONTAP Isrest API的布林參數。*不支援MetroCluster 技術預覽*。</block>
   <block id="6c1cf09676baae03b976277c6c163155" category="admonition-title">&lt;code&gt;useREST&lt;/code&gt;注意事項</block>
   <block id="cc000fddfbaaf7d7224962be55624657" category="list-text">「useREST」是一種建議用於測試環境、而非用於正式作業工作負載的技術預覽。當設為「true」時、Astra Trident會使用ONTAP 「Isrest API」與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取「ONTAP 發揮作用」應用程式。這對預先定義的「vsadmin」和「叢集管理」角色感到滿意。</block>
   <block id="747fac2d713255095ea0ae3786ea4b77" category="list-text">《useREST》不受MetroCluster 支援。</block>
   <block id="412427d9207c4cc4b01539aff3c50e7c" category="cell">《網路功能》</block>
-  <block id="183f3ea9e133b02a796a810dda5e539e" category="cell">叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。此功能為*技術預覽*。</block>
   <block id="6dc4cb19f2792a3eadfa64d4b4b6d177" category="paragraph">您所有的Kubernetes工作節點都必須安裝適當的NFS工具。請參閱 <block ref="f1f954e59a21e3ffe189e77dd2ee9f86" category="inline-link-macro-rx"></block> 以取得更多詳細資料。</block>
   <block id="6adbf3424e5de1b4e2baad3b4d632c4a" category="paragraph">您可以更新現有的後端、以使用不同的驗證方法或旋轉其認證資料。這兩種方法都可行：使用使用者名稱/密碼的後端可更新以使用憑證；使用憑證的後端可更新為使用者名稱/密碼。若要這麼做、您必須移除現有的驗證方法、然後新增驗證方法。然後使用更新的backend.json檔案、其中包含執行「tridentctl後端更新」所需的參數。</block>
   <block id="da5e3ce6518bd669264e1e0768c2d9f1" category="paragraph">您所有的Kubernetes工作節點都必須安裝適當的iSCSI工具。請參閱 <block ref="f1f954e59a21e3ffe189e77dd2ee9f86" category="inline-link-macro-rx"></block> 以取得更多詳細資料。</block>
@@ -3437,4 +3435,5 @@
   <block id="cae73b6a00921ef48cee176b0d4336fe" category="inline-link-macro">組態選項</block>
   <block id="094d2b2ef4b98bdb0943b10cc4e305f4" category="admonition">您應該對Trident安裝參數進行必要的變更（例如、變更的值）<block ref="d771848c80f96e5954a8658655cf79d7" prefix=" " category="inline-code"></block>、<block ref="7ecc687ea7566f05fd13fde7be607bfc" prefix=" " category="inline-code"></block>、私有映像儲存庫、以及提供<block ref="0d9b54b29da54379cca6b8782b9faae5" prefix=" " category="inline-code"></block>）刪除命名空間範圍的運算子之後、安裝叢集範圍的運算子之前。如需可更新的完整參數清單、請參閱 <block ref="d752d8869a42e1b0fd341b92b54677e0" category="inline-link-macro-rx"></block>。</block>
   <block id="66f2c42a4ca561f5472459301bc7d096" category="list-text">目前市面上已普遍提供適用於整個過程的自動功能、例如針對不適用的驅動程式進行交換偵測。MetroCluster ONTAP</block>
+  <block id="0ae86fe6c7f12cff95cb90a50097ca60" category="cell">叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。</block>
 </blocks>

@@ -33,7 +33,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+ dataLIF 
 
 
-| 《馬納格門達利》 | 叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。此功能為*技術預覽*。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
+| 《馬納格門達利》 | 叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
 
 
 | 「DataLIF」 | 傳輸協定LIF的IP位址。IPv6使用方括弧。設定後無法更新 | 除非另有說明、否則由SVM衍生 

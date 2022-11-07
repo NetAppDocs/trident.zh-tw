@@ -50,7 +50,7 @@ TIP: 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"^]�
 
 若要部署Astra Trident、必須符合下列先決條件：
 
-* 您擁有執行Kubernetes 1.19 - 1.24之受支援Kubernetes叢集的完整權限。
+* 您擁有執行支援Kubernetes版本之Kubernetes叢集的完整權限。檢閱 link:requirements.html["需求"]。
 * 您可以存取支援的NetApp儲存系統。
 * 您可以從所有Kubernetes工作節點掛載磁碟區。
 * 您的Linux主機已安裝並設定為管理您要使用的Kubernetes叢集。
@@ -69,7 +69,7 @@ TIP: 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"^]�
 
 除了上述先決條件之外、若要使用Helm部署Trident運算子、您還需要下列項目：
 
-* Kubernetes 1.19 - 1.24
+* 答 link:requirements.html["支援的Kubernetes版本"]
 * Helm版本3
 
 
@@ -84,9 +84,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 +
 [listing]
 ----
-
-helm install <release-name> netapp-trident/trident-operator --version 22.4.0 --create-namespace <trident-namespace>
-
+helm install <name> netapp-trident/trident-operator --version 22.10.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -104,7 +102,7 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 22.7.0 --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 22.10.0 --create-namespace --namespace --set tridentDebug=true
 ----
 Helm圖表中的「values.yaml」檔案提供金鑰清單及其預設值。
 

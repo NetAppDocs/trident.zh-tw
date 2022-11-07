@@ -38,18 +38,18 @@ WARNING: 使用OpenShift Container Platform上的運算子來升級Trident時、
 +
 [listing]
 ----
-kubectl delete -f 21.01/trident-installer/deploy/bundle.yaml -n trident
+kubectl delete -f 22.01/trident-installer/deploy/bundle.yaml -n trident
 ----
 . （選用）如果您想要修改安裝參數、請編輯您在安裝Trident時所建立的「TridentOrchestrator」物件。這可能包括修改自訂Trident映像、從私有映像登錄擷取容器映像、啟用偵錯記錄或指定映像提取機密等變更。
 . 使用「bunder.yaml」檔案來安裝Astra Trident、該檔案可設定新版本的Trident運算子。執行下列命令：
 +
 [listing]
 ----
-kubectl create -f 21.10.0/trident-installer/deploy/bundle.yaml -n trident
+kubectl create -f 22.10.0/trident-installer/deploy/bundle.yaml -n trident
 ----
 
 
-在此步驟中、21.10.0 Trident營運者將識別現有的Astra Trident安裝、並將其升級至與營運者相同的版本。
+在此步驟中、Trident操作員將識別現有的Astra Trident安裝、並將其升級至與操作員相同的版本。
 
 
 

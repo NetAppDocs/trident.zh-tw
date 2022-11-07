@@ -383,21 +383,10 @@
   <block id="e4e1c13bb0b14f6cb7608cbecea948ef" category="cell">iSCSI</block>
   <block id="8cd5b262d8d9950185128d052d55f7c8" category="list-text">安裝下列系統套件：</block>
   <block id="6bbf3284462dc8b9b90cb1adcd1c0ff4" category="paragraph">「Udo yum install -y lsscsi iscsi-initiator－utils sg3_utils device-mapper-multipath'</block>
-  <block id="7f50d5e5825124658e17cc8cfaa7f823" category="list-text">啟動多重路徑精靈：</block>
-  <block id="87772a853423d643181e2b56bcb4b17f" category="paragraph">「Udo mpathconf --enable --with _docathd y」</block>
-  <block id="43ce2a55c085b27f271203155d2745e1" category="list-text">確保已啟用並執行「iscsid」和「multipathd」：</block>
-  <block id="04c298ec3fc67bce1115cddcc2b3b829" category="paragraph">「Udo systemctl enable iscsid multipathd」「show systemcl start iscsid multipathd」</block>
-  <block id="2cfaa468af4e9de7ba9933d9e0081572" category="list-text">探索iSCSI目標：</block>
-  <block id="f0c700b766cfcc86bc21496513c58391" category="paragraph">「Udo iscsiadm -m flexdb -t -p &lt;data_lif_ip&gt;--fiscose'」</block>
-  <block id="18124bf28831e04dabc4dc81d1d4e69f" category="list-text">登入探索到的iSCSI目標：</block>
-  <block id="ba64ec4efdc69990967a75a918b83635" category="paragraph">「Udo iscsiadm -m nodes -p &lt;data_Lif_ip&gt;--login'</block>
   <block id="8018f5d6ddc4e67678d1659757828deb" category="list-text">啟用並啟動「iSCSI」：</block>
-  <block id="8bd830b1ea0595874b57cfd34c877123" category="paragraph">「Udo systemctl enable iscsi」、「show systemcl start iscsi」</block>
   <block id="28ea88befb3a7f6a8e98e7ea7a4fd35f" category="paragraph">「Udo apt-Get install -y open-iscsi sg3-utils multipath-tools scsitols」</block>
   <block id="d0b02d407fd5c75d0e7eac549a852191" category="list-text">啟用多重路徑：</block>
-  <block id="e6693412ed2252a87ece3f264fb334ed" category="paragraph">「Udo tee /etc/multipath.conf」&lt;-'EOF'預設值｛user_fusive_names yes focs_multipaths yes｝EOF Sudo服務多重路徑工具重新啟動。</block>
   <block id="8bec0eea71974a9138ccfa96983ddcfc" category="list-text">確保運行的是"iscsid"和"multipathd"：</block>
-  <block id="0d29eaa34aa7badaae0d49b35a2a0d12" category="paragraph">「Udo服務open-iSCSI start Sudo服務multipath-ttools start」</block>
   <block id="4cfa22b281cbd36e1a275d61ec23a9b4" category="summary">您可以收集記錄以協助疑難排解。收集記錄的方法會因執行Docker外掛程式的方式而有所不同。</block>
   <block id="fe1786b49549e8e06a89b9c57d7fc514" category="doc">收集記錄</block>
   <block id="83f4d02d2dd31f09291e098bf4ae502b" category="list-text">如果您使用建議的託管外掛程式方法執行Astra Trident（亦即使用「docker plugin」命令）、請依照下列方式檢視：</block>
@@ -2139,7 +2128,6 @@
   <block id="238e63aecc23c1bc2611ca883f075f1f" category="list-text">刪除用來安裝目前Astra Trident執行個體的Trident運算子。例如、如果您要從21.01升級、請執行下列命令：</block>
   <block id="d10c9260fe9a1660c2f75dddda0220e4" category="list-text">（選用）如果您想要修改安裝參數、請編輯您在安裝Trident時所建立的「TridentOrchestrator」物件。這可能包括修改自訂Trident映像、從私有映像登錄擷取容器映像、啟用偵錯記錄或指定映像提取機密等變更。</block>
   <block id="09b615e18699c6675b3705c00a495375" category="list-text">使用「bunder.yaml」檔案來安裝Astra Trident、該檔案可設定新版本的Trident運算子。執行下列命令：</block>
-  <block id="4546bbd46f06879787b5670b13277b28" category="paragraph">在此步驟中、21.10.0 Trident營運者將識別現有的Astra Trident安裝、並將其升級至與營運者相同的版本。</block>
   <block id="d06b5297af318d2581021098f6b0d44d" category="section-title">升級命名空間範圍內的操作員安裝</block>
   <block id="ddfa75d059a999aedec16392aae03bc4" category="paragraph">若要從使用命名空間範圍運算子（20.07到20.10版）安裝的Astra Trident執行個體進行升級、請遵循下列步驟：</block>
   <block id="edf5c542759186ded2c7eeaae6b340a5" category="list-text">確認現有Trident安裝的狀態。要執行此操作、請查看「TridentProvisioner」的*狀態*。狀態應為「Installed」（已安裝）。</block>
@@ -2934,7 +2922,6 @@
   <block id="f3aff8b93ad58c4831861213ffc9bbe7" category="paragraph">從22.07年開始、Astra Trident會嘗試自動偵測節點是否能夠執行iSCSI或NFS服務。Astra Trident會為節點建立事件、以識別發現的服務。您可以使用下列命令來檢閱這些事件：</block>
   <block id="6a3314aee95c1c78527e5f122976ec80" category="paragraph">Trident也會識別Trident節點CR上為每個節點啟用的服務。若要檢視探索到的服務、請使用命令：</block>
   <block id="2b6ab5193160f5eaca51526b15f27e3a" category="admonition">節點服務探索可識別探索到的服務、但無法保證服務已正確設定。相反地、沒有探索到的服務並不保證磁碟區掛載會失敗。</block>
-  <block id="a8a2b2d9e5637b41609ebc0c72058699" category="list-text">Kubernetes叢集執行1.19 - 1.24。</block>
   <block id="66896c99fb06e0b6c86498b249f8217a" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。</block>
   <block id="67183086f9356a825023b7315f5c3b99" category="cell">使用ONTAP Isrest API的布林參數。*不支援MetroCluster 技術預覽*。</block>
   <block id="6c1cf09676baae03b976277c6c163155" category="admonition-title">&lt;code&gt;useREST&lt;/code&gt;注意事項</block>
@@ -3054,7 +3041,6 @@
   <block id="402b7d2d5aea5e79576f9a964df89a32" category="cell">提供一個項目來將此SCC繫結至Trident命名空間中的Trident使用者。</block>
   <block id="274b68192b056e268f128ff63bfcd4a4" category="cell">不適用</block>
   <block id="50af2a553c2117ddd78da33865c6e35b" category="cell">《hostPath、DownwardAPI、Project預計、empyDir'》</block>
-  <block id="8401929e252299acc0120c7b139be18b" category="cell">1.19 - 1.24</block>
   <block id="b8f52a0e5f45341fb88241356af7f0c7" category="list-text">請參閱 <block ref="7c28a1514d14039d3824999236c4890d" category="inline-link-macro-rx"></block> 如需磁碟區擴充的詳細資料、</block>
   <block id="d63b67088a9f91802e555f6613dfc7e2" category="list-text">使用「tridentctl uninstall」命令解除安裝Trident時、會刪除Trident Pod、但不會清除建立的CRD。請參閱 <block ref="3e5b286354565ddfee44ed92d763b424" category="inline-link-macro-rx"></block> 瞭解如何徹底移除Trident並從頭重新設定。</block>
   <block id="6386b0f17b85463db72887bca8ae2bb7" category="inline-link-macro">設定後端</block>
@@ -3076,8 +3062,6 @@
   <block id="1b3d6decfa71cc52ecc9b041f40a02e5" category="paragraph">我們的Astra還有一個充滿活力的公共社群、由容器使用者（包括Astra Trident開發人員）所共同參與 <block ref="6130664377fa14615bb1abd5257e9714" category="inline-link-macro-rx"></block>。這是您提出專案相關一般問題、並與志同道合的同儕討論相關主題的好地方。</block>
   <block id="9337cac2cd1105449cd4e78ff2a353a4" category="cell">"k8s.gcr.io/sig-storage（k8s 1.19+）或kay.io/k8scsi"</block>
   <block id="702fa57eedc6ee8490a7294016f8b14f" category="list-text">《三八資源》</block>
-  <block id="ff3e13aad771f1b75db023012e96d057" category="list-text">您擁有執行Kubernetes 1.19 - 1.24之受支援Kubernetes叢集的完整權限。</block>
-  <block id="d85ea0185bbd496941944ab1e486ddb8" category="list-text">Kubernetes 1.19 - 1.24</block>
   <block id="0b0c130cbadeba098951b51bf8268b3f" category="paragraph">若要驗證Kubernetes版本、請執行下列命令：</block>
   <block id="6b51834314ece904405eb0ce1a6e6bd8" category="list-text">NetApp HCI / Element軟體11或更新版本</block>
   <block id="6ebf7ae9dffc55cf86792ea266344b3a" category="list-text">Ubuntu 18.04或更新版本（最新版本22.04）</block>
@@ -3454,4 +3438,10 @@
   <block id="ece92ff52ed3cf9a5447ce0db82396ed" category="list-text">您應該使用執行的Kubernetes叢集 <block ref="d502dc64864e79085bee32826e6fe213" category="inline-link-macro-rx"></block>。</block>
   <block id="26dbe1fe275b741e7240a373222d3480" category="paragraph">移至使用CRD的Astra Trident版本時、您應該考慮降級。由於Astra Trident使用CRD來維護狀態、因此所建立的所有儲存實體（後端、儲存類別、PV和Volume快照）都會建立關聯的CRD物件、而非寫入的資料<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> PV（由舊版Astra Trident使用）。新建立的PV、後端和儲存類別都會維護為CRD物件。</block>
   <block id="06b33bc9cc124539c964174ecd43eb43" category="paragraph">僅嘗試降級使用CRD（19.07及更新版本）執行的Astra Trident版本。如此可確保在降級發生後、可以看到目前Astra Trident版本上執行的作業。</block>
+  <block id="c6ab9f98e5a2b50f51aba6c04795101d" category="list-text">您擁有執行支援Kubernetes版本之Kubernetes叢集的完整權限。檢閱 <block ref="3675fd04b78685cacd6e23511ab11d10" category="inline-link-macro-rx"></block>。</block>
+  <block id="c27e444dab3a08bf8ec59794897c1a27" category="inline-link-macro">支援的Kubernetes版本</block>
+  <block id="774b87dcd517dd9ece61db4ebf307bef" category="list-text">答 <block ref="54886eff1282d00a4f74bc7c51429511" category="inline-link-macro-rx"></block></block>
+  <block id="62f6f68c0a7691973a4c0e16939d5709" category="cell">1.19 - 1.25</block>
+  <block id="279d526c0cf636b7292c2cfddc1d9957" category="list-text">執行的Kubernetes叢集 <block ref="54886eff1282d00a4f74bc7c51429511" category="inline-link-macro-rx"></block></block>
+  <block id="87aa97ac70530bd54af65d5fc819f906" category="paragraph">在此步驟中、Trident操作員將識別現有的Astra Trident安裝、並將其升級至與操作員相同的版本。</block>
 </blocks>

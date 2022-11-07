@@ -54,25 +54,29 @@ RHEL/CentOS 7.
 +
 「Udo yum install -y lsscsi iscsi-initiator－utils sg3_utils device-mapper-multipath'
 
-. 啟動多重路徑精靈：
+. 檢查iscsite-initier-utils版本是否為6.6.0.874-2.el7或更新版本：
 +
-「Udo mpathconf --enable --with _docathd y」
+「rpm -q iscsiscsiscs-initier-utils」
 
-. 確保已啟用並執行「iscsid」和「multipathd」：
+. 將掃描設為手動：
 +
-「Udo systemctl enable iscsid multipathd」「show systemcl start iscsid multipathd」
+「Udo sed -I 's/^\（node.session.scan\).*/\1 = manual /」/etc/iscsi/iscsid.conf）
 
-. 探索iSCSI目標：
+. 啟用多重路徑：
 +
-「Udo iscsiadm -m flexdb -t -p <data_lif_ip>--fiscose'」
+「Udo mpathconf --enable --with _docathd y --fisco_multipaths n」
 
-. 登入探索到的iSCSI目標：
 +
-「Udo iscsiadm -m nodes -p <data_Lif_ip>--login'
+
+NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipaths no"。
+
+. 確保運行的是"iscsid"和"multipathd"：
++
+「啟用Udo systemctl -現在是iscsid多路徑」
 
 . 啟用並啟動「iSCSI」：
 +
-「Udo systemctl enable iscsi」、「show systemcl start iscsi」
+「Udo systemctl enable - NOW iSCSI」
 
 
 
@@ -85,21 +89,25 @@ Ubuntu
 +
 「Udo apt-Get install -y open-iscsi sg3-utils multipath-tools scsitols」
 
+. 檢查開放式iSCSI版本是否為2.0.874-5ubuntu2．10或更新版本（適用於雙聲網路）或2.0.874-7.1ubuntu6.1或更新版本（適用於焦點）：
++
+「Dpkg -l open-iscsi」
+
+. 將掃描設為手動：
++
+「Udo sed -I 's/^\（node.session.scan\).*/\1 = manual /」/etc/iscsi/iscsid.conf）
+
 . 啟用多重路徑：
 +
-「Udo tee /etc/multipath.conf」<-'EOF'預設值｛user_fusive_names yes focs_multipaths yes｝EOF Sudo服務多重路徑工具重新啟動。
+「Udo tee /etc/multipath.conf」<<-'EOF'預設值｛user_易 記名稱yes focs_multipaths no｝EOF Sudo systemctl enable --NOW multipath-tools.service Sudo服務multipath-ttools restart」
 
-. 確保運行的是"iscsid"和"multipathd"：
 +
-「Udo服務open-iSCSI start Sudo服務multipath-ttools start」
 
-. 探索iSCSI目標：
-+
-「Udo iscsiadm -m flexdb -t -p <data_lif_ip>--fiscose'」
+NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipaths no"。
 
-. 登入探索到的iSCSI目標：
+. 確保已啟用並執行「open-iscsi」和「多路徑工具」：
 +
-「Udo iscsiadm -m nodes -p <data_Lif_ip>--login'
+「Udo systemctl狀態multipath-ttools/」「show systemcl enable -現在open-iscsi.service`「show systemctl狀態open-iscsi」
 
 
 

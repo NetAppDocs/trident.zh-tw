@@ -13,7 +13,7 @@ summary: 您可以將Azure NetApp Files 靜態（ANF）設定為Astra Trident的
 
 您可以將Azure NetApp Files 靜態（ANF）設定為Astra Trident的後端。您可以使用ANF後端來附加NAS和SMB磁碟區。
 
-* link:anf-examples.html["準備"]
+* link:anf-prep.html["準備"]
 * link:anf-examples.html["組態選項與範例"]
 
 

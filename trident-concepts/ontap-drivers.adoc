@@ -28,7 +28,7 @@ NFS
  a| 
 檔案系統
  a| 
-rwo、rwx、ROX
+rwo、ROX、rwx
  a| 
 」、NFS
 
@@ -39,7 +39,7 @@ NFS
  a| 
 檔案系統
  a| 
-rwo、rwx、ROX
+rwo、ROX、rwx
  a| 
 」、NFS
 
@@ -50,7 +50,7 @@ NFS
  a| 
 檔案系統
  a| 
-rwo、rwx、ROX
+rwo、ROX、rwx
  a| 
 」、NFS
 
@@ -63,7 +63,7 @@ iSCSI
  a| 
 rwo、ROX、rwx
  a| 
-無檔案系統。原始區塊裝置
+無檔案系統；原始區塊裝置
 
 
 
@@ -73,6 +73,8 @@ iSCSI
 檔案系統
  a| 
 Rwo、ROX
+
+Rwx無法在Filesystem Volume模式中使用。
  a| 
 《xfs》、《ext3》、《ext4》
 
@@ -85,7 +87,7 @@ iSCSI
  a| 
 rwo、ROX、rwx
  a| 
-無檔案系統。原始區塊裝置
+無檔案系統；原始區塊裝置
 
 
 
@@ -95,9 +97,11 @@ iSCSI
 檔案系統
  a| 
 Rwo、ROX
+
+Rwx無法在Filesystem Volume模式中使用。
  a| 
 《xfs》、《ext3》、《ext4》
 
 |===
 
-NOTE: 使用安全角色（使用者名稱/密碼）的登入認證、或使用安裝在叢集上的私密金鑰和憑證、即可驗證支援服務。ONTAP ONTAP您可以更新現有的後端、以「tridentctl update backend」從一個驗證模式移到另一個驗證模式。
+NOTE: 利用安全角色（使用者名稱/密碼）的登入認證、或是使用安裝在該叢集上的私密金鑰和憑證、來驗證後端。ONTAP ONTAP您可以使用更新現有的後端、以便從一個驗證模式移至另一個驗證模式 `tridentctl update backend`。

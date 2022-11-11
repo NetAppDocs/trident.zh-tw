@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/volume-share.html 
-keywords: volref, volume reference, share, pvc, pv, nfs, namespace 
-summary:  
+keywords: volref, volume reference, share, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing 
+summary: 使用Astra Trident、您可以在主要命名空間中建立磁碟區、並將其共用於一或多個次要命名空間中。 
 ---
 = 跨命名空間共用NFS磁碟區
 :hardbreaks:
@@ -10,6 +10,13 @@ summary:
 :icons: font
 :imagesdir: ../media/
 
+
+[role="lead"]
+使用Astra Trident、您可以在主要命名空間中建立磁碟區、並將其共用於一或多個次要命名空間中。
+
+
+
+== 功能
 
 Astra TridentVolume Reference CR可讓您在一或多個Kubernetes命名空間中安全地共用ReadWriteMany（rwx）NFS磁碟區。此Kubernetes原生解決方案具有下列優點：
 
@@ -150,4 +157,14 @@ Usage:
 * Astra Trident無法防止目的地命名空間寫入共用磁碟區。您應該使用檔案鎖定或其他程序來防止覆寫共用Volume資料。
 * 您無法藉由移除來撤銷對來源PVc的存取權 `shareToNamespace` 或 `shareFromNamepace` 註釋或刪除 `TridentVolumeReference` CR.若要撤銷存取權、您必須刪除從屬的PVc。
 * 在從屬磁碟區上無法執行快照、複製和鏡射。
+
+
+
+
+== 以取得更多資訊
+
+若要深入瞭解跨命名空間Volume存取：
+
+* 請造訪 link:https://cloud.netapp.com/blog/astra-blg-sharing-volumes-between-namespaces-say-hello-to-cross-namespace-volume-access["在命名空間之間共用磁碟區：歡迎使用跨命名空間磁碟區存取"^]。
+* 觀看示範 link:http://netapp.tv/cloud/details/29594?playlist_id=81&mcid=63262890210074608700682715883688763007["NetAppTV"^]。
 

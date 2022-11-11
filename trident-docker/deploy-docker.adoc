@@ -16,7 +16,7 @@ summary: 適用於Docker的Astra Trident可直接整合適用於NetApp儲存平�
 
 多個Astra Trident執行個體可同時在同一個主機上執行。這可同時連線至多個儲存系統和儲存類型、並可自訂Docker磁碟區所使用的儲存設備。
 
-請參閱 link:prereqs-docker.html["部署的先決條件"^]。在您確定已符合先決條件之後、就可以開始部署Astra Trident。
+請參閱 link:prereqs-docker.html["部署的先決條件"]。在您確定已符合先決條件之後、就可以開始部署Astra Trident。
 
 
 
@@ -84,11 +84,11 @@ EOF
 
 
 
-. 使用託管外掛系統啟動Astra Trident。
+. 使用託管外掛系統啟動Astra Trident。更換 `<version>` 使用您所使用的外掛程式版本（xxx.xxx.xx）。
 +
 [listing]
 ----
-docker plugin install --grant-all-permissions --alias netapp netapp/trident-plugin:21.07 config=myConfigFile.json
+docker plugin install --grant-all-permissions --alias netapp netapp/trident-plugin:<version> config=myConfigFile.json
 ----
 . 開始使用Astra Trident來消耗已設定系統的儲存空間。
 +

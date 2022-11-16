@@ -16,9 +16,11 @@ summary: 從2001版Astra Trident開始、您可以在Kubernetes層建立持續Vo
 
 NOTE: 此功能可從Kubernetes 1.17（試用版）取得、GA版本為1.20。若要瞭解從試用版移轉至GA所涉及的變更、請參閱 https://kubernetes.io/blog/2020/12/10/kubernetes-1.20-volume-snapshot-moves-to-ga/["版本部落格"^]。隨着GA的問世、推出了「v1」API版本、並向下相容於「v1Beta1」快照。
 
-.您需要的是 #8217 ；需要的是什麼
-* 建立Volume快照需要建立外部快照控制器和自訂資源定義（CRD）。這是正在使用的Kubernetes Orchestrator的責任（例如：Kubeadm、GKE、OpenShift）。
+建立Volume快照需要建立外部快照控制器和自訂資源定義（CRD）。這是正在使用的Kubernetes Orchestrator的責任（例如：Kubeadm、GKE、OpenShift）。
 
+
+
+== 部署Volume Snapshot控制器
 
 如果您的Kubernetes發佈版本未包含快照控制器和客戶需求日、您可以依照下列方式進行部署。
 

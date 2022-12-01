@@ -148,6 +148,7 @@ NOTE: 對於在ANF後端上建立的所有磁碟區、Astra Trident會將儲存�
 == 組態範例
 
 .範例1：最低組態
+[%collapsible%open]
 ====
 這是絕對最低的後端組態。使用此組態、Astra Trident會在設定的位置探索所有NetApp帳戶、容量集區和委派給ANF的子網路、並隨機將新磁碟區放在其中一個集區和子網路上。因為 `nasType` 省略 `nfs` 預設會套用、後端會為NFS磁碟區進行資源配置。
 
@@ -167,6 +168,7 @@ NOTE: 對於在ANF後端上建立的所有磁碟區、Astra Trident會將儲存�
 ----
 ====
 .範例2：使用容量集區篩選器的特定服務層級組態
+[%collapsible%open]
 ====
 此後端組態可將Volume置於Azure中 `eastus` 位置 `Ultra` 容量資源池：Astra Trident會自動探索該位置委派給ANF的所有子網路、並隨機在其中一個磁碟區上放置新磁碟區。
 
@@ -189,6 +191,7 @@ NOTE: 對於在ANF後端上建立的所有磁碟區、Astra Trident會將儲存�
 ----
 ====
 .範例3：進階組態
+[%collapsible%open]
 ====
 此後端組態可進一步將磁碟區放置範圍縮小至單一子網路、並修改部分Volume資源配置預設值。
 
@@ -222,6 +225,7 @@ NOTE: 對於在ANF後端上建立的所有磁碟區、Astra Trident會將儲存�
 ----
 ====
 .範例4：虛擬儲存池組態
+[%collapsible%open]
 ====
 此後端組態可在單一檔案中定義多個儲存集區。當您有多個容量集區支援不同的服務層級、而且想要在Kubernetes中建立代表這些層級的儲存類別時、這很有用。
 
@@ -318,6 +322,7 @@ allowVolumeExpansion: true
 使用 `nasType`、 `node-stage-secret-name`和  `node-stage-secret-namespace`、您可以指定SMB磁碟區、並提供所需的Active Directory認證資料。
 
 .範例1：預設命名空間的基本組態
+[%collapsible%open]
 ====
 [listing]
 ----
@@ -335,6 +340,7 @@ parameters:
 ----
 ====
 .範例2：每個命名空間使用不同的機密
+[%collapsible%open]
 ====
 [listing]
 ----
@@ -351,6 +357,7 @@ parameters:
 ----
 ====
 .範例3：每個磁碟區使用不同的機密
+[%collapsible%open]
 ====
 [listing]
 ----

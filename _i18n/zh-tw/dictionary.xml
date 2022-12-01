@@ -2119,17 +2119,12 @@
   <block id="199ed8c975e8bb544d18428ba17adbc3" category="inline-link">GitHub問題詳細資料</block>
   <block id="398b69b685d2969c9e5d2f8cfbff3972" category="admonition">使用OpenShift Container Platform上的運算子來升級Trident時、您應該升級至Trident 21.01.1或更新版本。隨21.01.0一起發行的Trident運算子包含已在21.01.1中修正的已知問題。如需詳細資訊、請參閱<block ref="bcebcdd21adcbb3d7c640d63a711c6fb" category="inline-link-rx"></block>。</block>
   <block id="2f6881ec6a84d1ac9ef2e551f3ca8466" category="section-title">升級叢集範圍內的操作員安裝</block>
-  <block id="532223fc600c8862511462ff30738c55" category="paragraph">若要從* Trident 21.01*及更新版本*升級、請依照下列步驟進行。</block>
   <block id="238e63aecc23c1bc2611ca883f075f1f" category="list-text">刪除用來安裝目前Astra Trident執行個體的Trident運算子。例如、如果您要從21.01升級、請執行下列命令：</block>
-  <block id="d10c9260fe9a1660c2f75dddda0220e4" category="list-text">（選用）如果您想要修改安裝參數、請編輯您在安裝Trident時所建立的「TridentOrchestrator」物件。這可能包括修改自訂Trident映像、從私有映像登錄擷取容器映像、啟用偵錯記錄或指定映像提取機密等變更。</block>
-  <block id="09b615e18699c6675b3705c00a495375" category="list-text">使用「bunder.yaml」檔案來安裝Astra Trident、該檔案可設定新版本的Trident運算子。執行下列命令：</block>
   <block id="d06b5297af318d2581021098f6b0d44d" category="section-title">升級命名空間範圍內的操作員安裝</block>
   <block id="ddfa75d059a999aedec16392aae03bc4" category="paragraph">若要從使用命名空間範圍運算子（20.07到20.10版）安裝的Astra Trident執行個體進行升級、請遵循下列步驟：</block>
   <block id="edf5c542759186ded2c7eeaae6b340a5" category="list-text">確認現有Trident安裝的狀態。要執行此操作、請查看「TridentProvisioner」的*狀態*。狀態應為「Installed」（已安裝）。</block>
   <block id="f14a1d8e56a0cbd2826edd38778371f7" category="admonition">如果狀態顯示「正在更新」、請務必先解決、再繼續。如需可能狀態值的清單、請參閱<block ref="6aefd1c9ce8e43313a8c7c92e2fac4f3" category="inline-link-rx"></block>。</block>
   <block id="683d018a2f7c70469fd74ba0eeae2a79" category="list-text">使用Trident安裝程式提供的資訊清單、建立「TridentOrchestrator」CRD。</block>
-  <block id="ede3d39a1c5211985b126b3f166cf601" category="inline-link">Trident儲存庫</block>
-  <block id="af39f09efb6e7b7133433dff92d0fffe" category="list-text">使用命名空間範圍的運算子資訊清單來刪除。若要完成此步驟、您需要使用「bunder.yaml」檔案來部署命名空間範圍的運算子。您可以從取得「bunder.yaml」<block ref="1403b813895a8a78c447fca96240f2ac" category="inline-link-rx"></block>。請務必使用適當的分行。</block>
   <block id="5fbede7820945c99130183fd2fd0f4b3" category="paragraph">在這個階段、「Trident - oper-xxxxxx-xxxxx" pod會刪除。</block>
   <block id="86463d362af5835ff8c3fd6587fbd24f" category="list-text">（選用）如果需要修改安裝參數、請更新「TridentProvisioner」規格。這些變更可能包括：修改私有映像登錄以從擷取容器映像、啟用偵錯記錄或指定映像提取機密。</block>
   <block id="df486b34cec5fdfba24de79fe6b388d4" category="list-text">安裝叢集範圍的運算子。</block>
@@ -2235,14 +2230,10 @@
   <block id="69f5b5f7aa4a5f07267b9c758e2580e6" category="list-text">使用叢集範圍運算子（21.01及更新版本）安裝的版本。</block>
   <block id="0d8778040c29d89141a733b060314da3" category="section-title">降級至叢集範圍的運算子</block>
   <block id="12a3bd4ff105bed8650ca128636a078f" category="paragraph">若要將Astra Trident降級為使用叢集範圍運算子的版本、請遵循下列步驟。</block>
-  <block id="f472e2d2602fec8483b064616fa5f543" category="list-text"><block ref="e6c6ebb45af4a1845e181c2b5544dbb0" category="inline-link-macro-rx"></block>。*除非您想要完全移除現有的安裝、否則請勿使用CRD。*</block>
-  <block id="3864c0c37bf26f8a7686e5c04435974c" category="inline-link">Trident GitHub repo</block>
-  <block id="78a26b79451266c6562d8d11cdb86ad0" category="list-text">刪除叢集範圍的運算子。為達成此目的、您將需要用於部署營運者的資訊清單。您可以從取得<block ref="08fa9926a4347665a77bd7911809a1ce" category="inline-link-rx"></block>。請務必切換至所需的分公司。</block>
   <block id="44d9737dc7f423d188a4b34663c5f06e" category="list-text">安裝所需版本的Astra Trident、以繼續降級。請遵循所需版本的說明文件。</block>
   <block id="0e792058c21e7156d25e8ae8f2d784a0" category="section-title">降級至命名空間範圍的運算子</block>
   <block id="8ad79c030a4ebdd2f446157ba529561e" category="paragraph">本節摘要說明降級至Astra Trident版本所需的步驟、範圍介於20.07到20.10之間、此版本將使用命名空間範圍的運算子來安裝。</block>
   <block id="a7c80f52f9be4831ca776b56dc642a45" category="list-text"><block ref="e6c6ebb45af4a1845e181c2b5544dbb0" category="inline-link-macro-rx"></block>。*除非您想要完全移除現有的安裝、否則請勿刪掉CRD。*請確定刪除了「三線管協調器」。</block>
-  <block id="141ed8ae2dd3c3efac0c25f12b058c87" category="list-text">刪除叢集範圍的運算子。為達成此目的、您將需要用於部署營運者的資訊清單。您可以從取得<block ref="08fa9926a4347665a77bd7911809a1ce" category="inline-link-rx"></block>。請務必切換至所需的分公司。</block>
   <block id="2389eabedca3341193952356ec53cd0c" category="list-text">刪除「TridentOrchestrator」CRD。</block>
   <block id="2982be9f91f77222d75873452bfc7696" category="paragraph">Astra Trident已解除安裝。</block>
   <block id="0f46a51f24c3700da8c74b9a5294a22f" category="list-text">安裝所需的版本、繼續降級。請遵循所需版本的說明文件。</block>
@@ -2907,8 +2898,6 @@
   <block id="0b4a92a731cb582bd951a7aa481f0602" category="list-text">Anthos on -Prem（VMware）和Anthos on裸機1.9、1.10、1.11</block>
   <block id="7d3f46589c43a64fd040e4f0e0691a86" category="inline-link-macro">掌舵表</block>
   <block id="5d2b4e1d078f05c18e07065fa7df166d" category="list-text">使用Trident <block ref="cdacb2b0d49176a3c0d8cc9d693de833" category="inline-link-macro-rx"></block>：Helm圖表可部署Trident運算子、並在單一步驟中安裝Trident。</block>
-  <block id="0d472c887b61206765c1caa63a9290ec" category="inline-link-macro">bunder.yaml</block>
-  <block id="179000091737641056a247acf2c59dc4" category="list-text">手動：Trident提供 <block ref="6f41841ada1b81573b5db54c90d512f9" category="inline-link-macro-rx"></block> 可用於安裝運算子及建立關聯物件的檔案。</block>
   <block id="c9ffe59301b588bbc33bb004cfd312ee" category="section-title">部署Trident操作員、並使用Helm安裝Astra Trident</block>
   <block id="3f44baef815aed01560d6764fea49ebc" category="cell">用於CVS磁碟區的GCP網路</block>
   <block id="1ea1b160621872df5909653ebde1bf7f" category="paragraph">您可以更新現有的後端、以便在認證型和憑證型方法之間移動。不過、一次只支援一種驗證方法。若要切換至不同的驗證方法、您必須從後端組態中移除現有方法。</block>
@@ -3453,4 +3442,16 @@
   <block id="96e1384807331548bf745acde0fe1b73" category="inline-link-macro">NetAppTV</block>
   <block id="414883f8b6ef58c7b3b37e66fbfd482f" category="list-text">觀看示範 <block ref="1945a2d4809e81668f29485f6ae1bbc8" category="inline-link-macro-rx"></block>。</block>
   <block id="387492c079b6cb13a8ba91c4a60f67b7" category="section-title">部署Volume Snapshot控制器</block>
+  <block id="6c5b68b88f6af6f28b3bf69ad9c17b70" category="list-text"><block ref="e6c6ebb45af4a1845e181c2b5544dbb0" category="inline-link-macro-rx"></block>。*除非您想要完全移除現有的安裝、否則請勿刪除客戶需求日。*</block>
+  <block id="c97d8f6272d9a08ec67b35acba91f6d3" category="list-text">您可以使用與Trident版本相關的運算子資訊清單來刪除Trident運算子。例如、<block ref="e4411f2e6de8cc67724fb259f247dc3e" prefix=" " category="inline-code"></block> 其中<block ref="7d2e512472107955c1b3fb2ce2e19bc4" prefix=" " category="inline-code"></block> 為版本編號（例如<block ref="ea99d71aa7a32717f8398c406b38b062" prefix=" " category="inline-code"></block>）和<block ref="5765a306f9d7568469e1db22a96adfd0" prefix=" " category="inline-code"></block> 為套裝組合Yaml檔案名稱。</block>
+  <block id="842f7d2dee66406b4e092b9dc8dbc5ce" category="paragraph">請依照下列步驟從* Trident 21.01及更新版本*升級。</block>
+  <block id="913e57b3917474dfe6ca9cea5d7eff80" category="list-text">您也可以選擇編輯<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 安裝Trident以修改安裝參數時所建立的物件。這可能包括修改自訂Trident映像、從私有映像登錄擷取容器映像、啟用偵錯記錄或指定映像提取機密等變更。</block>
+  <block id="974ed9054c7bfd411e970e032a99cecc" category="list-text">使用適用於您環境的正確套裝組合Yaml檔案和中的Astra Trident版本來安裝Astra Trident<block ref="79243f20ce3e723d13bf0774e8348ca2" prefix=" " category="inline-code"></block> 其中<block ref="7d2e512472107955c1b3fb2ce2e19bc4" prefix=" " category="inline-code"></block> 為版本編號（例如<block ref="ea99d71aa7a32717f8398c406b38b062" prefix=" " category="inline-code"></block>）和<block ref="32f68f45f3f6badcd1aa2343bbbce67c" prefix=" " category="inline-code"></block> 為套裝組合Yaml檔案名稱。</block>
+  <block id="bd2cc8575fe69c7f775292759380c838" category="inline-link-macro">bunder_pre_1_25.yaml</block>
+  <block id="5864824c62bdf7d1f44d7205b8eff89c" category="list-text">對於執行Kubernetes 1.24或更低層級的叢集、請使用 <block ref="8c84c30a1d2b42d50c58aaa8b58402f2" category="inline-link-macro-rx"></block>。</block>
+  <block id="5a02ebff4889c2de0379a0fb10bed282" category="inline-link-macro">bunder_POST_1_25.yaml</block>
+  <block id="418f390286f9ad416740a7939ee1ace3" category="list-text">對於執行Kubernetes 1.25或更新版本的叢集、請使用 <block ref="ec1ceb0b8c89561ced4cfd4f0d7d3066" category="inline-link-macro-rx"></block>。</block>
+  <block id="fe3799e555192a4be0f491c2a4b889cb" category="paragraph">例如、如果您要為Kubernetes 1.25安裝Astra Trident 22.10、請執行下列命令：</block>
+  <block id="6abd06de383c0d8eca2b08e0ec8775e1" category="list-text">使用命名空間範圍的運算子資訊清單來刪除。若要完成此步驟、您需要使用套裝組合Yaml檔案來部署命名空間範圍的運算子<block ref="79243f20ce3e723d13bf0774e8348ca2" prefix=" " category="inline-code"></block> 其中<block ref="7d2e512472107955c1b3fb2ce2e19bc4" prefix=" " category="inline-code"></block> 為版本編號（例如<block ref="ea99d71aa7a32717f8398c406b38b062" prefix=" " category="inline-code"></block>）和<block ref="32f68f45f3f6badcd1aa2343bbbce67c" prefix=" " category="inline-code"></block> 為套裝組合Yaml檔案名稱。</block>
+  <block id="ef4941fc3b8697a8f43fd6782250b64c" category="list-text">手動：Trident提供可用於安裝運算子及建立相關物件的檔案。</block>
 </blocks>

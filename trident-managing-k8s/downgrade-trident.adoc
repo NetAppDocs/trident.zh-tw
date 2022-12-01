@@ -54,8 +54,8 @@ summary: 瞭解降級至舊版Astra Trident的相關步驟。
 若要將Astra Trident降級為使用叢集範圍運算子的版本、請遵循下列步驟。
 
 .步驟
-. link:uninstall-trident.html["解除安裝Astra Trident"^]。*除非您想要完全移除現有的安裝、否則請勿使用CRD。*
-. 刪除叢集範圍的運算子。為達成此目的、您將需要用於部署營運者的資訊清單。您可以從取得 https://github.com/NetApp/trident/blob/stable/v21.07/deploy/bundle.yaml["Trident GitHub repo"^]。請務必切換至所需的分公司。
+. link:uninstall-trident.html["解除安裝Astra Trident"^]。*除非您想要完全移除現有的安裝、否則請勿刪除客戶需求日。*
+. 您可以使用與Trident版本相關的運算子資訊清單來刪除Trident運算子。例如、 `\https://github.com/NetApp/trident/tree/stable/_vXX.XX_/deploy/_bundle.yaml_` 其中 `_vXX.XX_` 為版本編號（例如 `v22.10`）和 `_bundle.yaml_` 為套裝組合Yaml檔案名稱。
 . 安裝所需版本的Astra Trident、以繼續降級。請遵循所需版本的說明文件。
 
 
@@ -79,7 +79,7 @@ trident     20h
 kubectl delete torc trident
 tridentorchestrator.trident.netapp.io "trident" deleted
 ----
-. 刪除叢集範圍的運算子。為達成此目的、您將需要用於部署營運者的資訊清單。您可以從取得 https://github.com/NetApp/trident/blob/stable/v21.07/deploy/bundle.yaml["Trident GitHub repo"^]。請務必切換至所需的分公司。
+. 您可以使用與Trident版本相關的運算子資訊清單來刪除Trident運算子。例如、 `\https://github.com/NetApp/trident/tree/stable/_vXX.XX_/deploy/_bundle.yaml_` 其中 `_vXX.XX_` 為版本編號（例如 `v22.10`）和 `_bundle.yaml_` 為套裝組合Yaml檔案名稱。
 . 刪除「TridentOrchestrator」CRD。
 +
 [listing]

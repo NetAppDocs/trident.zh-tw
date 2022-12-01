@@ -38,7 +38,12 @@ summary: 您可以與Trident運算子一起部署Astra Trident。您可以手動
 您可以使用下列兩種方式之一來部署Trident運算子：
 
 * 使用Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["掌舵表"^]：Helm圖表可部署Trident運算子、並在單一步驟中安裝Trident。
-* 手動：Trident提供 link:https://github.com/NetApp/trident/blob/master/deploy/bundle.yaml["bunder.yaml"^] 可用於安裝運算子及建立關聯物件的檔案。
+* 手動：Trident提供可用於安裝運算子及建立相關物件的檔案。
++
+** 對於執行Kubernetes 1.24或更低層級的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v22.10/deploy/bundle_pre_1_25.yaml["bunder_pre_1_25.yaml"^]。
+** 對於執行Kubernetes 1.25或更新版本的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v22.10/deploy/bundle_post_1_25.yaml["bunder_POST_1_25.yaml"^]。
+
+
 
 
 

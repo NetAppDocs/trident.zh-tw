@@ -99,6 +99,7 @@ NOTE: 如需格式化Pod參數的詳細資訊、請參閱 link:https://kubernete
 您可以在定義時使用上述屬性 `TridentOrchestrator` 以自訂安裝。
 
 .範例1：基本自訂組態
+[%collapsible%open]
 ====
 這是基本自訂組態的範例。
 
@@ -117,6 +118,7 @@ spec:
 ----
 ====
 .範例2：使用節點選取器進行部署
+[%collapsible%open]
 ====
 此範例說明如何使用節點選取器來部署Trident：
 
@@ -136,6 +138,7 @@ spec:
 ----
 ====
 .範例3：部署在Windows工作節點上
+[%collapsible%open]
 ====
 此範例說明如何在Windows工作節點上進行部署。
 

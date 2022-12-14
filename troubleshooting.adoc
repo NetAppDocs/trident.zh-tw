@@ -147,7 +147,7 @@ trident-operator-766f7b8658-ldzsv   1/1     Running            0          8m17s
 
 
 
-== 疑難排解使用tridentctl進行不成功的Trident部署
+== 使用疑難排解不成功的Trident部署 `tridentctl`
 
 為了協助您找出問題所在、您可以使用「-d'」引數再次執行安裝程式、這會開啟偵錯模式、並協助您瞭解問題所在：
 

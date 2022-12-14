@@ -91,7 +91,7 @@ NOTE: 如果叢集升級至不受支援的版本、則操作員將無法安裝As
 
 
 
-=== 何時使用tridenctl
+=== 使用時機 `tridenctl`
 
 如果您現有的部署必須升級至、或是想要高度自訂部署、則應考慮使用 link:kubernetes-deploy-tridentctl.html["試用"^]。這是部署Astra Trident的傳統方法。
 

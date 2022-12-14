@@ -60,7 +60,7 @@ Astra Trident並不依賴其他NetApp軟體產品、而是以獨立應用程式�
 
 
 
-=== 支援的etcd版本為何？
+=== 支援的版本為何 `etcd`？
 
 Astra Trident不再需要「etcd」。它使用客戶需求日來維持狀態。
 

@@ -30,7 +30,7 @@ API的運作方式如下：
 
 
 
-=== 取得
+=== `GET`
 
 * 「Get <trident位址>/trident / v1/<object-type >」：列出該類型的所有物件。
 * 「Get <trident位址>/trident / v1/<object-typed>/<object-name>」：取得命名物件的詳細資料。
@@ -38,7 +38,7 @@ API的運作方式如下：
 
 
 
-=== 貼文
+=== `POST`
 
 「POST <trident位址>/trident / v1/<object-type>」：建立指定類型的物件。
 
@@ -48,7 +48,7 @@ API的運作方式如下：
 
 
 
-=== 刪除
+=== `DELETE`
 
 「刪除<trident位址>/trident / v1/<object-typed>/<object-name>：刪除命名的資源。
 

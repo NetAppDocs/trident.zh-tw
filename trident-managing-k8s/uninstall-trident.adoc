@@ -60,7 +60,7 @@ WARNING: 執行完整解除安裝時、您只能考慮抹除客戶需求日。�
 
 
 
-== 使用tridentctl解除安裝
+== 使用解除安裝 `tridentctl`
 
 執行「tridentctl」中的「uninstall」命令、移除所有與Astra Trident相關的資源、但CRD和相關物件除外、因此可輕鬆再次執行安裝程式、以更新至較新的版本。
 

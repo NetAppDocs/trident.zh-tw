@@ -121,7 +121,7 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 
 === Volume資源配置
 
-您可以在組態檔的特殊區段中指定下列選項、以控制預設的Volume資源配置。請參閱  configurations 以取得詳細資料。
+您可以在組態檔的特殊區段中指定下列選項、以控制預設的Volume資源配置。請參閱 <<組態範例>> 以取得詳細資料。
 
 [cols=",,"]
 |===
@@ -282,7 +282,7 @@ NOTE: 對於在ANF後端上建立的所有磁碟區、Astra Trident會將儲存�
 
 
 
-=== 使用parameter.selector欄位的範例定義
+=== 使用的範例定義 `parameter.selector` 欄位
 
 使用 `parameter.selector` 您可以為每個項目指定 `StorageClass` 用於裝載磁碟區的虛擬集區。該磁碟區會在所選的資源池中定義各個層面。
 

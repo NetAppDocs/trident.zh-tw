@@ -14,6 +14,7 @@ summary: 您可以使用業者輕鬆升級現有的Astra Trident安裝。
 [role="lead"]
 您可以使用業者輕鬆升級現有的Astra Trident安裝。
 
+.您需要的產品
 若要使用營運者進行升級、應符合下列條件：
 
 * 您應該安裝以「服務整合式」為基礎的Astra Trident。若要檢查您是否正在執行csi Trident、請檢查Trident命名空間中的Pod。如果他們遵循「Trident - csi*」命名模式、您就會執行「csi Trident」。

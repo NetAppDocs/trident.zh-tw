@@ -72,6 +72,7 @@ TIP: 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"^]�
 
 使用Helm執行列出的步驟來部署Trident運算子。
 
+.您需要的產品
 除了上述先決條件之外、若要使用Helm部署Trident運算子、您還需要下列項目：
 
 * 答 link:requirements.html["支援的Kubernetes版本"]
@@ -230,7 +231,7 @@ IMPORTANT: Kubernetes叢集中只應有*一個運算子執行個體*。請勿建
 
 
 
-=== 步驟3：建立TridentOrchestrator並安裝Trident
+=== 步驟3：建立 `TridentOrchestrator` 並安裝Trident
 
 您現在可以使用運算子來安裝Astra Trident！這需要建立「TridentOrchestrator」。Trident安裝程式隨附建立「TridentOrchestrator」的範例定義。這將開始在「Trident」命名空間中安裝。
 

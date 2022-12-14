@@ -24,7 +24,7 @@ Astra Trident提供的指標可讓您執行下列作業：
 
 NOTE: 根據預設、Trident的指標會顯示在「/度量」端點的目標連接埠「8001」上。安裝Trident時*預設會啟用這些度量。
 
-.您需要的是 #8217 ；需要的是什麼
+.您需要的產品
 * 安裝Astra Trident的Kubernetes叢集。
 * Prometheus執行個體。這可以是 https://github.com/prometheus-operator/prometheus-operator["容器化Prometheus部署"^] 或者、您也可以選擇以執行Prometheus https://prometheus.io/download/["原生應用程式"^]。
 

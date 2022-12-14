@@ -193,7 +193,7 @@ IMPORTANT: 如果您的版本早於ONTAP 9.8、您應該將QoS原則群組指派
 
 
 
-=== 停用應用程式SVM的showmount
+=== 停用 `showmount` 適用於應用程式SVM
 
 「show mount」功能可讓NFS用戶端查詢SVM、以取得可用的NFS匯出清單。部署到Kubernetes叢集的Pod可針對資料LIF發出「show mount -e」命令、並接收可用掛載的清單、包括無法存取的掛載。雖然這本身並不是安全威脅、但它確實提供不必要的資訊、可能有助於未獲授權的使用者連線至NFS匯出。
 

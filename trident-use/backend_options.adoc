@@ -19,7 +19,7 @@ summary: 瞭解Astra Trident管理後端的不同方法。
 
 
 
-== 使用TridentBackendConfig管理Tridentctl後端
+== 管理 `tridentctl` 後端使用 `TridentBackendConfig`
 
 本節說明透過Kubernetes介面建立「TridentBackendConfig」物件、直接透過「tridentctl」建立的後端管理所需的步驟。
 
@@ -120,7 +120,7 @@ secret/backend-tbc-ontap-san-secret created
 ----
 
 
-=== 步驟2：建立TridentBackendConfig CR
+=== 步驟2：建立 `TridentBackendConfig` CR
 
 下一步是建立一個「TridentBackendConfig」（TridentBackendConfig）CR、它會自動連結至現有的「ONTAP-NAS-backend」（如本範例所示）。確保符合下列要求：
 
@@ -177,7 +177,7 @@ tridentbackendconfig.trident.netapp.io/tbc-ontap-nas-backend created
 ----
 
 
-=== 步驟3：確認TridentBackendConfig CR的狀態
+=== 步驟3：確認的狀態 `TridentBackendConfig` CR
 
 在建立「TridentBackendConfig」之後、其階段必須是「綁定」。它也應反映與現有後端相同的後端名稱和UUID。
 
@@ -199,7 +199,7 @@ tridentctl get backend -n trident
 
 
 
-== 使用tridentctl管理TridentBackendConfig後端
+== 管理 `TridentBackendConfig` 後端使用 `tridentctl`
 
 可以使用「tridentctl」來列出使用「TridentBackendConfig」建立的後端。此外、系統管理員也可以刪除「TridentBackendConfig」、並確定「pec.deletionPolicy`」設為「效能」、藉此選擇透過「tridentctl」來完全管理此類後端。
 
@@ -226,7 +226,7 @@ tridentctl get backend ontap-san-backend -n trident
 
 
 
-=== 步驟1：確認刪除原則已設定為保留
+=== 步驟1：確認 `deletionPolicy` 設為 `retain`
 
 讓我們來看看「改革政策」的價值。這需要設定為「維護」。這將確保刪除「TridentBackendConfig」（TridentBackendConfig）的CR時、後端定義仍會存在、而且可以使用「tridentctl」進行管理。
 
@@ -250,7 +250,7 @@ NOTE: 除非將「刪除原則」設定為「需要」、否則請勿繼續下�
 
 
 
-=== 步驟2：刪除TridentBackendConfig CR
+=== 步驟2：刪除 `TridentBackendConfig` CR
 
 最後一個步驟是刪除「TridentBackendConfig」（TridentBackendConfig）。確認「刪除原則」設為「保留」之後、您可以繼續刪除：
 

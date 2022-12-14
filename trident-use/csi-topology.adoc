@@ -25,6 +25,7 @@ Kubernetes提供兩種獨特的Volume繫結模式：
 
 NOTE: 「等待使用者」繫結模式不需要拓撲標籤。這可獨立於「csi拓撲」功能使用。
 
+.您需要的產品
 若要使用「csi拓撲」、您需要下列項目：
 
 * 執行的Kubernetes叢集 link:requirements.html["支援的Kubernetes版本"]
@@ -250,7 +251,7 @@ pvc-san   Bound    pvc-ecb1e1a0-840c-463b-8b65-b3d033e2e62b   300Mi      RWO    
 ----
 
 
-== 更新後端以納入支援的拓撲
+== 更新後端以納入 `supportedTopologies`
 
 您可以使用「tridentctl後端更新」來更新現有的後端、以納入「最上層拓撲」清單。這不會影響已配置的磁碟區、而且只會用於後續的PVCS。
 

@@ -234,7 +234,7 @@ NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX�
 
 
 
-=== ONTAP - NAS驅動程式搭配憑證型驗證
+=== `ontap-nas` 具有憑證型驗證的驅動程式
 
 這是最小的後端組態範例。「clientCertificate」、「clientPrivate Key」和「Trusted CACertifate」（選用、如果使用信任的CA）會分別填入「backend.json」、並採用用戶端憑證、私密金鑰和信任的CA憑證的64編碼值。
 
@@ -255,7 +255,7 @@ NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX�
 ----
 
 
-=== ONTAP - NAS驅動程式搭配自動匯出原則
+=== `ontap-nas` 具有自動匯出原則的驅動程式
 
 本範例說明如何指示Astra Trident使用動態匯出原則來自動建立及管理匯出原則。這對「ONTAP-NAS-節約」和「ONTAP-NAS-Flexgroup」驅動程式的運作方式相同。
 
@@ -277,7 +277,7 @@ NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX�
 ----
 
 
-=== ONTAP-NAS-flexgroup驅動程式
+=== `ontap-nas-flexgroup` 驅動程式
 
 [listing]
 ----
@@ -294,7 +294,7 @@ NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX�
 ----
 
 
-=== ONTAP - NAS驅動程式搭配IPv6
+=== `ontap-nas` 使用IPv6的驅動程式
 
 [listing]
 ----
@@ -311,7 +311,7 @@ NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX�
 ----
 
 
-=== ONTAP-NAS-經濟驅動程式
+=== `ontap-nas-economy` 驅動程式
 
 [listing]
 ----
@@ -335,7 +335,7 @@ NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX�
 
 
 
-=== ONTAP-NAS驅動程式
+=== `ontap-nas` 驅動程式
 
 [listing]
 ----
@@ -400,7 +400,7 @@ NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX�
 ----
 
 
-=== ONTAP-NAS-flexgroup驅動程式
+=== `ontap-nas-flexgroup` 驅動程式
 
 [listing]
 ----
@@ -461,7 +461,7 @@ NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX�
 ----
 
 
-=== ONTAP-NAS-經濟驅動程式
+=== `ontap-nas-economy` 驅動程式
 
 [listing]
 ----

@@ -742,7 +742,6 @@
   <block id="619b69dca5d7c9f1f67ec55897733162" category="inline-link-macro">NAS ONTAP</block>
   <block id="548fedaf4074fe2826e3c53dfd92a19e" category="inline-link-macro">SAN ONTAP</block>
   <block id="9f6c198d85b31b573b56186f8ecc4394" category="section-title">在EKS上部署及設定Astra Trident搭配Amazon FSX for NetApp ONTAP</block>
-  <block id="a711863513c11f3a6d86294acc7be0ba" category="list-title">您需要的是 #8217 ；需要的是什麼</block>
   <block id="80d13d3dbe137e8fb646193f275eceeb" category="list-text">現有的Amazon EKS叢集或自行管理的Kubernetes叢集、已安裝「kubecll」。</block>
   <block id="52d48fdd62aa109d7f163f0ef8a31b83" category="list-text">現有的Amazon FSX-適用於NetApp ONTAP 的支援資料系統和儲存虛擬機器（SVM）、可從叢集的工作節點存取。</block>
   <block id="ae9a35d29039db87d65a796241a9043d" category="inline-link-macro">NFS和/或iSCSI</block>
@@ -836,7 +835,6 @@
   <block id="207aacc2f1990ce861bf20cfcd0ca067" category="paragraph">瞭解Astra Trident管理後端的不同方法。隨著「TridentBackendConfig」的推出、系統管理員現在有兩種獨特的後端管理方法。這會提出下列問題：</block>
   <block id="a7b407f571446f9f4a30f63e8160784a" category="list-text">使用「tridentctl」建立的後端、是否能以「TridentBackendConfig」來管理？</block>
   <block id="3e1fc11d05c13404995af2b9fda64675" category="list-text">使用「TridentBackendConfig」建立的後端、是否可以使用「tridentctl」來管理？</block>
-  <block id="41b338cd1cea5e2df168994a9bdedf75" category="section-title">使用TridentBackendConfig管理Tridentctl後端</block>
   <block id="d6da18e16f248df47ee8e5139ef0156a" category="paragraph">本節說明透過Kubernetes介面建立「TridentBackendConfig」物件、直接透過「tridentctl」建立的後端管理所需的步驟。</block>
   <block id="bee2ae6068ad50344ddb325737434004" category="paragraph">這將適用於下列案例：</block>
   <block id="e9c4de6d076377511c2b6a8463898ef2" category="list-text">由於使用「tridentctl」建立的後端沒有「TridentBackendConfig」、因此它們是預先存在的後端。</block>
@@ -851,24 +849,19 @@
   <block id="c400920d4e58cf882999474fbdf967d3" category="paragraph">若要建立連結至現有後端的「TridentBackendConfig」、您必須取得後端的組態。在此範例中、假設使用下列Json定義建立後端：</block>
   <block id="494cb787cd1c1f78123323c1006f2081" category="section-title">步驟1：建立Kubernetes機密</block>
   <block id="2181a22b3daf7866094f9f0d79da87d0" category="paragraph">建立包含後端認證的秘密、如以下範例所示：</block>
-  <block id="c030a8fb45dd1e59dbe723d93fefa8b4" category="section-title">步驟2：建立TridentBackendConfig CR</block>
   <block id="276e25c1cf06c603ba2d133ae2e39dde" category="paragraph">下一步是建立一個「TridentBackendConfig」（TridentBackendConfig）CR、它會自動連結至現有的「ONTAP-NAS-backend」（如本範例所示）。確保符合下列要求：</block>
   <block id="0cbfd18f16db9afdef577eeddd6a8bee" category="list-text">相同的後端名稱是在「s.pec.backendName」中定義。</block>
   <block id="f261e4f2fe82344f35f04f9b3813e425" category="list-text">組態參數與原始後端相同。</block>
   <block id="12bf8ac3a10fbfae1244c8505d9aa91a" category="list-text">虛擬儲存資源池（若有）必須維持與原始後端相同的順序。</block>
   <block id="8f50f98a5b56105263e2f7ab18dc0686" category="list-text">認證資料是透過Kubernetes Secret提供、而非以純文字提供。</block>
   <block id="05c8cd2e49ae2ecaee101c9bc5619d49" category="paragraph">在這種情況下、「TridentBackendConfig」將會如下所示：</block>
-  <block id="b5a13f13012993635ae9e627f314bbb9" category="section-title">步驟3：確認TridentBackendConfig CR的狀態</block>
   <block id="63d6f3ce15066b6232a788bb692bf721" category="paragraph">在建立「TridentBackendConfig」之後、其階段必須是「綁定」。它也應反映與現有後端相同的後端名稱和UUID。</block>
   <block id="d1a75f7c76623350486029378ab164c3" category="paragraph">現在可以使用「tbc-ontap-nas-backend」「TridentBackendConfig」物件來完全管理後端。</block>
-  <block id="fe1ffe29ba93d2779f921228fcba083e" category="section-title">使用tridentctl管理TridentBackendConfig後端</block>
   <block id="fcea92f3e948217919ca8b4051c2c61e" category="paragraph">可以使用「tridentctl」來列出使用「TridentBackendConfig」建立的後端。此外、系統管理員也可以刪除「TridentBackendConfig」、並確定「pec.deletionPolicy`」設為「效能」、藉此選擇透過「tridentctl」來完全管理此類後端。</block>
   <block id="ab0c73d8e0377b2df5b783d3a76f2249" category="paragraph">例如、假設使用「TridentBackendConfig」建立下列後端：</block>
   <block id="9874d325a018b14fb52adf25f612579e" category="paragraph">從輸出中可以看到、「TridentBackendConfig」已成功建立、並繫結至後端（觀察後端的UUID）。</block>
-  <block id="416d2581db02ba9bc1187cf17c86a1c4" category="section-title">步驟1：確認刪除原則已設定為保留</block>
   <block id="ea64db0654e81907c68ffc52d023c3c7" category="paragraph">讓我們來看看「改革政策」的價值。這需要設定為「維護」。這將確保刪除「TridentBackendConfig」（TridentBackendConfig）的CR時、後端定義仍會存在、而且可以使用「tridentctl」進行管理。</block>
   <block id="1ad97e0f65ef91102831baaa31630c76" category="admonition">除非將「刪除原則」設定為「需要」、否則請勿繼續下一步。</block>
-  <block id="e66283ad5a3e477773a4c58ea53d800f" category="section-title">步驟2：刪除TridentBackendConfig CR</block>
   <block id="8313f77478cb0df464604ae4435acce2" category="paragraph">最後一個步驟是刪除「TridentBackendConfig」（TridentBackendConfig）。確認「刪除原則」設為「保留」之後、您可以繼續刪除：</block>
   <block id="c1493b6d6e05639a816e5772bbb491af" category="paragraph">刪除「TridentBackendConfig」物件之後、Astra Trident便會移除該物件、而不會實際刪除後端本身。</block>
   <block id="08c4bc4ac4edd9b12963c0596478d746" category="summary">Astra Trident可以利用「SCSI拓撲功能」、選擇性地建立磁碟區、並將磁碟區附加到Kubernetes叢集中的節點。</block>
@@ -899,7 +892,6 @@
   <block id="e65f170821e3417d48579a28989a9260" category="paragraph">若要Trident建立磁碟區並將其連結至PVc、請在Pod中使用PVc。請參閱下列範例：</block>
   <block id="9b8ff27bceb4601d1f866c4cf39fe449" category="paragraph">此pod化 規範會指示Kubernetes在「us-east1」區域的節點上排程pod、並從「us-east1-a」或「us-east1-b」區域中的任何節點中進行選擇。</block>
   <block id="c93345596f9f82deea04d17ef8c6ca89" category="paragraph">請參閱下列輸出：</block>
-  <block id="0be3f6c5ce787eead27ad72578c2d31a" category="section-title">更新後端以納入支援的拓撲</block>
   <block id="476950aea923438779c9544953093cb9" category="paragraph">您可以使用「tridentctl後端更新」來更新現有的後端、以納入「最上層拓撲」清單。這不會影響已配置的磁碟區、而且只會用於後續的PVCS。</block>
   <block id="ded10f93b9e4453980b7009035c63418" category="inline-link">管理容器的資源</block>
   <block id="47ea3356a13b3f6644e6c05450e9d5e1" category="list-text"><block ref="47ea3356a13b3f6644e6c05450e9d5e1" category="inline-link-rx"></block></block>
@@ -1001,7 +993,6 @@
   <block id="26c4fe55fc424c7b41b517701f54f074" category="inline-link">正在驗證Webhook</block>
   <block id="46b189b23dfbd5f3f622a1c04590b05e" category="admonition">「csi Snapshotter」提供<block ref="927ab0e919f8034deab1249bed53a289" category="inline-link-rx"></block> 協助使用者驗證現有的v1Beta1快照、並確認它們是有效的資源物件。驗證Webhook會自動標示無效的快照物件、並防止未來建立無效物件。驗證Webhook是由Kubernetes Orchestrator部署。請參閱指示以手動部署驗證Webhook<block ref="07cb3cdda0599ec9f2e82062ecd12e82" category="inline-link-rx"></block>。尋找無效快照資訊清單的範例<block ref="bceda34f0850fc68d82f08741abbc69e" category="inline-link-rx"></block>。</block>
   <block id="f535be08d3997f1a801b132862d99a5c" category="paragraph">以下範例說明使用快照所需的架構、並說明如何建立及使用快照。</block>
-  <block id="551730f3a084f9dee63029647e815d3a" category="section-title">步驟1：設定Volume SnapshotClass</block>
   <block id="b91e58d7d80a51e4fa86b9ab27dca505" category="paragraph">在建立Volume Snapshot之前、請先設定 <block ref="c740b46915208e935cb2017421ec0264" category="inline-link-macro-rx"></block>。</block>
   <block id="4744d2c82c1c470ab40280b2ebba0c08" category="paragraph">《driver》指的是Astra Trident的csi驅動程式。「刪除原則」可以是「刪除」或「保留」。當設定為「保留」時、即使刪除「Volume Snapshot」物件、也會保留儲存叢集上的基礎實體快照。</block>
   <block id="0ab6380edce0d0e7b8538ebf3215ebbd" category="section-title">步驟2：建立現有PVc的快照</block>
@@ -1063,7 +1054,6 @@
   <block id="9d0bcc94449080a9fef1873acd638fb3" category="paragraph">當使用「-NO-Manage」引數匯入磁碟區時、Trident不會在物件生命週期的永久虛擬磁碟或PV上執行任何額外作業。由於Trident會忽略「無管理」物件的PV和PVc事件、因此在刪除PV時不會刪除儲存磁碟區。此外、也會忽略其他作業、例如Volume Clone和Volume resize。如果您想要將Kubernetes用於容器化工作負載、但想要管理Kubernetes以外儲存磁碟區的生命週期、則此選項非常實用。</block>
   <block id="76057e180d7b3edcebaa935c7ccab687" category="paragraph">將註釋新增至PVc和PV、這有兩種用途、表示已匯入磁碟區、以及是否管理了PVc和PV。不應修改或移除此附註。</block>
   <block id="b20cebeefba038b396f3fe0494dad01b" category="paragraph">Trident 19.07及更新版本可處理PV的附加元件、並在匯入磁碟區時掛載磁碟區。對於使用舊版Astra Trident的匯入、資料路徑不會有任何作業、而且磁碟區匯入不會驗證是否可以掛載磁碟區。如果在Volume匯入時發生錯誤（例如StorageClass不正確）、您可以將PV上的回收原則變更為「保留」、刪除PVC和PV、然後重新嘗試Volume匯入命令來恢復。</block>
-  <block id="420279975083139d76ba010ce1956b74" category="section-title">ONTAP-NAS和ONTAP-NAA-Flexgroup匯入</block>
   <block id="1b539ba5a07e124e582b2e4bfc489200" category="paragraph">每個使用「ONTAP-NAS」驅動程式建立的Volume FlexVol 、都是ONTAP 一個在整個叢集上的功能。使用「ONTAP-NAS」驅動程式匯入FlexVols的運作方式相同。已存在於某個叢集上的一個功能、可以匯入為「ONTAP-NAS」的PVc。FlexVol ONTAP同樣地FlexGroup 、也可以將此數據匯入為「ONTAP-NAS-Flexgroup」PVCS。</block>
   <block id="62a991a68d1e323e147c11deeaecdad2" category="admonition">若要由Trident匯入某個類型的Rw。ONTAP如果磁碟區是DP類型、則它是SnapMirror目的地磁碟區；在將磁碟區匯入Trident之前、您應該先中斷鏡射關係。</block>
   <block id="b368a23170f18969c0c51a21bc3e2754" category="admonition">「ONTAP-NAS」驅動程式無法匯入及管理qtree。「ONTAP-NAS」和「ONTAP-NAS-flexgroup」驅動程式不允許重複的Volume名稱。</block>
@@ -1071,7 +1061,6 @@
   <block id="deba327c80a83b34abd4ba640b21e454" category="paragraph">若要匯入名為「Unmanaged _volume」（在「ONTAP_NAS後端」上）的磁碟區（Trident無法管理）、請使用下列命令：</block>
   <block id="9be12be7e9d5bb9faa5c9a952feafe07" category="paragraph">使用「-no－管理」引數時、Trident不會重新命名磁碟區、也不會驗證磁碟區是否已掛載。如果未手動掛載磁碟區、則磁碟區匯入作業會失敗。</block>
   <block id="4004cfbd69335a9d1ba9357ea0dfb079" category="admonition">已修正先前使用自訂Unix權限 匯入磁碟區的錯誤。您可以在您的PVc定義或後端組態中指定unixPermissions、並指示Astra Trident依此匯入磁碟區。</block>
-  <block id="d346ffc6ef3483fea67a321732823960" category="section-title">ONTAP-SAN匯入</block>
   <block id="d995f4307341e76349912869caa5e2fb" category="paragraph">Astra Trident也能匯入ONTAP 包含單一LUN的SAN FlexVols。這與「ONTAP-SAN」驅動程式一致、因為它會為FlexVol 每個實體磁碟和FlexVol 一個LUN在整個過程中建立一個版本。您可以使用「tridentctl import'」命令、方法與其他情況相同：</block>
   <block id="1dd2cc952267be6c2cc8e5cff2b5aab1" category="list-text">請加入「ONTAP-SAN」後端名稱。</block>
   <block id="e395471eab1d4c8fbc8452e98a95d0c5" category="list-text">請提供FlexVol 需要匯入的名稱。請記住FlexVol 、這個功能只包含一個必須匯入的LUN。</block>
@@ -1082,14 +1071,11 @@
   <block id="2d37ad5bcf7d115e10de14a38db72232" category="admonition">建議匯入沒有現有作用中連線的磁碟區。如果您要匯入使用中的Volume、請先複製該Volume、然後再執行匯入。</block>
   <block id="72b3664e6e381ccc62031c13f7ad6df9" category="paragraph">若要匯入FlexVol 在「ONTAP_san預設」後端上出現的「onta-san託管」功能、請執行「tridentctl匯入」命令：</block>
   <block id="26d61ca2331eea0b3aca6c534f2dfcc7" category="admonition">若要由Astra Trident匯入某個類型的RW磁碟區。ONTAP如果磁碟區為DP類型、則為SnapMirror目的地磁碟區；您應該先中斷鏡射關係、再將磁碟區匯入Astra Trident。</block>
-  <block id="4b8f39874197ebe1407531bd66624aa3" category="section-title">元素匯入</block>
   <block id="b00215e0583bb02c2474fa62f51462fa" category="paragraph">您可以使用NetApp Element Trident將支援功能的軟體/NetApp HCI磁碟區匯入Kubernetes叢集。您需要Astra Trident後端的名稱、以及磁碟區的獨特名稱和PVc檔案、作為「tridentctl import'」命令的引數。</block>
   <block id="c517a1b34541565def824e8e9aeb0524" category="admonition">Element驅動程式支援重複的Volume名稱。如果有重複的Volume名稱、Trident的Volume匯入程序會傳回錯誤。因應措施是複製磁碟區、並提供唯一的磁碟區名稱。然後匯入複製的Volume。</block>
-  <block id="3be8989f2135d86f8b2d60f19eed3846" category="section-title">GCP-CVS匯入</block>
   <block id="2c7e2299fa3c14b5e6f60015eb016a87" category="admonition">若要匯入以NetApp Cloud Volumes Service 支援的GCP磁碟區、請使用磁碟區路徑來識別該磁碟區、而非其名稱。</block>
   <block id="37202a3ee6673127b64f84af27fdf523" category="paragraph">若要在後端匯入名為「gcpcvs_YEppr」的「gcp-CVS」磁碟區、並將磁碟區路徑匯入為「adj統 法社-jolly Swift」、請使用下列命令：</block>
   <block id="87e30ad820e5b10036bd18284c1f25ad" category="admonition">Volume路徑是Volume匯出路徑的一部分、位於：/之後。例如、如果匯出路徑為「10.0.0.1：/統法社-jolly Swift」、則Volume路徑為「adj統 法社-jolly Swift」。</block>
-  <block id="9f25c8d8bca8641faa974c73a8d2f5da" category="section-title">Azure與NetApp檔案匯入</block>
   <block id="e8945ce1398c6d24aa1d518bca08034c" category="paragraph">若要在後端匯入名為「azurenetappfiles_40517」的「azure-netapp-fil」磁碟區、並使用磁碟區路徑「importvol1」、請執行下列命令：</block>
   <block id="c3417eb755bee1658ae5b42ff2115193" category="admonition">anf磁碟區的磁碟區路徑會出現在裝載路徑中的：/之後。例如、如果掛載路徑為「10.0.0.2：/importvol1」、則磁碟區路徑為「importvol1」。</block>
   <block id="ff342df7522d6b527768cc6bfe5f9fae" category="summary">Astra Trident可讓Kubernetes使用者在建立磁碟區之後擴充磁碟區。尋找擴充iSCSI和NFS磁碟區所需組態的相關資訊。</block>
@@ -1200,17 +1186,11 @@
   <block id="2aae2b6accd04335b3eeceb2193b34d6" category="section-title">最低組態範例</block>
   <block id="bca36ce39f61ce2d375cbdb66eab5162" category="paragraph">下列範例顯示基本組態、讓大部分參數保留預設值。這是定義後端最簡單的方法。</block>
   <block id="f35c0fe4b6581c16866c964cef229bfa" category="admonition">如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX、建議您指定lifs的DNS名稱、而非IP位址。</block>
-  <block id="acf031eeb31936d30314a2d2a698e85b" category="section-title">ONTAP - NAS驅動程式搭配憑證型驗證</block>
   <block id="78e5b29e139db71ceb7ca6bc99b5e228" category="paragraph">這是最小的後端組態範例。「clientCertificate」、「clientPrivate Key」和「Trusted CACertifate」（選用、如果使用信任的CA）會分別填入「backend.json」、並採用用戶端憑證、私密金鑰和信任的CA憑證的64編碼值。</block>
-  <block id="89e5db56c8bbbfc3f8f2325201c46450" category="section-title">ONTAP - NAS驅動程式搭配自動匯出原則</block>
   <block id="8c35a9f7d631f51e05811b36617db641" category="paragraph">本範例說明如何指示Astra Trident使用動態匯出原則來自動建立及管理匯出原則。這對「ONTAP-NAS-節約」和「ONTAP-NAS-Flexgroup」驅動程式的運作方式相同。</block>
-  <block id="97cf2271125e9ece6c4bb85c7e38b6f6" category="section-title">ONTAP-NAS-flexgroup驅動程式</block>
-  <block id="0178beee313066e023eef8c258ed5bfc" category="section-title">ONTAP - NAS驅動程式搭配IPv6</block>
-  <block id="e3d163236efea4513c9df89a9c1be381" category="section-title">ONTAP-NAS-經濟驅動程式</block>
   <block id="6bef8424baf7897ad4b3ecd9446fc7c8" category="section-title">虛擬儲存資源池的後端範例</block>
   <block id="54189b80c641ffe9ac5ea57dc48e465c" category="paragraph">在下圖所示的範例後端定義檔中、會針對所有儲存資源池設定特定的預設值、例如「無的儲存資源保留」、「假的資源配置」、以及「假的加密」。虛擬儲存資源池是在儲存區段中定義。</block>
   <block id="6a24af0a579ec0e851db9d35e047d58e" category="paragraph">在此範例中、有些儲存資源池會設定自己的「資源保留」、「資源配置」和「加密」值、有些資源池會覆寫上述設定的預設值。</block>
-  <block id="412b252fa44d1a73e3e7bf22113f99a2" category="section-title">ONTAP-NAS驅動程式</block>
   <block id="f00b69018be0961b32ee24ec54fb56d1" category="section-title">將後端對應至StorageClass</block>
   <block id="dc4edcc28563e022c1d21dec9d28dcca" category="paragraph">下列StorageClass定義係指上述虛擬儲存資源池。使用「parameters.selector`」欄位、每個StorageClass都會呼叫哪些虛擬資源池可用於裝載磁碟區。磁碟區將會在所選的虛擬資源池中定義各個層面。</block>
   <block id="5303cd360e4a1dda505149e2497f5dd0" category="list-text">第一部StorageClass（「protection黃金級」）將對應至「ONTAP-NAS Flexgroup」後端的第一個、第二個虛擬儲存集區、以及「ONTAP-SAN」後端的第一個虛擬儲存集區。這是唯一提供金級保護的資源池。</block>
@@ -1221,7 +1201,6 @@
   <block id="dc92c330959507a128db0801090f9e0d" category="paragraph">Astra Trident將決定選取哪個虛擬儲存資源池、並確保符合儲存需求。</block>
   <block id="4cc2b9916e7383e5fa29dc6188159e32" category="summary">後端定義了Astra Trident與儲存系統之間的關係。它告訴Astra Trident如何與該儲存系統通訊、以及Astra Trident如何從該儲存系統配置磁碟區。安裝Astra Trident之後、下一步是建立後端。「TridentBackendConfig」自訂資源定義（CRD）可讓您直接透過Kubernetes介面建立及管理Trident後端。您可以使用「kubecll」或Kubernetes發佈的等效CLI工具來執行此作業。</block>
   <block id="a8e174c63ac21920b8405ffddc39214a" category="doc">使用kubecl建立後端</block>
-  <block id="913a4b06671d1e04e6582a85afe3abbe" category="section-title">TridentBackendConfig</block>
   <block id="d2031a5a319b9363cf98da6b1509598a" category="paragraph">「TridentBackendConfig」（「tbc」、「tbconfig」、「tbackendconfig」）是前端、名稱為CRD、可讓您使用「kubectl」來管理Astra Trident後端。Kubernetes與儲存管理員現在可以直接透過Kubernetes CLI建立及管理後端、而不需要使用專屬的命令列公用程式（「tridentctl」）。</block>
   <block id="b44c2fd5cefc815abed7e31c0fa8c8ac" category="paragraph">建立「TridentBackendConfig」物件之後、會發生下列情況：</block>
   <block id="858fafdff7fa27f202ae0eb981c6dff0" category="list-text">Astra Trident會根據您提供的組態自動建立後端。內部代表的是「TridentBackend」（「tbe」、「tridentbackend」）、CR。</block>
@@ -1277,7 +1256,6 @@
   <block id="4ab84a55744951d967033db9b64f6b27" category="paragraph">chapTargetInitiator機密</block>
   <block id="61b50fba255c10a4a2b5f7cf8276849a" category="paragraph">CHAP目標啟動器機密。如果useCHAP=true則需要。適用於「ONTAP-SAN」和「ONTAP-san經濟」</block>
   <block id="73d583a1445e1497ec3adaa011e2724c" category="paragraph">在此步驟中建立的機密會參照下一步所建立之「TridentBackendConfig」物件的「sapec.ecent」欄位。</block>
-  <block id="80a6c6a7044e3f06bb524f88ac2058f4" category="section-title">步驟2：建立TridentBackendConfig CR</block>
   <block id="3394622f88ed2c82c85e92e908879095" category="paragraph">您現在可以建立「TridentBackendConfig」的CR了。在此範例中、使用「ONTAP-SAN」驅動程式的後端是使用「TridentBackendConfig」物件建立、如下所示：</block>
   <block id="967688089cfc07a6c8e893bce5186445" category="paragraph">現在您已經建立了「TridentBackendConfig」（TridentBackendConfig）CR、您就可以驗證其狀態。請參閱下列範例：</block>
   <block id="edc9d2e179d9bd8effd5277699967aff" category="paragraph">已成功建立後端、並連結至「TridentBackendConfig」CR。</block>
@@ -1326,9 +1304,7 @@
   <block id="c4ca01925aae0c37398f0b30a4ce1273" category="cell">要使用的存取群組ID清單</block>
   <block id="e64099a24f6ef8bbbdb23c2a803cd065" category="cell">尋找名為「Trident」的存取群組ID</block>
   <block id="fcca02e29a08e37c6faf37a418b8d5c8" category="admonition">對於所有建立的磁碟區、Astra Trident會在儲存資源池上的所有標籤配置時、複製到備用儲存LUN。儲存管理員可以定義每個儲存資源池的標籤、並將儲存資源池中建立的所有磁碟區分組。這是根據後端組態中提供的一組可自訂標籤、方便區分磁碟區的方法。</block>
-  <block id="a52b8d71eedc2812fe762b3ec88bfc2e" category="section-title">範例1：三種磁碟區類型的Solidfire-san驅動程式後端組態</block>
   <block id="3185240fb49cba19667fbdf639f3271e" category="paragraph">此範例顯示使用CHAP驗證的後端檔案、並建立具有特定QoS保證的三種Volume類型模型。您很可能會使用「IOPS」儲存類別參數來定義儲存類別、以使用每個類別。</block>
-  <block id="d030a0e9c177498f4267bf1a6a4eab28" category="section-title">範例2：採用虛擬儲存資源池的Solidfire-san驅動程式的後端和儲存類別組態</block>
   <block id="87af0508250ed6f900914914280a5eaf" category="paragraph">在下圖所示的範例後端定義檔中、會針對所有儲存資源池設定特定的預設值、將「type」設為Silver。虛擬儲存資源池是在「儲存區」區段中定義的。在此範例中、有些儲存資源池會設定自己的類型、有些資源池則會覆寫上述設定的預設值。</block>
   <block id="e4af8ad03936f6a7724e17f6e83c09c8" category="paragraph">第一個StorageClass（「Poolidfire gold-s4」）會對應至第一個虛擬儲存集區。這是唯一提供黃金級效能的「Volume Type QoS」（Volume Type QoS）。最後一個StorageClass（「Poolidfire Silver」）會呼叫任何提供銀級效能的儲存資源池。Astra Trident將決定選取哪個虛擬儲存資源池、並確保符合儲存需求。</block>
   <block id="4d0d37d727675761e4c0e324eb57ca2f" category="list-text"><block ref="4d0d37d727675761e4c0e324eb57ca2f" category="inline-link-macro-rx"></block></block>
@@ -1361,10 +1337,7 @@
   <block id="4e762198289d9294de9c1cbb3f0b26b6" category="paragraph">1.1是額外10%的Astra Trident加入FlexVol 到the支援LUN中繼資料的功能。對於「快照保留區」= 5%、而PVc要求= 5GiB、磁碟區總大小為5.79GiB、可用大小為5.5GiB。「volume show（Volume show）命令應顯示類似以下範例的結果：</block>
   <block id="e6e049b4753c744e95db32b0eeed8d5c" category="paragraph">目前、只有調整大小、才能將新計算用於現有的Volume。</block>
   <block id="19fd94d2657fdd90c44f1fcd72890482" category="admonition">如果您在NetApp ONTAP 支援Astra Trident的NetApp上使用Amazon FSX、建議您指定lifs的DNS名稱、而非IP位址。</block>
-  <block id="f9e7424816477078eb0e49bf4eb4c87e" category="section-title">ONTAP - SAN驅動程式搭配憑證型驗證</block>
-  <block id="9d6b2226030e3a797fc7ff6dbd810f66" category="section-title">ONTAP與雙向CHAP的SAN驅動程式</block>
   <block id="b0a5c44c844418c2a5474a0d4c19182c" category="paragraph">這是最小的後端組態範例。此基本組態會建立一個「ONTAP-SAN」後端、並將「useCHAP」設為「true」。</block>
-  <block id="08f9dab0885378aea00f731ad9e52901" category="section-title">ONTAP-san經濟驅動程式</block>
   <block id="22aec9ab9f9270747cb10c5bd593c1ab" category="paragraph">以下是「ONTAP-san經濟」驅動程式的iSCSI範例：</block>
   <block id="b928e0aee19c1e2cc91c85e8a0856936" category="summary">請使用此處提供的指標來疑難排解安裝及使用Astra Trident時可能遇到的問題。</block>
   <block id="231cf4c70d866b616c21baddaeed0696" category="doc">疑難排解</block>
@@ -1402,7 +1375,6 @@
   <block id="568fcf9beb0dbd37c57dff251a3164ed" category="paragraph">此外、觀察Trident Pod的狀態、通常會指出是否有不正確的情況。</block>
   <block id="f89c17ddb9f8bdaf5c95a466d5f6a500" category="paragraph">您可以清楚看到、由於未擷取一或多個容器映像、所以Pod無法完全初始化。</block>
   <block id="d57d1a6de03b2ddf3ee54f680152e2b6" category="paragraph">若要解決此問題、您應該編輯「TridentOrchestrator」。或者、您也可以刪除「TridentOrchestrator」、然後使用修改後的準確定義來建立新定義。</block>
-  <block id="a8ee4098038ba3eb2d8c3093ddfe6536" category="section-title">疑難排解使用tridentctl進行不成功的Trident部署</block>
   <block id="021e9ae5361eb14975bf9a30f99770f5" category="paragraph">為了協助您找出問題所在、您可以使用「-d'」引數再次執行安裝程式、這會開啟偵錯模式、並協助您瞭解問題所在：</block>
   <block id="01539f4f1fd20792cbbae6bb0506cc20" category="paragraph">在解決此問題之後、您可以依照下列步驟清理安裝、然後再次執行「tridentctl install」命令：</block>
   <block id="b9966b5f76510c4c81d397b732dc0ced" category="summary">請先檢閱支援的前端、後端及主機組態、開始著手。</block>
@@ -1656,7 +1628,6 @@
   <block id="a0fa1784e85c80577b8b123157bd45da" category="list-text">若要在部署後驗證操作員的狀態、請執行下列步驟：</block>
   <block id="1c76f442bb494f18915f305a59518ed1" category="paragraph">營運者部署成功建立一個在叢集中其中一個工作節點上執行的Pod。</block>
   <block id="a770ca95121cc795b602f9af6af024fb" category="admonition">Kubernetes叢集中只應有*一個運算子執行個體*。請勿建立Trident營運者的多個部署。</block>
-  <block id="b22134de94bce671f8ac945536b7497c" category="section-title">步驟3：建立TridentOrchestrator並安裝Trident</block>
   <block id="5693b155707eefef50a904b3b1523862" category="paragraph">您現在可以使用運算子來安裝Astra Trident！這需要建立「TridentOrchestrator」。Trident安裝程式隨附建立「TridentOrchestrator」的範例定義。這將開始在「Trident」命名空間中安裝。</block>
   <block id="eda3cb9b284c6edd303631dd83beca97" category="inline-link-macro">自訂您的Trident部署</block>
   <block id="df1a9b2505f9a695dab238c459f4c11e" category="paragraph">Trident運算子可讓您使用「TridentOrchestrator」規格中的屬性、自訂Astra Trident的安裝方式。請參閱 <block ref="5d22c6b05e889509f3b16bf34345783f" category="inline-link-macro-rx"></block>。</block>
@@ -1756,7 +1727,6 @@
   <block id="4ae1e64986504dce6897746ebc9d2786" category="list-text">使用「vserver匯出原則建立」ONTAP 的flexcli命令來建立匯出原則。</block>
   <block id="cd0a9fca1fb3ba0fcdd98d0e87cb78a9" category="list-text">使用「vserver匯出原則規則create」ONTAP 的CLI命令、將規則新增至匯出原則。</block>
   <block id="bc3a2f6421da1e870583cfb0b9cf4a91" category="paragraph">執行這些命令可讓您限制哪些Kubernetes節點可以存取資料。</block>
-  <block id="bd82c82b218c96acc3c66f92a723ce74" category="section-title">停用應用程式SVM的showmount</block>
   <block id="613655fb3db9bdbe0f795ee9424fc1fe" category="paragraph">「show mount」功能可讓NFS用戶端查詢SVM、以取得可用的NFS匯出清單。部署到Kubernetes叢集的Pod可針對資料LIF發出「show mount -e」命令、並接收可用掛載的清單、包括無法存取的掛載。雖然這本身並不是安全威脅、但它確實提供不必要的資訊、可能有助於未獲授權的使用者連線至NFS匯出。</block>
   <block id="08f1d9a2f49f56965b640bc15796cd61" category="paragraph">您應該使用SVM層級ONTAP 的CLI命令來停用「show mount」：</block>
   <block id="648e0e1a6a98e76bdfe9780c42dacb6b" category="section-title">最佳實務做法SolidFire</block>
@@ -1997,7 +1967,6 @@
   <block id="eb502d6483a644e9b6f61ca4719276d8" category="paragraph">上述變數及部署程序可能會隨OpenShift的每個版本而變更。請務必檢閱並遵循 <block ref="5ad72ffc1eda2c257c8947a0ad66dddb" category="inline-link-macro-rx"></block> 以供您的環境使用。</block>
   <block id="d03f8f06d8317baa619ceba8c71e0be3" category="summary">瞭解NetApp儲存平台提供的資料保護與可恢復性選項。Astra Trident可配置磁碟區、以充分利用其中的部分功能。對於每個應用程式、您都應該擁有完整的資料保護與還原策略、而且需要持續性。</block>
   <block id="7e7397a7b79323762c61941fc0e6b5f9" category="doc">資料保護</block>
-  <block id="058d5afd2ccf1b3be426f9ad27ab2f41" category="section-title">備份etcd叢集資料</block>
   <block id="26beed33bbef26c53a76c2b450d8092c" category="paragraph">Astra Trident將其中繼資料儲存在Kubernetes叢集的「etcd」資料庫中。定期備份「etcd」叢集資料、對於在災難情況下恢復Kubernetes叢集而言、非常重要。</block>
   <block id="6b8252dd799aef1e72351975d4d39231" category="list-text">使用「etcctll snapshot SAVE」命令、您可以擷取「etcd」叢集的時間點快照：</block>
   <block id="54466a78f910aa9c206047e0a2afdae1" category="paragraph">此命令可藉由旋轉etcd容器來建立etcd快照、並將其儲存在「/Backup」目錄中。</block>
@@ -2154,7 +2123,6 @@
   <block id="a5e00cb8c456b8892f7af2349fe6e10a" category="list-text">*刪除「TridentOrchestrator」：*移除用來部署Astra Trident的「TridentOrchestrator」、您就會指示操作員解除安裝Trident。營運者會處理刪除「TridentOrchestrator」的程序、並繼續移除Astra Trident部署和取消安裝、刪除其在安裝過程中建立的Trident Pod。若要完全移除Astra Trident（包括它所建立的CRD）、並有效清除Slate Clean、您可以編輯「TridentOrchestrator」來通過「wipeout」選項。請參閱下列範例：</block>
   <block id="8aaaff274ba10c527c6bf8facd1c9092" category="paragraph">這會完全解除安裝Astra Trident、並清除所有與後端及其管理的磁碟區相關的中繼資料。後續安裝會視為全新安裝。</block>
   <block id="1f119048e6c0b2f219b28b7efae30285" category="admonition">執行完整解除安裝時、您只能考慮抹除客戶需求日。此動作無法復原。*除非您想要重新開始並建立全新的Astra Trident安裝、否則請勿清除客戶需求日*。</block>
-  <block id="ed116003561aef0bea77cb4c5f6fe418" category="section-title">使用tridentctl解除安裝</block>
   <block id="20402206432f6b6e75899e8f585ae984" category="paragraph">執行「tridentctl」中的「uninstall」命令、移除所有與Astra Trident相關的資源、但CRD和相關物件除外、因此可輕鬆再次執行安裝程式、以更新至較新的版本。</block>
   <block id="1b600643682d5a3280681ef82d7e6ae4" category="paragraph">若要完整移除Astra Trident、您應移除由Astra Trident所建立之CRD的微調工具、然後刪除CRD。</block>
   <block id="3bda6d3452a50ffddd40bb74b05d6c50" category="summary">Astra Trident依照每季發行時段進行、每一日曆年發行四個主要版本。每個新版本均以舊版為基礎、提供新功能與效能增強功能、以及錯誤修正與改善功能。我們建議您每年至少升級一次、以善用Astra Trident的新功能。</block>
@@ -2239,7 +2207,6 @@
   <block id="0f46a51f24c3700da8c74b9a5294a22f" category="list-text">安裝所需的版本、繼續降級。請遵循所需版本的說明文件。</block>
   <block id="5f7d982e216126a476d4ca0051837e2a" category="section-title">使用Helm降級</block>
   <block id="fe0182349853dde39c65151b592bc343" category="paragraph">若要降級、請使用「helm復原」命令。請參閱下列範例：</block>
-  <block id="6506fb901be776a97bf61f4f21fb84ce" category="section-title">使用tridentctl安裝Astra Trident時的降級程序</block>
   <block id="d1008d4e2b1eb300375d48496c96e8b0" category="paragraph">如果您使用「tridentctl」來安裝Astra Trident、降級程序會涉及下列步驟。此順序將引導您完成從Astra Trident 21.007移至20.07的降級程序。</block>
   <block id="e08f959c89cb36ec887089ce4a7c1bcc" category="admonition">在開始降級之前、您應該擷取Kubernetes叢集的「etcd」快照。這可讓您備份Astra Trident客戶需求日的目前狀態。</block>
   <block id="e36e921de70428b33bb0e5c22f4f1d03" category="list-text">請確定使用「tridentctl」安裝Trident。如果您不確定Astra Trident的安裝方式、請執行以下簡單測試：</block>
@@ -2277,14 +2244,11 @@
   <block id="a0ebcf8495639418ba9d4b85dbb67b8b" category="doc">Astra Trident REST API</block>
   <block id="319c1a7b5479ffa2a028b658ad5b7033" category="inline-link-macro">tridentctl命令和選項</block>
   <block id="8b3c7aa88e751573c842f17535525f19" category="paragraph">API的運作方式如下：</block>
-  <block id="7528035a93ee69cedb1dbddb2f0bfcc8" category="section-title">取得</block>
   <block id="2fab7aa97b6a2cfae6563e72aac5161e" category="list-text">「Get &lt;trident位址&gt;/trident / v1/&lt;object-type &gt;」：列出該類型的所有物件。</block>
   <block id="c34156b367bae1b376f09b89d3be7992" category="list-text">「Get &lt;trident位址&gt;/trident / v1/&lt;object-typed&gt;/&lt;object-name&gt;」：取得命名物件的詳細資料。</block>
-  <block id="a02439ec229d8be0e74b0c1602392310" category="section-title">貼文</block>
   <block id="6692e2cd6834e6b9b2151799cac2a9f8" category="paragraph">「POST &lt;trident位址&gt;/trident / v1/&lt;object-type&gt;」：建立指定類型的物件。</block>
   <block id="3d2bacacf0178e742d5abb2abc32d431" category="list-text">需要Json組態才能建立物件。如需每種物件類型的規格、請參閱 <block ref="e87a326653960de9774fcc58ee9fa490" category="inline-link-macro-rx"></block>。</block>
   <block id="5b2f45c3d098b61927afda859c9144f8" category="list-text">如果物件已經存在、行為會有所不同：後端會更新現有物件、而其他所有物件類型都會使作業失敗。</block>
-  <block id="32f68a60cef40faedbc6af20298c1a1e" category="section-title">刪除</block>
   <block id="ecfc51243c8c28fc234ff87f1f9ddb88" category="paragraph">「刪除&lt;trident位址&gt;/trident / v1/&lt;object-typed&gt;/&lt;object-name&gt;：刪除命名的資源。</block>
   <block id="80e4e3d3203325fb6aeb139614fd09f3" category="admonition">與後端或儲存類別相關聯的磁碟區將繼續存在、必須分別刪除。如需詳細資訊、請參閱 <block ref="e87a326653960de9774fcc58ee9fa490" category="inline-link-macro-rx"></block>。</block>
   <block id="ce94b1f7df7a6a05a559b66f96eff1cc" category="paragraph">如需這些API的名稱範例、請傳遞DEBUG（`-d'）旗標。如需詳細資訊、請參閱 <block ref="e87a326653960de9774fcc58ee9fa490" category="inline-link-macro-rx"></block>。</block>
@@ -2312,32 +2276,26 @@
   <block id="874377d6c0baee9e8e842c8abf13d28c" category="list-text">「-n、--namespace字串」：Astra Trident部署的命名空間。</block>
   <block id="463b413ea9e7764a789f3e987cb06fc8" category="list-text">「-o」、「-outputstr字 串」：輸出格式。json之一| yaml| name| wl| ps（預設）。</block>
   <block id="85c5338e138fc6d122a579f7a07040bf" category="list-text">「-s、--server字串」：Astra Trident REST介面的位址/連接埠。</block>
-  <block id="76ea0bebb3c22822b4f0dd9c9fd021c5" category="section-title">建立</block>
   <block id="b8d486e9285b25b72d6efad05e41de4d" category="paragraph">您可以使用執行「create」命令、將資源新增至Astra Trident。</block>
   <block id="6d5c7e6905e460d1fba1f2dd1c0d2a8a" category="paragraph">可用選項：「後端」：新增後端至Astra Trident。</block>
-  <block id="099af53f601532dbd31e0ea99ffdeb64" category="section-title">刪除</block>
   <block id="0d847e459450017616b8ab50b372ad2e" category="paragraph">您可以執行「刪除」命令、從Astra Trident移除一或多個資源。</block>
   <block id="16713f316b7cce82385c040efc32ac83" category="paragraph">可用選項：</block>
   <block id="417f8bf14ed5852917d189612c7d163c" category="list-text">「後端」：從Astra Trident刪除一或多個儲存後端。</block>
   <block id="4896fd245b78ab9b7d044375c1fce85e" category="list-text">「napshot」：從Astra Trident刪除一或多個Volume快照。</block>
   <block id="cef6b6bb7932e7450e35eafc3d986f18" category="list-text">「torageclass'：從Astra Trident刪除一或多個儲存類別。</block>
   <block id="14eeaf8d1da512153855b759185ee129" category="list-text">「Volume」（磁碟區）：從Astra Trident刪除一或多個儲存磁碟區。</block>
-  <block id="b5eda0a74558a342cf659187f06f746f" category="section-title">取得</block>
   <block id="c7a7a677647f05a4032891d4aef5bed5" category="paragraph">您可以執行「Get」命令、從Astra Trident取得一或多個資源。</block>
   <block id="2dd609bd837a41363817262fd314b0be" category="list-text">「後端」：從Astra Trident取得一或多個儲存後端。</block>
   <block id="ad4ba4a1b0612fa67f4386330ac00e9d" category="list-text">「napshot」：從Astra Trident取得一或多個快照。</block>
   <block id="5385ccfb9fd8a07e53dc1a6ac58a101d" category="list-text">「torageclass'：從Astra Trident取得一或多個儲存課程。</block>
   <block id="060da5b15e6fb7129c04e18b3d96c702" category="list-text">「Volume」：從Astra Trident取得一或多個Volume。</block>
-  <block id="59b514174bffe4ae402b3d63aad79fe0" category="section-title">映像</block>
   <block id="16ca0a361439e1f936eaa5c919443b10" category="paragraph">您可以執行「影像」旗標、以列印容器影像Astra Trident需求的表格。</block>
   <block id="1008ac4609cab9210ae758ff8fee8127" category="paragraph">旗標：*、-help'：影像說明。*`-v、--k8s-version字串：語義版本的Kubernetes叢集。</block>
-  <block id="f6c534966bc7687e0c87134d025f8837" category="section-title">匯入Volume</block>
   <block id="df5ec83145dcd824f8daf85d89e5dd8a" category="paragraph">您可以執行「匯入Volume」命令、將現有磁碟區匯入Astra Trident。</block>
   <block id="ccf1bb29ef5562c033962d35014005e9" category="paragraph">別名：「Volume、v」</block>
   <block id="48c7ae9a5466415a6b9666ad86746640" category="list-text">`-f、--FileName字串：Yaml或Json PVc檔案的路徑。</block>
   <block id="1bb2af29a08ab6ea9414a8656234b8c6" category="list-text">「-h、-help'：Volume說明。</block>
   <block id="0ad393d5c23749c23f3855220b55375a" category="list-text">「無管理」：僅建立PV/PVc。不要假設磁碟區生命週期管理。</block>
-  <block id="19ad89bc3e3c9d7ef68b89523eff1987" category="section-title">安裝</block>
   <block id="42ddf993417d9568ca6a057fe55f9c63" category="paragraph">您可以執行「install」旗標來安裝Astra Trident。</block>
   <block id="d14ef114d140fec912921e8447a4dd25" category="list-text">「-autosup-image字串」：AutoSupport 適用於「遙測」的容器影像（預設為「NetApp/triident autosupport：20.07.0」）。</block>
   <block id="fbd7cc4267716ab9206612c6dcaa206e" category="list-text">「-autosupport-proxy]：代理伺服器的位址/連接埠、用於傳送AutoSupport 「遙測」。</block>
@@ -2357,7 +2315,6 @@
   <block id="daeedc3203fdc6c1fb8dfe70e2381ed3" category="list-text">「-trident映像字串」：要安裝的Astra Trident映像。</block>
   <block id="9a7a8500c6fa970d6879b522c3e33437" category="list-text">「用途自訂yaml」：使用安裝目錄中現有的任何Yaml檔案。</block>
   <block id="bbf23448d408765a1240d287ed41ceff" category="list-text">《使用IPv6》：使用IPv6進行Astra Trident的通訊。</block>
-  <block id="2165e4fa5bddb65a31f6a0c495c2fa37" category="section-title">記錄</block>
   <block id="501416d02a886c81e8849b2f400e28a3" category="paragraph">您可以執行「記錄」旗標、從Astra Trident列印記錄。</block>
   <block id="be8607b2dc354b7010b1464ac140fc1b" category="list-text">「-a、-archive」：除非另有說明、否則請使用所有記錄建立支援歸檔。</block>
   <block id="d8d07479f4d5c7f0ef2b0f51407f070c" category="list-text">「-h、-help'：記錄說明。</block>
@@ -2365,16 +2322,12 @@
   <block id="d8a224d86fa21c6c564987d0848bf681" category="list-text">「節點字串」：Kubernetes節點名稱、用於收集節點pod記錄。</block>
   <block id="a335d03b82ae4916c848dd419432f477" category="list-text">「-p、- previous」：取得前一個Container執行個體的記錄（如果存在）。</block>
   <block id="d7d7c214e32f71943c71783fa9d5fb55" category="list-text">"-sidecars"：取得sidecar容器的記錄。</block>
-  <block id="2541d938b0a58946090d7abdde0d3890" category="section-title">傳送</block>
   <block id="3121026e841bd19d147c54ac43e423c0" category="paragraph">您可以執行「shend」命令、從Astra Trident傳送資源。</block>
   <block id="9ce1e94be8ccb1612967a7e2cbe69a6f" category="paragraph">可用選項：AutoSupport 「無法用」：傳送AutoSupport 一份不全的檔案給NetApp。</block>
-  <block id="fe98497efedbe156ecc4b953aea77e07" category="section-title">解除安裝</block>
   <block id="e980a564a92aa568234d9757a591756b" category="paragraph">您可以執行「解除安裝」旗標來解除安裝Astra Trident。</block>
   <block id="dcb0c76edbe301ede057149da76bf89b" category="paragraph">旗標：*、-help'：解除安裝說明。*「-silent」：解除安裝期間停用大部分的輸出。</block>
-  <block id="3ac340832f29c11538fbe2d6f75e8bcc" category="section-title">更新</block>
   <block id="328865de703bbe034177e6eb51dc3d28" category="paragraph">您可以執行「update」命令來修改Astra Trident中的資源。</block>
   <block id="8680f448b33371bcb4778563a93f4702" category="paragraph">可用選項：「後端」：更新Astra Trident的後端。</block>
-  <block id="ae26b3d8e556703291282149e3ae894f" category="section-title">升級</block>
   <block id="87911de7a0bc3ff821f75ab303a0edc0" category="paragraph">您可以執行「升級」命令來升級Astra Trident中的資源。</block>
   <block id="70cc5172db10ac60dd0b32e57285e85c" category="paragraph">可用選項：「Volume」（Volume）：將一個或多個持續磁碟區從NFS/iSCSI升級至SCSI。</block>
   <block id="2af72f100c356273d46284f6fd1dfc08" category="section-title">版本</block>
@@ -2396,7 +2349,6 @@
   <block id="8ecb92f33c033b00fcf3c18e59c4b177" category="list-text">Trident會識別所需的快照、並執行建立「PeristentVolume」和「Volume」所需的相同步驟。</block>
   <block id="428895404a5e57e01a138a5df672d0fc" category="inline-link">持續磁碟區</block>
   <block id="173423532ed9a565a05f32db2c8f8172" category="admonition">如需進一步瞭解Kubernetes物件、我們強烈建議您閱讀<block ref="92dc8ed82beb7484ab6097a3e91b0deb" category="inline-link-rx"></block> Kubernetes文件的一節。</block>
-  <block id="e21ffd3da11b6c6deee412bfb8695e30" category="section-title">Kubernetes PeristentVolume Claim物件</block>
   <block id="794a32773794ee6c545794c065d1a88b" category="paragraph">Kubernetes「PeristentVolume Claim」物件是Kubernetes叢集使用者所提出的儲存要求。</block>
   <block id="43cf8e1465c61efc8b1b9bf71aa9931c" category="paragraph">除了標準規格之外、Trident還可讓使用者指定下列Volume專屬附註、以覆寫您在後端組態中設定的預設值：</block>
   <block id="55f6611cb342565cf0f5002400f53a95" category="cell">註釋</block>
@@ -2438,13 +2390,11 @@
   <block id="f89d76e06e88814705882a1faad838fb" category="list-text">一個PVc及其複本應位於相同的Kubernetes命名空間中、且具有相同的儲存類別。</block>
   <block id="f769a6b54b1d1476b6628ebd1c4b98c4" category="list-text">有了「ONTAP-NAS」和「ONTAP-SAN」驅動程式、可能需要將「trident.netapp.io/splitOnClone`」標註與「trident.netapp.io/cloneFromPVC`」一起設定。Trident將trident.netapp.io/splitOnClone`設為「true」、將複製的磁碟區從父磁碟區分割出來、因此將複製的磁碟區的生命週期與其父磁碟區完全分離、而犧牲部分儲存效率。如果不將「trident.netapp.io/splitOnClone`」設定為「假」、則會減少後端的空間使用量、而犧牲父磁碟區與複製磁碟區之間的相依性、使父磁碟區無法刪除、除非先刪除複本。分割實體複製是合理的做法、是將空的資料庫磁碟區複製到磁碟區及其實體複製環境、以大幅分散差異、而非ONTAP 受益於由NetApp提供的儲存效率。</block>
   <block id="83a9930ebb180c904bf2e71e27928287" category="paragraph">「shample-input」目錄包含可與Trident搭配使用的PVc定義範例。請參閱Trident Volume物件、以取得與Trident Volume相關的參數和設定完整說明。</block>
-  <block id="a02475a5207a446cd0b3607b0b24c079" category="section-title">Kubernetes PersistentVolume物件</block>
   <block id="6cb5412cc2fe8210c4d14d6d6b08ab79" category="paragraph">Kubernetes「PersistentVolume」物件代表Kubernetes叢集可用的儲存設備。它的生命週期與使用它的Pod無關。</block>
   <block id="292289b7334983e53d9fb9bd00d30820" category="admonition">Trident會建立「PeristentVolume」物件、並根據其所配置的磁碟區、自動在Kubernetes叢集上登錄。您不需要自行管理。</block>
   <block id="443f09ca4d0d1cc13b5baa064b90c0b7" category="paragraph">當您建立參照Trident型「TorageClass」的PVc時、Trident會使用對應的儲存類別來配置新的Volume、並針對該Volume登錄新的PV。在設定已配置的Volume和對應的PV時、Trident遵循下列規則：</block>
   <block id="b27c91fe87605abbb0d5240430518a1c" category="list-text">Trident會產生Kubernetes的PV名稱、以及用來配置儲存設備的內部名稱。在這兩種情況下、都是確保名稱在其範圍內是唯一的。</block>
   <block id="9c2f88a5c4297bd88ead0cd6314fe886" category="list-text">磁碟區的大小會盡可能接近在室早中所要求的大小、不過視平台而定、磁碟區可能會四捨五入至最接近的可分配數量。</block>
-  <block id="dcbd1c3ef9cd1dce444a22a9db5994d6" category="section-title">Kubernetes StorageClass物件</block>
   <block id="0d35625a483152791f4e2d0b751a09cc" category="paragraph">Kubernetes的「torageClass」物件是以名稱在「PeristentVolume Claims」中指定、以一組內容來配置儲存設備。儲存類別本身會識別要使用的資源配置程式、並根據資源配置程式所瞭解的方式來定義該組內容。</block>
   <block id="f7738d717849274e5992d460fd2c0a75" category="paragraph">這是需要由系統管理員建立及管理的兩個基本物件之一。另一個是Trident後端物件。</block>
   <block id="e51377a773f4713e536b061eaa2d4b04" category="paragraph">使用Trident的Kubernetes「torageClass」物件看起來像這樣：</block>
@@ -2535,20 +2485,16 @@
   <block id="45d2174daba36b76955e69d2eddf26ca" category="list-text">PVc存取模式為rwo。</block>
   <block id="ba5b62efad4f90a8f4bb806cba4a3ea4" category="paragraph">對於NFS儲存驅動程式、檔案系統已存在做為NFS匯出的一部分。為了使用「fsGroup」、儲存類別仍需指定「FSType」。您可以將其設定為「NFS」或任何非null值。</block>
   <block id="2435c5eb0d842c13f635d4b1d6667a52" category="list-text">Trident安裝程式套裝組合提供多個範例儲存類別定義、可與Trident搭配使用、位於「sham-INPUT /儲存設備類別-*。yaml」。刪除Kubernetes儲存類別也會刪除對應的Trident儲存類別。</block>
-  <block id="6b218cef3794c1b32702bd37753ce9ef" category="section-title">Kubernetes Volume SnapshotClass物件</block>
   <block id="65d18b5db5d5f35e4ddc5c696687d1bd" category="paragraph">Kubernetes的「Volume SnapshotClass」物件類似於「儲存類別」。它們有助於定義多種儲存類別、並由Volume Snapshot參考、以將快照與所需的Snapshot類別建立關聯。每個Volume Snapshot都與單一Volume Snapshot類別相關聯。</block>
   <block id="031e09713b698739db52cb150ef97605" category="paragraph">系統管理員應定義「Volume SnapshotClass」、以建立快照。建立具有下列定義的Volume Snapshot類別：</block>
   <block id="879cd061c6bf448cd6fc39dd56947611" category="paragraph">對Kubernetes而言、「driver」是指Trident處理「Cig-snapClass」類別的Volume快照要求。「刪除原則」指定必須刪除快照時要採取的動作。當「刪除原則」設定為「刪除」時、刪除快照時、就會移除儲存叢集上的Volume Snapshot物件和基礎Snapshot。或者、將其設為「保留」、表示保留「Volume SnapshotContent」和實體快照。</block>
-  <block id="4fa3f62cc9d9b7064a0d4b93d16a3636" category="section-title">Kubernetes Volume Snapshot物件</block>
   <block id="7ba558df52a052235cf288011e5d667c" category="paragraph">Kubernetes「Volume Snapshot」物件是建立磁碟區快照的要求。就像使用者針對磁碟區所提出的要求一樣、磁碟區快照是使用者建立現有虛擬磁碟快照的要求。</block>
   <block id="f67af493d1fd83b472d5f27307b2f3d9" category="paragraph">當磁碟區快照要求出現時、Trident會自動管理後端磁碟區的快照建立、並建立獨特的「Volume SnapshotContent」物件來公開快照。您可以從現有的PVCS建立快照、並在建立新的PVCS時、將快照作為DataSource使用。</block>
   <block id="53847015682974d066a919b1b45a44a5" category="admonition">Volume Snapshot的生命週期與來源PVCs無關：即使刪除來源PVCs、快照仍會持續存在。刪除具有相關快照的永久虛擬磁碟時、Trident會將此永久虛擬磁碟的備份磁碟區標示為*刪除*狀態、但不會將其完全移除。刪除所有相關的快照時、即會移除該磁碟區。</block>
-  <block id="c1c597a8c6353c0a951a61e538d2f143" category="section-title">Kubernetes Volume SnapshotContent物件</block>
   <block id="e562bdcf97dce6973a736651f45eb054" category="paragraph">Kubernetes「Volume SnapshotContent」物件代表從已配置的磁碟區擷取的快照。它類似於「PersistentVolume」、代表儲存叢集上已配置的快照。與「PeristentVolume Claim」和「PeristentVolume」物件類似、建立快照時、「Volume SnapshotContent」物件會維持一對一的對應、以對應「Volume Snapshot」物件、該物件已要求建立快照。</block>
   <block id="ca8035550d447392debfcaeb62855bd3" category="admonition">Trident會建立「Volume SnapshotContent」物件、並根據其所配置的磁碟區、自動在Kubernetes叢集上登錄。您不需要自行管理。</block>
   <block id="af741aec1c66e51c00d35a38f92471de" category="paragraph">「Volume SnapshotContent」物件包含可唯一識別快照的詳細資料、例如「快照資料」。此「快照處理」是PV名稱與「Volume SnapshotContent」物件名稱的獨特組合。</block>
   <block id="b22c73e808eef321ee9941ec2e58b64f" category="paragraph">當快照要求出現時、Trident會在後端建立快照。建立快照之後、Trident會設定「Volume SnapshotContent」物件、並將快照公開給Kubernetes API。</block>
-  <block id="ca106d43cc3f2b8c6ae43c99a3c529d7" category="section-title">Kubernetes Custom資源 定義物件</block>
   <block id="7c43d52062b795d2d8e7f33b9dbbf671" category="paragraph">Kubernetes自訂資源是Kubernetes API中由系統管理員定義的端點、用於將類似物件分組。Kubernetes支援建立自訂資源來儲存物件集合。您可以執行「kubecl Get crds」來取得這些資源定義。</block>
   <block id="09d4c17e4e0e002375326eee41d0f77f" category="paragraph">自訂資源定義（CRD）及其相關的物件中繼資料會由Kubernetes儲存在其中繼資料儲存區中。如此一來、您就不需要另外建立Trident的儲存區。</block>
   <block id="798d49964270b9d2f638171af7258d00" category="paragraph">從19.07版開始、Trident使用許多「CustomResourceDefinition」物件來保留Trident物件的身分、例如Trident後端、Trident儲存類別和Trident Volume。這些物件由Trident管理。此外、「csi Volume Snapshot」架構也引進了定義Volume快照所需的部分CRD。</block>
@@ -2557,7 +2503,6 @@
   <block id="adecfe476427253e9c680a7c5150a9cc" category="list-text">安裝Trident時、會建立一組客戶需求日、並可像使用任何其他資源類型一樣使用。</block>
   <block id="b54c0b51e5e24cea2035a3e3624c5719" category="list-text">從舊版Trident（使用「etcd」來維護狀態）升級時、Trident安裝程式會從「etcd」金鑰值資料儲存區移轉資料、並建立對應的CRD物件。</block>
   <block id="c4b35352cbf7a52a9444a610687067f8" category="inline-link-macro">解除安裝Trident</block>
-  <block id="514e780152cf1b5087027f7c70643070" category="section-title">Trident StorageClass物件</block>
   <block id="193c267230acf55be171a6a179560847" category="paragraph">Trident會為Kubernetes「torageClass」物件建立相符的儲存類別、並在其資源配置程式欄位中指定「csi.trident.netapp.io`/`netapp.io/trident`」。儲存類別名稱與Kubernetes「torageClass」物件的名稱相符。</block>
   <block id="64cf33bfeab6c6bd8aa626b86fda9cbd" category="admonition">使用Kubernetes、當Kubernetes「torageClass」以Trident做為資源配置程式登錄時、就會自動建立這些物件。</block>
   <block id="51fa0a833f47d8f00ee2677c6fa7b075" category="paragraph">儲存類別包含一組磁碟區需求。Trident會將這些需求與每個儲存資源池中的屬性相符；如果符合、則該儲存資源池是使用該儲存類別來配置磁碟區的有效目標。</block>
@@ -2565,10 +2510,8 @@
   <block id="21283df20640a21f468122a427ef1bfc" category="section-title">Trident後端物件</block>
   <block id="3c244b984a2188556c1115a5a27dbe1b" category="paragraph">後端代表儲存供應商、其中Trident會配置磁碟區；單一Trident執行個體可管理任何數量的後端。</block>
   <block id="d71c5fad4769c19422c07158e24510ba" category="admonition">這是您自己建立和管理的兩種物件類型之一。另一個是Kubernetes的「torageClass」物件。</block>
-  <block id="af5e532a14b6a8c1f094b8532420e8d1" category="section-title">Trident StoragePool物件</block>
   <block id="54fd1dc39c3eecd913b4c9140522996c" category="paragraph">儲存資源池代表可在每個後端上進行資源配置的不同位置。就支援而言ONTAP 、這些項目對應於SVM中的集合體。對於NetApp HCI / SolidFire、這些服務會對應到系統管理員指定的QoS頻段。就架構而言、這些項目對應於雲端供應商所在的地區。Cloud Volumes Service每個儲存資源池都有一組獨特的儲存屬性、可定義其效能特性和資料保護特性。</block>
   <block id="4ab1440e71a70a97c4966bcc0095f02b" category="paragraph">與此處的其他物件不同、儲存資源池候選項目一律會自動探索及管理。</block>
-  <block id="d2a63f6dfdfef268198f3e6e304ab9ba" category="section-title">Trident Volume物件</block>
   <block id="894765102686902c6acc3024e5bdb9bd" category="paragraph">Volume是資源配置的基本單位、包含NFS共用和iSCSI LUN等後端端點。在Kubernetes中、這些內容直接對應到「PersistentVolumes」。建立磁碟區時、請確定它有一個儲存類別、決定該磁碟區可以配置的位置及大小。</block>
   <block id="2e53db54827c8c05b7bfe9cb31f299d9" category="admonition">在Kubernetes中、會自動管理這些物件。您可以檢視這些資源、以查看資源配置的Trident內容。</block>
   <block id="22fcc98910d0241e9835f502b7cb2398" category="admonition">刪除具有相關快照的PV時、對應的Trident Volume會更新為*刪除*狀態。若要刪除Trident磁碟區、您應該移除該磁碟區的快照。</block>
@@ -2595,7 +2538,6 @@
   <block id="62fe71ae4f6a04a6937feb48ba5dc4f4" category="cell">檔案系統類型</block>
   <block id="c12963ed77d398c8f97e09be58a20fed" category="paragraph">Trident在建立磁碟區時會產生「內部名稱」。這包括兩個步驟。首先、它會將儲存前置詞（預設的「Trident」或後端組態中的前置詞）預先加上磁碟區名稱、以「&lt;prefix&gt;-&lt;volume名稱&gt;」格式命名。然後、它會繼續清理名稱、取代後端不允許的字元。對於後端、它會以底線取代連字號（因此內部名稱會變成「&lt;prefix&gt;_&lt;volume名稱&gt;」）ONTAP 。對於元素後端、它會以連字號取代底線。</block>
   <block id="49539689cebb34166a417b3b666818e5" category="paragraph">您可以使用Volume組態、使用REST API直接配置磁碟區、但在Kubernetes部署中、我們預期大多數使用者都會使用標準的Kubernetes「PeristentVolume Claim」方法。Trident會自動建立此Volume物件、做為資源配置程序的一部分。</block>
-  <block id="cbd341b63adaa47fcb248e55d33f6eae" category="section-title">Trident Snapshot物件</block>
   <block id="a1b3787bbd275b7ed5812d022dd36932" category="paragraph">快照是磁碟區的時間點複本、可用來配置新的磁碟區或還原狀態。在Kubernetes中、這些物件會直接對應到「Volume SnapshotContent」物件。每個快照都與一個Volume相關聯、該磁碟區是快照資料的來源。</block>
   <block id="cdf5c8d3dd31e49b82a5b3e2c4a65280" category="paragraph">每個「napshot」物件都包含下列內容：</block>
   <block id="27118326006d3829667a400ad23d5d98" category="cell">字串</block>
@@ -2653,7 +2595,6 @@
   <block id="3e9ebf4af3f0b9d1852396d46171ef99" category="section-title">使用Astra Trident做為「csi資源配置工具」時、使用者是否會有變更？</block>
   <block id="05f95d89af1ccd9b986014406a4b1fc8" category="paragraph">不可以就使用者體驗和功能而言、沒有任何改變。使用的置備程式名稱是「csi.trident.netapp.io`」。如果您想要使用目前和未來版本所提供的所有新功能、建議使用這種安裝Astra Trident的方法。</block>
   <block id="0a7e87df44869b8d60a83f35d1e2747b" category="section-title">在Kubernetes叢集上安裝及使用Astra Trident</block>
-  <block id="ffb25b8f3453272318fba778e825268f" category="section-title">支援的etcd版本為何？</block>
   <block id="6a3ad0d68dcfe0164611dadb7f7656f9" category="paragraph">Astra Trident不再需要「etcd」。它使用客戶需求日來維持狀態。</block>
   <block id="bde6cb03741f92107c63aeebe62d3278" category="section-title">Astra Trident是否支援從私有登錄進行離線安裝？</block>
   <block id="45b09f7cb3dcbe0274eef2b3fce46bea" category="paragraph">可以、Astra Trident可以離線安裝。請參閱 <block ref="4a2b27d6d4bc3dd7ae85bfd131d50753" category="inline-link-macro-rx"></block>。</block>
@@ -3029,18 +2970,15 @@
   <block id="d63b67088a9f91802e555f6613dfc7e2" category="list-text">使用「tridentctl uninstall」命令解除安裝Trident時、會刪除Trident Pod、但不會清除建立的CRD。請參閱 <block ref="3e5b286354565ddfee44ed92d763b424" category="inline-link-macro-rx"></block> 瞭解如何徹底移除Trident並從頭重新設定。</block>
   <block id="6386b0f17b85463db72887bca8ae2bb7" category="inline-link-macro">設定後端</block>
   <block id="4ec9b12b750288e91222e3a7e15db932" category="paragraph">如需如何建構這些物件的詳細資訊、請參閱 <block ref="2e76dfee6bc1b5ee4173b3c5bbcd99e5" category="inline-link-macro-rx"></block>。</block>
-  <block id="263dc4944d80c0143a7ca6c0464fcfb2" category="section-title">Astra Trident資源配額物件</block>
   <block id="1733f6bf382fd79ef07194c1f01825fa" category="paragraph">Trident刪除程式會使用「系統節點關鍵」優先順序類別、這是Kubernetes中最高的優先順序類別、以確保Astra Trident能在正常節點關機期間識別及清理磁碟區、並讓Trident取消安裝Pod在資源壓力較高的叢集中、預先部署優先順序較低的工作負載。</block>
   <block id="bc1252710ec794375d6c59f55eea9823" category="paragraph">為達成此目標、Astra Trident採用「資源配額」物件、確保Trident的「系統節點關鍵」優先等級符合要求。在部署和建立實體化設定之前、Astra Trident會尋找「資源配額」物件、如果未發現、則會套用該物件。</block>
   <block id="253c5669d0ddb02485528df359bfb37d" category="paragraph">如果您需要對預設資源配額和優先順序類別的更多控制權、可以產生「custustry.yaml」、或使用Helm圖表來設定「資源配額」物件。</block>
   <block id="b6ba871f235b09a3d76844b7b5901586" category="paragraph">以下是「資源配額」物件優先處理Trident的範例。</block>
   <block id="4f4b1cca8d1c78f8ba309694d46d80f2" category="inline-link-macro">Kubernetes：資源配額</block>
   <block id="8893dca3c9374b0380c7018fc6f23846" category="paragraph">如需資源配額的詳細資訊、請參閱 <block ref="1fb556021be57083646a3e3c0079c64c" category="inline-link-macro-rx"></block>。</block>
-  <block id="f785e2321d74d94d55647493e8ba6adb" category="section-title">如果安裝失敗、請清除資源配額</block>
   <block id="222924a66611c61f2a2192a2bab92ecf" category="inline-link-macro">正在解除安裝</block>
   <block id="dbcf7f603282c175a634104f7dbd55f2" category="paragraph">在極少數情況下、如果在建立「資源配額」物件之後安裝失敗、請先嘗試 <block ref="3bd802fb95da78515b3c3d98916ee73c" category="inline-link-macro-rx"></block> 然後重新安裝。</block>
   <block id="c4af59b1638f70f51816423f72df4dba" category="paragraph">如果這不管用、請手動移除「資源配額」物件。</block>
-  <block id="63a67ab316dedee235c0c5294609ae61" category="section-title">移除資源配額</block>
   <block id="ba991f2f6d0f733e9b8a2136cedc99b2" category="paragraph">如果您偏好控制自己的資源配置、可以使用下列命令移除Astra Trident的「資源配額」物件：</block>
   <block id="c217b0ac2dd5504f79ba78b220a9c358" category="summary">NetApp以多種方式支援Trident。全年無休提供廣泛的免費自助支援選項、例如不和通路。</block>
   <block id="1b3d6decfa71cc52ecc9b041f40a02e5" category="paragraph">我們的Astra還有一個充滿活力的公共社群、由容器使用者（包括Astra Trident開發人員）所共同參與 <block ref="6130664377fa14615bb1abd5257e9714" category="inline-link-macro-rx"></block>。這是您提出專案相關一般問題、並與志同道合的同儕討論相關主題的好地方。</block>
@@ -3178,7 +3116,6 @@
   <block id="54ea7e6338e0f0344fe8c3d401d1f7d8" category="paragraph">如果您未執行Astra Trident 22.10、則可取得先前版本的文件。您可以使用版本選取器、在最新版本與前四個版本之間瀏覽、或使用下列連結。</block>
   <block id="21d437ff7c8ceb5481603b5d2c05442a" category="inline-link">Astra Trident 22.07</block>
   <block id="8a7908446b584a99ce1055c602a9c74e" category="list-text"><block ref="8a7908446b584a99ce1055c602a9c74e" category="inline-link-rx"></block></block>
-  <block id="10c0c35162734ce7b3ac3cffad34b520" category="section-title">22.10的新功能</block>
   <block id="027daea9679099cb5b0c6ddd862f1afc" category="paragraph">*在升級至Astra Trident 22.10*之前、您必須先閱讀下列重要資訊</block>
   <block id="83261c9e7e65d5ffc2d188c07767e5f6" category="admonition-title">&lt;strong&gt;關於Astra Trident 22.10&lt;/strong&gt;的重要資訊</block>
   <block id="c5d2d3c8dfa65a831c35d09ac4683434" category="list-text">Kubernetes 1.25現在已在Trident中受到支援。在升級至Kubernetes 1.25之前、您必須先將Astra Trident升級至22.10。</block>
@@ -3277,7 +3214,6 @@
   <block id="c6e8d7b047a148bcf2aeae743c286bbb" category="paragraph">Astra Trident讀取<block ref="57c54cbee1c6ed3d5902aa1d8cd1e55a" prefix=" " category="inline-code"></block> 在目的地永久虛擬磁碟上註釋、並將目的地PV建立為從屬磁碟區、而其本身並無儲存資源指向來源PV並共用來源PV儲存資源。目的地的PVc和PV似乎正常連結。</block>
   <block id="a5ddf1dcee266e65795efb120a45d2cb" category="section-title">刪除共享Volume</block>
   <block id="2b71b549a21992aba927484a35ad72f6" category="paragraph">您可以刪除跨多個命名空間共用的磁碟區。Astra Trident會移除對來源命名空間上磁碟區的存取權、並維持對其他共用該磁碟區的命名空間的存取權。當所有參照磁碟區的命名空間都移除時、Astra Trident會刪除該磁碟區。</block>
-  <block id="a28b330043b481bf371e7615a8b1fbcc" category="section-title">使用tridentctl Get查詢從屬磁碟區</block>
   <block id="9f2f83b0c97d84774c1d61107283bb68" category="paragraph">使用<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 公用程式、您可以執行<block ref="b5eda0a74558a342cf659187f06f746f" prefix=" " category="inline-code"></block> 取得從屬磁碟區的命令。如需詳細資訊、請參閱連結：../ Trident參考/ tridentctl.html<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix="[" category="inline-code"></block> 命令與選項]。</block>
   <block id="b1cc54ad6906d5f41516543bae01e46f" category="list-text"><block ref="490aa9b616d8535386ddf1c7037f79a0" prefix="" category="inline-code"></block>：Volume的說明。</block>
   <block id="20668f390d13376c8d13ab4b20a53b5d" category="list-text"><block ref="e3bbbed29599d3e6e29ae22829ad7f13" prefix="" category="inline-code"></block>：將查詢限制在從屬來源Volume。</block>
@@ -3339,7 +3275,6 @@
   <block id="9c1aa30bfee58070482e646ad5d8bb4b" category="paragraph">此後端組態可將Volume置於Azure中<block ref="6356111305f5daab178fa6051b7a8ae7" prefix=" " category="inline-code"></block> 位置<block ref="7057376a419b3334cc7b8b7a9f064abb" prefix=" " category="inline-code"></block> 容量資源池：Astra Trident會自動探索該位置委派給ANF的所有子網路、並隨機在其中一個磁碟區上放置新磁碟區。</block>
   <block id="c0b04213f295bd61098649d5dec24291" category="section-title">儲存類別定義</block>
   <block id="cad675ae3fb846705512fe460e615ac3" category="paragraph">以下內容<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 定義請參閱上述儲存資源池。</block>
-  <block id="edf1e5c90afac88d1e195db2733eba0a" category="section-title">使用parameter.selector欄位的範例定義</block>
   <block id="1abbfd87ab307af55b755fd27ce60191" category="paragraph">使用<block ref="4d859186a09b1da3597e5901157d9400" prefix=" " category="inline-code"></block> 您可以為每個項目指定<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 用於裝載磁碟區的虛擬集區。該磁碟區會在所選的資源池中定義各個層面。</block>
   <block id="4b7db799aa8307d15835ff36beb1b97c" category="section-title">SMB磁碟區的定義範例</block>
   <block id="82b60bb483328d8efe9240dc8aa4a600" category="paragraph">使用<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block>、<block ref="e12fdd044232e643620eed06bf33c7af" prefix=" " category="inline-code"></block>和 <block ref="1ad68a6a046942b7c1666aed825df70a" prefix=" " category="inline-code"></block>、您可以指定SMB磁碟區、並提供所需的Active Directory認證資料。</block>
@@ -3388,7 +3323,6 @@
   <block id="6bee7851f8606d588c9122b234c202e3" category="list-text">確認您的部署符合所有的 <block ref="6fc1811f5f9a8ae54793544600e2dff7" category="inline-link-macro-rx"></block>。</block>
   <block id="3761d9ac3ac4ec53446db46cad19a89f" category="section-title">使用Trident運算子的時機</block>
   <block id="e4c4b24202effa60bdd414c1527be302" category="section-title">何時使用Helm</block>
-  <block id="71a4591136fd7ecb524ca052ca715e79" category="section-title">何時使用tridenctl</block>
   <block id="9c58211ad41dc6231b9ef642305020ae" category="paragraph">如果您現有的部署必須升級至、或是想要高度自訂部署、則應考慮使用 <block ref="bbba36f756eac01f0bd418bf08e6f580" category="inline-link-macro-rx"></block>。這是部署Astra Trident的傳統方法。</block>
   <block id="af54f551374d4fdd34e5268893817115" category="paragraph">您可以使用部署Astra Trident<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。您最好先熟悉 <block ref="9361969cf4eb2bc5b585b5c0eeba4dcb" category="inline-link-macro-rx"></block>。以自訂您的<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 部署、請參閱 <block ref="8e7a26c9800a78fa0b68fb2423ba3fb4" category="inline-link-macro-rx"></block>。</block>
   <block id="464917decc4a8865a62b2663d0679c5a" category="section-title">驗證先決條件</block>
@@ -3454,4 +3388,79 @@
   <block id="fe3799e555192a4be0f491c2a4b889cb" category="paragraph">例如、如果您要為Kubernetes 1.25安裝Astra Trident 22.10、請執行下列命令：</block>
   <block id="6abd06de383c0d8eca2b08e0ec8775e1" category="list-text">使用命名空間範圍的運算子資訊清單來刪除。若要完成此步驟、您需要使用套裝組合Yaml檔案來部署命名空間範圍的運算子<block ref="79243f20ce3e723d13bf0774e8348ca2" prefix=" " category="inline-code"></block> 其中<block ref="7d2e512472107955c1b3fb2ce2e19bc4" prefix=" " category="inline-code"></block> 為版本編號（例如<block ref="ea99d71aa7a32717f8398c406b38b062" prefix=" " category="inline-code"></block>）和<block ref="32f68f45f3f6badcd1aa2343bbbce67c" prefix=" " category="inline-code"></block> 為套裝組合Yaml檔案名稱。</block>
   <block id="ef4941fc3b8697a8f43fd6782250b64c" category="list-text">手動：Trident提供可用於安裝運算子及建立相關物件的檔案。</block>
+  <block id="6f8896eb5896943e1606d92193f72fb8" category="section-title">使用疑難排解不成功的Trident部署<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
+  <block id="04af182f82ced31e33818efdc7ad51a5" category="section-title">使用時機<block ref="26df55f7460e08309d510282499b6b1d" prefix=" " category="inline-code"></block></block>
+  <block id="d59db7846bd10b6d60d21543df9faa9e" category="paragraph-title">您需要的產品</block>
+  <block id="b1d2d86c217e78dcc1bee62d74d3346c" category="section-title">步驟3：建立<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 並安裝Trident</block>
+  <block id="04c73907481b6acb2b019a0a76516a25" category="section-title">使用解除安裝<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
+  <block id="4eb50f197bd48a10bc9ee0dab2f65bcf" category="section-title">使用安裝Astra Trident時的降級程序<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
+  <block id="f9ed548281d3b3a21b1334ae3f6a1ce3" category="section-title"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block> 和<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 匯入</block>
+  <block id="fe55f3445ba74156978bcd34c5a1af5c" category="section-title"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block> 匯入</block>
+  <block id="22a6337b056e3b93b46c9304d3248391" category="section-title"><block ref="8e2dcfd7e7e24b1ca76c1193f645902b" prefix="" category="inline-code"></block> 匯入</block>
+  <block id="9883195da65e8e652cb10271a5250822" category="section-title"><block ref="5935ea92cdd7d975b4e764b429f21c01" prefix="" category="inline-code"></block> 匯入</block>
+  <block id="809e945dc23c25ac16aba1fa16892444" category="section-title"><block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix="" category="inline-code"></block> 匯入</block>
+  <block id="6c6e605e09d47da14693d106977b6eb0" category="section-title">管理<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 後端使用<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block></block>
+  <block id="78fb4311dea625690d7fb6274025625a" category="section-title">步驟2：建立<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR</block>
+  <block id="d6f4b4bedc693acd49ad08c1cf0cdad5" category="section-title">步驟3：確認的狀態<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR</block>
+  <block id="a035fed1dd97545349b5fffbd9e3e88f" category="section-title">管理<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> 後端使用<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
+  <block id="0901a332c26ed210204bad23d45c8b6d" category="section-title">步驟1：確認<block ref="98e7d6463271d7848db255ae6467817a" prefix=" " category="inline-code"></block> 設為<block ref="16d79ff80feadcf2f52096f073f2b94a" prefix=" " category="inline-code"></block></block>
+  <block id="2f1beb23541bc11eb53ca6b33485d4f8" category="section-title">步驟2：刪除<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR</block>
+  <block id="06c2cea18679d64399783748fa367bdd" category="inline-image-macro">一</block>
+  <block id="32ec9b4824220f8ae03a723da009cd54" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block> 設定來源PVc以共用磁碟區</block>
+  <block id="aada29daee1d64ed0fe907043855cb7e" category="inline-image-macro">二</block>
+  <block id="82a9b6c32a91a1f4a714d648f5d3260f" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block> 授予在目的地命名空間中建立CR的權限</block>
+  <block id="ca8a2087e5557e317599344687a57391" category="inline-image-macro">三</block>
+  <block id="311a877e773f97b1e237db665a868dd9" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block> 在目的地命名空間中建立TridentVolume Reference</block>
+  <block id="981b8fcee42e1e726a67a2b9a98ea6e9" category="inline-image-macro">四</block>
+  <block id="fb16fc9d34d26a8e74ba1a7180766513" category="paragraph-title"><block ref="beadfa85a2fdca06b91edc1131c603e6" category="inline-image-macro-rx" type="image"></block> 在目的地命名空間中建立從屬的PVc</block>
+  <block id="fd69c5cf902969e6fb71d043085ddee6" category="paragraph-title">結果</block>
+  <block id="3f8e335666124e3b7f5db07f03fef0b1" category="section-title">使用<block ref="fed7609223e8cae53e079facb24f3426" prefix=" " category="inline-code"></block> 查詢從屬Volume</block>
+  <block id="260817022a7340fc89eae3e7dbed8f6a" category="section-title">使用的範例定義<block ref="4d859186a09b1da3597e5901157d9400" prefix=" " category="inline-code"></block> 欄位</block>
+  <block id="72b06f7d7f6d50adf7364ca262469512" category="section-title"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block> 具有憑證型驗證的驅動程式</block>
+  <block id="81801ea9aa153d054652d45bc18af0a7" category="section-title"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block> 使用雙向CHAP的驅動程式</block>
+  <block id="5d49eece8e9afa44ffdead9ff18462be" category="section-title"><block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix="" category="inline-code"></block> 驅動程式</block>
+  <block id="19ef07597f79648211dbed100709836b" category="section-title">更新後端以納入<block ref="1f2a94e142bf020b1f7c6297ec12413f" prefix=" " category="inline-code"></block></block>
+  <block id="004d3e2a4856b16f30a875347fa180b1" category="paragraph-title">您需要知道的資訊</block>
+  <block id="891d26d5e7410db6c0a971245c6025c0" category="section-title">範例1：的後端組態<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 三種磁碟區類型的驅動程式</block>
+  <block id="4d372e41fa87fa7479647961f447848c" category="section-title">範例2：的後端與儲存類別組態<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 驅動程式搭配虛擬儲存資源池</block>
+  <block id="26c4cc9d75a54263cd7603d9f77a2ed3" category="section-title"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block> 具有憑證型驗證的驅動程式</block>
+  <block id="77342b494173dd97aae1ecadadf9e58d" category="section-title"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block> 具有自動匯出原則的驅動程式</block>
+  <block id="8ce7e48582ee540f8b6d1ff85cfb95af" category="section-title"><block ref="844e84da8e822b4a33c4d8188da97937" prefix="" category="inline-code"></block> 驅動程式</block>
+  <block id="701fd6484c41253418049cc2bf503a1e" category="section-title"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block> 使用IPv6的驅動程式</block>
+  <block id="4a8519b09a0b2a70d40200e88ec2c5dc" category="section-title"><block ref="caafdf62a2c609bfa5316118231a1007" prefix="" category="inline-code"></block> 驅動程式</block>
+  <block id="c495273b4c0d19189acec3e2135954e0" category="section-title"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block> 驅動程式</block>
+  <block id="cd694f8c60b5f42437f7390e015a46b5" category="section-title">步驟1：設定<block ref="19476662cd814e0aa085eca121de89b8" prefix=" " category="inline-code"></block></block>
+  <block id="454631312fab234fc91bb2f85a751fac" category="section-title"><block ref="913a4b06671d1e04e6582a85afe3abbe" prefix="" category="inline-code"></block></block>
+  <block id="e892fda55ead7e15eed753e850d35f12" category="section-title">步驟2：建立<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR</block>
+  <block id="a0d777cf1acc36406564409adef85b17" category="section-title">支援的版本為何<block ref="a226e9fbdfc1c8dd7e7fef4d333f86ed" prefix=" " category="inline-code"></block>？</block>
+  <block id="96bcb2f9805dd9a55f15f122db8c9e7b" category="section-title">備份<block ref="a226e9fbdfc1c8dd7e7fef4d333f86ed" prefix=" " category="inline-code"></block> 叢集資料</block>
+  <block id="74257eabdceb63f8522f7c68b103da3a" category="section-title">停用<block ref="d51321f13693d09d4a9cbb2758b42d12" prefix=" " category="inline-code"></block> 適用於應用程式SVM</block>
+  <block id="e49cf31f5ed35f0eb694c7714e8c3234" category="section-title"><block ref="76ea0bebb3c22822b4f0dd9c9fd021c5" prefix="" category="inline-code"></block></block>
+  <block id="3649b15e31d22a1e2210f014d843b9fa" category="section-title"><block ref="099af53f601532dbd31e0ea99ffdeb64" prefix="" category="inline-code"></block></block>
+  <block id="a4027ed0f56ae6ac2cbb7605a519932b" category="section-title"><block ref="b5eda0a74558a342cf659187f06f746f" prefix="" category="inline-code"></block></block>
+  <block id="7920cf9e1a990d156e390321c1d5efeb" category="section-title"><block ref="59b514174bffe4ae402b3d63aad79fe0" prefix="" category="inline-code"></block></block>
+  <block id="df6d9d5a4c545407095ea4ca424e9457" category="section-title"><block ref="f6c534966bc7687e0c87134d025f8837" prefix="" category="inline-code"></block></block>
+  <block id="cc27cfd3259c2299d8dece590d5f6985" category="section-title"><block ref="19ad89bc3e3c9d7ef68b89523eff1987" prefix="" category="inline-code"></block></block>
+  <block id="2acfb4ba14a6f33d7e82e8d1dda6542f" category="section-title"><block ref="2165e4fa5bddb65a31f6a0c495c2fa37" prefix="" category="inline-code"></block></block>
+  <block id="9ce837bc2492d4ed390bc5d1ea9d1437" category="section-title"><block ref="2541d938b0a58946090d7abdde0d3890" prefix="" category="inline-code"></block></block>
+  <block id="30cf71e674825d319eb0406032c1a80b" category="section-title"><block ref="3ac340832f29c11538fbe2d6f75e8bcc" prefix="" category="inline-code"></block></block>
+  <block id="238000b5c5df1cc446f5ba823c01807c" category="section-title"><block ref="ae26b3d8e556703291282149e3ae894f" prefix="" category="inline-code"></block></block>
+  <block id="c4e2f712f33e39883cdadc27311ff798" category="section-title">Kubernetes<block ref="2b3f8e4d49589c4452db0a07d619d824" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="40f23ed795a1a88d4da7ac2ef847ff7f" category="section-title">Kubernetes<block ref="858e55ea2e6429120a862313c50a9f5f" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="7df5b64daec466033329296995f05735" category="section-title">Kubernetes<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="db36743614e87531d560fe8ae0bc6c7d" category="section-title">Kubernetes<block ref="19476662cd814e0aa085eca121de89b8" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="63f2f0978770be469911c5f1722d82ca" category="section-title">Kubernetes<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="1ca312948dba5b1321da24bc362f4148" category="section-title">Kubernetes<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="4171707fb2a131f0fae96196310c5e3b" category="section-title">Kubernetes<block ref="99bc4b850e05bafd67cf5f5f49344c1e" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="a8a62fe3b16797ce253b78f83dc73a18" category="section-title">Trident<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="8a4410d54113ca147b35c633207444b7" category="section-title">Trident<block ref="5e5d444b688db40e013a7d0b8b3c0898" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="f08d82cd2f4fa097db43220a04f62434" category="section-title">Trident<block ref="bd7a9717d29c5ddcab1bc175eda1e298" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="9b53117639a1995b2872ed6bca3dec8e" category="section-title">Trident<block ref="d4e2713d1b1725a1592f9268589f990d" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="65589e383667ac98801982f7e9704f2a" category="section-title">Astra Trident<block ref="0b79951d94d2a7fc1f7ba55091959bda" prefix=" " category="inline-code"></block> 物件</block>
+  <block id="4f89992961c018acecad7b373dcce336" category="section-title">清理<block ref="0b79951d94d2a7fc1f7ba55091959bda" prefix=" " category="inline-code"></block> 如果安裝失敗</block>
+  <block id="b9984d1eca39b86eb39cedf7db8f8c62" category="section-title">移除<block ref="0b79951d94d2a7fc1f7ba55091959bda" prefix=" " category="inline-code"></block></block>
+  <block id="d3f7afc310875b4ea262305c6d7d6ca2" category="section-title"><block ref="7528035a93ee69cedb1dbddb2f0bfcc8" prefix="" category="inline-code"></block></block>
+  <block id="1713a64319d60f7c9dce75d4e48ee14f" category="section-title"><block ref="a02439ec229d8be0e74b0c1602392310" prefix="" category="inline-code"></block></block>
+  <block id="e4bcff97a02bbf2d15fc5a1c18b2b3dc" category="section-title"><block ref="32f68a60cef40faedbc6af20298c1a1e" prefix="" category="inline-code"></block></block>
+  <block id="56588499ccc533c0c70c77e5c90a971d" category="section-title">22.10的新功能</block>
 </blocks>

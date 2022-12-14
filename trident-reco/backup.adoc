@@ -16,7 +16,7 @@ summary: 瞭解NetApp儲存平台提供的資料保護與可恢復性選項。As
 
 
 
-== 備份etcd叢集資料
+== 備份 `etcd` 叢集資料
 
 Astra Trident將其中繼資料儲存在Kubernetes叢集的「etcd」資料庫中。定期備份「etcd」叢集資料、對於在災難情況下恢復Kubernetes叢集而言、非常重要。
 

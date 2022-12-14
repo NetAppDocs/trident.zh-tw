@@ -22,6 +22,7 @@ Astra Trident可讓Kubernetes使用者在建立磁碟區之後擴充磁碟區。
 
 NOTE: iSCSI磁碟區擴充支援「ontap－san」、「ONTAP－san經濟」、「Poolidfire－san」等驅動程式、需要Kubernetes 1.16及更新版本。
 
+.總覽
 擴充iSCSI PV包括下列步驟：
 
 * 編輯StorageClass定義、將「owvolVolume Expansion」欄位設定為「true」。

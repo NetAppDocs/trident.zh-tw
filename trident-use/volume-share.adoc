@@ -35,15 +35,19 @@ image::cross-namespace-sharing.png[跨命名空間共用的概念性圖表。]
 
 您只需幾個步驟就能設定NFS Volume共享。
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["一"] 設定來源PVc以共用磁碟區
 [role="quick-margin-para"]
 來源命名空間擁有者授予存取來源PVc中資料的權限。
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["二"] 授予在目的地命名空間中建立CR的權限
 [role="quick-margin-para"]
 叢集管理員授予目的地命名空間擁有者建立TridentVolume Reference CR的權限。
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["三"] 在目的地命名空間中建立TridentVolume Reference
 [role="quick-margin-para"]
 目的地命名空間的擁有者會建立TridentVolume Reference CR來參照來源PVC。
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["四"] 在目的地命名空間中建立從屬的PVc
 [role="quick-margin-para"]
 目的地命名空間的擁有者會建立從屬的PVc、以使用來源PVc的資料來源。
 
@@ -124,6 +128,7 @@ NOTE: 目的地PVc的大小必須小於或等於來源PVc。
 
 
 
+.結果
 Astra Trident讀取 `shareFromPVC` 在目的地永久虛擬磁碟上註釋、並將目的地PV建立為從屬磁碟區、而其本身並無儲存資源指向來源PV並共用來源PV儲存資源。目的地的PVc和PV似乎正常連結。
 
 
@@ -134,7 +139,7 @@ Astra Trident讀取 `shareFromPVC` 在目的地永久虛擬磁碟上註釋、並
 
 
 
-== 使用tridentctl Get查詢從屬磁碟區
+== 使用 `tridentctl get` 查詢從屬Volume
 
 使用[`tridentctl` 公用程式、您可以執行 `get` 取得從屬磁碟區的命令。如需詳細資訊、請參閱連結：../ Trident參考/ tridentctl.html[`tridentctl` 命令與選項]。
 

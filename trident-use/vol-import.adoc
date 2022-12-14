@@ -101,7 +101,7 @@ Trident 19.07及更新版本可處理PV的附加元件、並在匯入磁碟區�
 
 
 
-== ONTAP-NAS和ONTAP-NAA-Flexgroup匯入
+== `ontap-nas` 和 `ontap-nas-flexgroup` 匯入
 
 每個使用「ONTAP-NAS」驅動程式建立的Volume FlexVol 、都是ONTAP 一個在整個叢集上的功能。使用「ONTAP-NAS」驅動程式匯入FlexVols的運作方式相同。已存在於某個叢集上的一個功能、可以匯入為「ONTAP-NAS」的PVc。FlexVol ONTAP同樣地FlexGroup 、也可以將此數據匯入為「ONTAP-NAS-Flexgroup」PVCS。
 
@@ -142,7 +142,7 @@ NOTE: 已修正先前使用自訂Unix權限 匯入磁碟區的錯誤。您可以
 
 
 
-== ONTAP-SAN匯入
+== `ontap-san` 匯入
 
 Astra Trident也能匯入ONTAP 包含單一LUN的SAN FlexVols。這與「ONTAP-SAN」驅動程式一致、因為它會為FlexVol 每個實體磁碟和FlexVol 一個LUN在整個過程中建立一個版本。您可以使用「tridentctl import'」命令、方法與其他情況相同：
 
@@ -181,7 +181,7 @@ IMPORTANT: 若要由Astra Trident匯入某個類型的RW磁碟區。ONTAP如果�
 
 
 
-== 元素匯入
+== `element` 匯入
 
 您可以使用NetApp Element Trident將支援功能的軟體/NetApp HCI磁碟區匯入Kubernetes叢集。您需要Astra Trident後端的名稱、以及磁碟區的獨特名稱和PVc檔案、作為「tridentctl import'」命令的引數。
 
@@ -200,7 +200,7 @@ NOTE: Element驅動程式支援重複的Volume名稱。如果有重複的Volume�
 
 
 
-== GCP-CVS匯入
+== `gcp-cvs` 匯入
 
 
 TIP: 若要匯入以NetApp Cloud Volumes Service 支援的GCP磁碟區、請使用磁碟區路徑來識別該磁碟區、而非其名稱。
@@ -222,7 +222,7 @@ NOTE: Volume路徑是Volume匯出路徑的一部分、位於：/之後。例如�
 
 
 
-== Azure與NetApp檔案匯入
+== `azure-netapp-files` 匯入
 
 若要在後端匯入名為「azurenetappfiles_40517」的「azure-netapp-fil」磁碟區、並使用磁碟區路徑「importvol1」、請執行下列命令：
 

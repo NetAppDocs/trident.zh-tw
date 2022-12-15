@@ -18,15 +18,17 @@ summary: Kubernetes叢集通常由兩種類型的節點組成、每種節點負�
 
 == 驅動程式選擇與部署
 
+為您的儲存系統選取並部署後端驅動程式。
 
 
-=== 選擇ONTAP 一個後端驅動程式以供使用
 
-共有四種不同的後端驅動程式可供ONTAP 使用。這些驅動程式會因使用的傳輸協定以及儲存系統上的磁碟區配置方式而有所差異。因此、請仔細考量要部署的驅動程式。
+=== 背後驅動程式ONTAP
+
+以使用的傳輸協定和儲存系統上的磁碟區配置方式來區分後端驅動程式ONTAP 。因此、在決定要部署的驅動程式時、請謹慎考量。
 
 較高層級的應用程式若有需要共用儲存設備的元件（多個Pod存取相同的PVc）、則以NAS為基礎的驅動程式將是預設選擇、而區塊型iSCSI驅動程式則可滿足非共用儲存設備的需求。根據應用程式的需求、以及儲存設備和基礎架構團隊的舒適度來選擇傳輸協定。一般而言、大多數應用程式的差異不大、因此通常是根據是否需要共用儲存設備（如果有多個Pod需要同時存取）來決定。
 
-以下列出五個ONTAP 驅動程式供作幕後之用：
+可用ONTAP 的支援功能包括：
 
 * 「ONTAP-NAS」：每個提供的PV都是ONTAP 完整的FlexVolume。
 * 「ONTAP-NAS-EAS'：每個已配置的PV都是qtree、每個FlexVolume可設定的qtree數量（預設值為200）。
@@ -76,19 +78,19 @@ NOTE: 「Poolidfire - san」驅動程式也能複製PVCS。
 
 
 
-=== 選擇Cloud Volumes ONTAP 一個後端驅動程式以供使用
+=== 背後驅動程式Cloud Volumes ONTAP
 
 支援資料控管功能、並提供企業級的儲存功能、適用於各種使用案例、包括檔案共用、區塊層級儲存設備（NFS、SMB / CIFS及iSCSI）Cloud Volumes ONTAP 。Cloud Volume ONTAP 的相容驅動程式為「ONTAP-NAS」、「ONTAP-NAS經濟」、「ONTAP-SAN」和「ONTAP-SAN經濟」。適用於ONTAP Azure的Cloud Volume供應、適用於ONTAP GCP的Cloud Volume供應。
 
 
 
-=== 選擇Amazon FSX ONTAP for Sfor Sfa的後端驅動程式
+=== Amazon FSXfor ONTAP Sendbackend驅動程式
 
 Amazon FSX ONTAP for VMware可讓客戶運用熟悉的NetApp功能、效能和管理功能、同時充分發揮儲存AWS資料的簡易性、敏捷度、安全性和擴充性。FSX ONTAP for FSfor支援ONTAP的許多檔案系統功能和管理API。Cloud Volume ONTAP 的相容驅動程式為「ONTAP-NAS」、「ONTAP-NAAS-經濟」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」和「ONTAP-san經濟」。
 
 
 
-=== 選擇NetApp HCI / SolidFire的後端驅動程式
+=== NetApp HCI / SolidFire後端驅動程式
 
 NetApp HCI / SolidFire平台搭配使用的「Poolidfire」驅動程式、可協助管理員根據QoS限制、為Trident設定元素後端。如果您想要設計後端、以便針對Trident提供的磁碟區設定特定的QoS限制、請在後端檔案中使用「type」參數。管理員也可以使用「limitVolume Siz」參數、限制儲存設備上可建立的磁碟區大小。目前、磁碟區大小調整和磁碟區複寫等元素儲存功能不支援使用「Poolidfire - san」驅動程式。這些作業應透過Element Software Web UI手動完成。
 
@@ -104,7 +106,7 @@ NetApp HCI / SolidFire平台搭配使用的「Poolidfire」驅動程式、可協
 
 
 
-=== 選擇Azure NetApp Files 一個後端驅動程式以供使用
+=== 背後驅動程式Azure NetApp Files
 
 Astra Trident使用「azure-NetApp-files」驅動程式來管理 link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] 服務：
 
@@ -122,7 +124,7 @@ Astra Trident使用「azure-NetApp-files」驅動程式來管理 link:https://az
 
 
 
-=== 選擇一套後端驅動程式Cloud Volumes Service 以供運用GCP進行功能
+=== 支援GCP後端驅動程式Cloud Volumes Service
 
 Astra Trident使用「GCP-CVS」驅動程式、在Cloud Volumes Service GCP後端連結到該功能。若要在Trident上設定GCP後端、您必須在後端檔案中指定「ProjectNumber」、「apiRegion」和「apiKey」。專案編號可在GCP入口網站找到、API金鑰必須取自您在GCP上設定Cloud Volumes API存取時所建立的服務帳戶私密金鑰檔案。Astra Trident可在兩個磁碟區中建立CVS磁碟區 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["服務類型"^]：
 
@@ -131,9 +133,6 @@ Astra Trident使用「GCP-CVS」驅動程式、在Cloud Volumes Service GCP後�
 
 
 CVS和CVS效能磁碟區大小下限為100 GiB。
-
-
-CAUTION: 使用預設CVS服務類型["scorageClass=software"部署後端時、使用者*必須取得GCP上子1TiB Volume功能的存取權*、才能取得相關專案編號和專案ID的存取權。這是Trident配置子1TiB磁碟區所需的功能。如果沒有、則對於小於600 GiB的PVCs、Volume建立*將會失敗*。使用 link:https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["這份表格"^] 以取得對低於1TiB磁碟區的存取權。
 
 [cols="20,10,10,10,10,10,10"]
 |===
@@ -155,7 +154,7 @@ CAUTION: 使用預設CVS服務類型["scorageClass=software"部署後端時、�
 
 
 
-=== 專為特定後端使用率而設計的儲存類別
+=== 特定後端使用率
 
 篩選功能可在特定的儲存類別物件內使用、以決定要搭配該特定儲存類別使用的儲存資源池或集區集區集區。儲存類別可設定三組篩選器：「儲存設備」、「其他儲存設備」及/或「排除儲存設備」。
 
@@ -165,19 +164,19 @@ CAUTION: 使用預設CVS服務類型["scorageClass=software"部署後端時、�
 
 
 
-=== 模擬QoS原則的儲存類別設計
+=== 模擬QoS原則
 
 如果您想設計儲存類別來模擬服務品質原則、請建立儲存類別、並將「媒體」屬性設定為「HDD」或「SD」。根據儲存類別中提及的「媒體」屬性、Trident會選擇適當的後端、以提供「HDD」或「sd」集合體、以符合媒體屬性、然後將磁碟區的資源配置導向特定的集合體。因此、我們可以建立儲存等級Premium、將「媒體」屬性設為「sd」、可歸類為優質QoS原則。我們可以建立另一個儲存類別標準、將媒體屬性設為「HDD」、並將其歸類為標準QoS原則。我們也可以使用儲存類別中的「IOPS」屬性、將資源配置重新導向至可定義為QoS原則的元素應用裝置。
 
 
 
-=== 儲存等級設計、可根據特定功能來使用後端
+=== 根據特定功能使用後端
 
 儲存類別可設計用於將Volume資源配置導向特定後端、啟用精簡與完整資源配置、快照、複製及加密等功能。若要指定要使用的儲存設備、請建立儲存設備類別、以指定啟用所需功能的適當後端。
 
 
 
-=== 虛擬儲存資源池的儲存等級設計
+=== 虛擬儲存資源池
 
 所有Astra Trident後端均可使用虛擬儲存資源池。您可以使用任何Astra Trident提供的驅動程式、為任何後端定義虛擬儲存池。
 
@@ -194,13 +193,13 @@ NOTE: 定義虛擬儲存集區時、建議您不要嘗試重新排列後端定�
 
 
 
-=== 設計虛擬儲存資源池、以模擬不同的服務層級/QoS
+=== 模擬不同的服務層級/QoS
 
 您可以設計虛擬儲存池來模擬服務類別。使用適用於Azure NetApp Files 支援功能的Cloud Volume Service for效益的虛擬資源池實作、讓我們來看看如何設定不同的服務類別。使用代表不同效能等級的多個標籤來設定ANF後端。將「最大效能」設定為適當的效能層級、並在每個標籤下加入其他必要的層面。現在請建立不同的Kubernetes儲存類別、以便對應至不同的虛擬儲存資源池。使用「parameters.selector`」欄位、每個StorageClass都會呼叫哪些虛擬資源池可用於裝載磁碟區。
 
 
 
-=== 設計虛擬集區以指派特定的層面集區
+=== 指派特定的層面組合
 
 可從單一儲存後端設計多個具有特定層面的虛擬儲存集區。若要這麼做、請使用多個標籤來設定後端、並在每個標籤下設定所需的層面。現在、請使用「parameters.selector`」欄位來建立不同的Kubernetes儲存類別、該欄位會對應至不同的虛擬儲存資源池。在後端上進行資源配置的磁碟區、將會在所選的虛擬儲存資源池中定義各個層面。
 

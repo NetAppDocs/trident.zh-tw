@@ -461,14 +461,6 @@ QoS規格
 
 Astra Trident支援預設CVS服務類型為on的磁碟區 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["GCP"^]。無論CVS服務類型允許的最小值為何、Astra Trident都不支援低於100 GiB的CVS磁碟區。因此、如果要求的磁碟區小於最小大小、Trident會自動建立100 GiB磁碟區。
 
-[NOTE]
-====
-* NetApp建議客戶使用低於1TiB的磁碟區來處理非正式作業工作負載。
-* 使用預設的CVS服務類型部署後端 `storageClass=software`、請註冊以存取GCP上的子1TiB Volume功能、以取得相關的專案編號和專案ID。這是Trident配置子1TiB磁碟區所需的功能。如果沒有、則低於600 GiB的PVCs *將會失敗*。
-* link:https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["註冊以存取低於1TiB的磁碟區。"]
-
-
-====
 除了全域組態值、在GCP上使用CVS時、也可使用這些選項。
 
 [cols="3*"]

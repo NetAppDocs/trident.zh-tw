@@ -15,7 +15,7 @@ summary: 請先檢閱支援的前端、後端及主機組態、開始著手。
 請先檢閱支援的前端、後端及主機組態、開始著手。
 
 
-NOTE: 若要瞭解Astra Trident使用的連接埠、請參閱 link:../trident-reference/trident-ports.html["請按這裡"]。
+NOTE: 若要瞭解Astra Trident使用的連接埠、請參閱 link:../trident-reference/ports.html["請按這裡"]。
 
 
 

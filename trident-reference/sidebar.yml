@@ -3,7 +3,7 @@ section: trident-reference
 title: 參考資料
 entries:
 - title: Astra Trident連接埠
-  url: "/trident-reference/trident-ports.html"
+  url: "/trident-reference/ports.html"
 - title: Astra Trident REST API
   url: "/trident-reference/rest-api.html"
 - title: 命令列選項

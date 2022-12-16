@@ -985,26 +985,14 @@
   <block id="cda5977f42a72ef440d3b6233b9970bf" category="paragraph">對於先前存在的後端、使用「tridentctl update backend」更新後端、可確保Astra Trident自動管理匯出原則。這會建立以後端UUID命名的新匯出原則、而後端上的磁碟區會在重新掛載時使用新建立的匯出原則。</block>
   <block id="de1d1f6b64a5c5b6890c313888b290b7" category="admonition">刪除具有自動管理匯出原則的後端、將會刪除動態建立的匯出原則。如果重新建立後端、則會將其視為新的後端、並導致建立新的匯出原則。</block>
   <block id="920708f6d71767dcff22f9e43b4ec0c0" category="paragraph">如果即時節點的IP位址已更新、您必須重新啟動節點上的Astra Trident Pod。Astra Trident接著會更新其管理的後端匯出原則、以反映此IP變更。</block>
-  <block id="141da5e3f576179cbf2f6506b07ef538" category="summary">從2001版Astra Trident開始、您可以在Kubernetes層建立持續Volume（PV）的快照。您可以使用這些快照來維護由Astra Trident所建立之磁碟區的時間點複本、並排程建立其他磁碟區（複本）。</block>
-  <block id="72dfd0afcd8b2eda3e5ec2268b7da6b2" category="paragraph">從2001版Astra Trident開始、您可以在Kubernetes層建立PV快照。您可以使用這些快照來維護由Astra Trident所建立之磁碟區的時間點複本、並排程建立其他磁碟區（複本）。Volume Snapshot可支援「ONTAP-NAS」、「ONTAP-SAN」、「ONTAP-SAN經濟」、「Poolidfire - SAN」、「GCP - CVS」、 以及「azure-NetApp-file-fil」驅動程式。</block>
-  <block id="332138092a1597c4d5e69679199e490c" category="inline-link">版本部落格</block>
-  <block id="006b05a472974308122f7f05ef147e80" category="admonition">此功能可從Kubernetes 1.17（試用版）取得、GA版本為1.20。若要瞭解從試用版移轉至GA所涉及的變更、請參閱<block ref="02a1c904d0035e03c61e261dbe622345" category="inline-link-rx"></block>。隨着GA的問世、推出了「v1」API版本、並向下相容於「v1Beta1」快照。</block>
-  <block id="26c4fe55fc424c7b41b517701f54f074" category="inline-link">正在驗證Webhook</block>
-  <block id="46b189b23dfbd5f3f622a1c04590b05e" category="admonition">「csi Snapshotter」提供<block ref="927ab0e919f8034deab1249bed53a289" category="inline-link-rx"></block> 協助使用者驗證現有的v1Beta1快照、並確認它們是有效的資源物件。驗證Webhook會自動標示無效的快照物件、並防止未來建立無效物件。驗證Webhook是由Kubernetes Orchestrator部署。請參閱指示以手動部署驗證Webhook<block ref="07cb3cdda0599ec9f2e82062ecd12e82" category="inline-link-rx"></block>。尋找無效快照資訊清單的範例<block ref="bceda34f0850fc68d82f08741abbc69e" category="inline-link-rx"></block>。</block>
-  <block id="f535be08d3997f1a801b132862d99a5c" category="paragraph">以下範例說明使用快照所需的架構、並說明如何建立及使用快照。</block>
-  <block id="b91e58d7d80a51e4fa86b9ab27dca505" category="paragraph">在建立Volume Snapshot之前、請先設定 <block ref="c740b46915208e935cb2017421ec0264" category="inline-link-macro-rx"></block>。</block>
   <block id="4744d2c82c1c470ab40280b2ebba0c08" category="paragraph">《driver》指的是Astra Trident的csi驅動程式。「刪除原則」可以是「刪除」或「保留」。當設定為「保留」時、即使刪除「Volume Snapshot」物件、也會保留儲存叢集上的基礎實體快照。</block>
   <block id="0ab6380edce0d0e7b8538ebf3215ebbd" category="section-title">步驟2：建立現有PVc的快照</block>
-  <block id="ef55488b02c4b0173eb6f7bb867db086" category="paragraph">快照是針對名為「pvc1」的永久虛擬資料建立、快照名稱則設為「pvc1-snap」。</block>
   <block id="501470eb266ff6637de993e3f193ba40" category="paragraph">這會建立一個「Volume Snapshot」物件。Volume Snapshot類似於一個PVC、並與代表實際快照的「Volume SnapshotContent」物件相關聯。</block>
   <block id="320e7c242b569ab5bbdaa490b3df817e" category="paragraph">您可以透過描述「pvc1-snap」Volume Snapshot的「Volume SnapshotContent」物件來識別該物件。</block>
   <block id="b3841b02d7da01fde480332e3295a08e" category="paragraph">「快照內容名稱」可識別提供此快照的Volume SnapshotContent物件。「Ready to use」（準備使用）參數表示Snapshot可用於建立新的PVc。</block>
   <block id="7957320b126678e9b713ef146b3ac009" category="section-title">步驟3：從Volume Snapshot建立PVCS</block>
-  <block id="4d780b57cad08f64bcd1ea7351a15588" category="paragraph">請參閱下列範例、瞭解如何使用快照建立永久虛擬資料：</block>
   <block id="2592284f87bba60e4c05337a134ef047" category="paragraph">「Data來源」顯示、必須使用名為「pvc1-snap」的Volume Snapshot建立PVc作為資料來源。這會指示Astra Trident從快照建立一個永久虛擬資料。建立好永久虛擬基礎架構之後、就能將它附加到Pod上、就像使用任何其他永久虛擬基礎架構一樣使用。</block>
   <block id="bda01e3aa44c411129a6fbf29445bfb4" category="admonition">刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。若要刪除Astra Trident磁碟區、則應移除該磁碟區的快照。</block>
-  <block id="fab3fcd54585164dbc9d7adf57f8e3d9" category="list-text"><block ref="fab3fcd54585164dbc9d7adf57f8e3d9" category="inline-link-macro-rx"></block></block>
-  <block id="c740b46915208e935cb2017421ec0264" category="list-text"><block ref="c740b46915208e935cb2017421ec0264" category="inline-link-macro-rx"></block></block>
   <block id="821b0ad941ad2559ef18eb8de56a470e" category="summary">Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。如果您使用的是其中一個後端的ONTAP-NAS、ONTAP-NAS-節約、ONTAP-NAS-Flexgroup驅動程式、則您的工作節點需要NFS工具。否則他們需要iSCSI工具。</block>
   <block id="89d83ec6e8ec0c087fbc4aedc555b362" category="doc">準備工作節點</block>
   <block id="8b1d1603c11aec689eb0d88a5ebabb67" category="paragraph">Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。如果您使用的是「ONTAP-NAS」、「ONTAP-NAS-節約」或「ONTAP-NAS-Flexgroup」驅動程式來支援其中一個後端、則您的工作節點需要NFS工具。否則他們需要iSCSI工具。</block>
@@ -2804,15 +2792,9 @@
   <block id="c949166d6970748c0094c800daa3324a" category="sidebar">管理Astra Trident</block>
   <block id="63d5049791d9d79d86e9a108b0a999ca" category="sidebar">參考資料</block>
   <block id="324fb1352ffffb105d10013810c42896" category="sidebar">Kubernetes和Astra Trident物件</block>
-  <block id="67b47f9232c8507cb74ec2668b3bb75d" category="list-text">建立Volume快照需要建立外部快照控制器和自訂資源定義（CRD）。這是正在使用的Kubernetes Orchestrator的責任（例如：Kubeadm、GKE、OpenShift）。</block>
   <block id="9c87569b835a8f66b7490390d350d9a4" category="paragraph">如果您的Kubernetes發佈版本未包含快照控制器和客戶需求日、您可以依照下列方式進行部署。</block>
   <block id="469f7ca16938508b5dcb777767828b70" category="list-text">建立Volume Snapshot客戶需求日。</block>
-  <block id="351d6da9c87ca81d91cd4755e4730d82" category="open-title">V5.0元件</block>
-  <block id="3d5442333756ee7fdf64adf51439d855" category="open-title">v3.0.3元件</block>
   <block id="65b146df7d5c27b212f54a7c9980960b" category="list-text">在所需的命名空間中建立Snapshot控制器。編輯下方的Yaml清單以修改命名空間。</block>
-  <block id="1cfbd89d099907d91122529e677f1c71" category="admonition">如果在GKE環境中設定隨需磁碟區快照、請勿建立快照控制器。GKE使用內建的隱藏式快照控制器。</block>
-  <block id="5e393c0ca8392e0c84201770c8b544ca" category="open-title">V5.0控制器</block>
-  <block id="ea567d0d1a58b120efa89893cae2966a" category="open-title">v3.0.3控制器</block>
   <block id="086e6c16e3fe8e13c336612ef636aa02" category="sidebar">Astra Trident</block>
   <block id="5a333b18a215ecfd4457ba0e1732654b" category="section-title">是否能在已設定負載共享鏡射的SVM上、對磁碟區進行Trident資源配置？</block>
   <block id="0e7629426b9d7596800cd5d72f558a7f" category="paragraph">您可以為透過NFS提供資料的SVM根磁碟區建立負載共享鏡像。針對Trident所建立的磁碟區、自動更新負載共享鏡像。ONTAP這可能會導致掛載磁碟區延遲。使用Trident建立多個磁碟區時、資源配置磁碟區會仰賴ONTAP 於更新負載共享鏡像。</block>
@@ -2839,8 +2821,6 @@
   <block id="6dc4cb19f2792a3eadfa64d4b4b6d177" category="paragraph">您所有的Kubernetes工作節點都必須安裝適當的NFS工具。請參閱 <block ref="f1f954e59a21e3ffe189e77dd2ee9f86" category="inline-link-macro-rx"></block> 以取得更多詳細資料。</block>
   <block id="6adbf3424e5de1b4e2baad3b4d632c4a" category="paragraph">您可以更新現有的後端、以使用不同的驗證方法或旋轉其認證資料。這兩種方法都可行：使用使用者名稱/密碼的後端可更新以使用憑證；使用憑證的後端可更新為使用者名稱/密碼。若要這麼做、您必須移除現有的驗證方法、然後新增驗證方法。然後使用更新的backend.json檔案、其中包含執行「tridentctl後端更新」所需的參數。</block>
   <block id="da5e3ce6518bd669264e1e0768c2d9f1" category="paragraph">您所有的Kubernetes工作節點都必須安裝適當的iSCSI工具。請參閱 <block ref="f1f954e59a21e3ffe189e77dd2ee9f86" category="inline-link-macro-rx"></block> 以取得更多詳細資料。</block>
-  <block id="4b38dd8e9c8be42320db7f14bd043f55" category="paragraph">對於Kubernetes 1.20及更新版本、請使用v1 Snapshot CRD搭配v5.0或更新版本的Snapshot元件。對於Kubernetes 1.19、請使用v1beta1搭配v3.0.3快照元件。</block>
-  <block id="95454921c0beb7e02eef219b349c8b2e" category="paragraph">對於Kubernetes 1.20及更新版本、請使用5.0版或更新版本。對於Kubernetes 1.19版、請使用v3.0.3</block>
   <block id="4169ad079be240db45893881a795d255" category="paragraph">在上建立問題<block ref="e71a8230f1c77ee7d957187295b859e4" category="inline-link-rx"></block> 並在問題的主題和說明中提及* RFE*。</block>
   <block id="a7cfd917113a9ee9c1e789887d1d809f" category="inline-link-macro">不和通路</block>
   <block id="c0ecc0f40acc112b78de6c3fd3c29e83" category="paragraph">如果您有任何問題、問題或要求、請透過我們的Astra與我們聯絡 <block ref="6130664377fa14615bb1abd5257e9714" category="inline-link-macro-rx"></block> 或GitHub。</block>
@@ -3407,7 +3387,6 @@
   <block id="701fd6484c41253418049cc2bf503a1e" category="section-title"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block> 使用IPv6的驅動程式</block>
   <block id="4a8519b09a0b2a70d40200e88ec2c5dc" category="section-title"><block ref="caafdf62a2c609bfa5316118231a1007" prefix="" category="inline-code"></block> 驅動程式</block>
   <block id="c495273b4c0d19189acec3e2135954e0" category="section-title"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block> 驅動程式</block>
-  <block id="cd694f8c60b5f42437f7390e015a46b5" category="section-title">步驟1：設定<block ref="19476662cd814e0aa085eca121de89b8" prefix=" " category="inline-code"></block></block>
   <block id="454631312fab234fc91bb2f85a751fac" category="section-title"><block ref="913a4b06671d1e04e6582a85afe3abbe" prefix="" category="inline-code"></block></block>
   <block id="e892fda55ead7e15eed753e850d35f12" category="section-title">步驟2：建立<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR</block>
   <block id="a0d777cf1acc36406564409adef85b17" category="section-title">支援的版本為何<block ref="a226e9fbdfc1c8dd7e7fef4d333f86ed" prefix=" " category="inline-code"></block>？</block>
@@ -3459,4 +3438,18 @@
   <block id="c0e37f832e8a72edd734ffdce2ad0bed" category="section-title">虛擬儲存資源池設計</block>
   <block id="b6e026d8066036cf2628237905a58384" category="section-title">模擬不同的服務層級/QoS</block>
   <block id="628fd4af2a4e2fce014efbf03b84bb71" category="section-title">指派特定的層面組合</block>
+  <block id="2068f3aa095d99b45558d078cf0ccef1" category="summary">您可以建立持續磁碟區（PV）的Kubernetes Volume Snapshot（Volume Snapshot）、以維護Astra Trident磁碟區的時間點複本。此外、您也可以從現有的Volume Snapshot建立新的Volume、也稱為_clon__。支援Volume Snapshot<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>、<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>、<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>和<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 驅動程式：</block>
+  <block id="1ee74a3407fb0558688a68f8a4011d8b" category="paragraph">您必須擁有外部快照控制器和自訂資源定義（CRD）。這是Kubernetes Orchestrator的責任（例如：Kubeadm、GKE、OpenShift）。</block>
+  <block id="4e9d71562a7ee4d135b94aa7e33203d4" category="paragraph">如果您的Kubernetes發佈版本未包含快照控制器和CRD、請參閱 <block ref="66b3d1bc7c4350b2c78856aa6724afe9" category="inline-xref-macro-rx"></block>。</block>
+  <block id="af79c649a1b22da7699446c292250fcc" category="admonition">如果在GKE環境中建立隨需磁碟區快照、請勿建立快照控制器。GKE使用內建的隱藏式快照控制器。</block>
+  <block id="a19c6b176bcf5d5df56d61bfda053c09" category="section-title">步驟1：建立<block ref="19476662cd814e0aa085eca121de89b8" prefix=" " category="inline-code"></block></block>
+  <block id="5113d8074a0a5072af49f1e1fa6901bd" category="paragraph">此範例會建立Volume Snapshot類別。</block>
+  <block id="ce43eda1a51d5de70f422e14ca195db3" category="paragraph">如需詳細資訊、請參閱連結：../ Trident參考/ objects.html#Kubernetes-volumesnapshotclass-objects<block ref="19476662cd814e0aa085eca121de89b8" prefix="[" category="inline-code"></block>]。</block>
+  <block id="a599393b295f7ad56a8c7f1d327290de" category="paragraph">此範例會建立現有PVc的快照。</block>
+  <block id="4191daf22334ac03a54cdf8adbfd6dfe" category="paragraph">在此範例中、快照是針對名為的PVc建立<block ref="30520f4f96804df83914260b79f55962" prefix=" " category="inline-code"></block> 快照名稱設為<block ref="2599ab7993e15386327b6345bc1cc4e1" prefix=" " category="inline-code"></block>。</block>
+  <block id="b2b2f8b28370c274887f8aa2f82bb5d4" category="paragraph">此範例使用快照建立一個PVC..</block>
+  <block id="f6bd0d7447ff66cc6b859603a88fbde9" category="section-title">相關連結</block>
+  <block id="35aa4a2a819e526c2e930e487df8d423" category="list-text"><block ref="35aa4a2a819e526c2e930e487df8d423" category="inline-link-macro-rx"></block></block>
+  <block id="19476662cd814e0aa085eca121de89b8" category="inline-link-macro">Volume SnapshotClass</block>
+  <block id="d63cadc96caf4b05f8fa532b08e889da" category="list-text"><block ref="d63cadc96caf4b05f8fa532b08e889da" category="inline-link-macro-rx"></block></block>
 </blocks>

@@ -1392,7 +1392,6 @@
   <block id="443432948b68bb63d707ce7ecc4a021a" category="cell">csi拓撲</block>
   <block id="af7c8216a3289efe1a298a19c00b8b8c" category="section-title">已測試的主機作業系統</block>
   <block id="57b3e1695eb7d16642702fbce3837b86" category="paragraph">依預設、Astra Trident會在容器中執行、因此會在任何Linux工作者上執行。不過、這些員工必須能夠使用標準NFS用戶端或iSCSI啟動器來掛載Astra Trident提供的磁碟區、視您使用的後端而定。</block>
-  <block id="814a65adc75608da31ab5685f9b1c1ce" category="paragraph">儘管Astra Trident並未正式「支援」特定作業系統、但下列Linux套裝作業系統仍可正常運作：</block>
   <block id="597a56086e1f9d7ca5e8f55c40a0153a" category="list-text">受OpenShift Container Platform支援的RedHat CoreOS（RMCOS）版本</block>
   <block id="11ea58814ce429c3e3254a63f8cde7a4" category="paragraph">「tridentctl」公用程式也可在任何這些Linux版本上執行。</block>
   <block id="13d80777c8fd43e555c1f5b1b72d7ef0" category="section-title">主機組態</block>
@@ -3452,4 +3451,6 @@
   <block id="35aa4a2a819e526c2e930e487df8d423" category="list-text"><block ref="35aa4a2a819e526c2e930e487df8d423" category="inline-link-macro-rx"></block></block>
   <block id="19476662cd814e0aa085eca121de89b8" category="inline-link-macro">Volume SnapshotClass</block>
   <block id="d63cadc96caf4b05f8fa532b08e889da" category="list-text"><block ref="d63cadc96caf4b05f8fa532b08e889da" category="inline-link-macro-rx"></block></block>
+  <block id="2f82d12ae3ce8f940e10b062c5134f3d" category="paragraph">儘管Astra Trident並未正式「支援」特定作業系統、但已知下列項目仍可正常運作：</block>
+  <block id="31f8757839909e87266f2b53482c86ef" category="list-text">Windows Server 2019</block>
 </blocks>

@@ -451,20 +451,15 @@
   <block id="2a778cf7220cdde142651975e1bcd90f" category="paragraph">在虛擬資源池清單之外指定的任何層面、都會對後端進行全域設定、並套用至所有虛擬資源池、而每個虛擬資源池則可個別指定一個或多個層面（覆寫任何後端全域層面）。</block>
   <block id="6aefc2a02fa1ec1f6ac8e9dbd5104efe" category="admonition">定義虛擬儲存集區時、請勿嘗試重新排列後端定義中現有虛擬集區的順序。此外、建議您不要編輯/修改現有虛擬資源池的屬性、改為定義新的虛擬資源池。</block>
   <block id="5a53576f0ba98311e845ad0243bed6b7" category="paragraph">大部分方面都是以後端特定的詞彙來指定。最重要的是、高寬比值不會暴露在後端驅動程式之外、也無法在「儲存類別」中進行比對。而是由系統管理員為每個虛擬資源池定義一或多個標籤。每個標籤都是「金鑰：值配對」、而且標籤可能在獨特的後端之間通用。如同個別層面、標籤可依資源池指定、也可全域指定至後端。不同於具有預先定義名稱和值的各個層面、系統管理員有充分的判斷權、可視需要定義標籤金鑰和值。</block>
-  <block id="a4d6bfb65b6541e04772c0d5180e726e" category="paragraph">「torageClass」會參照選取元參數中的標籤、來識別要使用的虛擬資源池。虛擬資源池選取器支援六個運算子：</block>
   <block id="e1b3ec89ead7f83a9245ed5c9cacfdbf" category="cell">營運者</block>
   <block id="499badcb6f450c7f46c51d873eb84286" category="cell">`='</block>
   <block id="354653142ec321459dfd6d71444e992e" category="cell">效能=優異</block>
-  <block id="d2c49c25d96d87e40bc641b9d5302b36" category="cell">資源池的標籤值必須相符</block>
   <block id="5a5292b0a0d0379f0f1b12801b09b266" category="cell">！！=</block>
   <block id="eccde6822783bd75209c9b6a2d357f6c" category="cell">效能！=極致</block>
-  <block id="2944853a5f146abd2671adbecd5c25a3" category="cell">集區的標籤值不得相符</block>
   <block id="ae2bef277194f73d24a36a78009aac1e" category="cell">《in》</block>
   <block id="f8cf8c23afb5459dbf7c24b685caf85b" category="cell">位置（東部、西部）</block>
-  <block id="26aac934d614b1b3e5db46d8fc664ec6" category="cell">集區的標籤值必須位於一組值中</block>
   <block id="1a031eecbce49366e550273b9321b909" category="cell">《不」</block>
   <block id="b5585f3f9b45f391fee5dd15e6516450" category="cell">效能附註（銀、銅）</block>
-  <block id="499fec8ad2646f2de982559111e26a4c" category="cell">集區的標籤值不得為b</block>
   <block id="4d5445eb6c70cdab8d3ad5e71367f42a" category="summary">深入瞭解Astra Trident如何為其驅動程式建立磁碟區快照。</block>
   <block id="e9c3828cd06711f9036bb4ce862a32c5" category="doc">Volume快照</block>
   <block id="a264f15eaddf1d50155847119366be6b" category="list-text">對於「ONTAP-NAS」、「ONTAP-SAN」、「GCP-CVS」和「azure-NetApp-files'」等驅動程式、每個「持續Volume（PV）」都會對應FlexVol 到一個版本。因此、磁碟區快照會建立為NetApp快照。NetApp的Snapshot技術提供比競爭快照技術更高的穩定性、擴充性、可恢復性和效能。這些Snapshot複本無論在建立所需的時間、還是在儲存空間中、都能發揮極高的效率。</block>
@@ -3453,4 +3448,16 @@
   <block id="d63cadc96caf4b05f8fa532b08e889da" category="list-text"><block ref="d63cadc96caf4b05f8fa532b08e889da" category="inline-link-macro-rx"></block></block>
   <block id="2f82d12ae3ce8f940e10b062c5134f3d" category="paragraph">儘管Astra Trident並未正式「支援」特定作業系統、但已知下列項目仍可正常運作：</block>
   <block id="31f8757839909e87266f2b53482c86ef" category="list-text">Windows Server 2019</block>
+  <block id="758ef9050bcb89a046f8b79d56db9490" category="paragraph">答<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 透過參照選取元參數中的標籤來識別要使用的虛擬資源池。虛擬資源池選取器支援下列運算子：</block>
+  <block id="3b64653c97a388d828849314b6a1b383" category="cell">集區的標籤值必須：</block>
+  <block id="6da89265a9a8b0b28eb4946bb2ec0c6d" category="cell">相符</block>
+  <block id="ecf92052d55345fee4602d9eb8c22063" category="cell">不相符</block>
+  <block id="c6c1caf73b0f83d807abe5a717014ab7" category="cell">加入一組值</block>
+  <block id="8daf6b016f4033d59900c23f162c0f73" category="cell">不在一組值中</block>
+  <block id="c6bfba38b789fec8271d1d1496a9ee59" category="cell"><block ref="42538adbdb6240b2b083a000a615d5bd" prefix="" category="inline-code"></block></block>
+  <block id="152f5dc0f7ac734f8e8ee17d4a482462" category="cell">保護</block>
+  <block id="7b532e697a35209f3df3956577cc3d9c" category="cell">存在於任何值</block>
+  <block id="eb0254f1d0a82e646c239d4d2e2f83ac" category="cell"><block ref="f65e5ff2a1bb1af969dccabe7dcd5cdd" prefix="" category="inline-code"></block></block>
+  <block id="67a3b723b2d9024808eb2c6e686d00a0" category="cell">!保護</block>
+  <block id="1fde97909b90bb329db2062f7744bd45" category="cell">不存在</block>
 </blocks>

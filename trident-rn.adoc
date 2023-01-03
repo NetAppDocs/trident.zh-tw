@@ -293,7 +293,7 @@ WARNING: v21.10.0版本發生問題、可在移除節點後將Trident控制器�
 * 如果使用者刪除由Astra Trident提供的PV、然後再刪除對應的PVC、則Astra Trident不會自動刪除備份Volume。您應該透過「tridentctl」或REST API來移除磁碟區。
 * 除非集合體是每個資源配置要求的唯一集合體、否則無法同時配置多個支援區。ONTAP FlexGroup
 * 使用Astra Trident over IPv6時、您應該在後端定義的方括弧內指定「managementLIF」和「data LIF」。例如：「[FD20：8b1e：b258：2000：f816：3eff：feec：0]。
-* 如果OpenShift 4.5使用「Poolidfire - san」驅動程式、請確定基礎工作者節點使用MD5做為CHAP驗證演算法。
+* 如果使用 `solidfire-san` 使用OpenShift 4.5的驅動程式、請確保基礎工作者節點使用MD5做為CHAP驗證演算法。元素12.7提供安全的FIPS相容CHAP演算法SHA1、SHA-256和SHA3-256。
 
 
 

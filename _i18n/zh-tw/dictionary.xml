@@ -1144,7 +1144,6 @@
   <block id="77f69e470b8766d2dc5df4b7f469ed72" category="cell">要使用的Snapshot原則</block>
   <block id="54b94bba5d336f4e3d5fd7e88544fad1" category="cell">要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy</block>
   <block id="952e3a12d35e717bf86a6000b0c08976" category="cell">《adaptiveQosPolicy》</block>
-  <block id="831924abd31e90baedabed887dbfc24c" category="cell">要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy。不受ONTAP-NAS-經濟支援。</block>
   <block id="11f9fcd55c1d81cf352f86fe4cdfd444" category="cell">保留給快照「0」的磁碟區百分比</block>
   <block id="af6626456fa359992271ea88de34094f" category="cell">如果「快照原則」為「無」、則其他為「」</block>
   <block id="6f5c0c94b1a17baffd2c33facaa10db6" category="cell">建立複本時、從其父複本分割複本</block>
@@ -3460,4 +3459,5 @@
   <block id="1fde97909b90bb329db2062f7744bd45" category="cell">不存在</block>
   <block id="5eb07a7cb7d445ef6bbb17270c65cf52" category="list-text">若搭配使用RMCOS 4.5或更新版本、或其他與RHEL相容的Linux套裝作業系統<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 驅動程式和元素OS 12.5或更早版本、請確定CHAP驗證演算法已在中設定為MD5<block ref="104f48adc29dc1e1d7c9bbe7b5dd3f8d" prefix=" " category="inline-code"></block>。元素12.7提供安全的FIPS相容CHAP演算法SHA1、SHA-256和SHA3-256。</block>
   <block id="18c20e5d2e368f36f420dd39019d460f" category="list-text">如果使用<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 使用OpenShift 4.5的驅動程式、請確保基礎工作者節點使用MD5做為CHAP驗證演算法。元素12.7提供安全的FIPS相容CHAP演算法SHA1、SHA-256和SHA3-256。</block>
+  <block id="5896cc977dd7b9854957e18a2a5bf072" category="cell">要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy。不受ONTAP-NAS-經濟支援。</block>
 </blocks>

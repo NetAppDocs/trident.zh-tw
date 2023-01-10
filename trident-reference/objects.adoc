@@ -47,7 +47,7 @@ Kubernetes「PeristentVolume Claim」物件是Kubernetes叢集使用者所提出
 | 註釋 | Volume選項 | 支援的驅動程式 
 
 
-| trident.netapp.io/fileSystem | 檔案系統 | ONTAP-SAN、solidfire-san、Eseries -iSCSI、ONTAP-san經濟型 
+| trident.netapp.io/fileSystem | 檔案系統 | ONTAP-SAN、solidfire-san、ONTAP-san經濟型 
 
 
 | trident.netapp.io/cloneFromPVC | cloneSourceVolume | ONTAP-NAS、ONTAP-SAN、solidfire-san、azure-NetApp-Files、GCP-CVS、 ONTAP-san經濟型 
@@ -170,11 +170,11 @@ volumeBindingMode: Immediate
 | 媒體1^ | 字串 | HDD、混合式、SSD | 資源池包含此類型的媒體、混合式表示兩者 | 指定的媒體類型 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-san 
 
 
-| 資源配置類型 | 字串 | 纖薄、厚實 | Pool支援此資源配置方法 | 指定的資源配置方法 | 厚：全ONTAP 系列支援iSCSI；薄型：全ONTAP 系列支援整合式SAN 
+| 資源配置類型 | 字串 | 纖薄、厚實 | Pool支援此資源配置方法 | 指定的資源配置方法 | 厚：全ONTAP 是邊、薄：全ONTAP 是邊、邊、邊、邊、邊、邊、邊、邊、邊、邊、邊 
 
 
 | 後端類型 | 字串  a| 
-ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-san、 Eseries - iSCSI、GCP-CVS、azure-NetApp-Files、ONTAP-san經濟型
+ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-san、GCP-CVS、azure-NetApp-Files、ONTAP-san經濟
 | 集區屬於此類型的後端 | 指定後端 | 所有驅動程式 
 
 
@@ -216,7 +216,7 @@ ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-sa
 | 屬性 | 類型 | 價值 | 說明 | 相關驅動因素 | Kubernetes版本 
 
 
-| FSType | 字串 | ext4、ext3、xfs等 | 區塊磁碟區的檔案系統類型 | solidfire-san、ontap、nap、nap、nas經濟、ontap、nas、flexgroup、ontap、san、 ONTAP-san經濟型、E系列-iSCSI | 全部 
+| FSType | 字串 | ext4、ext3、xfs等 | 區塊磁碟區的檔案系統類型 | solidfire-san、ontap、nap、nap、nas經濟、ontap、nas、flexgroup、ontap、san、ONTAP-san經濟型 | 全部 
 
 
 | owVolume擴充 | 布林值 | 對、錯 | 啟用或停用對增加PVc大小的支援 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、ONTAP-san經濟型、 solidfire-san、gcp-CVS、azure-netapp檔案 | 1.11+ 

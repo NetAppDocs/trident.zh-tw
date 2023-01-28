@@ -1259,8 +1259,6 @@
   <block id="c732962a4a01ea5f406ec66e50e98903" category="admonition">您無法使用「tridentctl」來更新或刪除包含相關「TridentBackendConfig」物件的後端。若要瞭解在「tridentctl」和「TridentBackendConfig」之間切換的步驟、 <block ref="8d6bc70a41f48e3f72c3f5ea8752090b" category="inline-link-macro-rx"></block>。</block>
   <block id="24ca391029d6df294c5d5b8f1fe5b4eb" category="summary">瞭解如何使用ONTAP NetApp NAS驅動程式設定功能的功能。ONTAP</block>
   <block id="4d80e2460d711b841338dfbeea2ca8c1" category="paragraph">深入瞭解如何使用ONTAP 功能性和功能性NAS驅動程式來設定功能性的後端。ONTAP Cloud Volumes ONTAP</block>
-  <block id="df3afb1ce4cf5592326d7f536313cbc9" category="list-text"><block ref="df3afb1ce4cf5592326d7f536313cbc9" category="inline-link-macro-rx"></block></block>
-  <block id="6a60ddae29750feed1e12421a92ea824" category="list-text"><block ref="6a60ddae29750feed1e12421a92ea824" category="inline-link-macro-rx"></block></block>
   <block id="c109878131f34375d85b7eff9721dcde" category="summary">瞭解如何在安裝Astra Trident時建立及使用元素後端。</block>
   <block id="d1d184cecc23825cff20fabf3cdfb862" category="list-text">支援的儲存系統、可執行Element軟體。</block>
   <block id="4055116469942da7f6ed83abcf57d0a4" category="list-text">提供給NetApp HCI / SolidFire叢集管理員或租戶使用者的認證、以管理磁碟區。</block>
@@ -3460,4 +3458,7 @@
   <block id="054b5072368dea4f8748909c16c7de98" category="cell">厚：全ONTAP 是邊、薄：全ONTAP 是邊、邊、邊、邊、邊、邊、邊、邊、邊、邊、邊</block>
   <block id="dbdc06f8742b98dcacdf7fdb1af111ea" category="paragraph">ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-san、GCP-CVS、azure-NetApp-Files、ONTAP-san經濟</block>
   <block id="f888aa18c19e41f8c1263fa99ca8b94c" category="cell">solidfire-san、ontap、nap、nap、nas經濟、ontap、nas、flexgroup、ontap、san、ONTAP-san經濟型</block>
+  <block id="a64f78ea5d42780118e8f5c7f6cfdcbb" category="list-text"><block ref="a64f78ea5d42780118e8f5c7f6cfdcbb" category="inline-link-macro-rx"></block></block>
+  <block id="65a38da8aec2b99cf44dbf919fbd6991" category="list-text"><block ref="65a38da8aec2b99cf44dbf919fbd6991" category="inline-link-macro-rx"></block></block>
+  <block id="5e91194ed6174e8f5eb09a2fffc13dad" category="admonition">客戶必須使用<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動需要資料保護、災難恢復和行動力的正式作業工作負載。Astra Control為使用建立的磁碟區提供無縫保護、災難恢復和行動性<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式：。<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 只有在預期磁碟區使用量會比ONTAP 支援的容量高出許多的有限使用案例中、才應使用驅動程式、而且不會有預期的資料保護、災難恢復或移動性（在Kubernetes叢集之間移動磁碟區）需求。</block>
 </blocks>

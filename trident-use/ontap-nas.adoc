@@ -13,9 +13,12 @@ summary: 瞭解如何使用ONTAP NetApp NAS驅動程式設定功能的功能。O
 
 深入瞭解如何使用ONTAP 功能性和功能性NAS驅動程式來設定功能性的後端。ONTAP Cloud Volumes ONTAP
 
-* link:ontap-nas-prep.html["準備"^]
-* link:ontap-nas-examples.html["組態與範例"^]
+* link:ontap-nas-prep.html["準備"]
+* link:ontap-nas-examples.html["組態與範例"]
 
+
+
+WARNING: 客戶必須使用 `ontap-nas` 驅動需要資料保護、災難恢復和行動力的正式作業工作負載。Astra Control為使用建立的磁碟區提供無縫保護、災難恢復和行動性 `ontap-nas` 驅動程式：。 `ontap-nas-economy` 只有在預期磁碟區使用量會比ONTAP 支援的容量高出許多的有限使用案例中、才應使用驅動程式、而且不會有預期的資料保護、災難恢復或移動性（在Kubernetes叢集之間移動磁碟區）需求。
 
 
 

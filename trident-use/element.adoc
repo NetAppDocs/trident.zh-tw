@@ -16,7 +16,7 @@ summary: 瞭解如何在安裝Astra Trident時建立及使用元素後端。
 .您需要的產品
 * 支援的儲存系統、可執行Element軟體。
 * 提供給NetApp HCI / SolidFire叢集管理員或租戶使用者的認證、以管理磁碟區。
-* 您所有的Kubernetes工作節點都應該安裝適當的iSCSI工具。請參閱 link:../trident-use/worker-node-prep.html["工作節點準備資訊"^]。
+* 您所有的Kubernetes工作節點都應該安裝適當的iSCSI工具。請參閱 link:../trident-use/worker-node-prep.html["工作節點準備資訊"]。
 
 
 .您需要知道的資訊
@@ -135,9 +135,6 @@ WARNING: Volume存取群組僅受Astra Trident的傳統非csi架構支援。當A
 WARNING: 除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用「debugTraceFlags」。
 
 
-NOTE: 對於所有建立的磁碟區、Astra Trident會在儲存資源池上的所有標籤配置時、複製到備用儲存LUN。儲存管理員可以定義每個儲存資源池的標籤、並將儲存資源池中建立的所有磁碟區分組。這是根據後端組態中提供的一組可自訂標籤、方便區分磁碟區的方法。
-
-
 
 == 範例1：的後端組態 `solidfire-san` 三種磁碟區類型的驅動程式
 
@@ -160,11 +157,13 @@ NOTE: 對於所有建立的磁碟區、Astra Trident會在儲存資源池上的�
 ----
 
 
-== 範例2：的後端與儲存類別組態 `solidfire-san` 驅動程式搭配虛擬儲存資源池
+== 範例2：的後端與儲存類別組態 `solidfire-san` 驅動程式與虛擬資源池
 
-此範例顯示使用虛擬儲存資源池設定的後端定義檔案、以及參照回溯的StorageClass。
+此範例顯示使用虛擬資源池設定的後端定義檔、以及參照這些資源池的StorageClass。
 
-在下圖所示的範例後端定義檔中、會針對所有儲存資源池設定特定的預設值、將「type」設為Silver。虛擬儲存資源池是在「儲存區」區段中定義的。在此範例中、有些儲存資源池會設定自己的類型、有些資源池則會覆寫上述設定的預設值。
+Astra Trident會在資源配置時、將儲存資源池上的標籤複製到後端儲存LUN。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。
+
+在下圖所示的範例後端定義檔中、會針對所有設定的儲存資源池設定特定的預設值 `type` 銀級。虛擬資源池是在中定義的 `storage` 區段。在此範例中、有些儲存資源池會設定自己的類型、有些資源池則會覆寫上述設定的預設值。
 
 [listing]
 ----
@@ -206,9 +205,9 @@ NOTE: 對於所有建立的磁碟區、Astra Trident會在儲存資源池上的�
     ]
 }
 ----
-下列StorageClass定義係指上述虛擬儲存資源池。使用「parameters.selector`」欄位、每個StorageClass都會呼叫哪些虛擬資源池可用於裝載磁碟區。磁碟區將會在所選的虛擬資源池中定義各個層面。
+下列StorageClass定義是指上述虛擬資源池。使用 `parameters.selector` 欄位中、每個StorageClass會呼叫哪些虛擬資源池可用於裝載Volume。磁碟區將會在所選的虛擬資源池中定義各個層面。
 
-第一個StorageClass（「Poolidfire gold-s4」）會對應至第一個虛擬儲存集區。這是唯一提供黃金級效能的「Volume Type QoS」（Volume Type QoS）。最後一個StorageClass（「Poolidfire Silver」）會呼叫任何提供銀級效能的儲存資源池。Astra Trident將決定選取哪個虛擬儲存資源池、並確保符合儲存需求。
+第一個StorageClass (`solidfire-gold-four`）將對應至第一個虛擬資源池。這是唯一提供黃金級效能的資源池 `Volume Type QoS` 金級。最後一個StorageClass (`solidfire-silver`）撥出任何提供銀級效能的儲存資源池。Astra Trident將決定選取哪個虛擬集區、並確保符合儲存需求。
 
 [listing]
 ----

@@ -126,7 +126,7 @@ secret/backend-tbc-ontap-san-secret created
 
 * 相同的後端名稱是在「s.pec.backendName」中定義。
 * 組態參數與原始後端相同。
-* 虛擬儲存資源池（若有）必須維持與原始後端相同的順序。
+* 虛擬資源池（若有）必須維持與原始後端相同的順序。
 * 認證資料是透過Kubernetes Secret提供、而非以純文字提供。
 
 

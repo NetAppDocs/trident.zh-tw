@@ -4,7 +4,7 @@ permalink: trident-get-started/kubernetes-customize-deploy.html
 keywords: deploy, trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator, smb, windows 
 summary: Trident運算子可讓您使用「TridentOrchestrator」規格中的屬性、自訂Astra Trident的安裝方式。 
 ---
-= 自訂Trident營運者部署
+= 自訂Trident操作員安裝
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -51,7 +51,7 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示安裝Astra T
 | 「enableNodePrep」 | 自動管理工作節點相依性（* BETA *） | 錯 
 
 
-| 「autosupportImage」 | 遙測的容器影像AutoSupport | 「NetApp/Trident自動支援：22.10.0」 
+| 「autosupportImage」 | 遙測的容器影像AutoSupport | 「NetApp/Trident自動支援：23.01.0」 
 
 
 | 「autosupportProxy」 | 代理伺服器的位址/連接埠、用於傳送AutoSupport 「遙測」功能 | "http://proxy.example.com:8888"[] 
@@ -76,6 +76,12 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示安裝Astra T
 
 
 | 「imagePullSecrets」 | 從內部登錄擷取映像的機密 |  
+
+
+| `imagePullPolicy` | 設定Trident運算子的影像提取原則。有效值包括：
+`Always` 永遠拉出映像。
+`IfNotPresent` 僅當節點上尚未存在映像時才提取映像。
+`Never` 永遠不要拉動映像。 | `IfNotPresent` 
 
 
 | 「controllerPluginNodeSelector」 | 執行Trident控制器csi外掛程式之Pod的其他節點選取器。格式與pod.spec.nodeSelector相同。 | 無預設值；選用 
@@ -144,7 +150,7 @@ spec:
 
 [listing]
 ----
-$ cat deploy/crds/tridentorchestrator_cr.yaml
+cat deploy/crds/tridentorchestrator_cr.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
 metadata:

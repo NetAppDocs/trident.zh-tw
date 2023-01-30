@@ -4,7 +4,7 @@ permalink: trident-get-started/kubernetes-deploy-tridentctl.html
 keywords: deploy, astra trident, methods, tridentctl, windows 
 summary: 您可以使用「tridentctl」來部署Astra Trident。 
 ---
-= 使用tridentctl部署
+= 使用tridentctl安裝
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,19 +12,19 @@ summary: 您可以使用「tridentctl」來部署Astra Trident。
 
 
 [role="lead"]
-您可以使用部署Astra Trident `tridentctl`。您最好先熟悉 link:../trident-concepts/intro.html["基本概念"]。以自訂您的 `tridentctl` 部署、請參閱 link:kubernetes-customize-deploy-tridentctl.html["自訂試用部署"]。
+您可以使用安裝Astra Trident `tridentctl`。此程序適用於Trident和csi映像位於的安裝 `docker.io` 和 `registry.k8s.io` 或是私有的鏡射登錄。以自訂您的 `tridentctl` 部署、請參閱 link:kubernetes-customize-deploy-tridentctl.html["自訂試用部署"]。
 
 
 
-== 有關Astra Trident的重要資訊22.10
+== Astra Trident的重要資訊23.01
 
-*在升級至Astra Trident 22.10*之前、您必須先閱讀下列重要資訊
+*您必須閱讀下列有關Astra Trident的重要資訊。*
 
-[WARNING]
-.<strong>關於Astra Trident 22.10</strong>的重要資訊
+.關於Astra Trid-功能 的資訊</strong> <strong>
+[%collapsible%open]
 ====
-* Kubernetes 1.25現在已在Trident中受到支援。升級至Kubernetes 1.25之前、您必須先升級至Astra Trident 22.10。
-* Astra Trident現在嚴格強制執行SAN環境中的多重路徑組態使用、建議使用的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
+* Kubernetes 1.26現在已在Trident中受到支援。升級Kubernetes之前先升級Trident。
+* Astra Trident在SAN環境中嚴格執行多重路徑組態的使用、建議的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
 
@@ -33,75 +33,91 @@ summary: 您可以使用「tridentctl」來部署Astra Trident。
 ====
 
 
-== 驗證先決條件
+== 使用安裝Astra Trident `tridentctl`
 
-若要部署Astra Trident、必須符合下列先決條件：
+檢閱 link:../trident-get-started/kubernetes-deploy.html["安裝總覽"] 為了確保您符合安裝先決條件、並為您的環境選擇正確的安裝選項。
 
-* 對支援的Kubernetes叢集擁有完整權限。
-* 存取支援的NetApp儲存系統。
-* 能夠從所有Kubernetes工作節點掛載磁碟區。
-* Linux主機 `kubectl` （或 `oc`（如果您使用OpenShift）已安裝並設定為管理您要使用的Kubernetes叢集。
-* 。 `KUBECONFIG` 環境變數會指向Kubernetes叢集組態。
-* 。 link:requirements.html["具備Astra Trident所需的閘道"] 已啟用。
-* 如果您使用Kubernetes搭配Docker Enterprise、 https://docs.docker.com/ee/ucp/user-access/cli/["請依照他們的步驟啟用CLI存取"^]。
+.開始之前
+在開始安裝之前、請先登入Linux主機、然後確認它正在管理正常運作的 link:requirements.html["支援的Kubernetes叢集"^] 而且您擁有必要的權限。
 
 
+NOTE: 使用OpenShift時、請在所有範例中使用「oc"而非「kubecll」、然後先執行「ocLogin -u system:admin」或「occ login-u kube-admin」、以*系統：admin*登入。
 
-
-== 步驟1：判斷Kubernetes叢集的資格
-
-登入Linux主機、驗證它是否正在管理正常運作的 link:requirements.html["支援的Kubernetes叢集"^] 而且您擁有必要的權限。
-
-
-NOTE: 使用OpenShift時、您可以在所有範例中使用「oc"而非「kubecll」、而且您應該先執行「ocLogin -u system:admin」或「ocLogin -u kube-admin」、以*系統：admin*登入。
-
-若要檢查Kubernetes版本、請執行下列命令：
-
+[%collapsible%open]
+====
+. 驗證Kubernetes版本：
++
 [listing]
 ----
 kubectl version
 ----
-若要驗證Kubernetes叢集管理員權限、請執行下列命令：
-
+. 驗證叢集管理員權限：
++
 [listing]
 ----
 kubectl auth can-i '*' '*' --all-namespaces
 ----
-若要驗證是否可以從Docker Hub啟動使用映像的Pod、並透過Pod網路連線至儲存系統、請執行下列命令：
-
+. 確認您可以啟動使用Docker Hub映像的Pod、並透過Pod網路連線至儲存系統：
++
 [listing]
 ----
 kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
   ping <management IP>
 ----
-識別Kubernetes伺服器版本。安裝Astra Trident時會使用此功能。
 
 
+====
 
-== 步驟2：下載並解壓縮安裝程式
 
+== 步驟1：下載Trident安裝程式套件
 
-NOTE: Trident安裝程式會建立Trident pod、設定用來維護其狀態的CRD物件、並初始化執行動作的csi sidecars、例如資源配置和將磁碟區附加至叢集主機。
-
-您可以從下載並擷取最新版本的Trident安裝程式套件 link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]。
-
-例如、如果最新版本為22.10.0：
+Astra Trident安裝程式套件會建立Trident pod、設定用來維持其狀態的CRD物件、並初始化csi sidecar以執行資源配置和將磁碟區附加至叢集主機等動作。從下載並擷取Trident安裝程式的最新版本 link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]。請使用<trident-installer-XX.XX.X.tar.gz> 您所選的Astra Trident版本來更新範例中的_SUR__。
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v22.10.0/trident-installer-22.10.0.tar.gz
-tar -xf trident-installer-22.10.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.01.0/trident-installer-23.01.0.tar.gz
+tar -xf trident-installer-23.01.0.tar.gz
 cd trident-installer
 ----
 
 
-== 步驟3：安裝Astra Trident
+== 步驟2：安裝Astra Trident
 
-執行「tridentctl install」命令、在所需的命名空間中安裝Astra Trident。
+執行、在所需的命名空間中安裝Astra Trident `tridentctl install` 命令。您可以新增其他引數來指定映像登錄位置。
 
+
+NOTE: 若要在Windows節點上執行Astra Trident、請新增 `--windows` 安裝命令的旗標： `$ ./tridentctl install --windows -n trident`。
+
+[role="tabbed-block"]
+====
+.標準模式
+--
 [listing]
 ----
 ./tridentctl install -n trident
+----
+--
+.Trident和csi映像位於一個鏡射登錄中
+--
+[listing]
+----
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:23.01 --trident-image <your-registry>/trident:23.01.0
+----
+--
+.不同鏡射登錄中的Trident和csi映像
+--
+您必須附加 `sig-storage` 至 `imageRegistry` 使用不同的登錄位置。
+
+[listing]
+----
+./tridentctl install -n trident --image-registry <your-registry>/sig-storage --autosupport-image <your-registry>/netapp/trident-autosupport:23.01 --trident-image <your-registry>/netapp/trident:23.01.0
+----
+--
+====
+您的安裝狀態應該類似這樣。
+
+[listing]
+----
 ....
 INFO Starting Trident installation.                namespace=trident
 INFO Created service account.
@@ -113,34 +129,53 @@ INFO Created Trident secret.
 INFO Created Trident deployment.
 INFO Created Trident daemonset.
 INFO Waiting for Trident pod to start.
-INFO Trident pod started.                          namespace=trident pod=trident-csi-679648bd45-cv2mx
+INFO Trident pod started.                          namespace=trident pod=trident-controller-679648bd45-cv2mx
 INFO Waiting for Trident REST interface.
-INFO Trident REST interface is up.                 version=22.10.0
+INFO Trident REST interface is up.                 version=23.01.0
 INFO Trident installation succeeded.
 ....
 ----
 
-NOTE: 若要在Windows節點上執行Astra Trident、請新增 `--windows` 安裝命令的旗標： `$ ./tridentctl install --windows -n trident`。
 
-安裝程式完成時、會顯示類似下列的輸出。根據Kubernetes叢集中的節點數量、可能會有更多的Pod：
+== 驗證安裝
+
+您可以使用Pod建立狀態或來驗證安裝 `tridentctl`。
+
+
+
+=== 使用Pod建立狀態
+
+您可以檢閱建立的Pod狀態、確認是否已完成Astra Trident安裝：
 
 [listing]
 ----
-kubectl get pod -n trident
-NAME                           READY   STATUS    RESTARTS   AGE
-trident-csi-679648bd45-cv2mx   4/4     Running   0          5m29s
-trident-csi-vgc8n              2/2     Running   0          5m29s
+kubectl get pods -n trident
 
+NAME                                  READY   STATUS    RESTARTS   AGE
+trident-controller-679648bd45-cv2mx   6/6     Running   0          5m29s
+trident-node-linux-vgc8n              2/2     Running   0          5m29s
+----
+
+NOTE: 如果安裝程式未成功完成或 `trident-controller-<generated id>` (`trident-csi-<generated id>` 在23.01之前的版本中）沒有*執行中*的狀態、表示平台尚未安裝。使用 `-d` 至 link:../troubleshooting.html#troubleshooting-an-unsuccessful-trident-deployment-using-tridentctl["開啟偵錯模式"] 並疑難排解問題。
+
+
+
+=== 使用 `tridentctl`
+
+您可以使用 `tridentctl` 檢查安裝的Astra Trident版本。
+
+[listing]
+----
 ./tridentctl -n trident version
+
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 22.10.0        | 22.10.0        |
+| 23.01.0        | 23.01.0        |
 +----------------+----------------+
 ----
-若要完成Astra Trident組態、請繼續執行 link:kubernetes-postdeployment.html["部署後工作"]。
-
-如果安裝程式未成功完成或 `trident-csi-<generated id>` 沒有*執行中*的狀態、表示平台尚未安裝。
 
 
-NOTE: 如需解決部署期間的問題、請參閱 link:../troubleshooting.html["疑難排解"]。
+== 下一步
+
+現在您可以了 link:kubernetes-postdeployment.html["建立後端和儲存類別、配置磁碟區、並將磁碟區掛載到Pod中"]。

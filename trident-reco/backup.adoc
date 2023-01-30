@@ -148,7 +148,7 @@ image::SM1.PNG[顯示SnapMirror Volume複寫設定。]
 . 複製所有必要的Kubernetes叢集憑證、這些憑證位於「/etc/Kubernetes /PKI」下、而etcd「m十二」檔案則位於「/var/lib/etcd」下。
 . 使用帶有"-ignore preflas-errors = DirAvailable - var-lib-etcd"標記的"kubeadm init"命令來建立Kubernetes叢集。主機名稱應與來源Kubernetes叢集相同。
 . 執行「kubectl Get crd」命令、確認所有Trident自訂資源是否都已啟動並擷取Trident物件、以確保所有資料都可用。
-. 清理先前的後端、並在Trident上建立新的後端。指定目的地SVM的新管理與資料LIF、新SVM名稱及密碼。
+. 清理先前的後端、並在Trident上建立新的後端。指定目的地SVM的新管理LIF、新SVM名稱和密碼。
 
 
 

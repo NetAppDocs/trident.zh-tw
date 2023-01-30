@@ -12,7 +12,7 @@ summary: 您可以使用「tridentctl」輕鬆升級現有的Astra Trident安裝
 
 
 [role="lead"]
-您可以使用「tridentctl」輕鬆升級現有的Astra Trident安裝。
+您可以使用輕鬆升級現有的Astra Trident安裝 `tridentctl`。
 
 
 

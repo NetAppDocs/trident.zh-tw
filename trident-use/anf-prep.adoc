@@ -11,7 +11,7 @@ summary: 在您設定ANF後端之前、必須確保符合下列需求。
 :imagesdir: ../media/
 
 
-在您設定ANF後端之前、必須確保符合下列需求。
+在您設定Azure NetApp Files 完後端功能之前、您必須確保符合下列要求。
 
 如果Azure NetApp Files 您是第一次使用或是在新的位置使用、則需要進行一些初始組態。
 

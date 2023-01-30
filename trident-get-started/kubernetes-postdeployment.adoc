@@ -12,7 +12,7 @@ summary: 部署Astra Trident之後、您可以繼續建立後端、建立儲存�
 
 
 [role="lead"]
-部署Astra Trident之後、您可以繼續建立後端、建立儲存類別、配置磁碟區、以及將磁碟區掛載至Pod。
+安裝Astra Trident之後、您可以繼續建立後端、建立儲存類別、配置磁碟區、以及將磁碟區掛載至Pod。
 
 
 

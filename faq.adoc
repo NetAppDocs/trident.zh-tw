@@ -210,7 +210,11 @@ NetApp支援將Astra Trident從一個重大版本升級至下一個重大版本�
 
 === 我是否需要在ONTAP 一個後端定義檔案中定義管理和資料生命期？
 
-NetApp建議在後端定義檔中同時使用這兩個檔案。不過、管理LIF是唯一必須執行的功能。
+管理LIF為必填項目。資料LIF會有所不同：
+
+* 支援SAN：請勿指定iSCSI ONTAP 。Astra Trident的用途 link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^] 探索建立多重路徑工作階段所需的iSCI LIF。如果發生此情況、將會產生警告 `dataLIF` 已明確定義。請參閱 link:trident-use/ontap-san-examples.html["SAN組態選項與範例ONTAP"] 以取得詳細資料。
+* ASNAS：建議您指定ONTAP `dataLIF`。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。請參閱 link:trident-use/ontap-nas-examples.html["列舉NAS組態選項與範例ONTAP"] 以取得詳細資料
+
 
 
 
@@ -234,7 +238,13 @@ Astra Trident 19.01及更新版本支援在DataLIF中指定連接埠。在「bac
 
 === IPv6位址是否可用於管理和資料生命量？
 
-是的。Astra Trident 20.01支援定義用於管理的IPv6位址LIF和ONTAP 用於支援不支援的dataLIF參數。您應該確保地址遵循IPv6語義、且管理LIF是在方括弧內定義（例如、「」[ec0d:6504：a9c1：ae67：53d1：4bdf：ab32：e233]）。您也應該確保使用「-use IPv6」旗標來安裝Astra Trident、以便透過IPv6運作。
+Astra Trident支援定義IPv6位址：
+
+* `managementLIF` 和 `dataLIF` 適用於不支援NAS的後端ONTAP 。
+* `managementLIF` 適用於SAN後端ONTAP 。您無法指定 `dataLIF` 在SAN後端ONTAP 。
+
+
+必須使用安裝Astra Trident ``--use-ipv6` 旗標可讓IT透過IPv6運作。
 
 
 
@@ -246,7 +256,7 @@ Astra Trident 19.01及更新版本支援在DataLIF中指定連接埠。在「bac
 
 === 是否能在後端更新Data LIF？
 
-否、無法在後端更新Data LIF。
+您可以在上更新Data LIF `ontap-nas` 和 `ontap-nas-economy` 僅限。
 
 
 

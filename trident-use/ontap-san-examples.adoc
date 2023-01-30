@@ -33,13 +33,13 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+ dataLIF 
 
 
-| 《馬納格門達利》 | 叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
+| 《馬納格門達利》 | 叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。您可以指定完整網域名稱（FQDN）。如果使用安裝Astra Trident、則可設定使用IPv6位址 `--use-ipv6` 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
 
 
-| 「DataLIF」 | 傳輸協定LIF的IP位址。IPv6使用方括弧。設定後無法更新 | 除非另有說明、否則由SVM衍生 
+| 「DataLIF」 | 傳輸協定LIF的IP位址。*請勿指定iSCSI。* Astra Trident的用途 link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^] 探索建立多重路徑工作階段所需的iSCI LIF。如果發生此情況、將會產生警告 `dataLIF` 已明確定義。 | 源自SVM 
 
 
-| 《使用CHAP》 | 使用CHAP驗證iSCSI以供ONTAP 支援不支援的SAN驅動程式使用[布林值] | 錯 
+| 《使用CHAP》 | 使用CHAP驗證iSCSI以供ONTAP 支援不支援的SAN驅動程式使用[布林值]。設定為 `true` 用於Astra Trident設定及使用雙向CHAP做為後端SVM的預設驗證。請參閱 link:ontap-san-prep.html["準備使用ONTAP 支援的SAN驅動程式來設定後端"] 以取得詳細資料。 | 錯 
 
 
 | 《chapInitiator機密》 | CHAP啟動器密碼。如果是"useCHAP=true"、則為必要項目 | 「」 
@@ -63,88 +63,59 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | 「clientPrivate Key」 | 用戶端私密金鑰的Base64編碼值。用於憑證型驗證 | 「」 
 
 
-| 「可信賴的CACertifcate」 | 受信任CA憑證的Base64編碼值。選用。用於憑證型驗證 | 「」 
+| 「可信賴的CACertifcate」 | 受信任CA憑證的Base64編碼值。選用。用於憑證型驗證。 | 「」 
 
 
-| 《使用者名稱》 | 連線至叢集/ SVM的使用者名稱。用於認證型驗證 | 「」 
+| 《使用者名稱》 | 與ONTAP 該叢集通訊所需的使用者名稱。用於認證型驗證。 | 「」 
 
 
-| 密碼 | 連線至叢集/ SVM的密碼。用於認證型驗證 | 「」 
+| 密碼 | 與ONTAP 該叢集通訊所需的密碼。用於認證型驗證。 | 「」 
 
 
 | 《虛擬機器》 | 要使用的儲存虛擬機器 | 如果指定SVM "managementLIF"則衍生 
 
 
-| 「igroupName」 | 要使用之SAN磁碟區的igroup名稱 | 「Trident -<後端-UUID>」 
+| 「igroupName」 | 要使用之SAN磁碟區的igroup名稱。請參閱  以取得更多資訊。 | 「Trident -<後端-UUID>」 
 
 
-| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。設定後無法更新 | 「Trident」 
+| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。稍後無法修改。若要更新此參數、您需要建立新的後端。 | 「Trident」 
 
 
-| 「限制Aggregateusage」 | 如果使用率高於此百分比、則無法進行資源配置。*不適用於Amazon FSX for ONTAP Sfor Sfor * | 「」（預設不強制執行） 
+| 「限制Aggregateusage」 | 如果使用率高於此百分比、則無法進行資源配置。如果您使用Amazon FSX for NetApp ONTAP Sendbackend、請勿指定  `limitAggregateUsage`。提供的 `fsxadmin` 和 `vsadmin` 請勿包含擷取Aggregate使用量所需的權限、並使用Astra Trident加以限制。 | 「」（預設不強制執行） 
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。 | 「」（預設不強制執行） 
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN磁碟區大小上限。 | 「」（預設不強制執行） 
 
 
 | 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200] | 「100」 
 
 
-| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「方法」：true｝ | null 
+| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。例如、除非您正在疑難排解並需要詳細的記錄傾印、否則請勿使用｛"API"：假、「method」：true｝。 | null 
 
 
-| 《useREST》 | 使用ONTAP Isrest API的布林參數。*不支援MetroCluster 技術預覽*。 | 錯 
+| 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*
+`useREST` 以*技術預覽*的形式提供、建議用於測試環境、而非用於正式作業工作負載。設定為時 `true`、Astra Trident將使用ONTAP 靜止API與後端進行通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取 `ontap` 應用程式：這是預先定義的 `vsadmin` 和 `cluster-admin` 角色：
+`useREST` 不支援MetroCluster 使用支援。 | 錯 
 |===
-[WARNING]
-.<code>useREST</code>注意事項
-====
-* 「useREST」是一種建議用於測試環境、而非用於正式作業工作負載的技術預覽。當設為「true」時、Astra Trident會使用ONTAP 「Isrest API」與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取「ONTAP 發揮作用」應用程式。這對預先定義的「vsadmin」和「叢集管理」角色感到滿意。
-* 《useREST》不受MetroCluster 支援。
 
 
-====
-若要與ONTAP 此叢集通訊、您應該提供驗證參數。這可能是安全登入或安裝憑證的使用者名稱/密碼。
+=== 詳細資料 `igroupName`
 
+`igroupName` 可設定為ONTAP 已在叢集上建立的igroup。如果未指定、Astra Trident會自動建立名為的igroup `trident-<backend-UUID>`。
 
-WARNING: 如果您使用Amazon FSX for NetApp ONTAP Sendbackend、請勿指定「limitAggregateusage」參數。Amazon FSx for NetApp ONTAP 的「fsxadmin」和「vsadmin」角色不包含擷取Aggregate使用量並透過Astra Trident加以限制的必要存取權限。
+如果提供預先定義的igroupName、我們建議每個Kubernetes叢集使用一個igroup、如果要在不同環境之間共用SVM。這是Astra Trident自動維護IQN新增與刪除作業所必需的。
 
-
-WARNING: 除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用「debugTraceFlags」。
-
-對於「ONTAP-san」驅動程式、預設為使用SVM的所有資料LIF IP、並使用iSCSI多重路徑。為「ONTAP-san」驅動程式的dataLIF指定IP位址、會強制它們停用多重路徑、並只使用指定的位址。
-
-
-NOTE: 建立後端時、請記住、建立後無法修改「dataLIF」和「儲存前置字元」。若要更新這些參數、您需要建立新的後端。
-
-「igroupName」可設定為ONTAP 已在該叢集上建立的igroup。如果未指定、Astra Trident會自動建立名為Trident的igroup -<後端UUID >。如果提供預先定義的igroupName、則如果要在環境之間共用SVM、NetApp建議使用每個Kubernetes叢集的igroup。這是Astra Trident自動維護IQN新增/刪除的必要條件。
-
-後端也可以在建立後更新igroup：
-
-* 可以更新igroupName、以指向在Astra Trident以外的SVM上建立及管理的新igroup。
-* 可以省略igroupName。在此案例中、Astra Trident會自動建立及管理Trident -<backend-UUUUID> igroup。
+* `igroupName` 可更新以指向在Astra Trident以外的SVM上建立及管理的新igroup。
+* `igroupName` 可省略。在此案例中、Astra Trident將建立並管理名為的igroup `trident-<backend-UUID>` 自動：
 
 
 在這兩種情況下、仍可繼續存取Volume附件。未來的Volume附件將使用更新的igroup。此更新不會中斷對後端磁碟區的存取。
 
-可以為「managementLIF」選項指定完整網域名稱（FQDN）。
-
-所有ONTAP 的不完整驅動程式也可設定為IPv6位址。請務必使用「-use IPv6」旗標來安裝Trident。必須謹慎定義方括弧內的「managementLIF」IPv6位址。
 
 
-WARNING: 使用IPv6位址時、請務必在方括弧內定義「managementLIF」和「dataLIF」（若包含在後端定義中）、例如[28e8：d9fb:a825:b7bf:69a8：d02f：9e7b:3555]。如果未提供「data LIF」、Astra Trident會從SVM擷取IPv6資料LIF。
+== 用於資源配置磁碟區的後端組態選項
 
-若要讓ONTAP-SAN驅動程式使用CHAP、請在後端定義中將「useCHAP」參數設為「true」。然後Astra Trident會設定並使用雙向CHAP做為後端所指定SVM的預設驗證。請參閱 link:ontap-san-prep.html["請按這裡"^] 以瞭解其運作方式。
-
-對於「ONTAP-san經濟」驅動程式、「limitVolume Sizes」選項也會限制其管理的qtree和LUN磁碟區大小上限。
-
-
-NOTE: Astra Trident在所有使用「ONTAP-san」驅動程式建立的磁碟區的「Comments」（註解）欄位中設定資源配置標籤。針對所建立的每個Volume、FlexVol 將會在顯示於其儲存資源池中的「Comments」（註解）欄位中填入所有標籤。儲存管理員可以定義每個儲存資源池的標籤、並將儲存資源池中建立的所有磁碟區分組。這是根據後端組態中提供的一組可自訂標籤、方便區分磁碟區的方法。
-
-
-
-=== 用於資源配置磁碟區的後端組態選項
-
-您可以在組態的特定區段中、使用這些選項來控制預設配置每個Volume的方式。如需範例、請參閱下列組態範例。
+您可以使用中的這些選項來控制預設資源配置 `defaults` 組態區段。如需範例、請參閱下列組態範例。
 
 [cols="3"]
 |===
@@ -160,7 +131,7 @@ NOTE: Astra Trident在所有使用「ONTAP-san」驅動程式建立的磁碟區�
 | 「快照原則」 | 要使用的Snapshot原則 | 「無」 
 
 
-| 「qosPolicy」 | 要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy | 「」 
+| 「qosPolicy」 | 要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy。搭配Astra Trident使用QoS原則群組需要ONTAP 使用更新版本的版本。我們建議使用非共用的QoS原則群組、並確保原則群組會個別套用至每個組成群組。共享的QoS原則群組將強制所有工作負載的總處理量上限。 | 「」 
 
 
 | 《adaptiveQosPolicy》 | 要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy | 「」 
@@ -178,7 +149,7 @@ NOTE: Astra Trident在所有使用「ONTAP-san」驅動程式建立的磁碟區�
 | 加密 | 在新磁碟區上啟用NetApp Volume Encryption（NVE）；預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都會啟用NAE。如需詳細資訊、請參閱： link:../trident-reco/security-reco.html["Astra Trident如何與NVE和NAE搭配運作"]。 | 「假」 
 
 
-| `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["使用Linux統一金鑰設定（LUKS）"]。 | " 
+| `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-luks.html["使用Linux統一金鑰設定（LUKS）"]。 | " 
 
 
 | 《生態樣式》 | 新磁碟區的安全樣式 | 「UNIX」 
@@ -187,7 +158,8 @@ NOTE: Astra Trident在所有使用「ONTAP-san」驅動程式建立的磁碟區�
 | 「分層政策」 | 分層原則以使用「無」 | ONTAP 9.5之前的SVM-DR組態為「純快照」 
 |===
 
-NOTE: 搭配Astra Trident使用QoS原則群組需要ONTAP 使用更新版本的版本。建議使用非共用的QoS原則群組、並確保原則群組會個別套用至每個組成群組。共享的QoS原則群組將強制所有工作負載的總處理量上限。
+
+=== Volume資源配置範例
 
 以下是已定義預設值的範例：
 
@@ -312,9 +284,11 @@ NOTE: 如果您在NetApp ONTAP 支援Astra Trident的NetApp上使用Amazon FSX�
 ----
 
 
-== 虛擬儲存資源池的後端範例
+== 虛擬集區的後端範例
 
-在下圖所示的範例後端定義檔中、會針對所有儲存資源池設定特定的預設值、例如「無的儲存資源保留」、「假的資源配置」、以及「假的加密」。虛擬儲存資源池是在儲存區段中定義。
+在下圖所示的範例後端定義檔案中、會針對所有儲存資源池設定特定的預設值、例如 `spaceReserve` 無、 `spaceAllocation` 假、和 `encryption` 錯。虛擬資源池是在儲存區段中定義的。
+
+Astra Trident會在「Comments」欄位中設定資源配置標籤。請在FlexVol The過程中提出意見。Astra Trident會在資源配置時、將虛擬資源池上的所有標籤複製到儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。
 
 在此範例中、有些儲存資源池會設定自己的「資源保留」、「資源配置」和「加密」值、有些資源池會覆寫上述設定的預設值。
 
@@ -428,16 +402,16 @@ NOTE: 如果您在NetApp ONTAP 支援Astra Trident的NetApp上使用Amazon FSX�
 
 == 將後端對應至StorageClass
 
-下列StorageClass定義係指上述虛擬儲存資源池。使用「parameters.selector`」欄位、每個StorageClass都會呼叫哪些虛擬資源池可用於裝載磁碟區。磁碟區將會在所選的虛擬資源池中定義各個層面。
+下列StorageClass定義是指上述虛擬資源池。使用 `parameters.selector` 欄位中、每個StorageClass會呼叫哪些虛擬資源池可用於裝載Volume。磁碟區將會在所選的虛擬資源池中定義各個層面。
 
-* 第一部StorageClass（「protection黃金級」）將對應至「ONTAP-NAS Flexgroup」後端的第一個、第二個虛擬儲存集區、以及「ONTAP-SAN」後端的第一個虛擬儲存集區。這是唯一提供金級保護的資源池。
-* 第二個StorageClass（「protection非gold」）將對應至第三個、第四個虛擬儲存集區、位於「ONTAP-NAS」後端、第二個是第三個虛擬儲存集區、位於「ONTAP-SAN」後端。這是唯一提供金級以外保護層級的資源池。
-* 第三個StorageClass（「app-mysqldb」）將對應至「ontap-nas」後端的第四個虛擬儲存資源池、以及「ontap-san經濟」後端的第三個虛擬儲存資源池。這些是唯一提供mysqldb類型應用程式儲存池組態的集區。
-* 第四個StorageClass（「protection－silver－creditpoints－20k」）將對應至第三個虛擬儲存資源池（位於「ONTAP－NAS－flexgroup」後端）、第二個虛擬儲存資源池（位於「ONTAP－san」後端）。這些資源池是唯一能以20000個信用點數提供金級保護的資源池。
-* 第五個StorageClass（'creditpoint-5k'）將對應到第二個位於「ONTAP-NAS經濟」後端的虛擬儲存資源池、以及位於「ONTAP-SAN」後端的第三個虛擬儲存資源池。這些是唯一提供5000個信用點數的資源池產品。
+* 第一個StorageClass (`protection-gold`）將對應至中的第一個、第二個虛擬集區 `ontap-nas-flexgroup` 後端和中的第一個虛擬集區 `ontap-san` 後端：這是唯一提供金級保護的資源池。
+* 第二個StorageClass (`protection-not-gold`）將對應至中的第三、第四個虛擬集區 `ontap-nas-flexgroup` 中的後端和第二個、第三個虛擬集區 `ontap-san` 後端：這是唯一提供金級以外保護層級的資源池。
+* 第三個StorageClass (`app-mysqldb`）將對應至中的第四個虛擬資源池 `ontap-nas` 中的後端和第三個虛擬集區 `ontap-san-economy` 後端：這些是唯一提供mysqldb類型應用程式儲存池組態的集區。
+* 第四個StorageClass (`protection-silver-creditpoints-20k`）將對應至中的第三個虛擬集區 `ontap-nas-flexgroup` 中的後端和第二個虛擬集區 `ontap-san` 後端：這些資源池是唯一能以20000個信用點數提供金級保護的資源池。
+* 第五個StorageClass (`creditpoints-5k`）將對應至中的第二個虛擬資源池 `ontap-nas-economy` 中的後端和第三個虛擬集區 `ontap-san` 後端：這些是唯一提供5000個信用點數的資源池產品。
 
 
-Astra Trident將決定選取哪個虛擬儲存資源池、並確保符合儲存需求。
+Astra Trident將決定選取哪個虛擬集區、並確保符合儲存需求。
 
 [listing]
 ----

@@ -46,7 +46,7 @@ kubectl delete storageclass <storage-class>
 透過此儲存類別所建立的任何持續磁碟區都將維持不變、Astra Trident將繼續管理這些磁碟區。
 
 
-NOTE: Astra Trident會對其建立的磁碟區執行空白的「FSType」。對於iSCSI後端、建議在StorageClass中強制執行「參數.FSType」。您應該刪除「esixing StorageClass」、然後使用指定的「參數.FSType」重新建立。
+NOTE: Astra Trident強制執行空白 `fsType` 針對所建立的磁碟區。對於iSCSI後端、建議強制執行 `parameters.fsType` 在StorageClass中。您應該刪除現有的StorageClass並重新建立 `parameters.fsType` 已指定。
 
 
 

@@ -11,4 +11,8 @@ entries:
 - title: 資料保護
   url: "/trident-reco/backup.html"
 - title: 安全性
-  url: "/trident-reco/security-reco.html"
+  entries:
+  - title: 安全性建議
+    url: "/trident-reco/security-reco.html"
+  - title: Linux統一化金鑰設定（LUKS）
+    url: "/trident-reco/security-luks.html"

@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-deploy-operator.html 
-keywords: deploy, astra trident, methods, operator, tridentctl, registry, registries 
-summary: 您可以手動部署Trident運算子來安裝Astra Trident。此程序適用於未將Astra Trident所需的容器映像儲存在私有登錄中的安裝。 
+permalink: trident-get-started/kubernetes-deploy-operator-mirror.html 
+keywords: deploy, astra trident, methods, operator, tridentctl, mirrored, registry, registries 
+summary: 您可以手動部署Trident運算子來安裝Astra Trident。此程序適用於將Astra Trident所需的容器映像儲存在私有登錄中的安裝。 
 ---
-= 手動部署Trident運算子（標準模式）
+= 手動部署Trident運算子（離線模式）
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,7 +12,7 @@ summary: 您可以手動部署Trident運算子來安裝Astra Trident。此程序
 
 
 [role="lead"]
-您可以手動部署Trident運算子來安裝Astra Trident。此程序適用於未將Astra Trident所需的容器映像儲存在私有登錄中的安裝。如果您有私有映像登錄、請使用 link:kubernetes-deploy-operator-mirror.html["離線部署程序"]。
+您可以手動部署Trident運算子來安裝Astra Trident。此程序適用於將Astra Trident所需的容器映像儲存在私有登錄中的安裝。如果您沒有私有映像登錄、請使用 link:kubernetes-deploy-operator.html["標準部署程序"]。
 
 
 
@@ -38,7 +38,7 @@ summary: 您可以手動部署Trident運算子來安裝Astra Trident。此程序
 檢閱 link:../trident-get-started/kubernetes-deploy.html["安裝總覽"] 為了確保您符合安裝先決條件、並為您的環境選擇正確的安裝選項。
 
 .開始之前
-在開始安裝之前、請先登入Linux主機、然後確認它正在管理正常運作的 link:requirements.html["支援的Kubernetes叢集"^] 而且您擁有必要的權限。
+登入Linux主機、驗證其是否正在管理正常運作的和 link:requirements.html["支援的Kubernetes叢集"^] 而且您擁有必要的權限。
 
 
 NOTE: 使用OpenShift時、請在所有範例中使用「oc"而非「kubecll」、然後先執行「ocLogin -u system:admin」或「occ login-u kube-admin」、以*系統：admin*登入。
@@ -83,40 +83,45 @@ cd trident-installer
 
 === 步驟2：建立 `TridentOrchestrator` 客戶需求日
 
-建立 `TridentOrchestrator` 自訂資源定義（CRD）。您將建立 `TridentOrchestrator` 稍後再自訂資源。請使用中適當的CRD Y反 洗錢版本 `deploy/crds` 以建立 `TridentOrchestrator` 客戶需求日
+建立 `TridentOrchestrator` 自訂資源定義（CRD）。您將建立 `TridentOrchestrator` 稍後再自訂資源。請使用中適當的CRD Y反 洗錢版本 `deploy/crds` 以建立 `TridentOrchestrator` 客戶需求日：
 
 [listing]
 ----
-kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_<version>.yaml
+kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_<VERSION>.yaml
 ----
+
+
+=== 步驟3：更新操作員中的登錄位置
+
+在中 `operator.yaml`、更新 `image: docker.io/netapp/trident-operator:23.01.0` 以反映映像登錄的位置。例如：
+
+* `image: <your-registry>/trident-operator:23.01.0` 如果您的映像都位於單一登錄中。
+* `image: <your-registry>/netapp/trident-operator:23.01.0` 如果您的Trident和csi影像位於不同的登錄中。
+
+
 
 
 === 步驟3：部署Trident運算子
 
-Astra Trident安裝程式提供一個套件檔案、可用來安裝運算子及建立相關的物件。套裝組合檔案是使用預設組態部署操作員及安裝Astra Trident的簡易方法。
-
-* 對於執行Kubernetes 1.24或更低層級的叢集、請使用 `bundle_pre_1_25.yaml`。
-* 對於執行Kubernetes 1.25或更新版本的叢集、請使用 `bundle_post_1_25.yaml`。
-
-
 Trident安裝程式會在中部署操作員 `trident` 命名空間。如果是 `trident` 命名空間不存在、請使用 `kubectl apply -f deploy/namespace.yaml` 以建立。
 
-.步驟
+可在非的命名空間中部署運算子 `trident` 命名空間、更新 `serviceaccount.yaml`、 `clusterrolebinding.yaml` 和 `operator.yaml` 部署營運者之前。
+
 . 建立資源並部署營運者：
 +
 [listing]
 ----
-kubectl create -f deploy/<bundle>.yaml
+kubectl kustomize deploy/ > deploy/<BUNDLE>.yaml
 ----
 +
 [NOTE]
 ====
-可在非的命名空間中部署運算子 `trident` 命名空間、更新 `serviceaccount.yaml`、 `clusterrolebinding.yaml` 和 `operator.yaml` 並使用產生套裝組合檔案 `kustomization.yaml`：
+Astra Trident安裝程式提供一個套件檔案、可用來安裝運算子及建立相關的物件。套裝組合檔案是使用預設組態部署操作員及安裝Astra Trident的簡易方法。
 
-[listing]
-----
-kubectl kustomize deploy/ > deploy/<bundle>.yaml
-----
+** 對於執行Kubernetes 1.24或更低層級的叢集、請使用 `bundle_pre_1_25.yaml`。
+** 對於執行Kubernetes 1.25或更新版本的叢集、請使用 `bundle_post_1_25.yaml`。
+
+
 ====
 . 驗證是否已部署操作員。
 +
@@ -134,9 +139,38 @@ IMPORTANT: Kubernetes叢集中只應有*一個運算子執行個體*。請勿建
 
 
 
-=== 步驟4：建立 `TridentOrchestrator` 並安裝Trident
+=== 步驟4：更新中的映像登錄位置 `TridentOrchestrator`
 
-您現在可以建立 `TridentOrchestrator` 並安裝Astra Trident。您也可以選擇 link:kubernetes-customize-deploy.html["自訂您的Trident安裝"] 使用中的屬性 `TridentOrchestrator` 規格
+您的Trident和csi映像可以位於一個登錄或不同的登錄中、但所有的csi映像都必須位於同一個登錄中。更新 `deploy/crds/tridentorchestrator_cr.yaml` 根據登錄組態新增額外的位置規格。
+
+[role="tabbed-block"]
+====
+.Trident和csi映像位於單一登錄中
+--
+[listing]
+----
+imageRegistry: "<your-registry>"
+autosupportImage: "<your-registry>/trident-autosupport:23.01"
+tridentImage: "<your-registry>/trident:23.01.0"
+----
+--
+.不同登錄中的Trident和csi映像
+--
+您必須附加 `sig-storage` 至 `imageRegistry` 使用不同的登錄位置。
+
+[listing]
+----
+imageRegistry: "<your-registry>/sig-storage"
+autosupportImage: "<your-registry>/netapp/trident-autosupport:23.01"
+tridentImage: "<your-registry>/netapp/trident:23.01.0"
+----
+--
+====
+
+
+=== 步驟5：建立 `TridentOrchestrator` 並安裝Trident
+
+您現在可以建立 `TridentOrchestrator` 並安裝Astra Trident。您也可以選擇進一步 link:kubernetes-customize-deploy.html["自訂您的Trident安裝"] 使用中的屬性 `TridentOrchestrator` 規格下列範例顯示Trident與csi映像位於不同登錄中的安裝。
 
 [listing]
 ----
@@ -153,26 +187,32 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Debug:     true
-  Namespace: trident
+  Autosupport Image:  <your-registry>/netapp/trident-autosupport:23.01
+  Debug:              true
+  Image Registry:     <your-registry>/sig-storage
+  Namespace:          trident
+  Trident Image:      <your-registry>/netapp/trident:23.01.0
 Status:
   Current Installation Params:
-    IPv6:                      false
+    IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:         netapp/trident-autosupport:23.01
+    Autosupport Image:          <your-registry>/netapp/trident-autosupport:23.01
     Autosupport Proxy:
     Autosupport Serial Number:
-    Debug:                     true
+    Debug:                      true
+    Http Request Timeout:       90s
     Image Pull Secrets:
-    Image Registry:
+    Image Registry:       <your-registry>/sig-storage
     k8sTimeout:           30
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
+    Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        netapp/trident:23.01.0
-  Message:                  Trident installed  Namespace:                trident
-  Status:                   Installed
-  Version:                  v23.01.0
+    Trident Image:        <your-registry>/netapp/trident:23.01.0
+  Message:                Trident installed
+  Namespace:              trident
+  Status:                 Installed
+  Version:                v23.01.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-reco/integrate-trident.html 
-keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual storage pool, cvs, gcp, volumes 
+keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool, cvs, gcp, volumes 
 summary: Kubernetes叢集通常由兩種類型的節點組成、每種節點負責不同的功能層面。 
 ---
 = 整合Astra Trident
@@ -12,7 +12,7 @@ summary: Kubernetes叢集通常由兩種類型的節點組成、每種節點負�
 
 
 [role="lead"]
-若要整合Astra Trident、下列設計與架構元素需要整合：驅動程式選擇與部署、儲存類別設計、虛擬儲存資源池設計、持續磁碟區宣告（PVc）、使用Astra Trident對儲存資源配置、磁碟區作業及OpenShift服務部署的影響。
+若要整合Astra Trident、下列設計與架構元素需要整合：驅動程式選擇與部署、儲存類別設計、虛擬集區設計、持續磁碟區宣告（PVc）、使用Astra Trident對儲存資源配置、磁碟區作業及OpenShift服務部署的影響。
 
 
 
@@ -124,28 +124,35 @@ Astra Trident使用「azure-NetApp-files」驅動程式來管理 link:https://az
 
 
 
-=== 支援GCP後端驅動程式Cloud Volumes Service
+=== 在Google Cloud後端驅動程式上執行Cloud Volumes Service
 
-Astra Trident使用「GCP-CVS」驅動程式、在Cloud Volumes Service GCP後端連結到該功能。若要在Trident上設定GCP後端、您必須在後端檔案中指定「ProjectNumber」、「apiRegion」和「apiKey」。專案編號可在GCP入口網站找到、API金鑰必須取自您在GCP上設定Cloud Volumes API存取時所建立的服務帳戶私密金鑰檔案。Astra Trident可在兩個磁碟區中建立CVS磁碟區 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["服務類型"^]：
+Astra Trident使用 `gcp-cvs` 在Cloud Volumes Service Google Cloud上連結至該解決方案的驅動程式。
 
-. * CVS：基礎CVS服務類型、提供高分區可用度、效能等級有限/中等。
-. * CVS效能*：效能最佳化的服務類型、最適合重視效能的正式作業工作負載。共有三種獨特的服務層級可供選擇 [`standard`、 `premium`和 `extreme`]。
+。 `gcp-cvs` 驅動程式使用虛擬資源池來抽象化後端、並允許Astra Trident決定磁碟區放置。系統管理員會在中定義虛擬資源池 `backend.json` 檔案：儲存類別會使用選取器來依標籤識別虛擬資源池。
+
+* 如果在後端定義了虛擬資源池、Astra Trident會嘗試在Google Cloud儲存資源池中建立該虛擬資源池所限制的磁碟區。
+* 如果後端未定義虛擬資源池、Astra Trident會從該地區可用的儲存資源池中選取Google Cloud儲存資源池。
 
 
-CVS和CVS效能磁碟區大小下限為100 GiB。
+若要在Astra Trident上設定Google Cloud後端、您必須指定 `projectNumber`、 `apiRegion`和 `apiKey` 在後端檔案中。您可以在Google Cloud主控台找到專案編號。API金鑰取自您在Google Cloud Volumes Service Cloud上設定API存取功能時所建立的服務帳戶私密金鑰檔案。
+
+如需Cloud Volumes Service 有關Google Cloud服務類型與服務層級的詳細資訊、請參閱 link:../trident-use/gcp.html["瞭解Astra Trident對CVS for GCP的支援"]。
 
 [cols="20,10,10,10,10,10,10"]
 |===
-| CVS for GCP驅動程式 | 快照 | 複製 | 多重附加 | QoS | 展開 | 複寫 
+| 適用於Google Cloud驅動程式Cloud Volumes Service | 快照 | 複製 | 多重附加 | QoS | 展開 | 複寫 
 
 
-| 《GCP—CVS》 | 是的 | 是的 | 是的 | 是的 | 是的 | 是註腳：1[] 
+| 《GCP—CVS》 | 是的 | 是的 | 是的 | 是的 | 是的 | 僅適用於CVS效能服務類型。 
 |===
-[verse]
-註腳：是註腳：1[]：不由Astra Trident管理
+[NOTE]
+====
+.複寫附註
+* 複寫不由Astra Trident管理。
+* 該實體複本會建立在與來源Volume相同的儲存資源池中。
 
-「GCP-CVS」驅動程式使用虛擬儲存資源池。虛擬儲存池會將後端抽象化、讓Astra Trident決定磁碟區的放置位置。系統管理員會在backend.json檔案中定義虛擬儲存池。儲存類別會使用標籤來識別虛擬儲存資源池。
 
+====
 
 
 == 儲存層級設計
@@ -176,38 +183,38 @@ CVS和CVS效能磁碟區大小下限為100 GiB。
 
 
 
-=== 虛擬儲存資源池
+=== 虛擬資源池
 
-所有Astra Trident後端均可使用虛擬儲存資源池。您可以使用任何Astra Trident提供的驅動程式、為任何後端定義虛擬儲存池。
+所有Astra Trident後端均可使用虛擬資源池。您可以使用Astra Trident提供的任何驅動程式、為任何後端定義虛擬資源池。
 
-虛擬儲存資源池可讓系統管理員在後端建立抽象層級、以便透過儲存類別進行參考、以提高磁碟區在後端的靈活度與效率。不同的後端可以使用相同的服務類別來定義。此外、您也可以在相同的後端上建立多個儲存資源池、但其特性不同。當儲存類別設定為具有特定標籤的選取器時、Astra Trident會選擇符合所有選取器標籤的後端來放置磁碟區。如果「儲存類別」選取器標籤符合多個儲存資源池、Astra Trident會選擇其中一個來配置磁碟區。
-
-
-
-== 虛擬儲存資源池設計
-
-建立後端時、您通常可以指定一組參數。系統管理員無法以相同的儲存認證和一組不同的參數來建立另一個後端。隨著虛擬儲存資源池的推出、此問題已獲得緩和。虛擬儲存資源池是後端與Kubernetes儲存類別之間引進的層級抽象、可讓系統管理員定義參數及標籤、並以不受後端限制的方式透過Kubernetes儲存類別做為選取元來參照。您可以使用Astra Trident為所有支援的NetApp後端定義虛擬儲存池。這份清單包括SolidFire/NetApp HCI、ONTAP 《關於Cloud Volumes Service GCP的功能、功能、功能、功能Azure NetApp Files 、功能、以及
+虛擬集區可讓系統管理員在後端建立抽象層級、以便透過「儲存類別」加以參考、以提高磁碟區在後端的靈活度與效率。不同的後端可以使用相同的服務類別來定義。此外、您也可以在相同的後端上建立多個儲存資源池、但其特性不同。當儲存類別設定為具有特定標籤的選取器時、Astra Trident會選擇符合所有選取器標籤的後端來放置磁碟區。如果儲存類別選取器標籤符合多個儲存資源池、Astra Trident會選擇其中一個來配置磁碟區。
 
 
-NOTE: 定義虛擬儲存集區時、建議您不要嘗試重新排列後端定義中現有虛擬集區的順序。此外、建議您不要編輯/修改現有虛擬資源池的屬性、改為定義新的虛擬資源池。
+
+== 虛擬資源池設計
+
+建立後端時、您通常可以指定一組參數。系統管理員無法以相同的儲存認證和一組不同的參數來建立另一個後端。隨著虛擬資源池的推出、這個問題已經減輕。虛擬集區是後端與Kubernetes儲存類別之間的層級抽象、可讓系統管理員定義參數及標籤、並以不受後端限制的方式透過Kubernetes儲存類別做為選取元來參考。可使用Astra Trident為所有支援的NetApp後端定義虛擬資源池。這份清單包括SolidFire/NetApp HCI、ONTAP 《關於Cloud Volumes Service GCP的功能、功能、功能、功能Azure NetApp Files 、功能、以及
+
+
+NOTE: 定義虛擬資源池時、建議您不要嘗試重新排列後端定義中現有虛擬資源池的順序。此外、建議您不要編輯/修改現有虛擬資源池的屬性、改為定義新的虛擬資源池。
 
 
 
 === 模擬不同的服務層級/QoS
 
-您可以設計虛擬儲存池來模擬服務類別。使用適用於Azure NetApp Files 支援功能的Cloud Volume Service for效益的虛擬資源池實作、讓我們來看看如何設定不同的服務類別。使用代表不同效能等級的多個標籤來設定ANF後端。將「最大效能」設定為適當的效能層級、並在每個標籤下加入其他必要的層面。現在請建立不同的Kubernetes儲存類別、以便對應至不同的虛擬儲存資源池。使用「parameters.selector`」欄位、每個StorageClass都會呼叫哪些虛擬資源池可用於裝載磁碟區。
+您可以設計虛擬集區來模擬服務類別。使用適用於Azure NetApp Files 支援功能的Cloud Volume Service for效益的虛擬資源池實作、讓我們來看看如何設定不同的服務類別。使用代表不同效能等級的多個標籤來設定ANF後端。設定 `servicelevel` 並在每個標籤下新增其他必要的層面。現在請建立不同的Kubernetes儲存類別、以便對應至不同的虛擬資源池。使用 `parameters.selector` 欄位中、每個StorageClass會呼叫哪些虛擬資源池可用於裝載Volume。
 
 
 
 === 指派特定的層面組合
 
-可從單一儲存後端設計多個具有特定層面的虛擬儲存集區。若要這麼做、請使用多個標籤來設定後端、並在每個標籤下設定所需的層面。現在、請使用「parameters.selector`」欄位來建立不同的Kubernetes儲存類別、該欄位會對應至不同的虛擬儲存資源池。在後端上進行資源配置的磁碟區、將會在所選的虛擬儲存資源池中定義各個層面。
+可從單一儲存後端設計多個具有特定層面的虛擬集區。若要這麼做、請使用多個標籤來設定後端、並在每個標籤下設定所需的層面。現在、請使用建立不同的Kubernetes儲存類別 `parameters.selector` 對應至不同虛擬資源池的欄位。在後端上進行資源配置的磁碟區、將會在所選的虛擬資源池中定義各個層面。
 
 
 
 === 會影響儲存資源配置的永久儲存設備特性
 
-超出所要求儲存類別的部分參數、可能會影響Astra Trident在建立永久虛擬儲存設備時的資源配置決策程序。
+在建立永久虛擬儲存設備時、超出所要求儲存類別的部分參數可能會影響Astra Trident的資源配置決策程序。
 
 
 

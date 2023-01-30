@@ -224,7 +224,7 @@ Usage:
 Usage:
   tridentctl uninstall [flags]
 ----
-旗標：*、-help'：解除安裝說明。*「-silent」：解除安裝期間停用大部分的輸出。
+旗標：* `-h, --help`：解除安裝說明。* `--silent`：卸載期間禁用大多數輸出。
 
 
 

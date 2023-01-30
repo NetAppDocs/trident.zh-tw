@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/gcp.html 
-keywords: trident backend, cloud volumes service for google cloud platform, Google Cloud Platform 
+keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes 
 summary: 瞭Cloud Volumes Service 解如何使用提供的範例組態、將適用於Google Cloud的功能組態設定為Astra Trident安裝的後端。 
 ---
-= 針對GCP後端設定CVS
+= 設定Cloud Volumes Service 適用於Google Cloud後端的功能
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,28 +12,43 @@ summary: 瞭Cloud Volumes Service 解如何使用提供的範例組態、將適�
 
 
 [role="lead"]
-瞭Cloud Volumes Service 解如何使用所提供的範例組態、將適用於Google Cloud Platform（GCP）的NetApp功能（CVS）設定為Astra Trident安裝的後端。
+瞭Cloud Volumes Service 解如何使用提供的範例組態、將NetApp for Google Cloud設定為Astra Trident安裝的後端。
 
 
 
-== 瞭解Astra Trident對CVS for GCP的支援
+== 深入瞭解Astra Trident對Cloud Volumes Service Google Cloud的支援
 
-Astra Trident支援預設CVS服務類型為on的磁碟區 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["GCP"^]。無論CVS服務類型允許的最小值為何、Astra Trident都不支援低於100 GiB的CVS磁碟區。因此、如果要求的磁碟區小於最小大小、Trident會自動建立100 GiB磁碟區。
+Astra Trident可在Cloud Volumes Service 兩個地方建立一個不二的資料區 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["服務類型"^]：
+
+* * CVS效能*：預設的Astra Trident服務類型。這種效能最佳化的服務類型最適合重視效能的正式作業工作負載。CVS效能服務類型是一種硬體選項、可支援最小100 GiB大小的磁碟區。您可以選擇其中一項 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs-performance_service_type["三種服務層級"^]：
++
+** `standard`
+** `premium`
+** `extreme`
+
+
+* * CVS：CVS服務類型提供高分區可用度、但效能等級僅限於中度。CVS服務類型是一種軟體選項、使用儲存資源池來支援小至1 GiB的磁碟區。儲存資源池最多可包含50個磁碟區、其中所有磁碟區都會共用資源池的容量和效能。您可以選擇其中一項 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs_service_type["兩種服務層級"^]：
++
+** `standardsw`
+** `zoneredundantstandardsw`
+
+
+
 
 .您需要的產品
 以設定及使用 https://cloud.netapp.com/cloud-volumes-service-for-gcp?utm_source=NetAppTrident_ReadTheDocs&utm_campaign=Trident["適用於 Google Cloud Cloud Volumes Service"^] 後端、您需要下列項目：
 
-* 使用NetApp CVS設定的Google Cloud帳戶
+* Google Cloud帳戶已設定NetApp Cloud Volumes Service 功能
 * Google Cloud帳戶的專案編號
 * Google Cloud服務帳戶的角色為「netappcloudVolumes.admin」
-* CVS服務帳戶的API金鑰檔
+* API金鑰檔案、供Cloud Volumes Service 您的I方面 帳戶使用
 
 
 
 
 == 後端組態選項
 
-如需後端組態選項、請參閱下表：
+每個後端都會在單一Google Cloud區域中配置磁碟區。若要在其他區域建立磁碟區、您可以定義其他後端。
 
 [cols="3"]
 |===
@@ -49,67 +64,60 @@ Astra Trident支援預設CVS服務類型為on的磁碟區 https://cloud.google.c
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+ API金鑰的一部分 
 
 
-| 「torageClass」 | 儲存類型：可選擇「硬體」（效能最佳化）或「軟體」（CVS服務類型） |  
+| 「torageClass」 | 用於指定CVS服務類型的選用參數。使用 `software` 可選擇CVS服務類型。否則、Astra Trident會採用CVS效能服務類型 (`hardware`）。 |  
 
 
-| 「ProjectNumber」 | Google Cloud帳戶專案編號。此值可在Google Cloud入口網站的首頁找到。 |  
+| `storagePools` | 僅限CVS服務類型。選用參數、用於指定用於建立磁碟區的儲存資源池。 |  
 
 
-| 《apiRegion》 | CVS帳戶區域。這是後端配置磁碟區的區域。 |  
+| 「ProjectNumber」 | Google Cloud帳戶專案編號。此值可在Google Cloud入口網站首頁找到。 |  
 
 
-| 「apiKey」 | Google Cloud服務帳戶的API金鑰、其角色為「netappcloudVolumes.admin」。其中包含Google Cloud服務帳戶私密金鑰檔案（逐字複製到後端組態檔）的JSON-格式內容。 |  
+| 「hostProjectNumber」 | 如果使用共享VPC網路、則為必要項目。在此案例中、 `projectNumber` 是服務專案、以及 `hostProjectNumber` 是主機專案。 |  
 
 
-| "proxyurl" | Proxy URL（如果需要代理伺服器才能連線至CVS帳戶）。Proxy伺服器可以是HTTP Proxy或HTTPS Proxy。對於HTTPS Proxy、會跳過憑證驗證、以允許在Proxy伺服器中使用自我簽署的憑證。不支援已啟用驗證的Proxy伺服器。 |  
+| 《apiRegion》 | Astra Trident在Google Cloud區域建立Cloud Volumes Service 了各種不全的功能。建立跨區域Kubernetes叢集時、會在中建立磁碟區 `apiRegion` 可用於在多個Google Cloud區域的節點上排程的工作負載。跨區域流量會產生額外成本。 |  
+
+
+| 「apiKey」 | 的Google Cloud服務帳戶API金鑰 `netappcloudvolumes.admin` 角色：其中包含Google Cloud服務帳戶私密金鑰檔案（逐字複製到後端組態檔）的JSON-格式內容。 |  
+
+
+| "proxyurl" | Proxy URL（如果需要Proxy伺服器才能連線至CVS帳戶）。Proxy伺服器可以是HTTP Proxy或HTTPS Proxy。對於HTTPS Proxy、會跳過憑證驗證、以允許在Proxy伺服器中使用自我簽署的憑證。不支援已啟用驗證的Proxy伺服器。 |  
 
 
 | 「nfsMountOptions」 | 精細控制NFS掛載選項。 | "nfsves=3" 
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗 | ""（預設不強制執行） 
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。 | ""（預設不強制執行） 
 
 
-| 《服務層級》 | 新磁碟區的CVS服務層級。這些值包括「標準」、「高級」和「極端」。 | "標準" 
+| 《服務層級》 | 適用於新磁碟區的CVS效能或CVS服務層級。CVS的效能值為 `standard`、 `premium`或 `extreme`。CVS值包括 `standardsw` 或 `zoneredundantstandardsw`。 | CVS效能預設為「標準」。CVS預設為「標準」。 
 
 
-| 網路 | 用於CVS磁碟區的GCP網路 | 「預設」 
+| 網路 | Google Cloud網路用於Cloud Volumes Service 解決資料不整的問題。 | 「預設」 
 
 
-| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。例如：「\{"API":fals,"method":true}」。除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用此功能。 | null 
-|===
-如果使用共享VPC網路、則必須同時指定「ProjectNumber」和「hostProjectNumber」。在這種情況下、「專案編號」是服務專案、而「主機專案編號」則是主機專案。
+| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例： `\{"api":false, "method":true}`。除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用此功能。 | null 
 
-「apiRegion」代表Astra Trident建立CVS磁碟區的GCP區域。在建立跨區域Kubernetes叢集時、在「apiRegion」中建立的CVS磁碟區可用於多個GCP區域的節點上排程的工作負載。請注意、跨區域流量會產生額外成本。
 
-[NOTE]
-====
-* 若要啟用跨區域存取、您的StorageClass定義「alledtopologies」必須包含所有地區。例如：
-+
-[listing]
-----
-- key: topology.kubernetes.io/region
+| `allowedTopologies` | 若要啟用跨區域存取、您的StorageClass定義適用於 `allowedTopologies` 必須包含所有區域。例如：
+`- key: topology.kubernetes.io/region
   values:
   - us-east1
-  - europe-west1
-----
-* 「torageClass」是選用參數、可用來選取所需的參數 https://cloud.google.com/solutions/partners/netapp-cloud-volumes/service-types?hl=en_US["CVS服務類型"^]。您可以從基礎CVS服務類型（「儲存類別=軟體」）或CVS效能服務類型（「儲存類別=硬體」）中進行選擇、這是Trident預設使用的類型。請務必指定「apiRegion」、在後端定義中提供各自的CVS「儲存類別」。
+  - europe-west1` |  
+|===
 
 
-====
+== Volume資源配置選項
 
-CAUTION: Astra Trident與Google Cloud上的基礎CVS服務類型整合、是一項**測試版功能*、不適用於正式作業工作負載。Trident *完全支援* CVS效能服務類型、並依預設使用。
-
-每個後端都會在單一Google Cloud區域中配置磁碟區。若要在其他區域建立磁碟區、您可以定義其他後端。
-
-您可以在組態檔的特殊區段中指定下列選項、以控制預設的每個Volume佈建方式。請參閱下列組態範例。
+您可以在中控制預設的Volume資源配置 `defaults` 組態檔的一節。
 
 [cols=",,"]
 |===
 | 參數 | 說明 | 預設 
 
 
-| 「匯出規則」 | 新磁碟區的匯出規則 | 「0.00.0.0/0」 
+| 「匯出規則」 | 新磁碟區的匯出規則。必須是以逗號分隔的清單、以CIDR表示法列出所有的IPv4位址或IPv4子網路組合。 | 「0.00.0.0/0」 
 
 
 | 「napshotDir | 存取「.snapshot」目錄 | "假" 
@@ -118,18 +126,18 @@ CAUTION: Astra Trident與Google Cloud上的基礎CVS服務類型整合、是一�
 | 「快照保留區」 | 保留給快照的磁碟區百分比 | ""（接受CVS預設值為0） 
 
 
-| 《大小》 | 新磁碟區的大小 | 「100Gi」 
+| 《大小》 | 新磁碟區的大小。CVS效能最低為100 GiB。CVS最低為1 GiB。 | CVS效能服務類型預設為「100GiB」。CVS服務類型並未設定預設值、但至少需要1 GiB。 
 |===
-「匯出規則」值必須是以逗號分隔的清單、以CIDR表示法列出所有的IPv4位址或IPv4子網路組合。
 
 
-NOTE: 針對在CVS Google Cloud後端上建立的所有磁碟區、Trident會在儲存資源池上的所有標籤配置時複製到儲存磁碟區。儲存管理員可以定義每個儲存資源池的標籤、並將儲存資源池中建立的所有磁碟區分組。這是根據後端組態中提供的一組可自訂標籤、方便區分磁碟區的方法。
+== CVS效能服務類型範例
 
+下列範例提供CVS效能服務類型的範例組態。
 
-
-== 範例1：最低組態
-
-這是絕對最低的後端組態。
+.範例1：最低組態
+[%collapsible]
+====
+這是使用預設「標準」服務層級的預設CVS效能服務類型的最低後端組態。
 
 [listing]
 ----
@@ -152,39 +160,11 @@ NOTE: 針對在CVS Google Cloud後端上建立的所有磁碟區、Trident會在
     }
 }
 ----
-
-
-== 範例2：基礎CVS服務類型組態
-
-此範例顯示使用基本CVS服務類型的後端定義、此服務類型適用於一般用途的工作負載、提供輕度/中度效能、以及高分區可用度。
-
-[listing]
-----
-{
-    "version": 1,
-    "storageDriverName": "gcp-cvs",
-    "projectNumber": "012345678901",
-    "storageClass": "software",
-    "apiRegion": "us-east4",
-    "apiKey": {
-        "type": "service_account",
-        "project_id": "my-gcp-project",
-        "private_key_id": "1234567890123456789012345678901234567890",
-        "private_key": "-----BEGIN PRIVATE KEY-----\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nXsYg6gyxy4zq7OlwWgLwGa==\n-----END PRIVATE KEY-----\n",
-        "client_email": "cloudvolumes-admin-sa@my-gcp-project.iam.gserviceaccount.com",
-        "client_id": "123456789012345678901",
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40my-gcp-project.iam.gserviceaccount.com"
-    }
-}
-----
-
-
-== 範例3：單一服務層級組態
-
-此範例顯示後端檔案、可將相同層面套用至Google Cloud us-west2區域中所有由Astra Trident建立的儲存設備。此範例也顯示後端組態檔中使用「proxyURL」的情形。
+====
+.範例2：服務層級組態
+[%collapsible]
+====
+本範例說明後端組態選項、包括服務層級和Volume預設值。
 
 [listing]
 ----
@@ -217,13 +197,13 @@ NOTE: 針對在CVS Google Cloud後端上建立的所有磁碟區、Trident會在
     }
 }
 ----
+====
+.範例3：虛擬資源池組態
+[%collapsible]
+====
+此範例使用 `storage` 來設定虛擬集區和 `StorageClasses` 請回頭參考。請參閱 <<儲存類別定義>> 以瞭解如何定義儲存類別。
 
-
-== 範例4：虛擬儲存池組態
-
-此範例顯示使用虛擬儲存資源池設定的後端定義檔、以及回溯到這些資源池的「儲存類別」。
-
-在下圖所示的範例後端定義檔中、會針對所有儲存資源池設定特定的預設值、將「快照保留」設為5%、將「匯出規則」設為0.00.0/0。虛擬儲存資源池是在「儲存區」區段中定義的。在此範例中、每個個別的儲存資源池都會設定自己的「服務層級」、有些資源池則會覆寫預設值。
+此處會針對所有設定的虛擬資源池設定特定的預設值 `snapshotReserve` 5%和 `exportRule` 至0.00.0/0。虛擬資源池是在中定義的 `storage` 區段。每個個別虛擬集區都會定義自己的虛擬集區 `serviceLevel`和某些資源池會覆寫預設值。虛擬資源池標籤是用來區分資源池的依據 `performance` 和 `protection`。
 
 [listing]
 ----
@@ -305,10 +285,16 @@ NOTE: 針對在CVS Google Cloud後端上建立的所有磁碟區、Trident會在
     ]
 }
 ----
-下列StorageClass定義係指上述儲存資源池。您可以使用「parameters.selector`」欄位、為每個StorageClass指定用於裝載磁碟區的虛擬集區。該磁碟區會在所選的資源池中定義各個層面。
+====
 
-第一個StorageClass（「CVS極致額外保護」）會對應至第一個虛擬儲存資源池。這是唯一提供極致效能、快照保留率為10%的資源池。最後一個StorageClass（「CVS額外保護」）會呼叫提供快照保留10%的任何儲存資源池。Astra Trident決定選取哪個虛擬儲存池、並確保符合快照保留需求。
 
+=== 儲存類別定義
+
+下列StorageClass定義適用於虛擬集區組態範例。使用 `parameters.selector`、您可以為每個StorageClass指定用於裝載磁碟區的虛擬集區。該磁碟區會在所選的資源池中定義各個層面。
+
+.儲存類別範例
+[%collapsible]
+====
 [listing]
 ----
 apiVersion: storage.k8s.io/v1
@@ -365,6 +351,79 @@ parameters:
   selector: "protection=extra"
 allowVolumeExpansion: true
 ----
+====
+* 第一個StorageClass (`cvs-extreme-extra-protection`）對應至第一個虛擬資源池。這是唯一提供極致效能、快照保留率為10%的資源池。
+* 最後一個StorageClass (`cvs-extra-protection`）撥出提供快照保留10%的任何儲存資源池。Astra Trident決定選取哪個虛擬集區、並確保符合快照保留需求。
+
+
+
+
+== CVS服務類型範例
+
+下列範例提供CVS服務類型的範例組態。
+
+.範例1：最低組態
+[%collapsible]
+====
+這是使用的最低後端組態 `storageClass` 指定CVS服務類型和預設值 `standardsw` 服務層級：
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "gcp-cvs",
+    "projectNumber": "012345678901",
+    "storageClass": "software",
+    "apiRegion": "us-east4",
+    "apiKey": {
+        "type": "service_account",
+        "project_id": "my-gcp-project",
+        "private_key_id": "1234567890123456789012345678901234567890",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nXsYg6gyxy4zq7OlwWgLwGa==\n-----END PRIVATE KEY-----\n",
+        "client_email": "cloudvolumes-admin-sa@my-gcp-project.iam.gserviceaccount.com",
+        "client_id": "123456789012345678901",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40my-gcp-project.iam.gserviceaccount.com"
+    }
+“serviceLevel”: “standardsw”
+}
+----
+====
+.範例2：儲存資源池組態
+[%collapsible]
+====
+此範例後端組態使用 `storagePools` 以設定儲存資源池。
+
+[listing]
+----
+{
+  "version": 1,
+  "storageDriverName": "gcp-cvs",
+  "backendName": "gcp-std-so-with-pool",
+  "projectNumber": "531265380079",
+  "apiRegion": "europe-west1",
+  "apiKey": {
+    "type": "service_account",
+    "project_id": "cloud-native-data",
+    "private_key_id": "eeba413dcf54992cbbb265a369b7de6baebe88f8",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDaT+Oui9FBAw19\nL1AGEkrYU5xd9K5NlO5jMkIFND5wCD+Nv+jd1GvtFRLaLK5RvXyF5wzvztmODNS+\nqtScpQ+5cFpQkuGtv9U9+N6qtuVYYO3b504Kp5CtqVPJCgMJaK2j8pZTIqUiMum/\n5/Y9oTbZrjAHSMgJm2nHzFq2X0rqVMaHghI6ATm4DOuWx8XGWKTGIPlc0qPqJlqS\nLLaWOH4VIZQZCAyW5IUp9CAmwqHgdG0uhFNfCgMmED6PBUvVLsLvcq86X+QSWR9k\nETqElj/sGCenPF7ti1DhGBFafd9hPnxg9PZY29ArEZwY9G/ZjZQX7WPgs0VvxiNR\nDxZRC3GXAgMBAAECggEACn5c59bG/qnVEVI1CwMAalM5M2z09JFhlLlljKwntNPj\nVilw2eTW2+UE7HbJru/S7KQgA5Dnn9kvCraEahPRuddUMrD0vG4kTl/IODV6uFuk\nY0sZfbqd4jMUQ21smvGsqFzwloYWS5qzO1W83ivXH/HW/iqkmY2eW+EPRS/hwSSu\nSscR+SojI7PB0BWSJhlV4yqYf3vcD/D95el2CVHfRCkL85DKumeZ+yHEnpiXGZAE\nt8xSs4a5OOPm6NHhevCw2a/UQ95/foXNUR450HtbjieJo5o+FF6EYZQGfU2ZHZO8\n37FBKuaJkdGW5xqaI9TL7aqkGkFMF4F2qvOZM+vy8QKBgQD4oVuOkJDlhkTHP86W\nesFlw1kpWyJR9ZA7LI0g/rVpslnX+XdDq0WQf4umdLNau5hYEH9LU6ZSGs1Xk3/B\nNHwR6OXFuqEKNiu83d0zSlHhTy7PZpOZdj5a/vVvQfPDMz7OvsqLRd7YCAbdzuQ0\n+Ahq0Ztwvg0HQ64hdW0ukpYRRwKBgQDgyHj98oqswoYuIa+pP1yS0pPwLmjwKyNm\n/HayzCp+Qjiyy7Tzg8AUqlH1Ou83XbV428jvg7kDhO7PCCKFq+mMmfqHmTpb0Maq\nKpKnZg4ipsqP1yHNNEoRmcailXbwIhCLewMqMrggUiLOmCw4PscL5nK+4GKu2XE1\njLqjWAZFMQKBgFHkQ9XXRAJ1kR3XpGHoGN890pZOkCVSrqju6aUef/5KYlFCt8ew\nF/+aIxM2iQSvmWQYOvVCnhuY/F2GFaQ7d0om3decuwI0CX/xy7PjHMkLXa2uaZs4\nWR17sLduj62RqXRLX0c0QkwBiNFyHbRcpdkZJQujbYMhBa+7j7SxT4BtAoGAWMWT\nUucocRXZm/pdvz9wteNH3YDWnJLMxm1KC06qMXbBoYrliY4sm3ywJWMC+iCd/H8A\nGecxd/xVu5mA2L2N3KMq18Zhz8Th0G5DwKyDRJgOQ0Q46yuNXOoYEjlo4Wjyk8Me\n+tlQ8iK98E0UmZnhTgfSpSNElbz2AqnzQ3MN9uECgYAqdvdVPnKGfvdtZ2DjyMoJ\nE89UIC41WjjJGmHsd8W65+3X0RwMzKMT6aZc5tK9J5dHvmWIETnbM+lTImdBBFga\nNWOC6f3r2xbGXHhaWSl+nobpTuvlo56ZRJVvVk7lFMsiddzMuHH8pxfgNJemwA4P\nThDHCejv035NNV6KyoO0tA==\n-----END PRIVATE KEY-----",
+    "client_email": "cloudvolumes-admin-sa@cloud-native-data.iam.gserviceaccount.com",
+    "client_id": "107071413297115343396",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40cloud-native-data.iam.gserviceaccount.com"
+  },
+  "storageClass": "software",
+  "zone": "europe-west1-b",
+  "network": "default",
+  "storagePools": ["1bc7f380-3314-6005-45e9-c7dc8c2d7509"],
+  "serviceLevel": "Standardsw"
+}
+----
+====
 
 
 == 接下來呢？

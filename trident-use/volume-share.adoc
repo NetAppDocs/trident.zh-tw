@@ -160,7 +160,7 @@ Usage:
 == 限制
 
 * Astra Trident無法防止目的地命名空間寫入共用磁碟區。您應該使用檔案鎖定或其他程序來防止覆寫共用Volume資料。
-* 您無法藉由移除來撤銷對來源PVc的存取權 `shareToNamespace` 或 `shareFromNamepace` 註釋或刪除 `TridentVolumeReference` CR.若要撤銷存取權、您必須刪除從屬的PVc。
+* 您無法藉由移除來撤銷對來源PVc的存取權 `shareToNamespace` 或 `shareFromNamespace` 註釋或刪除 `TridentVolumeReference` CR.若要撤銷存取權、您必須刪除從屬的PVc。
 * 在從屬磁碟區上無法執行快照、複製和鏡射。
 
 

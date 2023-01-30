@@ -34,7 +34,7 @@ docker --version
 
 
 | NFS  a| 
-RHEL/CentOS 7.
+RHEL 8以上
  a| 
 「Udo yum install -y ns-utils」
 
@@ -48,7 +48,7 @@ Ubuntu
 
 
 | iSCSI  a| 
-RHEL/CentOS 7.
+RHEL 8以上
  a| 
 . 安裝下列系統套件：
 +

@@ -12,54 +12,42 @@ summary: Astra Trident依照每季發行時段進行、每一日曆年發行四�
 
 
 [role="lead"]
-Astra Trident依照每季發行時段進行、每一日曆年發行四個主要版本。每個新版本均以舊版為基礎、提供新功能與效能增強功能、以及錯誤修正與改善功能。我們建議您每年至少升級一次、以善用Astra Trident的新功能。
-
-
-NOTE: 若要升級至未來五個版本的版本、您必須執行多步驟升級。
+Astra Trident依照每季發行時段進行、每一日曆年發行四個主要版本。每個新版本均以舊版為基礎、提供新功能與效能增強功能、以及錯誤修正與改善功能。我們鼓勵您每年至少升級一次、以善用Astra Trident的新功能。
 
 
 
-== 判斷要升級的版本
+== 選取版本
 
-* 您可以從「yY-1.MM」版本和任何中間版本升級至「y.MM」版本。例如、您可以直接從19.07或更新版本升級至20.07（包括點版本、例如19.07.1）。
-* 如果您有較早的版本、應該執行多步驟升級。這需要您先升級至最新版本、以符合您的四個版本。例如、如果您執行的是18.07、想要升級至20.07版本、請依照下列指示執行多步驟升級程序：
+Astra Trident版本遵循日期型 `YY.MM` 命名慣例、其中「是」是一年的最後兩位數、「公釐」是月份。DOT版本遵循A `YY.MM.X` 慣例、其中「X」是修補程式層級。您將根據要升級的版本、選擇要升級的版本。
+
+* 您可以直接升級至安裝版本的四個版本範圍內的任何目標版本。例如、您可以直接從22.01升級至23.01（包括任何點版本、例如22.01.1）。
+* 如果您有較早的版本、則應使用個別版本的文件來執行多步驟升級、以取得特定指示。這需要您先升級至最新版本、以符合您的四個版本。例如、如果您執行的是18.07、想要升級至20.07版本、請依照下列多步驟升級程序進行：
 +
-** 第一次從18.07升級至19.07。請參閱個別版本的文件、以取得升級的特定指示。
-** 然後從19.07升級至20.07。
+.. 第一次從18.07升級至19.07。
+.. 然後從19.07升級至20.07。
 
 
 
 
-
-IMPORTANT: 所有19.04版及更早版本的升級、都需要將Astra Trident的中繼資料從自己的「etcd」移轉至CRD物件。請務必查看版本文件、瞭解升級的運作方式。
-
-
-WARNING: 升級時、務必在Astra Trident使用的「torageClasses」中提供「參數.FSType」。您可以刪除並重新建立「儲存類別」、而不會中斷現有的磁碟區。這是強制實施的一項**要求 https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["安全性內容"^] 適用於SAN磁碟區。。 https://github.com/NetApp/trident/tree/master/trident-installer/sample-input["範例輸入"^] 目錄包含範例、例如 https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-basic.yaml.templ["9d267d893296d1b56789c03ad196afc8"^] 和 https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-bronze-default.yaml["4e4578e23d9d48bd9338b1581f884392"^]。如需詳細資訊、請參閱 link:../trident-rn.html["已知問題"^]。
-
+[WARNING]
+====
+* 19.04版及更早版本的所有升級都需要從本身移轉Astra Trident中繼資料 `etcd` 至CRD物件。請務必查看版本文件、瞭解升級的運作方式。
+* 升級時、請務必提供 `parameter.fsType` 在中 `StorageClasses` 由Astra Trident使用。您可以刪除並重新建立 `StorageClasses` 無需中斷既有的磁碟區。這是強制實施的一項**要求 https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["安全性內容"^] 適用於SAN磁碟區。。 https://github.com/NetApp/trident/tree/master/trident-installer/sample-input["範例輸入"^] 目錄包含範例、例如[`storage-class-basic.yaml.templ`^]和[`storage-class-bronze-default.yaml`^]。如需詳細資訊、請參閱 link:../trident-rn.html["已知問題"]。
 
 
-== 我應該選擇哪種升級途徑？
+====
 
-您可以使用下列其中一種方法來升級：
 
-* 使用Trident運算子。
-* 使用「tridentctl」。
+== 選取升級選項
+
+有兩種方法可以升級Astra Trident。一般而言、您可以使用與初始安裝相同的選項 link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["在安裝方法之間移動"]。
+
+* link:upgrade-operator.html["使用Trident營運者進行升級"]
+* 
 
 
 
 WARNING: 現在、自Kubernetes 1.20開始、「csi Volume Snapshot」就是GA的一項功能。升級Astra Trident時、必須先移除所有先前的Alpha Snapshot CRS和CRD（Volume Snapshot類別、Volume Snapshot和Volume Snapshot內容）、才能執行升級。請參閱 https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["這篇部落格"^] 瞭解將Alpha快照移轉至測試版/GA規格所需的步驟。
-
-如果符合下列條件、您可以使用Trident運算子進行升級：
-
-* 您執行的是「csi Trident」（19.07及更新版本）。
-* 您有一個CRD型Trident版本（19.07及更新版本）。
-* 您正在執行自訂安裝（使用自訂YAML）。
-
-
-
-WARNING: 如果您使用的是以「etcd」為基礎的Trident版本（19.04或更早版本）、請勿使用運算子來升級Trident。
-
-如果您不想使用操作員、或是擁有操作員無法支援的自訂安裝、您可以使用「tridentctl」進行升級。這是Trident 19.04及更早版本的首選升級方法。
 
 
 
@@ -74,12 +62,4 @@ Astra Trident的21.01版為營運者帶來了一些重要的架構變更、如�
 
 
 * 現在、「TridentProvisioner」取代為「TridentOrchestrator」、做為用來安裝和管理Astra Trident的自訂資源。此外、「TridentOrchestrator」規格也引進了新的領域。使用者可以指定命名空間Trident必須使用「pec.namespace`」欄位來安裝/升級。您可以參考範例 https://github.com/NetApp/trident/blob/stable/v21.01/deploy/crds/tridentorchestrator_cr.yaml["請按這裡"^]。
-
-
-
-
-== 如需詳細資訊、請參閱
-
-* link:upgrade-operator.html["使用Trident營運者進行升級"^]
-* link:upgrade-tridentctl.html["b41f68e89b7b02a9077fb800d31a2fbe"]
 

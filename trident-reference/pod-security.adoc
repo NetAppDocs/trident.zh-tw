@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-reference/pod-security.html 
-keywords: psp, pss, scc, pod security, pod security standards, pod security policies, security context contraints 
+keywords: psp, pss, scc, pod security, pod security standards, pod security policies, security context constraints 
 summary: Kubernetes Pod安全標準（Ps）和Pod安全政策（Ps）定義權限等級、並限制Pod的行為。OpenShift Security內容限制（SCC）同樣定義OpenShift Kubernetes Engine特有的Pod限制。為了提供此自訂功能、Astra Trident可在安裝期間啟用特定權限。 
 ---
 = Pod安全標準（PSS）與安全內容限制（SCC）
@@ -90,7 +90,7 @@ WARNING: 變更命名空間標籤可能會導致無法排程Pod、「建立錯�
 | 《處理器類型》 | Trident不使用任何「ProctMountTypes」。 | 空白 
 
 
-| 《分配不成功的Sysctls》 | Trident不需要任何不安全的「縮圖」。 | 空白 
+| 《非安全性系統》 | Trident不需要任何不安全的「縮圖」。 | 空白 
 
 
 | '資料錯誤附加功能' | 不需要將任何功能新增至權限容器。 | 空白 

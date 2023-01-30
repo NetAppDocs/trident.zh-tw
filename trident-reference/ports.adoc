@@ -12,7 +12,11 @@ summary: 深入瞭解Astra Trident透過哪些連接埠進行通訊。
 
 
 [role="lead"]
-深入瞭解Astra Trident透過哪些連接埠進行通訊。
+深入瞭解Astra Trident用於通訊的連接埠。
+
+
+
+== Astra Trident連接埠
 
 Astra Trident透過下列連接埠進行通訊：
 
@@ -33,4 +37,4 @@ Astra Trident透過下列連接埠進行通訊：
 | 17546 | Trident取消安裝套件所使用的活動/整備度探針連接埠 
 |===
 
-NOTE: 在安裝期間、可使用「-Probe-port'」旗標來變更活動力/整備度探針連接埠。請務必確認工作節點上的其他程序並未使用此連接埠。
+NOTE: 您可以在安裝期間使用變更活動力/整備度探針連接埠 `--probe-port` 旗標。請務必確認工作節點上的其他程序並未使用此連接埠。

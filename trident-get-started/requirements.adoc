@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/requirements.html 
-keywords: trident requirements, supported front ends, supported backends, kubernetes cluster, cluster requirements, version requirements, supported versions, host configuration, host os, system configuration, host operating system, fsx 
-summary: 請先檢閱支援的前端、後端及主機組態、開始著手。 
+keywords: trident requirements, supported front ends, supported backends, kubernetes cluster, cluster requirements, version requirements, supported versions, host configuration, host os, system configuration, host operating system, fsx, ports, csi, images, orchestrators, storage systems, feature, kubernetes 
+summary: 在安裝Astra Trident之前、您應該先檢閱這些一般系統需求。特定後端可能有其他需求。 
 ---
 = 需求
 :hardbreaks:
@@ -12,22 +12,19 @@ summary: 請先檢閱支援的前端、後端及主機組態、開始著手。
 
 
 [role="lead"]
-請先檢閱支援的前端、後端及主機組態、開始著手。
-
-
-NOTE: 若要瞭解Astra Trident使用的連接埠、請參閱 link:../trident-reference/ports.html["請按這裡"]。
+在安裝Astra Trident之前、您應該先檢閱這些一般系統需求。特定後端可能有其他需求。
 
 
 
-== 有關Astra Trident的重要資訊22.10
+== Astra Trident的重要資訊23.01
 
-*在升級至Astra Trident 22.10*之前、您必須先閱讀下列重要資訊
+*您必須閱讀下列有關Astra Trident的重要資訊。*
 
-[WARNING]
-.<strong>關於Astra Trident 22.10</strong>的重要資訊
+.關於Astra Trid-功能 的資訊</strong> <strong>
+[%collapsible%open]
 ====
-* Kubernetes 1.25現在已在Trident中受到支援。升級至Kubernetes 1.25之前、您必須先升級至Astra Trident 22.10。
-* Astra Trident現在嚴格強制執行SAN環境中的多重路徑組態使用、建議使用的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
+* Kubernetes 1.26現在已在Trident中受到支援。升級Kubernetes之前先升級Trident。
+* Astra Trident在SAN環境中嚴格執行多重路徑組態的使用、建議的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
 
@@ -41,16 +38,16 @@ NOTE: 若要瞭解Astra Trident使用的連接埠、請參閱 link:../trident-re
 Astra Trident支援多個容器引擎和協調器、包括：
 
 * Anthos on -Prem（VMware）和Anthos on裸機1.9、1.10、1.11
-* Kubernetes 1.20 - 1.25
+* Kubernetes 1.21 - 1.26
 * Mirantis Kubernetes Engine 3.5
-* OpenShift 4.8、4.9、4.10、4.11
+* OpenShift 4.9 - 4.12
 
 
 這些版本支援Trident運算子：
 
 * Anthos on -Prem（VMware）和Anthos on裸機1.9、1.10、1.11
-* Kubernetes 1.20 - 1.25
-* OpenShift 4.8、4.9、4.10、4.11
+* Kubernetes 1.21 - 1.26
+* OpenShift 4.9 - 4.12
 
 
 Astra Trident也能與其他全管理且自我管理的Kubernetes產品搭配使用、包括Google Kubernetes Engine（GKE）、Amazon Elastic Kubernetes Services（EKS）、Azure Kubernetes Service（KS）、Rancher及VMware Tanzu Portfolio。
@@ -65,7 +62,7 @@ Astra Trident也能與其他全管理且自我管理的Kubernetes產品搭配使
 * Azure NetApp Files
 * Cloud Volumes ONTAP
 * 適用於 GCP Cloud Volumes Service
-* FAS/AFF/選取9.3或更新版本
+* FAS/AFF/選取9.5或更新版本
 * NetApp All SAN Array ASA （ESAN）
 * NetApp HCI / Element軟體11或更新版本
 
@@ -82,63 +79,56 @@ Astra Trident也能與其他全管理且自我管理的Kubernetes產品搭配使
 
 
 | csi Trident  a| 
-1.20 - 1.25
+1.21 - 1.26
  a| 
 否
 
 
 
 | Volume Snapshot  a| 
-1.20 - 1.25
+1.21 - 1.26
  a| 
 否
 
 
 
 | 來自Volume Snapshot的PVc  a| 
-1.20 - 1.25
+1.21 - 1.26
  a| 
 否
 
 
 
 | iSCSI PV調整大小  a| 
-1.20 - 1.25
+1.21 - 1.26
  a| 
 否
 
 
 
 | 資訊雙向CHAP ONTAP  a| 
-1.20 - 1.25
+1.21 - 1.26
  a| 
 否
 
 
 
 | 動態匯出原則  a| 
-1.20 - 1.25
+1.21 - 1.26
  a| 
 否
 
 
 
 | Trident運算子  a| 
-1.20 - 1.25
- a| 
-否
-
-
-
-| 自動工作者節點準備（試用版）  a| 
-1.20 - 1.25
+1.21 - 1.26
  a| 
 否
 
 
 
 | csi拓撲  a| 
-1.20 - 1.25
+1.21 - 1.26
  a| 
 否
 
@@ -147,10 +137,10 @@ Astra Trident也能與其他全管理且自我管理的Kubernetes產品搭配使
 
 == 已測試的主機作業系統
 
-儘管Astra Trident並未正式「支援」特定作業系統、但已知下列項目仍可正常運作：
+儘管Astra Trident並未正式支援特定作業系統、但已知下列項目仍能正常運作：
 
 * 受OpenShift Container Platform支援的RedHat CoreOS（RMCOS）版本
-* RHEL或CentOS 7.
+* RHEL 8以上
 * Ubuntu 18.04或更新版本（最新版本22.04）
 * Windows Server 2019
 
@@ -163,13 +153,25 @@ Astra Trident也能與其他全管理且自我管理的Kubernetes產品搭配使
 
 == 主機組態
 
-視使用中的後端而定、應該在叢集中的所有員工上安裝NFS和/或iSCSI公用程式。請參閱 link:../trident-use/worker-node-prep.html["請按這裡"^] 以取得更多資訊。
+Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。若要準備工作節點、您必須根據所選的驅動程式來安裝NFS或iSCSI工具。
+
+link:../trident-use/worker-node-prep.html["準備工作節點"]
 
 
 
 == 儲存系統組態
 
-Astra Trident可能需要對儲存系統進行一些變更、才能使用後端組態。請參閱 link:../trident-use/backends.html["請按這裡"^] 以取得詳細資料。
+Astra Trident可能需要變更儲存系統、才能使用後端組態。
+
+link:../trident-use/backends.html["設定後端"]
+
+
+
+== Astra Trident連接埠
+
+Astra Trident需要存取特定連接埠才能進行通訊。
+
+link:../trident-reference/ports.html["Astra Trident連接埠"]
 
 
 
@@ -182,82 +184,82 @@ Astra Trident可能需要對儲存系統進行一些變更、才能使用後端�
 | Kubernetes版本 | Container映像 
 
 
-| v1.20.0  a| 
-* NetApp/Trident：22.10.0
-* NetApp/Trident自動支援：22.10
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.3.0
-* k8s.io/sig-storage / csi附加程式：v4.0
-* k8s.io/sig-storage / csi大小調整：v1.6.0
-* k8s.io/sig-storage / csi快照記錄：v3.0.3
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
-* NetApp/Trident營運者：22.10.0（選用）
-
-
-
-
 | 1.21.0版  a| 
-* NetApp/Trident：22.10.0
-* NetApp/Trident自動支援：22.10
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.3.0
-* k8s.io/sig-storage / csi附加程式：v4.0
-* k8s.io/sig-storage / csi大小調整：v1.6.0
-* k8s.io/sig-storage / csi快照記錄：v3.0.3
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
-* NetApp/Trident營運者：22.10.0（選用）
+* NetApp/Trident：23.01.0
+* NetApp/Trident自動支援：23.01
+* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
+* k8s.io/sig-storage / csi附加程式：v4.1.0
+* k8s.io/sig-storage / csi大小調整：v1.7.0
+* k8s.io/sig-storage / csi快照記錄：v6.2.1
+* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
+* NetApp/Trident營運者：23.01.0（選用）
 
 
 
 
 | 1.22.0版  a| 
-* NetApp/Trident：22.10.0
-* NetApp/Trident自動支援：22.10
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.3.0
-* k8s.io/sig-storage / csi附加程式：v4.0
-* k8s.io/sig-storage / csi大小調整：v1.6.0
-* k8s.io/sig-storage / csi快照記錄：v3.0.3
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
-* NetApp/Trident營運者：22.10.0（選用）
+* NetApp/Trident：23.01.0
+* NetApp/Trident自動支援：23.01
+* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
+* k8s.io/sig-storage / csi附加程式：v4.1.0
+* k8s.io/sig-storage / csi大小調整：v1.7.0
+* k8s.io/sig-storage / csi快照記錄：v6.2.1
+* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
+* NetApp/Trident營運者：23.01.0（選用）
 
 
 
 
 | 1.23.0版  a| 
-* NetApp/Trident：22.10.0
-* NetApp/Trident自動支援：22.10
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.3.0
-* k8s.io/sig-storage / csi附加程式：v4.0
-* k8s.io/sig-storage / csi大小調整：v1.6.0
-* k8s.io/sig-storage / csi快照記錄：v3.0.3
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
-* NetApp/Trident營運者：22.10.0（選用）
+* NetApp/Trident：23.01.0
+* NetApp/Trident自動支援：23.01
+* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
+* k8s.io/sig-storage / csi附加程式：v4.1.0
+* k8s.io/sig-storage / csi大小調整：v1.7.0
+* k8s.io/sig-storage / csi快照記錄：v6.2.1
+* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
+* NetApp/Trident營運者：23.01.0（選用）
 
 
 
 
 | 1.24.0版  a| 
-* NetApp/Trident：22.10.0
-* NetApp/Trident自動支援：22.10
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.3.0
-* k8s.io/sig-storage / csi附加程式：v4.0
-* k8s.io/sig-storage / csi大小調整：v1.6.0
-* k8s.io/sig-storage / csi快照記錄：v3.0.3
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
-* NetApp/Trident營運者：22.10.0（選用）
+* NetApp/Trident：23.01.0
+* NetApp/Trident自動支援：23.01
+* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
+* k8s.io/sig-storage / csi附加程式：v4.1.0
+* k8s.io/sig-storage / csi大小調整：v1.7.0
+* k8s.io/sig-storage / csi快照記錄：v6.2.1
+* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
+* NetApp/Trident營運者：23.01.0（選用）
 
 
 
 
 | v1.25.0  a| 
-* NetApp/Trident：22.10.0
-* NetApp/Trident自動支援：22.10
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.3.0
-* k8s.io/sig-storage / csi附加程式：v4.0
-* k8s.io/sig-storage / csi大小調整：v1.6.0
-* k8s.io/sig-storage / csi快照記錄：v3.0.3
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.5
-* NetApp/Trident營運者：22.10.0（選用）
+* NetApp/Trident：23.01.0
+* NetApp/Trident自動支援：23.01
+* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
+* k8s.io/sig-storage / csi附加程式：v4.1.0
+* k8s.io/sig-storage / csi大小調整：v1.7.0
+* k8s.io/sig-storage / csi快照記錄：v6.2.1
+* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
+* NetApp/Trident營運者：23.01.0（選用）
+
+
+
+
+| 1.26.0版  a| 
+* NetApp/Trident：23.01.0
+* NetApp/Trident自動支援：23.01
+* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
+* k8s.io/sig-storage / csi附加程式：v4.1.0
+* k8s.io/sig-storage / csi大小調整：v1.7.0
+* k8s.io/sig-storage / csi快照記錄：v6.2.1
+* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
+* NetApp/Trident營運者：23.01.0（選用）
 
 
 |===
 
-NOTE: 在Kubernetes版本1.20及更新版本上、只有當「v1」版本提供「volumesnapshots.snapshot.storage」（volumesnapshots.snapshotter：v6.x）影像時、才使用已驗證的「remite.k8s.gcr.io」（英文）CRD。如果「v1Beta1」版本使用/不使用「v1」版本來提供CRD、請使用已驗證的「remipester.k8s.gcr.io/sig-storage / cs-snapshotter：v3.x」映像。
+NOTE: 在Kubernetes 1.21版及更新版本上、請使用已驗證的 `registry.k8s.gcr.io/sig-storage/csi-snapshotter:v6.x` 僅在以下情況下顯示映像 `v1` 版本正在提供 `volumesnapshots.snapshot.storage.k8s.gcr.io` 客戶需求日如果是 `v1beta1` 版本為CRD提供/不提供 `v1` 版本、請使用已驗證的 `registry.k8s.gcr.io/sig-storage/csi-snapshotter:v3.x` 映像。

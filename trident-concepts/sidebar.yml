@@ -10,7 +10,7 @@ entries:
   url: "/trident-concepts/provisioning.html"
 - title: Volume快照
   url: "/trident-concepts/snapshots.html"
-- title: 虛擬儲存資源池
+- title: 虛擬資源池
   url: "/trident-concepts/virtual-storage-pool.html"
 - title: Volume存取群組
   url: "/trident-concepts/vol-access-groups.html"

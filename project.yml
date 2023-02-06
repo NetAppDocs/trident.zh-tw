@@ -24,7 +24,7 @@ settings:
   - name: Astra Trident
     url: "/trident-2201"
     version-number: '22.01'
-  langs: zh-tw,us-en,ja-jp,zh-cn,ko-kr,fr-fr,de-de
+  langs: zh-tw,us-en,ja-jp,ko-kr,zh-cn,de-de,fr-fr
 sidebar:
   entries:
   - title: Astra Trident文件

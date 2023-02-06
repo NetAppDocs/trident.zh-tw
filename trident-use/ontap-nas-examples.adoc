@@ -75,24 +75,24 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS
 | 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。 | 「」（預設不強制執行） 
 
 
-| 「」（預設不強制執行） | 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN、以及的磁碟區大小上限 `qtreesPerFlexvol` 選項可自訂每FlexVol 個支援區的配額樹數上限。 
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN、以及的磁碟區大小上限 `qtreesPerFlexvol` 選項可自訂每FlexVol 個支援區的配額樹數上限。 | 「」（預設不強制執行） 
 
 
-| 「」（預設不強制執行） | 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200] 
+| 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200] | 「100」 
 
 
-| 「100」 | 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「method」：true｝不使用 `debugTraceFlags` 除非您正在疑難排解並需要詳細的記錄傾印。 
+| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「method」：true｝不使用 `debugTraceFlags` 除非您正在疑難排解並需要詳細的記錄傾印。 | null 
 
 
-| null | 「nfsMountOptions」 | 以逗號分隔的NFS掛載選項清單。Kubernetes持續磁碟區的掛載選項通常會在儲存類別中指定、但如果儲存類別中未指定掛載選項、則Astra Trident會改回使用儲存後端組態檔中指定的掛載選項。如果儲存類別或組態檔中未指定掛載選項、Astra Trident將不會在相關的持續磁碟區上設定任何掛載選項。 
+| 「nfsMountOptions」 | 以逗號分隔的NFS掛載選項清單。Kubernetes持續磁碟區的掛載選項通常會在儲存類別中指定、但如果儲存類別中未指定掛載選項、則Astra Trident會改回使用儲存後端組態檔中指定的掛載選項。如果儲存類別或組態檔中未指定掛載選項、Astra Trident將不會在相關的持續磁碟區上設定任何掛載選項。 | 「」 
 
 
-| 「」 | "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] 
+| "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] | 「200」 
 
 
-| 「200」 | 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*
+| 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*
 `useREST` 以*技術預覽*的形式提供、建議用於測試環境、而非用於正式作業工作負載。設定為時 `true`、Astra Trident將使用ONTAP 靜止API與後端進行通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取 `ontap` 應用程式：這是預先定義的 `vsadmin` 和 `cluster-admin` 角色：
-`useREST` 不支援MetroCluster 使用支援。 
+`useREST` 不支援MetroCluster 使用支援。 | 錯 
 |===
 
 
@@ -142,12 +142,6 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS
 
 
 | 「napshotDir | 控制「.snapshot」目錄的可見度 | 「假」 
-
-
-| 「napshotDir | 控制「.snapshot」目錄的可見度 | 「假」 
-
-
-| 「匯出政策」 | 要使用的匯出原則 | 「預設」 
 
 
 | 「匯出政策」 | 要使用的匯出原則 | 「預設」 

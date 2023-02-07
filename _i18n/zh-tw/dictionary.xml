@@ -967,7 +967,6 @@
   <block id="28326357ec2f8c06e01271c4ee2201f1" category="cell">「200」</block>
   <block id="f703d18584e163e18762e4dc13ad96a0" category="cell">《useREST》</block>
   <block id="193a49bcfb561fea878daa5efe72cad9" category="section-title">用於資源配置磁碟區的後端組態選項</block>
-  <block id="4b162a795c1916b18df8b6a76a8fef49" category="paragraph">您可以在組態的特定區段中、使用這些選項來控制預設配置每個Volume的方式。如需範例、請參閱下列組態範例。</block>
   <block id="26161d08a960162cd8633d0e23058aed" category="cell">LUN的空間分配</block>
   <block id="3be488c6a2bc52ceb7e8685ca24927d7" category="cell">「真的」</block>
   <block id="3bce5b103341500856287f5347e19f28" category="cell">空間保留模式；「無」（精簡）或「Volume」（完整）</block>
@@ -2638,7 +2637,6 @@
   <block id="ee3d8ea22d8bf88f2f7fcd6d6dbf26d2" category="paragraph">度量服務可針對OpenShift叢集的狀態、資源使用率及可用度、提供寶貴的資訊給系統管理員。此外、也需要Pod自動擴充功能、許多組織會使用指標服務的資料來支付費用和/或顯示應用程式。</block>
   <block id="5e5cb863d5fe17c205c3d2201a1a2235" category="paragraph">Astra Trident將Kubernetes叢集部署為Pod、為Kubernetes工作負載提供動態儲存協調服務。它可讓您的容器化應用程式快速輕鬆地使用NetApp廣泛產品組合中的持續儲存設備、包括ONTAP ：VMware的各種產品組合（AFF/FAS/Select/Cloud / Amazon FSX for NetApp ONTAP ）、Element軟體（NetApp HCI / SolidFire）、Azure NetApp Files 以及Google Cloud Volumes Service Cloud上的整套服務和功能。</block>
   <block id="f21f22dde0e0692333a7a28cce456b08" category="sidebar">所有Astra文件</block>
-  <block id="271eadf9144a35af6e28eb2db28db36c" category="summary">Astra Trident是由NetApp維護的開放原始碼儲存資源配置程式和Orchestrator。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。請閱讀版本說明、瞭解升級至Astra Trident 22.10的重要資訊</block>
   <block id="06d5b814514e67e2a36b491b2493aed1" category="paragraph">請使用此處列出的建議、確保您的Astra Trident安裝安全無虞。</block>
   <block id="252ee40ccbd23adc008945e85af83513" category="section-title">使用Astra Trident搭配NVE和NAE</block>
   <block id="676ad90ce2543d29917d8a5a6fc02e01" category="inline-link-macro">ASNAS組態選項ONTAP</block>
@@ -3564,4 +3562,5 @@
   <block id="58834b137fd6fa7a9ca23468a5c91fd6" category="sidebar">準備進行設定</block>
   <block id="6fc0b7515ecca271c88eae4a685da613" category="sidebar">不含SolidFire NetApp HCI</block>
   <block id="60be48bb4b3314965bf50e88e7ae728c" category="sidebar">整合Amazon FSX for ONTAP Sf</block>
+  <block id="ea3d51fb2b16acb7cb260f25bc8965b1" category="sidebar">Astra Trident是由NetApp維護的開放原始碼儲存資源配置程式和Orchestrator。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。</block>
 </blocks>

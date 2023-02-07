@@ -18,6 +18,9 @@ Astra Trident提供五ONTAP 種獨特的Intel儲存驅動程式、可與ONTAP �
 
 == 深入瞭ONTAP 解NetApp儲存驅動程式
 
+
+WARNING: 客戶必須使用 `ontap-nas` 驅動需要資料保護、災難恢復和行動力的正式作業工作負載。Astra Control為使用建立的磁碟區提供無縫保護、災難恢復和行動性 `ontap-nas` 驅動程式：。 `ontap-nas-economy` 只有在預期磁碟區使用量會比ONTAP 支援的容量高出許多的有限使用案例中、才應使用驅動程式、而且不會有預期的資料保護、災難恢復或移動性（在Kubernetes叢集之間移動磁碟區）需求。
+
 [cols="5"]
 |===
 | 驅動程式 | 傳輸協定 | Volume模式 | 支援的存取模式 | 支援的檔案系統 

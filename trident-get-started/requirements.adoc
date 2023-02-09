@@ -141,7 +141,7 @@ Astra Trident也能與其他全管理且自我管理的Kubernetes產品搭配使
 
 * 受OpenShift Container Platform支援的RedHat CoreOS（RMCOS）版本
 * RHEL 8以上
-* Ubuntu 18.04或更新版本（最新版本22.04）
+* Ubuntu 22.04或更新版本
 * Windows Server 2019
 
 

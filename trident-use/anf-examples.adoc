@@ -371,7 +371,7 @@ parameters:
 ----
 ====
 
-NOTE: `nasType: "smb"` 支援SMB磁碟區的集區篩選器。 `nasType: "nfs"`` 或 `nasType: "null"` NFS集區的篩選器。
+NOTE: `nasType: `smb` 支援SMB磁碟區的集區篩選器。 `nasType: `nfs` 或 `nasType: `null` NFS集區的篩選器。
 
 
 

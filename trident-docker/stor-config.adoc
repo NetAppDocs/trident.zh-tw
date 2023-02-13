@@ -228,9 +228,11 @@ NFS匯出原則使用NAS選項、預設為「預設」
 
 
 | 《生態樣式》  a| 
-NAS選項用於存取已配置的NFS Volume、預設為「UNIX」
+NAS選項、可存取已配置的NFS Volume。
+
+NFS支援 `mixed` 和 `unix` 安全樣式：預設值為 `unix`。
  a| 
-混合
+`unix`
 
 
 

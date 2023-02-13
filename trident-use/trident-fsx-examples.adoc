@@ -171,7 +171,7 @@ NOTE: 如果將PVCS附加至一或多個Pod、您必須關閉所有對應的Pod�
 | 「unixPermissions」 | 新磁碟區的模式。*如果是SMB磁碟區、請保留空白。* | 「」 
 
 
-| 《生態樣式》 | 新磁碟區的安全樣式。 | NFS磁碟區為「UNIX」；SMB磁碟區為「NTFS」 
+| 《生態樣式》 | 新磁碟區的安全樣式。NFS支援 `mixed` 和 `unix` 安全樣式：SMB支援 `mixed` 和 `ntfs` 安全樣式： | NFS預設為 `unix`。SMB預設為 `ntfs`。 
 |===
 
 

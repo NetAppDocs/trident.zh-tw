@@ -152,7 +152,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-luks.html["使用Linux統一金鑰設定（LUKS）"]。 | " 
 
 
-| 《生態樣式》 | 新磁碟區的安全樣式 | 「UNIX」 
+| 《生態樣式》 | 新磁碟區的安全樣式 | `unix` 
 
 
 | 「分層政策」 | 分層原則以使用「無」 | ONTAP 9.5之前的SVM-DR組態為「純快照」 

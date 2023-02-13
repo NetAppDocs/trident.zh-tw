@@ -141,7 +141,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS
 | 「匯出政策」 | 要使用的匯出原則 | 「預設」 
 
 
-| 《生態樣式》 | 新磁碟區的安全樣式 | NFS磁碟區為「UNIX」；SMB磁碟區為「NTFS」 
+| 《生態樣式》 | 新磁碟區的安全樣式。NFS支援 `mixed` 和 `unix` 安全樣式：SMB支援 `mixed` 和 `ntfs` 安全樣式： | NFS預設為 `unix`。SMB預設為 `ntfs`。 
 |===
 
 NOTE: 搭配Astra Trident使用QoS原則群組需要ONTAP 使用更新版本的版本。建議使用非共用的QoS原則群組、並確保原則群組會個別套用至每個組成群組。共享的QoS原則群組將強制所有工作負載的總處理量上限。

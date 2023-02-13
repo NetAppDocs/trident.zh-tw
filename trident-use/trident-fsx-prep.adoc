@@ -123,13 +123,13 @@ NOTE: 請參閱 link:https://docs.netapp.com/us-en/ontap/smb-config/create-share
 | 參數 | 說明 | 範例 
 
 
-| `smbShare` | 使用共享資料夾Microsoft管理主控台建立的SMB共用名稱。例如「SMB共用區」。* SMB磁碟區需要。* | 「SMB共用區」 
+| `smbShare` | 使用共享資料夾Microsoft管理主控台建立的SMB共用名稱。例如「SMB共用區」。* SMB磁碟區需要。* | `smb-share` 
 
 
-| `nasType` | *必須設定為 `smb`.*如果為null、則預設為 `nfs`。 | "中小企業" 
+| `nasType` | *必須設定為 `smb`.*如果為null、則預設為 `nfs`。 | `smb` 
 
 
-| 《生態樣式》 | 新磁碟區的安全樣式。SMB磁碟區*必須設為「NTFS」。* | "NTF" 
+| 《生態樣式》 | 新磁碟區的安全樣式。*必須設定為 `ntfs` 或 `mixed` 適用於SMB磁碟區。* | `ntfs` 或 `mixed` 適用於SMB磁碟區 
 
 
 | 「unixPermissions」 | 新磁碟區的模式。SMB磁碟區*必須保留為空白。* | " 

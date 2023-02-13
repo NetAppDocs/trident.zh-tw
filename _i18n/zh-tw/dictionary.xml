@@ -2975,7 +2975,6 @@
   <block id="f888aa18c19e41f8c1263fa99ca8b94c" category="cell">solidfire-san、ontap、nap、nap、nas經濟、ontap、nas、flexgroup、ontap、san、ONTAP-san經濟型</block>
   <block id="a64f78ea5d42780118e8f5c7f6cfdcbb" category="list-text"><block ref="a64f78ea5d42780118e8f5c7f6cfdcbb" category="inline-link-macro-rx"></block></block>
   <block id="65a38da8aec2b99cf44dbf919fbd6991" category="list-text"><block ref="65a38da8aec2b99cf44dbf919fbd6991" category="inline-link-macro-rx"></block></block>
-  <block id="5e91194ed6174e8f5eb09a2fffc13dad" category="admonition">客戶必須使用<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動需要資料保護、災難恢復和行動力的正式作業工作負載。Astra Control為使用建立的磁碟區提供無縫保護、災難恢復和行動性<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式：。<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 只有在預期磁碟區使用量會比ONTAP 支援的容量高出許多的有限使用案例中、才應使用驅動程式、而且不會有預期的資料保護、災難恢復或移動性（在Kubernetes叢集之間移動磁碟區）需求。</block>
   <block id="05a2712653dfbf7d695c18242d9848e6" category="paragraph">RHEL 8以上</block>
   <block id="bba4e1b8d8614fe9da2d67e2dcef4b52" category="paragraph"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block>、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>、<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>、<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block></block>
   <block id="c95cada2a569592345ebc18e5ef4c7aa" category="paragraph">傳輸協定LIF的IP位址。</block>
@@ -3563,4 +3562,10 @@
   <block id="60be48bb4b3314965bf50e88e7ae728c" category="sidebar">整合Amazon FSX for ONTAP Sf</block>
   <block id="ea3d51fb2b16acb7cb260f25bc8965b1" category="sidebar">Astra Trident是由NetApp維護的開放原始碼儲存資源配置程式和Orchestrator。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。</block>
   <block id="784060ce5e49eff75eaca62337b5ff53" category="list-text">Ubuntu 22.04或更新版本</block>
+  <block id="e267c2490c7d73d0ffa909b77267cfaf" category="inline-link-macro">Astra Control複寫先決條件</block>
+  <block id="9814801b0db6e324ebd72f671418de64" category="paragraph">Astra Control可為使用建立的磁碟區提供無縫保護、災難恢復和移動性（在Kubernetes叢集之間移動磁碟區）<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>和<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 驅動程式：請參閱 <block ref="dfc981ac97be73172a3119f3b831eaf8" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
+  <block id="783c2760a502e1f1537de458c9dceb7a" category="list-text">您必須使用<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 適用於需要資料保護、災難恢復和行動力的正式作業工作負載。</block>
+  <block id="a743248a7032cdf1d468935cf180bdee" category="list-text">使用<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 當預期的Volume使用量將遠高於ONTAP 支援的容量時。</block>
+  <block id="0655cc918eb576b740cfd35bbff9c8ac" category="list-text">使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 只有在預期的Volume使用量會比ONTAP 支援的高出許多、以及<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 無法使用驅動程式。</block>
+  <block id="df7dec428425115b59101028bbebe58c" category="list-text">請勿使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 如果您預期需要資料保護、災難恢復或行動性、</block>
 </blocks>

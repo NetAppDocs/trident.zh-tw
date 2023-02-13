@@ -211,9 +211,12 @@ NOTE: 。 `trident-controller` 和Pod名稱反映了23.01中引入的命名慣�
 
 請執行下列步驟、升級Helm型的操作員安裝。
 
+
+WARNING: 將Kubernetes叢集從1.24升級至1.25或更新版本、且已安裝Astra Trident時、您必須更新vales.yaml才能設定 `excludePodSecurityPolicy` 至 `true` 或新增 `--set excludePodSecurityPolicy=true` 至 `helm upgrade` 命令、然後才能升級叢集。
+
 .步驟
 . 下載最新的Astra Trident版本。
-. 使用 `helm upgrade` 命令位置 `trident-operator-23.01.0.tgz` 反映您要升級至的版本：
+. 使用 `helm upgrade` 命令位置 `trident-operator-23.01.0.tgz` 反映您要升級的版本。
 +
 [listing]
 ----

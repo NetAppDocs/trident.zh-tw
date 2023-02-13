@@ -328,6 +328,7 @@ WARNING: v21.10.0版本發生問題、可在移除節點後將Trident控制器�
 
 已知問題可識別可能導致您無法成功使用產品的問題。
 
+* 將Kubernetes叢集從1.24升級至1.25或更新版本、且已安裝Astra Trident時、您必須更新vales.yaml才能設定 `excludePodSecurityPolicy` 至 `true` 或新增 `--set excludePodSecurityPolicy=true` 至 `helm upgrade` 命令、然後才能升級叢集。
 * 對於未在StorageClass中指定「FSType」的磁碟區、Astra Trident現在會執行空白的「FSType」（「FSType =」）。使用Kubernetes 1.17或更新版本時、Trident支援為NFS磁碟區提供空白的「FSType」。對於iSCSI磁碟區、您必須在使用安全性內容強制執行「fsGroup」時、在StorageClass上設定「FSType」。
 * 在多個Astra Trident執行個體之間使用後端時、每個後端組態檔都應該有不同的「儲存前置字元」值、以供ONTAP 後端使用、或是使用不同的「TenantName」作為SolidFire 後端。Astra Trident無法偵測其他Astra Trident執行個體所建立的磁碟區。嘗試在ONTAP 不穩定或SolidFire 不穩定的後端上建立現有的Volume是成功的、因為Astra Trident將建立Volume視為強大的作業。如果「儲存前置詞」或「TenantName」沒有不同、則在相同後端上建立的磁碟區可能會發生名稱衝突。
 * 安裝Astra Trident（使用「tridentctl」或Trident運算子）並使用「tridentctl」來管理Astra Trident時、您應確保設定「KUBECCONFIG」環境變數。這是表示Kubernetes叢集「tridentctl」應該與之搭配使用的必要項目。在使用多個Kubernetes環境時、您應該確保「KUBECCONFIG」檔案的來源正確無誤。

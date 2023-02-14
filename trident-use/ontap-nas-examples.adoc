@@ -246,7 +246,7 @@ NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX�
 ====
 這些範例說明如何指示Astra Trident使用動態匯出原則來自動建立及管理匯出原則。這對的運作方式相同 `ontap-nas-economy` 和 `ontap-nas-flexgroup` 驅動程式：
 
-.ONTAP-NAS-經濟驅動程式
+.ONTAP-NAS驅動程式
 [listing]
 ----
 {

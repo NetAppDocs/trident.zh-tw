@@ -3037,8 +3037,6 @@
   <block id="f72ba1a3a498489a96fd8774bfa9ea9d" category="example-title">支援升級功能的不一樣之處&lt;/strong&gt; &lt;strong&gt;</block>
   <block id="c3b2fe84f143129d7a18ad12df229bc6" category="example-title">使用BlueXP（前身為Cloud Manager）進行叢集管理&lt;/strong&gt; &lt;strong&gt;</block>
   <block id="152d763e6dc0313ce9b449d200613a5f" category="section-title">使用<block ref="26df55f7460e08309d510282499b6b1d" prefix=" " category="inline-code"></block></block>
-  <block id="9572d5e218b06cdccf02985efd1e22d3" category="inline-link-macro">使用tridentctl安裝</block>
-  <block id="87e3a0ec03a6ec1b426ef99e6436161e" category="paragraph">如果您現有的部署必須升級、或是想要高度自訂部署、您應該考慮 <block ref="1d8d1486a21051f79115d6882092358e" category="inline-link-macro-rx"></block>。這是部署Astra Trident的傳統方法。</block>
   <block id="4c24a3b9facf2ea9fc7ed2ca52dab45d" category="inline-link-macro">客製化安裝功能&lt;block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category='inline-code'/&gt;</block>
   <block id="40beff6895ce0eeff65f9568dd5c7247" category="paragraph">您可以 <block ref="d16089dfa270d6679e80d43ec8b5c378" category="inline-link-macro-rx"></block> 以產生Trident資源的資訊清單。這包括部署、取消程式集、服務帳戶、以及Astra Trident在安裝過程中所建立的叢集角色。</block>
   <block id="cb024a74bf03f9ba7a9433337492808e" category="admonition">從22.04版開始、每次安裝Astra Trident時、AES金鑰就不會再重新產生。在這個版本中、Astra Trident會安裝一個新的秘密物件、並在安裝過程中持續存在。這表示、<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 在22.04中可以解除安裝舊版Trident、但舊版無法解除安裝22.04安裝。選取適當的安裝方法_。</block>
@@ -3571,4 +3569,6 @@
   <block id="e69dee79b2104ff7c08b095e6212f492" category="list-text">將Kubernetes叢集從1.24升級至1.25或更新版本、且已安裝Astra Trident時、您必須更新vales.yaml才能設定<block ref="94ef2a130a825358ab3002442d6e5145" prefix=" " category="inline-code"></block> 至<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> 或新增<block ref="96d5d0b9a6e3e01b2ae2ed889f75d22e" prefix=" " category="inline-code"></block> 至<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> 命令、然後才能升級叢集。</block>
   <block id="3936420db557853e037e33725ba2e1b4" category="list-text">使用<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> 命令位置<block ref="13eee8d0c5cbca0f1ea5bc4275d5bc8d" prefix=" " category="inline-code"></block> 反映您要升級的版本。</block>
   <block id="412b252fa44d1a73e3e7bf22113f99a2" category="listing-title">ONTAP-NAS驅動程式</block>
+  <block id="f39486d0f9f7ffc885eca61e8823ea0a" category="inline-link-macro">使用tridentctl安裝</block>
+  <block id="ea71d8757e4d8afc8f6253684f5a7f1c" category="paragraph">如果您現有的部署必須升級、或是想要高度自訂部署、您應該考慮 <block ref="004ed44e395c472642e5a257ee453413" category="inline-link-macro-rx"></block>。這是部署Astra Trident的傳統方法。</block>
 </blocks>

@@ -1269,7 +1269,6 @@
   <block id="01fae47efea3407f5bc27a09eea8709c" category="cell">覆寫執行Trident Node SCSI外掛程式之Pod的容錯能力。格式與po.spec.TBolerations相同。</block>
   <block id="4352a1b4e004cf57ac04661a18de43aa" category="inline-link-macro">將Pod指派給節點</block>
   <block id="b3b67fd79d24b4873c8164c750c21798" category="admonition">如需格式化Pod參數的詳細資訊、請參閱 <block ref="7b3a69fdac08c769183925679da4c365" category="inline-link-macro-rx"></block>。</block>
-  <block id="aa452927f1dec9709a523a0de496d6c5" category="summary">您可以使用「tridentctl」來部署Astra Trident。</block>
   <block id="e0e3d7f1aacdf4a8196132549709430c" category="doc">使用tridentctl部署</block>
   <block id="4a052772dca278b7be31d54ca9f21831" category="inline-link-macro">基本概念</block>
   <block id="dd3de2609b612d76ef4c71b97b8d6100" category="inline-link">請依照他們的步驟啟用CLI存取</block>
@@ -3107,9 +3106,7 @@
   <block id="e0755e6cf0a80c2d8535ac3b7eae0b4b" category="section-title">步驟2：建立<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 客戶需求日</block>
   <block id="04bed90b9e7d65b6d7dd48211e0a9f6c" category="paragraph">建立<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 自訂資源定義（CRD）。您將建立<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 稍後再自訂資源。請使用中適當的CRD Y反 洗錢版本<block ref="91ff3926f7c7983bb4a56689f631e6c9" prefix=" " category="inline-code"></block> 以建立<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 客戶需求日：</block>
   <block id="ad9aaefb573cd08d43c2b039449b1f0e" category="section-title">步驟3：更新操作員中的登錄位置</block>
-  <block id="694dbbe2d19406bc64c44e8f6458ce7a" category="paragraph">在中<block ref="9fa80de5781893b057ff1d535201893b" prefix=" " category="inline-code"></block>、更新<block ref="f9fa807329a3c6418caaaa1874b599f4" prefix=" " category="inline-code"></block> 以反映映像登錄的位置。例如：</block>
   <block id="7becac85824dceb67af52a0fe0415be5" category="list-text"><block ref="18256f9d9de108b07ce48faa1d8de290" prefix="" category="inline-code"></block> 如果您的映像都位於單一登錄中。</block>
-  <block id="cd378ec6ef8ecebc3a4659986728ae7e" category="list-text"><block ref="7dcfa8a76be931076dc77a59f6470141" prefix="" category="inline-code"></block> 如果您的Trident和csi影像位於不同的登錄中。</block>
   <block id="7e1c8354fb2b2ecb65abfa6a63e08970" category="section-title">步驟3：部署Trident運算子</block>
   <block id="bb336dd58b442c31f8bab7909d55dd42" category="paragraph">Trident安裝程式會在中部署操作員<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> 命名空間。如果是<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> 命名空間不存在、請使用<block ref="fd71c571b96c493189b63aa659012e87" prefix=" " category="inline-code"></block> 以建立。</block>
   <block id="81ba9d708af383a3ede5475fabdd91bf" category="paragraph">可在非的命名空間中部署運算子<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> 命名空間、更新<block ref="8610cac3beb01fb0b43bc94c587a807d" prefix=" " category="inline-code"></block>、<block ref="a3df76a4fb69b2a5e9ec42d242e90ea3" prefix=" " category="inline-code"></block> 和<block ref="9fa80de5781893b057ff1d535201893b" prefix=" " category="inline-code"></block> 部署營運者之前。</block>
@@ -3118,12 +3115,7 @@
   <block id="e8972e07c1fa789317997dff35db7e78" category="list-text">對於執行Kubernetes 1.24或更低層級的叢集、請使用<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block>。</block>
   <block id="a615299877ce0660ab19510814b9dedd" category="list-text">對於執行Kubernetes 1.25或更新版本的叢集、請使用<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block>。</block>
   <block id="64458d8f3e4ba02b2bf50e5a1ad00c81" category="list-text">驗證是否已部署操作員。</block>
-  <block id="57847ee4f12e28355134067e1b928b9b" category="section-title">步驟4：更新中的映像登錄位置<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block></block>
-  <block id="1f13432df75f47eb32309278571c5983" category="paragraph">您的Trident和csi映像可以位於一個登錄或不同的登錄中、但所有的csi映像都必須位於同一個登錄中。更新<block ref="7b4b81fb05ca7f2a09fe73526ac95482" prefix=" " category="inline-code"></block> 根據登錄組態新增額外的位置規格。</block>
-  <block id="0ac14b025f53f0b1dc50b2632045e4ce" category="open-title">Trident和csi映像位於單一登錄中</block>
-  <block id="4ab5d35b32e3d4a3ca86f398bec0e486" category="open-title">不同登錄中的Trident和csi映像</block>
   <block id="69301f05825d437597b636d8b7e9d918" category="paragraph">您必須附加<block ref="4134d52569bb4a6545ebff1e4c83f2bc" prefix=" " category="inline-code"></block> 至<block ref="990dc1a09e10c7b5378e6bc8a1956cb8" prefix=" " category="inline-code"></block> 使用不同的登錄位置。</block>
-  <block id="fb4fb1e73c66032be5f92dd05f69cff3" category="section-title">步驟5：建立<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 並安裝Trident</block>
   <block id="78f538d1739cfd8c70698ec72269da17" category="inline-link-macro">自訂您的Trident安裝</block>
   <block id="60b02b15eaf058a3b9da12633792321f" category="paragraph">您現在可以建立<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 並安裝Astra Trident。您也可以選擇進一步 <block ref="af79c767b326b6188dbe7366c85a8007" category="inline-link-macro-rx"></block> 使用中的屬性<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 規格下列範例顯示Trident與csi映像位於不同登錄中的安裝。</block>
   <block id="9c0f95d6de9186b24cce94c1c19ad0bb" category="section-title">驗證安裝</block>
@@ -3140,17 +3132,13 @@
   <block id="9023b4b442239b429817bc22fb401e02" category="summary">您可以部署Trident運算子、並使用Helm安裝Astra Trident。此程序適用於將Astra Trident所需的容器映像儲存在私有登錄中的安裝。</block>
   <block id="3e8935de45b1559e2ec2b01c1bbb06c2" category="doc">使用Helm部署Trident運算子（離線模式）</block>
   <block id="dc0316b52aa2ab6526bdaee13c162530" category="paragraph">您可以部署Trident運算子、並使用Helm安裝Astra Trident。此程序適用於將Astra Trident所需的容器映像儲存在私有登錄中的安裝。如果您沒有私有映像登錄、請使用 <block ref="2230544d14bc4ba0c61a5a1b2030a1d4" category="inline-link-macro-rx"></block>。</block>
-  <block id="266321104888c2174d7545226d7adc9b" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> 並指定部署和映像登錄位置的名稱、如下列範例所示。在範例中、<block ref="93edfe5491b7772fd10045fef48289e7" prefix=" " category="inline-code"></block> 是您要安裝的Astra Trident版本。</block>
   <block id="3d289dfc040026f9fd5fd0d307821b6c" category="doc">使用tridentctl安裝</block>
-  <block id="925c7af7f037e06594c62d6b07e51aa4" category="paragraph">您可以使用安裝Astra Trident<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。此程序適用於Trident和csi映像位於的安裝<block ref="0b505db73d92bac18356fa3feb3cf7e3" prefix=" " category="inline-code"></block> 和<block ref="95d6355f896a633ab07c528c03b44c8e" prefix=" " category="inline-code"></block> 或是私有的鏡射登錄。以自訂您的<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 部署、請參閱 <block ref="8e7a26c9800a78fa0b68fb2423ba3fb4" category="inline-link-macro-rx"></block>。</block>
   <block id="61697702c419c08b19643e7defded065" category="section-title">使用安裝Astra Trident<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
   <block id="953aeeea088f5f969f2eba121ae81f15" category="paragraph">在開始安裝之前、請先登入Linux主機、然後確認它正在管理正常運作的 <block ref="ac355729d1ddc95a290738ca862fed08" category="inline-link-macro-rx"></block> 而且您擁有必要的權限。</block>
   <block id="8e00e0acac84eb708bf35882acdffca9" category="paragraph">Astra Trident安裝程式套件會建立Trident pod、設定用來維持其狀態的CRD物件、並初始化csi sidecar以執行資源配置和將磁碟區附加至叢集主機等動作。從下載並擷取Trident安裝程式的最新版本 <block ref="6a7c34d1e7545bd3ab5abc336e61eb7f" category="inline-link-macro-rx"></block>。請使用&lt;trident-installer-XX.XX.X.tar.gz&gt; 您所選的Astra Trident版本來更新範例中的_SUR__。</block>
   <block id="4fba6bba4e54639c0f1d19c0a5679833" category="section-title">步驟2：安裝Astra Trident</block>
   <block id="c0e89c01626a7378d795a618051fccbf" category="paragraph">執行、在所需的命名空間中安裝Astra Trident<block ref="430bf77bee6c59d385d4194f84c21b16" prefix=" " category="inline-code"></block> 命令。您可以新增其他引數來指定映像登錄位置。</block>
   <block id="53c512e9599c71e1a585d636a5229820" category="open-title">標準模式</block>
-  <block id="8fbc0757e481d43e9851a350de41bf97" category="open-title">Trident和csi映像位於一個鏡射登錄中</block>
-  <block id="300ff219aca64776fed1d1675a5011fa" category="open-title">不同鏡射登錄中的Trident和csi映像</block>
   <block id="ca5380881d4e3b38f359d5d05acd6163" category="paragraph">您的安裝狀態應該類似這樣。</block>
   <block id="c5e8fc3926c956e64487a70aa036ec8c" category="paragraph">您可以使用Pod建立狀態或來驗證安裝<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。</block>
   <block id="5ba19178fb1b2111306714e923b35945" category="inline-link-macro">開啟偵錯模式</block>
@@ -3571,4 +3559,16 @@
   <block id="412b252fa44d1a73e3e7bf22113f99a2" category="listing-title">ONTAP-NAS驅動程式</block>
   <block id="f39486d0f9f7ffc885eca61e8823ea0a" category="inline-link-macro">使用tridentctl安裝</block>
   <block id="ea71d8757e4d8afc8f6253684f5a7f1c" category="paragraph">如果您現有的部署必須升級、或是想要高度自訂部署、您應該考慮 <block ref="004ed44e395c472642e5a257ee453413" category="inline-link-macro-rx"></block>。這是部署Astra Trident的傳統方法。</block>
+  <block id="b3735f022036728c24121c449da97183" category="inline-link-macro">Trident和csi影像</block>
+  <block id="0f01246331dd1197a1889bf13d7131a8" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> 並指定部署和映像登錄位置的名稱。您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。在範例中、<block ref="93edfe5491b7772fd10045fef48289e7" prefix=" " category="inline-code"></block> 是您要安裝的Astra Trident版本。</block>
+  <block id="c4ffea098f78924a9b9331b8f5e9c8b4" category="open-title">一個登錄中的映像</block>
+  <block id="4847c552b2ff9251806e41c8fa907e19" category="open-title">不同登錄中的映像</block>
+  <block id="7a958030f69f08aa24ff2b440556c305" category="summary">您可以使用安裝Astra Trident<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。此程序適用於將Astra Trident所需的容器映像儲存在私有登錄中或不儲存在私有登錄中的安裝。</block>
+  <block id="9b809d56a3bb0caddcd0793e74d8e636" category="paragraph">您可以使用安裝Astra Trident<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。此程序適用於將Astra Trident所需的容器映像儲存在私有登錄中或不儲存在私有登錄中的安裝。以自訂您的<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 部署、請參閱 <block ref="8e7a26c9800a78fa0b68fb2423ba3fb4" category="inline-link-macro-rx"></block>。</block>
+  <block id="88177d8e2425600f2b95afd270e60008" category="paragraph">在中<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>、更新<block ref="f9fa807329a3c6418caaaa1874b599f4" prefix=" " category="inline-code"></block> 以反映映像登錄的位置。您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。例如：</block>
+  <block id="791b3a9990d4b0b2af1866f25ede97d6" category="list-text"><block ref="7dcfa8a76be931076dc77a59f6470141" prefix="" category="inline-code"></block> 如果Trident映像與您的csi映像位於不同的登錄中。</block>
+  <block id="7a79f435dcaa0ca2322cde1d80c13868" category="section-title">步驟4：部署Trident運算子</block>
+  <block id="579b44412770c0d6b65bc3fd9bf7c61c" category="section-title">步驟5：更新中的映像登錄位置<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block></block>
+  <block id="d0ebde94f92d8c1bae0c6660a5847bba" category="paragraph">您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。更新<block ref="7b4b81fb05ca7f2a09fe73526ac95482" prefix=" " category="inline-code"></block> 根據登錄組態新增額外的位置規格。</block>
+  <block id="5295ac8fb520b71deb8a1b57857b2562" category="section-title">步驟6：建立<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 並安裝Trident</block>
 </blocks>

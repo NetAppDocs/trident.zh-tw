@@ -49,18 +49,18 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. 使用 `helm install` 並指定部署和映像登錄位置的名稱、如下列範例所示。在範例中、 `23.01.0` 是您要安裝的Astra Trident版本。
+. 使用 `helm install` 並指定部署和映像登錄位置的名稱。您的 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。在範例中、 `23.01.0` 是您要安裝的Astra Trident版本。
 +
 [role="tabbed-block"]
 ====
-.Trident和csi映像位於單一登錄中
+.一個登錄中的映像
 --
 [listing]
 ----
 helm install <name> netapp-trident/trident-operator --version 23.01.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
 ----
 --
-.不同登錄中的Trident和csi映像
+.不同登錄中的映像
 --
 您必須附加 `sig-storage` 至 `imageRegistry` 使用不同的登錄位置。
 

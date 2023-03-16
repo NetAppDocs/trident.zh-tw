@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-deploy-tridentctl.html 
 keywords: deploy, astra trident, methods, tridentctl, windows 
-summary: 您可以使用「tridentctl」來部署Astra Trident。 
+summary: '您可以使用安裝Astra Trident `tridentctl`。此程序適用於將Astra Trident所需的容器映像儲存在私有登錄中或不儲存在私有登錄中的安裝。' 
 ---
 = 使用tridentctl安裝
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 您可以使用「tridentctl」來部署Astra Trident。
 
 
 [role="lead"]
-您可以使用安裝Astra Trident `tridentctl`。此程序適用於Trident和csi映像位於的安裝 `docker.io` 和 `registry.k8s.io` 或是私有的鏡射登錄。以自訂您的 `tridentctl` 部署、請參閱 link:kubernetes-customize-deploy-tridentctl.html["自訂試用部署"]。
+您可以使用安裝Astra Trident `tridentctl`。此程序適用於將Astra Trident所需的容器映像儲存在私有登錄中或不儲存在私有登錄中的安裝。以自訂您的 `tridentctl` 部署、請參閱 link:kubernetes-customize-deploy-tridentctl.html["自訂試用部署"]。
 
 
 
@@ -97,14 +97,14 @@ NOTE: 若要在Windows節點上執行Astra Trident、請新增 `--windows` 安�
 ./tridentctl install -n trident
 ----
 --
-.Trident和csi映像位於一個鏡射登錄中
+.一個登錄中的映像
 --
 [listing]
 ----
 ./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:23.01 --trident-image <your-registry>/trident:23.01.0
 ----
 --
-.不同鏡射登錄中的Trident和csi映像
+.不同登錄中的映像
 --
 您必須附加 `sig-storage` 至 `imageRegistry` 使用不同的登錄位置。
 

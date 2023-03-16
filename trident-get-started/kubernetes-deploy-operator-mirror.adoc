@@ -93,15 +93,15 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_<VERSIO
 
 === 步驟3：更新操作員中的登錄位置
 
-在中 `operator.yaml`、更新 `image: docker.io/netapp/trident-operator:23.01.0` 以反映映像登錄的位置。例如：
+在中 `/deploy/operator.yaml`、更新 `image: docker.io/netapp/trident-operator:23.01.0` 以反映映像登錄的位置。您的 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。例如：
 
 * `image: <your-registry>/trident-operator:23.01.0` 如果您的映像都位於單一登錄中。
-* `image: <your-registry>/netapp/trident-operator:23.01.0` 如果您的Trident和csi影像位於不同的登錄中。
+* `image: <your-registry>/netapp/trident-operator:23.01.0` 如果Trident映像與您的csi映像位於不同的登錄中。
 
 
 
 
-=== 步驟3：部署Trident運算子
+=== 步驟4：部署Trident運算子
 
 Trident安裝程式會在中部署操作員 `trident` 命名空間。如果是 `trident` 命名空間不存在、請使用 `kubectl apply -f deploy/namespace.yaml` 以建立。
 
@@ -139,13 +139,13 @@ IMPORTANT: Kubernetes叢集中只應有*一個運算子執行個體*。請勿建
 
 
 
-=== 步驟4：更新中的映像登錄位置 `TridentOrchestrator`
+=== 步驟5：更新中的映像登錄位置 `TridentOrchestrator`
 
-您的Trident和csi映像可以位於一個登錄或不同的登錄中、但所有的csi映像都必須位於同一個登錄中。更新 `deploy/crds/tridentorchestrator_cr.yaml` 根據登錄組態新增額外的位置規格。
+您的 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。更新 `deploy/crds/tridentorchestrator_cr.yaml` 根據登錄組態新增額外的位置規格。
 
 [role="tabbed-block"]
 ====
-.Trident和csi映像位於單一登錄中
+.一個登錄中的映像
 --
 [listing]
 ----
@@ -154,7 +154,7 @@ autosupportImage: "<your-registry>/trident-autosupport:23.01"
 tridentImage: "<your-registry>/trident:23.01.0"
 ----
 --
-.不同登錄中的Trident和csi映像
+.不同登錄中的映像
 --
 您必須附加 `sig-storage` 至 `imageRegistry` 使用不同的登錄位置。
 
@@ -168,7 +168,7 @@ tridentImage: "<your-registry>/netapp/trident:23.01.0"
 ====
 
 
-=== 步驟5：建立 `TridentOrchestrator` 並安裝Trident
+=== 步驟6：建立 `TridentOrchestrator` 並安裝Trident
 
 您現在可以建立 `TridentOrchestrator` 並安裝Astra Trident。您也可以選擇進一步 link:kubernetes-customize-deploy.html["自訂您的Trident安裝"] 使用中的屬性 `TridentOrchestrator` 規格下列範例顯示Trident與csi映像位於不同登錄中的安裝。
 

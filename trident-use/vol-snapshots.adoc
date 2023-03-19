@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-snapshots.html 
 keywords: volumes, on-demand volume snapshots, create snapshots, backends, kubernetes, create PVCs, PVCs 
-summary: '您可以建立持續磁碟區（PV）的Kubernetes Volume Snapshot（Volume Snapshot）、以維護Astra Trident磁碟區的時間點複本。此外、您也可以從現有的Volume Snapshot建立新的Volume、也稱為_clon__。支援Volume Snapshot `ontap-nas`、 `ontap-san`、 `ontap-san-economy`、 `solidfire-san`、 `gcp-cvs`和 `azure-netapp-files` 驅動程式：' 
+summary: '您可以建立持續磁碟區（PV）的Kubernetes Volume Snapshot（Volume Snapshot）、以維護Astra Trident磁碟區的時間點複本。此外、您也可以從現有的Volume Snapshot建立新的Volume、也稱為_clon__。支援Volume Snapshot `ontap-nas`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy`、 `solidfire-san`、 `gcp-cvs`和 `azure-netapp-files` 驅動程式：' 
 ---
 = 使用快照
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: '您可以建立持續磁碟區（PV）的Kubernetes Volume Snapshot（
 
 
 [role="lead"]
-您可以建立持續磁碟區（PV）的Kubernetes Volume Snapshot（Volume Snapshot）、以維護Astra Trident磁碟區的時間點複本。此外、您也可以從現有的Volume Snapshot建立新的Volume、也稱為_clon__。支援Volume Snapshot `ontap-nas`、 `ontap-san`、 `ontap-san-economy`、 `solidfire-san`、 `gcp-cvs`和 `azure-netapp-files` 驅動程式：
+您可以建立持續磁碟區（PV）的Kubernetes Volume Snapshot（Volume Snapshot）、以維護Astra Trident磁碟區的時間點複本。此外、您也可以從現有的Volume Snapshot建立新的Volume、也稱為_clon__。支援Volume Snapshot `ontap-nas`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy`、 `solidfire-san`、 `gcp-cvs`和 `azure-netapp-files` 驅動程式：
 
 .開始之前
 您必須擁有外部快照控制器和自訂資源定義（CRD）。這是Kubernetes Orchestrator的責任（例如：Kubeadm、GKE、OpenShift）。

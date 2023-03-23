@@ -123,7 +123,7 @@ Kubernetes的「torageClass」物件是以名稱在「PeristentVolume Claims」�
 
 [listing]
 ----
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: <Name>
@@ -250,7 +250,7 @@ Kubernetes的「Volume SnapshotClass」物件類似於「儲存類別」。它�
 
 [listing]
 ----
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-snapclass

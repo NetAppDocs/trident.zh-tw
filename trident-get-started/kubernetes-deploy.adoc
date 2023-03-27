@@ -111,9 +111,9 @@ NOTE: 如果叢集升級至不受支援的版本、則操作員將無法安裝As
 ====
 
 
-=== 使用 `tridenctl`
+=== 使用 `tridentctl`
 
-如果您現有的部署必須升級、或是想要高度自訂部署、您應該考慮 link:kubernetes-deploy-tridentctl.html["使用tridentctl安裝"]。這是部署Astra Trident的傳統方法。
+如果您現有的部署必須升級、或是想要高度自訂部署、您應該考慮 。這是部署Astra Trident的傳統方法。
 
 您可以  以產生Trident資源的資訊清單。這包括部署、取消程式集、服務帳戶、以及Astra Trident在安裝過程中所建立的叢集角色。
 

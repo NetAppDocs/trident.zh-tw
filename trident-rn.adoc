@@ -19,10 +19,25 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 
 
-== 23.01的新功能
+== 23.01.1的新功能
 
 
-IMPORTANT: Kubernetes 1.26現在已在Trident中受到支援。請先升級Trident、再升級Kubernetes。
+
+=== 修正
+
+* 固定Trident運算子在SPEC中指定安裝時使用IPv6 localhost。
+* 固定的Trident運算子叢集角色權限、可與套件組合權限同步 link:https://github.com/NetApp/trident/issues/799["問題#799"^]。
+* 新增修正程式、允許外部程序執行至完成。
+* 已解決在rwx模式下、在多個節點上附加原始區塊Volume的問題。
+* 針對FlexGroup SMB Volume提供固定的實體複製支援和Volume匯入。
+
+
+
+
+== 23.01年的變更
+
+
+IMPORTANT: Kubernetes 1.26現在已在Trident中受到支援。升級Kubernetes之前、請先升級Astra Trident。
 
 
 

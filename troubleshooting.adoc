@@ -69,7 +69,7 @@ helm upgrade <name> trident-operator-21.07.1-custom.tgz --set tridentDebug=true`
 * 如果您要升級Kubernetes叢集和（或）Trident以使用beta Volume Snapshot、請確定已完全移除所有現有的Alpha Snapshot CRS。然後、您可以使用「tridentctl obliviate alpha-snapsnapshot crd」命令來刪除Alpha Snapshot CRD。請參閱 https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["這篇部落格"] 瞭解移轉Alpha快照所需的步驟。
 * 如果在容器執行時間安裝Trident with Docker時遇到權限問題、請嘗試使用「-in cluster =fals'」旗標來安裝Trident。這不會使用安裝程式Pod、也不會因為「Trident安裝程式」使用者而造成權限問題。
 * 使用「uninstall參數<uninstalling Trident >」來在執行失敗後進行清理。根據預設、指令碼不會移除Trident所建立的客戶需求日、即使在執行中的部署中、也能安全地解除安裝及再次安裝。
-* 如果您想要降級至舊版Trident、請先執行「tridenctl uninstall」命令來移除Trident。下載所需的 https://github.com/NetApp/trident/releases["Trident版本"] 並使用「tridentctl install」命令進行安裝。只有在沒有建立新的PV、且尚未對現有的PV/後端/儲存類別進行任何變更時、才考慮降級。由於Trident現在使用CRD來維護狀態、因此所有建立的儲存實體（後端、儲存類別、PV和Volume Snapshot）都有「Associated CRD objects <Kubernetes CustomResourcesDefinition Objects>」、而非寫入先前安裝的Trident版本所使用之PV的資料。*移回舊版時、新建立的PV將無法使用。**對物件所做的變更、例如後端、PV、儲存類別和Volume快照（已建立/更新/刪除）、在降級*時、Trident將無法看到。Trident安裝的舊版Trident所使用的PV、仍可供Trident查看。返回舊版不會中斷已使用舊版建立之PV的存取、除非已升級。
+* 如果您想要降級至舊版Trident、請先執行 `tridentctl uninstall` 移除Trident的命令。下載所需的 https://github.com/NetApp/trident/releases["Trident版本"] 並使用安裝 `tridentctl install` 命令。只有在沒有建立新的PV、且尚未對現有的PV/後端/儲存類別進行任何變更時、才考慮降級。由於Trident現在使用CRD來維護狀態、因此所有建立的儲存實體（後端、儲存類別、PV和Volume Snapshot）都擁有 `associated CRD objects <Kubernetes CustomResourceDefinition Objects>` 而非寫入先前安裝版本Trident所使用之PV的資料。*移回舊版時、新建立的PV將無法使用。**對物件所做的變更、例如後端、PV、儲存類別和Volume快照（已建立/更新/刪除）、在降級*時、Trident將無法看到。Trident安裝的舊版Trident所使用的PV、仍可供Trident查看。返回舊版不會中斷已使用舊版建立之PV的存取、除非已升級。
 * 若要完全移除Trident、請執行「tridentctl obliviate crd」命令。這會移除所有CRD物件、並取消定義客戶需求日。Trident將不再管理任何已配置的PV。
 +
 

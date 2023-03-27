@@ -54,15 +54,15 @@ kubectl delete -f 22.01/trident-installer/deploy/bundle.yaml -n trident
 +
 [listing]
 ----
-kubectl create -f 23.01.0/trident-installer/deploy/bundle_post_1_25.yaml -n trident
+kubectl create -f 23.01.1/trident-installer/deploy/bundle_post_1_25.yaml -n trident
 ----
 +
 [NOTE]
 ====
 Trident提供一個套裝組合檔案、可用來安裝運算子、並為Kubernetes版本建立相關的物件。
 
-** 對於執行Kubernetes 1.24或更低層級的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v22.10/deploy/bundle_pre_1_25.yaml["bunder_pre_1_25.yaml"^]。
-** 對於執行Kubernetes 1.25或更新版本的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v22.10/deploy/bundle_post_1_25.yaml["bunder_POST_1_25.yaml"^]。
+** 對於執行Kubernetes 1.24或更低層級的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v23.01/deploy/bundle_pre_1_25.yaml["bunder_pre_1_25.yaml"^]。
+** 對於執行Kubernetes 1.25或更新版本的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v23.01/deploy/bundle_post_1_25.yaml["bunder_POST_1_25.yaml"^]。
 
 
 ====
@@ -95,11 +95,11 @@ NOTE: 如果狀態顯示「正在更新」、請務必先解決、再繼續。�
 +
 [listing]
 ----
-# Download the release required [23.01.0]
-mkdir 23.01.0
-cd 23.01.0
-wget https://github.com/NetApp/trident/releases/download/v23.01.0/trident-installer-23.01.0.tar.gz
-tar -xf trident-installer-23.01.0.tar.gz
+# Download the release required [23.01.1]
+mkdir 23.01.1
+cd 23.01.1
+wget https://github.com/NetApp/trident/releases/download/v23.01.1/trident-installer-23.01.1.tar.gz
+tar -xf trident-installer-23.01.1.tar.gz
 cd trident-installer
 kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
 ----
@@ -155,7 +155,7 @@ kubectl patch tprov <trident-provisioner-name> -n <trident-namespace> --type=mer
 . 安裝Trident運算子。
 +
 
-NOTE: 安裝叢集範圍的運算子會開始移轉 `TridentProvisioner` 物件 `TridentOrchestrator` 物件、刪除 `TridentProvisioner` 物件和 `tridentprovisioner` CRD、並將Astra Trident升級至所使用的叢集範圍運算子版本。在接下來的範例中、Trident已升級至23.01.0。
+NOTE: 安裝叢集範圍的運算子會開始移轉 `TridentProvisioner` 物件 `TridentOrchestrator` 物件、刪除 `TridentProvisioner` 物件和 `tridentprovisioner` CRD、並將Astra Trident升級至所使用的叢集範圍運算子版本。在接下來的範例中、Trident已升級至23.01.1。
 
 +
 
@@ -166,7 +166,7 @@ IMPORTANT: 使用Trident營運者升級Astra Trident會導致移轉 `tridentProv
 ----
 #Ensure you are in the correct directory
 pwd
-/root/23.01.0/trident-installer
+/root/23.01.1/trident-installer
 
 #Install the cluster-scoped operator in the **same namespace**
 kubectl create -f deploy/<BUNDLE.YAML>
@@ -197,7 +197,7 @@ kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
-Version:                v23.01.0
+Version:                v23.01.1
 ----
 +
 
@@ -216,11 +216,11 @@ WARNING: 將Kubernetes叢集從1.24升級至1.25或更新版本、且已安裝As
 
 .步驟
 . 下載最新的Astra Trident版本。
-. 使用 `helm upgrade` 命令位置 `trident-operator-23.01.0.tgz` 反映您要升級的版本。
+. 使用 `helm upgrade` 命令位置 `trident-operator-23.01.1.tgz` 反映您要升級的版本。
 +
 [listing]
 ----
-helm upgrade <name> trident-operator-23.01.0.tgz
+helm upgrade <name> trident-operator-23.01.1.tgz
 ----
 +
 [NOTE]
@@ -231,7 +231,7 @@ helm upgrade <name> trident-operator-23.01.0.tgz
 
 [listing]
 ----
-helm upgrade <name> trident-operator-23.01.0-custom.tgz --set tridentDebug=true
+helm upgrade <name> trident-operator-23.01.1-custom.tgz --set tridentDebug=true
 ----
 ====
 . 執行 `helm list` 以確認圖表和應用程式版本均已升級。執行 `tridentctl logs` 以檢閱任何偵錯訊息。
@@ -251,11 +251,11 @@ Trident營運者將識別現有的Astra Trident安裝、並將其升級至與營
 +
 [listing]
 ----
-# Download the release required [23.01.0]
-mkdir 23.01.0
-cd 23.01.0
-wget https://github.com/NetApp/trident/releases/download/v22.01.0/trident-installer-23.01.0.tar.gz
-tar -xf trident-installer-23.01.0.tar.gz
+# Download the release required [23.01.1]
+mkdir 23.01.1
+cd 23.01.1
+wget https://github.com/NetApp/trident/releases/download/v22.01.1/trident-installer-23.01.1.tar.gz
+tar -xf trident-installer-23.01.1.tar.gz
 cd trident-installer
 ----
 . 從資訊清單建立「TridentOrchestrator」CRD。
@@ -309,7 +309,7 @@ kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
-Version:                v23.01.0
+Version:                v23.01.1
 ----
 
 

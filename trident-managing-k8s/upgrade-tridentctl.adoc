@@ -94,7 +94,7 @@ Source:
 +
 PV是使用「NetApp.IO/Trident」資源配置程式所建立、屬於NFS類型。為了支援Astra Trident提供的所有新功能、此PV應升級為「csi」類型。
 
-. 執行「tridenctl升級Volume <三位角Volume >」命令、將舊版Astra Trident Volume升級至csi規格。
+. 執行 `tridentctl upgrade volume <name-of-trident-volume>` 將舊Astra Trident Volume升級至csi規格的命令。
 +
 [listing]
 ----

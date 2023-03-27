@@ -188,79 +188,79 @@ link:../trident-reference/ports.html["Astra Trident連接埠"]
 
 
 | 1.21.0版  a| 
-* NetApp/Trident：23.01.0
+* NetApp/Trident：23.01.1
 * NetApp/Trident自動支援：23.01
 * k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
 * k8s.io/sig-storage / csi附加程式：v4.1.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.0（選用）
+* NetApp/Trident營運者：23.01.1（選用）
 
 
 
 
 | 1.22.0版  a| 
-* NetApp/Trident：23.01.0
+* NetApp/Trident：23.01.1
 * NetApp/Trident自動支援：23.01
 * k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
 * k8s.io/sig-storage / csi附加程式：v4.1.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.0（選用）
+* NetApp/Trident營運者：23.01.1（選用）
 
 
 
 
 | 1.23.0版  a| 
-* NetApp/Trident：23.01.0
+* NetApp/Trident：23.01.1
 * NetApp/Trident自動支援：23.01
 * k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
 * k8s.io/sig-storage / csi附加程式：v4.1.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.0（選用）
+* NetApp/Trident營運者：23.01.1（選用）
 
 
 
 
 | 1.24.0版  a| 
-* NetApp/Trident：23.01.0
+* NetApp/Trident：23.01.1
 * NetApp/Trident自動支援：23.01
 * k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
 * k8s.io/sig-storage / csi附加程式：v4.1.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.0（選用）
+* NetApp/Trident營運者：23.01.1（選用）
 
 
 
 
 | v1.25.0  a| 
-* NetApp/Trident：23.01.0
+* NetApp/Trident：23.01.1
 * NetApp/Trident自動支援：23.01
 * k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
 * k8s.io/sig-storage / csi附加程式：v4.1.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.0（選用）
+* NetApp/Trident營運者：23.01.1（選用）
 
 
 
 
 | 1.26.0版  a| 
-* NetApp/Trident：23.01.0
+* NetApp/Trident：23.01.1
 * NetApp/Trident自動支援：23.01
 * k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
 * k8s.io/sig-storage / csi附加程式：v4.1.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.0（選用）
+* NetApp/Trident營運者：23.01.1（選用）
 
 
 |===

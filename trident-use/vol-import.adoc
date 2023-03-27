@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/vol-import.html 
-keywords: volumes, on-demand volume snapshots, import volumes, drivers, tridenctl import, pv, persistent volumes 
+keywords: volumes, on-demand volume snapshots, import volumes, drivers, tridentctl import, pv, persistent volumes 
 summary: 您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入為Kubernetes PV。 
 ---
 = 匯入磁碟區

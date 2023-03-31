@@ -50,7 +50,7 @@ Astra Trident需要SVM範圍/叢集範圍管理員的認證資料、才能與ONT
   "dataLIF": "10.0.0.2",
   "svm": "svm_nfs",
   "username": "vsadmin",
-  "password": "secret",
+  "password": "password",
 }
 ----
 請記住、後端定義是唯一以純文字儲存認證的位置。建立後端之後、使用者名稱/密碼會以Base64編碼、並儲存為Kubernetes機密。建立或更新後端是唯一需要具備認證知識的步驟。因此、這是一項純管理員操作、由Kubernetes /儲存管理員執行。
@@ -154,7 +154,7 @@ cat cert-backend-updated.json
 "dataLIF": "1.2.3.8",
 "svm": "vserver_test",
 "username": "vsadmin",
-"password": "secret",
+"password": "password",
 "storagePrefix": "myPrefix_"
 }
 
@@ -206,7 +206,7 @@ Astra Trident可以使用雙向CHAP驗證iSCSI工作階段的「ONTAP-SAN」和�
     "svm": "ontap_iscsi_svm",
     "useCHAP": true,
     "username": "vsadmin",
-    "password": "FaKePaSsWoRd",
+    "password": "password",
     "igroupName": "trident",
     "chapInitiatorSecret": "cl9qxIm36DKyawxy",
     "chapTargetInitiatorSecret": "rqxigXgkesIpwxyz",
@@ -257,7 +257,7 @@ cat backend-san.json
     "svm": "ontap_iscsi_svm",
     "useCHAP": true,
     "username": "vsadmin",
-    "password": "FaKePaSsWoRd",
+    "password": "password",
     "igroupName": "trident",
     "chapInitiatorSecret": "cl9qxUpDaTeD",
     "chapTargetInitiatorSecret": "rqxigXgkeUpDaTeD",

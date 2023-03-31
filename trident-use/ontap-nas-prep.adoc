@@ -52,7 +52,7 @@ Astra Trident需要SVM範圍/叢集範圍管理員的認證資料、才能與ONT
   "dataLIF": "10.0.0.2",
   "svm": "svm_nfs",
   "username": "vsadmin",
-  "password": "secret"
+  "password": "password"
 }
 ----
 請記住、後端定義是唯一以純文字儲存認證的位置。建立後端之後、使用者名稱/密碼會以Base64編碼、並儲存為Kubernetes機密。建立/更新後端是唯一需要知道認證資料的步驟。因此、這是一項純管理員操作、由Kubernetes /儲存管理員執行。
@@ -156,7 +156,7 @@ cat cert-backend-updated.json
 "dataLIF": "1.2.3.8",
 "svm": "vserver_test",
 "username": "vsadmin",
-"password": "secret",
+"password": "password",
 "storagePrefix": "myPrefix_"
 }
 
@@ -209,7 +209,7 @@ NOTE: 只有「csi Trident」才能動態管理匯出原則。請務必確保工
     "managementLIF": "192.168.0.135",
     "svm": "svm1",
     "username": "vsadmin",
-    "password": "FaKePaSsWoRd",
+    "password": "password",
     "autoExportCIDRs": ["192.168.0.0/24"],
     "autoExportPolicy": true
 }

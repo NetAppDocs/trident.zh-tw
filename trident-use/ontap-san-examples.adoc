@@ -258,7 +258,7 @@ NOTE: 如果您在NetApp ONTAP 支援Astra Trident的NetApp上使用Amazon FSX�
     "chapUsername": "uh2aNCLSd6cNwxyz",
     "igroupName": "trident",
     "username": "vsadmin",
-    "password": "secret"
+    "password": "password"
 }
 ----
 
@@ -279,7 +279,7 @@ NOTE: 如果您在NetApp ONTAP 支援Astra Trident的NetApp上使用Amazon FSX�
     "chapUsername": "uh2aNCLSd6cNwxyz",
     "igroupName": "trident",
     "username": "vsadmin",
-    "password": "secret"
+    "password": "password"
 }
 ----
 
@@ -307,7 +307,7 @@ Astra Trident會在「Comments」欄位中設定資源配置標籤。請在FlexV
     "chapUsername": "uh2aNCLSd6cNwxyz",
     "igroupName": "trident",
     "username": "vsadmin",
-    "password": "secret",
+    "password": "password",
 
     "defaults": {
           "spaceAllocation": "false",
@@ -362,7 +362,7 @@ Astra Trident會在「Comments」欄位中設定資源配置標籤。請在FlexV
     "chapUsername": "uh2aNCLSd6cNwxyz",
     "igroupName": "trident",
     "username": "vsadmin",
-    "password": "secret",
+    "password": "password",
 
     "defaults": {
           "spaceAllocation": "false",

@@ -32,7 +32,7 @@ NOTE: 請務必遵循Amazon Linux和Ubuntu所需的節點準備步驟 https://do
 +
 [listing]
 ----
-kubectl create secret generic smbcreds --from-literal username=user --from-literal password='pw'
+kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
 ----
 * 設定為Windows服務的SCSI Proxy。若要設定 `csi-proxy`、請參閱 link:https://github.com/kubernetes-csi/csi-proxy["GitHub：csi Proxy"^] 或 link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub：適用於Windows的SCSI Proxy"^] 適用於Windows上執行的Kubernetes節點。
 

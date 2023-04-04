@@ -3577,4 +3577,5 @@
   <block id="21b2b5bca26be7b23af4468b85c68b34" category="list-text">針對FlexGroup SMB Volume提供固定的實體複製支援和Volume匯入。</block>
   <block id="190a9f9a8311c8a23bff1fd7a5693342" category="section-title">23.01年的變更</block>
   <block id="8b418db90259290a719e83f1a2509366" category="admonition">Kubernetes 1.26現在已在Trident中受到支援。升級Kubernetes之前、請先升級Astra Trident。</block>
+  <block id="1cb76b1c7887cad1e077a4cbdc765b9b" category="list-text">驗證 Astra Trident 版本：</block>
 </blocks>

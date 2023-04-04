@@ -43,6 +43,12 @@ summary: 您可以使用業者輕鬆升級現有的Astra Trident安裝。
 請依照下列步驟升級叢集範圍的Trident操作員安裝。所有Astra Trident版本21.01及更新版本均使用叢集範圍的運算子。
 
 .步驟
+. 驗證 Astra Trident 版本：
++
+[listing]
+----
+./tridentctl -n trident version
+----
 . 刪除用來安裝目前Astra Trident執行個體的Trident運算子。例如、如果您要從22.01升級、請執行下列命令：
 +
 [listing]
@@ -116,7 +122,7 @@ pwd
 /root/20.10.1/trident-installer
 
 #Delete the namespace-scoped operator
-kubectl delete -f deploy/<BUNDLE.YAML>
+kubectl delete -f deploy/<BUNDLE.YAML> -n trident
 serviceaccount "trident-operator" deleted
 clusterrole.rbac.authorization.k8s.io "trident-operator" deleted
 clusterrolebinding.rbac.authorization.k8s.io "trident-operator" deleted

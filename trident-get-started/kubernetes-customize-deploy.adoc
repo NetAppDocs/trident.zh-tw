@@ -12,18 +12,28 @@ summary: Trident運算子可讓您使用「TridentOrchestrator」規格中的屬
 
 
 [role="lead"]
-Trident運算子可讓您使用中的屬性來自訂Astra Trident安裝 `TridentOrchestrator` 規格
-
-如果您想要自訂安裝內容以外的內容 `TridentOrchestrator` 參數允許、您應該考慮使用 `tridentctl` 產生可視需要修改的自訂Y反 洗錢清單。
+Trident運算子可讓您使用中的屬性來自訂Astra Trident安裝 `TridentOrchestrator` 規格如果您想要自訂安裝內容以外的內容 `TridentOrchestrator` 引數允許、請考慮使用 `tridentctl` 產生自訂的 YAML 資訊清單、以視需要進行修改。
 
 
-WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示安裝Astra Trident的命名空間。此參數*無法在安裝Astra Trident之後更新*。嘗試這麼做會導致 `TridentOrchestrator` 要變更為的狀態 `Failed`。Astra Trident不打算跨命名空間移轉。
+
+== 瞭解控制器 Pod 和節點 Pod
+
+Astra Trident 會以單一控制器 Pod 的形式執行、並在叢集中的每個工作節點上提供節點 Pod 。節點 Pod 必須在任何想要裝載 Astra Trident Volume 的主機上執行。
+
+Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["節點選取器"^] 和 link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["容忍和污染"^] 用於限制 Pod 在特定或偏好的節點上執行。使用「 ControllerPlugin' 」和 `NodePlugin`，您可以指定限制和置換。
+
+* 控制器外掛程式可處理磁碟區資源配置與管理、例如快照和調整大小。
+* 節點外掛程式會處理將儲存設備附加至節點的問題。
+
 
 
 
 == 組態選項
 
-本表詳細說明 `TridentOrchestrator` 屬性：
+
+WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示 Astra Trident 安裝的命名空間。此參數*無法在安裝Astra Trident之後更新*。嘗試這麼做會導致 `TridentOrchestrator` 要變更為的狀態 `Failed`。Astra Trident不打算跨命名空間移轉。
+
+本表詳細說明 `TridentOrchestrator` 屬性。
 
 [cols="3"]
 |===
@@ -84,16 +94,16 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示安裝Astra T
 `Never` 永遠不要拉動映像。 | `IfNotPresent` 
 
 
-| 「controllerPluginNodeSelector」 | 執行Trident控制器csi外掛程式之Pod的其他節點選取器。格式與pod.spec.nodeSelector相同。 | 無預設值；選用 
+| 「controllerPluginNodeSelector」 | 用於 Pod 的其他節點選取器。格式與pod.spec.nodeSelector相同。 | 無預設值；選用 
 
 
-| 「控制器插件」 | 覆寫執行Trident控制器csi外掛程式之Pod的容錯能力。格式與po.spec.TBolerations相同。 | 無預設值；選用 
+| 「控制器插件」 | 覆寫 Pod 的 Kubernetes 公差。格式與po.spec.TBolerations相同。 | 無預設值；選用 
 
 
-| 「nodePluginNodeSelector」 | 執行Trident Node SCSI外掛程式之Pod的其他節點選取器。格式與pod.spec.nodeSelector相同。 | 無預設值；選用 
+| 「nodePluginNodeSelector」 | 用於 Pod 的其他節點選取器。格式與pod.spec.nodeSelector相同。 | 無預設值；選用 
 
 
-| 「nodePluginBolerations」 | 覆寫執行Trident Node SCSI外掛程式之Pod的容錯能力。格式與po.spec.TBolerations相同。 | 無預設值；選用 
+| 「nodePluginBolerations」 | 覆寫 Pod 的 Kubernetes 公差。格式與po.spec.TBolerations相同。 | 無預設值；選用 
 |===
 
 NOTE: 如需格式化Pod參數的詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["將Pod指派給節點"^]。

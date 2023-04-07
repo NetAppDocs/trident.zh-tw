@@ -105,7 +105,131 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 helm install <name> netapp-trident/trident-operator --version 23.01.1  --create-namespace --namespace --set tridentDebug=true
 ----
 
-NOTE: Helm圖表中的「values.yaml」檔案提供金鑰清單及其預設值。
+
+== 組態選項
+
+此表格和 `values.yaml` 檔案是 Helm 圖表的一部分、提供按鍵清單及其預設值。
+
+[cols="3"]
+|===
+| 選項 | 說明 | 預設 
+
+
+| `nodeSelector` | Pod 指派的節點標籤 |  
+
+
+| `podAnnotations` | Pod 註釋 |  
+
+
+| `deploymentAnnotations` | 部署註釋 |  
+
+
+| `tolerations` | Pod 指派的容錯功能 |  
+
+
+| `affinity` | Pod 指派的關聯性 |  
+
+
+| `tridentControllerPluginNodeSelector` | 用於 Pod 的其他節點選取器。請參閱 <<瞭解控制器 Pod 和節點 Pod>> 以取得詳細資料。 |  
+
+
+| `tridentControllerPluginTolerations` | 覆寫 Pod 的 Kubernetes 公差。請參閱 <<瞭解控制器 Pod 和節點 Pod>> 以取得詳細資料。 |  
+
+
+| `tridentNodePluginNodeSelector` | 用於 Pod 的其他節點選取器。請參閱 <<瞭解控制器 Pod 和節點 Pod>> 以取得詳細資料。 |  
+
+
+| `tridentNodePluginTolerations` | 覆寫 Pod 的 Kubernetes 公差。請參閱 <<瞭解控制器 Pod 和節點 Pod>> 以取得詳細資料。 |  
+
+
+| 「影像登錄」 | 識別的登錄 `trident-operator`、 `trident`和其他影像。保留空白以接受預設值。 | " 
+
+
+| `imagePullPolicy` | 設定的映像拉出原則 `trident-operator`。 | `IfNotPresent` 
+
+
+| 「imagePullSecrets」 | 設定的影像拉出秘密 `trident-operator`、 `trident`和其他影像。 |  
+
+
+| 《kubeletDir | 允許覆寫 kubelet 內部狀態的主機位置。 | '/var/lib/kubelet' 
+
+
+| `operatorLogLevel` | 允許 Trident 運算子的記錄層級設定為： `trace`、 `debug`、 `info`、 `warn`、 `error`或 `fatal`。 | `"info"` 
+
+
+| `operatorDebug` | 允許將 Trident 運算子的記錄層級設為偵錯。 | "真的" 
+
+
+| `operatorImage` | 允許完全置換的映像 `trident-operator`。 | " 
+
+
+| `operatorImageTag` | 允許覆寫的標記 `trident-operator` 映像。 | " 
+
+
+| `tridentIPv6` | 允許 Astra Trident 在 IPv6 叢集中運作。 | 「假」 
+
+
+| `tridentK8sTimeout` | 覆寫大部分 Kubernetes API 作業的預設 30 秒逾時（如果非零、則以秒為單位）。 | `0` 
+
+
+| `tridentHttpRequestTimeout` | 以取代 HTTP 要求的預設 90 秒逾時 `0s` 是超時的無限持續時間。不允許使用負值。 | `"90s"` 
+
+
+| `tridentSilenceAutosupport` | 可停用 Astra Trident 定期 AutoSupport 報告。 | 「假」 
+
+
+| `tridentAutosupportImageTag` | 可覆寫 Astra Trident AutoSupport 容器的映像標記。 | `<version>` 
+
+
+| `tridentAutosupportProxy` | 允許 Astra Trident AutoSupport 容器透過 HTTP Proxy 撥打電話回家。 | " 
+
+
+| `tridentLogFormat` | 設定 Astra Trident 記錄格式 (`text` 或 `json`）。 | `"text"` 
+
+
+| `tridentDisableAuditLog` | 停用 Astra Trident 稽核記錄程式。 | "真的" 
+
+
+| `tridentLogLevel` | 允許將 Astra Trident 的記錄層級設定為： `trace`、 `debug`、 `info`、 `warn`、 `error`或 `fatal`。 | `"info"` 
+
+
+| `tridentDebug` | 允許將 Astra Trident 的記錄層級設為 `debug`。 | 「假」 
+
+
+| `tridentLogWorkflows` | 允許啟用特定的 Astra Trident 工作流程、以進行追蹤記錄或記錄抑制。 | " 
+
+
+| `tridentLogLayers` | 允許啟用特定的 Astra Trident 圖層、以進行追蹤記錄或記錄抑制。 | " 
+
+
+| 「TridentImage」 | 允許完整置換 Astra Trident 的影像。 | " 
+
+
+| `tridentImageTag` | 可覆寫 Astra Trident 的影像標記。 | " 
+
+
+| `tridentProbePort` | 允許覆寫 Kubernetes 活性 / 整備性探查所使用的預設連接埠。 | " 
+
+
+| `windows` | 允許在 Windows 工作節點上安裝 Astra Trident 。 | 「假」 
+
+
+| `enableForceDetach` | 允許啟用強制分離功能。 | 「假」 
+
+
+| `excludePodSecurityPolicy` | 不建立營運商 Pod 安全性原則。 | 「假」 
+|===
+
+
+=== 瞭解控制器 Pod 和節點 Pod
+
+Astra Trident 會以單一控制器 Pod 的形式執行、並在叢集中的每個工作節點上提供節點 Pod 。節點 Pod 必須在任何想要裝載 Astra Trident Volume 的主機上執行。
+
+Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["節點選取器"^] 和 link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["容忍和污染"^] 用於限制 Pod 在特定或偏好的節點上執行。使用「 ControllerPlugin' 」和 `NodePlugin`，您可以指定限制和置換。
+
+* 控制器外掛程式可處理磁碟區資源配置與管理、例如快照和調整大小。
+* 節點外掛程式會處理將儲存設備附加至節點的問題。
+
 
 
 

@@ -110,7 +110,7 @@ NetApp HCI / SolidFire平台搭配使用的「Poolidfire」驅動程式、可協
 
 Astra Trident使用「azure-NetApp-files」驅動程式來管理 link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] 服務：
 
-如需此驅動程式及其設定方式的詳細資訊、請參閱 link:https://azure.microsoft.com/en-us/services/netapp/["Astra Trident的Azure NetApp Files 後端組態、適用於"^]。
+如需此驅動程式及其設定方式的詳細資訊、請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Astra Trident的Azure NetApp Files 後端組態、適用於"^]。
 
 [cols="20,10,10,10,10,10,10"]
 |===

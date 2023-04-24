@@ -3658,4 +3658,5 @@
   <block id="0a08ed3de9d17e8644d3e57dc374c3ea" category="cell">允許啟用強制分離功能。</block>
   <block id="632a46acdaa26f30f25b11d5c83eaa58" category="cell"><block ref="94ef2a130a825358ab3002442d6e5145" prefix="" category="inline-code"></block></block>
   <block id="ad77b466842808c8dce5116073a3e52b" category="cell">不建立營運商 Pod 安全性原則。</block>
+  <block id="31aae55e68bb5034f8f948ec526b9ff3" category="paragraph">您可以更新現有的後端、以使用不同的驗證方法或旋轉其認證資料。這兩種方法都可行：使用使用者名稱/密碼的後端可更新以使用憑證；使用憑證的後端可更新為使用者名稱/密碼。若要這麼做、您必須移除現有的驗證方法、然後新增驗證方法。然後使用更新的backend.json檔案、其中包含要執行的必要參數<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>。</block>
 </blocks>

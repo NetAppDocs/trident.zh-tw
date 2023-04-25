@@ -40,6 +40,16 @@ Astra Trident需要SVM範圍/叢集範圍管理員的認證資料、才能與ONT
 
 後端定義範例如下所示：
 
+[role="tabbed-block"]
+====
+.YAML
+--
+'''
+版本： 1 個後端名稱： ExampleBackend storageDriverName ： ONTAP-SAN 管理 LIF ： 10.0.0.1 dataLIF ： 10.0.0.2 SVM ： SVM_NFS 使用者名稱： vsadmin 密碼：密碼
+
+--
+.JSON
+--
 [listing]
 ----
 {
@@ -50,9 +60,12 @@ Astra Trident需要SVM範圍/叢集範圍管理員的認證資料、才能與ONT
   "dataLIF": "10.0.0.2",
   "svm": "svm_nfs",
   "username": "vsadmin",
-  "password": "password",
+  "password": "password"
 }
+
 ----
+--
+====
 請記住、後端定義是唯一以純文字儲存認證的位置。建立後端之後、使用者名稱/密碼會以Base64編碼、並儲存為Kubernetes機密。建立或更新後端是唯一需要具備認證知識的步驟。因此、這是一項純管理員操作、由Kubernetes /儲存管理員執行。
 
 
@@ -194,25 +207,24 @@ IMPORTANT: 針對每個獨特的Astra Trident執行個體指定igroup是最適�
 
 == 使用雙向CHAP驗證連線
 
-Astra Trident可以使用雙向CHAP驗證iSCSI工作階段的「ONTAP-SAN」和「ONTAP-san經濟」驅動程式。這需要在後端定義中啟用「useCHAP」選項。當設為「true」時、Astra Trident會將SVM的預設啟動器安全性設定為雙向CHAP、並從後端檔案設定使用者名稱和機密。NetApp建議使用雙向CHAP來驗證連線。請參閱下列組態範例：
+Astra Trident可以使用雙向CHAP驗證iSCSI工作階段 `ontap-san` 和 `ontap-san-economy` 驅動程式：這需要啟用 `useCHAP` 選項。設定為時 `true`Astra Trident將SVM的預設啟動器安全性設定為雙向CHAP、並從後端檔案設定使用者名稱和機密。NetApp建議使用雙向CHAP來驗證連線。請參閱下列組態範例：
 
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-san",
-    "backendName": "ontap_san_chap",
-    "managementLIF": "192.168.0.135",
-    "svm": "ontap_iscsi_svm",
-    "useCHAP": true,
-    "username": "vsadmin",
-    "password": "password",
-    "igroupName": "trident",
-    "chapInitiatorSecret": "cl9qxIm36DKyawxy",
-    "chapTargetInitiatorSecret": "rqxigXgkesIpwxyz",
-    "chapTargetUsername": "iJF4heBRT0TCwxyz",
-    "chapUsername": "uh2aNCLSd6cNwxyz",
-}
+---
+version: 1
+storageDriverName: ontap-san
+backendName: ontap_san_chap
+managementLIF: 192.168.0.135
+svm: ontap_iscsi_svm
+useCHAP: true
+username: vsadmin
+password: password
+igroupName: trident
+chapInitiatorSecret: cl9qxIm36DKyawxy
+chapTargetInitiatorSecret: rqxigXgkesIpwxyz
+chapTargetUsername: iJF4heBRT0TCwxyz
+chapUsername: uh2aNCLSd6cNwxyz
 ----
 
 WARNING: 「useCHAP」參數是布林選項、只能設定一次。預設值設為假。將其設為true之後、您就無法將其設為假。

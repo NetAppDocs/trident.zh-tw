@@ -28,7 +28,7 @@ summary: 請參閱Astra Trident組態的可用組態選項。
 | 「分度」  a| 
 組態檔版本編號
  a| 
-1.
+`1`
 
 
 
@@ -41,16 +41,16 @@ summary: 請參閱Astra Trident組態的可用組態選項。
 
 
 | 「toragePrefix」  a| 
-Volume名稱的選用首碼。預設值：「netappdvp_」。
+Volume名稱的選用首碼。預設： `netappdvp_`。
  a| 
-接移_
+`staging_`
 
 
 
 | 《限制Volume大小》  a| 
 Volume大小的選擇性限制。預設值：「」（未強制執行）
  a| 
-10g
+`10g`
 
 |===
 
@@ -64,9 +64,9 @@ TIP: 請勿將「儲存前置詞」（包括預設值）用於元素後端。缺
 
 
 | 《大小》  a| 
-新磁碟區的選用預設大小。預設值：「1G」
+新磁碟區的選用預設大小。預設： `1G`
  a| 
-10g
+`10G`
 
 |===
 
@@ -83,7 +83,7 @@ TIP: 請勿將「儲存前置詞」（包括預設值）用於元素後端。缺
 | 《馬納格門達利》  a| 
 IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。
  a| 
-10.0.0.1
+`10.0.0.1`
 
 
 
@@ -94,70 +94,70 @@ IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。
 
 *《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Astra Trident的用途 link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^] 探索建立多重路徑工作階段所需的iSCI LIF。如果發生此情況、將會產生警告 `dataLIF` 已明確定義。
  a| 
-10.0.0.2
+`10.0.0.2`
 
 
 
 | 《虛擬機器》  a| 
 要使用的儲存虛擬機器（如果管理LIF是叢集LIF、則為必要）
  a| 
-SVM_NFS
+`svm_nfs`
 
 
 
 | 《使用者名稱》  a| 
 連線至儲存設備的使用者名稱
  a| 
-vsadmin
+`vsadmin`
 
 
 
 | 密碼  a| 
 連線至儲存設備的密碼
  a| 
-秘密
+`secret`
 
 
 
 | 《Aggregate》  a| 
 用於資源配置的Aggregate（選用；如果已設定、則必須指派給SVM）。對於「ONTAP-NAS-flexgroup」驅動程式、此選項會被忽略。指派給SVM的所有集合體均可用來配置FlexGroup 一個SVolume。
  a| 
-Aggr1.
+`aggr1`
 
 
 
 | 「限制Aggregateusage」  a| 
 如果使用率高於此百分比、則可選用、失敗的資源配置
  a| 
-75%
+`75%`
 
 
 
 | 「nfsMountOptions」  a| 
 精細控制NFS掛載選項；預設為「-o nfsver=3」。*僅適用於「ONTAP-NAS」和「ONTAP-NAS-經濟」驅動程式*。 https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["請參閱此處的NFS主機組態資訊"^]。
  a| 
--o nfsves=4.
+`-o nfsvers=4`
 
 
 
 | 「igroupName」  a| 
-外掛程式使用的igroup；預設為「netappdvp」。*僅適用於「ONTAP-San’driver」*。
+外掛程式使用的 igroup ；預設為 `netappdvp`。*僅適用於「ONTAP-San’driver」*。
  a| 
-myigroup
+`myigroup`
 
 
 
 | 《限制Volume大小》  a| 
 可申請的Volume大小上限和qtree父Volume大小上限。*對於「ONTAP-NAS經濟」驅動程式、此選項會進一步限制其所建立的FlexVols大小*。
  a| 
-300克
+`300g`
 
 
 
 | "qtreesPerFlexvol"  a| 
 每FlexVol 個邊區最多qtree數、範圍必須為[50、300]、預設值為200。*對於「ONTAP-NAS-P節約」驅動程式、此選項可自訂每FlexVol 個版本的qtree數量上限*。
  a| 
-300
+`300`
 
 |===
 您可以使用預設選項、避免在您建立的每個Volume上指定這些選項：
@@ -168,30 +168,30 @@ myigroup
 
 
 | 《保護區》  a| 
-空間保留模式；「無」（精簡配置）或「Volume」（完整配置）
+空間保留模式； `none` （精簡配置）或 `volume` （粗）
  a| 
 無
 
 
 
 | 「快照原則」  a| 
-要使用的Snapshot原則、預設為「無」
+要使用的 Snapshot 原則、預設為 `none`
  a| 
 無
 
 
 
 | 「快照保留區」  a| 
-Snapshot保留百分比、預設值為「」以接受ONTAP的預設值
+Snapshot 保留百分比、預設為「」接受 ONTAP 預設值
  a| 
-10.
+`10`
 
 
 
 | 「PlitOnClone」  a| 
-建立複本時從其父實體分割複本、預設為「假」
+建立複本時、將其父複本分割成預設值 `false`
  a| 
-錯
+「假」
 
 
 
@@ -207,23 +207,23 @@ Snapshot保留百分比、預設值為「」以接受ONTAP的預設值
 
 
 | 「unixPermissions」  a| 
-NAS選項適用於已配置的NFS磁碟區、預設為「777」
+NAS 選項適用於已佈建的 NFS 磁碟區、預設為 `777`
  a| 
-777
+`777`
 
 
 
 | 「napshotDir  a| 
-NAS選項用於存取「.snapshot」目錄、預設為「假」
+NAS選項、可存取 `.snapshot` 目錄、預設為 `false`
  a| 
-是的
+"真的"
 
 
 
 | 「匯出政策」  a| 
-NFS匯出原則使用NAS選項、預設為「預設」
+NFS 匯出原則使用的 NAS 選項、預設為 `default`
  a| 
-預設
+`default`
 
 
 
@@ -237,14 +237,14 @@ NFS支援 `mixed` 和 `unix` 安全樣式：預設值為 `unix`。
 
 
 | 「fileSystemType」  a| 
-SAN選項可選擇檔案系統類型、預設為「ext4」
+SAN 選項可選擇檔案系統類型、預設為 `ext4`
  a| 
-XFS
+`xfs`
 
 
 
 | 「分層政策」  a| 
-要使用的分層原則、預設為「無」；ONTAP 9.5之前的SVM-DR組態為「純快照」
+要使用的分層原則、預設為 `none`； `snapshot-only` 適用於 ONTAP 9.5 之前的 SVM-DR 組態
  a| 
 無
 
@@ -395,14 +395,14 @@ iSCSI IP位址和連接埠
 | 《天王名稱》  a| 
 要使用的SolidFireF租戶（如果找不到、請建立）
  a| 
-「Docker」
+`docker`
 
 
 
 | 《初始器IFACE》  a| 
 將iSCSI流量限制為非預設介面時、請指定介面
  a| 
-「預設」
+`default`
 
 
 
@@ -416,7 +416,7 @@ QoS規格
 | "LegacyNamePrefix（名前置詞）"  a| 
 升級版Trident安裝的首碼。如果您使用1.3.2版之前的Trident版本、並使用現有磁碟區執行升級、則必須設定此值、才能存取透過Volume名稱方法對應的舊磁碟區。
  a| 
-「netappdvp-」
+`netappdvp-`
 
 |===
 「Poolidfire - san」驅動程式不支援Docker swarm。

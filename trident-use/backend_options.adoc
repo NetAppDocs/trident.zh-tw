@@ -45,7 +45,7 @@ summary: 瞭解Astra Trident管理後端的不同方法。
 
 === 步驟0：識別後端
 
-若要建立連結至現有後端的「TridentBackendConfig」、您必須取得後端的組態。在此範例中、假設使用下列Json定義建立後端：
+以建立 `TridentBackendConfig` 若要連結至現有的後端、您必須取得後端組態。在此範例中、假設使用下列Json定義建立後端：
 
 [listing]
 ----

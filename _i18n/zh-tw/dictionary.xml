@@ -10,82 +10,50 @@
   <block id="7877022c956918624cc0373ff564cad4" category="cell">「分度」</block>
   <block id="d41d8cd98f00b204e9800998ecf8427e" category="doc"></block>
   <block id="63b276a6c28274ed5e553d4ce3fe7eb1" category="paragraph">組態檔版本編號</block>
-  <block id="c4ca4238a0b923820dcc509a6f75849b" category="paragraph">1.</block>
   <block id="868dff7060d78b6417dc8e065eca8374" category="cell">「torageDriverName」</block>
   <block id="ac5eb8fcbd1ed9c85a98d91e10e26a38" category="paragraph">儲存驅動程式名稱</block>
   <block id="c08068da3c5d19547544c4bd424a6b76" category="cell">「toragePrefix」</block>
-  <block id="3f2b20ce3aa5e39b0dbfe20326747a7b" category="paragraph">Volume名稱的選用首碼。預設值：「netappdvp_」。</block>
-  <block id="46fa46eed970046d03e2dedc95cdc83b" category="paragraph">接移_</block>
   <block id="91590ee78f1b4751284f4f9ea80cfe86" category="cell">《限制Volume大小》</block>
   <block id="fcf783284187f1e80e772eacd9266ee1" category="paragraph">Volume大小的選擇性限制。預設值：「」（未強制執行）</block>
-  <block id="75da9d6de91e782eca4fa00341367135" category="paragraph">10g</block>
   <block id="3eed2a7dac1f2329f3a9574a68e5e1c4" category="admonition">請勿將「儲存前置詞」（包括預設值）用於元素後端。缺省情況下，"Poolidfire－san "驅動程序將忽略此設置而不使用前綴。我們建議使用特定的TenantId進行Docker Volume對應、或是使用Docker版本、驅動程式資訊和原始名稱填入的屬性資料、以便在可能使用任何名稱標示的情況下使用。</block>
   <block id="0863f9e97e159e3ea1ce46bdb49b1254" category="paragraph">您可以使用預設選項、避免在每個建立的Volume上指定這些選項。「最小化」選項適用於所有控制器類型。如ONTAP 需如何設定預設Volume大小的範例、請參閱「功能區組態」一節。</block>
   <block id="a48a8458539e489328f4d6d3fc0ee288" category="cell">《大小》</block>
-  <block id="41ad23e0468b5a035cae097ac8b28bb9" category="paragraph">新磁碟區的選用預設大小。預設值：「1G」</block>
-  <block id="08aa1584c9a5791fb64b0f7f1453f9eb" category="paragraph">10g</block>
   <block id="0353522b39b87d54d40d3f09ec668851" category="section-title">組態ONTAP</block>
   <block id="cd536bce1bed61366e8d17a85fe6678a" category="paragraph">除了上述全域組態值之外、使用ONTAP 時還提供下列頂層選項。</block>
   <block id="07c54fe26be1e43601e99cd9d4fbe262" category="cell">《馬納格門達利》</block>
   <block id="464779f3491153dd1e79ddbd8a81e3f0" category="paragraph">IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。</block>
-  <block id="190dafab69706a67221c1226360de7dc" category="paragraph">10.0.0.1</block>
   <block id="bd81db53971fda3e688447b28c747d1a" category="cell">「DataLIF」</block>
-  <block id="98a2cd7efa1ba950d42e42af495c4248" category="paragraph">10.0.0.2</block>
   <block id="afc423de2be5ca5ab3a6ae9548bbfcf3" category="cell">《虛擬機器》</block>
   <block id="11053eb2b6ac6e8802c67c054cf55ad9" category="paragraph">要使用的儲存虛擬機器（如果管理LIF是叢集LIF、則為必要）</block>
-  <block id="b26399fddd6473c150b4e7528fb04fdc" category="paragraph">SVM_NFS</block>
   <block id="6d77646a2fd9ab65f8e3344d7dce661a" category="cell">《使用者名稱》</block>
   <block id="723a179bbb9fc3c4f12cf296a8841b27" category="paragraph">連線至儲存設備的使用者名稱</block>
-  <block id="6173aa5206484b5224450952747c7148" category="paragraph">vsadmin</block>
   <block id="6aa91a7fbb8c9edcf4aa5f9411aec19c" category="cell">密碼</block>
   <block id="8cf10281cf3b9290d5988c57a7d19693" category="paragraph">連線至儲存設備的密碼</block>
-  <block id="5ebe2294ecd0e0f08eab7690d2a6ee69" category="paragraph">秘密</block>
   <block id="7e6d207f2b120c6cc9caa98510aa51c6" category="cell">《Aggregate》</block>
   <block id="ac53191a99c328660eafa4696375dbfb" category="paragraph">用於資源配置的Aggregate（選用；如果已設定、則必須指派給SVM）。對於「ONTAP-NAS-flexgroup」驅動程式、此選項會被忽略。指派給SVM的所有集合體均可用來配置FlexGroup 一個SVolume。</block>
-  <block id="70d2c7701d2837552c0a38c02a326592" category="paragraph">Aggr1.</block>
   <block id="12d2394af47293b12d6b5f411f99a6d1" category="cell">「限制Aggregateusage」</block>
   <block id="925060a0c0a15f99ef1bee43f1660ea4" category="paragraph">如果使用率高於此百分比、則可選用、失敗的資源配置</block>
-  <block id="f819de81247be4a5428dc0e169de28b8" category="paragraph">75%</block>
   <block id="2b45af5c768d7b2495ef631c991ecd78" category="cell">「nfsMountOptions」</block>
   <block id="876885770cf58d20ef5672cc5594e85d" category="inline-link">請參閱此處的NFS主機組態資訊</block>
   <block id="0a19ca3d1db7e5bc24b58f73b91c3f49" category="paragraph">精細控制NFS掛載選項；預設為「-o nfsver=3」。*僅適用於「ONTAP-NAS」和「ONTAP-NAS-經濟」驅動程式*。<block ref="71f7a3f48cfd3876cffba401813b7db0" category="inline-link-rx"></block>。</block>
-  <block id="301c869c551e12d862ab0291837102a0" category="paragraph">-o nfsves=4.</block>
   <block id="3b890f58db76bb3003ada171cd18c4db" category="cell">「igroupName」</block>
-  <block id="00d72747af4eb1f0bab120935efe88fe" category="paragraph">外掛程式使用的igroup；預設為「netappdvp」。*僅適用於「ONTAP-San’driver」*。</block>
-  <block id="79e762988462f6f8da9becfbfd789755" category="paragraph">myigroup</block>
   <block id="5c5adadf8175fd69d4af9bfdb608c42c" category="paragraph">可申請的Volume大小上限和qtree父Volume大小上限。*對於「ONTAP-NAS經濟」驅動程式、此選項會進一步限制其所建立的FlexVols大小*。</block>
-  <block id="f07e606cfe25ac6fb07d9c4af941d9a2" category="paragraph">300克</block>
   <block id="07f6b23cad3d6da54012935ff972affe" category="cell">"qtreesPerFlexvol"</block>
   <block id="981ba910eb0ffc42f42059de056624b4" category="paragraph">每FlexVol 個邊區最多qtree數、範圍必須為[50、300]、預設值為200。*對於「ONTAP-NAS-P節約」驅動程式、此選項可自訂每FlexVol 個版本的qtree數量上限*。</block>
-  <block id="94f6d7e04a4d452035300f18b984988c" category="paragraph">300</block>
   <block id="3890063556e337d458019437f027030b" category="paragraph">您可以使用預設選項、避免在您建立的每個Volume上指定這些選項：</block>
   <block id="a6bddf19eed00dbe2199864dee8454ce" category="cell">《保護區》</block>
-  <block id="887ba6a0090fff5ace8889efb3b766af" category="paragraph">空間保留模式；「無」（精簡配置）或「Volume」（完整配置）</block>
-  <block id="334c4a4c42fdb79d7ebc3e73b517e6f8" category="paragraph">無</block>
   <block id="0ec3875cf79264e4689a646be2f704b6" category="cell">「快照原則」</block>
-  <block id="b614ecafc9c9bbcd0206b519e5481f8d" category="paragraph">要使用的Snapshot原則、預設為「無」</block>
   <block id="7556d5a1b0c5f68b7cb5aedaa3156008" category="cell">「快照保留區」</block>
-  <block id="e35ead0e9e7038a6c58695bfa4741686" category="paragraph">Snapshot保留百分比、預設值為「」以接受ONTAP的預設值</block>
-  <block id="d3d9446802a44259755d38e6d163e820" category="paragraph">10.</block>
   <block id="4be01095ce6e500084fc427e5dec61ac" category="cell">「PlitOnClone」</block>
-  <block id="eb28cb6308c229ba4561cf02d78b9a07" category="paragraph">建立複本時從其父實體分割複本、預設為「假」</block>
   <block id="68934a3e9455fa72420237eb05902327" category="paragraph">錯</block>
   <block id="b091cbafedf94db98f17823d044434bd" category="cell">加密</block>
   <block id="b326b5062b2f0e69046810717534cb09" category="paragraph">是的</block>
   <block id="ce46e8f3fc6eaddbe03115e0d62090ac" category="cell">「unixPermissions」</block>
-  <block id="a3b703e23c8d0caf2b2fb4f46057013b" category="paragraph">NAS選項適用於已配置的NFS磁碟區、預設為「777」</block>
-  <block id="f1c1592588411002af340cbaedd6fc33" category="paragraph">777</block>
   <block id="ce8f82152151ae2aadaec166eca744a9" category="cell">「napshotDir</block>
-  <block id="525eba0ced0a1c122a9112c4d10fbdc2" category="paragraph">NAS選項用於存取「.snapshot」目錄、預設為「假」</block>
   <block id="e59001176f4360988f5d774a8405b4b9" category="cell">「匯出政策」</block>
-  <block id="b60dd25e9d373b87424c30a74da2703f" category="paragraph">NFS匯出原則使用NAS選項、預設為「預設」</block>
-  <block id="c21f969b5f03d33d43e04f8f136e7682" category="paragraph">預設</block>
   <block id="a463baaf6666da7178b6fc6a3c8a3fee" category="cell">《生態樣式》</block>
   <block id="3184b1a9846944fabb00496c4b6b613a" category="cell">「fileSystemType」</block>
-  <block id="79c6531f572824f3178c8b1fb0f35d26" category="paragraph">SAN選項可選擇檔案系統類型、預設為「ext4」</block>
-  <block id="310201b6353c5f38bc039e0e51b079d3" category="paragraph">XFS</block>
   <block id="31aa018945eb62580d68d360cba8ba54" category="cell">「分層政策」</block>
-  <block id="3cec6d01b4f10a61939982ecfb47fc7f" category="paragraph">要使用的分層原則、預設為「無」；ONTAP 9.5之前的SVM-DR組態為「純快照」</block>
   <block id="90adf331b7868c7af46ad6e035e93844" category="section-title">擴充選項</block>
   <block id="493a6606c4789fad3c7317b99cb563d0" category="paragraph">「ONTAP-NAS」和「ONTAP-SAN」驅動程式可為ONTAP FlexVol 每個Docker Volume建立一個支援功能。支援每個叢集節點最多1000個FlexVols、叢集最多12、000個FlexVols。ONTAP如果您的Docker Volume需求符合上述限制、則「ONTAP-NAS」驅動程式是首選的NAS解決方案、因為FlexVols提供的其他功能、例如Docker Volume精細快照和複製。</block>
   <block id="b8f30e4086b754ccaf7bd5d01d8df137" category="paragraph">如果您需要的Docker磁碟區數量超過FlexVol 了《支援》的範圍、請選擇「ONTAP - NAS經濟」或「ONTAP - SAN經濟」驅動程式。</block>
@@ -115,7 +83,6 @@
   <block id="6a6b63874c664c103982f6d422c6384e" category="paragraph">10.0.0.7：3260</block>
   <block id="4e25fe4a614b527d9b3d89ee6abe5d35" category="cell">《天王名稱》</block>
   <block id="72deb2676231ab8e068ef60dd89edd4c" category="paragraph">要使用的SolidFireF租戶（如果找不到、請建立）</block>
-  <block id="5eda5112bf8affeb1d2cd8eea6302076" category="paragraph">「Docker」</block>
   <block id="f016e2c01f2bafa45e6b537d49f0f9da" category="cell">《初始器IFACE》</block>
   <block id="d2672389886b173aef703433f7e4b89b" category="paragraph">將iSCSI流量限制為非預設介面時、請指定介面</block>
   <block id="6522432847a0e6902318a976e5533f62" category="paragraph">「預設」</block>
@@ -124,7 +91,6 @@
   <block id="5935dcd024929bc7086bb230802bf576" category="paragraph">請參閱以下範例</block>
   <block id="5e9bf55f849ccc5a31a50d1fa784d28c" category="cell">"LegacyNamePrefix（名前置詞）"</block>
   <block id="db7adc3775b0b56c59ce4263fbd79fbf" category="paragraph">升級版Trident安裝的首碼。如果您使用1.3.2版之前的Trident版本、並使用現有磁碟區執行升級、則必須設定此值、才能存取透過Volume名稱方法對應的舊磁碟區。</block>
-  <block id="8d3aa50a0f9c3c059677927a3fbbfcda" category="paragraph">「netappdvp-」</block>
   <block id="36f9c7b615268efec7f4c56c387a55bb" category="paragraph">「Poolidfire - san」驅動程式不支援Docker swarm。</block>
   <block id="1059bb8540c48e6b455e802384bad65d" category="section-title">元素軟體組態檔範例</block>
   <block id="6c92285fa6d3e827b198d120ea3ac674" category="inline-link">請按這裡</block>
@@ -591,7 +557,6 @@
   <block id="8841675f2e0dbba5719034b41ac52435" category="admonition">針對每個獨特的Astra Trident執行個體指定igroup是最適合Kubernetes管理員和儲存管理員的最佳實務做法。「csi Trident」可自動新增及移除igroup的叢集節點IQN、大幅簡化其管理。在Kubernetes環境中使用相同的SVM（以及Astra Trident安裝）時、使用專屬的igroup可確保對Kubernetes叢集所做的變更不會影響與其他叢集相關的igroup。此外、也必須確保Kubernetes叢集中的每個節點都有唯一的IQN。如上所述、Astra Trident會自動處理IQN的新增與移除。重複使用主機間的IQN可能會導致主機彼此誤用、並拒絕存取LUN的不良情況。</block>
   <block id="3882232e20d620974a87db190a124fe7" category="paragraph">如果Astra Trident並未以csi資源配置程式的形式執行、則必須手動更新igroup、以包含Kubernetes叢集中每個工作節點的iSCSI IQN。加入Kubernetes叢集的節點IQN必須新增至igroup。同樣地、從Kubernetes叢集移除的節點IQN也必須從igroup移除。</block>
   <block id="42f93278b0d15c8d0f6613813bf586d5" category="section-title">使用雙向CHAP驗證連線</block>
-  <block id="5d34ca21e19aa85f2e3cbc5bc90702fb" category="paragraph">Astra Trident可以使用雙向CHAP驗證iSCSI工作階段的「ONTAP-SAN」和「ONTAP-san經濟」驅動程式。這需要在後端定義中啟用「useCHAP」選項。當設為「true」時、Astra Trident會將SVM的預設啟動器安全性設定為雙向CHAP、並從後端檔案設定使用者名稱和機密。NetApp建議使用雙向CHAP來驗證連線。請參閱下列組態範例：</block>
   <block id="12dd7bfa072b5a1eecf975f6a5a6eaa7" category="admonition">「useCHAP」參數是布林選項、只能設定一次。預設值設為假。將其設為true之後、您就無法將其設為假。</block>
   <block id="bc601528678aeeb582101ed205a054bc" category="paragraph">除了"useCHAP=true"之外、"chapInitiator Secret（chapInitiator機密）、"chaptarketatorSecret（chaptarketusername"）、"chaptarketusername"（chaptargetuseamuse"）和"chapusername"（chamus在建立後端後端之後、可以執行「tridentctl update」來變更機密。</block>
   <block id="9ffdb95250e26c7a6b468126ac7c75b0" category="section-title">運作方式</block>
@@ -723,7 +688,6 @@
   <block id="0637b40285532fa1b6c6a4548e63d2f4" category="list-text">建立Kubernetes機密。此機密包含Astra Trident與儲存叢集/服務通訊所需的認證資料。</block>
   <block id="b863de09ccfaf2861ead350dd78a9933" category="list-text">建立「TridentBackendConfig」物件。其中包含有關儲存叢集/服務的詳細資訊、並參考上一步建立的機密。必須謹慎指定相同的組態參數（例如「s.pec.backendName」、「sec.storagePrefix」、「sPEec.storageDriverName」等）。必須將「Pec.backendName」設定為現有後端的名稱。</block>
   <block id="44411eb1f3a70196b442f0ed4bb62820" category="section-title">步驟0：識別後端</block>
-  <block id="c400920d4e58cf882999474fbdf967d3" category="paragraph">若要建立連結至現有後端的「TridentBackendConfig」、您必須取得後端的組態。在此範例中、假設使用下列Json定義建立後端：</block>
   <block id="494cb787cd1c1f78123323c1006f2081" category="section-title">步驟1：建立Kubernetes機密</block>
   <block id="2181a22b3daf7866094f9f0d79da87d0" category="paragraph">建立包含後端認證的秘密、如以下範例所示：</block>
   <block id="276e25c1cf06c603ba2d133ae2e39dde" category="paragraph">下一步是建立一個「TridentBackendConfig」（TridentBackendConfig）CR、它會自動連結至現有的「ONTAP-NAS-backend」（如本範例所示）。確保符合下列要求：</block>
@@ -753,7 +717,6 @@
   <block id="f9213d77978aabdafac36d2b0a184e56" category="list-text">叢集中的節點應該有標籤來介紹拓撲認知（「topology、Kubernetes.io/sregion」和「topology、Kubernetes.io/Zone」）。在安裝Astra Trident以識別拓撲之前、這些標籤*應該會出現在叢集*的節點上。</block>
   <block id="0bd58c9826639ac2db106c3b277a7e0f" category="section-title">步驟1：建立可感知拓撲的後端</block>
   <block id="c7d3751a47274aaa616d77a14f2e2722" category="paragraph">Astra Trident儲存後端可根據可用性區域、選擇性地配置磁碟區。每個後端都可以攜帶一個可選的「支援拓撲」區塊、代表必須支援的區域和區域清單。對於使用此類後端的StorageClass、只有在受支援地區/區域中排程的應用程式要求時、才會建立Volume。</block>
-  <block id="168d311a918475a654f296f89a7da983" category="paragraph">以下是後端定義的範例：</block>
   <block id="3e778236fe8f94ccc453f52d827e3719" category="admonition">「支援拓撲」是用來提供每個後端的區域和區域清單。這些區域和區域代表StorageClass中可提供的允許值清單。對於包含後端所提供之區域和區域子集的StorageClass、Astra Trident會在後端建立磁碟區。</block>
   <block id="217d95247b26701da7fd823884d84723" category="paragraph">您也可以定義每個儲存資源池的「支援拓撲」。請參閱下列範例：</block>
   <block id="c6c80256ac468b3d88d7b62d8753f192" category="paragraph">在此範例中、「REGion」和「Zone」標籤代表儲存資源池的位置。「topology、Kubernetes.io/region」和「topology、Kubernetes.io/Zone」決定儲存資源池的使用來源。</block>
@@ -3659,4 +3622,44 @@
   <block id="ad77b466842808c8dce5116073a3e52b" category="cell">不建立營運商 Pod 安全性原則。</block>
   <block id="31aae55e68bb5034f8f948ec526b9ff3" category="paragraph">您可以更新現有的後端、以使用不同的驗證方法或旋轉其認證資料。這兩種方法都可行：使用使用者名稱/密碼的後端可更新以使用憑證；使用憑證的後端可更新為使用者名稱/密碼。若要這麼做、您必須移除現有的驗證方法、然後新增驗證方法。然後使用更新的backend.json檔案、其中包含要執行的必要參數<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>。</block>
   <block id="488e366967d09f9808e7b3de7df261ac" category="paragraph">如需此驅動程式及其設定方式的詳細資訊、請參閱 <block ref="7f5bc9035106c3c834aeb8867a5fce2c" category="inline-link-macro-rx"></block>。</block>
+  <block id="bd4b2f0d545a83fd434f5ba1f17dd087" category="paragraph">以下是後端定義範例：</block>
+  <block id="9463f87bbed1fcdacfb8d40e185ca2bc" category="open-title">YAML</block>
+  <block id="0ecd11c1d7a287401d148a23bbd7a2f8" category="open-title">JSON</block>
+  <block id="0f327c9851416d260b583dd9a4140a04" category="paragraph">版本： 1 個後端名稱： ExampleBackend storageDriverName ： ONTAP-SAN 管理 LIF ： 10.0.0.1 dataLIF ： 10.0.0.2 SVM ： SVM_NFS 使用者名稱： vsadmin 密碼：密碼</block>
+  <block id="1bb09b46ddb492f0798a5793d23a63c9" category="paragraph">Astra Trident可以使用雙向CHAP驗證iSCSI工作階段<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 和<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 驅動程式：這需要啟用<block ref="099cb468880f266cba40b49391fa46bc" prefix=" " category="inline-code"></block> 選項。設定為時<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>Astra Trident將SVM的預設啟動器安全性設定為雙向CHAP、並從後端檔案設定使用者名稱和機密。NetApp建議使用雙向CHAP來驗證連線。請參閱下列組態範例：</block>
+  <block id="4bf283d1d1c781fbb7e90b237dc80ac4" category="paragraph">以建立<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> 若要連結至現有的後端、您必須取得後端組態。在此範例中、假設使用下列Json定義建立後端：</block>
+  <block id="2043559d67ba802541907de326b5ecdd" category="paragraph">以下是定義預設值的範例：</block>
+  <block id="2fc042d3545f5ad7df1999c9e5486176" category="paragraph"><block ref="c4ca4238a0b923820dcc509a6f75849b" prefix="" category="inline-code"></block></block>
+  <block id="7ff5348ddee6132fe7c166b8b7917cc0" category="paragraph">Volume名稱的選用首碼。預設：<block ref="689ee6510c7f9ef9df1c263a08823d96" prefix=" " category="inline-code"></block>。</block>
+  <block id="81998bdb6c3f52ba69dbecf0ec513180" category="paragraph"><block ref="46fa46eed970046d03e2dedc95cdc83b" prefix="" category="inline-code"></block></block>
+  <block id="5d8040f7ca409e3993359a877f675e59" category="paragraph"><block ref="75da9d6de91e782eca4fa00341367135" prefix="" category="inline-code"></block></block>
+  <block id="9548d4d33e26f6bbe564b4eb47a52e4b" category="paragraph">新磁碟區的選用預設大小。預設：<block ref="7d0f45b4b1cf6603762c74ca39c833dd" prefix=" " category="inline-code"></block></block>
+  <block id="dfda6aac7ee732ec79153da76a0e963a" category="paragraph"><block ref="08aa1584c9a5791fb64b0f7f1453f9eb" prefix="" category="inline-code"></block></block>
+  <block id="b6d628512c1127da9adb6c459c9f7c95" category="paragraph"><block ref="190dafab69706a67221c1226360de7dc" prefix="" category="inline-code"></block></block>
+  <block id="251296d0166ace97771b155156985b38" category="paragraph"><block ref="98a2cd7efa1ba950d42e42af495c4248" prefix="" category="inline-code"></block></block>
+  <block id="9fcbfb18564773bb1604cf400912944c" category="paragraph"><block ref="b26399fddd6473c150b4e7528fb04fdc" prefix="" category="inline-code"></block></block>
+  <block id="8131d179a4284fbb0ed410bbbbcf1eb6" category="paragraph"><block ref="6173aa5206484b5224450952747c7148" prefix="" category="inline-code"></block></block>
+  <block id="c4dc9cb5606cc8c0597a5c8f1f77b005" category="paragraph"><block ref="5ebe2294ecd0e0f08eab7690d2a6ee69" prefix="" category="inline-code"></block></block>
+  <block id="fc3424ba1777889d0d49ea7f5a675c9e" category="paragraph"><block ref="70d2c7701d2837552c0a38c02a326592" prefix="" category="inline-code"></block></block>
+  <block id="e84b7103384d0a3393c0847330716669" category="paragraph"><block ref="f819de81247be4a5428dc0e169de28b8" prefix="" category="inline-code"></block></block>
+  <block id="7dd39afeb1c0b05aac5f4bf6fbd94990" category="paragraph"><block ref="301c869c551e12d862ab0291837102a0" prefix="" category="inline-code"></block></block>
+  <block id="cddf719b813056497a40cf1934f91af3" category="paragraph">外掛程式使用的 igroup ；預設為<block ref="e77a1bd34ff5793aca292b38d23bc2c9" prefix=" " category="inline-code"></block>。*僅適用於「ONTAP-San’driver」*。</block>
+  <block id="53f20dcb83975ae9823682474c74acd6" category="paragraph"><block ref="79e762988462f6f8da9becfbfd789755" prefix="" category="inline-code"></block></block>
+  <block id="98ce75f2128e52057c9dbf00a9eb2736" category="paragraph"><block ref="f07e606cfe25ac6fb07d9c4af941d9a2" prefix="" category="inline-code"></block></block>
+  <block id="1ae6e291c93a6d5962af8004aecd9c4c" category="paragraph"><block ref="94f6d7e04a4d452035300f18b984988c" prefix="" category="inline-code"></block></block>
+  <block id="af2bffb136dd0c22342ad9cb06187197" category="paragraph">空間保留模式；<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block> （精簡配置）或<block ref="210ab9e731c9c36c2c38db15c28a8d1c" prefix=" " category="inline-code"></block> （粗）</block>
+  <block id="7f0d015762fc8e2b44f0ad1cd5429af5" category="paragraph">要使用的 Snapshot 原則、預設為<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block></block>
+  <block id="0b89124cc899d4e75924c83a9eaf86ce" category="paragraph">Snapshot 保留百分比、預設為「」接受 ONTAP 預設值</block>
+  <block id="11663b17d5bcea48dbfb36b13965663b" category="paragraph"><block ref="d3d9446802a44259755d38e6d163e820" prefix="" category="inline-code"></block></block>
+  <block id="871c12a80dbc519da4b71b3ea166cdc4" category="paragraph">建立複本時、將其父複本分割成預設值<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block></block>
+  <block id="290cc6c07ae2ba0a638720a38f1356ed" category="paragraph">NAS 選項適用於已佈建的 NFS 磁碟區、預設為<block ref="f1c1592588411002af340cbaedd6fc33" prefix=" " category="inline-code"></block></block>
+  <block id="8dfb6d491cffb51a17396f993c195d8b" category="paragraph"><block ref="f1c1592588411002af340cbaedd6fc33" prefix="" category="inline-code"></block></block>
+  <block id="b7655e29a015ee3721339f8462d5d2b6" category="paragraph">NAS選項、可存取<block ref="a15da8cecb1f1192c4d913b8ba676121" prefix=" " category="inline-code"></block> 目錄、預設為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block></block>
+  <block id="1667ea9b715250d5f295353e97cde10e" category="paragraph">NFS 匯出原則使用的 NAS 選項、預設為<block ref="c21f969b5f03d33d43e04f8f136e7682" prefix=" " category="inline-code"></block></block>
+  <block id="980ef1c1aa7d1456ee087df02119341e" category="paragraph"><block ref="c21f969b5f03d33d43e04f8f136e7682" prefix="" category="inline-code"></block></block>
+  <block id="19d28ffef37322622a55f9d7f1f9fa59" category="paragraph">SAN 選項可選擇檔案系統類型、預設為<block ref="40d1d2ce03569076bd0dc1e0ff90aa4c" prefix=" " category="inline-code"></block></block>
+  <block id="c90caaafbe0da0287b6a84f0894fa40b" category="paragraph"><block ref="310201b6353c5f38bc039e0e51b079d3" prefix="" category="inline-code"></block></block>
+  <block id="6cd4bb7e4d59531066c198c531ea267a" category="paragraph">要使用的分層原則、預設為<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>；<block ref="8805d416ce540c5f2df34af5b18d742b" prefix=" " category="inline-code"></block> 適用於 ONTAP 9.5 之前的 SVM-DR 組態</block>
+  <block id="c1fd85851a162222ab0690383666bd47" category="paragraph"><block ref="05b6053c41a2130afd6fc3b158bda4e6" prefix="" category="inline-code"></block></block>
+  <block id="bf0a8b77dbb95465376fb2cfec90b422" category="paragraph"><block ref="76bb7251da6a3c88e629c03a402b9d15" prefix="" category="inline-code"></block></block>
 </blocks>

@@ -28,7 +28,7 @@ NOTE: 「等待使用者」繫結模式不需要拓撲標籤。這可獨立於�
 .您需要的產品
 若要使用「csi拓撲」、您需要下列項目：
 
-* 執行的Kubernetes叢集 link:requirements.html["支援的Kubernetes版本"]
+* 執行的Kubernetes叢集 link:../trident-get-started/requirements.html["支援的Kubernetes版本"]
 +
 [listing]
 ----

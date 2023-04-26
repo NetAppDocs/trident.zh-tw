@@ -32,7 +32,7 @@ Astra Trident版本遵循日期型 `YY.MM` 命名慣例、其中「是」是一�
 [WARNING]
 ====
 * 19.04版及更早版本的所有升級都需要從本身移轉Astra Trident中繼資料 `etcd` 至CRD物件。請務必查看版本文件、瞭解升級的運作方式。
-* 升級時、請務必提供 `parameter.fsType` 在中 `StorageClasses` 由Astra Trident使用。您可以刪除並重新建立 `StorageClasses` 無需中斷既有的磁碟區。這是強制實施的一項**要求 https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["安全性內容"^] 適用於SAN磁碟區。。 https://github.com/NetApp/trident/tree/master/trident-installer/sample-input["範例輸入"^] 目錄包含範例、例如[`storage-class-basic.yaml.templ`^]和[`storage-class-bronze-default.yaml`^]。如需詳細資訊、請參閱 link:../trident-rn.html["已知問題"]。
+* 升級時、請務必提供 `parameter.fsType` 在中 `StorageClasses` 由Astra Trident使用。您可以刪除並重新建立 `StorageClasses` 無需中斷既有的磁碟區。這是對 SAN 磁碟區強制執行 https://kubernetes.io/docs/tasks/configure-pod-container/security-context/[security 內容範圍 ^ 的 ** 需求 ** 。https://github.com/NetApp/trident/tree/master/trident-installer/sample-input[sample INPUT ^] 目錄包含例如 https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ 等範例[`storage-class-basic.yaml.templ`^] 和連結： https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml[`storage-class-bronze-default.yaml`^]。如需詳細資訊、請參閱 link:../trident-rn.html["已知問題"]。
 
 
 ====

@@ -310,7 +310,7 @@ Astra Trident將後端認證儲存為Kubernetes Secrets。
 
 === 如何在ONTAP 配置Volume時、設定一組明確的靜態NFS掛載選項？
 
-依預設、Astra Trident不會使用Kubernetes將掛載選項設為任何值。若要在Kubernetes儲存類別中指定掛載選項、請遵循所提供的範例 https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-ontapnas-k8s1.8-mountoptions.yaml#L6["請按這裡"^]。
+依預設、Astra Trident不會使用Kubernetes將掛載選項設為任何值。若要在Kubernetes儲存類別中指定掛載選項、請遵循所提供的範例 link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-ontapnas-k8s1.8-mountoptions.yaml["請按這裡"^]。
 
 
 

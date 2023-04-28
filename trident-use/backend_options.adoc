@@ -11,7 +11,14 @@ summary: 瞭解Astra Trident管理後端的不同方法。
 :imagesdir: ../media/
 
 
-瞭解Astra Trident管理後端的不同方法。隨著「TridentBackendConfig」的推出、系統管理員現在有兩種獨特的後端管理方法。這會提出下列問題：
+[role="lead"]
+瞭解Astra Trident管理後端的不同方法。
+
+
+
+== 管理後端的選項
+
+隨之推出 `TridentBackendConfig`管理員現在有兩種獨特的後端管理方法。這會提出下列問題：
 
 * 使用「tridentctl」建立的後端、是否能以「TridentBackendConfig」來管理？
 * 使用「TridentBackendConfig」建立的後端、是否可以使用「tridentctl」來管理？

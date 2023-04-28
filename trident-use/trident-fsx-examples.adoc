@@ -28,7 +28,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 「分度」 |  | 永遠為1 
 
 
-| 「torageDriverName」 | 儲存驅動程式名稱 | 「ONTAP-NAS」、「ONTAP-NAS-節約 型」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」、「ONTAP-san經濟型」 
+| 「torageDriverName」 | 儲存驅動程式名稱 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
 
 
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+ dataLIF 
@@ -40,7 +40,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 「DataLIF」 | 傳輸協定LIF的IP位址。*不適用NAS驅動程式*：建議您指定dataLIF ONTAP 。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 。*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Astra Trident使用ONTAP 「選擇性LUN地圖」來探索建立多重路徑工作階段所需的iSCI lifs。如果明確定義dataLIF、就會產生警告。如果使用安裝Astra Trident、則可設定使用IPv6位址 `--use-ipv6` 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 |  
 
 
-| 「AutoExpportPolicy」 | 啟用自動匯出原則建立及更新[布 林值]。使用 `autoExportPolicy` 和 `autoExportCIDRs` 選項：Astra Trident可自動管理匯出原則。 | "假" 
+| 「AutoExpportPolicy」 | 啟用自動匯出原則建立及更新[布 林值]。使用 `autoExportPolicy` 和 `autoExportCIDRs` 選項：Astra Trident可自動管理匯出原則。 | 「假」 
 
 
 | 《AutoExpportCIDR》（自動匯出CTR） | 根據時間篩選Kubernetes節點IP的CIDR清單 `autoExportPolicy` 已啟用。使用 `autoExportPolicy` 和 `autoExportCIDRs` 選項：Astra Trident可自動管理匯出原則。 | 「[「0.00.0.0/0」、「：/0」]」 
@@ -67,10 +67,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 《虛擬機器》 | 要使用的儲存虛擬機器 | 指定SVM管理LIF時衍生。 
 
 
-| 「igroupName」 | 要使用之SAN磁碟區的igroup名稱。請參閱 。 | 「Trident -<後端-UUID>」 
-
-
-| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。無法在建立後修改。若要更新此參數、您需要建立新的後端。 | 「Trident」 
+| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。無法在建立後修改。若要更新此參數、您需要建立新的後端。 | `trident` 
 
 
 | 「限制Aggregateusage」 | *請勿指定Amazon FSX for NetApp ONTAP 的功能。*所提供的 `fsxadmin` 和 `vsadmin` 請勿包含擷取Aggregate使用量所需的權限、並使用Astra Trident加以限制。 | 請勿使用。 
@@ -79,7 +76,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN、以及的磁碟區大小上限 `qtreesPerFlexvol` 選項可自訂每FlexVol 個支援區的配額樹數上限。 | 「」（預設不強制執行） 
 
 
-| 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須為[50、200]。僅限SAN。 | 「100」 
+| 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須為[50、200]。僅限SAN。 | `100` 
 
 
 | 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「method」：true｝不使用 `debugTraceFlags` 除非您正在疑難排解並需要詳細的記錄傾印。 | null 
@@ -88,32 +85,18 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 「nfsMountOptions」 | 以逗號分隔的NFS掛載選項清單。Kubernetes持續磁碟區的掛載選項通常會在儲存類別中指定、但如果儲存類別中未指定掛載選項、則Astra Trident會改回使用儲存後端組態檔中指定的掛載選項。如果儲存類別或組態檔中未指定掛載選項、Astra Trident將不會在相關的持續磁碟區上設定任何掛載選項。 | " 
 
 
-| `nasType` | 設定NFS或SMB磁碟區建立。選項包括 `nfs`、 `smb`或null。*必須設定為 `smb` 對於SMB Volume。*設定為null、預設為NFS Volume。 | "NFS" 
+| `nasType` | 設定NFS或SMB磁碟區建立。選項包括 `nfs`、 `smb`或null。*必須設定為 `smb` 對於SMB Volume。*設定為null、預設為NFS Volume。 | `nfs` 
 
 
-| "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] | "200" 
+| "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] | `200` 
 
 
-| `smbShare` | 使用共享資料夾Microsoft管理主控台建立的SMB共用名稱。* SMB磁碟區需要。* | 「SMB共用區」 
+| `smbShare` | 您可以指定使用共用資料夾 Microsoft Management Console 所建立的 SMB 共用名稱、或指定共用名稱以允許 Astra Trident 建立 SMB 共用。或者、您也可以將參數保留空白、以防止共用磁碟區。 | `smb-share` 
 
 
 | 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*
-`useREST` 以*技術預覽*的形式提供、建議用於測試環境、而非用於正式作業工作負載。設定為時 `true`、Astra Trident將使用ONTAP 靜止API與後端進行通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取 `ontap` 應用程式：這是預先定義的 `vsadmin` 和 `cluster-admin` 角色： | "假" 
+`useREST` 以*技術預覽*的形式提供、建議用於測試環境、而非用於正式作業工作負載。設定為時 `true`、Astra Trident將使用ONTAP 靜止API與後端進行通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取 `ontap` 應用程式：這是預先定義的 `vsadmin` 和 `cluster-admin` 角色： | 「假」 
 |===
-
-
-=== 詳細資料 `igroupName`
-
-`igroupName` 可設定為ONTAP 已在叢集上建立的igroup。如果未指定、Astra Trident會自動建立名為的igroup `trident-<backend-UUID>`。
-
-如果提供預先定義的igroupName、我們建議每個Kubernetes叢集使用一個igroup、如果要在不同環境之間共用SVM。這是Astra Trident自動維護IQN新增與刪除作業所必需的。
-
-* `igroupName` 可更新以指向在Astra Trident以外的SVM上建立及管理的新igroup。
-* `igroupName` 可省略。在此案例中、Astra Trident將建立並管理名為的igroup `trident-<backend-UUID>` 自動：
-
-
-在這兩種情況下、仍可繼續存取Volume附件。未來的Volume附件將使用更新的igroup。此更新不會中斷對後端磁碟區的存取。
-
 
 
 === 更新 `dataLIF` 初始組態之後
@@ -138,13 +121,13 @@ NOTE: 如果將PVCS附加至一或多個Pod、您必須關閉所有對應的Pod�
 | 參數 | 說明 | 預設 
 
 
-| "paceAllocate（配置）" | LUN的空間分配 | 「真的」 
+| "paceAllocate（配置）" | LUN的空間分配 | "真的" 
 
 
-| 《保護區》 | 空間保留模式；「無」（精簡）或「Volume」（完整） | 「無」 
+| 《保護區》 | 空間保留模式；「無」（精簡）或「Volume」（完整） | 無 
 
 
-| 「快照原則」 | 要使用的Snapshot原則 | 「無」 
+| 「快照原則」 | 要使用的Snapshot原則 | 無 
 
 
 | 「qosPolicy」 | 要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區或後端的其中一個qosPolicy或adaptiveQosPolicy。搭配Astra Trident使用QoS原則群組需要ONTAP 使用更新版本的版本。我們建議使用非共用的QoS原則群組、並確保原則群組會個別套用至每個組成群組。共享的QoS原則群組將強制所有工作負載的總處理量上限。 | 「」 
@@ -153,7 +136,7 @@ NOTE: 如果將PVCS附加至一或多個Pod、您必須關閉所有對應的Pod�
 | 《adaptiveQosPolicy》 | 要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區或後端的其中一個qosPolicy或adaptiveQosPolicy。不受ONTAP-NAS-經濟支援。 | 「」 
 
 
-| 「快照保留區」 | 保留給快照「0」的磁碟區百分比 | 如果「快照原則」為「無」、則其他為「」 
+| 「快照保留區」 | 保留給快照「0」的磁碟區百分比 | 如果 `snapshotPolicy` 是 `none`、 `else` 「」 
 
 
 | 「PlitOnClone」 | 建立複本時、從其父複本分割複本 | 「假」 
@@ -165,7 +148,7 @@ NOTE: 如果將PVCS附加至一或多個Pod、您必須關閉所有對應的Pod�
 | `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["使用Linux統一金鑰設定（LUKS）"]。僅限SAN。 | " 
 
 
-| 「分層政策」 | 分層原則以使用「無」 | ONTAP 9.5之前的SVM-DR組態為「純快照」 
+| 「分層政策」 | 要使用的分層原則	`none` | `snapshot-only` 適用於 ONTAP 9.5 之前的 SVM-DR 組態 
 
 
 | 「unixPermissions」 | 新磁碟區的模式。*如果是SMB磁碟區、請保留空白。* | 「」 

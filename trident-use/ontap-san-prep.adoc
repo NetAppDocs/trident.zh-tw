@@ -11,11 +11,18 @@ summary: 瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設�
 :imagesdir: ../media/
 
 
-瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設定支援功能的後端。ONTAP對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。
+[role="lead"]
+瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設定支援功能的後端。ONTAP
+
+
+
+== 總覽
+
+對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。
 
 請記住、您也可以執行多個驅動程式、並建立指向一個或多個驅動程式的儲存類別。例如、您可以設定使用「ONTAP-SAN」驅動程式的「SAN開發」類別、以及使用「ONTAP-SAN經濟」類別的「SAN預設」類別。
 
-您所有的Kubernetes工作節點都必須安裝適當的iSCSI工具。請參閱 link:worker-node-prep.html["請按這裡"] 以取得更多詳細資料。
+您所有的Kubernetes工作節點都必須安裝適當的iSCSI工具。請參閱 link:worker-node-prep.html["準備工作節點"] 以取得詳細資料。
 
 
 
@@ -183,25 +190,6 @@ NOTE: 當您旋轉密碼時、儲存管理員必須先更新ONTAP 使用者的�
 
 
 
-== 指定igroup
-
-Astra Trident使用igroup來控制其所配置的磁碟區（LUN）存取。系統管理員在指定後端的igroup時有兩種選擇：
-
-* Astra Trident可自動建立及管理每個後端的igroup。如果後端定義中未包含「igroupName」、Astra Trident會在SVM上建立名為「trident -」的igroup。如此可確保每個後端都有專屬的igroup、並處理Kubernetes節點IQN的自動新增/刪除作業。
-* 或者、也可以在後端定義中提供預先建立的igroup。這可以使用「igroupName」組態參數來完成。Astra Trident會將Kubernetes節點IQN新增/刪除至預先存在的igroup。
-
-
-對於定義了「igroupName」的後端、可以使用「tridentctl後端更新」刪除「igroupName」、以便使用Astra Trident自動處理igroup。這不會中斷對已附加至工作負載之磁碟區的存取。未來的連線將使用建立的igroup Astra Trident來處理。
-
-
-IMPORTANT: 針對每個獨特的Astra Trident執行個體指定igroup是最適合Kubernetes管理員和儲存管理員的最佳實務做法。「csi Trident」可自動新增及移除igroup的叢集節點IQN、大幅簡化其管理。在Kubernetes環境中使用相同的SVM（以及Astra Trident安裝）時、使用專屬的igroup可確保對Kubernetes叢集所做的變更不會影響與其他叢集相關的igroup。此外、也必須確保Kubernetes叢集中的每個節點都有唯一的IQN。如上所述、Astra Trident會自動處理IQN的新增與移除。重複使用主機間的IQN可能會導致主機彼此誤用、並拒絕存取LUN的不良情況。
-
-如果將Astra Trident設定為使用「csi資源配置程式」、則Kubernetes節點IQN會自動新增至igroup或從其中移除。當節點新增至Kubernetes叢集時、 `trident-csi` 示範集部署Pod (`trident-csi-xxxxx` 在23.01或之前的版本中 `trident-node<operating system>-xxxx` 在23.01及更新版本中）、登錄新增的節點、然後登錄可附加磁碟區的新節點。節點IQN也會新增至後端的igroup。當節點封鎖、排放及從Kubernetes刪除時、類似的一組步驟可處理刪除IQN。
-
-如果Astra Trident並未以csi資源配置程式的形式執行、則必須手動更新igroup、以包含Kubernetes叢集中每個工作節點的iSCSI IQN。加入Kubernetes叢集的節點IQN必須新增至igroup。同樣地、從Kubernetes叢集移除的節點IQN也必須從igroup移除。
-
-
-
 == 使用雙向CHAP驗證連線
 
 Astra Trident可以使用雙向CHAP驗證iSCSI工作階段 `ontap-san` 和 `ontap-san-economy` 驅動程式：這需要啟用 `useCHAP` 選項。設定為時 `true`Astra Trident將SVM的預設啟動器安全性設定為雙向CHAP、並從後端檔案設定使用者名稱和機密。NetApp建議使用雙向CHAP來驗證連線。請參閱下列組態範例：
@@ -241,7 +229,6 @@ WARNING: 「useCHAP」參數是布林選項、只能設定一次。預設值設�
 
 
 * 設定CHAP啟動器和目標使用者名稱和機密；這些選項必須在後端組態中指定（如上所示）。
-* 管理新增的啟動器至 `igroupName` 在後端中提供。如果未指定、則預設為 `trident`。
 
 
 建立後端之後、Astra Trident會建立對應的「tridentbackend」CRD、並將CHAP機密和使用者名稱儲存為Kubernetes機密。由Astra Trident在此後端上建立的所有PV、都會掛載並附加於CHAP上。
@@ -267,7 +254,6 @@ cat backend-san.json
     "useCHAP": true,
     "username": "vsadmin",
     "password": "password",
-    "igroupName": "trident",
     "chapInitiatorSecret": "cl9qxUpDaTeD",
     "chapTargetInitiatorSecret": "rqxigXgkeUpDaTeD",
     "chapTargetUsername": "iJF4heBRT0TCwxyz",

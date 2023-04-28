@@ -16,14 +16,14 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 
 
 
-== Astra Trident的重要資訊23.01
+== Astra Trident 23.04 的重要資訊
 
 *您必須閱讀下列有關Astra Trident的重要資訊。*
 
 .關於Astra Trid-功能 的資訊</strong> <strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.26現在已在Trident中受到支援。升級Kubernetes之前先升級Trident。
+* Kubernetes 1.27 現在支援 Trident 。升級Kubernetes之前先升級Trident。
 * Astra Trident在SAN環境中嚴格執行多重路徑組態的使用、建議的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
@@ -49,11 +49,11 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. 使用 `helm install` 並指定部署名稱、如下例所示 `23.01.1` 是您要安裝的Astra Trident版本。
+. 使用 `helm install` 並指定部署名稱、如下例所示 `23.04.0` 是您要安裝的Astra Trident版本。
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.01.1 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 23.04.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -83,11 +83,11 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 在命令列上指定置換。
 
 |===
-例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `23.01.1` 您要安裝的Astra Trident版本：
+例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `23.04.0` 您要安裝的Astra Trident版本：
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.01.1  --create-namespace --namespace --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 23.04.0  --create-namespace --namespace --set tridentDebug=true
 ----
 
 

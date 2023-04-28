@@ -11,6 +11,7 @@ summary: 後端定義了Astra Trident與儲存系統之間的關係。它告訴A
 :imagesdir: ../media/
 
 
+[role="lead"]
 後端定義了Astra Trident與儲存系統之間的關係。它告訴Astra Trident如何與該儲存系統通訊、以及Astra Trident如何從該儲存系統配置磁碟區。安裝Astra Trident之後、下一步是建立後端。「TridentBackendConfig」自訂資源定義（CRD）可讓您直接透過Kubernetes介面建立及管理Trident後端。您可以使用「kubecll」或Kubernetes發佈的等效CLI工具來執行此作業。
 
 

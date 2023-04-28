@@ -11,7 +11,12 @@ summary: Astra Trident提供一組Prometheus指標端點、可用來監控Astra 
 :imagesdir: ../media/
 
 
-Astra Trident提供一組Prometheus指標端點、可用來監控Astra Trident的效能。
+[role="lead"]
+Astra Trident 提供一組 Prometheus 指標端點、可用來監控 Astra Trident 的效能。
+
+
+
+== 總覽
 
 Astra Trident提供的指標可讓您執行下列作業：
 

@@ -11,16 +11,17 @@ summary: 深入瞭解ANF的NFS和SMB後端組態選項、並檢閱組態範例�
 :imagesdir: ../media/
 
 
+[role="lead"]
 深入瞭解ANF的NFS和SMB後端組態選項、並檢閱組態範例。
+
+
+
+== 後端組態選項
 
 Astra Trident使用您的後端組態（子網路、虛擬網路、服務層級和位置）、在所要求位置可用的容量集區上建立ANF磁碟區、並符合所要求的服務層級和子網路。
 
 
 NOTE: Astra Trident不支援手動QoS容量集區。
-
-
-
-== 後端組態選項
 
 Anf後端提供這些組態選項。
 

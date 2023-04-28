@@ -16,14 +16,14 @@ summary: 您可以手動部署Trident運算子來安裝Astra Trident。此程序
 
 
 
-== Astra Trident的重要資訊23.01
+== Astra Trident 23.04 的重要資訊
 
 *您必須閱讀下列有關Astra Trident的重要資訊。*
 
 .關於Astra Trid-功能 的資訊</strong> <strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.26現在已在Trident中受到支援。升級Kubernetes之前先升級Trident。
+* Kubernetes 1.27 現在支援 Trident 。升級Kubernetes之前先升級Trident。
 * Astra Trident在SAN環境中嚴格執行多重路徑組態的使用、建議的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
@@ -75,8 +75,8 @@ Astra Trident安裝程式套件包含部署Trident操作員及安裝Astra Triden
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.01.1/trident-installer-23.01.1.tar.gz
-tar -xf trident-installer-23.01.1.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.04.0/trident-installer-23.04.0.tar.gz
+tar -xf trident-installer-23.04.0.tar.gz
 cd trident-installer
 ----
 
@@ -93,10 +93,10 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 
 === 步驟3：更新操作員中的登錄位置
 
-在中 `/deploy/operator.yaml`、更新 `image: docker.io/netapp/trident-operator:23.01.1` 以反映映像登錄的位置。您的 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。例如：
+在中 `/deploy/operator.yaml`、更新 `image: docker.io/netapp/trident-operator:23.04.0` 以反映映像登錄的位置。您的 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。例如：
 
-* `image: <your-registry>/trident-operator:23.01.1` 如果您的映像都位於單一登錄中。
-* `image: <your-registry>/netapp/trident-operator:23.01.1` 如果Trident映像與您的csi映像位於不同的登錄中。
+* `image: <your-registry>/trident-operator:23.04.0` 如果您的映像都位於單一登錄中。
+* `image: <your-registry>/netapp/trident-operator:23.04.0` 如果Trident映像與您的csi映像位於不同的登錄中。
 
 
 
@@ -150,8 +150,8 @@ IMPORTANT: Kubernetes叢集中只應有*一個運算子執行個體*。請勿建
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:23.01"
-tridentImage: "<your-registry>/trident:23.01.1"
+autosupportImage: "<your-registry>/trident-autosupport:23.04"
+tridentImage: "<your-registry>/trident:23.04.0"
 ----
 --
 .不同登錄中的映像
@@ -161,8 +161,8 @@ tridentImage: "<your-registry>/trident:23.01.1"
 [listing]
 ----
 imageRegistry: "<your-registry>/sig-storage"
-autosupportImage: "<your-registry>/netapp/trident-autosupport:23.01"
-tridentImage: "<your-registry>/netapp/trident:23.01.1"
+autosupportImage: "<your-registry>/netapp/trident-autosupport:23.04"
+tridentImage: "<your-registry>/netapp/trident:23.04.0"
 ----
 --
 ====
@@ -187,16 +187,16 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Autosupport Image:  <your-registry>/netapp/trident-autosupport:23.01
+  Autosupport Image:  <your-registry>/netapp/trident-autosupport:23.04
   Debug:              true
   Image Registry:     <your-registry>/sig-storage
   Namespace:          trident
-  Trident Image:      <your-registry>/netapp/trident:23.01.1
+  Trident Image:      <your-registry>/netapp/trident:23.04.0
 Status:
   Current Installation Params:
     IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:          <your-registry>/netapp/trident-autosupport:23.01
+    Autosupport Image:          <your-registry>/netapp/trident-autosupport:23.04
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                      true
@@ -208,11 +208,11 @@ Status:
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/netapp/trident:23.01.1
+    Trident Image:        <your-registry>/netapp/trident:23.04.0
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
-  Version:                v23.01.1
+  Version:                v23.04.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -285,7 +285,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 23.01.1        | 23.01.1      |
+| 23.04.0        | 23.04.0      |
 +----------------+----------------+
 ----
 

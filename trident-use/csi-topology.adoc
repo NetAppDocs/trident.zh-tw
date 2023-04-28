@@ -11,7 +11,14 @@ summary: Astra Trident可以利用「SCSI拓撲功能」、選擇性地建立磁
 :imagesdir: ../media/
 
 
-Astra Trident可以利用、選擇性地建立磁碟區、並將磁碟區附加至Kubernetes叢集中的節點 https://kubernetes-csi.github.io/docs/topology.html["「csi拓撲」功能"^]。使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。如今、雲端供應商可讓Kubernetes管理員建立以區域為基礎的節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中配置工作負載的磁碟區、Astra Trident使用了csi拓撲。
+[role="lead"]
+Astra Trident可以利用、選擇性地建立磁碟區、並將磁碟區附加至Kubernetes叢集中的節點 https://kubernetes-csi.github.io/docs/topology.html["「csi拓撲」功能"^]。
+
+
+
+== 總覽
+
+使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。如今、雲端供應商可讓Kubernetes管理員建立以區域為基礎的節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中配置工作負載的磁碟區、Astra Trident使用了csi拓撲。
 
 
 TIP: 深入瞭解「csi拓撲」功能 https://kubernetes.io/blog/2018/10/11/topology-aware-volume-provisioning-in-kubernetes/["請按這裡"^]。

@@ -11,15 +11,24 @@ summary: 瞭解如何在安裝Astra Trident時建立及使用元素後端。
 :imagesdir: ../media/
 
 
+[role="lead"]
 瞭解如何在安裝Astra Trident時建立及使用元素後端。
 
-.您需要的產品
+
+
+== 開始之前
+
+在建立元素後端之前、您需要下列項目。
+
 * 支援的儲存系統、可執行Element軟體。
 * 提供給NetApp HCI / SolidFire叢集管理員或租戶使用者的認證、以管理磁碟區。
 * 您所有的Kubernetes工作節點都應該安裝適當的iSCSI工具。請參閱 link:../trident-use/worker-node-prep.html["工作節點準備資訊"]。
 
 
-.您需要知道的資訊
+
+
+== Volume 模式
+
 「Poolidfire - san」儲存驅動程式支援兩種Volume模式：檔案和區塊。對於「檔案系統」磁碟區模式、Astra Trident會建立一個磁碟區並建立檔案系統。檔案系統類型由StorageClass指定。
 
 [cols="5"]

@@ -11,6 +11,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS
 :imagesdir: ../media/
 
 
+[role="lead"]
 瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。
 
 
@@ -84,10 +85,16 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS
 | 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「method」：true｝不使用 `debugTraceFlags` 除非您正在疑難排解並需要詳細的記錄傾印。 | null 
 
 
+| `nasType` | 設定NFS或SMB磁碟區建立。選項包括 `nfs`、 `smb` 或null。NFS磁碟區的預設值設為null。 | `nfs` 
+
+
 | 「nfsMountOptions」 | 以逗號分隔的NFS掛載選項清單。Kubernetes持續磁碟區的掛載選項通常會在儲存類別中指定、但如果儲存類別中未指定掛載選項、則Astra Trident會改回使用儲存後端組態檔中指定的掛載選項。如果儲存類別或組態檔中未指定掛載選項、Astra Trident將不會在相關的持續磁碟區上設定任何掛載選項。 | 「」 
 
 
 | "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] | 「200」 
+
+
+| `smbShare` | 您可以指定使用共用資料夾 Microsoft Management Console 所建立的 SMB 共用名稱、或指定共用名稱以允許 Astra Trident 建立 SMB 共用。或者、您也可以將參數保留空白、以防止共用磁碟區。 | `smb-share` 
 
 
 | 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*

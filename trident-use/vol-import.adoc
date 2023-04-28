@@ -11,6 +11,7 @@ summary: 您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入�
 :imagesdir: ../media/
 
 
+[role="lead"]
 您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入為Kubernetes PV。
 
 
@@ -151,9 +152,6 @@ Astra Trident也能匯入ONTAP 包含單一LUN的SAN FlexVols。這與「ONTAP-S
 * 提供必須搭配「-f」旗標使用的PVc定義路徑。
 * 您可以選擇管理或不受管理的永久虛擬網路。根據預設、Trident會管理PVc、並在FlexVol 後端重新命名該LUN。若要匯入為非託管磁碟區、請傳遞「-no－管理」旗標。
 
-
-
-TIP: 匯入未受管理的「ONTAP-SAN」Volume時、您應確定FlexVol 將位於該功能的LUN命名為「lun0」、並對應至具有所需啟動器的igroup。Astra Trident會自動處理這項作業、以便進行託管匯入。
 
 然後Astra Trident會匯入FlexVol 該等物件、並將其與PVc定義建立關聯。Astra Trident也將FlexVol 該等數據重新命名為「PVC-<uuid>'格式、FlexVol 並將LUN重新命名為「lun0」。
 

@@ -23,7 +23,7 @@ summary: 在安裝Astra Trident之前、您應該先檢閱這些一般系統需�
 .關於Astra Trid-功能 的資訊</strong> <strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.26現在已在Trident中受到支援。升級Kubernetes之前先升級Trident。
+* Kubernetes 1.27 現在支援 Trident 。升級Kubernetes之前先升級Trident。
 * Astra Trident在SAN環境中嚴格執行多重路徑組態的使用、建議的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
@@ -37,16 +37,16 @@ summary: 在安裝Astra Trident之前、您應該先檢閱這些一般系統需�
 
 Astra Trident支援多個容器引擎和協調器、包括：
 
-* Anthos on -Prem（VMware）和Anthos on裸機1.9、1.10、1.11
-* Kubernetes 1.21 - 1.26
+* Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.12
+* Kubernetes 1.21 - 1.27
 * Mirantis Kubernetes Engine 3.5
 * OpenShift 4.9 - 4.12
 
 
 這些版本支援Trident運算子：
 
-* Anthos on -Prem（VMware）和Anthos on裸機1.9、1.10、1.11
-* Kubernetes 1.21 - 1.26
+* Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.12
+* Kubernetes 1.21 - 1.27
 * OpenShift 4.9 - 4.12
 
 
@@ -82,56 +82,56 @@ WARNING: 在將Kubernetes叢集從1.24升級至1.25或更新版本、且已安�
 
 
 | csi Trident  a| 
-1.21 - 1.26
+1.21 - 1.27
  a| 
 否
 
 
 
 | Volume Snapshot  a| 
-1.21 - 1.26
+1.21 - 1.27
  a| 
 否
 
 
 
 | 來自Volume Snapshot的PVc  a| 
-1.21 - 1.26
+1.21 - 1.27
  a| 
 否
 
 
 
 | iSCSI PV調整大小  a| 
-1.21 - 1.26
+1.21 - 1.27
  a| 
 否
 
 
 
 | 資訊雙向CHAP ONTAP  a| 
-1.21 - 1.26
+1.21 - 1.27
  a| 
 否
 
 
 
 | 動態匯出原則  a| 
-1.21 - 1.26
+1.21 - 1.27
  a| 
 否
 
 
 
 | Trident運算子  a| 
-1.21 - 1.26
+1.21 - 1.27
  a| 
 否
 
 
 
 | csi拓撲  a| 
-1.21 - 1.26
+1.21 - 1.27
  a| 
 否
 
@@ -142,10 +142,10 @@ WARNING: 在將Kubernetes叢集從1.24升級至1.25或更新版本、且已安�
 
 儘管Astra Trident並未正式支援特定作業系統、但已知下列項目仍能正常運作：
 
-* 受OpenShift Container Platform支援的RedHat CoreOS（RMCOS）版本
-* RHEL 8以上
-* Ubuntu 22.04或更新版本
-* Windows Server 2019
+* 受 OpenShift Container Platform （ AMD64 和 ARM64 ）支援的 RedHat CoreOS （ RHCOS ）版本
+* RHEL 8+ （ AMD64 和 ARM64 ）
+* Ubuntu 22.04 或更新版本（ AMD64 和 ARM64 ）
+* Windows Server 2019 （ AMD64 ）
 
 
 依預設、Astra Trident會在容器中執行、因此會在任何Linux工作者上執行。不過、這些員工必須能夠使用標準NFS用戶端或iSCSI啟動器來掛載Astra Trident提供的磁碟區、視您使用的後端而定。
@@ -188,79 +188,92 @@ link:../trident-reference/ports.html["Astra Trident連接埠"]
 
 
 | 1.21.0版  a| 
-* NetApp/Trident：23.01.1
-* NetApp/Trident自動支援：23.01
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
-* k8s.io/sig-storage / csi附加程式：v4.1.0
+* NetApp/Trident ： 23.04.0
+* NetApp/trident 自動支援： 23.04
+* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
+* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.1（選用）
+* NetApp/Trident 營運者： 23.04.0 （選用）
 
 
 
 
 | 1.22.0版  a| 
-* NetApp/Trident：23.01.1
-* NetApp/Trident自動支援：23.01
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
-* k8s.io/sig-storage / csi附加程式：v4.1.0
+* NetApp/Trident ： 23.04.0
+* NetApp/trident 自動支援： 23.04
+* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
+* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.1（選用）
+* NetApp/Trident 營運者： 23.04.0 （選用）
 
 
 
 
 | 1.23.0版  a| 
-* NetApp/Trident：23.01.1
-* NetApp/Trident自動支援：23.01
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
-* k8s.io/sig-storage / csi附加程式：v4.1.0
+* NetApp/Trident ： 23.04.0
+* NetApp/trident 自動支援： 23.04
+* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
+* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.1（選用）
+* NetApp/Trident 營運者： 23.04.0 （選用）
 
 
 
 
 | 1.24.0版  a| 
-* NetApp/Trident：23.01.1
-* NetApp/Trident自動支援：23.01
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
-* k8s.io/sig-storage / csi附加程式：v4.1.0
+* NetApp/Trident ： 23.04.0
+* NetApp/trident 自動支援： 23.04
+* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
+* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.1（選用）
+* NetApp/Trident 營運者： 23.04.0 （選用）
 
 
 
 
 | v1.25.0  a| 
-* NetApp/Trident：23.01.1
-* NetApp/Trident自動支援：23.01
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
-* k8s.io/sig-storage / csi附加程式：v4.1.0
+* NetApp/Trident ： 23.04.0
+* NetApp/trident 自動支援： 23.04
+* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
+* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.1（選用）
+* NetApp/Trident 營運者： 23.04.0 （選用）
 
 
 
 
 | 1.26.0版  a| 
-* NetApp/Trident：23.01.1
-* NetApp/Trident自動支援：23.01
-* k8s.IO/SIG-storage / CSI-置 備程式：v3.4.0
-* k8s.io/sig-storage / csi附加程式：v4.1.0
+* NetApp/Trident ： 23.04.0
+* NetApp/trident 自動支援： 23.04
+* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
+* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
 * k8s.io/sig-storage / csi大小調整：v1.7.0
 * k8s.io/sig-storage / csi快照記錄：v6.2.1
 * k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident營運者：23.01.1（選用）
+* NetApp/Trident 營運者： 23.04.0 （選用）
+
+
+
+
+| v1.27.0  a| 
+* NetApp/Trident ： 23.04.0
+* NetApp/trident 自動支援： 23.04
+* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
+* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
+* k8s.io/sig-storage / csi大小調整：v1.7.0
+* k8s.io/sig-storage / csi快照記錄：v6.2.1
+* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
+* NetApp/Trident 營運者： 23.04.0 （選用）
 
 
 |===

@@ -11,6 +11,7 @@ summary: Astra Trident可讓Kubernetes使用者在建立磁碟區之後擴充磁
 :imagesdir: ../media/
 
 
+[role="lead"]
 Astra Trident可讓Kubernetes使用者在建立磁碟區之後擴充磁碟區。尋找擴充iSCSI和NFS磁碟區所需組態的相關資訊。
 
 

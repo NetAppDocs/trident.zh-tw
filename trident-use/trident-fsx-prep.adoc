@@ -145,7 +145,7 @@ NOTE: 請參閱 link:https://docs.netapp.com/us-en/ontap/smb-config/create-share
 | 參數 | 說明 | 範例 
 
 
-| `smbShare` | 使用共享資料夾Microsoft管理主控台建立的SMB共用名稱。例如「SMB共用區」。* SMB磁碟區需要。* | `smb-share` 
+| `smbShare` | 您可以指定使用共用資料夾 Microsoft Management Console 所建立的 SMB 共用名稱、或指定共用名稱以允許 Astra Trident 建立 SMB 共用。或者、您也可以將參數保留空白、以防止共用磁碟區。 | `smb-share` 
 
 
 | `nasType` | *必須設定為 `smb`.*如果為null、則預設為 `nfs`。 | `smb` 

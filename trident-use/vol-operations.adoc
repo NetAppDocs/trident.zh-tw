@@ -11,7 +11,14 @@ summary: Astra Trident提供多項管理磁碟區的功能。瞭解Astra Trident
 :imagesdir: ../media/
 
 
+[role="lead"]
 深入瞭解Astra Trident提供的功能、協助您管理磁碟區。
+
+
+
+== 管理磁碟區
+
+請參閱下列內容、瞭解如何使用 Astra Trident 來管理 Volume 。
 
 * link:csi-topology.html["使用「csi拓撲」"^]
 * link:vol-snapshots.html["使用快照"^]

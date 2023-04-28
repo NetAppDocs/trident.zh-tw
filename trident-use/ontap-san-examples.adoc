@@ -11,6 +11,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 :imagesdir: ../media/
 
 
+[role="lead"]
 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetApp的SAN驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。
 
 
@@ -27,7 +28,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | 「分度」 |  | 永遠為1 
 
 
-| 「torageDriverName」 | 儲存驅動程式名稱 | 「ONTAP-NAS」、「ONTAP-NAS-節約 型」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」、「ONTAP-san經濟型」 
+| 「torageDriverName」 | 儲存驅動程式名稱 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
 
 
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+ dataLIF 
@@ -39,7 +40,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | 「DataLIF」 | 傳輸協定LIF的IP位址。*請勿指定iSCSI。* Astra Trident的用途 link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^] 探索建立多重路徑工作階段所需的iSCI LIF。如果發生此情況、將會產生警告 `dataLIF` 已明確定義。 | 源自SVM 
 
 
-| 《使用CHAP》 | 使用CHAP驗證iSCSI以供ONTAP 支援不支援的SAN驅動程式使用[布林值]。設定為 `true` 用於Astra Trident設定及使用雙向CHAP做為後端SVM的預設驗證。請參閱 link:ontap-san-prep.html["準備使用ONTAP 支援的SAN驅動程式來設定後端"] 以取得詳細資料。 | 錯 
+| 《使用CHAP》 | 使用CHAP驗證iSCSI以供ONTAP 支援不支援的SAN驅動程式使用[布林值]。設定為 `true` 用於Astra Trident設定及使用雙向CHAP做為後端SVM的預設驗證。請參閱 link:ontap-san-prep.html["準備使用ONTAP 支援的SAN驅動程式來設定後端"] 以取得詳細資料。 | 「假」 
 
 
 | 《chapInitiator機密》 | CHAP啟動器密碼。如果是"useCHAP=true"、則為必要項目 | 「」 
@@ -75,10 +76,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | 《虛擬機器》 | 要使用的儲存虛擬機器 | 如果指定SVM "managementLIF"則衍生 
 
 
-| 「igroupName」 | 要使用之SAN磁碟區的igroup名稱。請參閱  以取得更多資訊。 | 「Trident -<後端-UUID>」 
-
-
-| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。稍後無法修改。若要更新此參數、您需要建立新的後端。 | 「Trident」 
+| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。稍後無法修改。若要更新此參數、您需要建立新的後端。 | `trident` 
 
 
 | 「限制Aggregateusage」 | 如果使用率高於此百分比、則無法進行資源配置。如果您使用Amazon FSX for NetApp ONTAP Sendbackend、請勿指定  `limitAggregateUsage`。提供的 `fsxadmin` 和 `vsadmin` 請勿包含擷取Aggregate使用量所需的權限、並使用Astra Trident加以限制。 | 「」（預設不強制執行） 
@@ -87,30 +85,16 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 | 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN磁碟區大小上限。 | 「」（預設不強制執行） 
 
 
-| 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200] | 「100」 
+| 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200] | `100` 
 
 
-| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。例如、除非您正在疑難排解並需要詳細的記錄傾印、否則請勿使用｛"API"：假、「method」：true｝。 | null 
+| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。例如、除非您正在疑難排解並需要詳細的記錄傾印、否則請勿使用｛"API"：假、「method」：true｝。 | `null` 
 
 
 | 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*
 `useREST` 以*技術預覽*的形式提供、建議用於測試環境、而非用於正式作業工作負載。設定為時 `true`、Astra Trident將使用ONTAP 靜止API與後端進行通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取 `ontap` 應用程式：這是預先定義的 `vsadmin` 和 `cluster-admin` 角色：
-`useREST` 不支援MetroCluster 使用支援。 | 錯 
+`useREST` 不支援MetroCluster 使用支援。 | 「假」 
 |===
-
-
-=== 詳細資料 `igroupName`
-
-`igroupName` 可設定為ONTAP 已在叢集上建立的igroup。如果未指定、Astra Trident會自動建立名為的igroup `trident-<backend-UUID>`。
-
-如果提供預先定義的igroupName、我們建議每個Kubernetes叢集使用一個igroup、如果要在不同環境之間共用SVM。這是Astra Trident自動維護IQN新增與刪除作業所必需的。
-
-* `igroupName` 可更新以指向在Astra Trident以外的SVM上建立及管理的新igroup。
-* `igroupName` 可省略。在此案例中、Astra Trident將建立並管理名為的igroup `trident-<backend-UUID>` 自動：
-
-
-在這兩種情況下、仍可繼續存取Volume附件。未來的Volume附件將使用更新的igroup。此更新不會中斷對後端磁碟區的存取。
-
 
 
 == 用於資源配置磁碟區的後端組態選項

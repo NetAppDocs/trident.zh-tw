@@ -11,7 +11,12 @@ summary: 瞭解如何準備使用ONTAP 不含NetApp功能的NAS驅動程式來�
 :imagesdir: ../media/
 
 
-瞭解如何準備使用ONTAP 不含NetApp功能的NAS驅動程式來設定功能完善的後端。ONTAP對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。
+[role="lead"]
+瞭解如何準備使用ONTAP 不含NetApp功能的NAS驅動程式來設定功能完善的後端。ONTAP
+
+
+
+== 總覽
 
 對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。
 

@@ -11,11 +11,8 @@ summary: 您可以將Azure NetApp Files 靜態（ANF）設定為Astra Trident的
 :imagesdir: ../media/
 
 
+[role="lead"]
 您可以將Azure NetApp Files 靜態（ANF）設定為Astra Trident的後端。您可以使用ANF後端連接NFS和SMB磁碟區。
-
-* link:anf-prep.html["準備"]
-* link:anf-examples.html["組態選項與範例"]
-
 
 
 
@@ -23,5 +20,4 @@ summary: 您可以將Azure NetApp Files 靜態（ANF）設定為Astra Trident的
 
 * 此支援服務不支援小於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、Astra Trident會自動建立100-GB磁碟區。
 * Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
-* Astra Trident不支援Windows ARM 的架構。
 

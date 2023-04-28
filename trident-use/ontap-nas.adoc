@@ -4,21 +4,20 @@ permalink: trident-use/ontap-nas.html
 keywords: trident backend, ontap nas, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, fsx 
 summary: 瞭解如何使用ONTAP NetApp NAS驅動程式設定功能的功能。ONTAP 
 ---
-= 設定ONTAP 一個靜態NAS後端
+= ONTAP NAS 驅動程式概述
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
+[role="lead"]
 深入瞭解如何使用ONTAP 功能性和功能性NAS驅動程式來設定功能性的後端。ONTAP Cloud Volumes ONTAP
 
-* link:ontap-nas-prep.html["準備"]
-* link:ontap-nas-examples.html["組態與範例"]
 
 
-[WARNING]
-====
+== ONTAP NAS 驅動程式的重要資訊
+
 Astra Control可為使用建立的磁碟區提供無縫保護、災難恢復和移動性（在Kubernetes叢集之間移動磁碟區） `ontap-nas`、 `ontap-nas-flexgroup`和 `ontap-san` 驅動程式：請參閱 link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Astra Control複寫先決條件"^] 以取得詳細資料。
 
 * 您必須使用 `ontap-nas` 適用於需要資料保護、災難恢復和行動力的正式作業工作負載。
@@ -27,7 +26,6 @@ Astra Control可為使用建立的磁碟區提供無縫保護、災難恢復和�
 * 請勿使用 `ontap-nas-economy` 如果您預期需要資料保護、災難恢復或行動性、
 
 
-====
 
 
 == 使用者權限
@@ -38,3 +36,9 @@ Astra Trident希望以ONTAP 支援或SVM管理員的身分執行、通常是使�
 NOTE: 如果您使用「limitAggregateusage」參數、則需要叢集管理權限。使用Amazon FSx for NetApp ONTAP 支援Astra Trident時、「limitAggregateusage」參數無法搭配「vsadmin」和「fsxadmin」使用者帳戶使用。如果您指定此參數、組態作業將會失敗。
 
 雖然可以在ONTAP 功能區內建立更嚴格的角色、讓Trident驅動程式能夠使用、但我們不建議您這麼做。Trident的大多數新版本都會呼叫額外的API、而這些API必須納入考量、使升級變得困難且容易出錯。
+
+
+
+== 已知限制
+
+您必須在 SVM 上同時設定 NFS 和 SMB/CIFS 通訊協定、才能建立 `ontap-nas-economy` 適用於內部部署 ONTAP 的 SMB Volume 。若未設定上述任一種通訊協定、將導致 SMB 磁碟區建立失敗。

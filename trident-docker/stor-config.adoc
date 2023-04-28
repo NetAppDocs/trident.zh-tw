@@ -141,9 +141,13 @@ IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。
 
 
 | 「igroupName」  a| 
-外掛程式使用的 igroup ；預設為 `netappdvp`。*僅適用於「ONTAP-San’driver」*。
+Astra Trident 會建立及管理每個節點 `igroups` 做為 `netappdvp`。
+
+此值不可變更或省略。
+
+*僅適用於 `ontap-san` 驅動程式 * 。
  a| 
-`myigroup`
+`netappdvp`
 
 
 
@@ -348,7 +352,7 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
     "username": "vsadmin",
     "password": "password",
     "aggregate": "aggr1",
-    "igroupName": "myigroup"
+    "igroupName": "netappdvp"
 }
 ----
 *「ONTAP-san經濟」驅動程式*的NFS範例
@@ -364,7 +368,7 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
     "username": "vsadmin",
     "password": "password",
     "aggregate": "aggr1",
-    "igroupName": "myigroup"
+    "igroupName": "netappdvp"
 }
 ----
 

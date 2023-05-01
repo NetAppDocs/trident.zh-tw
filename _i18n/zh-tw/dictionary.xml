@@ -753,7 +753,6 @@
   <block id="d7f015aa2f1d488e17e175dac6de3149" category="list-text"><block ref="d7f015aa2f1d488e17e175dac6de3149" category="inline-link-macro-rx"></block></block>
   <block id="e4f61797b38c111b04c612b285a06659" category="summary">瞭解如何準備使用ONTAP 不含NetApp功能的NAS驅動程式來設定功能完善的後端。ONTAP</block>
   <block id="00b8b321c68facfb94b31690cbd23e00" category="paragraph">對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。</block>
-  <block id="c6cd2f38be30f5256f7116692ab56edd" category="paragraph">請記住、您也可以執行多個驅動程式、並建立指向一個或多個驅動程式的儲存類別。例如、您可以設定金級、使用「ONTAP-NAS」驅動程式、以及使用「ONTAP-NAS-經濟」的銅級。</block>
   <block id="997cff957213b9212a22d7cac2b4275d" category="list-text">使用產生的憑證測試驗證。以ONTAP Management LIF IP和SVM名稱取代&lt;SfManagement LIF&gt;和&lt;vserver name&gt;。您必須確保LIF的服務原則設定為「預設資料管理」。</block>
   <block id="07b434b23f63ca6490df33b213599320" category="section-title">管理NFS匯出原則</block>
   <block id="9d66483f8378ffe30cde84e1b6dbf484" category="paragraph">Astra Trident使用NFS匯出原則來控制其所配置之磁碟區的存取。</block>
@@ -3654,4 +3653,5 @@
   <block id="d7393ea674321a4e126b601e3097f2ec" category="admonition">Kubernetes 1.27 現在支援 Trident 。升級Kubernetes之前、請先升級Astra Trident。</block>
   <block id="99836a64b28c522e35a15aa0a4b39257" category="list-text">ONTAP-SAN磁碟區現在會使用每節點igroup、只將LUN對應至igroup、同時主動發佈至這些節點、以改善我們的安全狀態。當 Astra Trident 發現在不影響作用中工作負載的情況下、現有的磁碟區將會切換至新的 igroup 方案、以確保安全無虞。</block>
   <block id="33871b6190a8d5adbe8b15282054766c" category="sidebar">新增功能</block>
+  <block id="ffd4000c9e43a23d97e231d47f99dcd4" category="list-text">您可以執行多個驅動程式、並建立指向其中一個或另一個的儲存類別。例如、您可以設定使用的Gold類別<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式和銅級、使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 一、</block>
 </blocks>

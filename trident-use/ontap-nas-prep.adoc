@@ -16,13 +16,13 @@ summary: 瞭解如何準備使用ONTAP 不含NetApp功能的NAS驅動程式來�
 
 
 
-== 總覽
+== 考量
 
-對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。
+* 對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。
+* 您可以執行多個驅動程式、並建立指向其中一個或另一個的儲存類別。例如、您可以設定使用的Gold類別 `ontap-nas` 驅動程式和銅級、使用 `ontap-nas-economy` 一、
+* 您所有的Kubernetes工作節點都必須安裝適當的NFS工具。請參閱 link:worker-node-prep.html["請按這裡"] 以取得更多詳細資料。
+* Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
 
-請記住、您也可以執行多個驅動程式、並建立指向一個或多個驅動程式的儲存類別。例如、您可以設定金級、使用「ONTAP-NAS」驅動程式、以及使用「ONTAP-NAS-經濟」的銅級。
-
-您所有的Kubernetes工作節點都必須安裝適當的NFS工具。請參閱 link:worker-node-prep.html["請按這裡"] 以取得更多詳細資料。
 
 
 

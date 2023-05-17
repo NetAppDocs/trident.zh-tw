@@ -12,4 +12,4 @@ summary: 深入瞭解Kubernetes系統的各個部分。
 
 
 [role="lead"]
-深入瞭解的各個部分 https://kubernetes.io/docs/concepts/["Kubernetes系統"^]。
+深入瞭解的各個部分 https://["Kubernetes系統"^]。

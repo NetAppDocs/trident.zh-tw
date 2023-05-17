@@ -134,7 +134,7 @@ IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。
 
 
 | 「nfsMountOptions」  a| 
-精細控制NFS掛載選項；預設為「-o nfsver=3」。*僅適用於「ONTAP-NAS」和「ONTAP-NAS-經濟」驅動程式*。 https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["請參閱此處的NFS主機組態資訊"^]。
+精細控制NFS掛載選項；預設為「-o nfsver=3」。*僅適用於「ONTAP-NAS」和「ONTAP-NAS-經濟」驅動程式*。 https://["請參閱此處的NFS主機組態資訊"^]。
  a| 
 `-o nfsvers=4`
 
@@ -277,7 +277,7 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
 * 不支援FlexGroup 將複製複製用於實體磁碟區。
 
 
-如需適用於FlexGroups的FlexGroups與工作負載相關資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["NetApp FlexGroup 《NetApp》《最佳實務做法與實作指南》"^]。
+如需適用於FlexGroups的FlexGroups與工作負載相關資訊、請參閱 https://["NetApp FlexGroup 《NetApp》《最佳實務做法與實作指南》"^]。
 
 若要在同一個環境中獲得進階功能和龐大規模、您可以執行多個Docker Volume外掛程式執行個體、其中一個使用「ONTAP-NAS」、另一個使用「ONTAP-NAS-經濟」。
 

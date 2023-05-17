@@ -32,7 +32,7 @@ summary: Kubernetes與Trident、Trident與Storage、Kubernetes與儲存設備之
 
 
 
-TIP: 如需進一步瞭解Kubernetes物件、我們強烈建議您閱讀 https://kubernetes.io/docs/concepts/storage/persistent-volumes/["持續磁碟區"^] Kubernetes文件的一節。
+TIP: 如需進一步瞭解Kubernetes物件、我們強烈建議您閱讀 https://["持續磁碟區"^] Kubernetes文件的一節。
 
 
 

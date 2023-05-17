@@ -20,8 +20,8 @@ summary: 您可以使用「tridentctl」輕鬆升級現有的Astra Trident安裝
 
 升級至最新版Astra Trident時、請考慮下列事項：
 
-* 從Trident 20.01開始、只有的試用版 https://kubernetes.io/docs/concepts/storage/volume-snapshots/["Volume快照"^] 支援。Kubernetes系統管理員應謹慎地將Alpha快照物件安全備份或轉換成試用版、以保留舊版Alpha快照。
-* Volume快照的試用版推出一組經過修改的CRD和快照控制器、這兩個控制器都應該在安裝Astra Trident之前設定。 https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["這篇部落格"^] 討論將Alpha Volume快照移轉至試用版格式的相關步驟。
+* 從Trident 20.01開始、只有的試用版 https://["Volume快照"^] 支援。Kubernetes系統管理員應謹慎地將Alpha快照物件安全備份或轉換成試用版、以保留舊版Alpha快照。
+* Volume快照的試用版推出一組經過修改的CRD和快照控制器、這兩個控制器都應該在安裝Astra Trident之前設定。 https://["這篇部落格"^] 討論將Alpha Volume快照移轉至試用版格式的相關步驟。
 * 解除安裝和重新安裝Astra Trident可做為升級。當您解除安裝Trident時、不會刪除由Astra Trident部署所使用的持續磁碟區宣告（PVc）和持續磁碟區（PV）。當Astra Trident離線時、已配置的PV仍可繼續使用、而Astra Trident會在任何建立於過渡期間的永久虛電路恢復上線後、為其配置磁碟區。
 
 

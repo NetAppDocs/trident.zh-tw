@@ -64,8 +64,8 @@ Astra可讓企業更輕鬆地管理、保護及搬移在公有雲內部及內部
 
 == 以取得更多資訊
 
-* https://docs.netapp.com/us-en/astra-family/intro-family.html["NetApp Astra產品系列"]
-* https://docs.netapp.com/us-en/astra/get-started/intro.html["Astra Control Service文件"^]
-* https://docs.netapp.com/us-en/astra-control-center/index.html["Astra Control Center文件"^]
-* https://docs.netapp.com/us-en/astra-automation/get-started/before_get_started.html["Astra API文件"^]
+* https://["NetApp Astra產品系列"]
+* https://["Astra Control Service文件"^]
+* https://["Astra Control Center文件"^]
+* https://["Astra API文件"^]
 

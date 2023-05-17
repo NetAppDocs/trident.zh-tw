@@ -42,7 +42,7 @@ summary: '您可以使用Trident運算子（手動或使用Helm）或搭配安�
 * 能夠從所有Kubernetes工作節點掛載磁碟區。
 * Linux主機 `kubectl` （或 `oc`（如果您使用OpenShift）已安裝並設定為管理您要使用的Kubernetes叢集。
 * 。 `KUBECONFIG` 環境變數設定為指向Kubernetes叢集組態。
-* 如果您使用Kubernetes搭配Docker Enterprise、 https://docs.docker.com/ee/ucp/user-access/cli/["請依照他們的步驟啟用CLI存取"^]。
+* 如果您使用Kubernetes搭配Docker Enterprise、 https://["請依照他們的步驟啟用CLI存取"^]。
 
 
 

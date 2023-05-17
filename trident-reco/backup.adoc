@@ -73,13 +73,13 @@ cluster1::*> volume snapshot restore -vserver vs0 -volume vol3 -snapshot vol3_sn
 複寫資料對於防止儲存陣列故障所造成的資料遺失、扮演著重要的角色。
 
 
-NOTE: 如需ONTAP 深入瞭解有關資訊複寫技術的資訊、請參閱 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/GUID-A9A2F347-3E05-4F80-9E9C-CEF8F0A2F8E1.html["本文檔 ONTAP"^]。
+NOTE: 如需ONTAP 深入瞭解有關資訊複寫技術的資訊、請參閱 https://["本文檔 ONTAP"^]。
 
 
 
 === SnapMirror儲存虛擬機器（SVM）複寫
 
-您可以使用 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/GUID-8B187484-883D-4BB4-A1BC-35AC278BF4DC.html["SnapMirror"^] 複寫完整的SVM、其中包括其組態設定及其磁碟區。發生災難時、您可以啟動SnapMirror目的地SVM、開始提供資料服務。還原系統時、您可以切換回主要系統。
+您可以使用 https://["SnapMirror"^] 複寫完整的SVM、其中包括其組態設定及其磁碟區。發生災難時、您可以啟動SnapMirror目的地SVM、開始提供資料服務。還原系統時、您可以切換回主要系統。
 
 Astra Trident無法自行設定複寫關係、因此儲存管理員可以使用ONTAP的SnapMirror SVM複寫功能、將磁碟區自動複寫到災難恢復（DR）目的地。
 
@@ -131,7 +131,7 @@ SnapMirror Volume複寫是一項災難恢復功能、可從Volume層級的主要
 
 * 在磁碟區所在的叢集與從磁碟區提供資料的SVM之間設定對等關係。
 * 建立SnapMirror原則、以控制關係的行為、並指定該關係的組態屬性。
-* 使用建立目的地Volume與來源Volume之間的SnapMirror關係 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-970/snapmirror__create.html["d9934e78a9254dde4a227181c30fa2d2"^] 並指派適當的SnapMirror原則。
+* 使用建立目的地Volume與來源Volume之間的SnapMirror關係 https://["d9934e78a9254dde4a227181c30fa2d2"^] 並指派適當的SnapMirror原則。
 * 建立SnapMirror關係之後、請初始化關係、以便完成從來源磁碟區到目的地磁碟區的基礎傳輸。
 
 

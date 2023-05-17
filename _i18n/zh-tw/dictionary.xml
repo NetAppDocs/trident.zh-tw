@@ -2303,7 +2303,6 @@
   <block id="324fb1352ffffb105d10013810c42896" category="sidebar">Kubernetes和Astra Trident物件</block>
   <block id="9c87569b835a8f66b7490390d350d9a4" category="paragraph">如果您的Kubernetes發佈版本未包含快照控制器和客戶需求日、您可以依照下列方式進行部署。</block>
   <block id="469f7ca16938508b5dcb777767828b70" category="list-text">建立Volume Snapshot客戶需求日。</block>
-  <block id="65b146df7d5c27b212f54a7c9980960b" category="list-text">在所需的命名空間中建立Snapshot控制器。編輯下方的Yaml清單以修改命名空間。</block>
   <block id="086e6c16e3fe8e13c336612ef636aa02" category="sidebar">Astra Trident</block>
   <block id="5a333b18a215ecfd4457ba0e1732654b" category="section-title">是否能在已設定負載共享鏡射的SVM上、對磁碟區進行Trident資源配置？</block>
   <block id="0e7629426b9d7596800cd5d72f558a7f" category="paragraph">您可以為透過NFS提供資料的SVM根磁碟區建立負載共享鏡像。針對Trident所建立的磁碟區、自動更新負載共享鏡像。ONTAP這可能會導致掛載磁碟區延遲。使用Trident建立多個磁碟區時、資源配置磁碟區會仰賴ONTAP 於更新負載共享鏡像。</block>
@@ -3654,4 +3653,6 @@
   <block id="99836a64b28c522e35a15aa0a4b39257" category="list-text">ONTAP-SAN磁碟區現在會使用每節點igroup、只將LUN對應至igroup、同時主動發佈至這些節點、以改善我們的安全狀態。當 Astra Trident 發現在不影響作用中工作負載的情況下、現有的磁碟區將會切換至新的 igroup 方案、以確保安全無虞。</block>
   <block id="33871b6190a8d5adbe8b15282054766c" category="sidebar">新增功能</block>
   <block id="ffd4000c9e43a23d97e231d47f99dcd4" category="list-text">您可以執行多個驅動程式、並建立指向其中一個或另一個的儲存類別。例如、您可以設定使用的Gold類別<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式和銅級、使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 一、</block>
+  <block id="a571dbb3887a364b4b4dcb82a5fa6ec9" category="list-text">建立Snapshot控制器。</block>
+  <block id="ae3ba2e438847d5fb2abc16b3c73ccab" category="admonition">如有必要、請開啟<block ref="31a2c725707ce238c3eb4dd82c7e3af9" prefix=" " category="inline-code"></block> 和更新<block ref="89801e9e98979062e84647433a8ed3e9" prefix=" " category="inline-code"></block> 到您的命名空間。</block>
 </blocks>

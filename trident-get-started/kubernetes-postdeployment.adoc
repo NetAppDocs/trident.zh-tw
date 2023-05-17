@@ -48,7 +48,7 @@ vi backend.json
 
 == 步驟2：建立儲存類別
 
-Kubernetes使用者使用指定的持續磁碟區宣告（PVCS）來配置磁碟區 https://kubernetes.io/docs/concepts/storage/storage-classes/["儲存類別"^] 依名稱。使用者會隱藏詳細資料、但儲存類別會識別該類別所使用的資源配置程式（本例中為Trident）、以及該類別對資源配置程式的意義。
+Kubernetes使用者使用指定的持續磁碟區宣告（PVCS）來配置磁碟區 https://["儲存類別"^] 依名稱。使用者會隱藏詳細資料、但儲存類別會識別該類別所使用的資源配置程式（本例中為Trident）、以及該類別對資源配置程式的意義。
 
 建立儲存類別Kubernetes使用者要指定何時需要磁碟區。類別的組態需要建構您在上一個步驟中建立的後端、以便Astra Trident使用它來配置新的磁碟區。
 
@@ -111,7 +111,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 == 步驟3：配置第一個Volume
 
-現在您可以動態配置第一個Volume了。這是透過建立Kubernetes來完成 https://kubernetes.io/docs/concepts/storage/persistent-volumes["持續磁碟區宣告"^] （PVc）物件。
+現在您可以動態配置第一個Volume了。這是透過建立Kubernetes來完成 https://["持續磁碟區宣告"^] （PVc）物件。
 
 為使用您剛建立之儲存類別的磁碟區建立一個永久虛擬磁碟。
 

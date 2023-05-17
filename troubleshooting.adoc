@@ -18,7 +18,7 @@ summary: 請使用此處提供的指標來疑難排解安裝及使用Astra Tride
 NOTE: 如需Astra Trident的協助、請使用「tridentctl logs -A -n trident」建立支援套裝組合、並將其傳送至「NetApp支援<取得協助>」。
 
 
-TIP: 如需疑難排解文章的完整清單、請參閱 https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["NetApp知識庫（需要登入）"^]。您也可以找到Astra相關疑難排解問題的相關資訊 https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra["請按這裡"^]。
+TIP: 如需疑難排解文章的完整清單、請參閱 https://["NetApp知識庫（需要登入）"^]。您也可以找到Astra相關疑難排解問題的相關資訊 https://["請按這裡"^]。
 
 
 
@@ -63,13 +63,13 @@ helm upgrade <name> trident-operator-21.07.1-custom.tgz --set tridentDebug=true`
 
 * 您也可以在後端定義中加入「debugTraceFlags」、以取得每個後端的偵錯記錄。例如、在Trident記錄中加入「debugTraceFlags：｛"API"：true、「method」：true、｝」以取得API呼叫和方法反向。現有的後端可設定「debugTraceFlags」、設定為「tridentctl後端更新」。
 * 使用RedHat CoreOS時、請確定已在工作節點上啟用「iscsid」、並預設為啟動。您可以使用OpenShift機器組態或修改點火模板來完成此作業。
-* 使用Trident時可能會遇到的常見問題 https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"] 當租戶和用戶端機密來自權限不足的應用程式登錄時。如需Trident需求的完整清單、請參閱 link:../trident-use/anf.html["Azure NetApp Files"] 組態：
+* 使用Trident時可能會遇到的常見問題 https://["Azure NetApp Files"] 當租戶和用戶端機密來自權限不足的應用程式登錄時。如需Trident需求的完整清單、請參閱 link:../trident-use/anf.html["Azure NetApp Files"] 組態：
 * 如果將PV掛載到容器時發生問題、請確定已安裝並執行「rpcbind」。使用主機作業系統所需的套件管理程式、檢查「rpcbind」是否正在執行。您可以執行「stystemctl狀態rpcbind」或其等效項目、來檢查「rpcbind」服務的狀態。
 * 如果Trident後端回報雖然曾經工作、但仍處於「失敗」狀態、則可能是因為變更與後端相關的SVM/admin認證資料所致。使用「tridentctl update backend」更新後端資訊、或是退回Trident pod、將可修正此問題。
-* 如果您要升級Kubernetes叢集和（或）Trident以使用beta Volume Snapshot、請確定已完全移除所有現有的Alpha Snapshot CRS。然後、您可以使用「tridentctl obliviate alpha-snapsnapshot crd」命令來刪除Alpha Snapshot CRD。請參閱 https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["這篇部落格"] 瞭解移轉Alpha快照所需的步驟。
+* 如果您要升級Kubernetes叢集和（或）Trident以使用beta Volume Snapshot、請確定已完全移除所有現有的Alpha Snapshot CRS。然後、您可以使用「tridentctl obliviate alpha-snapsnapshot crd」命令來刪除Alpha Snapshot CRD。請參閱 https://["這篇部落格"] 瞭解移轉Alpha快照所需的步驟。
 * 如果在容器執行時間安裝Trident with Docker時遇到權限問題、請嘗試使用「-in cluster =fals'」旗標來安裝Trident。這不會使用安裝程式Pod、也不會因為「Trident安裝程式」使用者而造成權限問題。
 * 使用「uninstall參數<uninstalling Trident >」來在執行失敗後進行清理。根據預設、指令碼不會移除Trident所建立的客戶需求日、即使在執行中的部署中、也能安全地解除安裝及再次安裝。
-* 如果您想要降級至舊版Trident、請先執行 `tridentctl uninstall` 移除Trident的命令。下載所需的 https://github.com/NetApp/trident/releases["Trident版本"] 並使用安裝 `tridentctl install` 命令。只有在沒有建立新的PV、且尚未對現有的PV/後端/儲存類別進行任何變更時、才考慮降級。由於Trident現在使用CRD來維護狀態、因此所有建立的儲存實體（後端、儲存類別、PV和Volume Snapshot）都擁有 `associated CRD objects <Kubernetes CustomResourceDefinition Objects>` 而非寫入先前安裝版本Trident所使用之PV的資料。*移回舊版時、新建立的PV將無法使用。**對物件所做的變更、例如後端、PV、儲存類別和Volume快照（已建立/更新/刪除）、在降級*時、Trident將無法看到。Trident安裝的舊版Trident所使用的PV、仍可供Trident查看。返回舊版不會中斷已使用舊版建立之PV的存取、除非已升級。
+* 如果您想要降級至舊版Trident、請先執行 `tridentctl uninstall` 移除Trident的命令。下載所需的 https://["Trident版本"] 並使用安裝 `tridentctl install` 命令。只有在沒有建立新的PV、且尚未對現有的PV/後端/儲存類別進行任何變更時、才考慮降級。由於Trident現在使用CRD來維護狀態、因此所有建立的儲存實體（後端、儲存類別、PV和Volume Snapshot）都擁有 `associated CRD objects <Kubernetes CustomResourceDefinition Objects>` 而非寫入先前安裝版本Trident所使用之PV的資料。*移回舊版時、新建立的PV將無法使用。**對物件所做的變更、例如後端、PV、儲存類別和Volume快照（已建立/更新/刪除）、在降級*時、Trident將無法看到。Trident安裝的舊版Trident所使用的PV、仍可供Trident查看。返回舊版不會中斷已使用舊版建立之PV的存取、除非已升級。
 * 若要完全移除Trident、請執行「tridentctl obliviate crd」命令。這會移除所有CRD物件、並取消定義客戶需求日。Trident將不再管理任何已配置的PV。
 +
 

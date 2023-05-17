@@ -47,7 +47,7 @@ Astra Trident版本遵循日期型 `YY.MM` 命名慣例、其中「是」是一�
 
 
 
-WARNING: 現在、自Kubernetes 1.20開始、「csi Volume Snapshot」就是GA的一項功能。升級Astra Trident時、必須先移除所有先前的Alpha Snapshot CRS和CRD（Volume Snapshot類別、Volume Snapshot和Volume Snapshot內容）、才能執行升級。請參閱 https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["這篇部落格"^] 瞭解將Alpha快照移轉至測試版/GA規格所需的步驟。
+WARNING: 現在、自Kubernetes 1.20開始、「csi Volume Snapshot」就是GA的一項功能。升級Astra Trident時、必須先移除所有先前的Alpha Snapshot CRS和CRD（Volume Snapshot類別、Volume Snapshot和Volume Snapshot內容）、才能執行升級。請參閱 https://["這篇部落格"^] 瞭解將Alpha快照移轉至測試版/GA規格所需的步驟。
 
 
 
@@ -61,5 +61,5 @@ Astra Trident的21.01版為營運者帶來了一些重要的架構變更、如�
 ** 卸載期間清理：完整移除Astra Trident將需要刪除所有相關資源。命名空間範圍的運算子可能會在移除叢集範圍的資源（例如叢集角色、叢集角色繫結和Podcast安全性原則）時遇到問題、並導致不完整的清理。叢集範圍的運算子可消除此問題。使用者可以完全解除安裝Astra Trident、並視需要重新安裝。
 
 
-* 現在、「TridentProvisioner」取代為「TridentOrchestrator」、做為用來安裝和管理Astra Trident的自訂資源。此外、「TridentOrchestrator」規格也引進了新的領域。使用者可以指定命名空間Trident必須使用「pec.namespace`」欄位來安裝/升級。您可以參考範例 https://github.com/NetApp/trident/blob/stable/v21.01/deploy/crds/tridentorchestrator_cr.yaml["請按這裡"^]。
+* 現在、「TridentProvisioner」取代為「TridentOrchestrator」、做為用來安裝和管理Astra Trident的自訂資源。此外、「TridentOrchestrator」規格也引進了新的領域。使用者可以指定命名空間Trident必須使用「pec.namespace`」欄位來安裝/升級。您可以參考範例 https://["請按這裡"^]。
 

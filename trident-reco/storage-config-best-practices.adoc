@@ -45,13 +45,13 @@ SVM管理有多種選項可供選擇：
 
 在每種情況下、介面都應該位於DNS中、而且在設定Trident時、應該使用DNS名稱。這有助於推動一些DR案例、例如不使用網路身分保留功能的SVM-DR。
 
-不過、您並不偏好為SVM設定專屬或共享的管理LIF、不過您應該確保網路安全性原則符合您選擇的方法。無論如何、管理LIF都應透過DNS存取、以達到最大的靈活度 https://["SVM-DR"^] 與Trident搭配使用。
+不過、您並不偏好為SVM設定專屬或共享的管理LIF、不過您應該確保網路安全性原則符合您選擇的方法。無論如何、管理LIF都應透過DNS存取、以達到最大的靈活度 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-dap/GUID-B9E36563-1C7A-48F5-A9FF-1578B99AADA9.html["SVM-DR"^] 與Trident搭配使用。
 
 
 
 === 限制最大Volume數
 
-根據軟體版本和硬體平台、系統可提供最大的Volume數。ONTAP請參閱 https://["NetApp Hardware Universe"^] 針對您的特定平台和ONTAP 版本、決定確切的限制。當磁碟區數用盡時、資源配置作業不僅會針對Trident、也會針對所有儲存要求失敗。
+根據軟體版本和硬體平台、系統可提供最大的Volume數。ONTAP請參閱 https://hwu.netapp.com/["NetApp Hardware Universe"^] 針對您的特定平台和ONTAP 版本、決定確切的限制。當磁碟區數用盡時、資源配置作業不僅會針對Trident、也會針對所有儲存要求失敗。
 
 Trident的「ONTAP-NAS」和「ONTAP-SAN」驅動程式會為每個建立的Kubernetes持續Volume（PV）提供FlexVolume。「ONTAP-NAS-P節約」驅動程式可為每200個PV建立約一個FlexVolume（可設定為50到300個）。「ONTAP-san經濟型」驅動程式可為每100個PV建立約一個FlexVolume（可設定為50到200個）。若要避免Trident佔用儲存系統上的所有可用磁碟區、您應該在SVM上設定限制。您可以從命令列執行此動作：
 
@@ -68,7 +68,7 @@ vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
 
 「最大容量」值是ONTAP 指在整個叢集中所有節點上配置的總Volume、而非在個別ONTAP 的節點上配置的總Volume。因此ONTAP 、您可能會遇到一些情況、例如、某個叢集節點的資源配置量可能遠高於或低於其他節點。
 
-舉例ONTAP 來說、雙節點的「叢集」最多可裝載2000個FlexVolumes。將最大Volume數設為1250似乎非常合理。不過、如果只有 https://["集合體"^] 從某個節點指派給SVM、或是從某個節點指派的集合體無法根據（例如、由於容量）進行資源配置、則另一個節點會成為所有Trident資源配置磁碟區的目標。這表示在達到「最大磁碟區」值之前、該節點可能會達到磁碟區限制、進而影響使用該節點的Trident和其他Volume作業。*您可以確保叢集中每個節點的集合體都指派給Trident使用的SVM、數量相等、藉此避免這種情況。*
+舉例ONTAP 來說、雙節點的「叢集」最多可裝載2000個FlexVolumes。將最大Volume數設為1250似乎非常合理。不過、如果只有 https://library.netapp.com/ecmdocs/ECMP1368859/html/GUID-3AC7685D-B150-4C1F-A408-5ECEB3FF0011.html["集合體"^] 從某個節點指派給SVM、或是從某個節點指派的集合體無法根據（例如、由於容量）進行資源配置、則另一個節點會成為所有Trident資源配置磁碟區的目標。這表示在達到「最大磁碟區」值之前、該節點可能會達到磁碟區限制、進而影響使用該節點的Trident和其他Volume作業。*您可以確保叢集中每個節點的集合體都指派給Trident使用的SVM、數量相等、藉此避免這種情況。*
 
 
 
@@ -88,7 +88,7 @@ vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
 
 === 建立並使用SVM QoS原則
 
-運用ONTAP 套用至SVM的SVM的SQoS原則、限制Trident佈建磁碟區所耗用的IOPS數量。這對我們有幫助 http://["預防欺凌"^] 或失控的容器、避免影響Trident SVM以外的工作負載。
+運用ONTAP 套用至SVM的SVM的SQoS原則、限制Trident佈建磁碟區所耗用的IOPS數量。這對我們有幫助 http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-perf-mon/GUID-77DF9BAF-4ED7-43F6-AECE-95DFB0680D2F.html?cp=7_1_2_1_2["預防欺凌"^] 或失控的容器、避免影響Trident SVM以外的工作負載。
 
 您可以在幾個步驟中建立SVM的QoS原則。如ONTAP 需最準確的資訊、請參閱您的版次更新文件。以下範例建立QoS原則、將SVM可用的總IOPS限制為5000。
 
@@ -118,7 +118,7 @@ IMPORTANT: 如果您的版本早於ONTAP 9.8、您應該將QoS原則群組指派
 
 === 為Trident建立QoS原則群組
 
-服務品質（QoS）可確保關鍵工作負載的效能不會因競爭工作負載而降級。支援QoS原則群組的QoS選項可用於磁碟區、並可讓使用者定義一或多個工作負載的處理量上限。ONTAP如需QoS的詳細資訊、請參閱 https://["保證QoS的處理量"^]。您可以在後端或儲存資源池中指定QoS原則群組、並將其套用至該資源池或後端中建立的每個磁碟區。
+服務品質（QoS）可確保關鍵工作負載的效能不會因競爭工作負載而降級。支援QoS原則群組的QoS選項可用於磁碟區、並可讓使用者定義一或多個工作負載的處理量上限。ONTAP如需QoS的詳細資訊、請參閱 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-perf-mon/GUID-77DF9BAF-4ED7-43F6-AECE-95DFB0680D2F.html["保證QoS的處理量"^]。您可以在後端或儲存資源池中指定QoS原則群組、並將其套用至該資源池或後端中建立的每個磁碟區。
 
 包含兩種QoS原則群組：傳統和可調適。ONTAP傳統原則群組可在IOPS中提供最大（或最小）的單位處理量（在較新版本中）。調適性QoS會自動將處理量調整至工作負載大小、並隨著工作負載大小變更、維持IOPS與TBs的比率。當您在大型部署中管理數百個或數千個工作負載時、這項優勢就相當顯著。
 
@@ -152,7 +152,7 @@ storage:
 * 您應該為每個Volume套用原則群組、以便每個Volume都能獲得原則群組指定的整個處理量。不支援共用原則群組。
 
 
-如需QoS原則群組的詳細資訊、請參閱 https://["Sof 9.8 QoS命令ONTAP"^]。
+如需QoS原則群組的詳細資訊、請參閱 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-980/TOC__qos.html["Sof 9.8 QoS命令ONTAP"^]。
 
 
 
@@ -162,9 +162,9 @@ storage:
 
 請務必瞭解命名空間是Kubernetes中資源的邏輯邊界。假設相同命名空間中的資源可以共用、但重要的是、沒有跨命名空間功能。這表示即使PV是全域物件、但只有在同一個命名空間中的Pod才能存取它們。*確保命名空間在適當時用於提供分隔是非常重要的。*
 
-大多數組織對於Kubernetes內容中的資料安全性、主要關注的是、容器中的程序可以存取掛載到主機的儲存設備、但不適用於容器。  https://["命名空間"^] 旨在防止這類入侵。不過、有一個例外：特殊權限容器。
+大多數組織對於Kubernetes內容中的資料安全性、主要關注的是、容器中的程序可以存取掛載到主機的儲存設備、但不適用於容器。  https://en.wikipedia.org/wiki/Linux_namespaces["命名空間"^] 旨在防止這類入侵。不過、有一個例外：特殊權限容器。
 
-與正常情況相比、特權容器的執行主機層級權限大幅增加。依預設不會拒絕這些功能、因此請務必使用停用該功能 https://["Pod安全性原則"^]。
+與正常情況相比、特權容器的執行主機層級權限大幅增加。依預設不會拒絕這些功能、因此請務必使用停用該功能 https://kubernetes.io/docs/concepts/policy/pod-security-policy/["Pod安全性原則"^]。
 
 對於需要從Kubernetes和外部主機存取的磁碟區、儲存設備應以傳統方式進行管理、由系統管理員引進PV、而非由Trident管理。這可確保只有在Kubernetes和外部主機中斷連線且不再使用磁碟區時、才會銷毀儲存磁碟區。此外、也可以套用自訂匯出原則、以便從Kubernetes叢集節點和Kubernetes叢集以外的目標伺服器存取。
 
@@ -258,7 +258,7 @@ vserver nfs modify -vserver <svm_name> -showmount disabled
 
 NOTE: 雖然最大IOPS和爆發IOPS可設定為高達20、000、但實際的Volume最大效能卻受到叢集使用量和每節點效能的限制。
 
-區塊大小和頻寬會直接影響IOPS的數量。隨著區塊大小增加、系統會將頻寬增加至處理較大區塊大小所需的層級。隨著頻寬增加、系統能夠達到的IOPS數量也隨之減少。請參閱 https://["服務品質SolidFire"^] 如需QoS和效能的詳細資訊、請參閱。
+區塊大小和頻寬會直接影響IOPS的數量。隨著區塊大小增加、系統會將頻寬增加至處理較大區塊大小所需的層級。隨著頻寬增加、系統能夠達到的IOPS數量也隨之減少。請參閱 https://www.netapp.com/pdf.html?item=/media/10502-tr-4644pdf.pdf["服務品質SolidFire"^] 如需QoS和效能的詳細資訊、請參閱。
 
 
 
@@ -277,33 +277,33 @@ CHAP驗證（驗證啟動器是否為預定的Volume使用者）僅支援帳戶�
 
 == 哪裡可以找到更多資訊？
 
-以下列出部分最佳實務做法文件。搜尋 https://["NetApp資料庫"^] 適用於最新版本。
+以下列出部分最佳實務做法文件。搜尋 https://www.netapp.com/search/["NetApp資料庫"^] 適用於最新版本。
 
 *《*》ONTAP
 
-* https://["NFS最佳實務與實作指南"^]
-* http://["SAN管理指南"^] （適用於iSCSI）
-* http://["適用於RHEL的iSCSI Express組態"^]
+* https://www.netapp.com/us/media/tr-4067.pdf["NFS最佳實務與實作指南"^]
+* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["SAN管理指南"^] （適用於iSCSI）
+* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-iscsi-rhel-cg/home.html["適用於RHEL的iSCSI Express組態"^]
 
 
 *元件軟體*
 
-* https://["設定SolidFire 適用於Linux的功能"^]
+* https://www.netapp.com/pdf.html?item=/media/10507-tr4639pdf.pdf["設定SolidFire 適用於Linux的功能"^]
 
 
 *《*》NetApp HCI
 
-* https://["部署先決條件NetApp HCI"^]
-* https://["存取NetApp部署引擎"^]
+* https://docs.netapp.com/us-en/hci/docs/hci_prereqs_overview.html["部署先決條件NetApp HCI"^]
+* https://docs.netapp.com/us-en/hci/docs/concept_nde_access_overview.html["存取NetApp部署引擎"^]
 
 
 *應用程式最佳實務做法資訊*
 
-* https://["MySQL ONTAP 的最佳實務做法"^]
-* https://["MySQL SolidFire 的最佳實務做法"^]
-* http://["NetApp SolidFire 的功能與Cassandra"^]
-* http://["Oracle SolidFire 的最佳實務做法"^]
-* http://["PostgreSQL SolidFire 的最佳實務做法"^]
+* https://www.netapp.com/us/media/tr-4722.pdf["MySQL ONTAP 的最佳實務做法"^]
+* https://www.netapp.com/pdf.html?item=/media/10510-tr-4605.pdf["MySQL SolidFire 的最佳實務做法"^]
+* http://www.netapp.com/us/media/tr-4635.pdf["NetApp SolidFire 的功能與Cassandra"^]
+* http://www.netapp.com/us/media/tr-4606.pdf["Oracle SolidFire 的最佳實務做法"^]
+* http://www.netapp.com/us/media/tr-4610.pdf["PostgreSQL SolidFire 的最佳實務做法"^]
 
 
-並非所有應用程式都有特定的準則、請務必與您的NetApp團隊合作並使用 https://["NetApp資料庫"^] 以尋找最新的文件。
+並非所有應用程式都有特定的準則、請務必與您的NetApp團隊合作並使用 https://www.netapp.com/search/["NetApp資料庫"^] 以尋找最新的文件。

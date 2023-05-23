@@ -47,7 +47,7 @@ systemctl restart docker
 docker --version
 ----
 +
-如果您的版本過時、 https://["安裝或更新安裝"^]。
+如果您的版本過時、 https://docs.docker.com/engine/install/["安裝或更新安裝"^]。
 
 
 
@@ -135,7 +135,7 @@ docker --version
 curl -fsSL https://get.docker.com/ | sh
 ----
 +
-或者、 https://["請依照您的經銷指示進行"^]。
+或者、 https://docs.docker.com/engine/install/["請依照您的經銷指示進行"^]。
 
 . 確保已為您的系統設定NFS和/或iSCSI。
 

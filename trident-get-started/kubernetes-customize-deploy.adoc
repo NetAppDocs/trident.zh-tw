@@ -43,7 +43,7 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示 Astra Triden
 | 「autosupportImage」 | 遙測的容器影像AutoSupport | "NetApp/trident 自動支援： 23.04.0" 
 
 
-| 「autosupportProxy」 | 代理伺服器的位址/連接埠、用於傳送AutoSupport 「遙測」功能 | "http://[] 
+| 「autosupportProxy」 | 代理伺服器的位址/連接埠、用於傳送AutoSupport 「遙測」功能 | "http://proxy.example.com:8888"[] 
 
 
 | 「controllerPluginNodeSelector」 | 執行Trident控制器csi外掛程式之Pod的其他節點選取器。格式與相同 `pod.spec.nodeSelector`。 | 無預設值；選用 

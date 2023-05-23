@@ -49,7 +49,7 @@ spec:
   credentials:
     name: backend-tbc-ontap-san-secret
 ----
-您也可以查看中的範例 https://["Trident安裝程式"^] 所需儲存平台/服務的範例組態目錄。
+您也可以查看中的範例 https://github.com/NetApp/trident/tree/stable/v21.07/trident-installer/sample-input/backends-samples["Trident安裝程式"^] 所需儲存平台/服務的範例組態目錄。
 
 「show」會採用後端特定的組態參數。在此範例中、後端使用「ONTAP-san」儲存驅動程式、並使用此處表格列出的組態參數。如需所需儲存驅動程式的組態選項清單、請參閱 link:backends.html["儲存驅動程式的後端組態資訊"^]。
 
@@ -76,7 +76,7 @@ TIP: 使用「tridentctl」建立的後端沒有關聯的「TridentBackendConfig
 
 若要使用「kubecll」建立新的後端、您應該執行下列動作：
 
-. 建立 https://["Kubernetes機密"^]。此機密包含Astra Trident與儲存叢集/服務通訊所需的認證資料。
+. 建立 https://kubernetes.io/docs/concepts/configuration/secret/["Kubernetes機密"^]。此機密包含Astra Trident與儲存叢集/服務通訊所需的認證資料。
 . 建立「TridentBackendConfig」物件。其中包含有關儲存叢集/服務的詳細資訊、並參考上一步建立的機密。
 
 

@@ -31,14 +31,14 @@ NOTE: 根據預設、Trident的指標會顯示在「/度量」端點的目標連
 
 .您需要的產品
 * 安裝Astra Trident的Kubernetes叢集。
-* Prometheus執行個體。這可以是 https://["容器化Prometheus部署"^] 或者、您也可以選擇以執行Prometheus https://["原生應用程式"^]。
+* Prometheus執行個體。這可以是 https://github.com/prometheus-operator/prometheus-operator["容器化Prometheus部署"^] 或者、您也可以選擇以執行Prometheus https://prometheus.io/download/["原生應用程式"^]。
 
 
 
 
 == 步驟1：定義Prometheus目標
 
-您應該定義Prometheus目標、以收集指標並取得有關後端Astra Trident管理的資訊、以及其建立的磁碟區等資訊。這 https://["部落格"^] 說明如何使用Prometheus和Grafana搭配Astra Trident來擷取指標。部落格說明如何在Kubernetes叢集中以營運者的形式執行Prometheus、以及建立ServiceMonitor來取得Astra Trident的指標。
+您應該定義Prometheus目標、以收集指標並取得有關後端Astra Trident管理的資訊、以及其建立的磁碟區等資訊。這 https://netapp.io/2020/02/20/prometheus-and-trident/["部落格"^] 說明如何使用Prometheus和Grafana搭配Astra Trident來擷取指標。部落格說明如何在Kubernetes叢集中以營運者的形式執行Prometheus、以及建立ServiceMonitor來取得Astra Trident的指標。
 
 
 
@@ -69,7 +69,7 @@ metadata:
 ----
 此ServiceMonitor定義會擷取由「Trident -csi」服務傳回的度量、並特別尋找服務的「metrics」端點。因此、Prometheus現在已設定為瞭解Astra Trident的指標。
 
-除了可直接從Astra Trident取得的指標之外、Kibelet還透過自己的指標端點、公開許多「kubelet_volume」*指標。Kubelet可提供有關所附加磁碟區、Pod及其處理的其他內部作業的資訊。請參閱 https://["請按這裡"^]。
+除了可直接從Astra Trident取得的指標之外、Kibelet還透過自己的指標端點、公開許多「kubelet_volume」*指標。Kubelet可提供有關所附加磁碟區、Pod及其處理的其他內部作業的資訊。請參閱 https://kubernetes.io/docs/concepts/cluster-administration/monitoring/["請按這裡"^]。
 
 
 
@@ -143,10 +143,10 @@ kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes * 100
 依預設、Astra Trident會每日傳送Prometheus指標和基本後端資訊給NetApp。
 
 * 若要停止Astra Trident將Prometheus指標和基本後端資訊傳送給NetApp、請在Astra Trident安裝期間、傳遞「-Silence-autosupport」旗標。
-* Astra Trident也可透過「tridentctl傳送AutoSupport 功能」、隨需將容器記錄傳送給NetApp Support。您需要觸發Astra Trident來上傳記錄。在您提交記錄之前、您應該接受NetApp的https://["隱私權政策"^]。
+* Astra Trident也可透過「tridentctl傳送AutoSupport 功能」、隨需將容器記錄傳送給NetApp Support。您需要觸發Astra Trident來上傳記錄。在您提交記錄之前、您應該接受NetApp的https://www.netapp.com/company/legal/privacy-policy/["隱私權政策"^]。
 * 除非另有說明、Astra Trident會從過去24小時擷取記錄。
-* 您可以使用指定記錄保留時間範圍 `--since` 旗標。例如： `tridentctl send autosupport --since=1h`。此資訊會透過收集和傳送 `trident-autosupport` 安裝於Astra Trident旁的容器。您可以從取得Container映像 https://["Trident AutoSupport 的"^]。
-* Trident AutoSupport 無法收集或傳輸個人識別資訊（PII）或個人資訊。隨附a https://["EULA"^] 這不適用於Trident Container映像本身。您可以深入瞭解NetApp對資料安全性與信任的承諾 https://["請按這裡"^]。
+* 您可以使用指定記錄保留時間範圍 `--since` 旗標。例如： `tridentctl send autosupport --since=1h`。此資訊會透過收集和傳送 `trident-autosupport` 安裝於Astra Trident旁的容器。您可以從取得Container映像 https://hub.docker.com/r/netapp/trident-autosupport["Trident AutoSupport 的"^]。
+* Trident AutoSupport 無法收集或傳輸個人識別資訊（PII）或個人資訊。隨附a https://www.netapp.com/us/media/enduser-license-agreement-worldwide.pdf["EULA"^] 這不適用於Trident Container映像本身。您可以深入瞭解NetApp對資料安全性與信任的承諾 https://www.netapp.com/us/company/trust-center/index.aspx["請按這裡"^]。
 
 
 Astra Trident傳送的有效負載範例如下：

@@ -19,9 +19,9 @@ summary: 在您設定ANF後端之前、必須確保符合下列需求。
 == NFS 和 SMB 磁碟區的必要條件
 
 
-NOTE: 如果您是第一次使用 Azure NetApp Files 、或是在新位置使用、則必須先進行一些初始設定、才能設定 Azure NetApp Files 並建立 NFS Volume 。請參閱 https://["Azure：設定Azure NetApp Files 功能以建立NFS Volume"^]。
+NOTE: 如果您是第一次使用 Azure NetApp Files 、或是在新位置使用、則必須先進行一些初始設定、才能設定 Azure NetApp Files 並建立 NFS Volume 。請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure：設定Azure NetApp Files 功能以建立NFS Volume"^]。
 
-若要設定及使用 https://["Azure NetApp Files"^] 後端、您需要下列項目：
+若要設定及使用 https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] 後端、您需要下列項目：
 
 * 容量集區。請參閱 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Microsoft ：為 Azure NetApp Files 建立容量集區"^]。
 * 委派給 Azure NetApp Files 的子網路。請參閱 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Microsoft ：將子網路委派給 Azure NetApp Files"^]。

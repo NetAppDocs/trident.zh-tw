@@ -162,6 +162,21 @@ NOTE: 如有必要、請開啟 `deploy/kubernetes/snapshot-controller/rbac-snaps
 
 
 
+== 使用快照恢復 Volume 資料
+
+快照目錄預設為隱藏、以協助使用進行資源配置的磁碟區達到最大相容性 `ontap-nas` 和 `ontap-nas-economy` 驅動程式：啟用 `.snapshot` 直接從快照恢復資料的目錄。
+
+使用 Volume Snapshot Restore ONTAP CLI 將磁碟區還原至先前快照中記錄的狀態。
+
+[listing]
+----
+cluster1::*> volume snapshot restore -vserver vs0 -volume vol3 -snapshot vol3_snap_archive
+----
+
+NOTE: 當您還原快照複本時、會覆寫現有的 Volume 組態。建立快照複本之後對 Volume 資料所做的變更將會遺失。
+
+
+
 == 相關連結
 
 * link:../trident-concepts/snapshots.html["Volume快照"]

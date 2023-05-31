@@ -1512,75 +1512,6 @@
   <block id="3e75d51468f5a99fdb50b75dafea32e8" category="paragraph">在您的主機/庫存檔案中定義適當的可Ansible變數後、使用Ansible部署服務。如果您是在OpenShift安裝時間進行部署、則會自動建立及使用PV。如果您使用元件教戰手冊進行部署、則在OpenShift安裝之後、Ansible會建立任何需要的PVCS、並在Astra Trident為其配置儲存設備之後、部署該服務。</block>
   <block id="bf1cadd7aa4e541e255df26af5451d85" category="inline-link-macro">RedHat的OpenShift部署指南</block>
   <block id="eb502d6483a644e9b6f61ca4719276d8" category="paragraph">上述變數及部署程序可能會隨OpenShift的每個版本而變更。請務必檢閱並遵循 <block ref="5ad72ffc1eda2c257c8947a0ad66dddb" category="inline-link-macro-rx"></block> 以供您的環境使用。</block>
-  <block id="d03f8f06d8317baa619ceba8c71e0be3" category="summary">瞭解NetApp儲存平台提供的資料保護與可恢復性選項。Astra Trident可配置磁碟區、以充分利用其中的部分功能。對於每個應用程式、您都應該擁有完整的資料保護與還原策略、而且需要持續性。</block>
-  <block id="7e7397a7b79323762c61941fc0e6b5f9" category="doc">資料保護</block>
-  <block id="26beed33bbef26c53a76c2b450d8092c" category="paragraph">Astra Trident將其中繼資料儲存在Kubernetes叢集的「etcd」資料庫中。定期備份「etcd」叢集資料、對於在災難情況下恢復Kubernetes叢集而言、非常重要。</block>
-  <block id="6b8252dd799aef1e72351975d4d39231" category="list-text">使用「etcctll snapshot SAVE」命令、您可以擷取「etcd」叢集的時間點快照：</block>
-  <block id="54466a78f910aa9c206047e0a2afdae1" category="paragraph">此命令可藉由旋轉etcd容器來建立etcd快照、並將其儲存在「/Backup」目錄中。</block>
-  <block id="1475db623f0eaa95e737c3463bae738f" category="list-text">發生災難時、您可以使用etcd快照來啟動Kubernetes叢集。使用「etcctll snapshot還原」命令、還原擷取至「/var/lib/etcd」資料夾的特定快照。還原之後、請確認「/var/lib/etcd」資料夾是否已填入「member」資料夾。以下是「etcdctl snapshot還原」命令的範例：</block>
-  <block id="79ddedac8d398dd5b0c07d4319dcc009" category="list-text">初始化Kubernetes叢集之前、請複製所有必要的憑證。</block>
-  <block id="bdad273c35514cf4ff054dc686b32002" category="list-text">使用「-ignore預先執行錯誤= DirAvailable」-var-lib-etcd標誌建立叢集。</block>
-  <block id="6305ecb03aa7de9ef25f8415e859ea4b" category="list-text">叢集啟動後、請確定已啟動kube系統Pod。</block>
-  <block id="8c416419987890cfcc65ea9e92da3cfa" category="list-text">使用「kubectl Get crd」命令來驗證Trident所建立的自訂資源是否存在、並擷取Trident物件、以確保所有資料都可用。</block>
-  <block id="e5356885fecc2a90a54498a26b14b810" category="section-title">使用ONTAP 不含資訊的快照來恢復日期</block>
-  <block id="c311aef86a7cd24a1d8755988091889b" category="paragraph">快照提供應用程式資料的時間點還原選項、因此扮演著重要角色。不過、快照本身並不是備份、因此無法防止儲存系統故障或其他災難。但是、在大多數情況下、它們都是一種方便、快速且簡單的資料恢復方法。瞭ONTAP 解如何使用「支援資料快照」技術來備份磁碟區、以及如何還原。</block>
-  <block id="f0587fe4869074d7cfefe4e8bf02eaeb" category="list-text">如果未在後端定義快照原則、則預設使用「無」原則。如此一ONTAP 來、我們便無法自動擷取快照。不過、儲存管理員可以手動擷取快照、或是透過ONTAP 功能完善的管理介面變更快照原則。這不會影響Trident作業。</block>
-  <block id="a5198a3ff669782d450e222946ec0482" category="list-text">Snapshot目錄預設為隱藏。這有助於實現使用「ONTAP-NAS」和「ONTAP-NAS經濟」驅動程式所配置之磁碟區的最大相容性。使用「ONTAP-NAS」和「ONTAP-NAS經濟」驅動程式時、請啟用「.snapshot」目錄、讓應用程式能夠直接從快照中恢復資料。</block>
-  <block id="d34d16e8f00776a7cc63851ebd4e9395" category="list-text">使用「Volume Snapshot Restore」ONTAP （Volume Snapshot還原）CLI命令、將磁碟區還原至先前快照中記錄的狀態。還原快照複本時、還原作業會覆寫現有的Volume組態。建立Snapshot複本之後、對磁碟區中資料所做的任何變更都會遺失。</block>
-  <block id="3225a41cc13787a78ef89153b870bffe" category="section-title">使用ONTAP 功能複寫資料</block>
-  <block id="5bec6ef5bd67015d1da2f04dc2a24b80" category="paragraph">複寫資料對於防止儲存陣列故障所造成的資料遺失、扮演著重要的角色。</block>
-  <block id="eb75aeb3b4b2b9734ba3e52f5483f0b2" category="inline-link">本文檔 ONTAP</block>
-  <block id="40491088e02d790071b9ddbc3f95f983" category="admonition">如需ONTAP 深入瞭解有關資訊複寫技術的資訊、請參閱<block ref="dd7cb2553dd5eb568b9a23ce332fc9a4" category="inline-link-rx"></block>。</block>
-  <block id="541959f741a3180066a37aee2adf7d01" category="section-title">SnapMirror儲存虛擬機器（SVM）複寫</block>
-  <block id="794cb725c5631ad99b5b7c000307f0df" category="inline-link">SnapMirror</block>
-  <block id="15bf9c06ed0c503c4ee904bf4b3a85a9" category="paragraph">您可以使用<block ref="a2a4907c93db22784422a1bc7047ac73" category="inline-link-rx"></block> 複寫完整的SVM、其中包括其組態設定及其磁碟區。發生災難時、您可以啟動SnapMirror目的地SVM、開始提供資料服務。還原系統時、您可以切換回主要系統。</block>
-  <block id="8657190fa7a98fbc200c5c90a08cac65" category="paragraph">Astra Trident無法自行設定複寫關係、因此儲存管理員可以使用ONTAP的SnapMirror SVM複寫功能、將磁碟區自動複寫到災難恢復（DR）目的地。</block>
-  <block id="bdb161b363522f5fc614f70c10792020" category="paragraph">如果您打算使用SnapMirror SVM複寫功能、或是目前正在使用此功能、請考慮下列事項：</block>
-  <block id="34fb9af35ab36a2cead16ad98b140441" category="list-text">您應該為每個啟用SVM災難恢復的SVM建立不同的後端。</block>
-  <block id="1c0b44a5294fd1ebbc8e78476cf29358" category="list-text">您應該設定儲存類別、以便在需要時、不要選取複寫的後端。這一點非常重要、因為如此一來、您就不必將不需要保護複寫關係的磁碟區配置到支援SVM-DR的後端。</block>
-  <block id="21f180602301e7ac5b6cce6b6b7399e9" category="list-text">應用程式管理員應瞭解複寫資料所需的額外成本與複雜度、並在使用資料複寫之前、先決定恢復計畫。</block>
-  <block id="59b50d3d22a40bf39d0e648e2d49092c" category="list-text">啟動SnapMirror目的地SVM之前、請先停止所有排程的SnapMirror傳輸、中止所有進行中的SnapMirror傳輸、中斷複寫關係、停止來源SVM、然後啟動SnapMirror目的地SVM。</block>
-  <block id="7cf7bfd0b57a375894c362efd521d4a6" category="list-text">Astra Trident不會自動偵測SVM故障。因此，當發生故障時，系統管理員應該執行「tridentctl後端更新」命令，以觸發Trident的容錯移轉到新的後端。</block>
-  <block id="1904adbabdda29d7a5ab43352f36c6ed" category="paragraph">以下是SVM設定步驟的總覽：</block>
-  <block id="3c2f5fc4909af1c1359e564eb6db48b0" category="list-text">在來源與目的地叢集與SVM之間設定對等關係。</block>
-  <block id="3b1329fc73441b5a106271d6f3497f1e" category="list-text">使用「副類型DP目的地」選項建立目的地SVM。</block>
-  <block id="2ce677015d60734da686668ee7962dd0" category="list-text">建立複寫工作排程、以確保複寫會在所需的時間間隔執行。</block>
-  <block id="e9eeea68d62192550b641463a212f6f7" category="list-text">使用「idente-preserve true」選項、建立從目的地SVM到來源SVM的SnapMirror複寫、以確保來源SVM組態和來源SVM介面複製到目的地。從目的地SVM初始化SnapMirror SVM複寫關係。</block>
-  <block id="fb45980442af5aaba98c4d47ae4d3bfd" category="image-alt">顯示設定SVM所需的步驟。</block>
-  <block id="1e4e7c145198bb50a238b75b451a761f" category="section-title">Trident的災難恢復工作流程</block>
-  <block id="b955e2b8063ba57e27a4ab2b5317f40c" category="paragraph">Astra Trident 19.07及更新版本使用Kubernetes CRD來儲存及管理自己的狀態。它使用Kubernetes叢集的「etcd」來儲存中繼資料。我們假設Kubernetes的「etcd」資料檔案和憑證都儲存在NetApp FlexVolume上。此FlexVolume位於SVM中、與次要站台的目的地SVM有SnapMirror SVM-DR關係。</block>
-  <block id="cc457da166ae89d5689724340cb13732" category="paragraph">下列步驟說明如何在發生災難時、使用Astra Trident來還原單一主Kubernetes叢集：</block>
-  <block id="53ac5e7226086e14e63a8c160480dc72" category="list-text">如果來源SVM故障、請啟動SnapMirror目的地SVM。為達成此目的、您應該停止排程的SnapMirror傳輸、中止進行中的SnapMirror傳輸、中斷複寫關係、停止來源SVM、以及啟動目的地SVM。</block>
-  <block id="2e22b90c5468159621965197ed565e28" category="list-text">從目的地SVM、將包含Kubernetes「etcd」資料檔案和憑證的磁碟區掛載到主機上、主機將設定為主節點。</block>
-  <block id="40d502a83976e38daa5473f7aa22abae" category="list-text">複製所有必要的Kubernetes叢集憑證、這些憑證位於「/etc/Kubernetes /PKI」下、而etcd「m十二」檔案則位於「/var/lib/etcd」下。</block>
-  <block id="ca8fc386b365ae9b5a3b4bbadae7d7f3" category="list-text">使用帶有「-ignore preflas-errors = DirAvailable - var-lib-etcd」旗標的「kubeadm init」命令建立Kubernetes叢集。Kubernetes節點使用的主機名稱應與來源Kubernetes叢集相同。</block>
-  <block id="e0e99766128c0aba0f0aa6c04f32348c" category="list-text">執行「kubectl Get crd」命令、確認所有Trident自訂資源是否都已啟動並擷取Trident物件、以驗證所有資料是否可用。</block>
-  <block id="5a869093fda46649157b8eb12219a2f2" category="list-text">執行「/tridentctl update backend &lt;backend-name&gt;-f &lt;backend-jser-file&gt;-n &lt;namedes&gt;'命令、更新所有必要的後端、以反映新的目的地SVM名稱。</block>
-  <block id="dbd1e2ae426afc58b4818d42ea354b74" category="admonition">對於應用程式持續磁碟區、當目的地SVM啟動時、Trident所配置的所有磁碟區都會開始提供資料。使用上述步驟在目的地端設定Kubernetes叢集之後、所有的部署和Pod都會啟動、而且容器化應用程式應該能順利執行、不會發生任何問題。</block>
-  <block id="d384359ca03c8d46191c719c57744679" category="section-title">SnapMirror Volume複寫</block>
-  <block id="118fa9a7e0f8d0db1e27394b81880427" category="paragraph">SnapMirror Volume複寫是一項災難恢復功能、可從Volume層級的主要儲存設備進行容錯移轉至目的地儲存設備。ONTAPSnapMirror透過同步快照、在次要儲存設備上建立主要儲存設備的Volume複本或鏡射。</block>
-  <block id="19f60a36276037e5b82b5096d2ba7a5c" category="paragraph">以下是ONTAP 關於SnapMirror Volume複寫設定步驟的總覽：</block>
-  <block id="c4e9d0a10c58301ad78e9e9bf74f9229" category="list-text">在磁碟區所在的叢集與從磁碟區提供資料的SVM之間設定對等關係。</block>
-  <block id="b1c132fa6284fd6d42f93781032cd962" category="list-text">建立SnapMirror原則、以控制關係的行為、並指定該關係的組態屬性。</block>
-  <block id="0a30bcd5b223c18be449821765a8ec07" category="list-text">使用建立目的地Volume與來源Volume之間的SnapMirror關係<block ref="bfbfdbcdb00ddafcc3e3ca740d1d316b" category="inline-link-rx"></block> 並指派適當的SnapMirror原則。</block>
-  <block id="20872623d19783e0dbe00afcdcb9ba46" category="list-text">建立SnapMirror關係之後、請初始化關係、以便完成從來源磁碟區到目的地磁碟區的基礎傳輸。</block>
-  <block id="af1fe101ed84f2b2bc465f0a9e92a35f" category="image-alt">顯示SnapMirror Volume複寫設定。</block>
-  <block id="1d3ec4cce0f34c07e814ebbd88f5edd8" category="section-title">適用於Trident的SnapMirror Volume災難恢復工作流程</block>
-  <block id="83e05258883cd6b92e2fe5b113f1ebc6" category="paragraph">下列步驟說明如何使用Astra Trident來復原單一主Kubernetes叢集。</block>
-  <block id="b950aff3484c4c998d3b7a36ff1d6553" category="list-text">發生災難時、請停止所有排程的SnapMirror傳輸、並中止所有進行中的SnapMirror傳輸。中斷目的地與來源磁碟區之間的複寫關係、使目的地磁碟區變成讀取/寫入。</block>
-  <block id="521637d2f234b6223688c168d29f6b72" category="list-text">從目的地SVM、將包含Kubernetes「etcd」資料檔案和憑證的磁碟區掛載到主機上、主機將設定為主節點。</block>
-  <block id="d911c905c09c9615d35c97f404dd2884" category="list-text">使用帶有"-ignore preflas-errors = DirAvailable - var-lib-etcd"標記的"kubeadm init"命令來建立Kubernetes叢集。主機名稱應與來源Kubernetes叢集相同。</block>
-  <block id="4b4d4e6a1634d2560e81a9a1821e2818" category="list-text">執行「kubectl Get crd」命令、確認所有Trident自訂資源是否都已啟動並擷取Trident物件、以確保所有資料都可用。</block>
-  <block id="f4a5d35c2f46c3a6ee69fd6aa2d1ed16" category="section-title">應用程式持續磁碟區的災難恢復工作流程</block>
-  <block id="77983829e737f00a29b43edacbba355e" category="paragraph">下列步驟說明在發生災難時、如何為容器化工作負載提供SnapMirror目的地磁碟區：</block>
-  <block id="aefd7239e178b3ae439ae7004435bd18" category="list-text">停止所有排程的SnapMirror傳輸、並中止所有進行中的SnapMirror傳輸。中斷目的地與來源磁碟區之間的複寫關係、使目的地磁碟區變成讀取/寫入。清除使用與來源SVM上磁碟區連結之PVc的部署。</block>
-  <block id="c64f364f814f31948e0882b74d5ddfe1" category="list-text">使用上述步驟在目的地端設定Kubernetes叢集之後、請從Kubernetes叢集清除部署、PVCS和PV。</block>
-  <block id="6973ba748ea89f06ab3640118969d780" category="list-text">指定新的管理與資料LIF、新的SVM名稱和目的地SVM密碼、在Trident上建立新的後端。</block>
-  <block id="1fd415590fff525d8e3562951ed79081" category="list-text">使用「Trident匯入」功能、將所需的磁碟區匯入為與新的PVc繫結的PV。</block>
-  <block id="99a01026c124f91b08d854efa31d450b" category="list-text">使用新建立的PVCS重新部署應用程式部署。</block>
-  <block id="7a183359334a99fc80b796244313284c" category="section-title">使用元素快照來恢復資料</block>
-  <block id="2d51cea50aa816e6be9c663c2ad2686a" category="paragraph">設定磁碟區的快照排程、並確保每隔一段時間擷取快照、以備份元素磁碟區上的資料。您應該使用元素UI或API來設定快照排程。目前無法透過「Poolidfire - san」驅動程式、將快照排程設定為磁碟區。</block>
-  <block id="c42cc84c1560600f6f5986a958de0735" category="paragraph">在資料毀損的情況下、您可以使用元素UI或API、選擇特定的快照、然後手動將磁碟區復原至快照。這會還原自建立快照以來對磁碟區所做的任何變更。</block>
   <block id="d59b86d1714966230da7a00672e40912" category="summary">請使用此處列出的建議、確保您的Astra Trident安裝安全無虞。</block>
   <block id="2fae32629d4ef4fc6341f1751b405e45" category="doc">安全性</block>
   <block id="44a736677691eaca5e5d3d6b5c770b22" category="section-title">在自己的命名空間中執行Astra Trident</block>
@@ -2668,7 +2599,6 @@
   <block id="66f2c42a4ca561f5472459301bc7d096" category="list-text">目前市面上已普遍提供適用於整個過程的自動功能、例如針對不適用的驅動程式進行交換偵測。MetroCluster ONTAP</block>
   <block id="e87ded5ef8bc8adbc3c135528636f4f2" category="list-text"><block ref="e87ded5ef8bc8adbc3c135528636f4f2" category="inline-link-macro-rx"></block></block>
   <block id="fce586d9f649fb529d0a1846495ba259" category="list-text"><block ref="fce586d9f649fb529d0a1846495ba259" category="inline-link-macro-rx"></block></block>
-  <block id="d85acedd7a50ec026ef39bce58a2c4fc" category="paragraph">瞭解NetApp儲存平台提供的資料保護與恢復選項。Astra Trident可配置磁碟區、以充分利用其中的部分功能。對於每個應用程式、您都應該有持續性需求的資料保護與還原策略。</block>
   <block id="ecd7650a65b79124ad23fb7eed8faa7e" category="paragraph">NetApp產品組合中的每個儲存平台都有獨特的功能、無論應用程式是否為容器化的應用程式帶來好處。</block>
   <block id="e6dc22cf3c59dda6e09524b2b133f336" category="section-title">平台總覽</block>
   <block id="050fb8b0306d7532dbf8c15b8cba9745" category="paragraph">Trident可搭配ONTAP 使用沒有一個平台比其他平台更適合所有應用程式和案例、不過在選擇平台時、應考慮應用程式和管理裝置團隊的需求。</block>
@@ -2753,7 +2683,6 @@
   <block id="454631312fab234fc91bb2f85a751fac" category="section-title"><block ref="913a4b06671d1e04e6582a85afe3abbe" prefix="" category="inline-code"></block></block>
   <block id="e892fda55ead7e15eed753e850d35f12" category="section-title">步驟2：建立<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR</block>
   <block id="a0d777cf1acc36406564409adef85b17" category="section-title">支援的版本為何<block ref="a226e9fbdfc1c8dd7e7fef4d333f86ed" prefix=" " category="inline-code"></block>？</block>
-  <block id="96bcb2f9805dd9a55f15f122db8c9e7b" category="section-title">備份<block ref="a226e9fbdfc1c8dd7e7fef4d333f86ed" prefix=" " category="inline-code"></block> 叢集資料</block>
   <block id="74257eabdceb63f8522f7c68b103da3a" category="section-title">停用<block ref="d51321f13693d09d4a9cbb2758b42d12" prefix=" " category="inline-code"></block> 適用於應用程式SVM</block>
   <block id="e49cf31f5ed35f0eb694c7714e8c3234" category="section-title"><block ref="76ea0bebb3c22822b4f0dd9c9fd021c5" prefix="" category="inline-code"></block></block>
   <block id="3649b15e31d22a1e2210f014d843b9fa" category="section-title"><block ref="099af53f601532dbd31e0ea99ffdeb64" prefix="" category="inline-code"></block></block>
@@ -3117,7 +3046,6 @@
   <block id="1282398415278cc77bc47970640d4188" category="list-text">啟用<block ref="b0e105de2a2f0820528649fee8d2e331" prefix=" " category="inline-code"></block> 功能閘道（beta 1.25 +）。請參閱 <block ref="35e3bd84b2522e04fd4ead86130c9227" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
   <block id="e4de718025be845e2dec22064bb4eece" category="list-text">新增<block ref="91985ce21cd787a6ab2a13cc97f58968" prefix=" " category="inline-code"></block> 和<block ref="641c8d6753dd78e60ebb61a20e6a2742" prefix=" " category="inline-code"></block> StorageClass參數。例如：</block>
   <block id="e718558948d1441cf3873df6fb7b10c3" category="paragraph">當您啟動線上儲存擴充時、kubelet會將適當的認證資料傳遞給驅動程式。</block>
-  <block id="a0070e4b4fc7fef456d0f1d1f6cec158" category="list-text">清理先前的後端、並在Trident上建立新的後端。指定目的地SVM的新管理LIF、新SVM名稱和密碼。</block>
   <block id="8a6112da5167fe6f44136715f1d86c36" category="paragraph">對於具有專用基礎架構節點（例如OpenShift）或其他節點無法排程使用者應用程式的部署、應使用個別的匯出原則、進一步限制對儲存資源的存取。這包括為部署至這些基礎架構節點的服務（例如OpenShift Metrics和記錄服務）、以及部署至非基礎架構節點的標準應用程式建立匯出原則。</block>
   <block id="a330e835c41b0ff1dfc7e483e7e7f70e" category="summary">虛擬資源池在Astra Trident的儲存後端與Kubernetes的StorageClass之間提供抽象層。管理員可透過通用的後端不受後端限制的方式、定義各個層級的位置、效能及保護、而無需使用StorageClass來指定要用於符合所需條件的實體後端、後端集區或後端類型。</block>
   <block id="9f77ac8822dd45ff19910e0170669eb7" category="paragraph">虛擬資源池可在Astra Trident儲存後端與Kubernetes之間提供抽象層<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block>。管理員可以透過通用的後端不受限制的方式、定義各個方面、例如位置、效能及每個後端的保護、而無需進行任何操作<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 指定要用於符合所需條件的實體後端、後端集區或後端類型。</block>
@@ -3655,4 +3583,68 @@
   <block id="ffd4000c9e43a23d97e231d47f99dcd4" category="list-text">您可以執行多個驅動程式、並建立指向其中一個或另一個的儲存類別。例如、您可以設定使用的Gold類別<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式和銅級、使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 一、</block>
   <block id="a571dbb3887a364b4b4dcb82a5fa6ec9" category="list-text">建立Snapshot控制器。</block>
   <block id="ae3ba2e438847d5fb2abc16b3c73ccab" category="admonition">如有必要、請開啟<block ref="31a2c725707ce238c3eb4dd82c7e3af9" prefix=" " category="inline-code"></block> 和更新<block ref="89801e9e98979062e84647433a8ed3e9" prefix=" " category="inline-code"></block> 到您的命名空間。</block>
+  <block id="c48edc45b9266a1f0d1869ac35615605" category="section-title">使用快照恢復 Volume 資料</block>
+  <block id="4714f3cf4c41291cc2dae88a7150cbe5" category="paragraph">快照目錄預設為隱藏、以協助使用進行資源配置的磁碟區達到最大相容性<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 和<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 驅動程式：啟用<block ref="a15da8cecb1f1192c4d913b8ba676121" prefix=" " category="inline-code"></block> 直接從快照恢復資料的目錄。</block>
+  <block id="8f580d002ee0bbc67930846839d50dbe" category="paragraph">使用 Volume Snapshot Restore ONTAP CLI 將磁碟區還原至先前快照中記錄的狀態。</block>
+  <block id="f84dc17e0595ca9097097e70b9b927e1" category="admonition">當您還原快照複本時、會覆寫現有的 Volume 組態。建立快照複本之後對 Volume 資料所做的變更將會遺失。</block>
+  <block id="389fca3b29dd7808b825fbd953242ed9" category="summary">瞭解 Astra Trident 的保護與恢復選項、以及使用 Astra Trident 建立的 Volume 。對於每個應用程式、您都應該有持續性需求的資料保護與還原策略。</block>
+  <block id="03c39d763ca15978d9ef16c2ba5fe98a" category="doc">資料保護與災難恢復</block>
+  <block id="e3d45c3e9eb2d2949067a0aa7b61e476" category="section-title">Astra Trident 複寫與還原</block>
+  <block id="44f293896af5541a26ccc287fc71266b" category="paragraph">您可以建立備份、在發生災難時還原 Astra Trident 。</block>
+  <block id="9b35fe66a1b68aa00dbffd236d3fe856" category="section-title">Astra Trident 複寫</block>
+  <block id="65808079dd14440eb9053549bdf96b26" category="paragraph">Astra Trident 使用 Kubernetes CRD 來儲存及管理其本身的狀態、 Kubernetes 叢集 etcd 則用來儲存其中繼資料。</block>
+  <block id="082510018437a15b6d42065dfe5a5384" category="inline-link-macro">Kubernetes ：備份 etcd 叢集</block>
+  <block id="ec3558916e2679d1a4b592e0ade35471" category="list-text">使用備份 Kubernetes 叢集 etcd  <block ref="901b02918d705c0966dae4033c132965" category="inline-link-macro-rx"></block>。</block>
+  <block id="47eab96eced19efdca77f2407d8e44aa" category="list-text">將備份產出工件放在 FlexVol 上。</block>
+  <block id="798d6cc5f40dde831172bf108a793297" category="admonition">我們建議您保護 FlexVol 所在的 SVM 、並與另一個 SVM 建立 SnapMirror 關係。</block>
+  <block id="49319f2bf766b5cf558ec82dd35f5a46" category="section-title">Astra Trident 恢復</block>
+  <block id="6275e3378f7bc1d5792a600e82c7aa6c" category="paragraph">使用 Kubernetes CRD 和 Kubernetes 叢集 etcd 快照、您可以復原 Astra Trident 。</block>
+  <block id="b30057689f3e745e5feeb142585ff30b" category="list-text">從目的地 SVM 、將包含 Kubernetes etcd 資料檔案和憑證的磁碟區掛載到將設定為主要節點的主機上。</block>
+  <block id="5fefcae3a4602913a273a904829295ce" category="list-text">複製下 Kubernetes 叢集的所有必要憑證<block ref="890b0e4d98741eac800c616b757217cb" prefix=" " category="inline-code"></block> 以及下的 etcd 成員檔案<block ref="3fa01691da932f6c45bf424027ffabb8" prefix=" " category="inline-code"></block>。</block>
+  <block id="51fa31507539ecf10c55d8cc513269d0" category="inline-link-macro">Kubernetes ：還原 etcd 叢集</block>
+  <block id="3167e8459c0d46545dc7978a60ef4978" category="list-text">使用從 etcd 備份還原 Kubernetes 叢集 <block ref="c87a91d2cf6358248ae560cfa802edf4" category="inline-link-macro-rx"></block>。</block>
+  <block id="54d0429fea223af0d32d9f061ed733c9" category="list-text">執行<block ref="1ec8e1992e296a9bdb691f1931d391fe" prefix=" " category="inline-code"></block> 若要驗證所有 Trident 自訂資源都已出現、請擷取 Trident 物件、以驗證所有資料是否可用。</block>
+  <block id="c87c1a25aa5e2ef1af216bc50d1fd391" category="section-title">SVM 複寫與還原</block>
+  <block id="0d3b37ff5855bf299f3c4a154373c1e2" category="inline-link">ONTAP SnapMirror</block>
+  <block id="968aa074079a26dbcd09cc3312c6e0d8" category="paragraph">Astra Trident 無法設定複寫關係、不過儲存管理員可以使用<block ref="eae3571c3bcc896c3c2934b9eeb2171a" category="inline-link-rx"></block> 複寫 SVM 。</block>
+  <block id="9299ebdcbaefed4a9ea27b355bb0f75e" category="paragraph">發生災難時、您可以啟動SnapMirror目的地SVM、開始提供資料服務。系統還原時、您可以切換回主要系統。</block>
+  <block id="1de93d4bf941bc79aec631023559b9e7" category="paragraph">使用 SnapMirror SVM 複寫功能時、請考量下列事項：</block>
+  <block id="1868906f3a3fbcf756260737545805d6" category="list-text">您應該為每個啟用 SVM-DR 的 SVM 建立不同的後端。</block>
+  <block id="f9f808f1692cabf1bf803e07da9adbe7" category="list-text">設定儲存類別、僅在需要時才選取複寫的後端、以避免將不需要複寫的磁碟區佈建到支援 SVM-DR 的後端。</block>
+  <block id="6fa2f5991a9e2ee7d4668899f94e78e4" category="list-text">應用程式管理員應瞭解複寫的額外成本與複雜度、並在開始此程序之前仔細考慮其還原計畫。</block>
+  <block id="2b5ffe73affd6d09b3b5e160e117e5c9" category="section-title">SVM 複寫</block>
+  <block id="9f4b9999b69320b559438c600d724ff9" category="inline-link-macro">ONTAP ： SnapMirror SVM 複寫</block>
+  <block id="d628a099db3505c9d0435e12076d8a61" category="paragraph">您可以使用 <block ref="89150b9d328c8330200fceb39b37760e" category="inline-link-macro-rx"></block> 建立 SVM 複寫關係。</block>
+  <block id="b9f28001ddc636f8628bd929334b258e" category="paragraph">SnapMirror 可讓您設定選項、以控制要複寫的內容。您必須知道自己在進行預先設定時所選擇的選項 <block ref="885698069be8fdb81e43cb59c9632744" category="inline-xref-macro-rx"></block>。</block>
+  <block id="524218dc9ff1ef52c9a0404971525b21" category="inline-link-macro">-identity 保留為真</block>
+  <block id="8dc4e22513bbb97acc41295bfe46d5fe" category="list-text"><block ref="c758ffe020dc40d00c9a9c46ecbdd824" category="inline-link-macro-rx"></block> 複寫整個 SVM 組態。</block>
+  <block id="d18f05a5c35a5a7d999263600f0356bf" category="inline-link-macro">-discard 配置網路</block>
+  <block id="97c20c3eb8c7569982dc9f84e7f31ba3" category="list-text"><block ref="afa9da8af32f091c8328b13559d456b1" category="inline-link-macro-rx"></block> 不包括生命和相關的網路設定。</block>
+  <block id="224ea277d21a44b59b0fa43747b4f6a6" category="inline-link-macro">-identity 保留錯誤</block>
+  <block id="471621652d0597dca59f266effb8f90f" category="list-text"><block ref="1faf7e0b3f51b53ae01a4f860a9ed344" category="inline-link-macro-rx"></block> 僅複寫磁碟區和安全組態。</block>
+  <block id="e3dcf348731966425abf967f0c0c575d" category="section-title">使用 Astra Trident 進行 SVM 恢復</block>
+  <block id="58c8a712ac4d3255cd28c6024ad43f71" category="paragraph">Astra Trident不會自動偵測SVM故障。發生災難時、管理員可以手動啟動 Trident 容錯移轉至新的 SVM 。</block>
+  <block id="da29de46c3a7d3e66fc701b2781fcbce" category="list-text">取消已排程和持續的 SnapMirror 傳輸、中斷複寫關係、停止來源 SVM 、然後啟動 SnapMirror 目的地 SVM 。</block>
+  <block id="98bdea55e26fba2494cc5f163b6f8076" category="list-text">如果您指定<block ref="224ea277d21a44b59b0fa43747b4f6a6" prefix=" " category="inline-code"></block> 或<block ref="e932330dd004e680ebd1a75db84b73ce" prefix=" " category="inline-code"></block> 設定 SVM 複寫時、請更新<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> 和<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block> 在 Trident 後端定義檔案中。</block>
+  <block id="6141984e8f91176bd3a76175b02c1a09" category="list-text">確認<block ref="ed66bef2b107983b6e4066fddf8c45c3" prefix=" " category="inline-code"></block> 存在於 Trident 後端定義檔案中。此參數無法變更。省略<block ref="ed66bef2b107983b6e4066fddf8c45c3" prefix=" " category="inline-code"></block> 將導致後端更新失敗。</block>
+  <block id="51589b18e320f20306c944a08241dac1" category="list-text">更新所有必要的後端、以反映新的目的地 SVM 名稱、使用：</block>
+  <block id="d980e1fdfa951088567e6d057ba7dc9c" category="list-text">如果您指定<block ref="224ea277d21a44b59b0fa43747b4f6a6" prefix=" " category="inline-code"></block> 或<block ref="89680afd09991bc3d4db985c40c861c1" prefix=" " category="inline-code"></block>、您必須退回所有應用程式 Pod 。</block>
+  <block id="debd7fcd99a55e4ad2700a29cadc6aa3" category="admonition">如果您指定<block ref="524218dc9ff1ef52c9a0404971525b21" prefix=" " category="inline-code"></block>、當目的地 SVM 啟動時、 Astra Trident 所佈建的所有磁碟區都會開始提供資料。</block>
+  <block id="cceb49886fed38f241928d51abab95a2" category="section-title">Volume 複寫與還原</block>
+  <block id="815f28e53ebfb423dfe835a845095bf6" category="inline-link-macro">ONTAP SnapMirror 複寫與還原</block>
+  <block id="a5217e87e9aef874c28773b5774ecf37" category="paragraph">Astra Trident 無法設定 SnapMirror 複寫關係、不過儲存管理員可以使用 <block ref="c3487d6df2463efc752acd6f5cc45a1f" category="inline-link-macro-rx"></block> 複寫 Astra Trident 所建立的 Volume 。</block>
+  <block id="c3c343b5a84229bd5095fd09f2afc5f5" category="inline-link-macro">tridentctl Volume 匯入</block>
+  <block id="5b570015a3a6711227cf6a2802ccd0d7" category="paragraph">然後、您可以使用將復原的磁碟區匯入 Astra Trident <block ref="d8ad77887a2224df2faf4f1df578e333" category="inline-link-macro-rx"></block>。</block>
+  <block id="d8d9dfeae772da34290b750d0f848a26" category="admonition">匯入不受支援<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>、 <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>或<block ref="70d5dbddc55e3700ddbc8d21f0de22a3" prefix=" " category="inline-code"></block> 驅動程式：</block>
+  <block id="b489b293d6cbe8b86835d3cac8c315fb" category="section-title">Snapshot 資料保護</block>
+  <block id="f332d72a4b78e34e31131f3a98c98053" category="paragraph">您可以使用下列項目來保護及還原資料：</block>
+  <block id="97fb495fd3b6672c40bb0092ca102eca" category="list-text">外部快照控制器和 CRD 、用於建立持續磁碟區（ PV ）的 Kubernetes Volume 快照。</block>
+  <block id="cb55f92ada2ab9103f2202b5e32b90c2" category="paragraph"><block ref="cb55f92ada2ab9103f2202b5e32b90c2" category="inline-link-macro-rx"></block></block>
+  <block id="83cd672b9742ba621e93a8b69c4ab2d4" category="list-text">ONTAP 快照可還原磁碟區的全部內容、或是還原個別檔案或 LUN 。</block>
+  <block id="ad336d1fccea3e918d07055edac855a3" category="inline-link-macro">ONTAP 快照</block>
+  <block id="0cb949d1baa06577db93328185a8f24d" category="paragraph"><block ref="0cb949d1baa06577db93328185a8f24d" category="inline-link-macro-rx"></block></block>
+  <block id="044d1500d5e33461ef3341121d2aebda" category="section-title">Astra Control Center 應用程式複寫</block>
+  <block id="3ee9187f7387265ff6f477d26adad0f2" category="paragraph">使用 Astra Control 、您可以使用 SnapMirror 的非同步複寫功能、將資料和應用程式變更從一個叢集複寫到另一個叢集。</block>
+  <block id="4910c9e59da080576c2dedc885e19ed7" category="inline-link-macro">Astra Control ：使用 SnapMirror 技術將應用程式複寫到遠端系統</block>
+  <block id="0868eb323c2e097c6c408f7c59642c94" category="paragraph"><block ref="0868eb323c2e097c6c408f7c59642c94" category="inline-link-macro-rx"></block></block>
 </blocks>

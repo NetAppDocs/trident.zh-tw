@@ -51,9 +51,17 @@ Astra Trident需要SVM範圍/叢集範圍管理員的認證資料、才能與ONT
 ====
 .YAML
 --
-'''
-版本： 1 個後端名稱： ExampleBackend storageDriverName ： ONTAP-SAN 管理 LIF ： 10.0.0.1 SVM ： SVM_NFS 使用者名稱： vsadmin 密碼：密碼
-
+[listing]
+----
+---
+version: 1
+backendName: ExampleBackend
+storageDriverName: ontap-san
+managementLIF: 10.0.0.1
+svm: svm_nfs
+username: vsadmin
+password: password
+----
 --
 .JSON
 --

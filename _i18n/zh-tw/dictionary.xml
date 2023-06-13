@@ -802,50 +802,11 @@
   <block id="8741473f7a80f4dd83071161b2c95301" category="paragraph">「Udo systemctl狀態multipath-ttools/」「show systemcl enable -現在open-iscsi.service`「show systemctl狀態open-iscsi」</block>
   <block id="1b757fe9c8a149de349a32b8d21feb54" category="admonition">對於Ubuntu 18.04、您必須先使用「iscsiadmd」探索目標連接埠、然後再啟動「open-iscsi」、iSCSI精靈才能啟動。您也可以修改「iSCSI」服務、以自動啟動「iscsid」。</block>
   <block id="cf13ba16f33b5f6772614929649be6c2" category="summary">您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入為Kubernetes PV。</block>
-  <block id="3cf3b5626cbcac07ab0c5304e90870e8" category="section-title">支援Volume匯入的驅動程式</block>
-  <block id="be8c8810fd80d5e84acf47d57d4e0dbc" category="paragraph">下表說明支援匯入磁碟區的驅動程式、以及這些磁碟區所引進的版本。</block>
-  <block id="b8e7b465df7c5979dc731d06e84ce2cf" category="cell">版本</block>
-  <block id="b7a56ff81a861dd454ce0ee6725a66c2" category="paragraph">19.04</block>
   <block id="57ee8ed0b2796ea5f35b10f9ae5d68cd" category="cell">「olidfire - san」</block>
   <block id="e228843381960c06d1035c4219901307" category="cell">《azure-NetApp-fil形》</block>
   <block id="949a374fc5a78d436e3067ee2de19cbe" category="cell">《GCP—CVS》</block>
-  <block id="cb4e2f5c0cf3e43444774c2af2ada914" category="section-title">為什麼要匯入磁碟區？</block>
-  <block id="b347f0936a6b1f232605f50447a930de" category="paragraph">將Volume匯入Trident的使用案例有多種：</block>
-  <block id="cbccddedba4ba9a336f83d60dd1454f0" category="list-text">容器化應用程式、並重新使用現有的資料集</block>
-  <block id="f0dd3bee13b8c14005d98bfbb9a48bf3" category="list-text">將資料集的複本用於暫時性應用程式</block>
-  <block id="97161389816216aabbaffd954ef4a1f4" category="list-text">重建故障的Kubernetes叢集</block>
-  <block id="fd045b8743b2b7018e0480bc9a2dd4c5" category="list-text">在災難恢復期間移轉應用程式資料</block>
-  <block id="92f0642c89b416c59d914adfb1e33828" category="section-title">匯入如何運作？</block>
-  <block id="902881a0ede032887467576928b25fe0" category="paragraph">Volume匯入程序會使用持續磁碟區宣告（PVc）檔案來建立PVc。至少、PVc檔案應包含名稱、命名空間、存取模式及storageClassName欄位、如下例所示。</block>
-  <block id="be25b6ff84fa0d015f05f46bbbb6abd1" category="paragraph">「tridentctl」用戶端用於匯入現有的儲存磁碟區。Trident會持續儲存Volume中繼資料並建立PVc和PV、以匯入Volume。</block>
-  <block id="bcf64a12adc519c7d409f80e5cccbe24" category="paragraph">若要匯入儲存磁碟區、請指定包含該磁碟區的Astra Trident後端名稱、以及唯一識別儲存區上該磁碟區的名稱（例如ONTAP FlexVol ：Wsel, Element Volume、CVS Volume path）。儲存磁碟區必須允許讀取/寫入存取、且可由指定的Astra Trident後端存取。需要「-f]字串引數、並指定Yaml或Json PVc檔案的路徑。</block>
-  <block id="021814b63472d2b6dab37ce7d62c3ea2" category="paragraph">當Astra Trident收到匯入磁碟區要求時、現有的磁碟區大小會在PVc中決定及設定。儲存驅動程式匯入磁碟區之後、PV會以PVc的ClaimRef建立。在PV中、回收原則一開始設定為「需要」。Kubernetes成功繫結了PVc和PV之後、系統會更新回收原則以符合儲存類別的回收原則。如果儲存類別的回收原則為「刪除」、則儲存磁碟區會在刪除PV時刪除。</block>
-  <block id="9d0bcc94449080a9fef1873acd638fb3" category="paragraph">當使用「-NO-Manage」引數匯入磁碟區時、Trident不會在物件生命週期的永久虛擬磁碟或PV上執行任何額外作業。由於Trident會忽略「無管理」物件的PV和PVc事件、因此在刪除PV時不會刪除儲存磁碟區。此外、也會忽略其他作業、例如Volume Clone和Volume resize。如果您想要將Kubernetes用於容器化工作負載、但想要管理Kubernetes以外儲存磁碟區的生命週期、則此選項非常實用。</block>
   <block id="76057e180d7b3edcebaa935c7ccab687" category="paragraph">將註釋新增至PVc和PV、這有兩種用途、表示已匯入磁碟區、以及是否管理了PVc和PV。不應修改或移除此附註。</block>
-  <block id="b20cebeefba038b396f3fe0494dad01b" category="paragraph">Trident 19.07及更新版本可處理PV的附加元件、並在匯入磁碟區時掛載磁碟區。對於使用舊版Astra Trident的匯入、資料路徑不會有任何作業、而且磁碟區匯入不會驗證是否可以掛載磁碟區。如果在Volume匯入時發生錯誤（例如StorageClass不正確）、您可以將PV上的回收原則變更為「保留」、刪除PVC和PV、然後重新嘗試Volume匯入命令來恢復。</block>
   <block id="1b539ba5a07e124e582b2e4bfc489200" category="paragraph">每個使用「ONTAP-NAS」驅動程式建立的Volume FlexVol 、都是ONTAP 一個在整個叢集上的功能。使用「ONTAP-NAS」驅動程式匯入FlexVols的運作方式相同。已存在於某個叢集上的一個功能、可以匯入為「ONTAP-NAS」的PVc。FlexVol ONTAP同樣地FlexGroup 、也可以將此數據匯入為「ONTAP-NAS-Flexgroup」PVCS。</block>
-  <block id="62a991a68d1e323e147c11deeaecdad2" category="admonition">若要由Trident匯入某個類型的Rw。ONTAP如果磁碟區是DP類型、則它是SnapMirror目的地磁碟區；在將磁碟區匯入Trident之前、您應該先中斷鏡射關係。</block>
-  <block id="b368a23170f18969c0c51a21bc3e2754" category="admonition">「ONTAP-NAS」驅動程式無法匯入及管理qtree。「ONTAP-NAS」和「ONTAP-NAS-flexgroup」驅動程式不允許重複的Volume名稱。</block>
-  <block id="20a208be23a9e8a96ac28258acb9daa4" category="paragraph">例如、若要在名為「ONTAP_NAS」的後端匯入名為「manended_volume」的磁碟區、請使用下列命令：</block>
-  <block id="deba327c80a83b34abd4ba640b21e454" category="paragraph">若要匯入名為「Unmanaged _volume」（在「ONTAP_NAS後端」上）的磁碟區（Trident無法管理）、請使用下列命令：</block>
-  <block id="9be12be7e9d5bb9faa5c9a952feafe07" category="paragraph">使用「-no－管理」引數時、Trident不會重新命名磁碟區、也不會驗證磁碟區是否已掛載。如果未手動掛載磁碟區、則磁碟區匯入作業會失敗。</block>
-  <block id="4004cfbd69335a9d1ba9357ea0dfb079" category="admonition">已修正先前使用自訂Unix權限 匯入磁碟區的錯誤。您可以在您的PVc定義或後端組態中指定unixPermissions、並指示Astra Trident依此匯入磁碟區。</block>
-  <block id="d995f4307341e76349912869caa5e2fb" category="paragraph">Astra Trident也能匯入ONTAP 包含單一LUN的SAN FlexVols。這與「ONTAP-SAN」驅動程式一致、因為它會為FlexVol 每個實體磁碟和FlexVol 一個LUN在整個過程中建立一個版本。您可以使用「tridentctl import'」命令、方法與其他情況相同：</block>
-  <block id="1dd2cc952267be6c2cc8e5cff2b5aab1" category="list-text">請加入「ONTAP-SAN」後端名稱。</block>
-  <block id="e395471eab1d4c8fbc8452e98a95d0c5" category="list-text">請提供FlexVol 需要匯入的名稱。請記住FlexVol 、這個功能只包含一個必須匯入的LUN。</block>
-  <block id="9e6bd670c6fd6b2808fae744834b7675" category="list-text">提供必須搭配「-f」旗標使用的PVc定義路徑。</block>
-  <block id="36b577af0f959f68e5e66336695e816c" category="list-text">您可以選擇管理或不受管理的永久虛擬網路。根據預設、Trident會管理PVc、並在FlexVol 後端重新命名該LUN。若要匯入為非託管磁碟區、請傳遞「-no－管理」旗標。</block>
-  <block id="66f7455d3b73d0f9938704ee67b1f38a" category="paragraph">然後Astra Trident會匯入FlexVol 該等物件、並將其與PVc定義建立關聯。Astra Trident也將FlexVol 該等數據重新命名為「PVC-&lt;uuid&gt;'格式、FlexVol 並將LUN重新命名為「lun0」。</block>
-  <block id="2d37ad5bcf7d115e10de14a38db72232" category="admonition">建議匯入沒有現有作用中連線的磁碟區。如果您要匯入使用中的Volume、請先複製該Volume、然後再執行匯入。</block>
-  <block id="72b3664e6e381ccc62031c13f7ad6df9" category="paragraph">若要匯入FlexVol 在「ONTAP_san預設」後端上出現的「onta-san託管」功能、請執行「tridentctl匯入」命令：</block>
-  <block id="26d61ca2331eea0b3aca6c534f2dfcc7" category="admonition">若要由Astra Trident匯入某個類型的RW磁碟區。ONTAP如果磁碟區為DP類型、則為SnapMirror目的地磁碟區；您應該先中斷鏡射關係、再將磁碟區匯入Astra Trident。</block>
-  <block id="b00215e0583bb02c2474fa62f51462fa" category="paragraph">您可以使用NetApp Element Trident將支援功能的軟體/NetApp HCI磁碟區匯入Kubernetes叢集。您需要Astra Trident後端的名稱、以及磁碟區的獨特名稱和PVc檔案、作為「tridentctl import'」命令的引數。</block>
-  <block id="c517a1b34541565def824e8e9aeb0524" category="admonition">Element驅動程式支援重複的Volume名稱。如果有重複的Volume名稱、Trident的Volume匯入程序會傳回錯誤。因應措施是複製磁碟區、並提供唯一的磁碟區名稱。然後匯入複製的Volume。</block>
-  <block id="2c7e2299fa3c14b5e6f60015eb016a87" category="admonition">若要匯入以NetApp Cloud Volumes Service 支援的GCP磁碟區、請使用磁碟區路徑來識別該磁碟區、而非其名稱。</block>
-  <block id="37202a3ee6673127b64f84af27fdf523" category="paragraph">若要在後端匯入名為「gcpcvs_YEppr」的「gcp-CVS」磁碟區、並將磁碟區路徑匯入為「adj統 法社-jolly Swift」、請使用下列命令：</block>
-  <block id="87e30ad820e5b10036bd18284c1f25ad" category="admonition">Volume路徑是Volume匯出路徑的一部分、位於：/之後。例如、如果匯出路徑為「10.0.0.1：/統法社-jolly Swift」、則Volume路徑為「adj統 法社-jolly Swift」。</block>
-  <block id="e8945ce1398c6d24aa1d518bca08034c" category="paragraph">若要在後端匯入名為「azurenetappfiles_40517」的「azure-netapp-fil」磁碟區、並使用磁碟區路徑「importvol1」、請執行下列命令：</block>
-  <block id="c3417eb755bee1658ae5b42ff2115193" category="admonition">anf磁碟區的磁碟區路徑會出現在裝載路徑中的：/之後。例如、如果掛載路徑為「10.0.0.2：/importvol1」、則磁碟區路徑為「importvol1」。</block>
   <block id="ff342df7522d6b527768cc6bfe5f9fae" category="summary">Astra Trident可讓Kubernetes使用者在建立磁碟區之後擴充磁碟區。尋找擴充iSCSI和NFS磁碟區所需組態的相關資訊。</block>
   <block id="15d79b565b148caa23e6f2b53813413d" category="section-title">展開iSCSI Volume</block>
   <block id="0b981ab19df55a28a02578aa5f326db8" category="paragraph">您可以使用「SCSI資源配置程式」來擴充iSCSI持續磁碟區（PV）。</block>
@@ -2652,11 +2613,6 @@
   <block id="d59db7846bd10b6d60d21543df9faa9e" category="paragraph-title">您需要的產品</block>
   <block id="04c73907481b6acb2b019a0a76516a25" category="section-title">使用解除安裝<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
   <block id="4eb50f197bd48a10bc9ee0dab2f65bcf" category="section-title">使用安裝Astra Trident時的降級程序<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
-  <block id="f9ed548281d3b3a21b1334ae3f6a1ce3" category="section-title"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block> 和<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 匯入</block>
-  <block id="fe55f3445ba74156978bcd34c5a1af5c" category="section-title"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block> 匯入</block>
-  <block id="22a6337b056e3b93b46c9304d3248391" category="section-title"><block ref="8e2dcfd7e7e24b1ca76c1193f645902b" prefix="" category="inline-code"></block> 匯入</block>
-  <block id="9883195da65e8e652cb10271a5250822" category="section-title"><block ref="5935ea92cdd7d975b4e764b429f21c01" prefix="" category="inline-code"></block> 匯入</block>
-  <block id="809e945dc23c25ac16aba1fa16892444" category="section-title"><block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix="" category="inline-code"></block> 匯入</block>
   <block id="6c6e605e09d47da14693d106977b6eb0" category="section-title">管理<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 後端使用<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block></block>
   <block id="78fb4311dea625690d7fb6274025625a" category="section-title">步驟2：建立<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR</block>
   <block id="d6f4b4bedc693acd49ad08c1cf0cdad5" category="section-title">步驟3：確認的狀態<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR</block>
@@ -3458,7 +3414,6 @@
   <block id="6cd4bb7e4d59531066c198c531ea267a" category="paragraph">要使用的分層原則、預設為<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>；<block ref="8805d416ce540c5f2df34af5b18d742b" prefix=" " category="inline-code"></block> 適用於 ONTAP 9.5 之前的 SVM-DR 組態</block>
   <block id="c1fd85851a162222ab0690383666bd47" category="paragraph"><block ref="05b6053c41a2130afd6fc3b158bda4e6" prefix="" category="inline-code"></block></block>
   <block id="bf0a8b77dbb95465376fb2cfec90b422" category="paragraph"><block ref="76bb7251da6a3c88e629c03a402b9d15" prefix="" category="inline-code"></block></block>
-  <block id="fa12f478676fc33d2385cf4e955c7023" category="paragraph">版本： 1 個後端名稱： ExampleBackend storageDriverName ： ONTAP-SAN 管理 LIF ： 10.0.0.1 SVM ： SVM_NFS 使用者名稱： vsadmin 密碼：密碼</block>
   <block id="8e6b1878428055edaef42698026bd1b5" category="paragraph">依預設、Astra Trident不會使用Kubernetes將掛載選項設為任何值。若要在Kubernetes儲存類別中指定掛載選項、請遵循所提供的範例 <block ref="29e04d8356a523f6fc836193630ad63e" category="inline-link-macro-rx"></block>。</block>
   <block id="419c95e5a9e44d427f99debdcf0550c7" category="list-text">使用Trident時可能會遇到的常見問題<block ref="4568986ef6397d7c901269fc0e190ede" category="inline-link-rx"></block> 當租戶和用戶端機密來自權限不足的應用程式登錄時。如需Trident需求的完整清單、請參閱 <block ref="cd38c25b6345abc8733d2ef72739cd97" category="inline-link-macro-rx"></block> 組態：</block>
   <block id="39f6252eef9409d5d917e183e971d71d" category="list-text">升級時、請務必提供<block ref="f6e7f85d8aee15940665bf722f7afac2" prefix=" " category="inline-code"></block> 在中<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block> 由Astra Trident使用。您可以刪除並重新建立<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block> 無需中斷既有的磁碟區。這是對 SAN 磁碟區強制執行 https://kubernetes.io/docs/tasks/configure-pod-container/security-context/[security 內容範圍 ^ 的 ** 需求 ** 。https://github.com/NetApp/trident/tree/master/trident-installer/sample-input[sample INPUT ^] 目錄包含例如 https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ 等範例<block ref="9abb8c7777ddb413820ee07d5d93aa4a" prefix="[" category="inline-code"></block>^] 和連結： https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml<block ref="69ae2d9a6d831af7488e53fec053b77e" prefix="[" category="inline-code"></block>^]。如需詳細資訊、請參閱 <block ref="04cf7258a315ca08f4b436c194fef69d" category="inline-link-macro-rx"></block>。</block>
@@ -3647,4 +3602,61 @@
   <block id="3ee9187f7387265ff6f477d26adad0f2" category="paragraph">使用 Astra Control 、您可以使用 SnapMirror 的非同步複寫功能、將資料和應用程式變更從一個叢集複寫到另一個叢集。</block>
   <block id="4910c9e59da080576c2dedc885e19ed7" category="inline-link-macro">Astra Control ：使用 SnapMirror 技術將應用程式複寫到遠端系統</block>
   <block id="0868eb323c2e097c6c408f7c59642c94" category="paragraph"><block ref="0868eb323c2e097c6c408f7c59642c94" category="inline-link-macro-rx"></block></block>
+  <block id="2e77d5277311f3a9232a73cdbbcd754b" category="section-title">總覽與考量</block>
+  <block id="df6f3bebb689d436041be7a75ee22542" category="paragraph">您可以將磁碟區匯入 Astra Trident 、以便：</block>
+  <block id="88541191ec5fe50ba0d21b4300401b85" category="list-text">將應用程式容器化、並重新使用其現有的資料集</block>
+  <block id="77d782125cafbbf0fe1c5c95755d143f" category="list-text">針對臨時應用程式使用資料集的複本</block>
+  <block id="d265b515faaf05e2c32727d8b9742a78" category="list-text">重建故障的 Kubernetes 叢集</block>
+  <block id="6766ef9d5b11abf03ee72b55c5745f4b" category="list-text">在災難恢復期間移轉應用程式資料</block>
+  <block id="4c321a56c9c030449cd3315863de525b" category="paragraph">匯入 Volume 之前、請先檢閱下列考量事項。</block>
+  <block id="3c65d97abe967081cd896f071baa434f" category="list-text">Astra Trident 只能匯入 RW （讀寫）類型的 ONTAP Volume 。DP （資料保護）類型磁碟區是 SnapMirror 目的地磁碟區。您應該先中斷鏡射關係、再將 Volume 匯入 Astra Trident 。</block>
+  <block id="e47be4dcc849b534107f57afd92f801f" category="list-text">我們建議您在沒有作用中連線的情況下匯入磁碟區。若要匯入使用中的 Volume 、請複製該 Volume 、然後執行匯入。</block>
+  <block id="e4618ea9b1ae23e5ed30f6f19e6a77e8" category="admonition">這對區塊磁碟區特別重要、因為 Kubernetes 不會知道先前的連線、而且很容易將作用中的磁碟區附加到 Pod 。這可能導致資料毀損。</block>
+  <block id="8cbc7a45d1e8d9d63beba7825c76f6ff" category="list-text">不過<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 必須在 PVC 上指定、 Astra Trident 在匯入期間不會使用此參數。建立磁碟區時會使用儲存類別、根據儲存特性從可用的集區中選取。由於該磁碟區已經存在、因此在匯入期間不需要選取任何集區。因此、即使磁碟區存在於與 PVC 中指定的儲存類別不相符的後端或集區、匯入也不會失敗。</block>
+  <block id="a31db9efd829f01dd21fdc97db2d29e4" category="list-text">現有的 Volume 大小是在 PVC 中決定和設定的。儲存驅動程式匯入磁碟區之後、PV會以PVc的ClaimRef建立。</block>
+  <block id="604eea1f3df98285b6887ff059258827" category="list-text">回收原則一開始設定為<block ref="16d79ff80feadcf2f52096f073f2b94a" prefix=" " category="inline-code"></block> 在PV中。Kubernetes成功繫結了PVc和PV之後、系統會更新回收原則以符合儲存類別的回收原則。</block>
+  <block id="5d24684cf5054f53b1e945be75b37f69" category="list-text">如果儲存類別的回收原則為<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block>、儲存磁碟區會在PV刪除時刪除。</block>
+  <block id="746af08b5a2da065387679e35fb75f55" category="list-text">根據預設、 Astra Trident 會管理 PVC 、並重新命名後端上的 FlexVol 和 LUN 。您可以通過<block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix=" " category="inline-code"></block> 用於匯入非託管磁碟區的旗標。如果您使用<block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix=" " category="inline-code"></block>、 Astra Trident 在物件生命週期內、不會在 PVC 或 PV 上執行任何其他作業。刪除 PV 時不會刪除儲存磁碟區、也會忽略其他操作、例如 Volume Clone 和 Volume resize 。</block>
+  <block id="be303acf01bc566d5d211f228131bee4" category="admonition">如果您想要將Kubernetes用於容器化工作負載、但想要管理Kubernetes以外儲存磁碟區的生命週期、則此選項非常實用。</block>
+  <block id="db31dcd83fd57b294fb0340ea975015f" category="section-title">匯入 Volume</block>
+  <block id="61a1adebea5e6a017b4bd4b405ae4f52" category="paragraph">您可以使用<block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block> 匯入 Volume 。</block>
+  <block id="8feb5f647cb423db7fa8a957ae4ef075" category="list-text">建立持續 Volume Claim （ PVC ）檔案（例如、<block ref="88bf8ee4d993e535425148da6a64c1c2" prefix=" " category="inline-code"></block>）用於建立 PVC 。PVC 檔案應包含在內<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>、<block ref="89801e9e98979062e84647433a8ed3e9" prefix=" " category="inline-code"></block>、<block ref="1963d17f24888bdf1f22d7ea7f72f607" prefix=" " category="inline-code"></block>和<block ref="ee822781a3bd0ae0f8f6331dc4865d9c" prefix=" " category="inline-code"></block>。您也可以指定<block ref="c005e78d4bd808038335c32dd84cf7da" prefix=" " category="inline-code"></block> 在您的 PVC 定義中。</block>
+  <block id="7f745c89a2e8fd59353bab523e12eb77" category="paragraph">以下是最低規格的範例：</block>
+  <block id="a9e31569460a0b133fdd97c5f482c04e" category="admonition">請勿包含其他參數、例如 PV 名稱或 Volume 大小。這可能會導致匯入命令失敗。</block>
+  <block id="62baed444b3b0cdadb9d1c1ed6d56876" category="list-text">使用<block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block> 用於指定 Astra Trident 後端名稱的命令、該後端包含磁碟區、以及唯一識別儲存區中磁碟區的名稱（例如： ONTAP FlexVol 、 Element Volume 、 Cloud Volumes Service 路徑）。。<block ref="5338b151154663bac9980b0f044518f2" prefix=" " category="inline-code"></block> 需要引數來指定 PVC 檔案的路徑。</block>
+  <block id="37c0e0081d2fa3ebdf688df7e37ecd7a" category="paragraph">請參閱下列 Volume 匯入範例、瞭解支援的驅動程式。</block>
+  <block id="b8cd11aae04b2508e6cf401f43cdb4f9" category="section-title">ONTAP NAS 和 ONTAP NAS FlexGroup</block>
+  <block id="7a4c35874a7b87427d89cd3aecdcb443" category="paragraph">Astra Trident 支援使用匯入 Volume<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 和<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 驅動程式：</block>
+  <block id="6551d29114ca8e4ced094b1f68242124" category="list-text">。<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 驅動程式無法匯入及管理qtree。</block>
+  <block id="15f21f5d1f84f4b986a4db037c57333d" category="list-text">。<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 和<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 驅動程式不允許重複的磁碟區名稱。</block>
+  <block id="3fa3bc64b029b88f42b842bb7dc4e52d" category="paragraph-title">ONTAP NAS 範例</block>
+  <block id="77fe25c67ee05760d58e91a98e3ff055" category="paragraph">以下是託管 Volume 和非託管 Volume 匯入的範例。</block>
+  <block id="865c1a701e3847de9fbff4a375ac7177" category="open-title">託管 Volume</block>
+  <block id="9baac1fff2f93c6aa6f2205921fe6b32" category="paragraph">以下範例會匯入名為的 Volume<block ref="b61fdc0d7fc5d08e674f3891a91d3116" prefix=" " category="inline-code"></block> 在名為的後端上<block ref="b0253ee501e433d48faea12f8e40ef28" prefix=" " category="inline-code"></block>：</block>
+  <block id="ed12f17a6dc2e65dfdf289eb64d258ae" category="open-title">非託管 Volume</block>
+  <block id="412d430c2de2722ad4f878fba9145e3f" category="paragraph">使用時<block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix=" " category="inline-code"></block> 引數 Astra Trident 不會重新命名 Volume 。</block>
+  <block id="30690ec57cb4844d007f7d2e2c9393a2" category="paragraph">以下範例匯入<block ref="60d9e6d88af815fe67aed90572f53184" prefix=" " category="inline-code"></block> 在上<block ref="b0253ee501e433d48faea12f8e40ef28" prefix=" " category="inline-code"></block> 後端：</block>
+  <block id="548fedaf4074fe2826e3c53dfd92a19e" category="section-title">SAN ONTAP</block>
+  <block id="d18d16cddcd0f06bf7df2391e6b26e69" category="paragraph">Astra Trident 支援使用匯入 Volume<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 驅動程式：</block>
+  <block id="30bb262b9fe2f6c714c560a0608899dc" category="paragraph">Astra Trident 可以匯入包含單一 LUN 的 ONTAP SAN FlexVols 。這與一致<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 驅動程式、為FlexVol 每個實體磁碟和FlexVol 一個LUN建立一個實體。Astra Trident 會匯入 FlexVol 、並將其與 PVC 定義相關聯。</block>
+  <block id="854d516b7e1eddbead5cbea0b17dac88" category="paragraph-title">ONTAP SAN 範例</block>
+  <block id="eb87428bc7ec6d211f503b31240aec94" category="paragraph">對於託管的 Volume 、 Astra Trident 會將 FlexVol 重新命名為<block ref="b1a57c8f543d163276a264ab84f98485" prefix=" " category="inline-code"></block> 格式化及FlexVol LUN在功能區內<block ref="1793051c27c3288cfb3a1c86e4e41b41" prefix=" " category="inline-code"></block>。</block>
+  <block id="c59e9e1ae2ff6860f6aa6f2d3dc9f872" category="paragraph">下列範例會匯入<block ref="9c263b72b293041bdc16e8711bb55a99" prefix=" " category="inline-code"></block> 上的顯示FlexVol<block ref="5461c7e570fd7b4318a37f0dceb291c1" prefix=" " category="inline-code"></block> 後端：</block>
+  <block id="d172829ee06c1c52828b60f0544b2f06" category="paragraph">以下範例匯入<block ref="a5c0fa75ec8cf92d22eadab558660dda" prefix=" " category="inline-code"></block> 在上<block ref="2dec4fe0d108047546d031f48f4073f7" prefix=" " category="inline-code"></block> 後端：</block>
+  <block id="58f7692a8b6ce5b3fa31b6daec3259fe" category="paragraph">如果您將 LUN 對應至與 Kubernetes 節點 IQN 共用 IQN 的 igroup 、如下列範例所示、您將會收到錯誤訊息：<block ref="4524d417d10c9cf90c4a674da76c4964" prefix=" " category="inline-code"></block>。您需要移除啟動器或取消對應 LUN 、才能匯入磁碟區。</block>
+  <block id="5ccef908ed30c9dac1afd0a7f3dc5e7f" category="inline-image-macro">對應至 iqn 和叢集 iqn 的 LUN 影像。</block>
+  <block id="81238a539b4fc11fb20c6d27db1e5d33" category="paragraph"><block ref="81238a539b4fc11fb20c6d27db1e5d33" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="67cb0d15ee759f80dd6bde1ab60c32e1" category="paragraph">Astra Trident 支援使用 NetApp Element 軟體和 NetApp HCI Volume 匯入<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 驅動程式：</block>
+  <block id="00b0b4c3f91cc8ead8c7a1fac316cd43" category="admonition">Element驅動程式支援重複的Volume名稱。不過、如果有重複的磁碟區名稱、 Astra Trident 會傳回錯誤。因應措施是複製磁碟區、提供唯一的磁碟區名稱、然後匯入複製的磁碟區。</block>
+  <block id="d12ef9e4a047861afd11513bde147f35" category="paragraph-title">元素範例</block>
+  <block id="e91134286ebcca5f894ca859ce6e6527" category="paragraph">下列範例會匯入<block ref="ce9d6be888db333d9f15ad3ca22aab5c" prefix=" " category="inline-code"></block> 後端上的 Volume<block ref="54034d50b7e92e0dd9d45b9be754d7bd" prefix=" " category="inline-code"></block>。</block>
+  <block id="5c9ef0d871938dccceb29ee63fad8ddb" category="section-title">Google Cloud Platform</block>
+  <block id="cf31c490360937ec8a3ce1c25928d464" category="paragraph">Astra Trident 支援使用匯入 Volume<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> 驅動程式：</block>
+  <block id="b83141d187ef372685e66e6dfe4cabd9" category="admonition">若要在 Google Cloud Platform 中匯入以 NetApp Cloud Volumes Service 為後盾的 Volume 、請依其 Volume 路徑識別該 Volume 。Volume 路徑是之後 Volume 匯出路徑的一部分<block ref="fb256b96ee496724e4579987e5a6e4da" prefix=" " category="inline-code"></block>。例如、如果匯出路徑為<block ref="3bbe8dafc880d124219c1e4f73d41cf9" prefix=" " category="inline-code"></block>、磁碟區路徑為<block ref="8886a1ac9f5b94f2fb54d752c304777f" prefix=" " category="inline-code"></block>。</block>
+  <block id="9dfa04a9ad04eba811811f2fbd0f5f0e" category="paragraph-title">Google Cloud Platform 範例</block>
+  <block id="dd8d0b5581c0eb32a23d802032124024" category="paragraph">下列範例會匯入<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> 後端上的 Volume<block ref="b242744397b7d8bc9391b3e836628c5e" prefix=" " category="inline-code"></block> 的磁碟區路徑<block ref="8886a1ac9f5b94f2fb54d752c304777f" prefix=" " category="inline-code"></block>。</block>
+  <block id="831e4b284f7105b1bbd4f891a4e7144a" category="paragraph">Astra Trident 支援使用匯入 Volume<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 和<block ref="43f09bc16eaf24131ea82903259878ac" prefix=" " category="inline-code"></block> 驅動程式：</block>
+  <block id="7501988e9549daa8c2fcd13e55b9fc78" category="admonition">若要匯入 Azure NetApp Files Volume 、請依磁碟區路徑識別該磁碟區。Volume 路徑是之後 Volume 匯出路徑的一部分<block ref="fb256b96ee496724e4579987e5a6e4da" prefix=" " category="inline-code"></block>。例如、如果掛載路徑為<block ref="a88065dde27cea3a008a18172c5a9c9e" prefix=" " category="inline-code"></block>、磁碟區路徑為<block ref="062b749476713f7b5bbc675159e90bad" prefix=" " category="inline-code"></block>。</block>
+  <block id="1cfd9b4e20d41cdca62f758d3b0cb58b" category="paragraph-title">Azure NetApp Files 範例</block>
+  <block id="bd46b0a8c2c4c89a60ee85052ad2dd0e" category="paragraph">下列範例會匯入<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 後端上的 Volume<block ref="d8dd89ab9d39f5487714722f9becb468" prefix=" " category="inline-code"></block> 磁碟區路徑<block ref="062b749476713f7b5bbc675159e90bad" prefix=" " category="inline-code"></block>。</block>
 </blocks>

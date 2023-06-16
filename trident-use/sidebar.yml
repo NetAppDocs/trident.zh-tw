@@ -54,7 +54,6 @@ entries:
 - title: 管理儲存類別
   url: "/trident-use/manage-stor-class.html"
 - title: 執行Volume作業
-  url: "/trident-use/vol-operations.html"
   entries:
   - title: 使用「csi拓撲」
     url: "/trident-use/csi-topology.html"

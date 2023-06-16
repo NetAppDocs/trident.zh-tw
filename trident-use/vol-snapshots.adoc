@@ -20,7 +20,7 @@ summary: '您可以建立持續磁碟區（PV）的Kubernetes Volume Snapshot（
 如果您的Kubernetes發佈版本未包含快照控制器和CRD、請參閱 <<部署Volume Snapshot控制器>>。
 
 
-NOTE: 如果在GKE環境中建立隨需磁碟區快照、請勿建立快照控制器。GKE使用內建的隱藏式快照控制器。
+NOTE: 如果在 GKE 環境中建立隨需磁碟區快照、請勿建立快照控制器。GKE使用內建的隱藏式快照控制器。
 
 
 
@@ -38,7 +38,7 @@ metadata:
 driver: csi.trident.netapp.io
 deletionPolicy: Delete
 ----
-《driver》指的是Astra Trident的csi驅動程式。「刪除原則」可以是「刪除」或「保留」。當設定為「保留」時、即使刪除「Volume Snapshot」物件、也會保留儲存叢集上的基礎實體快照。
+。 `driver` 指向 Astra Trident CSI 驅動程式。 `deletionPolicy` 可以 `Delete` 或 `Retain`。設定為時 `Retain`、儲存叢集上的基礎實體快照、即使在 `VolumeSnapshot` 物件已刪除。
 
 如需詳細資訊、請參閱連結：../ Trident參考/ objects.html#Kubernetes-volumesnapshotclass-objects[`VolumeSnapshotClass`]。
 

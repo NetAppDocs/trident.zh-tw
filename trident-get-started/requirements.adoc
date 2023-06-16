@@ -188,92 +188,92 @@ link:../trident-reference/ports.html["Astra Trident連接埠"]
 
 
 | 1.21.0版  a| 
-* NetApp/Trident ： 23.04.0
-* NetApp/trident 自動支援： 23.04
-* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
-* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
-* k8s.io/sig-storage / csi大小調整：v1.7.0
-* k8s.io/sig-storage / csi快照記錄：v6.2.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident 營運者： 23.04.0 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.04.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.04
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.4.1
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.2.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.7.0
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.1
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.2.0
+* Docker 。 IO/NetApp/Trident 營運商： 23.04.0 （選用）
 
 
 
 
 | 1.22.0版  a| 
-* NetApp/Trident ： 23.04.0
-* NetApp/trident 自動支援： 23.04
-* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
-* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
-* k8s.io/sig-storage / csi大小調整：v1.7.0
-* k8s.io/sig-storage / csi快照記錄：v6.2.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident 營運者： 23.04.0 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.04.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.04
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.4.1
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.2.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.7.0
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.1
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.2.0
+* Docker 。 IO/NetApp/Trident 營運商： 23.04.0 （選用）
 
 
 
 
 | 1.23.0版  a| 
-* NetApp/Trident ： 23.04.0
-* NetApp/trident 自動支援： 23.04
-* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
-* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
-* k8s.io/sig-storage / csi大小調整：v1.7.0
-* k8s.io/sig-storage / csi快照記錄：v6.2.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident 營運者： 23.04.0 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.04.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.04
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.4.1
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.2.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.7.0
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.1
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.2.0
+* Docker 。 IO/NetApp/Trident 營運商： 23.04.0 （選用）
 
 
 
 
 | 1.24.0版  a| 
-* NetApp/Trident ： 23.04.0
-* NetApp/trident 自動支援： 23.04
-* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
-* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
-* k8s.io/sig-storage / csi大小調整：v1.7.0
-* k8s.io/sig-storage / csi快照記錄：v6.2.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident 營運者： 23.04.0 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.04.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.04
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.4.1
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.2.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.7.0
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.1
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.2.0
+* Docker 。 IO/NetApp/Trident 營運商： 23.04.0 （選用）
 
 
 
 
 | v1.25.0  a| 
-* NetApp/Trident ： 23.04.0
-* NetApp/trident 自動支援： 23.04
-* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
-* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
-* k8s.io/sig-storage / csi大小調整：v1.7.0
-* k8s.io/sig-storage / csi快照記錄：v6.2.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident 營運者： 23.04.0 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.04.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.04
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.4.1
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.2.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.7.0
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.1
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.2.0
+* Docker 。 IO/NetApp/Trident 營運商： 23.04.0 （選用）
 
 
 
 
 | 1.26.0版  a| 
-* NetApp/Trident ： 23.04.0
-* NetApp/trident 自動支援： 23.04
-* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
-* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
-* k8s.io/sig-storage / csi大小調整：v1.7.0
-* k8s.io/sig-storage / csi快照記錄：v6.2.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident 營運者： 23.04.0 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.04.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.04
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.4.1
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.2.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.7.0
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.1
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.2.0
+* Docker 。 IO/NetApp/Trident 營運商： 23.04.0 （選用）
 
 
 
 
 | v1.27.0  a| 
-* NetApp/Trident ： 23.04.0
-* NetApp/trident 自動支援： 23.04
-* k8s.IO/SIG-儲存 設備 /CSI 資源配置程式： v3.4.1
-* k8s.IO/SIG-storage / CSI 連接器： v4.2.0
-* k8s.io/sig-storage / csi大小調整：v1.7.0
-* k8s.io/sig-storage / csi快照記錄：v6.2.1
-* k8s.io/sig-storage / csi節點驅動程式登錄程式：v2.70
-* NetApp/Trident 營運者： 23.04.0 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.04.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.04
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.4.1
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.2.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.7.0
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.1
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.2.0
+* Docker 。 IO/NetApp/Trident 營運商： 23.04.0 （選用）
 
 
 |===

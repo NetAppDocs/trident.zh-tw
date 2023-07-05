@@ -363,9 +363,7 @@
   <block id="89c3bcf0ecc1114f8d19734d9156cb40" category="doc">資源配置</block>
   <block id="2bd42f922a8c0b54b90557eba2071a76" category="paragraph">將後端儲存資源池與儲存類別建立關聯、取決於儲存類別所要求的屬性及其「儲存資源池」、「附加儲存資源池」及「排除儲存資源池」清單。當您建立儲存類別時、Trident會比較每個後端所提供的屬性和集區、以及儲存類別所要求的屬性和集區。如果儲存資源池的屬性和名稱符合所有要求的屬性和資源池名稱、Astra Trident會將該儲存資源池新增至該儲存類別適用的儲存資源池集合。此外、Astra Trident也會將「addionalStoragePools」清單中列出的所有儲存集區新增至該集、即使其屬性無法滿足所有或任何儲存類別的要求屬性。您應該使用「排除StoragePools」清單來覆寫及移除儲存類別的儲存資源池。每次新增後端時、Astra Trident都會執行類似的程序、檢查其儲存集區是否符合現有儲存類別的儲存集區、以及是否移除任何已標記為「已排除」的儲存資源池。</block>
   <block id="668ccb4dd1c284f07a3062637c57d21a" category="paragraph">Astra Trident接著會使用儲存類別與儲存資源池之間的關聯、來決定要在何處配置磁碟區。當您建立Volume時、Astra Trident會先取得該磁碟區儲存類別的儲存集區集區集區、 此外、如果您指定磁碟區的傳輸協定、Astra Trident會移除無法提供所需傳輸協定的儲存資源池（例如、NetApp HCI / SolidFire後端無法提供檔案型磁碟區、ONTAP 而非由NAS後端提供區塊型磁碟區）。Astra Trident會隨機排列此結果集的順序、以利均勻散佈磁碟區、然後透過磁碟區重複資料、進而嘗試在每個儲存集區上配置磁碟區。如果某個項目成功、則會成功傳回、並記錄程序中發生的任何故障。Astra Trident返回故障*僅當*無法在* all *上配置所需儲存類別和傳輸協定可用的儲存資源池時。</block>
-  <block id="48dec026afe488df8faca35c5c3a39ea" category="summary">瞭解如何在您的Trident安裝中建立及使用Element後端。</block>
   <block id="f58e95baa778c9a2bd1a4597fb49d9b7" category="doc">驅動程式ONTAP</block>
-  <block id="0e842f431ce1b4dfb57598e5682e3adc" category="paragraph">Astra Trident提供五ONTAP 種獨特的Intel儲存驅動程式、可與ONTAP 各種叢集進行通訊。深入瞭解每個驅動程式如何處理磁碟區的建立、存取控制及其功能。</block>
   <block id="48cf24486d9a8e65a142b25682f19949" category="cell">驅動程式</block>
   <block id="1b5e109e8afd1f9b7f5bbf951eea3442" category="cell">Volume模式</block>
   <block id="d5e2d9f8d8f10044e38b71b49e675d2e" category="cell">支援的存取模式</block>
@@ -2572,7 +2570,6 @@
   <block id="38b6e376f2701385062dee4bb00e03d2" category="summary">您可以使用Astra Trident安裝程式來自訂部署。</block>
   <block id="0dabff490bbf6c7e308950959cc5a024" category="section-title">深入瞭解安裝程式</block>
   <block id="1637137b97f70f3de86dbf02ba8c262b" category="paragraph">Astra Trident安裝程式可讓您自訂屬性。例如、如果您已將Trident映像複製到私有儲存庫、則可以使用來指定映像名稱<block ref="00e6ff45e8bcc6b9e35e9c68d8d5135c" prefix=" " category="inline-code"></block>。如果您已將Trident映像及所需的csi sidecar映像複製到私有儲存庫、最好使用指定該儲存庫的位置<block ref="53b228c1c8295f49b0c35325e14fcd6a" prefix=" " category="inline-code"></block> 交換器、採用格式<block ref="c4c34dc2c7d5cb25c084ca11127ba1c6" prefix=" " category="inline-code"></block>。</block>
-  <block id="5e3a3cabc9ba472e33de86a5a8f32dcd" category="section-title">深入瞭ONTAP 解NetApp儲存驅動程式</block>
   <block id="99c850b82f45e568828f2a8c5ab8f94d" category="section-title">深入瞭解Volume存取群組</block>
   <block id="7c14ddfe8f627e4786f4da7cd4cea9ba" category="section-title">儲存類別關聯</block>
   <block id="ab4589eca69db942d79a0dbbd9ec8399" category="section-title">Volume建立</block>
@@ -2595,7 +2592,6 @@
   <block id="4f0e7dc30ffb3e25e75331c9afb2243a" category="cell">Volume模式</block>
   <block id="28c142639a9bbdd526b8eb986c13907d" category="paragraph">無檔案系統；原始區塊裝置</block>
   <block id="0453a3e06be842b09a9479fe06f0dd13" category="paragraph">Rwx無法在Filesystem Volume模式中使用。</block>
-  <block id="04de2f1b0cab8344abeded774f82f9d5" category="admonition">利用安全角色（使用者名稱/密碼）的登入認證、或是使用安裝在該叢集上的私密金鑰和憑證、來驗證後端。ONTAP ONTAP您可以使用更新現有的後端、以便從一個驗證模式移至另一個驗證模式<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>。</block>
   <block id="964ea71824e902693c3ef56b57cf78be" category="summary">使用Astra Trident、您可以在主要命名空間中建立磁碟區、並將其共用於一或多個次要命名空間中。</block>
   <block id="98f770b0af18ca763421bac22b4b6805" category="section-title">功能</block>
   <block id="8ff961668c6784e84b25c265cbb629d7" category="paragraph">若要深入瞭解跨命名空間Volume存取：</block>
@@ -3659,4 +3655,11 @@
   <block id="8eb8a41b260e1d77c7ffe733b87d87a1" category="list-text">Docker 。 IO/NetApp/Trident 營運商： 23.04.0 （選用）</block>
   <block id="0b8ca2be5f4fe564fb8e843cbc53703d" category="admonition">如果在 GKE 環境中建立隨需磁碟區快照、請勿建立快照控制器。GKE使用內建的隱藏式快照控制器。</block>
   <block id="dfbfe722a0ce7e388b78027f9cfed8dd" category="paragraph">。<block ref="e2d45d57c7e2941b65c6ccd64af4223e" prefix=" " category="inline-code"></block> 指向 Astra Trident CSI 驅動程式。<block ref="98e7d6463271d7848db255ae6467817a" prefix=" " category="inline-code"></block> 可以<block ref="f2a6c498fb90ee345d997f888fce3b18" prefix=" " category="inline-code"></block> 或<block ref="afece4245269582cb2f1009d4fb52047" prefix=" " category="inline-code"></block>。設定為時<block ref="afece4245269582cb2f1009d4fb52047" prefix=" " category="inline-code"></block>、儲存叢集上的基礎實體快照、即使在<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> 物件已刪除。</block>
+  <block id="1f0c7a14cb87fb29a7346e9b4c770751" category="summary">Astra Trident提供五ONTAP 種獨特的Intel儲存驅動程式、可與ONTAP 各種叢集進行通訊。</block>
+  <block id="99379de626bf97f4e3e66d3a8cdb8802" category="section-title">Astra Control 支援的驅動程式</block>
+  <block id="9e5914532c650440b8c559c303ae8e04" category="section-title">適用於 ONTAP 的 Astra Trident 儲存驅動程式</block>
+  <block id="bff3ebc4ae5702fb7f811ba9acabc13a" category="paragraph">Astra Trident 提供下列儲存驅動程式、可與 ONTAP 叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。</block>
+  <block id="ad90b7d29d0d8a9c746868fe1f38ca90" category="paragraph">Rwo 、 ROX 、 rwx 、 RWOP</block>
+  <block id="96b38cb92e67a8f09c2d13169b8bb555" category="paragraph">RWO 、 ROX 、 RWOP</block>
+  <block id="a38f7647d54be4cddc3f0b8e4c746caa" category="admonition">您可以使用安全角色（使用者名稱 / 密碼）的登入認證、或是 ONTAP 叢集上安裝的私密金鑰和憑證、來驗證 ONTAP 後端。您可以使用更新現有的後端、以便從一個驗證模式移至另一個驗證模式<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>。</block>
 </blocks>

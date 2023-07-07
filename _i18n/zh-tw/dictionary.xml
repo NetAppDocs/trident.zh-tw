@@ -777,7 +777,6 @@
   <block id="b3841b02d7da01fde480332e3295a08e" category="paragraph">「快照內容名稱」可識別提供此快照的Volume SnapshotContent物件。「Ready to use」（準備使用）參數表示Snapshot可用於建立新的PVc。</block>
   <block id="7957320b126678e9b713ef146b3ac009" category="section-title">步驟3：從Volume Snapshot建立PVCS</block>
   <block id="2592284f87bba60e4c05337a134ef047" category="paragraph">「Data來源」顯示、必須使用名為「pvc1-snap」的Volume Snapshot建立PVc作為資料來源。這會指示Astra Trident從快照建立一個永久虛擬資料。建立好永久虛擬基礎架構之後、就能將它附加到Pod上、就像使用任何其他永久虛擬基礎架構一樣使用。</block>
-  <block id="bda01e3aa44c411129a6fbf29445bfb4" category="admonition">刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。若要刪除Astra Trident磁碟區、則應移除該磁碟區的快照。</block>
   <block id="821b0ad941ad2559ef18eb8de56a470e" category="summary">Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。如果您使用的是其中一個後端的ONTAP-NAS、ONTAP-NAS-節約、ONTAP-NAS-Flexgroup驅動程式、則您的工作節點需要NFS工具。否則他們需要iSCSI工具。</block>
   <block id="89d83ec6e8ec0c087fbc4aedc555b362" category="doc">準備工作節點</block>
   <block id="b7a66d04a41292979004906785008ca9" category="section-title">NFS磁碟區</block>
@@ -2683,7 +2682,6 @@
   <block id="ce43eda1a51d5de70f422e14ca195db3" category="paragraph">如需詳細資訊、請參閱連結：../ Trident參考/ objects.html#Kubernetes-volumesnapshotclass-objects<block ref="19476662cd814e0aa085eca121de89b8" prefix="[" category="inline-code"></block>]。</block>
   <block id="a599393b295f7ad56a8c7f1d327290de" category="paragraph">此範例會建立現有PVc的快照。</block>
   <block id="4191daf22334ac03a54cdf8adbfd6dfe" category="paragraph">在此範例中、快照是針對名為的PVc建立<block ref="30520f4f96804df83914260b79f55962" prefix=" " category="inline-code"></block> 快照名稱設為<block ref="2599ab7993e15386327b6345bc1cc4e1" prefix=" " category="inline-code"></block>。</block>
-  <block id="b2b2f8b28370c274887f8aa2f82bb5d4" category="paragraph">此範例使用快照建立一個PVC..</block>
   <block id="f6bd0d7447ff66cc6b859603a88fbde9" category="section-title">相關連結</block>
   <block id="35aa4a2a819e526c2e930e487df8d423" category="list-text"><block ref="35aa4a2a819e526c2e930e487df8d423" category="inline-link-macro-rx"></block></block>
   <block id="19476662cd814e0aa085eca121de89b8" category="inline-link-macro">Volume SnapshotClass</block>
@@ -3662,4 +3660,8 @@
   <block id="ad90b7d29d0d8a9c746868fe1f38ca90" category="paragraph">Rwo 、 ROX 、 rwx 、 RWOP</block>
   <block id="96b38cb92e67a8f09c2d13169b8bb555" category="paragraph">RWO 、 ROX 、 RWOP</block>
   <block id="a38f7647d54be4cddc3f0b8e4c746caa" category="admonition">您可以使用安全角色（使用者名稱 / 密碼）的登入認證、或是 ONTAP 叢集上安裝的私密金鑰和憑證、來驗證 ONTAP 後端。您可以使用更新現有的後端、以便從一個驗證模式移至另一個驗證模式<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>。</block>
+  <block id="ec777b0a7c2a3d6602a440dae083b7c3" category="paragraph">此範例使用快照建立 PVC 。</block>
+  <block id="5e4708ea6e1c08a91834bc9405f43f5d" category="admonition">必須在與其相同的命名空間中建立 PVC<block ref="d9d448f70687a1aa1f12b2f5ddaa4977" prefix=" " category="inline-code"></block>。</block>
+  <block id="32945bec28dab31706e6de80b1c28cc4" category="section-title">刪除含快照的 PV</block>
+  <block id="f28228f84cb57be6c4037bf94a6afbd2" category="paragraph">刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。移除 Volume 快照以刪除 Astra Trident Volume 。</block>
 </blocks>

@@ -103,7 +103,7 @@ Status:
 
 == 步驟3：從Volume Snapshot建立PVCS
 
-此範例使用快照建立一個PVC..
+此範例使用快照建立 PVC 。
 
 [listing]
 ----
@@ -127,7 +127,13 @@ spec:
 「Data來源」顯示、必須使用名為「pvc1-snap」的Volume Snapshot建立PVc作為資料來源。這會指示Astra Trident從快照建立一個永久虛擬資料。建立好永久虛擬基礎架構之後、就能將它附加到Pod上、就像使用任何其他永久虛擬基礎架構一樣使用。
 
 
-NOTE: 刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。若要刪除Astra Trident磁碟區、則應移除該磁碟區的快照。
+WARNING: 必須在與其相同的命名空間中建立 PVC `dataSource`。
+
+
+
+== 刪除含快照的 PV
+
+刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。移除 Volume 快照以刪除 Astra Trident Volume 。
 
 
 

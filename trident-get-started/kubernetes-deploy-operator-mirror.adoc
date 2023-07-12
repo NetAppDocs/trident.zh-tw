@@ -118,8 +118,8 @@ kubectl kustomize deploy/ > deploy/<BUNDLE>.yaml
 ====
 Astra Trident安裝程式提供一個套件檔案、可用來安裝運算子及建立相關的物件。套裝組合檔案是使用預設組態部署操作員及安裝Astra Trident的簡易方法。
 
-** 對於執行Kubernetes 1.24或更低層級的叢集、請使用 `bundle_pre_1_25.yaml`。
-** 對於執行Kubernetes 1.25或更新版本的叢集、請使用 `bundle_post_1_25.yaml`。
+** 對於執行 Kubernetes 1.24 或更早版本的叢集、請使用 `bundle_pre_1_25.yaml`。
+** 對於執行 Kubernetes 1.25 或更新版本的叢集、請使用 `bundle_post_1_25.yaml`。
 
 
 ====

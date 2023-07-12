@@ -12,27 +12,22 @@ summary: 您可以使用業者輕鬆升級現有的Astra Trident安裝。
 
 
 [role="lead"]
-您可以使用業者輕鬆升級現有的Astra Trident安裝。
-
-.開始之前
-若要使用營運者進行升級、應符合下列條件：
-
-* 您必須安裝以SCSI為基礎的Astra Trident。從19.07版開始的所有版本均採用基於SCSI的。您可以檢查Trident命名空間中的Pod以進行驗證。
-+
-** 23.01之前版本中的Pod命名如下 `trident-csi-*` 慣例。
-** 23.01及更新版本中的Pod命名使用： `trident-controller-<generated id>` （用於控制器pod）； `trident-node-<operating system>-<generated id>` （用於節點Pod）； `trident-operator-<generated id>` 適用於營運者Pod。
+您可以使用操作員手動或使用 Helm 輕鬆升級現有的 Astra Trident 安裝。
 
 
-* 如果您已解除安裝了「csi Trident」、而且安裝中的中繼資料持續存在、您可以使用操作者進行升級。
-* 在特定Kubernetes叢集中的所有命名空間中、只應有一個Astra Trident安裝。
-* 您應該使用執行的Kubernetes叢集 link:../trident-get-started/requirements.html["支援的Kubernetes版本"]。
-* 如果存在Alpha Snapshot CRD、您應該使用「tridentctl obliviate alpha-snapshot -crd」來移除。這會刪除Alpha Snapshot規格的客戶需求日。如需應刪除/移轉的現有快照、請參閱 https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["這篇部落格"^]。
 
+== 使用Trident營運者進行升級
 
-[WARNING]
+一般而言、您應該使用原本用於安裝 Astra Trident 的相同方法來升級 Astra Trident 。檢閱 link:upgrade-trident.html#select-an-upgrade-method["選擇升級方法"] 嘗試與 Trident 運算子一起升級之前。
+
+[IMPORTANT]
 ====
-* 使用OpenShift Container Platform上的運算子來升級Trident時、您應該升級至Trident 21.01.1或更新版本。隨21.01.0一起發行的Trident運算子包含已在21.01.1中修正的已知問題。如需詳細資訊、請參閱 https://github.com/NetApp/trident/issues/517["GitHub問題詳細資料"^]。
-* 如果您使用的是以「etcd」為基礎的Trident版本（19.04或更早版本）、請勿使用運算子來升級Trident。
+從使用命名空間範圍運算子（ 20.07 至 20.10 版）安裝的 Astra Trident 執行個體升級時、 Trident 運算子會自動：
+
+* 移轉 `tridentProvisioner` 至 `tridentOrchestrator` 具有相同名稱的物件、
+* 刪除 `TridentProvisioner` 物件和 `tridentprovisioner` 客戶需求日
+* 將 Astra Trident 升級至使用的叢集範圍運算子版本
+* 在最初安裝 Astra Trident 的相同命名空間中安裝 Astra Trident
 
 
 ====
@@ -40,7 +35,10 @@ summary: 您可以使用業者輕鬆升級現有的Astra Trident安裝。
 
 == 升級叢集範圍的Trident操作員安裝
 
-請依照下列步驟升級叢集範圍的Trident操作員安裝。所有Astra Trident版本21.01及更新版本均使用叢集範圍的運算子。
+您可以升級叢集範圍的 Trident 運算子安裝。所有Astra Trident版本21.01及更新版本均使用叢集範圍的運算子。
+
+.開始之前
+確保您使用的是執行中的 Kubernetes 叢集 link:../trident-get-started/requirements.html["支援的Kubernetes版本"]。
 
 .步驟
 . 驗證 Astra Trident 版本：
@@ -67,8 +65,8 @@ kubectl create -f 23.04.0/trident-installer/deploy/bundle_post_1_25.yaml -n trid
 ====
 Trident提供一個套裝組合檔案、可用來安裝運算子、並為Kubernetes版本建立相關的物件。
 
-** 對於執行Kubernetes 1.24或更低層級的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_pre_1_25.yaml["bunder_pre_1_25.yaml"^]。
-** 對於執行Kubernetes 1.25或更新版本的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_post_1_25.yaml["bunder_POST_1_25.yaml"^]。
+** 對於執行 Kubernetes 1.24 或更早版本的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_pre_1_25.yaml["bunder_pre_1_25.yaml"^]。
+** 對於執行 Kubernetes 1.25 或更新版本的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_post_1_25.yaml["bunder_POST_1_25.yaml"^]。
 
 
 ====
@@ -81,14 +79,18 @@ Trident營運者將識別現有的Astra Trident安裝、並將其升級至與營
 
 == 升級命名空間範圍內的操作員安裝
 
-請依照下列步驟、從使用命名空間範圍運算子（20.07至20.10版）安裝的Astra Trident執行個體進行升級。
+您可以使用命名空間範圍運算子（ 20.07 至 20.10 版）、從安裝的 Astra Trident 執行個體升級到叢集範圍的運算子安裝。
+
+.開始之前
+您需要用來部署命名空間範圍運算子的套件 YAML 檔案 `\https://github.com/NetApp/trident/tree/stable/_vXX.XX_/deploy/_BUNDLE.YAML_` 其中 `_vXX.XX_` 為版本編號和 `_BUNDLE.YAML_` 為套裝組合Yaml檔案名稱。
 
 .步驟
-. 確認現有Trident安裝的狀態。要執行此操作、請查看「TridentProvisioner」的*狀態*。狀態應為「Installed」（已安裝）。
+. 驗證 `TridentProvisioner` 現有 Trident 安裝的狀態為 `Installed`。
 +
 [listing]
 ----
 kubectl describe tprov trident -n trident | grep Message: -A 3
+
 Message:  Trident installed
 Status:   Installed
 Version:  v20.10.1
@@ -109,28 +111,33 @@ tar -xf trident-installer-23.04.0.tar.gz
 cd trident-installer
 kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
 ----
-. 使用命名空間範圍的運算子資訊清單來刪除。若要完成此步驟、您需要使用套裝組合Yaml檔案來部署命名空間範圍的運算子 `\https://github.com/NetApp/trident/tree/stable/_vXX.XX_/deploy/_BUNDLE.YAML_` 其中 `_vXX.XX_` 為版本編號和 `_BUNDLE.YAML_` 為套裝組合Yaml檔案名稱。
+. 使用命名空間範圍的運算子資訊清單來刪除。
 +
-
-NOTE: 您應該對Trident安裝參數進行必要的變更（例如、變更的值） `tridentImage`、 `autosupportImage`、私有映像儲存庫、以及提供 `imagePullSecrets`）刪除命名空間範圍的運算子之後、安裝叢集範圍的運算子之前。如需可更新的完整參數清單、請參閱 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy.html#configuration-options["組態選項"]。
-
+.. 確保您位於正確的目錄中。
 +
 [listing]
 ----
-#Ensure you are in the right directory
 pwd
 /root/20.10.1/trident-installer
-
-#Delete the namespace-scoped operator
+----
+.. 刪除命名空間範圍運算子。
++
+[listing]
+----
 kubectl delete -f deploy/<BUNDLE.YAML> -n trident
+
 serviceaccount "trident-operator" deleted
 clusterrole.rbac.authorization.k8s.io "trident-operator" deleted
 clusterrolebinding.rbac.authorization.k8s.io "trident-operator" deleted
 deployment.apps "trident-operator" deleted
 podsecuritypolicy.policy "tridentoperatorpods" deleted
-
-#Confirm the Trident operator was removed
+----
+.. 確認 Trident 運算子已移除。
++
+[listing]
+----
 kubectl get all -n trident
+
 NAME                               READY   STATUS    RESTARTS   AGE
 pod/trident-csi-68d979fb85-dsrmn   6/6     Running   12         99d
 pod/trident-csi-8jfhf              2/2     Running   6          105d
@@ -149,33 +156,39 @@ deployment.apps/trident-csi   1/1     1            1           105d
 NAME                                     DESIRED   CURRENT   READY   AGE
 replicaset.apps/trident-csi-68d979fb85   1         1         1       105d
 ----
-+
-在這個階段、「Trident - oper-xxxxxx-xxxxx" pod會刪除。
 
-. （選用）如果需要修改安裝參數、請更新「TridentProvisioner」規格。這些變更可能包括：修改私有映像登錄以從擷取容器映像、啟用偵錯記錄或指定映像提取機密。
+
+. （選用）如果需要修改安裝參數、請更新 `TridentProvisioner` 規格這可能包括變更：的值 `tridentImage`、 `autosupportImage`、私有映像儲存庫、以及提供 `imagePullSecrets`）刪除命名空間範圍的運算子之後、安裝叢集範圍的運算子之前。如需可更新的完整參數清單、請參閱 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy.html#configuration-options["組態選項"]。
 +
 [listing]
 ----
 kubectl patch tprov <trident-provisioner-name> -n <trident-namespace> --type=merge -p '{"spec":{"debug":true}}'
 ----
-. 安裝Trident運算子。
+. 安裝 Trident 叢集範圍運算子。
 +
-
-NOTE: 安裝叢集範圍的運算子會開始移轉 `TridentProvisioner` 物件 `TridentOrchestrator` 物件、刪除 `TridentProvisioner` 物件和 `tridentprovisioner` CRD、並將Astra Trident升級至所使用的叢集範圍運算子版本。在接下來的範例中、 Trident 會升級至 23.04.0 。
-
-+
-
-IMPORTANT: 使用Trident營運者升級Astra Trident會導致移轉 `tridentProvisioner` 至 `tridentOrchestrator` 具有相同名稱的物件。這會由操作員自動處理。升級也會將Astra Trident安裝在與之前相同的命名空間中。
-
+.. 確保您位於正確的目錄中。
 +
 [listing]
 ----
-#Ensure you are in the correct directory
 pwd
 /root/23.04.0/trident-installer
+----
+.. 在同一個命名空間中安裝叢集範圍的運算子。
++
+[NOTE]
+====
+Trident提供一個套裝組合檔案、可用來安裝運算子、並為Kubernetes版本建立相關的物件。
 
-#Install the cluster-scoped operator in the **same namespace**
+*** 對於執行 Kubernetes 1.24 或更早版本的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_pre_1_25.yaml["bunder_pre_1_25.yaml"^]。
+*** 對於執行 Kubernetes 1.25 或更新版本的叢集、請使用 link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_post_1_25.yaml["bunder_POST_1_25.yaml"^]。
+
+
+====
++
+[listing]
+----
 kubectl create -f deploy/<BUNDLE.YAML>
+
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created
 clusterrolebinding.rbac.authorization.k8s.io/trident-operator created
@@ -190,24 +203,29 @@ Error from server (NotFound): Unable to list "trident.netapp.io/v1, Resource=tri
 kubectl get torc
 NAME      AGE
 trident   13s
-
-#Examine Trident pods in the namespace
+----
+.. 檢查命名空間中的 Trident Pod 。。 `trident-controller` 和Pod名稱反映了23.01中引入的命名慣例。
++
+[listing]
+----
 kubectl get pods -n trident
+
 NAME                                     READY   STATUS    RESTARTS   AGE
 trident-controller-79df798bdc-m79dc      6/6     Running   0          1m41s
 trident-node-linux-xrst8                 2/2     Running   0          1m41s
 trident-operator-5574dbbc68-nthjv        1/1     Running   0          1m52s
-
-#Confirm Trident has been updated to the desired version
+----
+.. 確認 Trident 已更新至所需版本。
++
+[listing]
+----
 kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
 Version:                v23.04.0
 ----
-+
 
-NOTE: 。 `trident-controller` 和Pod名稱反映了23.01中引入的命名慣例。
 
 
 
@@ -270,12 +288,12 @@ cd trident-installer
 ----
 kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
 ----
-. 部署營運者。
+. 在同一個命名空間中部署叢集範圍的運算子。
 +
 [listing]
 ----
-#Install the cluster-scoped operator in the **same namespace**
 kubectl create -f deploy/<BUNDLE.YAML>
+
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created
 clusterrolebinding.rbac.authorization.k8s.io/trident-operator created
@@ -292,7 +310,6 @@ trident-operator-5574dbbc68-nthjv     1/1     Running   0          1m30s
 +
 [listing]
 ----
-#Create a tridentOrchestrator to initiate a Trident install
 cat deploy/crds/tridentorchestrator_cr.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -309,9 +326,13 @@ NAME                                READY   STATUS    RESTARTS   AGE
 trident-csi-79df798bdc-m79dc        6/6     Running   0          1m
 trident-csi-xrst8                   2/2     Running   0          1m
 trident-operator-5574dbbc68-nthjv   1/1     Running   0          5m41s
-
-#Confirm Trident was upgraded to the desired version
+----
+. 確認 Trident 已升級至所需版本。
++
+[listing]
+----
 kubectl describe torc trident | grep Message -A 3
+
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed

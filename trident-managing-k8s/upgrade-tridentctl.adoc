@@ -16,27 +16,36 @@ summary: 您可以使用「tridentctl」輕鬆升級現有的Astra Trident安裝
 
 
 
-== 升級前的考量
+== 使用升級 Astra Trident `tridentctl`
 
-升級至最新版Astra Trident時、請考慮下列事項：
+解除安裝和重新安裝Astra Trident可做為升級。當您解除安裝Trident時、不會刪除由Astra Trident部署所使用的持續磁碟區宣告（PVc）和持續磁碟區（PV）。當Astra Trident離線時、已配置的PV仍可繼續使用、而Astra Trident會在任何建立於過渡期間的永久虛電路恢復上線後、為其配置磁碟區。
 
-* 從Trident 20.01開始、只有的試用版 https://kubernetes.io/docs/concepts/storage/volume-snapshots/["Volume快照"^] 支援。Kubernetes系統管理員應謹慎地將Alpha快照物件安全備份或轉換成試用版、以保留舊版Alpha快照。
-* Volume快照的試用版推出一組經過修改的CRD和快照控制器、這兩個控制器都應該在安裝Astra Trident之前設定。 https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["這篇部落格"^] 討論將Alpha Volume快照移轉至試用版格式的相關步驟。
-* 解除安裝和重新安裝Astra Trident可做為升級。當您解除安裝Trident時、不會刪除由Astra Trident部署所使用的持續磁碟區宣告（PVc）和持續磁碟區（PV）。當Astra Trident離線時、已配置的PV仍可繼續使用、而Astra Trident會在任何建立於過渡期間的永久虛電路恢復上線後、為其配置磁碟區。
+.開始之前
+檢閱 link:upgrade-trident.html#select-an-upgrade-method["選擇升級方法"] 使用升級之前 `tridentctl`。
+
+.步驟
+. 在中執行解除安裝命令 `tridentctl` 移除與 Astra Trident 相關的所有資源、但 CRD 和相關物件除外。
++
+[listing]
+----
+./tridentctl uninstall -n <namespace>
+----
+. 重新安裝 Astra Trident 。請參閱 link:..trident-get-started/kubernetes-deploy-tridentctl.html["使用tridentctl安裝Astra Trident"]。
 
 
 
-IMPORTANT: 升級Astra Trident時、請勿中斷升級程序。確保安裝程式執行完成。
+IMPORTANT: 請勿中斷升級程序。確保安裝程式執行完成。
 
 
 
-== 升級後的後續步驟
+== 使用升級磁碟區 `tridentctl`
 
-若要使用較新Trident版本（例如隨需Volume Snapshots）提供的豐富功能集、您可以使用「tridentctl升級」命令來升級磁碟區。
+升級後、您可以使用較新的 Trident 版本（例如隨選 Volume Snapshot ）所提供的豐富功能集、使用來升級磁碟區 `tridentctl upgrade` 命令。
 
-如果有舊版磁碟區、您應該將其從NFS/iSCSI類型升級為「csi」類型、以便使用Astra Trident的完整新功能集。Trident提供的舊PV支援傳統功能集。
+如果有舊版磁碟區、您應該將它們從 NFS 或 iSCSI 類型升級至 CSI 類型、以使用 Astra Trident 中的完整新功能集。Trident提供的舊PV支援傳統功能集。
 
-決定將磁碟區升級為「csi」類型時、請考慮下列事項：
+.開始之前
+在決定將磁碟區升級為 CSI 類型之前、請考量下列事項：
 
 * 您可能不需要升級所有磁碟區。先前建立的磁碟區將繼續可供存取、並正常運作。
 * 在升級時、PV可作為部署/狀態集的一部分掛載。不需要關閉部署/狀態集。
@@ -44,12 +53,7 @@ IMPORTANT: 升級Astra Trident時、請勿中斷升級程序。確保安裝程�
 * 您只能升級綁定到PVc的磁碟區。在升級之前、應先移除和匯入未繫結至PVCS的磁碟區。
 
 
-
-
-=== Volume升級範例
-
-以下範例顯示如何執行Volume升級。
-
+.步驟
 . 執行「kubectl Get PV」以列出PV。
 +
 [listing]
@@ -145,7 +149,4 @@ Source:
                            protocol=file
 Events:                <none>
 ----
-+
-如此一來、您就能將由Astra Trident建立的NFS/iSCSI類型磁碟區、以每個磁碟區為基礎、升級為「csi」類型。
-
 

@@ -142,7 +142,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 
 === Volume資源配置範例
 
-以下是已定義預設值的範例：
+以下是定義預設值的範例：
 
 [listing]
 ----
@@ -152,12 +152,11 @@ storageDriverName: ontap-san
 managementLIF: 10.0.0.1
 svm: trident_svm
 username: admin
-password: password
+password: <password>
 labels:
   k8scluster: dev2
   backend: dev2-sanbackend
 storagePrefix: alternate-trident
-igroupName: custom
 debugTraceFlags:
   api: false
   method: true
@@ -191,13 +190,45 @@ image::../media/vol-show-san.png[顯示Volume show命令的輸出。]
 下列範例顯示基本組態、讓大部分參數保留預設值。這是定義後端最簡單的方法。
 
 
-NOTE: 如果您在NetApp ONTAP 支援Astra Trident的NetApp上使用Amazon FSX、建議您指定lifs的DNS名稱、而非IP位址。
+NOTE: 如果您在 NetApp ONTAP 上搭配 Astra Trident 使用 Amazon FSX 、建議您指定生命的 DNS 名稱、而非 IP 位址。
 
+.ONTAP SAN 最小化組態範例
+[%collapsible%open]
+====
+這是使用的基本組態 `ontap-san` 驅動程式：
 
-
-=== `ontap-san` 具有憑證型驗證的驅動程式
-
-這是最小的後端組態範例。「clientCertificate」、「clientPrivate Key」和「Trusted CACertifate」（選用、如果使用信任的CA）會分別填入「backend.json」、並採用用戶端憑證、私密金鑰和信任的CA憑證的64編碼值。
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-san
+managementLIF: 10.0.0.1
+svm: svm_iscsi
+labels:
+  k8scluster: test-cluster-1
+  backend: testcluster1-sanbackend
+username: vsadmin
+password: <password>
+----
+====
+.ONTAP SAN 經濟型最低組態範例
+[%collapsible%open]
+====
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-san-economy
+managementLIF: 10.0.0.1
+svm: svm_iscsi_eco
+username: vsadmin
+password: <password>
+----
+====
+.憑證型驗證範例
+[%collapsible%open]
+====
+在此基本組態範例中 `clientCertificate`、 `clientPrivateKey`和 `trustedCACertificate` （選用、如果使用信任的CA）會填入 `backend.json` 並分別取得用戶端憑證、私密金鑰及信任CA憑證的基礎64編碼值。
 
 [listing]
 ----
@@ -212,17 +243,17 @@ chapInitiatorSecret: cl9qxIm36DKyawxy
 chapTargetInitiatorSecret: rqxigXgkesIpwxyz
 chapTargetUsername: iJF4heBRT0TCwxyz
 chapUsername: uh2aNCLSd6cNwxyz
-igroupName: trident
 clientCertificate: ZXR0ZXJwYXB...ICMgJ3BhcGVyc2
 clientPrivateKey: vciwKIyAgZG...0cnksIGRlc2NyaX
 trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 ----
+====
+.雙向 CHAP 範例
+[%collapsible%open]
+====
+這些範例使用建立後端 `useCHAP` 設定為 `true`。
 
-
-=== `ontap-san` 使用雙向CHAP的驅動程式
-
-這是最小的後端組態範例。此基本組態會建立一個「ONTAP-SAN」後端、並將「useCHAP」設為「true」。
-
+.ONTAP SAN CHAP 範例
 [listing]
 ----
 ---
@@ -238,14 +269,10 @@ chapInitiatorSecret: cl9qxIm36DKyawxy
 chapTargetInitiatorSecret: rqxigXgkesIpwxyz
 chapTargetUsername: iJF4heBRT0TCwxyz
 chapUsername: uh2aNCLSd6cNwxyz
-igroupName: trident
 username: vsadmin
-password: password
+password: <password>
 ----
-
-
-=== `ontap-san-economy` 驅動程式
-
+.ONTAP SAN 經濟 CHAP 範例
 [listing]
 ----
 ---
@@ -258,20 +285,23 @@ chapInitiatorSecret: cl9qxIm36DKyawxy
 chapTargetInitiatorSecret: rqxigXgkesIpwxyz
 chapTargetUsername: iJF4heBRT0TCwxyz
 chapUsername: uh2aNCLSd6cNwxyz
-igroupName: trident
 username: vsadmin
-password: password
+password: <password>
 ----
+====
 
 
 == 虛擬集區的後端範例
 
-在下圖所示的範例後端定義檔案中、會針對所有儲存資源池設定特定的預設值、例如 `spaceReserve` 無、 `spaceAllocation` 假、和 `encryption` 錯。虛擬資源池是在儲存區段中定義的。
+在這些後端定義檔案範例中、會針對所有儲存池設定特定的預設值、例如 `spaceReserve` 無、 `spaceAllocation` 假、和 `encryption` 錯。虛擬資源池是在儲存區段中定義的。
 
 Astra Trident會在「Comments」欄位中設定資源配置標籤。請在FlexVol The過程中提出意見。Astra Trident會在資源配置時、將虛擬資源池上的所有標籤複製到儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。
 
-在此範例中、有些儲存資源池會設定自己的「資源保留」、「資源配置」和「加密」值、有些資源池會覆寫上述設定的預設值。
+在這些範例中、有些儲存池是自行設定的 `spaceReserve`、 `spaceAllocation`和 `encryption` 值、而某些資源池會覆寫預設值。
 
+.ONTAP SAN 範例
+[%collapsible%open]
+====
 [listing]
 ----
 ---
@@ -284,9 +314,8 @@ chapInitiatorSecret: cl9qxIm36DKyawxy
 chapTargetInitiatorSecret: rqxigXgkesIpwxyz
 chapTargetUsername: iJF4heBRT0TCwxyz
 chapUsername: uh2aNCLSd6cNwxyz
-igroupName: trident
 username: vsadmin
-password: password
+password: <password>
 defaults:
   spaceAllocation: 'false'
   encryption: 'false'
@@ -320,8 +349,10 @@ storage:
     spaceAllocation: 'true'
     encryption: 'false'
 ----
-以下是「ONTAP-san經濟」驅動程式的iSCSI範例：
-
+====
+.ONTAP SAN 經濟效益範例
+[%collapsible%open]
+====
 [listing]
 ----
 ---
@@ -334,9 +365,8 @@ chapInitiatorSecret: cl9qxIm36DKyawxy
 chapTargetInitiatorSecret: rqxigXgkesIpwxyz
 chapTargetUsername: iJF4heBRT0TCwxyz
 chapUsername: uh2aNCLSd6cNwxyz
-igroupName: trident
 username: vsadmin
-password: password
+password: <password>
 defaults:
   spaceAllocation: 'false'
   encryption: 'false'
@@ -365,22 +395,23 @@ storage:
   defaults:
     spaceAllocation: 'true'
     encryption: 'false'
+- labels:
+    department: legal
+    creditpoints: '5000'
+  zone: us_east_1c
+  defaults:
+    spaceAllocation: 'true'
+    encryption: 'false'
 ----
+====
 
 
 == 將後端對應至StorageClass
 
-下列StorageClass定義是指上述虛擬資源池。使用 `parameters.selector` 欄位中、每個StorageClass會呼叫哪些虛擬資源池可用於裝載Volume。磁碟區將會在所選的虛擬資源池中定義各個層面。
+下列 StorageClass 定義請參閱 <<虛擬集區的後端範例>>。使用 `parameters.selector` 欄位中、每個 StorageClass 都會呼叫哪些虛擬集區可用於主控磁碟區。磁碟區將會在所選的虛擬資源池中定義各個層面。
 
-* 第一個StorageClass (`protection-gold`）將對應至中的第一個、第二個虛擬集區 `ontap-nas-flexgroup` 後端和中的第一個虛擬集區 `ontap-san` 後端：這是唯一提供金級保護的資源池。
-* 第二個StorageClass (`protection-not-gold`）將對應至中的第三、第四個虛擬集區 `ontap-nas-flexgroup` 中的後端和第二個、第三個虛擬集區 `ontap-san` 後端：這是唯一提供金級以外保護層級的資源池。
-* 第三個StorageClass (`app-mysqldb`）將對應至中的第四個虛擬資源池 `ontap-nas` 中的後端和第三個虛擬集區 `ontap-san-economy` 後端：這些是唯一提供mysqldb類型應用程式儲存池組態的集區。
-* 第四個StorageClass (`protection-silver-creditpoints-20k`）將對應至中的第三個虛擬集區 `ontap-nas-flexgroup` 中的後端和第二個虛擬集區 `ontap-san` 後端：這些資源池是唯一能以20000個信用點數提供金級保護的資源池。
-* 第五個StorageClass (`creditpoints-5k`）將對應至中的第二個虛擬資源池 `ontap-nas-economy` 中的後端和第三個虛擬集區 `ontap-san` 後端：這些是唯一提供5000個信用點數的資源池產品。
-
-
-Astra Trident將決定選取哪個虛擬集區、並確保符合儲存需求。
-
+* 。 `protection-gold` StorageClass 會對應至中的第一個虛擬集區 `ontap-san` 後端：這是唯一提供金級保護的集區。
++
 [listing]
 ----
 apiVersion: storage.k8s.io/v1
@@ -391,7 +422,11 @@ provisioner: netapp.io/trident
 parameters:
   selector: "protection=gold"
   fsType: "ext4"
----
+----
+* 。 `protection-not-gold` StorageClass 會對應至中的第二個和第三個虛擬集區 `ontap-san` 後端：這是唯一提供金級以外保護層級的集區。
++
+[listing]
+----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -400,7 +435,11 @@ provisioner: netapp.io/trident
 parameters:
   selector: "protection!=gold"
   fsType: "ext4"
----
+----
+* 。 `app-mysqldb` StorageClass 會對應至中的第三個虛擬集區 `ontap-san-economy` 後端：這是唯一為 mysqldb 類型應用程式提供儲存池組態的集區。
++
+[listing]
+----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -409,7 +448,11 @@ provisioner: netapp.io/trident
 parameters:
   selector: "app=mysqldb"
   fsType: "ext4"
----
+----
+* 。 `protection-silver-creditpoints-20k` StorageClass 會對應至中的第二個虛擬集區 `ontap-san` 後端：這是唯一提供銀級保護和 20000 個信用點數的資源池。
++
+[listing]
+----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -418,7 +461,11 @@ provisioner: netapp.io/trident
 parameters:
   selector: "protection=silver; creditpoints=20000"
   fsType: "ext4"
----
+----
+* 。 `creditpoints-5k` StorageClass 會對應至中的第三個虛擬集區 `ontap-san` 中的後端和第四個虛擬集區 `ontap-san-economy` 後端：這是唯一擁有 5000 個信用點數的集區方案。
++
+[listing]
+----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -428,3 +475,6 @@ parameters:
   selector: "creditpoints=5000"
   fsType: "ext4"
 ----
+
+
+Astra Trident將決定選取哪個虛擬集區、並確保符合儲存需求。

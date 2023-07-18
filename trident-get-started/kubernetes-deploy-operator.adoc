@@ -99,7 +99,30 @@ Astra Trident安裝程式提供一個套件檔案、可用來安裝運算子及�
 * 對於執行 Kubernetes 1.25 或更新版本的叢集、請使用 `bundle_post_1_25.yaml`。
 
 
-Trident安裝程式會在中部署操作員 `trident` 命名空間。如果是 `trident` 命名空間不存在、請使用 `kubectl apply -f deploy/namespace.yaml` 以建立。
+.開始之前
+* 根據預設、 Trident 安裝程式會在中部署運算子 `trident` 命名空間。如果是 `trident` 命名空間不存在、請使用以下方式建立：
++
+[listing]
+----
+kubectl apply -f deploy/namespace.yaml
+----
+* 可在非的命名空間中部署運算子 `trident` 命名空間、更新 `serviceaccount.yaml`、 `clusterrolebinding.yaml` 和 `operator.yaml` 並使用產生套裝組合檔案 `kustomization.yaml`。
++
+.. 建立 `kustomization.yaml` 使用下列命令、其中包含 <bundle> `bundle_pre_1_25` 或 `bundle_post_1_25` 以 Kubernetes 版本為基礎。
++
+[listing]
+----
+cp kustomization_<bundle>.yaml kustomization.yaml
+----
+.. 使用以下命令編譯套件（其中的 <bundle> 是） `bundle_pre_1_25` 或 `bundle_post_1_25` 以 Kubernetes 版本為基礎。
++
+[listing]
+----
+kubectl kustomize deploy/ > deploy/<bundle>.yaml
+----
+
+
+
 
 .步驟
 . 建立資源並部署營運者：
@@ -108,24 +131,11 @@ Trident安裝程式會在中部署操作員 `trident` 命名空間。如果是 `
 ----
 kubectl create -f deploy/<bundle>.yaml
 ----
-+
-[NOTE]
-====
-可在非的命名空間中部署運算子 `trident` 命名空間、更新 `serviceaccount.yaml`、 `clusterrolebinding.yaml` 和 `operator.yaml` 並使用產生套裝組合檔案 `kustomization.yaml`：
-
-[listing]
-----
-kubectl kustomize deploy/ > deploy/<bundle>.yaml
-----
-====
-. 驗證是否已部署操作員。
+. 確認已建立運算子、部署和複本集。
 +
 [listing]
 ----
-kubectl get deployment -n <operator-namespace>
-
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-trident-operator   1/1     1            1           3m
+kubectl get all -n <operator-namespace>
 ----
 
 

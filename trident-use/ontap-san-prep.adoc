@@ -12,11 +12,11 @@ summary: 瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設�
 
 
 [role="lead"]
-瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設定支援功能的後端。ONTAP
+瞭解使用 ONTAP SAN 驅動程式設定 ONTAP 後端的需求和驗證選項。
 
 
 
-== 總覽
+== 需求
 
 對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。
 
@@ -26,7 +26,7 @@ summary: 瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設�
 
 
 
-== 驗證
+== 驗證 ONTAP 後端
 
 Astra Trident提供兩種驗ONTAP 證功能來驗證支援的後端。
 

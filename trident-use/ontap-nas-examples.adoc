@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/ontap-nas-examples.html 
 keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx 
-summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。 
+summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。 
 ---
 = 列舉NAS組態選項與範例ONTAP
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS
 
 
 [role="lead"]
-瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。
+瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。
 
 
 
@@ -94,7 +94,11 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS
 | "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] | 「200」 
 
 
-| `smbShare` | 您可以指定使用共用資料夾 Microsoft Management Console 所建立的 SMB 共用名稱、或指定共用名稱以允許 Astra Trident 建立 SMB 共用。或者、您也可以將參數保留空白、以防止共用磁碟區。 | `smb-share` 
+| `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱；允許 Astra Trident 建立 SMB 共用的名稱；或將參數保留空白以防止共用磁碟區存取。
+
+對於內部部署 ONTAP 、此參數為選用項目。
+
+Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。 | `smb-share` 
 
 
 | 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*
@@ -210,11 +214,9 @@ image::../media/volume-show-nas.png[顯示Volume show命令的輸出。]
 
 NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX、建議您指定lifs的DNS名稱、而非IP位址。
 
-.ONTAP NAS 經濟型最低組態範例
+.的最低組態 <code>ontap-nas-economy</code>
 [%collapsible%open]
 ====
-這是使用的基本組態 `ontap-nas-economy` 驅動程式：
-
 [listing]
 ----
 ---
@@ -224,14 +226,12 @@ managementLIF: 10.0.0.1
 dataLIF: 10.0.0.2
 svm: svm_nfs
 username: vsadmin
-password: <password>
+password: password
 ----
 ====
-.ONTAP NAS FlexGroup 最小化組態範例
+.的最低組態 <code>ontap-nas-flexgroup</code>
 [%collapsible%open]
 ====
-這是使用的基本組態 `ontap-nas-flexgroup` 驅動程式：
-
 [listing]
 ----
 ---
@@ -241,13 +241,33 @@ managementLIF: 10.0.0.1
 dataLIF: 10.0.0.2
 svm: svm_nfs
 username: vsadmin
-password: <password>
+password: password
 ----
 ====
-.憑證型驗證範例
+.SMB 磁碟區的最低組態
 [%collapsible%open]
 ====
-在此基本組態範例中 `clientCertificate`、 `clientPrivateKey`和 `trustedCACertificate` （選用、如果使用信任的CA）會填入 `backend.json` 並分別取得用戶端憑證、私密金鑰及信任CA憑證的基礎64編碼值。
+[listing]
+----
+
+---
+version: 1
+backendName: ExampleBackend
+storageDriverName: ontap-nas
+managementLIF: 10.0.0.1
+nasType: smb
+securityStyle: ntfs
+unixPermissions: ""
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: password
+----
+====
+.憑證型驗證
+[%collapsible%open]
+====
+這是最小的後端組態範例。 `clientCertificate`、 `clientPrivateKey`和 `trustedCACertificate` （選用、如果使用信任的CA）會填入 `backend.json` 並分別取得用戶端憑證、私密金鑰及信任CA憑證的基礎64編碼值。
 
 [listing]
 ----
@@ -264,10 +284,10 @@ trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 storagePrefix: myPrefix_
 ----
 ====
-.自動匯出原則範例
+.自動匯出原則
 [%collapsible%open]
 ====
-此範例指示 Astra Trident 使用動態匯出原則來自動建立及管理匯出原則。這對的運作方式相同 `ontap-nas-economy` 和 `ontap-nas-flexgroup` 驅動程式：
+本範例說明如何指示Astra Trident使用動態匯出原則來自動建立及管理匯出原則。這對的運作方式相同 `ontap-nas-economy` 和 `ontap-nas-flexgroup` 驅動程式：
 
 [listing]
 ----
@@ -284,11 +304,11 @@ autoExportPolicy: true
 autoExportCIDRs:
 - 10.0.0.0/24
 username: admin
-password: <password>
+password: password
 nfsMountOptions: nfsvers=4
 ----
 ====
-.使用 IPv6 位址範例
+.使用IPv6位址
 [%collapsible%open]
 ====
 此範例顯示 `managementLIF` 使用IPv6位址。
@@ -305,14 +325,13 @@ labels:
   backend: test1-ontap-ipv6
 svm: nas_ipv6_svm
 username: vsadmin
-password: <password>
-
+password: password
 ----
 ====
-.Amazon FSX for ONTAP 使用 SMB Volume 範例
+.使用 SMB Volume 的 Amazon FSX for ONTAP
 [%collapsible%open]
 ====
-此範例使用 SMB 磁碟區為 ONTAP 後端建立 Amazon FSX 。
+。 `smbShare` 使用 SMB 磁碟區的 ONTAP 需要 FSX 參數。
 
 [listing]
 ----
@@ -324,6 +343,7 @@ managementLIF: example.mgmt.fqdn.aws.com
 nasType: smb
 dataLIF: 10.0.0.15
 svm: nfs_svm
+smbShare: smb-share
 clientCertificate: ZXR0ZXJwYXB...ICMgJ3BhcGVyc2
 clientPrivateKey: vciwKIyAgZG...0cnksIGRlc2NyaX
 trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz

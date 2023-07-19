@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/ontap-nas-prep.html 
 keywords: trident backend, ontap nas, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups 
-summary: 瞭解如何準備使用ONTAP 不含NetApp功能的NAS驅動程式來設定功能完善的後端。ONTAP 
+summary: 瞭解使用 ONTAP NAS 驅動程式設定 ONTAP 後端的需求、驗證選項和匯出原則。 
 ---
 = 準備使用ONTAP 不含NAS的驅動程式來設定後端
 :hardbreaks:
@@ -12,21 +12,21 @@ summary: 瞭解如何準備使用ONTAP 不含NetApp功能的NAS驅動程式來�
 
 
 [role="lead"]
-瞭解如何準備使用ONTAP 不含NetApp功能的NAS驅動程式來設定功能完善的後端。ONTAP
+瞭解使用 ONTAP NAS 驅動程式設定 ONTAP 後端的需求、驗證選項和匯出原則。
 
 
 
-== 考量
+== 需求
 
 * 對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。
 * 您可以執行多個驅動程式、並建立指向其中一個或另一個的儲存類別。例如、您可以設定使用的Gold類別 `ontap-nas` 驅動程式和銅級、使用 `ontap-nas-economy` 一、
 * 您所有的Kubernetes工作節點都必須安裝適當的NFS工具。請參閱 link:worker-node-prep.html["請按這裡"] 以取得更多詳細資料。
-* Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
+* Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。請參閱 <<準備配置SMB磁碟區>> 以取得詳細資料。
 
 
 
 
-== 驗證
+== 驗證 ONTAP 後端
 
 Astra Trident提供兩種驗ONTAP 證功能來驗證支援的後端。
 
@@ -288,3 +288,79 @@ items:
 NOTE: 刪除具有自動管理匯出原則的後端、將會刪除動態建立的匯出原則。如果重新建立後端、則會將其視為新的後端、並導致建立新的匯出原則。
 
 如果即時節點的IP位址已更新、您必須重新啟動節點上的Astra Trident Pod。Astra Trident接著會更新其管理的後端匯出原則、以反映此IP變更。
+
+
+
+== 準備配置SMB磁碟區
+
+只需稍加準備、您就可以使用來配置 SMB 磁碟區 `ontap-nas` 驅動程式：
+
+
+WARNING: 您必須在 SVM 上同時設定 NFS 和 SMB/CIFS 通訊協定、才能建立 `ontap-nas-economy` 適用於內部部署 ONTAP 的 SMB Volume 。若未設定上述任一種通訊協定、將導致 SMB 磁碟區建立失敗。
+
+.開始之前
+在配置 SMB 磁碟區之前、您必須具備下列項目。
+
+* Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2019的Windows工作節點。Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
+* 至少有一個Astra Trident機密、其中包含您的Active Directory認證資料。以產生機密 `smbcreds`：
++
+[listing]
+----
+kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
+----
+* 設定為Windows服務的SCSI Proxy。若要設定 `csi-proxy`、請參閱 link:https://github.com/kubernetes-csi/csi-proxy["GitHub：csi Proxy"^] 或 link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub：適用於Windows的SCSI Proxy"^] 適用於Windows上執行的Kubernetes節點。
+
+
+.步驟
+. 對於內部部署 ONTAP 、您可以選擇性地建立 SMB 共用、或是 Astra Trident 可以為您建立一個。
++
+
+NOTE: Amazon FSX for ONTAP 需要 SMB 共享。
+
++
+您可以使用兩種方式之一來建立SMB管理共用區 link:https://learn.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/what-is-microsoft-management-console["Microsoft管理主控台"^] 共享資料夾嵌入式管理單元或使用ONTAP CLI。若要使用ONTAP CLI建立SMB共用：
+
++
+.. 如有必要、請建立共用的目錄路徑結構。
++
+。 `vserver cifs share create` 命令會在共用建立期間檢查-path選項中指定的路徑。如果指定的路徑不存在、則命令會失敗。
+
+.. 建立與指定SVM相關的SMB共用區：
++
+[listing]
+----
+vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
+----
+.. 確認共用區已建立：
++
+[listing]
+----
+vserver cifs share show -share-name share_name
+----
++
+
+NOTE: 請參閱 link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-task.html["建立SMB共用區"^] 以取得完整詳細資料。
+
+
+
+. 建立後端時、您必須設定下列項目以指定SMB Volume。如需ONTAP 所有的FSXfor Sendbackend組態選項、請參閱 link:trident-fsx-examples.html["FSX提供ONTAP 各種組態選項和範例"]。
++
+[cols="3"]
+|===
+| 參數 | 說明 | 範例 
+
+
+| `smbShare`
+您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱；允許 Astra Trident 建立 SMB 共用的名稱；或將參數保留空白以防止共用磁碟區存取。
+
+對於內部部署 ONTAP 、此參數為選用項目。
+
+Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。 | `smb-share` | `nasType` 
+
+
+| *必須設定為 `smb`.*如果為null、則預設為 `nfs`。 | `smb` | 《生態樣式》 
+
+
+| 新磁碟區的安全樣式。*必須設定為 `ntfs` 或 `mixed` 適用於SMB磁碟區。* | `ntfs` 或 `mixed` 適用於SMB磁碟區 | 「unixPermissions」 
+|===
+

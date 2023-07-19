@@ -91,7 +91,9 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] | `200` 
 
 
-| `smbShare` | 您可以指定使用共用資料夾 Microsoft Management Console 所建立的 SMB 共用名稱、或指定共用名稱以允許 Astra Trident 建立 SMB 共用。或者、您也可以將參數保留空白、以防止共用磁碟區。 | `smb-share` 
+| `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱、或是允許 Astra Trident 建立 SMB 共用的名稱。
+
+ONTAP 後端的 Amazon FSX 需要此參數。 | `smb-share` 
 
 
 | 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*

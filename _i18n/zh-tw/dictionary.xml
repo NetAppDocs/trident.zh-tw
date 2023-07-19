@@ -574,7 +574,6 @@
   <block id="e42b07a9f050ef51ea1211004a50f223" category="list-text">「ONTAP-NAS-Flexgroup」：每個提供的PV都是適用於NetApp ONTAP FlexGroup 的完整Amazon FSX。</block>
   <block id="ed2536bee60113131cf25b2de3ec8734" category="list-text">憑證型：Astra Trident會使用SVM上安裝的憑證、與FSX檔案系統上的SVM進行通訊。</block>
   <block id="80d13d3dbe137e8fb646193f275eceeb" category="list-text">現有的Amazon EKS叢集或自行管理的Kubernetes叢集、已安裝「kubecll」。</block>
-  <block id="52d48fdd62aa109d7f163f0ef8a31b83" category="list-text">現有的Amazon FSX-適用於NetApp ONTAP 的支援資料系統和儲存虛擬機器（SVM）、可從叢集的工作節點存取。</block>
   <block id="fe914214000491758957f04647f8da36" category="inline-link">Amazon機器映像</block>
   <block id="3e25473814d436a2ebac91120e147b0b" category="admonition">您可以使用SSH從任何位置登入檔案系統（例如安裝憑證）、而該SSH可連至檔案系統。使用「fsxadmin」使用者、您在建立檔案系統時設定的密碼、以及「AWS FSx file-systems」中的管理DNS名稱。</block>
   <block id="860958fe641e0edbd80fe522c36d0560" category="list-text">使用您的憑證和管理LIF的DNS名稱建立後端檔案、如下例所示：</block>
@@ -749,7 +748,6 @@
   <block id="f4f833852bac4217eff92d53c1bd24dc" category="list-text"><block ref="f4f833852bac4217eff92d53c1bd24dc" category="inline-link-macro-rx"></block></block>
   <block id="df7d9b009cdb0a2623872cb3f905e161" category="list-text"><block ref="df7d9b009cdb0a2623872cb3f905e161" category="inline-link-macro-rx"></block></block>
   <block id="d7f015aa2f1d488e17e175dac6de3149" category="list-text"><block ref="d7f015aa2f1d488e17e175dac6de3149" category="inline-link-macro-rx"></block></block>
-  <block id="e4f61797b38c111b04c612b285a06659" category="summary">瞭解如何準備使用ONTAP 不含NetApp功能的NAS驅動程式來設定功能完善的後端。ONTAP</block>
   <block id="00b8b321c68facfb94b31690cbd23e00" category="paragraph">對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。</block>
   <block id="997cff957213b9212a22d7cac2b4275d" category="list-text">使用產生的憑證測試驗證。以ONTAP Management LIF IP和SVM名稱取代&lt;SfManagement LIF&gt;和&lt;vserver name&gt;。您必須確保LIF的服務原則設定為「預設資料管理」。</block>
   <block id="07b434b23f63ca6490df33b213599320" category="section-title">管理NFS匯出原則</block>
@@ -833,7 +831,6 @@
   <block id="e5c2c0bfcfbe01e6174199aaff9616a5" category="paragraph">若要將新建立的20MiB PV調整至1GiB、請編輯PVC並將「siec.resumes.requests.storage」設為1GB：</block>
   <block id="4a59ce1bc63fd7e6333968fb4bbd9d45" category="section-title">步驟4：驗證擴充</block>
   <block id="c70f05fed7c73e0be4a0b24c8532a87c" category="paragraph">您可以檢查PVc、PV和Astra Trident Volume的大小、以正確驗證調整大小：</block>
-  <block id="0cc7642bbaf969ea355ea12764841c91" category="summary">瞭解如何透過ONTAP Astra Trident安裝來建立及使用NetApp NAS驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。</block>
   <block id="19ce3b2e7823907e5153f00fe04f64f7" category="doc">組態選項與範例</block>
   <block id="a85f55a18073767a4945eac810e72cb2" category="cell">「ONTAP-NAS」、「ONTAP-NAS-節約 型」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」、「ONTAP-san經濟型」</block>
   <block id="237d7a1666794b0937adde704bb4795c" category="cell">驅動程式名稱+「_」+ dataLIF</block>
@@ -3382,7 +3379,6 @@
   <block id="56d1e7863190cbf5e7689e2821d0959e" category="cell"><block ref="47cb44be55a0dffa15dfc900a4c687be" prefix="" category="inline-code"></block></block>
   <block id="3bc2d9079510db6d0570883494bc5984" category="cell"><block ref="f899139df5e1059396431415e770c6dd" prefix="" category="inline-code"></block></block>
   <block id="06daeb0fdb584c4694891d290310e1ed" category="cell"><block ref="3644a684f98ea8fe223c713b77189a77" prefix="" category="inline-code"></block></block>
-  <block id="429970b7b8d395eb00181a72bc544fba" category="cell">您可以指定使用共用資料夾 Microsoft Management Console 所建立的 SMB 共用名稱、或指定共用名稱以允許 Astra Trident 建立 SMB 共用。或者、您也可以將參數保留空白、以防止共用磁碟區。</block>
   <block id="996a57df5a7c8752e8bc23b6af020be4" category="cell">如果<block ref="0a236e7685e50a59df980d0a30929d6c" prefix=" " category="inline-code"></block> 是<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>、<block ref="2954e92a9b4d0e998fe4893f8141649a" prefix=" " category="inline-code"></block> 「」</block>
   <block id="58c09f2c9581bc7c58c32116266b6d8f" category="cell">要使用的分層原則<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block></block>
   <block id="49ed5b3ecd0e966bec6b74083f06599e" category="cell"><block ref="8805d416ce540c5f2df34af5b18d742b" prefix="" category="inline-code"></block> 適用於 ONTAP 9.5 之前的 SVM-DR 組態</block>
@@ -3395,7 +3391,6 @@
   <block id="51e6d748c5af856ade589011dc2c7e85" category="cell"><block ref="37a6259cc0c1dae299a7866489dff0bd" prefix="" category="inline-code"></block></block>
   <block id="ddbd2735bfb88c5da807f77f6fe5f6c8" category="doc">ONTAP NAS 驅動程式概述</block>
   <block id="dd972e44915c7a0884edd58e9d839295" category="section-title">ONTAP NAS 驅動程式的重要資訊</block>
-  <block id="482723983a4f2af954e36ff41e567451" category="section-title">已知限制</block>
   <block id="1faffcbb00c529812b5526b1b22b2b56" category="paragraph">您必須在 SVM 上同時設定 NFS 和 SMB/CIFS 通訊協定、才能建立<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 適用於內部部署 ONTAP 的 SMB Volume 。若未設定上述任一種通訊協定、將導致 SMB 磁碟區建立失敗。</block>
   <block id="5cc1e28c0d7b6c40ca94aacb554b31ca" category="doc">ONTAP SAN 驅動程式概觀</block>
   <block id="7771a46320e96de2bde6598540ad4d52" category="section-title">ONTAP SAN 驅動程式的重要資訊</block>
@@ -3666,17 +3661,8 @@
   <block id="8d23be098d49e797284393a4c1479c53" category="list-text">確認 Trident 已升級至所需版本。</block>
   <block id="210f1e5eca9c602b1282553f342448ae" category="list-text">對於執行 Kubernetes 1.24 或更早版本的叢集、請使用<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block>。</block>
   <block id="e4941fda44f66f353885d1a37ca63e2b" category="list-text">對於執行 Kubernetes 1.25 或更新版本的叢集、請使用<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block>。</block>
-  <block id="3e040e84a22403c3248ead0be2dc0526" category="example-title">ONTAP NAS 經濟型最低組態範例</block>
-  <block id="e3e188b2454bb98544f5a561eb702093" category="paragraph">這是使用的基本組態<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 驅動程式：</block>
-  <block id="547c5a9ffcb66d79e8281ae67244522e" category="example-title">ONTAP NAS FlexGroup 最小化組態範例</block>
-  <block id="a5536d1d72396572e5c419b1a5bc2130" category="paragraph">這是使用的基本組態<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 驅動程式：</block>
   <block id="dacbfb309aa16cb942510c02c224fdbc" category="example-title">憑證型驗證範例</block>
   <block id="60eac39d4383fedcc1df436a2d0e856d" category="paragraph">在此基本組態範例中<block ref="79fffaff4013c1e8c508e76646eca77b" prefix=" " category="inline-code"></block>、<block ref="19dce7ac7f5290fc8fa218ad0c858df5" prefix=" " category="inline-code"></block>和<block ref="8468461bca00a47ab5ddba2afc45f52c" prefix=" " category="inline-code"></block> （選用、如果使用信任的CA）會填入<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> 並分別取得用戶端憑證、私密金鑰及信任CA憑證的基礎64編碼值。</block>
-  <block id="1ce00ab507a065e4febc57b244e25d18" category="example-title">自動匯出原則範例</block>
-  <block id="ff5bc16abc09d38f1f879df4cd475d3b" category="paragraph">此範例指示 Astra Trident 使用動態匯出原則來自動建立及管理匯出原則。這對的運作方式相同<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 和<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 驅動程式：</block>
-  <block id="dd3bd0fc6b509b65dab3730c8d094c7b" category="example-title">使用 IPv6 位址範例</block>
-  <block id="ee8af8063e9ea3725931d232730b8a8e" category="example-title">Amazon FSX for ONTAP 使用 SMB Volume 範例</block>
-  <block id="2fd88f3466754282c283514ecc0a70a1" category="paragraph">此範例使用 SMB 磁碟區為 ONTAP 後端建立 Amazon FSX 。</block>
   <block id="71b79981e733eabd769324fa40c8fa6d" category="paragraph">在下面顯示的後端定義檔案範例中、會針對所有儲存池設定特定的預設值、例如<block ref="cae77b049bf504af7afc43b99b6c5213" prefix=" " category="inline-code"></block> 無、<block ref="45922ba6ba8428764f22ed06f814c762" prefix=" " category="inline-code"></block> 假、和<block ref="5bdf74912a51c34815f11e9a3d20b609" prefix=" " category="inline-code"></block> 錯。虛擬資源池是在儲存區段中定義的。</block>
   <block id="71fcdf20b31ca43f6ef64c06530f313d" category="paragraph">在這些範例中、有些儲存池是自行設定的<block ref="cae77b049bf504af7afc43b99b6c5213" prefix=" " category="inline-code"></block>、<block ref="45922ba6ba8428764f22ed06f814c762" prefix=" " category="inline-code"></block>和<block ref="5bdf74912a51c34815f11e9a3d20b609" prefix=" " category="inline-code"></block> 值、而某些資源池會覆寫預設值。</block>
   <block id="574e53d92fdeaac37ba2d879a9b88f12" category="example-title">ONTAP NAS 範例</block>
@@ -3711,4 +3697,44 @@
   <block id="c6c7f5dc0544ce8f73992592be4fa6f0" category="list-text">建立<block ref="67b2cc1cd5b1570014463995fb2ada61" prefix=" " category="inline-code"></block> 使用下列命令、其中包含 &lt;bundle&gt;<block ref="b30cd2dae2689e160b36283c2657caa5" prefix=" " category="inline-code"></block> 或<block ref="e4384751f7a5be47c7eaafbdfc116ab5" prefix=" " category="inline-code"></block> 以 Kubernetes 版本為基礎。</block>
   <block id="34e1bffd3ed9e5b9d2d9cec17fd7eadf" category="list-text">使用以下命令編譯套件（其中的 &lt;bundle&gt; 是）<block ref="b30cd2dae2689e160b36283c2657caa5" prefix=" " category="inline-code"></block> 或<block ref="e4384751f7a5be47c7eaafbdfc116ab5" prefix=" " category="inline-code"></block> 以 Kubernetes 版本為基礎。</block>
   <block id="806742cccf8380250ffb871d582a0a03" category="list-text">確認已建立運算子、部署和複本集。</block>
+  <block id="9b800ce65251b771d0eb86610e11f6b0" category="list-text">可從叢集工作節點存取的現有 Amazon FSX for NetApp ONTAP 檔案系統和儲存虛擬機器（ SVM ）。</block>
+  <block id="888a040cbb1dfe496b305a27374a73a5" category="list-text">Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。請參閱 <block ref="688177e6b45c5d27a545463079c58d82" category="inline-xref-macro-rx"></block> 以取得詳細資料。</block>
+  <block id="f55c34459cf261d1102750bcbde548d8" category="paragraph">在您使用配置 SMB 磁碟區之前、請先使用<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式、您必須具備下列項目。</block>
+  <block id="0533fb8f0faef28ecb6da05caf5fd644" category="cell">您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱、或是允許 Astra Trident 建立 SMB 共用的名稱。
+
+ONTAP 後端的 Amazon FSX 需要此參數。</block>
+  <block id="433d29840a179b402df37de14e4679f3" category="summary">瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。</block>
+  <block id="9b59e3a675bc9ca359f3369591ee7df3" category="cell">您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱；允許 Astra Trident 建立 SMB 共用的名稱；或將參數保留空白以防止共用磁碟區存取。
+
+對於內部部署 ONTAP 、此參數為選用項目。
+
+Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</block>
+  <block id="8bf31f01da88d12bf642a85ce9b3d644" category="example-title">的最低組態 &lt;code&gt;ontap-nas-economy&lt;/code&gt;</block>
+  <block id="a48054bf8652cee4ee1d7dd8f08ffa1f" category="example-title">的最低組態 &lt;code&gt;ontap-nas-flexgroup&lt;/code&gt;</block>
+  <block id="7cf30ff82fa389224936afba832f444f" category="example-title">SMB 磁碟區的最低組態</block>
+  <block id="e7a2472a002479764cade728d64dcd9e" category="example-title">憑證型驗證</block>
+  <block id="78e5b29e139db71ceb7ca6bc99b5e228" category="paragraph">這是最小的後端組態範例。<block ref="79fffaff4013c1e8c508e76646eca77b" prefix=" " category="inline-code"></block>、<block ref="19dce7ac7f5290fc8fa218ad0c858df5" prefix=" " category="inline-code"></block>和<block ref="8468461bca00a47ab5ddba2afc45f52c" prefix=" " category="inline-code"></block> （選用、如果使用信任的CA）會填入<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> 並分別取得用戶端憑證、私密金鑰及信任CA憑證的基礎64編碼值。</block>
+  <block id="30cc3e263c594cde4b2a573283348bb1" category="example-title">自動匯出原則</block>
+  <block id="8c35a9f7d631f51e05811b36617db641" category="paragraph">本範例說明如何指示Astra Trident使用動態匯出原則來自動建立及管理匯出原則。這對的運作方式相同<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 和<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 驅動程式：</block>
+  <block id="85435c5aae5ecdb04ef9ad8f7d48e88a" category="example-title">使用IPv6位址</block>
+  <block id="4627b40a8eea6e0ef04368d12d76d239" category="example-title">使用 SMB Volume 的 Amazon FSX for ONTAP</block>
+  <block id="33ef55e82416e2c1c4beb9cba9560b02" category="paragraph">。<block ref="5910159ef86741f119f7574a9064b5b0" prefix=" " category="inline-code"></block> 使用 SMB 磁碟區的 ONTAP 需要 FSX 參數。</block>
+  <block id="ef0e40b987d8b9ad523bdde2bba5157a" category="summary">瞭解使用 ONTAP NAS 驅動程式設定 ONTAP 後端的需求、驗證選項和匯出原則。</block>
+  <block id="c63609aba869239be30364b58d99b1a3" category="section-title">驗證 ONTAP 後端</block>
+  <block id="e5fdb627c170dc14e3873b3da32f3aa5" category="paragraph">只需稍加準備、您就可以使用來配置 SMB 磁碟區<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式：</block>
+  <block id="8de0a7910b914d44521684fe2a3a28c6" category="paragraph">在配置 SMB 磁碟區之前、您必須具備下列項目。</block>
+  <block id="ff8c6e3b6971ed699a5dc2e00455aa82" category="list-text">對於內部部署 ONTAP 、您可以選擇性地建立 SMB 共用、或是 Astra Trident 可以為您建立一個。</block>
+  <block id="6a402202521e2168a911181e81c72faf" category="admonition">Amazon FSX for ONTAP 需要 SMB 共享。</block>
+  <block id="7f7041fc0ca0e00f3d3e39e4ce4a5149" category="paragraph">您可以使用兩種方式之一來建立SMB管理共用區 <block ref="364bc251e9c8cfbf6ce258767d17d682" category="inline-link-macro-rx"></block> 共享資料夾嵌入式管理單元或使用ONTAP CLI。若要使用ONTAP CLI建立SMB共用：</block>
+  <block id="00aa30f1783ef69183794c0da05e43b5" category="cell"><block ref="5910159ef86741f119f7574a9064b5b0" prefix="" category="inline-code"></block>
+您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱；允許 Astra Trident 建立 SMB 共用的名稱；或將參數保留空白以防止共用磁碟區存取。
+
+對於內部部署 ONTAP 、此參數為選用項目。
+
+Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</block>
+  <block id="a513707a481ff6afe9846fefc6411bca" category="paragraph">Astra Trident希望以ONTAP 支援的形式執行、通常是以支援的方式執行<block ref="21232f297a57a5a743894a0e4a801fc3" prefix=" " category="inline-code"></block> 叢集使用者或<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> SVM使用者、或具有相同角色之不同名稱的使用者。</block>
+  <block id="624061180b7b402618e3add29c08bd51" category="paragraph">對於Amazon FSX for NetApp ONTAP 支援的NetApp功能、Astra Trident預期會以ONTAP 使用叢集的形式執行、以執行支援或SVM管理員的身分<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block> 使用者或<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> SVM使用者、或具有相同角色之不同名稱的使用者。。<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block> 使用者是叢集管理使用者的有限替代。</block>
+  <block id="7d159230ccaa721872f31bf9be31afeb" category="paragraph">雖然可以在 ONTAP 中建立更具限制性的角色、讓 Trident 驅動程式可以使用、但我們不建議這樣做。Trident的大多數新版本都會呼叫額外的API、而這些API必須納入考量、使升級變得困難且容易出錯。</block>
+  <block id="37a679c38162162811d93d22ba8f5b4a" category="paragraph">瞭解使用 ONTAP SAN 驅動程式設定 ONTAP 後端的需求和驗證選項。</block>
+  <block id="7fbe6e40125b7d1b2f5c5c05044e7526" category="section-title">啟用憑證型驗證</block>
 </blocks>

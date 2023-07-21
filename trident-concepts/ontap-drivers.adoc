@@ -56,7 +56,7 @@ NFS
  a| 
 檔案系統
  a| 
-rwo、ROX、rwx
+Rwo 、 ROX 、 rwx 、 RWOP
  a| 
 」、NFS
 

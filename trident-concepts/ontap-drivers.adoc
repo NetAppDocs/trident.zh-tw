@@ -42,34 +42,37 @@ Astra Trident 提供下列儲存驅動程式、可與 ONTAP 叢集通訊。支�
 
 | 「ONTAP-NAS」  a| 
 NFS
+中小企業
  a| 
 檔案系統
  a| 
 Rwo 、 ROX 、 rwx 、 RWOP
  a| 
-」、NFS
+" 、 NFS 、 SMB
 
 
 
 | 《ONTAP-NANAS經濟》  a| 
 NFS
+中小企業
  a| 
 檔案系統
  a| 
 Rwo 、 ROX 、 rwx 、 RWOP
  a| 
-」、NFS
+" 、 NFS 、 SMB
 
 
 
 | 「ONTAP-NAA-flexgroup」  a| 
 NFS
+中小企業
  a| 
 檔案系統
  a| 
 Rwo 、 ROX 、 rwx 、 RWOP
  a| 
-」、NFS
+" 、 NFS 、 SMB
 
 
 

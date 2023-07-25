@@ -370,7 +370,6 @@
   <block id="15971126972a002fcddb2c507534e371" category="cell">支援的檔案系統</block>
   <block id="00055dac2ba112b87a95a368075b9561" category="cell">「ONTAP-NAS」</block>
   <block id="ac52cf637478f3656a1fdee5c02324fd" category="paragraph">檔案系統</block>
-  <block id="9f47e55b538b64923f2ee8c19bc6887a" category="paragraph">」、NFS</block>
   <block id="cecdaed309330a9e7dea16b2076957ee" category="cell">《ONTAP-NANAS經濟》</block>
   <block id="2b8ac774302bd45e0ad531e434d8cd6d" category="cell">「ONTAP-NAA-flexgroup」</block>
   <block id="cd17e7ed84c40a0ff5ecb8b625b1f186" category="cell">「ONTAP-SAN」</block>
@@ -3737,4 +3736,7 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="7d159230ccaa721872f31bf9be31afeb" category="paragraph">雖然可以在 ONTAP 中建立更具限制性的角色、讓 Trident 驅動程式可以使用、但我們不建議這樣做。Trident的大多數新版本都會呼叫額外的API、而這些API必須納入考量、使升級變得困難且容易出錯。</block>
   <block id="37a679c38162162811d93d22ba8f5b4a" category="paragraph">瞭解使用 ONTAP SAN 驅動程式設定 ONTAP 後端的需求和驗證選項。</block>
   <block id="7fbe6e40125b7d1b2f5c5c05044e7526" category="section-title">啟用憑證型驗證</block>
+  <block id="3262251091b863054cfabf046c0e3493" category="paragraph">NFS
+中小企業</block>
+  <block id="7f4a1ee6a22ce0658ba6215c997ba8d8" category="paragraph">" 、 NFS 、 SMB</block>
 </blocks>

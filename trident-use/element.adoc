@@ -80,18 +80,6 @@ Rwo、ROX
 
 |===
 
-NOTE: Astra Trident在做為增強型的csi資源配置程式時使用CHAP。如果您使用的是CHAP（這是「csi」的預設值）、則不需要進一步準備。建議將「UseCHAP」選項明確設定為搭配非「csi Trident」使用CHAP。否則請參閱 link:../trident-concepts/vol-access-groups.html["請按這裡"^]。
-
-
-WARNING: Volume存取群組僅受Astra Trident的傳統非csi架構支援。當Astra Trident設定為以「csi」模式運作時、會使用CHAP。
-
-如果未設定「存取群組」或「UseCHAP」、則適用下列其中一項規則：
-
-* 如果偵測到預設的「Trident」存取群組、就會使用存取群組。
-* 如果未偵測到存取群組、且Kubernetes版本為1.7或更新版本、則會使用CHAP。
-
-
-
 
 == 後端組態選項
 
@@ -126,7 +114,7 @@ WARNING: Volume存取群組僅受Astra Trident的傳統非csi架構支援。當A
 | 《初始器IFACE》 | 將iSCSI流量限制在特定的主機介面 | 「預設」 
 
 
-| 《UseCHAP》 | 使用CHAP驗證iSCSI | 是的 
+| 《UseCHAP》 | 使用 CHAP 驗證 iSCSI 。Astra Trident 使用 CHAP 。 | 是的 
 
 
 | 《存取群組》 | 要使用的存取群組ID清單 | 尋找名為「Trident」的存取群組ID 

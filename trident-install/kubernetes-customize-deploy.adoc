@@ -40,7 +40,7 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示 Astra Triden
 | 參數 | 說明 | 預設 
 
 
-| 「autosupportImage」 | 遙測的容器影像AutoSupport | "NetApp/trident 自動支援： 23.04.0" 
+| 「autosupportImage」 | 遙測的容器影像AutoSupport | "NetApp/trident 自動支援： 23.07.0" 
 
 
 | 「autosupportProxy」 | 代理伺服器的位址/連接埠、用於傳送AutoSupport 「遙測」功能 | "http://proxy.example.com:8888"[] 

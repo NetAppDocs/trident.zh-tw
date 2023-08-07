@@ -70,11 +70,10 @@ docker volume ls
 DRIVER              VOLUME NAME
 netapp:latest       my_volume
 ----
-+
+
+
 
 IMPORTANT: 如果您要從舊版的Astra Trident（20.10之前版本）升級至Astra Trident 20.10或更新版本、可能會發生錯誤。如需詳細資訊、請參閱 link:known-issues-docker.html["已知問題"^]。如果您遇到錯誤、請先停用外掛程式、然後移除外掛程式、再傳遞額外的組態參數來安裝所需的Astra Trident版本：「Docker外掛程式安裝NetApp/Trident外掛程式：20.10 -別名NetApp --贈與All權限config=config.json」
-
-
 
 
 

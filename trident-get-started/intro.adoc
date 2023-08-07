@@ -1,0 +1,59 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/intro.html 
+keywords: product overview, astra trident, fsx, element, astra, google cloud, cvs, architecture, test drive, node pod, controller pod, pods, csi, sidecar 
+summary: Astra Trident是NetApp在Astra產品系列中所維護的完整支援開放原始碼專案。其設計旨在協助您使用業界標準介面（例如 Container Storage Interface （ CSI ））來滿足容器化應用程式的持續需求。 
+---
+= 瞭解Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Astra Trident 是由 NetApp 維護的完全支援開放原始碼專案、是的一部分 link:https://docs.netapp.com/us-en/astra-family/intro-family.html["Astra產品系列"^]。其設計旨在協助您使用業界標準介面（例如 Container Storage Interface （ CSI ））來滿足容器化應用程式的持續需求。
+
+
+
+== 什麼是Astra？
+
+Astra可讓企業更輕鬆地管理、保護及搬移在公有雲內部及內部部署的Kubernetes上執行的資料豐富的容器化工作負載。
+
+Astra 提供並提供以 Astra Trident 為基礎的永久性容器儲存設備。它也提供先進的應用程式感知資料管理功能、例如快照、備份與還原、活動記錄、以及主動複製、以保護資料、災難 / 資料恢復、資料稽核、以及 Kubernetes 工作負載的移轉使用案例。
+
+深入瞭解 link:https://bluexp.netapp.com/astra["Astra 或註冊免費試用"^]。
+
+
+
+== 什麼是 Astra Trident ？
+
+Astra Trident 可在所有常見的 NetApp 儲存平台、公有雲或內部部署（包括 ONTAP （ AFF 、 FAS 、 Select 、 Cloud 、 Amazon FSX for NetApp ONTAP ）、 Element 軟體（ NetApp HCI 、 SolidFire ）、 Azure NetApp Files 服務、以及 Google Cloud 上的 Cloud Volumes Service 。
+
+Astra Trident 是符合 Container Storage Interface （ CSI ）規範的動態儲存協調器、可與原生整合 link:https://kubernetes.io/["Kubernetes"^]。Astra Trident 會在叢集中的每個工作節點上、以單一控制器 Pod 加上節點 Pod 的形式執行。請參閱 link:../trident-get-started/architecture.html["Astra Trident 架構"] 以取得詳細資料。
+
+Astra Trident 也可直接整合 NetApp 儲存平台的 Docker 生態系統。NetApp Docker Volume 外掛程式（ nDVP ）支援從儲存平台到 Docker 主機的儲存資源配置與管理。請參閱 link:../trident-docker/deploy-docker.html["部署適用於Docker的Astra Trident"] 以取得詳細資料。
+
+
+NOTE: 如果這是您第一次使用 Kubernetes 、您應該熟悉 link:https://kubernetes.io/docs/home/["Kubernetes 概念與工具"^]。
+
+
+
+== 參加 Astra Trident 試用
+
+若要試用、請要求存取「輕鬆部署及複製容器化工作負載的持續儲存設備」 link:https://www.netapp.com/us/try-and-buy/test-drive/index.aspx["NetApp試用"^] 使用現成的實驗室映像。此測試磁碟機提供一個沙箱環境、其中安裝並設定了三節點 Kubernetes 叢集和 Astra Trident 。這是熟悉 Astra Trident 並探索其功能的好方法。
+
+另一個選項是 link:https://kubernetes.io/docs/setup/independent/install-kubeadm/["Kubeadm安裝指南"] 由Kubernetes提供。
+
+
+NOTE: 請勿在正式作業環境中使用這些指示來建置 Kubernetes 叢集。請使用經銷商所提供的正式作業部署指南、以用於正式作業就緒的叢集。
+
+
+
+== 以取得更多資訊
+
+* https://docs.netapp.com/us-en/astra-family/intro-family.html["NetApp Astra產品系列"^]
+* https://docs.netapp.com/us-en/astra/get-started/intro.html["Astra Control Service文件"^]
+* https://docs.netapp.com/us-en/astra-control-center/index.html["Astra Control Center文件"^]
+* https://docs.netapp.com/us-en/astra-automation/get-started/before_get_started.html["Astra API文件"^]
+

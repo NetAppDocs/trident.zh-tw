@@ -2,9 +2,9 @@
 layout: landing-page 
 sidebar: sidebar 
 permalink: index.html 
-summary: Astra Trident是由NetApp維護的開放原始碼儲存資源配置程式和Orchestrator。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。** 請閱讀版本說明、瞭解升級至 Astra Trident 23.04 的重要資訊。 ** 
+summary: Astra Trident是由NetApp維護的開放原始碼儲存資源配置程式和Orchestrator。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。** 請閱讀版本說明、瞭解升級至 Astra Trident 23.07 的重要資訊。 ** 
 ---
-= Astra Trident 23.04 文件
+= Astra Trident 23.07 文件
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

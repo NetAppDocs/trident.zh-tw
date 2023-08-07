@@ -23,24 +23,11 @@ Astra Trident可讓Kubernetes使用者在建立磁碟區之後擴充磁碟區。
 
 NOTE: iSCSI磁碟區擴充支援「ontap－san」、「ONTAP－san經濟」、「Poolidfire－san」等驅動程式、需要Kubernetes 1.16及更新版本。
 
-.總覽
-擴充iSCSI PV包括下列步驟：
-
-* 編輯StorageClass定義、將「owvolVolume Expansion」欄位設定為「true」。
-* 編輯PVC定義並更新「s.pec.estices.storage」、以反映新的所需大小、此大小必須大於原始大小。
-* 必須將PV附加至Pod、才能調整其大小。調整iSCSI PV的大小有兩種情況：
-+
-** 如果PV附加至Pod、Astra Trident會在儲存後端擴充磁碟區、重新掃描裝置、並重新調整檔案系統的大小。
-** 嘗試調整未附加PV的大小時、Astra Trident會在儲存後端上擴充磁碟區。在將永久虛擬磁碟綁定至Pod之後、Trident會重新掃描裝置並重新調整檔案系統的大小。然後、Kubernetes會在擴充作業成功完成後、更新PVc大小。
-
-
-
-
-以下範例顯示擴充iSCSI PV的運作方式。
-
 
 
 === 步驟1：設定StorageClass以支援Volume擴充
+
+編輯 StorageClass 定義以設定 `allowVolumeExpansion` 欄位至 `true`。
 
 [listing]
 ----
@@ -60,6 +47,8 @@ allowVolumeExpansion: True
 
 
 === 步驟2：使用您建立的StorageClass建立一個永久虛擬儲存設備
+
+編輯 PVC 定義並更新 `spec.resources.requests.storage` 以反映新的所需大小、此大小必須大於原始大小。
 
 [listing]
 ----
@@ -91,6 +80,12 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 
 
 === 步驟3：定義一個連接至PVc的Pod
+
+將 PV 附加至 Pod 、以便調整大小。調整iSCSI PV的大小有兩種情況：
+
+* 如果PV附加至Pod、Astra Trident會在儲存後端擴充磁碟區、重新掃描裝置、並重新調整檔案系統的大小。
+* 嘗試調整未附加PV的大小時、Astra Trident會在儲存後端上擴充磁碟區。在將永久虛擬磁碟綁定至Pod之後、Trident會重新掃描裝置並重新調整檔案系統的大小。然後、Kubernetes會在擴充作業成功完成後、更新PVc大小。
+
 
 在此範例中、會建立使用「shan -PVc」的Pod。
 

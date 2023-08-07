@@ -4,7 +4,7 @@ permalink: trident-get-started/quickstart.html
 keywords: kubernetes cluster, simple installation, Kubernetes installation 
 summary: 如果您剛開始使用Kubernetes、請依照指示安裝Kubernetes來試用。這些說明提供了一個裸機、單節點叢集、Trident可與該叢集整合以供示範之用。 
 ---
-= 歡迎試用
+= Astra Trident 的快速入門
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,17 +12,51 @@ summary: 如果您剛開始使用Kubernetes、請依照指示安裝Kubernetes來
 
 
 [role="lead"]
-NetApp提供立即可用的實驗室映像、您可以透過申請 link:https://www.netapp.com/us/try-and-buy/test-drive/index.aspx["NetApp試用"^]。
+您可以安裝 Astra Trident 、只需幾個步驟就能開始管理儲存資源。開始之前、請先檢閱 link:requirements.html["Astra Trident的需求"]。
+
+
+NOTE: 如需 Docker 、請參閱 link:../trident-docker/deploy-docker.html["適合Docker的Astra Trident"]。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["一"] 安裝Astra Trident
+[role="quick-margin-para"]
+Astra Trident 提供多種安裝方法和模式、針對各種環境和組織進行最佳化。
+
+[role="quick-margin-para"]
+link:../trident-get-started/kubernetes-deploy.html["安裝Astra Trident"]
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["二"] 準備工作節點
+[role="quick-margin-para"]
+Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。
+
+[role="quick-margin-para"]
+link:../trident-use/worker-node-prep.html["準備工作節點"]
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["三"] 建立後端
+[role="quick-margin-para"]
+後端定義了Astra Trident與儲存系統之間的關係。它告訴Astra Trident如何與該儲存系統通訊、以及Astra Trident如何從該儲存系統配置磁碟區。
+
+[role="quick-margin-para"]
+link:../trident-use/backends.html["設定後端"] 適用於您的儲存系統
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["四"] 建立 Kubernetes StorageClass
+[role="quick-margin-para"]
+Kubernetes StorageClass 物件會將 Astra Trident 指定為置備程式、並可讓您建立儲存類別、以使用可自訂的屬性來佈建磁碟區。Astra Trident 為 Kubernetes 物件建立相符的儲存類別、以指定 Astra Trident 資源配置程式。
+
+[role="quick-margin-para"]
+link:../trident-use/create-stor-class.html["建立儲存類別"]
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png["五"] 配置 Volume
+[role="quick-margin-para"]
+_PersistentVolumer_ （ PV ）是叢集管理員在 Kubernetes 叢集上配置的實體儲存資源。_PersistentVolume Claim （ PVC ）是存取叢集上 PersistentVolume 的要求。
+
+[role="quick-margin-para"]
+建立 PersistentVolume （ PV ）和 PersistentVolume Claim （ PVC ）、使用設定的 Kubernetes StorageClass 來要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。
+
+[role="quick-margin-para"]
+link:../trident-use/vol-provision.html["配置 Volume"]
 
 
 
-== 深入瞭解測試磁碟機
+== 接下來呢？
 
-測試磁碟機提供您一個沙箱環境、其中安裝並設定了三節點Kubernetes叢集和Astra Trident。這是熟悉Astra Trident並探索其特色的絕佳方式。
-
-另一個選項是查看 link:https://kubernetes.io/docs/setup/independent/install-kubeadm/["Kubeadm安裝指南"] 由Kubernetes提供。
-
-
-NOTE: 您不應該在正式作業中使用這些指令所建置的Kubernetes叢集。請使用經銷商提供的正式作業部署指南、建立正式作業就緒的叢集。
-
-如果這是您第一次使用Kubernetes、請熟悉這些概念和工具 link:https://kubernetes.io/docs/home/["請按這裡"^]。
+您現在可以新增其他後端、管理儲存類別、管理後端、以及執行 Volume 作業。

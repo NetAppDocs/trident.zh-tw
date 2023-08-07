@@ -31,18 +31,13 @@ Astra Trident支援ONTAP 以CHAP為基礎的驗證功能、適用於各種SAN工
 針對使用SAN儲存驅動程式的幕後作業、Astra Trident可設定雙向CHAP、並透過「tridentctl」管理CHAP使用者名稱和機密。ONTAP請參閱 link:../trident-use/ontap-san-prep.html["請按這裡"] 瞭解Astra Trident如何在ONTAP 不景點上設定CHAP。
 
 
-NOTE: Trident 20.04及更新版本提供對支援不支援的CHAP ONTAP 。
-
-
 
 == 使用CHAP驗證NetApp HCI 搭配不景和SolidFire 不景的後端
 
-NetApp建議部署雙向CHAP、以確保主機與NetApp HCI 支援功能及SolidFire 支援功能之間的驗證。Astra Trident使用每個租戶包含兩個CHAP密碼的秘密物件。當Trident安裝為「csi佈建程式」時、它會管理CHAP機密、並將其儲存在個別PV的「tridentvolume」（Tridentvolume）CR物件中。建立PV時、「csi Astra Trident」會使用CHAP機密來啟動iSCSI工作階段、NetApp HCI 並透過CHAP與該系統進行通訊SolidFire 。
+NetApp建議部署雙向CHAP、以確保主機與NetApp HCI 支援功能及SolidFire 支援功能之間的驗證。Astra Trident使用每個租戶包含兩個CHAP密碼的秘密物件。安裝 Astra Trident 時、它會管理 CHAP 機密、並將其儲存在中 `tridentvolume` 對應PV的CR物件。建立 PV 時、 Astra Trident 會使用 CHAP 機密來啟動 iSCSI 工作階段、並透過 CHAP 與 NetApp HCI 和 SolidFire 系統通訊。
 
 
-NOTE: 由csi Trident建立的磁碟區不會與任何Volume存取群組相關聯。
-
-在非csi前端中、磁碟區作為工作節點上的裝置附加作業是由Kubernetes處理。建立磁碟區之後、Astra Trident會呼叫NetApp HCI / SolidFire系統、以便在該租戶的機密資訊尚未存在時擷取機密資訊。然後、Astra Trident將機密傳給Kubernetes。位於每個節點上的Kubelet可透過Kubernetes API存取機密資料、並使用它們在存取磁碟區的每個節點與磁碟區所在的NetApp HCI / SolidFire系統之間執行/啟用CHAP。
+NOTE: Astra Trident 所建立的磁碟區不會與任何 Volume Access Group 相關聯。
 
 
 

@@ -16,7 +16,7 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 
 
 
-== Astra Trident 23.04 的重要資訊
+== Astra Trident 23.07 的重要資訊
 
 *您必須閱讀下列有關Astra Trident的重要資訊。*
 
@@ -49,11 +49,11 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. 使用 `helm install` 並指定部署名稱、如下例所示 `23.04.0` 是您要安裝的Astra Trident版本。
+. 使用 `helm install` 並指定部署名稱、如下例所示 `23.07.0` 是您要安裝的Astra Trident版本。
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.04.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 23.07.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -83,11 +83,11 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 在命令列上指定置換。
 
 |===
-例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `23.04.0` 您要安裝的Astra Trident版本：
+例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `23.07.0` 您要安裝的Astra Trident版本：
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.04.0  --create-namespace --namespace --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 23.07.0  --create-namespace --namespace --set tridentDebug=true
 ----
 
 
@@ -215,9 +215,3 @@ Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-p
 * 控制器外掛程式可處理磁碟區資源配置與管理、例如快照和調整大小。
 * 節點外掛程式會處理將儲存設備附加至節點的問題。
 
-
-
-
-== 下一步
-
-現在您可以了 link:kubernetes-postdeployment.html["建立後端和儲存類別、配置磁碟區、並將磁碟區掛載到Pod中"]。

@@ -16,7 +16,7 @@ summary: '您可以使用Trident運算子（手動或使用Helm）或搭配安�
 
 
 
-== Astra Trident 23.04 的重要資訊
+== Astra Trident 23.07 的重要資訊
 
 *您必須閱讀下列有關Astra Trident的重要資訊。*
 
@@ -74,6 +74,12 @@ Trident運算子會自動為Kubernetes版本建立下列物件。
 
 
 ====
+.<strong> 問責表 </strong>
+[%collapsible]
+====
+叢集範圍的 Trident 運算子可在叢集層級管理與 Astra Trident 安裝相關的資源。這可減輕使用命名空間範圍運算子來維護叢集範圍資源時可能造成的錯誤。這對於自我修復和修補至關重要。
+
+====
 .還原功能的功能</strong> <strong>
 [%collapsible]
 ====
@@ -91,7 +97,13 @@ Trident運算子會自動為Kubernetes版本建立下列物件。
 ----
 kubectl patch torc <trident-orchestrator-name> -n trident --type=merge -p '{"spec":{"debug":true}}'
 ----
-更新「TridentOrchestrator」之後、營運者會處理更新並修補現有安裝。這可能會觸發建立新的Pod、以據此修改安裝。
+之後 `TridentOrchestrator` 更新後、營運者會處理更新並修補現有安裝。這可能會觸發建立新的 Pod 、以據此修改安裝。
+
+====
+.<strong> 的重新安裝過程 </strong>
+[%collapsible]
+====
+叢集範圍的 Trident 運算子可清除移除叢集範圍的資源。使用者可以完全解除安裝 Astra Trident 、並輕鬆重新安裝。
 
 ====
 .支援升級功能的不一樣之處</strong> <strong>

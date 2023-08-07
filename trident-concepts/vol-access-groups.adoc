@@ -23,8 +23,8 @@ NOTE: 如果您使用的是CHAP、建議您略過本節、以簡化管理並避�
 
 Astra Trident可使用Volume存取群組來控制其所配置之磁碟區的存取。如果停用CHAP、除非您在組態中指定一或多個存取群組ID、否則會尋找稱為「Trident」的存取群組。
 
-雖然Astra Trident會將新磁碟區與已設定的存取群組建立關聯、但它不會自行建立或管理存取群組。存取群組必須先存在、儲存後端才會新增至Astra Trident、而且必須包含Kubernetes叢集中每個節點的iSCSI IQN、這些節點可能會掛載該後端所配置的磁碟區。在大多數安裝中、這包括叢集中的每個工作節點。
+Astra Trident 會將新磁碟區與設定的存取群組建立關聯、但不會自行建立或以其他方式管理存取群組。存取群組必須先存在、才能將儲存後端新增至 Astra Trident 、而且必須包含 Kubernetes 叢集中每個節點的 iSCSI IQN 、這些節點可能會裝載該後端所佈建的磁碟區。在大多數安裝中、這包括叢集中的每個工作節點。
 
 對於具有超過64個節點的Kubernetes叢集、您應該使用多個存取群組。每個存取群組最多可包含64個IQN、每個磁碟區可屬於四個存取群組。在設定最多四個存取群組的情況下、叢集中最多256個節點的任何節點都能存取任何磁碟區。如需Volume存取群組的最新限制、請參閱 https://docs.netapp.com/us-en/element-software/concepts/concept_solidfire_concepts_volume_access_groups.html["請按這裡"^]。
 
-如果您要將組態從使用預設的「三叉」存取群組修改為使用其他存取群組、請在清單中加入「三叉」存取群組的ID。
+如果您是從使用預設值的組態修改組態 `trident` 存取群組也會使用其他群組、包括的ID `trident` 清單中的存取群組。

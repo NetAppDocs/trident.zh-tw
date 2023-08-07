@@ -4,7 +4,7 @@ title: 使用Astra Trident
 entries:
 - title: 準備工作節點
   url: "/trident-use/worker-node-prep.html"
-- title: 設定後端
+- title: 設定及管理後端
   entries:
   - title: 總覽
     url: "/trident-use/backends.html"
@@ -44,27 +44,33 @@ entries:
       url: "/trident-use/trident-fsx-prep.html"
     - title: 組態選項與範例
       url: "/trident-use/trident-fsx-examples.html"
-- title: 使用kubecl建立後端
-  url: "/trident-use/backend-kubectl.html"
-- title: 以KECBECVL執行後端管理
-  url: "/trident-use/backend_ops_kubectl.html"
-- title: 使用tridentctl執行後端管理
-  url: "/trident-use/backend_ops_tridentctl.html"
-- title: 在後端管理選項之間切換
-  url: "/trident-use/backend_options.html"
-- title: 管理儲存類別
-  url: "/trident-use/manage-stor-class.html"
-- title: 執行Volume作業
+  - title: 使用kubecl建立後端
+    url: "/trident-use/backend-kubectl.html"
+  - title: 管理後端
+    entries:
+    - title: 使用 kubectl 管理後端
+      url: "/trident-use/backend_ops_kubectl.html"
+    - title: 使用 tridentctl 管理後端
+      url: "/trident-use/backend_ops_tridentctl.html"
+    - title: 在後端管理選項之間切換
+      url: "/trident-use/backend_options.html"
+- title: 建立及管理儲存類別
   entries:
-  - title: 使用「csi拓撲」
-    url: "/trident-use/csi-topology.html"
-  - title: 使用快照
-    url: "/trident-use/vol-snapshots.html"
+  - title: 建立儲存類別
+    url: "/trident-use/create-stor-class.html"
+  - title: 管理儲存類別
+    url: "/trident-use/manage-stor-class.html"
+- title: 資源配置與管理磁碟區
+  entries:
+  - title: 配置 Volume
+    url: "/trident-use/vol-provision.html"
   - title: 展開Volume
     url: "/trident-use/vol-expansion.html"
   - title: 匯入磁碟區
     url: "/trident-use/vol-import.html"
-- title: 跨命名空間共用NFS磁碟區
-  url: "/trident-use/volume-share.html"
-- title: 監控Astra Trident
-  url: "/trident-use/monitor-trident.html"
+  - title: 跨命名空間共用NFS磁碟區
+    url: "/trident-use/volume-share.html"
+  - title: 使用「csi拓撲」
+    url: "/trident-use/csi-topology.html"
+  - title: 使用快照
+    url: "/trident-use/vol-snapshots.html"

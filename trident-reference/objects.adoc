@@ -80,10 +80,7 @@ Kubernetes「PeristentVolume Claim」物件是Kubernetes叢集使用者所提出
 
 Trident支援使用csi規格建立Volume Snapshot：您可以建立Volume Snapshot、並將其作為資料來源來複製現有的PVCS。如此一來、PV的時間點複本就能以快照形式呈現給Kubernetes。快照可用來建立新的PV。請參閱「+隨需磁碟區快照+」、瞭解這項功能的運作方式。
 
-Trident也提供「cloneFromPVc」和「shplitOnClone」註釋、以建立複本。您可以使用這些附註來複製一個PVC,而不需要使用csi實作（在Kubernetes 1.13及更早版本上）或Kubernetes版本不支援beta Volume Snapshot（Kubernetes 1.16及更早版本）。請記住、Trident 19.10支援從PVc複製的csi工作流程。
-
-
-NOTE: 您可以將「cloneFromPVc」和「shplitOnClone」註解搭配「csi Trident」以及傳統的非csi前端使用。
+Trident也提供 `cloneFromPVC` 和 `splitOnClone` 建立複本的附註。您可以使用這些註釋來複製 PVC 、而無需使用 CSI 實作。
 
 以下是一個範例：如果使用者已經有一個名為「mysql"的PVC,則使用者可以使用「trident.netapp.io/cloneFromPVC: mySQL」之類的註解來建立一個名為「mysqlclone」的新PVC.使用此註釋集、Trident會複製對應於mySQL PVc的磁碟區、而非從頭開始配置磁碟區。
 
@@ -94,7 +91,7 @@ NOTE: 您可以將「cloneFromPVc」和「shplitOnClone」註解搭配「csi Tri
 * 有了「ONTAP-NAS」和「ONTAP-SAN」驅動程式、可能需要將「trident.netapp.io/splitOnClone`」標註與「trident.netapp.io/cloneFromPVC`」一起設定。Trident將trident.netapp.io/splitOnClone`設為「true」、將複製的磁碟區從父磁碟區分割出來、因此將複製的磁碟區的生命週期與其父磁碟區完全分離、而犧牲部分儲存效率。如果不將「trident.netapp.io/splitOnClone`」設定為「假」、則會減少後端的空間使用量、而犧牲父磁碟區與複製磁碟區之間的相依性、使父磁碟區無法刪除、除非先刪除複本。分割實體複製是合理的做法、是將空的資料庫磁碟區複製到磁碟區及其實體複製環境、以大幅分散差異、而非ONTAP 受益於由NetApp提供的儲存效率。
 
 
-「shample-input」目錄包含可與Trident搭配使用的PVc定義範例。請參閱Trident Volume物件、以取得與Trident Volume相關的參數和設定完整說明。
+。 `sample-input` 目錄包含用於Trident的PVc定義範例。請參閱  以取得與 Trident Volume 相關的參數和設定的完整說明。
 
 
 
@@ -291,20 +288,19 @@ Kubernetes自訂資源是Kubernetes API中由系統管理員定義的端點、�
 
 自訂資源定義（CRD）及其相關的物件中繼資料會由Kubernetes儲存在其中繼資料儲存區中。如此一來、您就不需要另外建立Trident的儲存區。
 
-從19.07版開始、Trident使用許多「CustomResourceDefinition」物件來保留Trident物件的身分、例如Trident後端、Trident儲存類別和Trident Volume。這些物件由Trident管理。此外、「csi Volume Snapshot」架構也引進了定義Volume快照所需的部分CRD。
+Astra Trident的用途 `CustomResourceDefinition` 保留Trident物件身分的物件、例如Trident後端、Trident儲存類別和Trident Volume。這些物件由Trident管理。此外、「csi Volume Snapshot」架構也引進了定義Volume快照所需的部分CRD。
 
 CRD是Kubernetes建構。上述資源的物件是由Trident所建立。例如、當使用「tridentctl」建立後端時、Kubernetes會建立一個對應的「tridentbackend」CRD物件供其使用。
 
 以下是Trident客戶需求日的幾點重點：
 
 * 安裝Trident時、會建立一組客戶需求日、並可像使用任何其他資源類型一樣使用。
-* 從舊版Trident（使用「etcd」來維護狀態）升級時、Trident安裝程式會從「etcd」金鑰值資料儲存區移轉資料、並建立對應的CRD物件。
 * 使用「tridentctl uninstall」命令解除安裝Trident時、會刪除Trident Pod、但不會清除建立的CRD。請參閱 link:../trident-managing-k8s/uninstall-trident.html["解除安裝Trident"] 瞭解如何徹底移除Trident並從頭重新設定。
 
 
 
 
-== Trident `StorageClass` 物件
+== Astra Trident `StorageClass` 物件
 
 Trident會為Kubernetes「torageClass」物件建立相符的儲存類別、並在其資源配置程式欄位中指定「csi.trident.netapp.io`/`netapp.io/trident`」。儲存類別名稱與Kubernetes「torageClass」物件的名稱相符。
 
@@ -317,7 +313,7 @@ NOTE: 使用Kubernetes、當Kubernetes「torageClass」以Trident做為資源配
 
 
 
-== Trident後端物件
+== Astra Trident 後端物件
 
 後端代表儲存供應商、其中Trident會配置磁碟區；單一Trident執行個體可管理任何數量的後端。
 
@@ -328,7 +324,7 @@ NOTE: 這是您自己建立和管理的兩種物件類型之一。另一個是Ku
 
 
 
-== Trident `StoragePool` 物件
+== Astra Trident `StoragePool` 物件
 
 儲存資源池代表可在每個後端上進行資源配置的不同位置。就支援而言ONTAP 、這些項目對應於SVM中的集合體。對於NetApp HCI / SolidFire、這些服務會對應到系統管理員指定的QoS頻段。就架構而言、這些項目對應於雲端供應商所在的地區。Cloud Volumes Service每個儲存資源池都有一組獨特的儲存屬性、可定義其效能特性和資料保護特性。
 
@@ -336,16 +332,17 @@ NOTE: 這是您自己建立和管理的兩種物件類型之一。另一個是Ku
 
 
 
-== Trident `Volume` 物件
+== Astra Trident `Volume` 物件
 
 Volume是資源配置的基本單位、包含NFS共用和iSCSI LUN等後端端點。在Kubernetes中、這些內容直接對應到「PersistentVolumes」。建立磁碟區時、請確定它有一個儲存類別、決定該磁碟區可以配置的位置及大小。
 
+[NOTE]
+====
+* 在Kubernetes中、會自動管理這些物件。您可以檢視這些資源、以查看資源配置的Trident內容。
+* 刪除具有相關快照的PV時、對應的Trident Volume會更新為*刪除*狀態。若要刪除Trident磁碟區、您應該移除該磁碟區的快照。
 
-NOTE: 在Kubernetes中、會自動管理這些物件。您可以檢視這些資源、以查看資源配置的Trident內容。
 
-
-TIP: 刪除具有相關快照的PV時、對應的Trident Volume會更新為*刪除*狀態。若要刪除Trident磁碟區、您應該移除該磁碟區的快照。
-
+====
 Volume組態會定義已配置磁碟區應具備的內容。
 
 [cols=",,,"]
@@ -403,7 +400,7 @@ Trident在建立磁碟區時會產生「內部名稱」。這包括兩個步驟�
 
 
 
-== Trident `Snapshot` 物件
+== Astra Trident `Snapshot` 物件
 
 快照是磁碟區的時間點複本、可用來配置新的磁碟區或還原狀態。在Kubernetes中、這些物件會直接對應到「Volume SnapshotContent」物件。每個快照都與一個Volume相關聯、該磁碟區是快照資料的來源。
 

@@ -1,0 +1,24 @@
+---
+section: trident-install
+title: 安裝Astra Trident
+entries:
+- title: 安裝總覽
+  url: "/trident-get-started/kubernetes-deploy.html"
+- title: 使用Trident操作員安裝
+  entries:
+  - title: 手動部署Trident運算子（標準）
+    url: "/trident-get-started/kubernetes-deploy-operator.html"
+  - title: 手動部署Trident運算子（離線）
+    url: "/trident-get-started/kubernetes-deploy-operator-mirror.html"
+  - title: 使用Trident Helm圖表（標準）
+    url: "/trident-get-started/kubernetes-deploy-helm.html"
+  - title: 使用Trident Helm圖表（離線）
+    url: "/trident-get-started/kubernetes-deploy-helm-mirror.html"
+  - title: 自訂Trident操作員安裝
+    url: "/trident-get-started/kubernetes-customize-deploy.html"
+- title: 使用tridentctl安裝
+  entries:
+  - title: 使用tridentctl安裝
+    url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
+  - title: 自訂tridentctl安裝
+    url: "/trident-get-started/kubernetes-customize-deploy-tridentctl.html"

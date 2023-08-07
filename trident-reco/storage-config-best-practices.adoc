@@ -82,7 +82,7 @@ vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
 
 === 設定Trident使用雙向CHAP
 
-您可以在後端定義中指定CHAP啟動器和目標使用者名稱和密碼、並在SVM上啟用Trident啟用CHAP。Trident使用後端組態中的「useCHAP」參數來驗證iSCSI連線、以ONTAP CHAP作為後端點。Trident 20.04及更新版本提供雙向CHAP支援。
+您可以在後端定義中指定CHAP啟動器和目標使用者名稱和密碼、並在SVM上啟用Trident啟用CHAP。使用 `useCHAP` 後端組態中的參數、Trident會驗證iSCSI連線ONTAP 、以CHAP作為後端。
 
 
 
@@ -174,7 +174,7 @@ storage:
 
 === 使用專屬的匯出原則
 
-您應該確保每個後端都有一個匯出原則、只允許存取Kubernetes叢集中的節點。Trident可從20.04版開始自動建立及管理匯出原則。如此一來、Trident就能限制對Kubernetes叢集中節點所配置之磁碟區的存取、並簡化節點的新增/刪除作業。
+您應該確保每個後端都有一個匯出原則、只允許存取Kubernetes叢集中的節點。Trident 可以自動建立及管理匯出原則。如此一來、Trident就能限制對Kubernetes叢集中節點所配置之磁碟區的存取、並簡化節點的新增/刪除作業。
 
 或者、您也可以手動建立匯出原則、並以一或多個匯出規則填入、以處理每個節點存取要求：
 

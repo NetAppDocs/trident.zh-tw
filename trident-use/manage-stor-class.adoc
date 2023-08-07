@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/manage-stor-class.html 
 keywords: storage class, manage storage class, storage classes, kubernetes storage classes 
-summary: 您可以建立儲存類別、刪除儲存類別、以及檢視現有的儲存類別。 
+summary: 您可以檢視現有的儲存類別、設定預設的儲存類別、識別儲存類別後端、以及刪除儲存類別。 
 ---
 = 管理儲存類別
 :hardbreaks:
@@ -12,42 +12,7 @@ summary: 您可以建立儲存類別、刪除儲存類別、以及檢視現有�
 
 
 [role="lead"]
-您可以建立儲存類別、刪除儲存類別、以及檢視現有的儲存類別。
-
-
-
-== 設計儲存類別
-
-請參閱 link:../trident-reference/objects.html["請按這裡"^] 以取得有關儲存類別及其設定方式的詳細資訊。
-
-
-
-== 建立儲存類別
-
-取得儲存類別檔案之後、請執行下列命令：
-
-[listing]
-----
-kubectl create -f <storage-class-file>
-----
-「<storage－class file」（儲存設備類別檔案）應以您的儲存設備類別檔案名稱取代。
-
-
-
-== 刪除儲存類別
-
-若要從Kubernetes刪除儲存類別、請執行下列命令：
-
-[listing]
-----
-kubectl delete storageclass <storage-class>
-----
-「<storage－class>'」應改用您的儲存類別。
-
-透過此儲存類別所建立的任何持續磁碟區都將維持不變、Astra Trident將繼續管理這些磁碟區。
-
-
-NOTE: Astra Trident強制執行空白 `fsType` 針對所建立的磁碟區。對於iSCSI後端、建議強制執行 `parameters.fsType` 在StorageClass中。您應該刪除現有的StorageClass並重新建立 `parameters.fsType` 已指定。
+您可以檢視現有的儲存類別、設定預設的儲存類別、識別儲存類別後端、以及刪除儲存類別。
 
 
 
@@ -105,7 +70,7 @@ kubectl patch storageclass <storage-class-name> -p '{"metadata": {"annotations":
 Trident安裝程式套件中也有包含此附註的範例。
 
 
-NOTE: 在任何指定時間、您的叢集中都只應有一個預設儲存類別。Kubernetes在技術上並不妨礙您擁有多個儲存類別、但它的行為方式就如同完全沒有預設的儲存類別一樣。
+NOTE: 叢集中一次只應有一個預設儲存類別。Kubernetes在技術上並不妨礙您擁有多個儲存類別、但它的行為方式就如同完全沒有預設的儲存類別一樣。
 
 
 
@@ -117,3 +82,19 @@ NOTE: 在任何指定時間、您的叢集中都只應有一個預設儲存類�
 ----
 tridentctl get storageclass -o json | jq  '[.items[] | {storageClass: .Config.name, backends: [.storage]|unique}]'
 ----
+
+
+== 刪除儲存類別
+
+若要從Kubernetes刪除儲存類別、請執行下列命令：
+
+[listing]
+----
+kubectl delete storageclass <storage-class>
+----
+「<storage－class>'」應改用您的儲存類別。
+
+透過此儲存類別所建立的任何持續磁碟區都將維持不變、Astra Trident將繼續管理這些磁碟區。
+
+
+NOTE: Astra Trident強制執行空白 `fsType` 針對所建立的磁碟區。對於iSCSI後端、建議強制執行 `parameters.fsType` 在StorageClass中。您應該刪除現有的StorageClass並重新建立 `parameters.fsType` 已指定。

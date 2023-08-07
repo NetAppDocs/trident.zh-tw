@@ -159,13 +159,12 @@ Usage:
 ----
 旗標：
 
-* 「-autosup-image字串」：AutoSupport 適用於「遙測」的容器影像（預設為「NetApp/triident autosupport：20.07.0」）。
+* ``--autosupport-image string`： AutoSupport 遙測的容器映像（預設為「 NetApp/trident autosupport ： <current-version> 」）。
 * 「-autosupport-proxy]：代理伺服器的位址/連接埠、用於傳送AutoSupport 「遙測」。
-* 「-csi」：安裝csi Trident（僅適用於Kubernetes 1.13的置換功能、需要功能閘道）。
 * 「-enable節點準備」：嘗試在節點上安裝所需的套件。
 * 「-generame-custom-yaml」：產生Yaml檔案、無需安裝任何內容。
 * 「-h、-help'：安裝說明。
-* 「-http-requer-timeout」：覆寫Trident控制器REST API的HTTP要求逾時（預設值為1m30s）。
+* ``--http-request-timeout`：覆寫 Trident 控制器 REST API 的 HTTP 要求逾時（預設值為 1m30s ）。
 * 「-image-registry字串」：內部映像登錄的位址/連接埠。
 * 「-k8s-timeout duration」（k8s-timeout持續時間）：所有Kubernetes作業的逾時時間（預設為3個月）。
 * 「-kubelet-dir字串」：kubelet內部狀態的主機位置（預設為「/var/lib/kubelet」）。
@@ -238,19 +237,6 @@ Usage:
   tridentctl update [option]
 ----
 可用選項：「後端」：更新Astra Trident的後端。
-
-
-
-== `upgrade`
-
-您可以執行「升級」命令來升級Astra Trident中的資源。
-
-[listing]
-----
-Usage:
-tridentctl upgrade [option]
-----
-可用選項：「Volume」（Volume）：將一個或多個持續磁碟區從NFS/iSCSI升級至SCSI。
 
 
 

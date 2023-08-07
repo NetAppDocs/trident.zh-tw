@@ -147,8 +147,8 @@ curl -fsSL https://get.docker.com/ | sh
 +
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.04.0/trident-installer-23.04.0.tar.gz
-tar zxf trident-installer-23.04.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.07.0/trident-installer-23.07.0.tar.gz
+tar zxf trident-installer-23.07.0.tar.gz
 ----
 .. 移至Bin路徑中的位置：
 +
@@ -183,7 +183,7 @@ EOF
 ----
 
 
-. 放置二進位檔並建立組態檔之後、請使用所需的組態檔來啟動Trident精靈。
+. 放置二進位檔案並建立組態檔案之後、請使用所需的組態檔案啟動 Trident 精靈。
 +
 [listing]
 ----

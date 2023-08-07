@@ -16,7 +16,7 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 
 
 
-== Astra Trident 23.04 的重要資訊
+== Astra Trident 23.07 的重要資訊
 
 *您必須閱讀下列有關Astra Trident的重要資訊。*
 
@@ -49,7 +49,7 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. 使用 `helm install` 並指定部署和映像登錄位置的名稱。您的 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。在範例中、 `23.04.0` 是您要安裝的Astra Trident版本。
+. 使用 `helm install` 並指定部署和映像登錄位置的名稱。您的 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。在範例中、 `23.07.0` 是您要安裝的Astra Trident版本。
 +
 [role="tabbed-block"]
 ====
@@ -57,7 +57,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 --
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.04.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 23.07.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
 ----
 --
 .不同登錄中的映像
@@ -66,7 +66,7 @@ helm install <name> netapp-trident/trident-operator --version 23.04.0 --set imag
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.04.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:23.04.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:23.04 --set tridentImage=<your-registry>/netapp/trident:23.04.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 23.07.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:23.07.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:23.07 --set tridentImage=<your-registry>/netapp/trident:23.07.0 --create-namespace --namespace <trident-namespace>
 ----
 --
 ====
@@ -98,11 +98,11 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 在命令列上指定置換。
 
 |===
-例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `23.04.0` 您要安裝的Astra Trident版本：
+例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `23.07.0` 您要安裝的Astra Trident版本：
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.04.0  --create-namespace --namespace --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 23.07.0  --create-namespace --namespace --set tridentDebug=true
 ----
 
 
@@ -221,18 +221,4 @@ helm install <name> netapp-trident/trident-operator --version 23.04.0  --create-
 |===
 
 
-=== 瞭解控制器 Pod 和節點 Pod
-
-Astra Trident 會以單一控制器 Pod 的形式執行、並在叢集中的每個工作節點上提供節點 Pod 。節點 Pod 必須在任何想要裝載 Astra Trident Volume 的主機上執行。
-
-Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["節點選取器"^] 和 link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["容忍和污染"^] 用於限制 Pod 在特定或偏好的節點上執行。使用「 ControllerPlugin' 」和 `NodePlugin`，您可以指定限制和置換。
-
-* 控制器外掛程式可處理磁碟區資源配置與管理、例如快照和調整大小。
-* 節點外掛程式會處理將儲存設備附加至節點的問題。
-
-
-
-
 == 下一步
-
-現在您可以了 link:kubernetes-postdeployment.html["建立後端和儲存類別、配置磁碟區、並將磁碟區掛載到Pod中"]。

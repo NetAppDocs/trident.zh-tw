@@ -46,7 +46,7 @@ Astra Trident並不依賴其他NetApp軟體產品、而是以獨立應用程式�
 
 === 我可以取得Astra Trident如何配置儲存設備的指標嗎？
 
-是的。Trident 20.01推出Prometheus端點、可用來收集有關Astra Trident作業的資訊、例如受管理的後端數目、已配置的磁碟區數目、已用位元組等。您也可以使用Cloud Insights 此功能進行監控與分析。
+是的。可用於收集 Astra Trident 作業相關資訊的 Prometheus 端點、例如管理的後端數目、已配置的磁碟區數量、使用的位元組等。您也可以使用 link:https://docs.netapp.com/us-en/cloudinsights/["Cloud Insights"^] 用於監控與分析。
 
 
 
@@ -57,12 +57,6 @@ Astra Trident並不依賴其他NetApp軟體產品、而是以獨立應用程式�
 
 
 == 在Kubernetes叢集上安裝及使用Astra Trident
-
-
-
-=== 支援的版本為何 `etcd`？
-
-Astra Trident不再需要「etcd」。它使用客戶需求日來維持狀態。
 
 
 
@@ -220,19 +214,13 @@ NetApp支援將Astra Trident從一個重大版本升級至下一個重大版本�
 
 === Astra Trident是否能設定CHAP以ONTAP 供後端使用？
 
-是的。從20.04開始、Astra Trident支援雙向CHAP以利ONTAP 實現後端。這需要在後端組態中設定「useCHAP=true」。
+是的。Astra Trident 支援 ONTAP 後端的雙向 CHAP 。這需要設定 `useCHAP=true` 在後端組態中。
 
 
 
 === 如何使用Astra Trident管理匯出原則？
 
-Astra Trident可從20.04版起、動態建立及管理匯出原則。如此一來、儲存管理員就能在其後端組態中提供一或多個CIDR區塊、並將位於這些範圍內的Trident新增節點IP、加入其所建立的匯出原則。如此一來、Astra Trident就能自動管理新增和刪除在指定CIDR內具有IP的節點規則。此功能需要「csi Trident」。
-
-
-
-=== 我們可以在DataLIF中指定連接埠嗎？
-
-Astra Trident 19.01及更新版本支援在DataLIF中指定連接埠。在「backend.json」檔案中將其設定為「managementLIF」：<IP位址>:<port>」。例如、如果管理LIF的IP位址為192.0.2、連接埠為1000、請設定「managementLIF」：「192.0.2：2.1：1000」。
+Astra Trident可從20.04版起、動態建立及管理匯出原則。如此一來、儲存管理員就能在其後端組態中提供一或多個CIDR區塊、並將位於這些範圍內的Trident新增節點IP、加入其所建立的匯出原則。如此一來、Astra Trident就能自動管理新增和刪除在指定CIDR內具有IP的節點規則。
 
 
 
@@ -354,12 +342,6 @@ Kubernetes從1.10版開始自動啟用PVc保護。
 
 
 
-=== 如果我的磁碟區是在Astra Trident以外建立的、我可以將它匯入Astra Trident嗎？
-
-從19.04開始、您可以使用Volume匯入功能將磁碟區帶入Kubernetes。
-
-
-
 === 我可以在磁碟區處於SnapMirror資料保護（DP）或離線模式時匯入該磁碟區嗎？
 
 如果外部磁碟區處於DP模式或離線、則磁碟區匯入會失敗。您會收到下列錯誤訊息：
@@ -369,12 +351,6 @@ Kubernetes從1.10版開始自動啟用PVc保護。
 Error: could not import volume: volume import failed to get size of volume: volume <name> was not found (400 Bad Request) command terminated with exit code 1.
 Make sure to remove the DP mode or put the volume online before importing the volume.
 ----
-
-
-=== 我可以擴充由Astra Trident建立的iSCSI PVCs嗎？
-
-Trident 19.10支援使用csi資源配置程式擴充iSCSI PV。
-
 
 
 === 資源配額如何轉譯至NetApp叢集？

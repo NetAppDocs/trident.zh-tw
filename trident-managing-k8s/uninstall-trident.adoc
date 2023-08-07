@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-managing-k8s/uninstall-trident.html 
-keywords: uninstall, astra trident, methods, operator, tridentctl, helm 
-summary: 視Astra Trident的安裝方式而定、有多種選項可供您解除安裝。 
+keywords: uninstall, astra trident, methods, operator, tridentctl, helm, downgrade, obliviate, crds, wipeout, downgrade 
+summary: 您應該使用與安裝 Astra Trident 相同的方法來解除安裝 Astra Trident 。如果您需要修正在升級、相依性問題或升級失敗或不完整之後所觀察到的錯誤、您應該解除安裝 Astra Trident 、並使用該版本的特定指示重新安裝舊版。 
 ---
 = 解除安裝Astra Trident
 :hardbreaks:
@@ -12,11 +12,77 @@ summary: 視Astra Trident的安裝方式而定、有多種選項可供您解除�
 
 
 [role="lead"]
-視Astra Trident的安裝方式而定、有多種選項可供您解除安裝。
+您應該使用與安裝 Astra Trident 相同的方法來解除安裝 Astra Trident 。
+
+
+NOTE: 如果您需要修正升級、相依性問題或升級失敗或不完整之後所觀察到的錯誤、您應該解除安裝 Astra Trident 、並使用相關的特定指示重新安裝舊版 link:../earlier-versions.html["版本"]。這是將 _ 降級 _ 降級至較早版本的唯一建議方法。
+
+.開始之前
+如果您要停用 Kubernetes 叢集、則必須先刪除所有使用 Astra Trident 所建立之 Volume 的應用程式、然後再解除安裝。如此可確保在刪除之前、不會在 Kubernetes 節點上發佈 PVC 。
 
 
 
-== 使用Helm解除安裝
+== 確定原始安裝方法
+
+您應該使用與安裝 Astra Trident 相同的方法來解除安裝 Astra Trident 。在解除安裝之前、請先確認您原本用來安裝 Astra Trident 的版本。
+
+. 使用 `kubectl get pods -n trident` 檢查 Pod 。
++
+** 如果沒有操作員 Pod 、則使用安裝 Astra Trident `tridentctl`。
+** 如果有操作員 Pod 、則使用 Trident 操作員手動或使用 Helm 來安裝 Astra Trident 。
+
+
+. 如果有操作員 Pod 、請使用 `kubectl describe tproc trident` 判斷 Astra Trident 是否使用 Helm 安裝。
++
+** 如果有 Helm 標籤、則使用 Helm 安裝 Astra Trident 。
+** 如果沒有 Helm 標籤、則使用 Trident 運算子手動安裝 Astra Trident 。
+
+
+
+
+
+
+== 解除安裝 Trident 運算子安裝
+
+您可以手動或使用 Helm 解除安裝 Trident 運算子安裝。
+
+
+
+=== 解除安裝手動安裝
+
+如果您使用運算子安裝了Astra Trident、您可以執行下列其中一項來解除安裝：
+
+* 編輯 `TridentOrchestrator` 若要設定解除安裝旗標：*您可以編輯 `TridentOrchestrator` 並設定 `spec.uninstall=true`。
++
+** 編輯 `TridentOrchestrator` 並設定 `uninstall` 旗標如下所示：
++
+[listing]
+----
+kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"uninstall":true}}'
+----
+** 當「uninstall」旗標設定為「true」時、Trident操作者會解除安裝Trident、但不會移除TridentOrchestrator本身。如果您想要再次安裝Trident、請清理TridentOrchestrator並建立新的Trident。
+
+
+* 刪除 `TridentOrchestrator`：*移除 `TridentOrchestrator` 用來部署Astra Trident的CR、您可以指示操作員解除安裝Trident。
++
+** 操作員會處理的移除作業 `TridentOrchestrator` 然後繼續移除Astra Trident部署和取消安裝、刪除它在安裝過程中建立的Trident Pod。
+** 若要解除安裝 Astra Trident 並完全移除 Astra Trident （包括它所建立的 CRD ）、請編輯 `TridentOrchestrator` 以通過 `wipeout` 選項。後續安裝將視為新安裝。
++
+[listing]
+----
+kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
+----
++
+
+WARNING: 此動作無法復原。除非您想要全新的 Astra Trident 安裝、否則請勿清除 CRD 。例如、如果您要移至前述版本以外的版本。
+
+
+
+
+
+
+
+=== 解除安裝 Helm 安裝
 
 如果您使用Helm安裝Astra Trident、您可以使用「helm uninstall」來解除安裝。
 
@@ -33,36 +99,9 @@ release "trident" uninstalled
 ----
 
 
-== 使用Trident運算子解除安裝
+== 解除安裝 `tridentctl` 安裝
 
-如果您使用運算子安裝了Astra Trident、您可以執行下列其中一項來解除安裝：
-
-* 要設定解除安裝旗標、請編輯「TridentOrchestrator」：*您可以編輯「TridentOrchestrator」、然後設定「s.pec.uninstall=true」。編輯「TridentOrchestrator」CR、並設定「uninstall」旗標、如下所示：
-+
-[listing]
-----
-kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"uninstall":true}}'
-----
-+
-當「uninstall」旗標設定為「true」時、Trident操作者會解除安裝Trident、但不會移除TridentOrchestrator本身。如果您想要再次安裝Trident、請清理TridentOrchestrator並建立新的Trident。
-
-* *刪除「TridentOrchestrator」：*移除用來部署Astra Trident的「TridentOrchestrator」、您就會指示操作員解除安裝Trident。營運者會處理刪除「TridentOrchestrator」的程序、並繼續移除Astra Trident部署和取消安裝、刪除其在安裝過程中建立的Trident Pod。若要完全移除Astra Trident（包括它所建立的CRD）、並有效清除Slate Clean、您可以編輯「TridentOrchestrator」來通過「wipeout」選項。請參閱下列範例：
-
-
-[listing]
-----
-kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
-----
-這會完全解除安裝Astra Trident、並清除所有與後端及其管理的磁碟區相關的中繼資料。後續安裝會視為全新安裝。
-
-
-WARNING: 執行完整解除安裝時、您只能考慮抹除客戶需求日。此動作無法復原。*除非您想要重新開始並建立全新的Astra Trident安裝、否則請勿清除客戶需求日*。
-
-
-
-== 使用解除安裝 `tridentctl`
-
-執行「tridentctl」中的「uninstall」命令、移除所有與Astra Trident相關的資源、但CRD和相關物件除外、因此可輕鬆再次執行安裝程式、以更新至較新的版本。
+使用 `uninstall` 命令輸入 `tridentctl` 移除與 Astra Trident 相關的所有資源、但 CRD 和相關物件除外。如此一來、再次執行安裝程式即可輕鬆更新至最新版本。
 
 [listing]
 ----

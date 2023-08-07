@@ -97,9 +97,6 @@ trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 
 
 
-.結果
-部署之後、您可以建立 link:../trident-get-started/kubernetes-postdeployment.html["儲存類別、配置磁碟區、然後將磁碟區掛載到Pod中"]。
-
 
 
 == 準備配置SMB磁碟區

@@ -19,7 +19,82 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 
 
-== 23.04 新增功能
+== 23.07 的新功能
+
+
+
+=== 修正
+
+
+
+==== Kubernetes
+
+* 修正 Trident 升級、以忽略卡在終止狀態（link:https://github.com/NetApp/trident/issues/740["問題 #740"^]）。
+* 新增公差至「暫態 - 三叉 - 版本 - pod 」定義（link:https://github.com/NetApp/trident/issues/795["問題 #795"^]）。
+
+
+
+
+==== Astra Trident
+
+* 修正 ONTAP ZAPI 要求、確保在節點暫存作業期間取得 LUN 屬性以識別和修正軌跡 iSCSI 裝置時、會查詢 LUN 序號。
+* 已修正儲存驅動程式碼（link:https://github.com/NetApp/trident/issues/816["問題 #816"^]）。
+* 使用 ONTAP 驅動程式搭配 use-rest = true 時、可調整固定配額大小。
+* 在 ONTAP SAN 經濟環境中建立固定 LUN 複製。
+* 從還原發佈資訊欄位 `rawDevicePath` 至 `devicePath`；新增邏輯以填入及恢復（在某些情況下） `devicePath` 欄位。
+
+
+
+
+=== 增強功能
+
+
+
+==== Kubernetes
+
+* 新增匯入預先配置快照的支援。
+* 最小化部署和取消 Linux 權限設定（link:https://github.com/NetApp/trident/issues/817["問題 #817"^]）。
+
+
+
+
+==== Astra Trident
+
+* 不再報告「線上」磁碟區和快照的狀態欄位。
+* 如果 ONTAP 後端離線（link:https://github.com/NetApp/trident/issues/801["問題 #801"^]、 link:https://github.com/NetApp/trident/issues/543["#543"^]）。
+* LUN 序號一律會在 ControllerVolume Publish 工作流程中擷取及發佈。
+* 新增其他邏輯來驗證 iSCSI 多重路徑裝置序號和大小。
+* iSCSI 磁碟區的額外驗證、確保未分段正確的多重路徑裝置。
+
+
+
+
+==== 實驗性增強
+
+新增 ONTAP SAN 驅動程式的 NVMe over TCP 技術預覽支援。
+
+
+
+==== 文件
+
+許多組織和格式化的改善都已完成。
+
+
+
+=== 棄用
+
+
+
+==== Kubernetes
+
+* 移除對 v1beta1 快照的支援。
+* 移除對 CSI 前磁碟區和儲存類別的支援。
+* 已將支援的 Kubernetes 最小值更新為 1.22 。
+
+
+
+
+== 23.04 年的變更
 
 
 IMPORTANT: 僅當 Kubernetes 版本啟用非正常節點關機功能閘道時、才支援 ONTAP - SAN* 磁碟區的強制磁碟區分離。必須在安裝時使用啟用強制分離 `--enable-force-detach` Trident 安裝程式旗標。

@@ -11,13 +11,11 @@ indexpage:
   - title: 開始使用
     links:
     - title: 瞭解Astra Trident
-      url: "/trident-concepts/intro.html"
+      url: "/trident-get-started/intro.html"
     - title: 需求
       url: "/trident-get-started/requirements.html"
-    - title: 歡迎試用
+    - title: 快速入門
       url: "/trident-get-started/quickstart.html"
-    - title: 常見問題集
-      url: "/faq.html"
   - title: 部署Astra Trident
     links:
     - title: 與Trident營運者一起部署
@@ -42,8 +40,6 @@ indexpage:
       url: "/trident-use/manage-stor-class.html"
     - title: 執行Volume作業
       url: "/trident-use/vol-operations.html"
-    - title: 監控Astra Trident
-      url: "/trident-use/monitor-trident.html"
   - title: 示範教學課程
     links:
     - title: Astra Trident影片

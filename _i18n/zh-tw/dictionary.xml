@@ -127,7 +127,6 @@
   <block id="7962423206a6704e20fa94085d19b517" category="paragraph">「」（預設不強制執行）</block>
   <block id="e5ac299cc3b14e1fac29518569ca9bb1" category="paragraph">新磁碟區的預設大小</block>
   <block id="a83f4a534ccef7ac1d209fb0015cd907" category="paragraph">此後端組態可進一步將磁碟區放置範圍縮小至單一子網路、並修改部分Volume資源配置預設值。</block>
-  <block id="82720d84ad009f069fd0b2cfaf6c3dac" category="summary">適用於Docker的Astra Trident可直接整合適用於NetApp儲存平台的Docker生態系統。它支援從儲存平台到Docker主機的儲存資源資源配置與管理、並提供架構、可在未來新增更多平台。</block>
   <block id="486632f7d2196e772b742db4a4a0ad7c" category="doc">部署Astra Trident</block>
   <block id="d2eb05d1990246a079aeb2f56e3a4237" category="paragraph">多個Astra Trident執行個體可同時在同一個主機上執行。這可同時連線至多個儲存系統和儲存類型、並可自訂Docker磁碟區所使用的儲存設備。</block>
   <block id="89bcbd8e4ba49b7310e9fa748e878c4b" category="inline-link-macro">部署的先決條件</block>
@@ -3803,4 +3802,5 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="62486fa65fc31c383ace8989549632ad" category="sidebar">使用快照</block>
   <block id="143c9ea21ac76ba425aa94411fbba07b" category="sidebar">Astra Trident總覽</block>
   <block id="ab09b43d2faaea1b49257d5a973eae0e" category="sidebar">管理和監控 Astra Trident</block>
+  <block id="ee4c63201b5c5c6c9da139c0a39bcb7b" category="summary">Astra Trident for Docker 可直接整合 NetApp 儲存平台的 Docker 生態系統。它支援從儲存平台到Docker主機的儲存資源資源配置與管理、並提供架構、可在未來新增更多平台。</block>
 </blocks>

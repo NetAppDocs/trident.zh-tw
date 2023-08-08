@@ -113,6 +113,9 @@ Status:
 
 您可以使用 `dataSource` 使用名為的 Volume Snapshot 建立 PVC `<pvc-name>` 做為資料來源。建立好永久虛擬基礎架構之後、就能將它附加到Pod上、就像使用任何其他永久虛擬基礎架構一樣使用。
 
+
+WARNING: 必須在與其相同的命名空間中建立 PVC `dataSource`。
+
 以下範例使用建立 PVC `pvc1-snap` 做為資料來源。
 
 [listing]
@@ -134,9 +137,6 @@ spec:
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
 ----
-
-WARNING: 必須在與其相同的命名空間中建立 PVC `dataSource`。
-
 
 
 == 匯入 Volume 快照

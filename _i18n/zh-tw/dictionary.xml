@@ -3111,7 +3111,6 @@
   <block id="cd494508ccf1cdc45163d6d9d0f401ff" category="list-text"><block ref="cd494508ccf1cdc45163d6d9d0f401ff" category="inline-link-rx"></block></block>
   <block id="2122a8acb599837078e6b76436e892c4" category="list-text">Kubernetes 1.27 現在支援 Trident 。升級Kubernetes之前先升級Trident。</block>
   <block id="40991bba76926bfbcf7fb0b9c207187f" category="list-text">Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.12</block>
-  <block id="fe74bcccaeacaddf91b58dec28fef5be" category="paragraph">1.21 - 1.27</block>
   <block id="362997bacf08e019288e372d8ae1f070" category="list-text">受 OpenShift Container Platform （ AMD64 和 ARM64 ）支援的 RedHat CoreOS （ RHCOS ）版本</block>
   <block id="a3460163c4a2854c79a419dda57ac917" category="list-text">RHEL 8+ （ AMD64 和 ARM64 ）</block>
   <block id="f51a58a0cffb9f9953edce6411578b53" category="list-text">Ubuntu 22.04 或更新版本（ AMD64 和 ARM64 ）</block>
@@ -3803,4 +3802,5 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="143c9ea21ac76ba425aa94411fbba07b" category="sidebar">Astra Trident總覽</block>
   <block id="ab09b43d2faaea1b49257d5a973eae0e" category="sidebar">管理和監控 Astra Trident</block>
   <block id="ee4c63201b5c5c6c9da139c0a39bcb7b" category="summary">Astra Trident for Docker 可直接整合 NetApp 儲存平台的 Docker 生態系統。它支援從儲存平台到Docker主機的儲存資源資源配置與管理、並提供架構、可在未來新增更多平台。</block>
+  <block id="5d22e3d2d8e7ef4a3b8d79728779c6d8" category="paragraph">1.22 - 1.27</block>
 </blocks>

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/vol-import.html 
-keywords: volumes, import volumes, drivers, tridentctl import, pv, persistent volumes, pvc, disaster recovery, dr, clone, reuse, managed volume, unmanaged volume, managed, unmanaged 
+keywords: volumes, import volumes, drivers, tridentctl import, pv, persistent volumes, pvc, disaster recovery, dr, clone, reuse, managed volume, unmanaged volume, managed 
 summary: 您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入為Kubernetes PV。 
 ---
 = 匯入磁碟區
@@ -149,7 +149,7 @@ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-ma
 
 === SAN ONTAP
 
-Astra Trident 支援使用匯入 Volume `ontap-san` 驅動程式：
+Astra Trident 支援使用匯入 Volume `ontap-san` 驅動程式：不支援使用匯入 Volume `ontap-san-economy` 驅動程式：
 
 Astra Trident 可以匯入包含單一 LUN 的 ONTAP SAN FlexVols 。這與一致 `ontap-san` 驅動程式、為FlexVol 每個實體磁碟和FlexVol 一個LUN建立一個實體。Astra Trident 會匯入 FlexVol 、並將其與 PVC 定義相關聯。
 

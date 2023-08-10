@@ -3324,7 +3324,6 @@
   <block id="bff3ebc4ae5702fb7f811ba9acabc13a" category="paragraph">Astra Trident 提供下列儲存驅動程式、可與 ONTAP 叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。</block>
   <block id="ad90b7d29d0d8a9c746868fe1f38ca90" category="paragraph">Rwo 、 ROX 、 rwx 、 RWOP</block>
   <block id="96b38cb92e67a8f09c2d13169b8bb555" category="paragraph">RWO 、 ROX 、 RWOP</block>
-  <block id="5e4708ea6e1c08a91834bc9405f43f5d" category="admonition">必須在與其相同的命名空間中建立 PVC<block ref="d9d448f70687a1aa1f12b2f5ddaa4977" prefix=" " category="inline-code"></block>。</block>
   <block id="f28228f84cb57be6c4037bf94a6afbd2" category="paragraph">刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。移除 Volume 快照以刪除 Astra Trident Volume 。</block>
   <block id="f736607140d617c85245dd139003582e" category="list-text">在指定 Kubernetes 叢集中的所有命名空間中、應該只安裝一個 Astra Trident 執行個體。</block>
   <block id="69bdd71a77ecd87974ee464a579ebc8f" category="list-text">升級時、請務必提供<block ref="f6e7f85d8aee15940665bf722f7afac2" prefix=" " category="inline-code"></block> 在中<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block> 由Astra Trident使用。您可以刪除並重新建立<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block> 無需中斷既有的磁碟區。</block>
@@ -3803,4 +3802,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="ee4c63201b5c5c6c9da139c0a39bcb7b" category="summary">Astra Trident for Docker 可直接整合 NetApp 儲存平台的 Docker 生態系統。它支援從儲存平台到Docker主機的儲存資源資源配置與管理、並提供架構、可在未來新增更多平台。</block>
   <block id="5d22e3d2d8e7ef4a3b8d79728779c6d8" category="paragraph">1.22 - 1.27</block>
   <block id="3e0f4d44c9c86926852e66ee127c5d3d" category="paragraph">Astra Trident 支援使用匯入 Volume<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 驅動程式：不支援使用匯入 Volume<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 驅動程式：</block>
+  <block id="475fb21c20bb54ea8ac6cb1756aba565" category="inline-link-macro">KB ：無法在替代後端建立 Trident PVC Snapshot 的 PVC</block>
+  <block id="18051638f30f342b517379b11f0442f9" category="admonition">將在來源 Volume 所在的同一個後端建立 PVC 。請參閱 <block ref="0d4d7e7a69b413699039bc9b916a37d5" category="inline-link-macro-rx"></block>。</block>
 </blocks>

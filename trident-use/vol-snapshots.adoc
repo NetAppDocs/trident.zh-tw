@@ -114,7 +114,7 @@ Status:
 您可以使用 `dataSource` 使用名為的 Volume Snapshot 建立 PVC `<pvc-name>` 做為資料來源。建立好永久虛擬基礎架構之後、就能將它附加到Pod上、就像使用任何其他永久虛擬基礎架構一樣使用。
 
 
-WARNING: 必須在與其相同的命名空間中建立 PVC `dataSource`。
+WARNING: 將在來源 Volume 所在的同一個後端建立 PVC 。請參閱 link:https://kb.netapp.com/Cloud/Astra/Trident/Creating_a_PVC_from_a_Trident_PVC_Snapshot_cannot_be_created_in_an_alternate_backend["KB ：無法在替代後端建立 Trident PVC Snapshot 的 PVC"^]。
 
 以下範例使用建立 PVC `pvc1-snap` 做為資料來源。
 

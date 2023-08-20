@@ -200,7 +200,7 @@ NOTE: 當您旋轉密碼時、儲存管理員必須先更新ONTAP 使用者的�
 
 == 使用雙向CHAP驗證連線
 
-Astra Trident可以使用雙向CHAP驗證iSCSI工作階段 `ontap-san` 和 `ontap-san-economy` 驅動程式：這需要啟用 `useCHAP` 選項。設定為時 `true`Astra Trident將SVM的預設啟動器安全性設定為雙向CHAP、並從後端檔案設定使用者名稱和機密。NetApp建議使用雙向CHAP來驗證連線。請參閱下列組態範例：
+Astra Trident可以使用雙向CHAP驗證iSCSI工作階段 `ontap-san` 和 `ontap-san-economy` 驅動程式：這需要啟用 `useCHAP` 選項。設定為時 `true`， Astra Trident 將 SVM 的預設啟動器安全性設定為雙向 CHAP ，並從後端檔案設定使用者名稱和密碼。NetApp建議使用雙向CHAP來驗證連線。請參閱下列組態範例：
 
 [listing]
 ----
@@ -231,8 +231,8 @@ WARNING: 「useCHAP」參數是布林選項、只能設定一次。預設值設�
 
 * 在SVM上設定CHAP：
 +
-** 如果SVM的預設啟動器安全性類型為「無」（預設設定）*和*、則磁碟區中已沒有預先存在的LUN、Astra Trident會將預設安全性類型設為「CHAP」、並繼續設定CHAP啟動器和目標使用者名稱和機密。
-** 如果SVM包含LUN、Astra Trident將不會在SVM上啟用CHAP。如此可確保不限制存取SVM上已存在的LUN。
+** 如果 SVM 的預設啟動器安全性類型為無（預設為「無」） * 且 * 磁碟區中沒有預先存在的 LUN 、 Astra Trident 將預設安全性類型設為 `CHAP` 並繼續設定CHAP啟動器和目標使用者名稱和機密。
+** 如果SVM包含LUN、Astra Trident將不會在SVM上啟用CHAP。這可確保不限制對 SVM 上已存在的 LUN 的存取。
 
 
 * 設定CHAP啟動器和目標使用者名稱和機密；這些選項必須在後端組態中指定（如上所示）。

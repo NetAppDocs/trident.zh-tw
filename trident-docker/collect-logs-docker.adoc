@@ -29,7 +29,7 @@ ID                  NAME                DESCRIPTION                          ENA
 journalctl -u docker | grep 4fb97d2b956b
 ----
 +
-標準記錄層級應可讓您診斷大多數問題。如果您發現這還不夠、可以啟用偵錯記錄。
+標準記錄層級應可讓您診斷大多數問題。如果您覺得還不夠、可以啟用偵錯記錄。
 
 . 若要啟用除錯記錄、請安裝已啟用除錯記錄的外掛程式：
 +
@@ -47,7 +47,7 @@ docker plugin disable <plugin>
 docker plugin set <plugin> debug=true
 docker plugin enable <plugin>
 ----
-. 如果您在主機上執行二進位檔本身、則記錄檔可在主機的「/var/log/netappdvp」目錄中使用。若要啟用偵錯記錄、請在執行外掛程式時指定「-DEBUG」。
+. 如果您在主機上執行二進位檔本身、則主機的記錄檔中會有可用的記錄檔 `/var/log/netappdvp` 目錄。若要啟用偵錯記錄、請指定 `-debug` 當您執行外掛程式時。
 
 
 

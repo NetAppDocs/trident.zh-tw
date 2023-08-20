@@ -91,7 +91,7 @@ NOTE: 「Poolidfire - san」驅動程式也能複製PVCS。
 
 === Amazon FSXfor ONTAP Sendbackend驅動程式
 
-Amazon FSX ONTAP for VMware可讓客戶運用熟悉的NetApp功能、效能和管理功能、同時充分發揮儲存AWS資料的簡易性、敏捷度、安全性和擴充性。FSX ONTAP for FSfor支援ONTAP的許多檔案系統功能和管理API。Cloud Volume ONTAP 的相容驅動程式為「ONTAP-NAS」、「ONTAP-NAAS-經濟」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」和「ONTAP-san經濟」。
+Amazon FSX for NetApp ONTAP 可讓您運用熟悉的 NetApp 功能、效能和管理功能、同時充分利用在 AWS 上儲存資料的簡易性、敏捷度、安全性和擴充性。適用於 ONTAP 的 FSX 支援許多 ONTAP 檔案系統功能和管理 API 。Cloud Volume ONTAP 的相容驅動程式就是 `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san` 和 `ontap-san-economy`。
 
 
 
@@ -249,7 +249,7 @@ Astra Trident會嘗試將所使用的儲存傳輸協定與根據下列對照表�
 
 === 修改持續磁碟區
 
-持續磁碟區除了兩個例外、都是Kubernetes中不可變的物件。建立後、即可修改回收原則和大小。不過、這並不妨礙在Kubernetes外部修改磁碟區的某些部分。這可能是理想的做法、以便針對特定應用程式自訂磁碟區、確保容量不會意外耗用、或是單純地將磁碟區移至不同的儲存控制器。
+持續磁碟區除了兩個例外、都是Kubernetes中不可變的物件。建立後、即可修改回收原則和大小。不過、這並不會妨礙磁碟區的某些層面在 Kubernetes 之外進行修改。這可能是理想的做法、以便針對特定應用程式自訂磁碟區、確保容量不會意外耗用、或是單純地將磁碟區移至不同的儲存控制器。
 
 
 NOTE: Kubernetes樹狀目錄內建資源配置程式目前不支援NFS或iSCSI PV的磁碟區大小調整作業。Astra Trident支援同時擴充NFS和iSCSI磁碟區。
@@ -294,7 +294,7 @@ Volume匯入功能可將現有的儲存磁碟區匯入Kubernetes環境。目前�
 
 如果使用「azure-netapp-files」或「gcp-CVS」驅動程式、請使用命令「tridentctl匯入Volume <後端名稱>< Volume path>-f /path/pcv.yaml」、將磁碟區匯入要由Astra Trident管理的Kubernetes。如此可確保唯一的Volume參考。
 
-執行上述命令時、Astra Trident會在後端找到磁碟區並讀取其大小。它會自動新增（必要時覆寫）設定的PVc Volume大小。Astra Trident接著會建立新的PV、Kubernetes則會將PVc繫結至PV。
+執行上述命令時、Astra Trident會在後端找到磁碟區並讀取其大小。它會自動新增（並在必要時覆寫）已設定的 PVC Volume Size 。Astra Trident接著會建立新的PV、Kubernetes則會將PVc繫結至PV。
 
 如果部署的容器需要特定匯入的PVc、則會保持擱置狀態、直到PVC/PV配對透過Volume匯入程序繫結為止。在PVC/PV配對繫結之後、如果沒有其他問題、則應啟動容器。
 
@@ -317,7 +317,7 @@ OpenShift加值叢集服務可為叢集管理員和託管的應用程式提供�
 如同其他OpenShift服務、記錄服務是使用Ansible搭配庫存檔案所提供的組態參數（即k.a.）來部署主機、提供給教戰手冊。其中包括兩種安裝方法：在初始OpenShift安裝期間部署記錄、以及在安裝OpenShift之後部署記錄。
 
 
-CAUTION: 從Red Hat OpenShift版本3.9起、官方文件建議您不要使用NFS來執行記錄服務、因為您擔心資料毀損。這是以Red Hat測試其產品為基礎。ONTAP的NFS伺服器沒有這些問題、可以輕鬆地回溯記錄部署。最後、記錄服務的通訊協定選擇取決於您、只要知道兩者在使用NetApp平台時都能順利運作、而且如果您偏好NFS、就沒有理由不使用NFS。
+CAUTION: 從Red Hat OpenShift版本3.9起、官方文件建議您不要使用NFS來執行記錄服務、因為您擔心資料毀損。這是以Red Hat測試其產品為基礎。ONTAP NFS 伺服器沒有這些問題、而且可以輕鬆地備份記錄部署。最後、記錄服務的通訊協定選擇取決於您、只要知道兩者在使用NetApp平台時都能順利運作、而且如果您偏好NFS、就沒有理由不使用NFS。
 
 如果您選擇使用NFS搭配記錄服務、則必須將Ansible變數「openshift_enable _unsupported_configurations」設為「true」、以避免安裝程式失敗。
 
@@ -327,7 +327,7 @@ CAUTION: 從Red Hat OpenShift版本3.9起、官方文件建議您不要使用NFS
 
 記錄服務可選擇性地同時部署給應用程式、以及OpenShift叢集本身的核心作業。如果您選擇部署作業記錄、將變數「openshift_logging_use」指定為「true」、就會建立兩個服務執行個體。控制作業記錄執行個體的變數包含「ops」、而應用程式執行個體則不包含。
 
-根據部署方法設定Ansible變數非常重要、因為這樣才能確保基礎服務使用正確的儲存設備。讓我們來看看每種部署方法的選項。
+根據部署方法設定 Ansible 變數非常重要、如此才能確保基礎服務使用正確的儲存設備。讓我們來看看每種部署方法的選項。
 
 
 NOTE: 下表僅包含與記錄服務相關的儲存組態變數。您可以在中找到其他選項 link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["RedHat OpenShift記錄文件"^] 應根據您的部署情況來審查、設定及使用。
@@ -397,7 +397,7 @@ NOTE: 下表僅包含與記錄服務相關的儲存組態變數。您可以在�
 
 度量服務可針對OpenShift叢集的狀態、資源使用率及可用度、提供寶貴的資訊給系統管理員。此外、也需要Pod自動擴充功能、許多組織會使用指標服務的資料來支付費用和/或顯示應用程式。
 
-如同記錄服務和OpenShift整體、Ansible可用於部署度量服務。此外、如同記錄服務、度量服務也可在叢集初始設定期間或使用元件安裝方法運作之後進行部署。下表包含在設定度量服務的持續儲存時、重要的變數。
+如同記錄服務和OpenShift整體、Ansible可用於部署度量服務。此外、與記錄服務一樣、度量服務也可以在叢集初始設定期間或使用元件安裝方法在其運作後進行部署。下表包含在設定度量服務的持續儲存時、重要的變數。
 
 
 NOTE: 下表僅包含與度量服務相關的儲存組態相關變數。文件中還有許多其他選項、您應該根據部署情況來檢閱、設定及使用。
@@ -443,6 +443,6 @@ NOTE: 下表僅包含與度量服務相關的儲存組態相關變數。文件�
 
 === 部署度量服務
 
-在您的主機/庫存檔案中定義適當的可Ansible變數後、使用Ansible部署服務。如果您是在OpenShift安裝時間進行部署、則會自動建立及使用PV。如果您使用元件教戰手冊進行部署、則在OpenShift安裝之後、Ansible會建立任何需要的PVCS、並在Astra Trident為其配置儲存設備之後、部署該服務。
+在您的主機/庫存檔案中定義適當的可Ansible變數後、使用Ansible部署服務。如果您是在OpenShift安裝時間進行部署、則會自動建立及使用PV。如果您使用元件教戰手冊進行部署、則在安裝 OpenShift 之後、 Ansible 會建立任何需要的 PVCS 、並在 Astra Trident 為其配置儲存設備之後、部署服務。
 
 上述變數及部署程序可能會隨OpenShift的每個版本而變更。請務必檢閱並遵循 link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["RedHat的OpenShift部署指南"^] 以供您的環境使用。

@@ -43,7 +43,9 @@ summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動
 | 「AutoExpportPolicy」 | 啟用自動匯出原則建立及更新[布 林值]。使用 `autoExportPolicy` 和 `autoExportCIDRs` 選項：Astra Trident可自動管理匯出原則。 | 錯 
 
 
-| 《AutoExpportCIDR》（自動匯出CTR） | 根據時間篩選Kubernetes節點IP的CIDR清單 `autoExportPolicy` 已啟用。使用 `autoExportPolicy` 和 `autoExportCIDRs` 選項：Astra Trident可自動管理匯出原則。 | [「0.00.0/0」、「：/0」] 
+| 《AutoExpportCIDR》（自動匯出CTR） | 篩選 Kubernetes 節點 IP 的 CIDR 清單、以對抗時間 `autoExportPolicy` 已啟用。
+
+使用 `autoExportPolicy` 和 `autoExportCIDRs` 選項：Astra Trident可自動管理匯出原則。 | [「0.00.0/0」、「：/0」] 
 
 
 | 《標籤》 | 套用到磁碟區的任意JSON-格式化標籤集 | 「」 

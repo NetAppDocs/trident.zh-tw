@@ -86,7 +86,7 @@ TIP: 使用「tridentctl」建立的後端沒有關聯的「TridentBackendConfig
 
 == 步驟1：建立Kubernetes機密
 
-建立包含後端存取認證的秘密。這是每個儲存服務/平台所獨有的功能。以下是範例：
+建立包含後端存取認證的秘密。這是每個儲存服務/平台所獨有的功能。範例如下：
 
 [listing]
 ----
@@ -227,16 +227,16 @@ backend-tbc-ontap-san   ontap-san-backend     8d24fce7-6f60-4d4a-8ef6-bab2699e6a
 
 階段可以採用下列其中一個值：
 
-* 「綁定」：「TridentBackendConfig」CR與後端相關聯、後端包含「configRef」設定為「TridentBackendConfig」的CR uid。
+* `Bound`： `TridentBackendConfig` CR與後端相關聯、且後端包含 `configRef` 設定為 `TridentBackendConfig` CR 的 uid 。
 * 《Unbound》：使用「」表示。「TridentBackendConfig」物件不會繫結至後端。根據預設、所有新建立的「TridentBackendConfig」CRS均處於此階段。階段變更之後、就無法再恢復為Unbound（未綁定）。
-* 「刪除」：「TridentBackendConfig」的「刪除原則」已設定為刪除。刪除「TridentBackendConfig」CR時、它會轉換為「刪除」狀態。
+* `Deleting`： `TridentBackendConfig` CR 的 `deletionPolicy` 已設定為刪除。當 `TridentBackendConfig` 系統會刪除CR、並轉換為「刪除」狀態。
 +
 ** 如果後端不存在持續磁碟區宣告（PVCS）、刪除「TridentBackendConfig」（TridentBackendConfig）會導致Astra Trident刪除後端、以及刪除「TridentBackendConfig」（TridentBackendConfig）。
 ** 如果後端上有一個或多個PVCS、則會進入刪除狀態。隨後、「TridentBackendConfig」CR也會進入刪除階段。只有刪除所有的PVCS之後、才會刪除後端和「TridentBackendConfig」。
 
 
 * 「遺失」：與「TridentBackendConfig」CR相關的後端意外或刻意刪除、而「TridentBackendConfig」CR仍有刪除後端的參考資料。無論「刪除原則」值為何、「TridentBackendConfig」CR仍可刪除。
-* 「未知」：Astra Trident無法判斷與「TridentBackendConfig」CR相關的後端狀態或存在。例如、如果API伺服器沒有回應、或是缺少「tridentbackends.trident.netapp.io` CRD」。這可能需要使用者介入。
+* `Unknown`：Astra Trident無法判斷與相關聯的後端狀態或存在 `TridentBackendConfig` CR.例如、如果API伺服器沒有回應或是 `tridentbackends.trident.netapp.io` CRD遺失。這可能需要介入。
 
 
 在此階段、成功建立後端！還有多種作業可以額外處理、例如 link:backend_ops_kubectl.html["後端更新和後端刪除"^]。

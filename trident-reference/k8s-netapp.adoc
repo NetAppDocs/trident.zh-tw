@@ -18,13 +18,13 @@ NetApp儲存產品組合可與Kubernetes叢集的許多不同層面整合、提�
 
 == Astra
 
-https://docs.netapp.com/us-en/astra/["Astra"^] 讓企業更輕鬆地管理、保護及搬移在公有雲內部及內部部署的Kubernetes上執行的資料豐富的容器化工作負載。Astra採用NetApp在公有雲和內部部署環境中備受肯定且廣泛的儲存產品組合Trident、提供持續的容器儲存設備。此外、它還提供一組豐富的進階應用程式感知資料管理功能、例如Snapshot、備份與還原、活動記錄、以及資料保護、災難/資料恢復、資料稽核、以及Kubernetes工作負載的移轉使用案例的主動複製。
+https://docs.netapp.com/us-en/astra/["Astra"^] 讓企業更輕鬆地管理、保護及搬移在公有雲內部及內部部署的Kubernetes上執行的資料豐富的容器化工作負載。Astra 使用公有雲和內部部署中備受肯定且廣泛的 NetApp 儲存產品組合中的 Trident 、提供永續的容器儲存設備。此外、它還提供一組豐富的進階應用程式感知資料管理功能、例如Snapshot、備份與還原、活動記錄、以及資料保護、災難/資料恢復、資料稽核、以及Kubernetes工作負載的移轉使用案例的主動複製。
 
 
 
 == ONTAP
 
-NetApp的多重傳輸協定、統一化儲存作業系統可為任何應用程式提供進階資料管理功能。ONTAP支援所有Flash、混合式或全硬碟組態的系統、可提供多種不同的部署模式、包括工程設計硬體（英文版）、白箱（英文版）和僅雲端（英文版）ONTAP FAS AFF ONTAP Select Cloud Volumes ONTAP 。
+ONTAP 是 NetApp 多重傳輸協定、統一化的儲存作業系統、可為任何應用程式提供進階的資料管理功能。支援所有Flash、混合式或全硬碟組態的系統、可提供多種不同的部署模式、包括工程設計硬體（英文版）、白箱（英文版）和僅雲端（英文版）ONTAP FAS AFF ONTAP Select Cloud Volumes ONTAP 。
 
 
 NOTE: Trident支援上述ONTAP 所有的功能齊全的部署模式。
@@ -39,7 +39,7 @@ http://cloud.netapp.com/ontap-cloud?utm_source=GitHub&utm_campaign=Trident["Clou
 
 == Amazon FSX for NetApp ONTAP 產品
 
-https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX for NetApp ONTAP 產品"^] 是一項完整管理的AWS服務、可讓客戶啟動及執行採用NetApp ONTAP 的一套資訊儲存作業系統的檔案系統。FSX for ONTAP VMware可讓客戶運用熟悉的NetApp功能、效能和管理功能、同時充分發揮儲存AWS資料的簡易性、敏捷度、安全性和擴充性。FSX ONTAP for FSfor支援ONTAP的許多檔案系統功能和管理API。
+https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX for NetApp ONTAP 產品"^] 是一項完全託管的 AWS 服務、可讓您啟動及執行 NetApp ONTAP 儲存作業系統所支援的檔案系統。適用於 ONTAP 的 FSX 可讓您運用熟悉的 NetApp 功能、效能和管理功能、同時充分利用在 AWS 上儲存資料的簡易性、敏捷度、安全性和擴充性。適用於 ONTAP 的 FSX 支援許多 ONTAP 檔案系統功能和管理 API 。
 
 
 

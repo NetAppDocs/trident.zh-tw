@@ -86,7 +86,7 @@ Astra Trident從Kubernetes API伺服器讀取、以判斷應用程式何時要�
 
 === Astra Trident使用哪些角色和權限？
 
-Trident安裝程式會建立Kubernetes ClusterRole、該叢集具有特定存取權、可存取叢集的PersistentVolume、PersistentVolume Claim、StorageClass及Kubernetes叢集的Secret資源。請參閱 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["請按這裡"]。
+Trident 安裝程式會建立 Kubernetes ClusterRole 、該程式可存取叢集的 PersistentVolume 、 PersistentVolumVolume Claim 、 StorageClass 和 Kubernetes 叢集的 Secret 資源。請參閱 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["請按這裡"]。
 
 
 
@@ -164,9 +164,9 @@ Astra Trident只是Kubernetes Pod、可安裝在Kubernetes執行的任何位置�
 
 
 
-=== 我的儲存系統密碼已變更、Astra Trident已無法運作、我該如何恢復？
+=== 我的儲存系統密碼已變更、 Astra Trident 不再運作、我該如何恢復？
 
-使用「tridentctl update backend myBackend -f」（三重更新後端myBackend -f）來更新後端的密碼。以您的後端名稱取代範例中的「myBackend」、並以正確的「backend.json」檔案路徑取代「/path/to _new_backend.json」。
+使用更新後端的密碼 `tridentctl update backend myBackend -f </path/to_new_backend.json> -n trident`。更換 `myBackend` 在範例中、使用您的後端名稱、和 ``/path/to_new_backend.json` 並將路徑移至正確位置 `backend.json` 檔案：
 
 
 
@@ -178,7 +178,7 @@ Astra Trident找不到Kubernetes節點的原因可能有兩種。這可能是因
 
 === 如果Trident Pod毀損、我會遺失資料嗎？
 
-如果Trident Pod遭到破壞、資料將不會遺失。Trident的中繼資料儲存在CRD物件中。所有由Trident提供的PV均可正常運作。
+如果Trident Pod遭到破壞、資料將不會遺失。Trident 中繼資料儲存在 CRD 物件中。所有由Trident提供的PV均可正常運作。
 
 
 

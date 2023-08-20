@@ -25,7 +25,7 @@ TIP: 深入瞭解「csi拓撲」功能 https://kubernetes.io/blog/2018/10/11/top
 
 Kubernetes提供兩種獨特的Volume繫結模式：
 
-* Astra Trident將「Volume BindingMode」設為「Immediate（立即）」、可在沒有任何拓撲感知的情況下建立磁碟區。建立永久虛擬磁碟時、即會處理磁碟區繫結和動態資源配置。這是預設的「Volume BindingMode」、適用於未強制拓撲限制的叢集。建立永續性磁碟區時、不會對要求的Pod排程需求有任何相依性。
+* 與 `VolumeBindingMode` 設定為 `Immediate`Astra Trident在沒有任何拓撲感知的情況下建立磁碟區。建立永久虛擬磁碟時、即會處理磁碟區繫結和動態資源配置。這是預設值 `VolumeBindingMode` 適用於未強制拓撲限制的叢集。持續磁碟區的建立不需依賴要求的 Pod 排程需求。
 * 將「Volume BindingMode」設為「WaitForFirst消費者」時、會延遲建立和繫結永久磁碟區、直到排程並建立使用永久磁碟的Pod為止。如此一來、就能建立磁碟區、以符合拓撲需求所強制執行的排程限制。
 
 

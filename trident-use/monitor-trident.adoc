@@ -38,7 +38,7 @@ NOTE: 根據預設、Trident的指標會顯示在「/度量」端點的目標連
 
 == 步驟1：定義Prometheus目標
 
-您應該定義Prometheus目標、以收集指標並取得有關後端Astra Trident管理的資訊、以及其建立的磁碟區等資訊。這 https://netapp.io/2020/02/20/prometheus-and-trident/["部落格"^] 說明如何使用Prometheus和Grafana搭配Astra Trident來擷取指標。部落格說明如何在Kubernetes叢集中以營運者的形式執行Prometheus、以及建立ServiceMonitor來取得Astra Trident的指標。
+您應該定義Prometheus目標、以收集指標並取得有關後端Astra Trident管理的資訊、以及其建立的磁碟區等資訊。這 https://netapp.io/2020/02/20/prometheus-and-trident/["部落格"^] 說明如何使用Prometheus和Grafana搭配Astra Trident來擷取指標。部落格說明如何在 Kubernetes 叢集中以運算符的形式執行 Prometheus 、以及如何建立 ServiceMonitor 來取得 Astra Trident 指標。
 
 
 

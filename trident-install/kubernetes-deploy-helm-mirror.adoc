@@ -102,7 +102,7 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.07.0  --create-namespace --namespace --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 23.07.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 

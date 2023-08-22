@@ -191,7 +191,7 @@ sudo trident --config=/etc/netappdvp/ontap-nas.json
 ----
 +
 
-NOTE: 除非指定、否則Volume驅動程式的預設名稱為「NetApp」。
+NOTE: 除非指定、否則 Volume 驅動程式的預設名稱為「 NetApp 」。
 
 +
 精靈啟動後、您可以使用Docker CLI介面來建立及管理磁碟區

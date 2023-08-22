@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/anf-examples.html 
 keywords: trident backend, azure netapp files, smb volumes, smb, windows 
-summary: 深入瞭解ANF的NFS和SMB後端組態選項、並檢閱組態範例。 
+summary: 瞭解 Azure NetApp Files 的 NFS 和 SMB 後端組態選項、並檢閱組態範例。 
 ---
 = 列舉後端組態選項與範例Azure NetApp Files
 :hardbreaks:
@@ -12,18 +12,18 @@ summary: 深入瞭解ANF的NFS和SMB後端組態選項、並檢閱組態範例�
 
 
 [role="lead"]
-深入瞭解ANF的NFS和SMB後端組態選項、並檢閱組態範例。
+瞭解 Azure NetApp Files 的 NFS 和 SMB 後端組態選項、並檢閱組態範例。
 
 
 
 == 後端組態選項
 
-Astra Trident使用您的後端組態（子網路、虛擬網路、服務層級和位置）、在所要求位置可用的容量集區上建立ANF磁碟區、並符合所要求的服務層級和子網路。
+Astra Trident 使用您的後端組態（子網路、虛擬網路、服務層級和位置）、在所要求位置的可用容量集區上建立 Azure NetApp Files Volume 、並符合所要求的服務層級和子網路。
 
 
 NOTE: Astra Trident不支援手動QoS容量集區。
 
-Anf後端提供這些組態選項。
+Azure NetApp Files 後端提供這些組態選項。
 
 [cols="3"]
 |===
@@ -148,9 +148,9 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 .範例1：最低組態
 [%collapsible%open]
 ====
-這是絕對最低的後端組態。使用此組態、Astra Trident會在設定的位置探索所有NetApp帳戶、容量集區和委派給ANF的子網路、並隨機將新磁碟區放在其中一個集區和子網路上。因為 `nasType` 省略 `nfs` 預設會套用、後端會為NFS磁碟區進行資源配置。
+這是絕對最低的後端組態。有了這項組態、 Astra Trident 會探索您在設定位置中委派給 Azure NetApp Files 的所有 NetApp 帳戶、容量集區和子網路、並隨機將新磁碟區放在其中一個集區和子網路上。因為 `nasType` 省略 `nfs` 預設會套用、後端會為NFS磁碟區進行資源配置。
 
-當您剛開始使用ANF並嘗試各種功能時、這種組態是理想的選擇、但實際上您想要為您所配置的磁碟區提供額外的範圍。
+當您剛開始使用 Azure NetApp Files 並試用時、這項組態是理想的選擇、但實際上您會想要為您所配置的磁碟區提供額外的範圍。
 
 [listing]
 ----
@@ -167,7 +167,7 @@ location: eastus
 .範例2：使用容量集區篩選器的特定服務層級組態
 [%collapsible%open]
 ====
-此後端組態可將Volume置於Azure中 `eastus` 位置 `Ultra` 容量資源池：Astra Trident會自動探索該位置委派給ANF的所有子網路、並隨機在其中一個磁碟區上放置新磁碟區。
+此後端組態可將Volume置於Azure中 `eastus` 位置 `Ultra` 容量資源池：Astra Trident 會自動探索該位置中委派給 Azure NetApp Files 的所有子網路、並隨機在其中一個子網路上放置新的磁碟區。
 
 [listing]
 ----

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-nas.html 
-keywords: trident backend, ontap nas, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, fsx 
+keywords: trident backend, ontap nas, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, fsx, drivers, access modes, rwo, rwx, rwp, rwop, file system 
 summary: 瞭解如何使用ONTAP NetApp NAS驅動程式設定功能的功能。ONTAP 
 ---
 = ONTAP NAS 驅動程式概述
@@ -16,7 +16,56 @@ summary: 瞭解如何使用ONTAP NetApp NAS驅動程式設定功能的功能。O
 
 
 
-== ONTAP NAS 驅動程式的重要資訊
+== ONTAP NAS 驅動程式詳細資料
+
+Astra Trident 提供下列 NAS 儲存驅動程式、可與 ONTAP 叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
+
+
+IMPORTANT: 如果您使用 Astra Control 來保護、恢復和移動、請閱讀 <<Astra Control 驅動程式相容性>>。
+
+[cols="2, 1, 1, 2, 2"]
+|===
+| 驅動程式 | 傳輸協定 | Volume模式 | 支援的存取模式 | 支援的檔案系統 
+
+
+| 「ONTAP-NAS」  a| 
+NFS
+中小企業
+ a| 
+檔案系統
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+" 、 `nfs`、 `smb`
+
+
+
+| 《ONTAP-NANAS經濟》  a| 
+NFS
+中小企業
+ a| 
+檔案系統
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+" 、 `nfs`、 `smb`
+
+
+
+| 「ONTAP-NAA-flexgroup」  a| 
+NFS
+中小企業
+ a| 
+檔案系統
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+" 、 `nfs`、 `smb`
+
+|===
+
+
+=== Astra Control 驅動程式相容性
 
 Astra Control可為使用建立的磁碟區提供無縫保護、災難恢復和移動性（在Kubernetes叢集之間移動磁碟區） `ontap-nas`、 `ontap-nas-flexgroup`和 `ontap-san` 驅動程式：請參閱 link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Astra Control複寫先決條件"^] 以取得詳細資料。
 

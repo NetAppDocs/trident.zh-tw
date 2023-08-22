@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/gcp.html 
-keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes 
+keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes, drivers, access modes, rwo, rwx, rwp, rwop, file system 
 summary: 瞭Cloud Volumes Service 解如何使用提供的範例組態、將適用於Google Cloud的功能組態設定為Astra Trident安裝的後端。 
 ---
 = 設定Cloud Volumes Service 適用於Google Cloud後端的功能
@@ -14,6 +14,27 @@ summary: 瞭Cloud Volumes Service 解如何使用提供的範例組態、將適�
 [role="lead"]
 瞭Cloud Volumes Service 解如何使用提供的範例組態、將NetApp for Google Cloud設定為Astra Trident安裝的後端。
 
+
+
+== Google Cloud 驅動程式詳細資料
+
+Astra Trident 提供 `gcp-cvs` 與叢集通訊的驅動程式。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
+
+[cols="1, 1, 1, 2, 2"]
+|===
+| 驅動程式 | 傳輸協定 | Volume模式 | 支援的存取模式 | 支援的檔案系統 
+
+
+| 《GCP—CVS》  a| 
+NFS
+ a| 
+檔案系統
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+`nfs`
+
+|===
 
 
 == 深入瞭解Astra Trident對Cloud Volumes Service Google Cloud的支援
@@ -50,7 +71,7 @@ Astra Trident可在Cloud Volumes Service 兩個地方建立一個不二的資料
 
 每個後端都會在單一Google Cloud區域中配置磁碟區。若要在其他區域建立磁碟區、您可以定義其他後端。
 
-[cols="3"]
+[cols="1, 2, 1"]
 |===
 | 參數 | 說明 | 預設 
 
@@ -94,7 +115,7 @@ Astra Trident可在Cloud Volumes Service 兩個地方建立一個不二的資料
 | 《服務層級》 | 適用於新磁碟區的CVS效能或CVS服務層級。CVS的效能值為 `standard`、 `premium`或 `extreme`。CVS值包括 `standardsw` 或 `zoneredundantstandardsw`。 | CVS效能預設為「標準」。CVS預設為「標準」。 
 
 
-| 網路 | Google Cloud網路用於Cloud Volumes Service 解決資料不整的問題。 | 「預設」 
+| 網路 | Google Cloud網路用於Cloud Volumes Service 解決資料不整的問題。 | "預設" 
 
 
 | 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例： `\{"api":false, "method":true}`。除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用此功能。 | null 

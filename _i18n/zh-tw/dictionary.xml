@@ -14,7 +14,6 @@
   <block id="ac5eb8fcbd1ed9c85a98d91e10e26a38" category="paragraph">儲存驅動程式名稱</block>
   <block id="c08068da3c5d19547544c4bd424a6b76" category="cell">「toragePrefix」</block>
   <block id="91590ee78f1b4751284f4f9ea80cfe86" category="cell">《限制Volume大小》</block>
-  <block id="fcf783284187f1e80e772eacd9266ee1" category="paragraph">Volume大小的選擇性限制。預設值：「」（未強制執行）</block>
   <block id="3eed2a7dac1f2329f3a9574a68e5e1c4" category="admonition">請勿將「儲存前置詞」（包括預設值）用於元素後端。缺省情況下，"Poolidfire－san "驅動程序將忽略此設置而不使用前綴。我們建議使用特定的TenantId進行Docker Volume對應、或是使用Docker版本、驅動程式資訊和原始名稱填入的屬性資料、以便在可能使用任何名稱標示的情況下使用。</block>
   <block id="0863f9e97e159e3ea1ce46bdb49b1254" category="paragraph">您可以使用預設選項、避免在每個建立的Volume上指定這些選項。「最小化」選項適用於所有控制器類型。如ONTAP 需如何設定預設Volume大小的範例、請參閱「功能區組態」一節。</block>
   <block id="a48a8458539e489328f4d6d3fc0ee288" category="cell">《大小》</block>
@@ -157,7 +156,6 @@
   <block id="03fe5b0d58270efa87041677cac72ad7" category="list-text">安裝及設定NetApp Docker Volume外掛程式：</block>
   <block id="f45f5a64dae951d3e37c9bd382201b06" category="list-text">下載並解壓縮應用程式：</block>
   <block id="b255d9e06a4ca8e9f5bc31c9198426ad" category="list-text">移至Bin路徑中的位置：</block>
-  <block id="d3fa61f14ead6cf1cf1d584cf0b6c4e1" category="admonition">除非指定、否則Volume驅動程式的預設名稱為「NetApp」。</block>
   <block id="9ad37c975c341297c49c69353516a727" category="paragraph">精靈啟動後、您可以使用Docker CLI介面來建立及管理磁碟區</block>
   <block id="e3dec3f86b9a3b1be209ab63855ce432" category="list-text">建立Volume：</block>
   <block id="5ff2e3e853922fdb84ef21b85ffdac2e" category="list-text">在啟動容器時配置Docker Volume：</block>
@@ -355,8 +353,6 @@
   <block id="2b8ac774302bd45e0ad531e434d8cd6d" category="cell">「ONTAP-NAA-flexgroup」</block>
   <block id="cd17e7ed84c40a0ff5ecb8b625b1f186" category="cell">「ONTAP-SAN」</block>
   <block id="e1e4c8c9ccd9fc39c391da4bcd093fb2" category="paragraph">區塊</block>
-  <block id="aa91b58ced7ef060eb0e27ac4e1d18a8" category="paragraph">rwo、ROX、rwx</block>
-  <block id="0b86d82002caac6130185da4ef1be67e" category="paragraph">Rwo、ROX</block>
   <block id="a029cca698cbf05f07897f86c43cf9e8" category="paragraph">《xfs》、《ext3》、《ext4》</block>
   <block id="73b781a615cea2647a87ff2035e296b1" category="cell">《ONTAP-san經濟》</block>
   <block id="bb453665f57f6823950856f7a9bad0c3" category="inline-link-macro">Astra產品系列</block>
@@ -476,7 +472,6 @@
   <block id="ef81b740be2293b7e3c41047afe98764" category="cell">100公克</block>
   <block id="976a6dc52dbcabb541efa0a91e922604" category="cell">""（預覽功能、訂閱時需要白名單）</block>
   <block id="25f4894ddaab3c1182f12732d3bcf889" category="section-title">範例1：最低組態</block>
-  <block id="e43b3577dd4b74a4cfa994a56e8138b8" category="paragraph">當您剛開始使用ANF並嘗試各種功能時、這種組態是理想的選擇、但實際上您想要為您所配置的磁碟區提供額外的範圍。</block>
   <block id="a78703e6fcb2511d5a565496df5b2082" category="section-title">範例2：使用容量集區篩選器的特定服務層級組態</block>
   <block id="725ae241ec74eed978f0b099030236b8" category="section-title">範例3：進階組態</block>
   <block id="8f828c7344e7fe65d66237a25193068b" category="summary">瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設定支援功能的後端。ONTAP</block>
@@ -908,7 +903,6 @@
   <block id="d1d184cecc23825cff20fabf3cdfb862" category="list-text">支援的儲存系統、可執行Element軟體。</block>
   <block id="4055116469942da7f6ed83abcf57d0a4" category="list-text">提供給NetApp HCI / SolidFire叢集管理員或租戶使用者的認證、以管理磁碟區。</block>
   <block id="d5fa5f22855b065d96647dfb0c06d685" category="inline-link-macro">工作節點準備資訊</block>
-  <block id="c443982ebc2d61b1fdf8348209939f8b" category="paragraph">「Poolidfire - san」儲存驅動程式支援兩種Volume模式：檔案和區塊。對於「檔案系統」磁碟區模式、Astra Trident會建立一個磁碟區並建立檔案系統。檔案系統類型由StorageClass指定。</block>
   <block id="02017e70674a0c740b2b95fbb0cc2aa1" category="paragraph">無檔案系統。原始區塊裝置。</block>
   <block id="2353a0a3a06283f07550efc7bad8a90e" category="cell">永遠是「solidfire-san」</block>
   <block id="f4210b28f3cf7c1f7e6e328bb42c6060" category="cell">「S指_」+儲存設備（iSCSI）IP位址SolidFire</block>
@@ -1851,7 +1845,6 @@
   <block id="368b120a3b5f53a49dc3ab96ec9b8dbd" category="paragraph">NetApp持續改善及強化其產品與服務。以下是Astra Trident的一些最新功能。如需舊版的資訊、請參閱<block ref="25da125dffad1d6323c21354bccf0203" category="inline-link-rx"></block>。</block>
   <block id="7072ec708b0ea7e3243747d8b79c0d20" category="admonition">如果您要從任何先前的Trident版本升級並使用Azure NetApp Files 更新版本、則「位置」組態參數現在是必填的單一欄位。</block>
   <block id="41cf959adc98386b54829d71a6ed5d37" category="section-title">修正</block>
-  <block id="682c6ce09c9faae3a3e22c55c8db592e" category="list-text">修正ANF驅動程式無法複製具有多個匯出規則的磁碟區的問題。</block>
   <block id="c1748037d10cffabb8e95e4ccf77c613" category="section-title">增強功能</block>
   <block id="723b30bcece2d0d47914a6eaf0c550cc" category="list-text">Trident現在將HSTC標頭新增至其安全端點的回應。</block>
   <block id="621b9733ee07089711b96dd6b0b7861a" category="list-text">Trident現在會自動嘗試啟用Azure NetApp Files 「UNIX權限」功能。</block>
@@ -1869,7 +1862,6 @@
   <block id="7213ed07f5b718aa66cfac350f023a77" category="list-text">修正嘗試匯入已匯入磁碟區傳回EOF、使PVc處於擱置狀態的問題。（<block ref="b9a2290d6389b9a605883cda4e717749" category="inline-link-macro-rx"></block>）</block>
   <block id="c28d8c94f865f3ef7e4b01a157510ef6" category="list-text">修正當在SolidFire 一個穩定區上建立超過32個快照時、Astra Trident效能變慢的問題。</block>
   <block id="d0aaca968285d0d47ea0c5a0f7b9bab5" category="list-text">在建立SSL憑證時、以SHA-256取代SHA-1。</block>
-  <block id="b956e1f58f802db57dd9f871ac59ed6c" category="list-text">固定ANF驅動程式、允許重複的資源名稱、並將作業限制在單一位置。</block>
   <block id="851679bec9b3e6c8e6284128fb750b1e" category="list-text">Kubernetes增強功能：</block>
   <block id="2767b461b2b49786f390c9e0509d2d12" category="list-text">新增對Kubernetes 1.23的支援。</block>
   <block id="7f10502f6f15537f180f07f0c89d2642" category="inline-link-macro">GitHub問題#65</block>
@@ -1877,7 +1869,6 @@
   <block id="90fdd892e78b26eb18a250c9c1bc19ff" category="inline-link-macro">GitHub問題#633</block>
   <block id="3ff8e54aa1f3735deb64771c4c65c420" category="list-text">允許GCP驅動程式中的跨區域磁碟區。（<block ref="efd445659801b6abfdba2997e23e5f4f" category="inline-link-macro-rx"></block>）</block>
   <block id="fef8c75d6cd00955b0f1c84d40af01aa" category="inline-link-macro">GitHub問題#6666</block>
-  <block id="9f81aabbbba9f61bfecaf1340c407ed1" category="list-text">新增對anf磁碟區「unix權限」選項的支援。（<block ref="b2ee1a79cce917ad1d60b3bec442914a" category="inline-link-macro-rx"></block>）</block>
   <block id="a4233200da50a08b295311036bb03ac1" category="section-title">棄用</block>
   <block id="de6284c149d2e011da3909f1ef2af627" category="paragraph">Trident REST介面只能以127.0.0.1或[:1]位址接聽和使用</block>
   <block id="58a2e8c17107cc1ca9cb1317cd0c1ee9" category="section-title">210.1的變更</block>
@@ -2093,7 +2084,6 @@
   <block id="701ba87ab75dde70f4604769defc7d00" category="list-text">將k8s.gcr.IO轉換為登錄.k8s.IO、做為SCSI映像的預設登錄</block>
   <block id="90e3cd7cff1c9f6f4b8d2a509b127d44" category="list-text">隨附資源配額與Trident安裝、可確保在優先級類別使用量預設受限時、排定Trident示範集。</block>
   <block id="838a6d7e89b7c366cfc25d3b2115b901" category="inline-link-macro">GitHub問題#717</block>
-  <block id="83a65beedcdd811d7b3b4fe9d2c4614f" category="list-text">新增對Anf驅動程式的網路功能支援。（<block ref="e0e89f8bd936a5eb3adce74cac88eab0" category="inline-link-macro-rx"></block>）</block>
   <block id="cab6f6f91105d87aa3f65650df43c553" category="inline-link-macro">GitHub問題#228</block>
   <block id="00ea108f36897d9ed3523b970b09e6ea" category="list-text">新增技術預覽功能可自動MetroCluster 切換偵測ONTAP 到不完整的驅動程式。（<block ref="0c9c84232975bfb33d3481050e5ef924" category="inline-link-macro-rx"></block>）</block>
   <block id="0b4fe975279063a2d1790cd061a8b8d1" category="list-text">** Kubernetes：*將支援的Kubernetes最低更新為1.19。</block>
@@ -2241,7 +2231,6 @@
   <block id="92c22bb3853554f94f513a2d2f36e8ef" category="list-text"><block ref="aed2a4a749284f757648f1057abf44cd" prefix="" category="inline-code"></block>：將查詢限制在Volume的下屬。</block>
   <block id="3ad6cc2d4a6ad6fbd07574653275a161" category="list-text">Astra Trident無法防止目的地命名空間寫入共用磁碟區。您應該使用檔案鎖定或其他程序來防止覆寫共用Volume資料。</block>
   <block id="3908892c437778f8b161a2ca006782cd" category="list-text">在從屬磁碟區上無法執行快照、複製和鏡射。</block>
-  <block id="e6fe09cae66ba22c6abbd2511f660545" category="summary">在您設定ANF後端之前、必須確保符合下列需求。</block>
   <block id="aec47cf6a0cb83824b504b756eb4b71c" category="doc">準備設定Azure NetApp Files 一個功能完善的後端</block>
   <block id="97d64245613ba751b698ce77fd51779a" category="inline-link">Azure：設定Azure NetApp Files 功能以建立NFS Volume</block>
   <block id="caa7dc98c21b44b17c214508b9b0fa3c" category="list-text"><block ref="bc54592d6183695b841c6d1880ec0bf8" prefix="" category="inline-code"></block>、<block ref="93c5bebdea9c94a0740fe6fd9bb250f0" prefix=" " category="inline-code"></block>和<block ref="2b53761249254ce6b502f521e5cc0683" prefix=" " category="inline-code"></block> 從 <block ref="63405c89f422580946169fa59c41e7ae" category="inline-link-macro-rx"></block> 在Azure Active Directory中、具備Azure NetApp Files 充分的權限執行此功能。應用程式登錄應使用下列其中一項：</block>
@@ -2260,11 +2249,8 @@
   <block id="b8ae61dc50cf8e8b79e68bc4a8d36393" category="cell"><block ref="0f179ba2bc32ab5d8f60692f5b800c86" prefix="" category="inline-code"></block></block>
   <block id="a56dcba8eacdac67fb510e1434d560d8" category="inline-link-macro">使用Linux統一金鑰設定（LUKS）</block>
   <block id="fd05c90de484dbc1cb963df796886af4" category="doc">準備使用ONTAP 不含NAS的驅動程式來設定後端</block>
-  <block id="481e993a13f6d4f981acc2da60465e2a" category="summary">深入瞭解ANF的NFS和SMB後端組態選項、並檢閱組態範例。</block>
   <block id="17a48ec106d5505e674ccdf56fce1058" category="doc">列舉後端組態選項與範例Azure NetApp Files</block>
-  <block id="4bb587d1662752a66d32e629a36d70c0" category="paragraph">Astra Trident使用您的後端組態（子網路、虛擬網路、服務層級和位置）、在所要求位置可用的容量集區上建立ANF磁碟區、並符合所要求的服務層級和子網路。</block>
   <block id="5fe26149fa172056aee5f841415c55fa" category="admonition">Astra Trident不支援手動QoS容量集區。</block>
-  <block id="1a5743e0279e48054d3f9bb1ebc7e266" category="paragraph">Anf後端提供這些組態選項。</block>
   <block id="55eaeeb515ba1b8a42eb736b0e58f41f" category="cell">Volume的vnet功能集可能是<block ref="972e73b7a882d0802a4e3a16946a2f94" prefix=" " category="inline-code"></block> 或<block ref="eb6d8ae6f20283755b339c0dc273988b" prefix=" " category="inline-code"></block>。並非所有地區都提供網路功能、可能必須在訂閱中啟用。指定 <block ref="b0fdc9c7b96e4249152c61b506703142" prefix=" " category="inline-code"></block> 如果未啟用此功能、則會導致磁碟區資源配置失敗。</block>
   <block id="cc3d42de123c784e8d8e3c8404b943be" category="cell">精細控制NFS掛載選項。SMB磁碟區已忽略。若要使用NFS 4.1版掛載磁碟區、請包含 <block ref="c72da907ddca73ee114d92e5e098ce0e" prefix=" " category="inline-code"></block> 在以逗號分隔的掛載選項清單中、選擇NFS v4.1。儲存類別定義中設定的掛載選項會覆寫在後端組態中設定的掛載選項。</block>
   <block id="f0873081464f48da27a1068215270c60" category="cell"><block ref="296026821ada2ab8aebcf13547a63df5" prefix="" category="inline-code"></block></block>
@@ -2280,8 +2266,6 @@
   <block id="ea221277b2f168f5e17d112765f4a1c0" category="cell">匯出新磁碟區的規則。<block ref="c72971f17465d2a32345bc872af62a34" prefix=" " category="inline-code"></block> 必須是以逗號分隔的清單、以CIDR表示法列出所有的IPv4位址或IPv4子網路組合。SMB磁碟區已忽略。</block>
   <block id="21590b83460bd480131384ef53bdccc4" category="cell">新磁碟區的UNIX權限（4個八進位數字）。SMB磁碟區已忽略。</block>
   <block id="10c0eb6973453da95b4ef937f19ddb6c" category="section-title">組態範例</block>
-  <block id="36867df20f9068f37b26d3120d5e7ba4" category="paragraph">這是絕對最低的後端組態。使用此組態、Astra Trident會在設定的位置探索所有NetApp帳戶、容量集區和委派給ANF的子網路、並隨機將新磁碟區放在其中一個集區和子網路上。因為<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block> 省略<block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix=" " category="inline-code"></block> 預設會套用、後端會為NFS磁碟區進行資源配置。</block>
-  <block id="9c1aa30bfee58070482e646ad5d8bb4b" category="paragraph">此後端組態可將Volume置於Azure中<block ref="6356111305f5daab178fa6051b7a8ae7" prefix=" " category="inline-code"></block> 位置<block ref="7057376a419b3334cc7b8b7a9f064abb" prefix=" " category="inline-code"></block> 容量資源池：Astra Trident會自動探索該位置委派給ANF的所有子網路、並隨機在其中一個磁碟區上放置新磁碟區。</block>
   <block id="c0b04213f295bd61098649d5dec24291" category="section-title">儲存類別定義</block>
   <block id="cad675ae3fb846705512fe460e615ac3" category="paragraph">以下內容<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 定義請參閱上述儲存資源池。</block>
   <block id="1abbfd87ab307af55b755fd27ce60191" category="paragraph">使用<block ref="4d859186a09b1da3597e5901157d9400" prefix=" " category="inline-code"></block> 您可以為每個項目指定<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 用於裝載磁碟區的虛擬集區。該磁碟區會在所選的資源池中定義各個層面。</block>
@@ -2292,7 +2276,6 @@
   <block id="06bb6ebc4dada525717294b660ba2b3b" category="example-title">範例3：每個磁碟區使用不同的機密</block>
   <block id="c51cc3b801a879870aea846bdde1c7a3" category="section-title">建立後端</block>
   <block id="7d8058d93ec1d95c673d83bf303326ff" category="doc">列舉NAS組態選項與範例ONTAP</block>
-  <block id="618a7676e411bbfbd9dbdb2411019951" category="summary">您可以將Azure NetApp Files 靜態（ANF）設定為Astra Trident的後端。您可以使用ANF後端來附加NAS和SMB磁碟區。</block>
   <block id="ea61e2c2ff507048203824add1eb7c21" category="section-title">考量</block>
   <block id="8f395c84ad002394e9f070a25937dcc4" category="list-text">此支援服務不支援小於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、Astra Trident會自動建立100-GB磁碟區。</block>
   <block id="1cf44a6bee7fa333861e5d0042926fb5" category="list-text">Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。</block>
@@ -2640,7 +2623,6 @@
   <block id="46eefe0a9f18e4edef4d602d3868ad26" category="section-title">虛擬資源池設計</block>
   <block id="b8c8132a188c589a80147f1e0b22bf92" category="paragraph">建立後端時、您通常可以指定一組參數。系統管理員無法以相同的儲存認證和一組不同的參數來建立另一個後端。隨著虛擬資源池的推出、這個問題已經減輕。虛擬集區是後端與Kubernetes儲存類別之間的層級抽象、可讓系統管理員定義參數及標籤、並以不受後端限制的方式透過Kubernetes儲存類別做為選取元來參考。可使用Astra Trident為所有支援的NetApp後端定義虛擬資源池。這份清單包括SolidFire/NetApp HCI、ONTAP 《關於Cloud Volumes Service GCP的功能、功能、功能、功能Azure NetApp Files 、功能、以及</block>
   <block id="e531eef4bc68547759b647c917ac2567" category="admonition">定義虛擬資源池時、建議您不要嘗試重新排列後端定義中現有虛擬資源池的順序。此外、建議您不要編輯/修改現有虛擬資源池的屬性、改為定義新的虛擬資源池。</block>
-  <block id="12a04174d46f1d73ff741b222e009596" category="paragraph">您可以設計虛擬集區來模擬服務類別。使用適用於Azure NetApp Files 支援功能的Cloud Volume Service for效益的虛擬資源池實作、讓我們來看看如何設定不同的服務類別。使用代表不同效能等級的多個標籤來設定ANF後端。設定<block ref="28277e44c5db61612accdf326d137e96" prefix=" " category="inline-code"></block> 並在每個標籤下新增其他必要的層面。現在請建立不同的Kubernetes儲存類別、以便對應至不同的虛擬資源池。使用<block ref="bed471c4a88e25ac9a7e4a7b980700a8" prefix=" " category="inline-code"></block> 欄位中、每個StorageClass會呼叫哪些虛擬資源池可用於裝載Volume。</block>
   <block id="f274bdd304a8c3825a2766a1f8ff8fa7" category="paragraph">可從單一儲存後端設計多個具有特定層面的虛擬集區。若要這麼做、請使用多個標籤來設定後端、並在每個標籤下設定所需的層面。現在、請使用建立不同的Kubernetes儲存類別<block ref="bed471c4a88e25ac9a7e4a7b980700a8" prefix=" " category="inline-code"></block> 對應至不同虛擬資源池的欄位。在後端上進行資源配置的磁碟區、將會在所選的虛擬資源池中定義各個層面。</block>
   <block id="77392d80c7d8caad401b2619f5dd4581" category="paragraph">在建立永久虛擬儲存設備時、超出所要求儲存類別的部分參數可能會影響Astra Trident的資源配置決策程序。</block>
   <block id="5425c134e042a4473f453cbfaaf776df" category="summary">您可以在ONTAP Astra Trident上啟用Linux Unified Key Setup（LUKS）來加密支援的SAN和ONTAP 支援的SAN經濟版磁碟區。Astra Trident支援LUKS加密磁碟區的磁碟區大小調整和金鑰（通關密碼）旋轉。</block>
@@ -2690,7 +2672,6 @@
   <block id="cf201a9e802aa6e35997590206919b1a" category="list-text">使用支援SMB磁碟區<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 僅限驅動程式。</block>
   <block id="b184cfad0a2d14c9220db3d72006958c" category="list-text">在啟用自動備份的Amazon FSX檔案系統上建立的磁碟區、無法由Trident刪除。若要刪除PVCs、您需要手動刪除PV和FSXfor ONTAP the Sesfvolume。若要避免此問題：</block>
   <block id="867730e819742e7e493081f160c42c61" category="paragraph">您可以ONTAP 使用下列驅動程式、將Astra Trident與Amazon FSX for NetApp整合：</block>
-  <block id="90e87fa57067732a25774f917230f72b" category="paragraph">如需驅動程式詳細資料、請參閱 <block ref="5222b6b9484ba2027cf88dd24062e5fc" category="inline-link-macro-rx"></block>。</block>
   <block id="676f29c1b0b3626bc959bdc6ebc8953b" category="paragraph">Astra Trident提供兩種驗證模式。</block>
   <block id="2dc4717be6b9cdf676df17aa86465f02" category="admonition">Astra Trident希望以<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> SVM使用者或具有相同角色之不同名稱的使用者。適用於NetApp ONTAP 的Amazon FSX具備以下功能<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block> 使用者只能有限地取代ONTAP 此功能<block ref="21232f297a57a5a743894a0e4a801fc3" prefix=" " category="inline-code"></block> 叢集使用者：強烈建議使用<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> 使用Astra Trident。</block>
   <block id="43c502a16d6b21dc6eb26a2067154e11" category="paragraph">您可以更新後端以在認證型和憑證型方法之間移動。不過、如果您嘗試提供*認證資料和認證*、後端建立將會失敗。若要切換至不同的驗證方法、您必須從後端組態中移除現有方法。</block>
@@ -2806,7 +2787,6 @@
   <block id="065b7cc24b33be7af1e15f59024402d2" category="paragraph">Astra Trident將決定選取哪個虛擬集區、並確保符合儲存需求。</block>
   <block id="c632eed28bf53466df8b8a33aedab3af" category="list-text">虛擬資源池（若有）必須維持與原始後端相同的順序。</block>
   <block id="87a522ecb9df14bf978f6f1da8a654a8" category="list-text">您無法藉由移除來撤銷對來源PVc的存取權<block ref="287f26e3328f9ac0f3f4da2cdaddd3e2" prefix=" " category="inline-code"></block> 或<block ref="11650d25d20af47978d85fd6e19c89aa" prefix=" " category="inline-code"></block> 註釋或刪除<block ref="d6995f631b22fb3f8e94aad1b40d1280" prefix=" " category="inline-code"></block> CR.若要撤銷存取權、您必須刪除從屬的PVc。</block>
-  <block id="1b9b62ce5b41c05a88e439d4ddbaf2c3" category="paragraph">您可以將Azure NetApp Files 靜態（ANF）設定為Astra Trident的後端。您可以使用ANF後端連接NFS和SMB磁碟區。</block>
   <block id="41a45a3b55b7354dab0d81bb0ad06493" category="cell">傳輸協定LIF的IP位址。我們建議具體說明<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block>。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 <block ref="b2c939cb81e81d99a25f4be74f517f2f" category="inline-xref-macro-rx"></block>。如果使用安裝Astra Trident、則可設定使用IPv6位址<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。</block>
   <block id="ae8df8316f5c485b7db4e7141e899701" category="cell">指定位址或從SVM衍生（若未指定）（不建議使用）</block>
   <block id="ad898a5f5863162f9c13e958485877d5" category="cell">啟用自動匯出原則建立及更新[布 林值]。使用<block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix=" " category="inline-code"></block> 和<block ref="b9c40fbe9daa81e40e06509d5bbd5a6c" prefix=" " category="inline-code"></block> 選項：Astra Trident可自動管理匯出原則。</block>
@@ -3101,17 +3081,14 @@
   <block id="58c09f2c9581bc7c58c32116266b6d8f" category="cell">要使用的分層原則<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block></block>
   <block id="49ed5b3ecd0e966bec6b74083f06599e" category="cell"><block ref="8805d416ce540c5f2df34af5b18d742b" prefix="" category="inline-code"></block> 適用於 ONTAP 9.5 之前的 SVM-DR 組態</block>
   <block id="6792aad2d8c086a9d25f5ad8ec090f35" category="paragraph">在建立元素後端之前、您需要下列項目。</block>
-  <block id="4e121ce555fa114069539035adefe18e" category="section-title">Volume 模式</block>
   <block id="690b3c7311638da5eef87f5e07aa1258" category="section-title">管理磁碟區</block>
   <block id="24da0fbaaa9930515c555e7019db09d2" category="paragraph">請參閱下列內容、瞭解如何使用 Astra Trident 來管理 Volume 。</block>
   <block id="00a9bbaf4185978435bd4d6cb7aba6c4" category="summary">使用 Astra Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 備份的區塊和檔案持續性磁碟區。</block>
   <block id="5178ad00e596ece0be9aceff179b4303" category="paragraph">Astra Trident 提供一組 Prometheus 指標端點、可用來監控 Astra Trident 的效能。</block>
   <block id="51e6d748c5af856ade589011dc2c7e85" category="cell"><block ref="37a6259cc0c1dae299a7866489dff0bd" prefix="" category="inline-code"></block></block>
   <block id="ddbd2735bfb88c5da807f77f6fe5f6c8" category="doc">ONTAP NAS 驅動程式概述</block>
-  <block id="dd972e44915c7a0884edd58e9d839295" category="section-title">ONTAP NAS 驅動程式的重要資訊</block>
   <block id="1faffcbb00c529812b5526b1b22b2b56" category="paragraph">您必須在 SVM 上同時設定 NFS 和 SMB/CIFS 通訊協定、才能建立<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 適用於內部部署 ONTAP 的 SMB Volume 。若未設定上述任一種通訊協定、將導致 SMB 磁碟區建立失敗。</block>
   <block id="5cc1e28c0d7b6c40ca94aacb554b31ca" category="doc">ONTAP SAN 驅動程式概觀</block>
-  <block id="7771a46320e96de2bde6598540ad4d52" category="section-title">ONTAP SAN 驅動程式的重要資訊</block>
   <block id="904628b57a33f3a2f6d71a6d991e15c6" category="paragraph">Astra Trident可以利用、選擇性地建立磁碟區、並將磁碟區附加至Kubernetes叢集中的節點<block ref="80b9a4f4a1bc9851317207ee3477041a" category="inline-link-rx"></block>。</block>
   <block id="3eba7c2a6bd35cbac350dcbfb90408f6" category="paragraph">使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。如今、雲端供應商可讓Kubernetes管理員建立以區域為基礎的節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中配置工作負載的磁碟區、Astra Trident使用了csi拓撲。</block>
   <block id="4ba6a75e6aacbc3737630ba55916cd27" category="section-title">管理後端的選項</block>
@@ -3805,4 +3782,41 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="00b454d2ba2e8d34f65f8a714304a598" category="admonition">下表僅包含與記錄服務相關的儲存組態變數。您可以在中找到其他選項 <block ref="e81826ec3b15492352776daada114990" category="inline-link-macro-rx"></block> 應根據您的部署情況來審查、設定及使用。</block>
   <block id="b8e4ea2ed30f2f3a9f05ef8e1cc243db" category="paragraph">如同記錄服務和OpenShift整體、Ansible可用於部署度量服務。此外、與記錄服務一樣、度量服務也可以在叢集初始設定期間或使用元件安裝方法在其運作後進行部署。下表包含在設定度量服務的持續儲存時、重要的變數。</block>
   <block id="db7ae7f1cfb23bf788607032d443c26c" category="paragraph">在您的主機/庫存檔案中定義適當的可Ansible變數後、使用Ansible部署服務。如果您是在OpenShift安裝時間進行部署、則會自動建立及使用PV。如果您使用元件教戰手冊進行部署、則在安裝 OpenShift 之後、 Ansible 會建立任何需要的 PVCS 、並在 Astra Trident 為其配置儲存設備之後、部署服務。</block>
+  <block id="8198f2a0f41303e214bcb5ab7d9e9ef4" category="section-title">ONTAP NAS 驅動程式詳細資料</block>
+  <block id="147be9e86dbd052c1f2b490f1e9b9897" category="paragraph">Astra Trident 提供下列 NAS 儲存驅動程式、可與 ONTAP 叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。</block>
+  <block id="2b5fc47d5a68b6070472f3a239fc77f3" category="paragraph">" 、<block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix=" " category="inline-code"></block>、<block ref="79e0f325804dafbdaef73b3b17c0fd8d" prefix=" " category="inline-code"></block></block>
+  <block id="f353c2f2ba62c120d68a9fde333ef59f" category="summary">瞭解 Azure NetApp Files 的 NFS 和 SMB 後端組態選項、並檢閱組態範例。</block>
+  <block id="19b571f96ec7d28e6329f9c52fab7424" category="paragraph">Astra Trident 使用您的後端組態（子網路、虛擬網路、服務層級和位置）、在所要求位置的可用容量集區上建立 Azure NetApp Files Volume 、並符合所要求的服務層級和子網路。</block>
+  <block id="b9acebca540d60eef74f6ffc3e4aa2e7" category="paragraph">Azure NetApp Files 後端提供這些組態選項。</block>
+  <block id="5cda3f51d6458740b40a6f4c0aab02f0" category="paragraph">這是絕對最低的後端組態。有了這項組態、 Astra Trident 會探索您在設定位置中委派給 Azure NetApp Files 的所有 NetApp 帳戶、容量集區和子網路、並隨機將新磁碟區放在其中一個集區和子網路上。因為<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block> 省略<block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix=" " category="inline-code"></block> 預設會套用、後端會為NFS磁碟區進行資源配置。</block>
+  <block id="639aa44ce5a6709a5719b427993c9657" category="paragraph">當您剛開始使用 Azure NetApp Files 並試用時、這項組態是理想的選擇、但實際上您會想要為您所配置的磁碟區提供額外的範圍。</block>
+  <block id="62679c3777af7cf9f6af4e6aa0e7cfc4" category="paragraph">此後端組態可將Volume置於Azure中<block ref="6356111305f5daab178fa6051b7a8ae7" prefix=" " category="inline-code"></block> 位置<block ref="7057376a419b3334cc7b8b7a9f064abb" prefix=" " category="inline-code"></block> 容量資源池：Astra Trident 會自動探索該位置中委派給 Azure NetApp Files 的所有子網路、並隨機在其中一個子網路上放置新的磁碟區。</block>
+  <block id="a493eb50acc1b5a276034b914c4ce10d" category="section-title">ONTAP SAN 驅動程式詳細資料</block>
+  <block id="7fd570aee3c81c5db028704e5fdf5b52" category="paragraph">Astra Trident 提供下列 SAN 儲存驅動程式、可與 ONTAP 叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。</block>
+  <block id="fcd147679464b9eda6367f4e90e16ff8" category="paragraph">RWO 、 RWOP</block>
+  <block id="94188b3f68e7baf5ef4a1f721857e77c" category="paragraph">檔案系統磁碟區模式中無法使用 Rox 和 rwx 。</block>
+  <block id="2acadf30bbdf69b0408eadef287eb346" category="summary">您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NAS 和 SMB 磁碟區。</block>
+  <block id="8094785ba6188e7e62aca54731d06963" category="paragraph">您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NFS 和 SMB 磁碟區。</block>
+  <block id="2f73efb41160e66d2e4f5b500c984de8" category="section-title">Azure NetApp Files 驅動程式詳細資料</block>
+  <block id="4ba3000579192de0298587f58861a12e" category="paragraph">Astra Trident 提供下列 Azure NetApp Files 儲存驅動程式來與叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。</block>
+  <block id="7e7d2470a40e817070cd42bd81713c7b" category="paragraph"><block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix="" category="inline-code"></block>、<block ref="79e0f325804dafbdaef73b3b17c0fd8d" prefix=" " category="inline-code"></block></block>
+  <block id="a26f7ba5e57155f8df4df121d4527158" category="cell"><block ref="43f09bc16eaf24131ea82903259878ac" prefix="" category="inline-code"></block></block>
+  <block id="52dcf826fbc73c7b9f555d6b50423f98" category="paragraph"><block ref="310201b6353c5f38bc039e0e51b079d3" prefix="" category="inline-code"></block><block ref="66f137c5dc684da2a6a65917c86edd67" prefix="," category="inline-code"></block>、<block ref="40d1d2ce03569076bd0dc1e0ff90aa4c" prefix=" " category="inline-code"></block></block>
+  <block id="62233a6f2ba54c1dcede120348a6f595" category="paragraph">瞭解如何在 Astra Trident 安裝中建立和使用元素後端。</block>
+  <block id="4e7d6286f837d54a4e4154d4b21b0659" category="section-title">元素驅動程式詳細資料</block>
+  <block id="9fc6992cc8e273b3f7d317fc2a54e18c" category="paragraph">Astra Trident 提供<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 用於與叢集通訊的儲存驅動程式。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。</block>
+  <block id="2d5e7b30bb6eb1bd6091005422150b91" category="paragraph">。<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> 儲存驅動程式支援 _file_ 和 _block_ 磁碟區模式。適用於<block ref="ac52cf637478f3656a1fdee5c02324fd" prefix=" " category="inline-code"></block> 磁碟區代碼、Astra Trident會建立磁碟區並建立檔案系統。檔案系統類型由StorageClass指定。</block>
+  <block id="f5aa1832e32f2b8d7a7f22d8e36a4617" category="inline-link-macro">NAS 驅動程式</block>
+  <block id="de9e7e8f2c463ef15bebdbf8d2d1aa6d" category="inline-link-macro">SAN 驅動程式</block>
+  <block id="b49ccad583187aa8103775031d346d4a" category="paragraph">如需驅動程式詳細資料、請參閱 <block ref="94749ac9904f861b1290f2feae976582" category="inline-link-macro-rx"></block> 和 <block ref="5475edaa4f9b7b7cc2309add6d5e3cd5" category="inline-link-macro-rx"></block>。</block>
+  <block id="8126e96f64b1a5de24d4cf6e4b09b986" category="section-title">Google Cloud 驅動程式詳細資料</block>
+  <block id="9393948ed1be0af0cfb3d99e3248301a" category="paragraph">Astra Trident 提供<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> 與叢集通訊的驅動程式。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。</block>
+  <block id="9aa82da0cffe247b84587c1cc8e32746" category="cell">"預設"</block>
+  <block id="dfb6135042da6e8fbf367d9cf13431ef" category="paragraph">Volume大小的選擇性限制。預設： "" （未強制執行）</block>
+  <block id="4846d107d8ddb5051591d14dcbddba8c" category="admonition">除非指定、否則 Volume 驅動程式的預設名稱為「 NetApp 」。</block>
+  <block id="5ab207578468b7bbc201024492654253" category="list-text">新增對 Azure NetApp Files 驅動程式網路功能的支援。（<block ref="e0e89f8bd936a5eb3adce74cac88eab0" category="inline-link-macro-rx"></block>）</block>
+  <block id="302e5f91d375f03821f8fd6340563539" category="list-text">修正 Azure NetApp Files 驅動程式無法複製具有多個匯出規則的磁碟區的問題。</block>
+  <block id="1d61f4e1411b6940bc918fb56346f64d" category="list-text">固定式 Azure NetApp Files 驅動程式可允許重複的資源名稱、並將作業限制在單一位置。</block>
+  <block id="409ee85d2342bf416b29a45a7b9c4e59" category="list-text">新增對 Azure NetApp Files Volume 的「 unixPermissions 」選項支援。（<block ref="b2ee1a79cce917ad1d60b3bec442914a" category="inline-link-macro-rx"></block>）</block>
+  <block id="9f65455ce006fe56e7588e4e14f1edb8" category="paragraph">您可以設計虛擬集區來模擬服務類別。使用適用於Azure NetApp Files 支援功能的Cloud Volume Service for效益的虛擬資源池實作、讓我們來看看如何設定不同的服務類別。使用代表不同效能層級的多個標籤來設定 Azure NetApp Files 後端。設定<block ref="28277e44c5db61612accdf326d137e96" prefix=" " category="inline-code"></block> 並在每個標籤下新增其他必要的層面。現在請建立不同的Kubernetes儲存類別、以便對應至不同的虛擬資源池。使用<block ref="bed471c4a88e25ac9a7e4a7b980700a8" prefix=" " category="inline-code"></block> 欄位中、每個StorageClass會呼叫哪些虛擬資源池可用於裝載Volume。</block>
 </blocks>

@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/anf.html 
-keywords: trident backend, azure netapp files, smb volumes, smb, windows 
-summary: 您可以將Azure NetApp Files 靜態（ANF）設定為Astra Trident的後端。您可以使用ANF後端來附加NAS和SMB磁碟區。 
+keywords: trident backend, azure netapp files, smb volumes, smb, windows, drivers, access modes, rwo, rwx, rwp, rwop, file system 
+summary: 您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NAS 和 SMB 磁碟區。 
 ---
 = 設定Azure NetApp Files 一個靜態後端
 :hardbreaks:
@@ -12,8 +12,42 @@ summary: 您可以將Azure NetApp Files 靜態（ANF）設定為Astra Trident的
 
 
 [role="lead"]
-您可以將Azure NetApp Files 靜態（ANF）設定為Astra Trident的後端。您可以使用ANF後端連接NFS和SMB磁碟區。
+您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NFS 和 SMB 磁碟區。
 
+
+
+== Azure NetApp Files 驅動程式詳細資料
+
+Astra Trident 提供下列 Azure NetApp Files 儲存驅動程式來與叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
+
+[cols="2, 1, 1, 2, 2"]
+|===
+| 驅動程式 | 傳輸協定 | Volume模式 | 支援的存取模式 | 支援的檔案系統 
+
+
+| 《azure-NetApp-fil形》  a| 
+NFS
+中小企業
+ a| 
+檔案系統
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+`nfs`、 `smb`
+
+
+
+| `azure-netapp-files-subvolume`  a| 
+NFS
+中小企業
+ a| 
+檔案系統
+ a| 
+RWO 、 RWOP
+ a| 
+`xfs`,`ext3`、 `ext4`
+
+|===
 
 
 == 考量

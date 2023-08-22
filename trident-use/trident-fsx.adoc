@@ -58,7 +58,7 @@ image:screenshot-fsx-backup-disable.png["AWS主控台停用自動備份的快照
 * 「ONTAP-NAS-Flexgroup」：每個提供的PV都是適用於NetApp ONTAP FlexGroup 的完整Amazon FSX。
 
 
-如需驅動程式詳細資料、請參閱 link:../trident-concepts/ontap-drivers.html["驅動程式ONTAP"]。
+如需驅動程式詳細資料、請參閱 link:../trident-use/ontap-nas.html.html["NAS 驅動程式"] 和 link:../trident-use/ontap-san.html.html["SAN 驅動程式"]。
 
 
 

@@ -47,7 +47,7 @@ image:screenshot-fsx-backup-disable.png["AWS主控台停用自動備份的快照
 
 
 
-== 驅動程式
+== 適用於 ONTAP 驅動程式詳細資料的 FSX
 
 您可以ONTAP 使用下列驅動程式、將Astra Trident與Amazon FSX for NetApp整合：
 
@@ -58,7 +58,7 @@ image:screenshot-fsx-backup-disable.png["AWS主控台停用自動備份的快照
 * 「ONTAP-NAS-Flexgroup」：每個提供的PV都是適用於NetApp ONTAP FlexGroup 的完整Amazon FSX。
 
 
-如需驅動程式詳細資料、請參閱 link:../trident-use/ontap-nas.html.html["NAS 驅動程式"] 和 link:../trident-use/ontap-san.html.html["SAN 驅動程式"]。
+如需驅動程式詳細資料、請參閱 link:../trident-use/ontap-nas.html["NAS 驅動程式"] 和 link:../trident-use/ontap-san.html["SAN 驅動程式"]。
 
 
 

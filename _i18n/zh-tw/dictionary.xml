@@ -3819,4 +3819,9 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="9f65455ce006fe56e7588e4e14f1edb8" category="paragraph">您可以設計虛擬集區來模擬服務類別。使用適用於Azure NetApp Files 支援功能的Cloud Volume Service for效益的虛擬資源池實作、讓我們來看看如何設定不同的服務類別。使用代表不同效能層級的多個標籤來設定 Azure NetApp Files 後端。設定<block ref="28277e44c5db61612accdf326d137e96" prefix=" " category="inline-code"></block> 並在每個標籤下新增其他必要的層面。現在請建立不同的Kubernetes儲存類別、以便對應至不同的虛擬資源池。使用<block ref="bed471c4a88e25ac9a7e4a7b980700a8" prefix=" " category="inline-code"></block> 欄位中、每個StorageClass會呼叫哪些虛擬資源池可用於裝載Volume。</block>
   <block id="42f3b65b98b18c792b7b5534e40d2646" category="section-title">適用於 ONTAP 驅動程式詳細資料的 FSX</block>
   <block id="9b82ca4e89dcaf4cecf50467b6126909" category="paragraph">如需驅動程式詳細資料、請參閱 <block ref="4093b6d0ce8cf414637a02002d2b0376" category="inline-link-macro-rx"></block> 和 <block ref="276422a40a581e9842304216329765d5" category="inline-link-macro-rx"></block>。</block>
+  <block id="02882f6e58d1a3adffd9c9e4d0b2cc15" category="cell">叢集或SVM管理LIF的IP位址
+
+您可以指定完整網域名稱（FQDN）。
+
+如果使用安裝Astra Trident、則可設定使用IPv6位址<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。</block>
 </blocks>

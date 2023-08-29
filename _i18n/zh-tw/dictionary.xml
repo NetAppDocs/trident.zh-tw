@@ -951,8 +951,6 @@
   <block id="b851cfc28cd6e5cb9aaf87bdb59a68aa" category="list-text">如果在容器執行時間安裝Trident with Docker時遇到權限問題、請嘗試使用「-in cluster =fals'」旗標來安裝Trident。這不會使用安裝程式Pod、也不會因為「Trident安裝程式」使用者而造成權限問題。</block>
   <block id="6f7d49547ff47cfaf1fd93d134b603be" category="list-text">使用「uninstall參數&lt;uninstalling Trident &gt;」來在執行失敗後進行清理。根據預設、指令碼不會移除Trident所建立的客戶需求日、即使在執行中的部署中、也能安全地解除安裝及再次安裝。</block>
   <block id="f1112223b41fddc71fd6a626582dfb78" category="inline-link">Trident版本</block>
-  <block id="7dc9f8824c461c84d9bb1563a0615526" category="list-text">若要完全移除Trident、請執行「tridentctl obliviate crd」命令。這會移除所有CRD物件、並取消定義客戶需求日。Trident將不再管理任何已配置的PV。</block>
-  <block id="e7fc3eac0c0cea530e0f52e3ddf37079" category="admonition">之後需要從頭重新設定Trident。</block>
   <block id="51748ba3d16ecfd8c45c7ebf2043b738" category="list-text">成功安裝之後、如果某個永久虛擬磁碟卡在「Pending」（擱置）階段、執行「KECBECTL描述永久虛擬磁碟」可提供有關Trident為何無法為此永久虛擬磁碟配置PV的其他資訊。</block>
   <block id="a900bd1dbd5690f78a30ca74d138d0b7" category="section-title">使用操作員疑難排解不成功的Trident部署</block>
   <block id="0e89989064bf4afdc37fd5a7be4f607d" category="paragraph">如果您使用運算子來部署Trident、則「TridentOrchestrator」的狀態會從「安裝」變更為「安裝」。如果您看到「失敗」狀態、而且操作員本身無法恢復、您應該執行下列命令來檢查操作員的記錄：</block>
@@ -1370,7 +1368,6 @@
   <block id="8656f6a3d04342ff6248bd7d32949c2a" category="paragraph">如果您使用Helm安裝Astra Trident、您可以使用「helm uninstall」來解除安裝。</block>
   <block id="c416a70504ae36e8cfbf555ad0d13ab9" category="paragraph">如果您使用運算子安裝了Astra Trident、您可以執行下列其中一項來解除安裝：</block>
   <block id="245e84de93b9b41f643f9e737c17e702" category="paragraph">當「uninstall」旗標設定為「true」時、Trident操作者會解除安裝Trident、但不會移除TridentOrchestrator本身。如果您想要再次安裝Trident、請清理TridentOrchestrator並建立新的Trident。</block>
-  <block id="1b600643682d5a3280681ef82d7e6ae4" category="paragraph">若要完整移除Astra Trident、您應移除由Astra Trident所建立之CRD的微調工具、然後刪除CRD。</block>
   <block id="3bda6d3452a50ffddd40bb74b05d6c50" category="summary">Astra Trident依照每季發行時段進行、每一日曆年發行四個主要版本。每個新版本均以舊版為基礎、提供新功能與效能增強功能、以及錯誤修正與改善功能。我們建議您每年至少升級一次、以善用Astra Trident的新功能。</block>
   <block id="3386987a97643481040e99019808e020" category="doc">升級Astra Trident</block>
   <block id="f71fd95d4de4797557e6830c1448c945" category="summary">您可以使用「tridentctl」輕鬆升級現有的Astra Trident安裝。</block>
@@ -2896,7 +2893,6 @@
   <block id="579b44412770c0d6b65bc3fd9bf7c61c" category="section-title">步驟5：更新中的映像登錄位置<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block></block>
   <block id="d0ebde94f92d8c1bae0c6660a5847bba" category="paragraph">您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。更新<block ref="7b4b81fb05ca7f2a09fe73526ac95482" prefix=" " category="inline-code"></block> 根據登錄組態新增額外的位置規格。</block>
   <block id="5295ac8fb520b71deb8a1b57857b2562" category="section-title">步驟6：建立<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 並安裝Trident</block>
-  <block id="ea7cc85727ac6a0761c52685cce336be" category="list-text">如果您想要降級至舊版Trident、請先執行<block ref="ac8650577d1b744589a6a11b60ac38c7" prefix=" " category="inline-code"></block> 移除Trident的命令。下載所需的<block ref="f3d78353f8dac3e49bbefeb5f6a2383b" category="inline-link-rx"></block> 並使用安裝<block ref="430bf77bee6c59d385d4194f84c21b16" prefix=" " category="inline-code"></block> 命令。只有在沒有建立新的PV、且尚未對現有的PV/後端/儲存類別進行任何變更時、才考慮降級。由於Trident現在使用CRD來維護狀態、因此所有建立的儲存實體（後端、儲存類別、PV和Volume Snapshot）都擁有<block ref="816158c49c5f4417bf3b0f9c644e722e" prefix=" " category="inline-code"></block> 而非寫入先前安裝版本Trident所使用之PV的資料。*移回舊版時、新建立的PV將無法使用。**對物件所做的變更、例如後端、PV、儲存類別和Volume快照（已建立/更新/刪除）、在降級*時、Trident將無法看到。Trident安裝的舊版Trident所使用的PV、仍可供Trident查看。返回舊版不會中斷已使用舊版建立之PV的存取、除非已升級。</block>
   <block id="43e6c0a141c1737a96917c56c7e22a73" category="inline-link-macro">安裝&lt;block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category='inline-code'/&gt; 功能</block>
   <block id="1a2de31d648d8c09e5c2a9257a5ad67b" category="paragraph">如果您現有的部署必須升級、或是想要高度自訂部署、您應該考慮 <block ref="e214bf159dbaf6573cfe15f1373b92db" category="inline-link-macro-rx"></block>。這是部署Astra Trident的傳統方法。</block>
   <block id="19466ff921af5aa01da62b42cdaaf617" category="list-text">固定Trident運算子在SPEC中指定安裝時使用IPv6 localhost。</block>
@@ -3644,13 +3640,8 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="2985edaba812b8b31d08cc8513fee0a3" category="section-title">解除安裝手動安裝</block>
   <block id="932d8e226d5e26c888990ae2e734feb8" category="list-text">編輯<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 若要設定解除安裝旗標：*您可以編輯<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 並設定<block ref="f41a95848a012f4f1a6550ce79c588aa" prefix=" " category="inline-code"></block>。</block>
   <block id="d7348a31cc49a1353d8a060756d323e4" category="list-text">編輯<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 並設定<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> 旗標如下所示：</block>
-  <block id="e03d3721a2fe7e82d0d50eaf5ac511a8" category="list-text">刪除<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>：*移除<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 用來部署Astra Trident的CR、您可以指示操作員解除安裝Trident。</block>
-  <block id="46735a6e4a7e7976fed0b7687712a1ee" category="list-text">操作員會處理的移除作業<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 然後繼續移除Astra Trident部署和取消安裝、刪除它在安裝過程中建立的Trident Pod。</block>
-  <block id="b040b629291fec756f4560e3829a2469" category="list-text">若要解除安裝 Astra Trident 並完全移除 Astra Trident （包括它所建立的 CRD ）、請編輯<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 以通過<block ref="c13a52521693f799a16fd56a35c77a04" prefix=" " category="inline-code"></block> 選項。後續安裝將視為新安裝。</block>
-  <block id="65b181709bf2a6743f68804084833d5c" category="admonition">此動作無法復原。除非您想要全新的 Astra Trident 安裝、否則請勿清除 CRD 。例如、如果您要移至前述版本以外的版本。</block>
   <block id="55f6e2744208ccefe34f3e05ced2c988" category="section-title">解除安裝 Helm 安裝</block>
   <block id="99dec4df69ba043a5eb3118e1e0b364e" category="section-title">解除安裝<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 安裝</block>
-  <block id="12fcf291c47ed92eb8d494b92dca8fb8" category="paragraph">使用<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> 命令輸入<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 移除與 Astra Trident 相關的所有資源、但 CRD 和相關物件除外。如此一來、再次執行安裝程式即可輕鬆更新至最新版本。</block>
   <block id="7a15e63f1d0efc213151254bbc1b2d0d" category="doc">升級 Trident 營運商安裝</block>
   <block id="0f443eb922735ce52f2b490ffca00e49" category="paragraph">您可以使用 Trident 運算子手動或使用 Helm 來升級 Astra Trident 。您可以從 Trident 運算子安裝升級至其他 Trident 運算子安裝、或從升級<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 安裝至 Trident 運算子版本。檢閱 <block ref="5cffa5fbe758cc3901f0e33c78b29d1b" category="inline-link-macro-rx"></block> 在升級 Trident 操作員安裝之前。</block>
   <block id="3ef75911ec16a9d0ba70cfd4e68dcb71" category="section-title">升級手動安裝</block>
@@ -3824,4 +3815,17 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
 您可以指定完整網域名稱（FQDN）。
 
 如果使用安裝Astra Trident、則可設定使用IPv6位址<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。</block>
+  <block id="629ac35dda697ad18f8fef7094213871" category="list-text">如果您想要降級至舊版的 Trident 、請先執行<block ref="ac8650577d1b744589a6a11b60ac38c7" prefix=" " category="inline-code"></block> 移除Trident的命令。下載所需的<block ref="f3d78353f8dac3e49bbefeb5f6a2383b" category="inline-link-rx"></block> 並使用安裝<block ref="430bf77bee6c59d385d4194f84c21b16" prefix=" " category="inline-code"></block> 命令。</block>
+  <block id="2a1db8dc71dec3264e9155d610575785" category="section-title">完全移除 Astra Trident 和 CRD</block>
+  <block id="de752588132c292a8a12ad2441fbf43c" category="paragraph">您可以完全移除 Astra Trident 和所有建立的客戶需求日、以及相關的自訂資源。</block>
+  <block id="90dc0d986558510d55c898cb62f4f2d5" category="admonition">此動作無法復原。除非您想要全新安裝 Astra Trident 、否則請勿這麼做。若要在不移除客戶需求日的情況下解除安裝 Astra Trident 、請參閱 <block ref="6b2eb9a0745ceac90657a4978cb010ca" category="inline-link-macro-rx"></block>。</block>
+  <block id="4f5dbc74e3448e08fe0e7bfd62876fc8" category="open-title">Trident運算子</block>
+  <block id="f4508049a2ac2bdb5cb9fde92120497a" category="paragraph">若要解除安裝 Astra Trident 、並使用 Trident 運算子完全移除 CRD ：</block>
+  <block id="152090ff5e9a05ea7e1cf0c248449638" category="open-title">掌舵</block>
+  <block id="96ce7a69bf578e9c3915fb876cad6dd9" category="paragraph">若要解除安裝 Astra Trident 、並使用 Helm 完全移除 CRD ：</block>
+  <block id="fed6290ac938ca603cf5f4f680802954" category="open-title">&lt;code&gt;tridentctl&lt;/code&gt;</block>
+  <block id="cc40bbe559f5f0b7306a8ae2941647b5" category="paragraph">若要在使用解除安裝 Astra Trident 之後完全移除 CRD<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
+  <block id="660807cada2c8061fb92638cfe0568d0" category="list-text">為了方便升級和重新安裝、解除安裝 Astra Trident 並不會移除 Astra Trident 所建立的 CRD 或相關物件。如果您需要完全移除 Astra Trident 及其所有資料、請參閱 <block ref="9d95a644de0932ac2f909a32a488bd14" category="inline-link-macro-rx"></block>。</block>
+  <block id="3277c9131339b6e3e8b8401d060b2ace" category="list-text">刪除<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>：*移除<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 用來部署Astra Trident的CR、您可以指示操作員解除安裝Trident。操作員會處理的移除作業<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 然後繼續移除Astra Trident部署和取消安裝、刪除它在安裝過程中建立的Trident Pod。</block>
+  <block id="d92f992bb942ae97af56a9921f1fb6d0" category="paragraph">使用<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> 命令輸入<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 移除與 Astra Trident 相關的所有資源、但 CRD 和相關物件除外。</block>
 </blocks>

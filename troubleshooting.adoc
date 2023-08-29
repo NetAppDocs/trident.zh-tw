@@ -62,12 +62,7 @@ helm upgrade <name> trident-operator-21.07.1-custom.tgz --set tridentDebug=true`
 * 如果Trident後端回報雖然曾經工作、但仍處於「失敗」狀態、則可能是因為變更與後端相關的SVM/admin認證資料所致。使用「tridentctl update backend」更新後端資訊、或是退回Trident pod、將可修正此問題。
 * 如果在容器執行時間安裝Trident with Docker時遇到權限問題、請嘗試使用「-in cluster =fals'」旗標來安裝Trident。這不會使用安裝程式Pod、也不會因為「Trident安裝程式」使用者而造成權限問題。
 * 使用「uninstall參數<uninstalling Trident >」來在執行失敗後進行清理。根據預設、指令碼不會移除Trident所建立的客戶需求日、即使在執行中的部署中、也能安全地解除安裝及再次安裝。
-* 如果您想要降級至舊版Trident、請先執行 `tridentctl uninstall` 移除Trident的命令。下載所需的 https://github.com/NetApp/trident/releases["Trident版本"] 並使用安裝 `tridentctl install` 命令。只有在沒有建立新的PV、且尚未對現有的PV/後端/儲存類別進行任何變更時、才考慮降級。由於Trident現在使用CRD來維護狀態、因此所有建立的儲存實體（後端、儲存類別、PV和Volume Snapshot）都擁有 `associated CRD objects <Kubernetes CustomResourceDefinition Objects>` 而非寫入先前安裝版本Trident所使用之PV的資料。*移回舊版時、新建立的PV將無法使用。**對物件所做的變更、例如後端、PV、儲存類別和Volume快照（已建立/更新/刪除）、在降級*時、Trident將無法看到。Trident安裝的舊版Trident所使用的PV、仍可供Trident查看。返回舊版不會中斷已使用舊版建立之PV的存取、除非已升級。
-* 若要完全移除Trident、請執行「tridentctl obliviate crd」命令。這會移除所有CRD物件、並取消定義客戶需求日。Trident將不再管理任何已配置的PV。
-+
-
-NOTE: 之後需要從頭重新設定Trident。
-
+* 如果您想要降級至舊版的 Trident 、請先執行 `tridentctl uninstall` 移除Trident的命令。下載所需的 https://github.com/NetApp/trident/releases["Trident版本"] 並使用安裝 `tridentctl install` 命令。
 * 成功安裝之後、如果某個永久虛擬磁碟卡在「Pending」（擱置）階段、執行「KECBECTL描述永久虛擬磁碟」可提供有關Trident為何無法為此永久虛擬磁碟配置PV的其他資訊。
 
 
@@ -160,3 +155,42 @@ INFO Deleted service account.
 INFO Removed Trident user from security context constraint.
 INFO Trident uninstallation succeeded.
 ----
+
+
+== 完全移除 Astra Trident 和 CRD
+
+您可以完全移除 Astra Trident 和所有建立的客戶需求日、以及相關的自訂資源。
+
+
+WARNING: 此動作無法復原。除非您想要全新安裝 Astra Trident 、否則請勿這麼做。若要在不移除客戶需求日的情況下解除安裝 Astra Trident 、請參閱 link:../trident-managing-k8s/uninstall-trident.html["解除安裝Astra Trident"]。
+
+[role="tabbed-block"]
+====
+.Trident運算子
+--
+若要解除安裝 Astra Trident 、並使用 Trident 運算子完全移除 CRD ：
+
+[listing]
+----
+kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
+----
+--
+.掌舵
+--
+若要解除安裝 Astra Trident 、並使用 Helm 完全移除 CRD ：
+
+[listing]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
+----
+--
+.<code>tridentctl</code>
+--
+若要在使用解除安裝 Astra Trident 之後完全移除 CRD `tridentctl`
+
+[listing]
+----
+tridentctl obliviate crd
+----
+--
+====

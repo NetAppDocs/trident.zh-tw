@@ -14,8 +14,10 @@ summary: 您應該使用與安裝 Astra Trident 相同的方法來解除安裝 A
 [role="lead"]
 您應該使用與安裝 Astra Trident 相同的方法來解除安裝 Astra Trident 。
 
+.關於這項工作
+* 如果您需要修正升級、相依性問題或升級失敗或不完整之後所觀察到的錯誤、您應該解除安裝 Astra Trident 、並使用相關的特定指示重新安裝舊版 link:../earlier-versions.html["版本"]。這是將 _ 降級 _ 降級至較早版本的唯一建議方法。
+* 為了方便升級和重新安裝、解除安裝 Astra Trident 並不會移除 Astra Trident 所建立的 CRD 或相關物件。如果您需要完全移除 Astra Trident 及其所有資料、請參閱 link:../troubleshooting.html#completely-remove-astra-trident-and-crds["完全移除 Astra Trident 和 CRD"]。
 
-NOTE: 如果您需要修正升級、相依性問題或升級失敗或不完整之後所觀察到的錯誤、您應該解除安裝 Astra Trident 、並使用相關的特定指示重新安裝舊版 link:../earlier-versions.html["版本"]。這是將 _ 降級 _ 降級至較早版本的唯一建議方法。
 
 .開始之前
 如果您要停用 Kubernetes 叢集、則必須先刪除所有使用 Astra Trident 所建立之 Volume 的應用程式、然後再解除安裝。如此可確保在刪除之前、不會在 Kubernetes 節點上發佈 PVC 。
@@ -63,21 +65,7 @@ kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"uninst
 ** 當「uninstall」旗標設定為「true」時、Trident操作者會解除安裝Trident、但不會移除TridentOrchestrator本身。如果您想要再次安裝Trident、請清理TridentOrchestrator並建立新的Trident。
 
 
-* 刪除 `TridentOrchestrator`：*移除 `TridentOrchestrator` 用來部署Astra Trident的CR、您可以指示操作員解除安裝Trident。
-+
-** 操作員會處理的移除作業 `TridentOrchestrator` 然後繼續移除Astra Trident部署和取消安裝、刪除它在安裝過程中建立的Trident Pod。
-** 若要解除安裝 Astra Trident 並完全移除 Astra Trident （包括它所建立的 CRD ）、請編輯 `TridentOrchestrator` 以通過 `wipeout` 選項。後續安裝將視為新安裝。
-+
-[listing]
-----
-kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
-----
-+
-
-WARNING: 此動作無法復原。除非您想要全新的 Astra Trident 安裝、否則請勿清除 CRD 。例如、如果您要移至前述版本以外的版本。
-
-
-
+* 刪除 `TridentOrchestrator`：*移除 `TridentOrchestrator` 用來部署Astra Trident的CR、您可以指示操作員解除安裝Trident。操作員會處理的移除作業 `TridentOrchestrator` 然後繼續移除Astra Trident部署和取消安裝、刪除它在安裝過程中建立的Trident Pod。
 
 
 
@@ -101,10 +89,9 @@ release "trident" uninstalled
 
 == 解除安裝 `tridentctl` 安裝
 
-使用 `uninstall` 命令輸入 `tridentctl` 移除與 Astra Trident 相關的所有資源、但 CRD 和相關物件除外。如此一來、再次執行安裝程式即可輕鬆更新至最新版本。
+使用 `uninstall` 命令輸入 `tridentctl` 移除與 Astra Trident 相關的所有資源、但 CRD 和相關物件除外。
 
 [listing]
 ----
 ./tridentctl uninstall -n <namespace>
 ----
-若要完整移除Astra Trident、您應移除由Astra Trident所建立之CRD的微調工具、然後刪除CRD。

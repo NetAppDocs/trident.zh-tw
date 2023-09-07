@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-operator-overview.html 
-keywords: upgrade, trident, operator, helm, controller, daemonset, node pods 
-summary: 在使用 Trident 運算子升級 Astra Trident 之前、您應該先瞭解升級期間發生的背景程序。其中包括 Trident 控制器、控制器 Pod 和節點 Pod 的變更、以及節點示範集。 
+keywords: upgrade, trident, operator, helm, controller, daemonset, node pods, rolling upgrade, zero downtime 
+summary: 在使用 Trident 運算子升級 Astra Trident 之前、您應該先瞭解升級期間發生的背景程序。其中包括 Trident 控制器、控制器 Pod 和節點 Pod 的變更、以及啟用循環更新的節點示範集。 
 ---
 = 瞭解營運商升級工作流程
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 在使用 Trident 運算子升級 Astra Trident 之前、您應該先�
 
 
 [role="lead"]
-在使用 Trident 運算子升級 Astra Trident 之前、您應該先瞭解升級期間發生的背景程序。其中包括 Trident 控制器、控制器 Pod 和節點 Pod 的變更、以及節點示範集。
+在使用 Trident 運算子升級 Astra Trident 之前、您應該先瞭解升級期間發生的背景程序。其中包括 Trident 控制器、控制器 Pod 和節點 Pod 的變更、以及啟用循環更新的節點示範集。
 
 
 
 == Trident 營運商升級處理
 
-其中一項 link:../trident-get-started/kubernetes-deploy.html["使用 Trident 運算子的優點"] 安裝和升級 Astra Trident 是自動處理 Astra Trident 和 Kubernetes 物件、而不會中斷現有的掛載磁碟區。尤其是 Trident 運算子會與 Kubernetes 叢集通訊、以便：
+其中一項 link:../trident-get-started/kubernetes-deploy.html["使用 Trident 運算子的優點"] 安裝和升級 Astra Trident 是自動處理 Astra Trident 和 Kubernetes 物件、而不會中斷現有的掛載磁碟區。如此一來、 Astra Trident 就能支援零停機的升級、或 link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["滾動更新 _"^]。尤其是 Trident 運算子會與 Kubernetes 叢集通訊、以便：
 
 * 刪除並重新建立 Trident Controller 部署和節點示範集。
 * 以新版本更換 Trident 控制器 Pod 和 Trident 節點 Pod 。

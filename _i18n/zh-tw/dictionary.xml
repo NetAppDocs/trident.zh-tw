@@ -3435,14 +3435,12 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="aa919adfeb24335f206c7d14733b5a18" category="list-text">OpenShift 4.10 - 4.13</block>
   <block id="a5fd2691a6a5df653970895b1c5045ed" category="inline-link-macro">升級 Helm 安裝</block>
   <block id="e94d606eb30ec23b1c90bde5c842bbd7" category="admonition">在將Kubernetes叢集從1.24升級至1.25或更新版本、且已安裝Astra Trident之前、請參閱 <block ref="1b428bb9b9fe27db6cd8932526864634" category="inline-link-macro-rx"></block>。</block>
-  <block id="1d4f06912da8045a9e27bb431e271b06" category="list-text">Docker 。 IO/NetApp/Trident ： 23.07.0</block>
   <block id="bdecef051e32495c339265b13937fdd2" category="list-text">Docker 。 IO/NetApp/trident 自動支援： 23.07</block>
   <block id="9b99c0d216202fb5b3542f33737fc7cd" category="list-text">registry ． k8s.io/SIG-storage / csi 置備程序： v3.5.0</block>
   <block id="51c642e645718f28d506b2bf03ecad77" category="list-text">登錄 .k8s.IO/SIG-storage / csi 附加程式： v4.3.0</block>
   <block id="2b137b6d62621064ff952b61fea42b29" category="list-text">登錄 .k8s.io/SIG-storage / csi 大小調整： v1.8.0</block>
   <block id="18a8e4619e4059aeaf215a48da7867f9" category="list-text">登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.2</block>
   <block id="20388ac1d79215adf3bb812d9291e0be" category="list-text">登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： V2.5.0</block>
-  <block id="38001668e093faa1f515c9af2b7b9df3" category="list-text">Docker 。 IO/NetApp/Trident 營運商： 23.07.0 （選用）</block>
   <block id="a97fcb333111f781986275ea628fc4da" category="summary">Astra Trident 會在叢集中的每個工作節點上、以單一控制器 Pod 加上節點 Pod 的形式執行。節點 Pod 必須在任何想要裝載 Astra Trident Volume 的主機上執行。</block>
   <block id="26ad893be275d6f4dd0e2992250c147f" category="inline-link-macro">Kubernetes CSI Sidecar Container</block>
   <block id="db4723304a1add25b171bb663d394c84" category="paragraph">Astra Trident 部署為單一 <block ref="7f05a5daccc48435b05c14a7b739fa36" category="inline-xref-macro-rx"></block> 以及一或多個 <block ref="8642ddce0d2b15cad48dfefb369d4c89" category="inline-xref-macro-rx"></block> 在 Kubernetes 叢集上、並使用標準 Kubernetes _CSI Sidecar Containers_ 來簡化 CSI 外掛程式的部署。 <block ref="c1b69fa7e0376b667b144d553d4653a8" category="inline-link-macro-rx"></block> 由 Kubernetes 儲存社群維護。</block>
@@ -3511,7 +3509,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="46792977f68671d8fa16e6cf46018cf1" category="paragraph">是的。可用於收集 Astra Trident 作業相關資訊的 Prometheus 端點、例如管理的後端數目、已配置的磁碟區數量、使用的位元組等。您也可以使用 <block ref="7a2477b8055ecdaa4bd473b0556bcb2a" category="inline-link-macro-rx"></block> 用於監控與分析。</block>
   <block id="8bcc65cd81ef7ffed875ca40674efa09" category="paragraph">是的。Astra Trident 支援 ONTAP 後端的雙向 CHAP 。這需要設定<block ref="68978ccf4ed83900c8dd27558ca5ec18" prefix=" " category="inline-code"></block> 在後端組態中。</block>
   <block id="10318a43fca1fe376b7af5445f41fec8" category="paragraph">Astra Trident可從20.04版起、動態建立及管理匯出原則。如此一來、儲存管理員就能在其後端組態中提供一或多個CIDR區塊、並將位於這些範圍內的Trident新增節點IP、加入其所建立的匯出原則。如此一來、Astra Trident就能自動管理新增和刪除在指定CIDR內具有IP的節點規則。</block>
-  <block id="6f6ab4c1fa489654339d3d3534ef7ac1" category="section-title">23.07 的新功能</block>
   <block id="63bfc0691d397470e5b0b05f2a9bcbe4" category="inline-link-macro">問題 #740</block>
   <block id="c8af8b49eb3be9ce411280db66de8a12" category="list-text">修正 Trident 升級、以忽略卡在終止狀態（<block ref="6f993c83118cc4a1dd5351c8501e26c9" category="inline-link-macro-rx"></block>）。</block>
   <block id="cf182305f6f941fa317842399de1ca4a" category="inline-link-macro">問題 #795</block>
@@ -3569,13 +3566,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="33ab2c3f94452baf7f17dab03982edfb" category="paragraph">之後<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 更新後、營運者會處理更新並修補現有安裝。這可能會觸發建立新的 Pod 、以據此修改安裝。</block>
   <block id="ac0482b416d6b2d907db760f79e018a7" category="example-title">&lt;strong&gt; 的重新安裝過程 &lt;/strong&gt;</block>
   <block id="ae2cbb250a37c9e09570ff02857e4cbe" category="paragraph">叢集範圍的 Trident 運算子可清除移除叢集範圍的資源。使用者可以完全解除安裝 Astra Trident 、並輕鬆重新安裝。</block>
-  <block id="58adb7cccefd9a346c2be3710e91b747" category="paragraph">在中<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>、更新<block ref="cf80b2245b8ccbb73b34094f00cbcc21" prefix=" " category="inline-code"></block> 以反映映像登錄的位置。您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。例如：</block>
-  <block id="2d008e1d915d9b251a5e120ad5c776c9" category="list-text"><block ref="bada3baa231c033f7966b583361af3fe" prefix="" category="inline-code"></block> 如果您的映像都位於單一登錄中。</block>
-  <block id="27e8b9a0239d8ed6a54bf0dcacfa3b6a" category="list-text"><block ref="421883c4d8ce52c54b8b38f8629dbea4" prefix="" category="inline-code"></block> 如果Trident映像與您的csi映像位於不同的登錄中。</block>
-  <block id="3adf178faa369e6adca8ba4f90a4da5a" category="cell">"NetApp/trident 自動支援： 23.07.0"</block>
-  <block id="8dee7812f6df7ba4bf257ed7c44a1c24" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> 並指定部署和映像登錄位置的名稱。您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。在範例中、<block ref="e43c70c154432522a389a51dc9db6b94" prefix=" " category="inline-code"></block> 是您要安裝的Astra Trident版本。</block>
-  <block id="9c4627bfa8fc4ce825f994a7fa076a21" category="paragraph">例如、變更的預設值<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block>請執行下列步驟<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block> 命令位置<block ref="e43c70c154432522a389a51dc9db6b94" prefix=" " category="inline-code"></block> 您要安裝的Astra Trident版本：</block>
-  <block id="88ba3642863c5a71202aa4c6374d8bc1" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> 並指定部署名稱、如下例所示<block ref="e43c70c154432522a389a51dc9db6b94" prefix=" " category="inline-code"></block> 是您要安裝的Astra Trident版本。</block>
   <block id="8e2504f56599a577cd2bbee322a41d4e" category="paragraph">Astra Trident依照每季發行時段進行、每一日曆年發行四個主要版本。每個新版本均以舊版為基礎、並提供新功能、效能增強、錯誤修正及改善功能。我們鼓勵您每年至少升級一次、以善用Astra Trident的新功能。</block>
   <block id="4aa39142850a8999e9a4e9350f8bfbe9" category="list-text">Astra Trident 23.07 及更新版本需要 v1 Volume 快照、不再支援 Alpha 或 beta 快照。</block>
   <block id="34c1edfb4ac8581528c3791be680aeb3" category="inline-link-macro">CVS服務類型</block>
@@ -3595,10 +3585,8 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="14d76a1fc05dcace5308e48b3d9bad49" category="admonition">我們建議您檢閱 <block ref="4185c20447fb5f0bb4f33698bfd20d27" category="inline-link-macro-rx"></block> 與操作員一起升級之前。</block>
   <block id="a18aa1b83c1605570c9c2911c5180a7b" category="inline-link-macro">升級&lt;block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category='inline-code'/&gt; 功能</block>
   <block id="3b2fa532fe7cebc94d245316f8af8ab4" category="list-text"><block ref="fd3f4a100d968c915adb11c8797ef5d2" category="inline-link-macro-rx"></block></block>
-  <block id="6aad08817d6b182ee6b1acc7aafa477d" category="summary">在使用 Trident 運算子升級 Astra Trident 之前、您應該先瞭解升級期間發生的背景程序。其中包括 Trident 控制器、控制器 Pod 和節點 Pod 的變更、以及節點示範集。</block>
   <block id="3d40f2a5a694e68fd88105fc4f5ee0d4" category="section-title">Trident 營運商升級處理</block>
   <block id="74e51c48d68796e06830c062f5c955c1" category="inline-link-macro">使用 Trident 運算子的優點</block>
-  <block id="6aa98fad75f40fc5fb71337ec9a87097" category="paragraph">其中一項 <block ref="1294f86abdf2591159d9dd04918b1092" category="inline-link-macro-rx"></block> 安裝和升級 Astra Trident 是自動處理 Astra Trident 和 Kubernetes 物件、而不會中斷現有的掛載磁碟區。尤其是 Trident 運算子會與 Kubernetes 叢集通訊、以便：</block>
   <block id="1a1508da73374db3dd227799f48fdf63" category="list-text">刪除並重新建立 Trident Controller 部署和節點示範集。</block>
   <block id="88b9e59609789e4bf00d72c8be9dd376" category="list-text">以新版本更換 Trident 控制器 Pod 和 Trident 節點 Pod 。</block>
   <block id="6d3156de6583a452ead75c70c186fcb8" category="list-text">如果節點未更新、則不會阻止其餘節點更新。</block>
@@ -3640,7 +3628,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="0af6b3e2ec6d581f66df3a49e97c5c55" category="list-text">刪除用來安裝目前Astra Trident執行個體的Trident運算子。例如、如果您是從 23.04 升級、請執行下列命令：</block>
   <block id="300b059e0bac5cb2864932371a494a8a" category="list-text">使用適用於您環境的正確套裝組合Yaml檔案和Astra Trident版本來安裝Astra Trident。例如、如果您要為 Kubernetes 1.27 安裝 Astra Trident 23.07 、請執行下列命令：</block>
   <block id="3ae662c67d403e6230b019a96e787b63" category="paragraph">您可以升級 Astra Trident Helm 安裝。</block>
-  <block id="e28e33b86151b7658043f95e918ff9f9" category="list-text">使用<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> 命令位置<block ref="c6c90f744176bcd7236a56b72a9688e3" prefix=" " category="inline-code"></block> 反映您要升級的版本。</block>
   <block id="613909529798c8a2543da8e954e5d742" category="section-title">從升級<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 安裝至 Trident 操作員</block>
   <block id="9142b40107d9c5a0b86ef0ce8c25a88b" category="paragraph">您可以從升級至最新版的Trident運算子<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 安裝：現有的後端和 PVC 將會自動提供使用。</block>
   <block id="89b46b05bfce8415b6a6373a93a0b04e" category="admonition">在安裝方法之間切換之前、請參閱 <block ref="d7d87809bc6e1001ccd94c7433d28fd5" category="inline-link-macro-rx"></block></block>
@@ -3858,4 +3845,21 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="1ce00ab507a065e4febc57b244e25d18" category="example-title">自動匯出原則範例</block>
   <block id="5ef13a507a243e20eb0469a9d7670527" category="example-title">IPv6 位址範例</block>
   <block id="ee8af8063e9ea3725931d232730b8a8e" category="example-title">Amazon FSX for ONTAP 使用 SMB Volume 範例</block>
+  <block id="4c7a5aa32bd20cc1e93c16706345fc24" category="list-text">Docker 。 IO/NetApp/Trident ： 23.07.1</block>
+  <block id="8f4c6bec9339a74c71de885862e0c35a" category="list-text">Docker 。 IO/NetApp/Trident 營運商： 23.07.1 （選用）</block>
+  <block id="af35b81563dca040d2036ccc5fdf5cbf" category="summary">在使用 Trident 運算子升級 Astra Trident 之前、您應該先瞭解升級期間發生的背景程序。其中包括 Trident 控制器、控制器 Pod 和節點 Pod 的變更、以及啟用循環更新的節點示範集。</block>
+  <block id="99c73e527698ab76b32674b7e9dd4708" category="inline-link-macro">滾動更新 _</block>
+  <block id="bec1352836ad67ce44ee000c83d4dae1" category="paragraph">其中一項 <block ref="1294f86abdf2591159d9dd04918b1092" category="inline-link-macro-rx"></block> 安裝和升級 Astra Trident 是自動處理 Astra Trident 和 Kubernetes 物件、而不會中斷現有的掛載磁碟區。如此一來、 Astra Trident 就能支援零停機的升級、或 <block ref="c0fb6b6f12bb8ae805a97690328ec023" category="inline-link-macro-rx"></block>。尤其是 Trident 運算子會與 Kubernetes 叢集通訊、以便：</block>
+  <block id="cf2f4ee3dd2f4847e4871244b9ac51df" category="list-text">使用<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> 命令位置<block ref="d6a197586cce49153cfbfb94bb2e9941" prefix=" " category="inline-code"></block> 反映您要升級的版本。</block>
+  <block id="c8f1fdceb105d8331cbfc9721c6bc44f" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> 並指定部署和映像登錄位置的名稱。您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。在範例中、<block ref="87b2b8072e7d5f7e6e968a7c49bdc4a2" prefix=" " category="inline-code"></block> 是您要安裝的Astra Trident版本。</block>
+  <block id="d466de3460bd819fa8eb16bf42b1db7e" category="paragraph">例如、變更的預設值<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block>請執行下列步驟<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block> 命令位置<block ref="87b2b8072e7d5f7e6e968a7c49bdc4a2" prefix=" " category="inline-code"></block> 您要安裝的Astra Trident版本：</block>
+  <block id="780123b705b81f6d4b816faff5e82117" category="section-title">Astra Trident 23.07.1 的重要資訊</block>
+  <block id="b2527de2557e527d4be043e1c86bc69c" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> 並指定部署名稱、如下例所示<block ref="87b2b8072e7d5f7e6e968a7c49bdc4a2" prefix=" " category="inline-code"></block> 是您要安裝的Astra Trident版本。</block>
+  <block id="6e0b20191589c60f116864ba4a9f6450" category="paragraph">在中<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>、更新<block ref="948b8261d6bd10eba9190981601c0915" prefix=" " category="inline-code"></block> 以反映映像登錄的位置。您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。例如：</block>
+  <block id="d265ac83a999c5664002082de4a65e05" category="list-text"><block ref="40ecbfec412666aee449608e50f67b87" prefix="" category="inline-code"></block> 如果您的映像都位於單一登錄中。</block>
+  <block id="183ccfb0be6f36dfc545d9bf582a1180" category="list-text"><block ref="d3a400126b30a5fb9f887818fc7e1f04" prefix="" category="inline-code"></block> 如果Trident映像與您的csi映像位於不同的登錄中。</block>
+  <block id="d06187756592965157c9f1bc4fc51a9c" category="cell">"NetApp/trident 自動支援： 23.07"</block>
+  <block id="b686eadf7765eed3e9de8f9cbded0fe8" category="section-title">23.07.1 的新功能</block>
+  <block id="06918a8f55f386d79e64a70ca217b501" category="paragraph">* Kubernetes ： * 修正刪除程式集的問題、以支援零停機升級（<block ref="6f993c83118cc4a1dd5351c8501e26c9" category="inline-link-macro-rx"></block>）。</block>
+  <block id="ca6a658f1db1af30f178530c90cbe8fc" category="section-title">2007 年 23 月 23 日的變更</block>
 </blocks>

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-nas-examples.html 
-keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx 
+keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster 
 summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。 
 ---
 = 列舉NAS組態選項與範例ONTAP
@@ -12,7 +12,7 @@ summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動
 
 
 [role="lead"]
-瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。
+瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動程式。本節提供後端組態範例及將後端對應至 StorageClasses 的詳細資料。
 
 
 
@@ -20,7 +20,7 @@ summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動
 
 如需後端組態選項、請參閱下表：
 
-[cols="3"]
+[cols="1,3,2"]
 |===
 | 參數 | 說明 | 預設 
 
@@ -34,10 +34,29 @@ summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+ dataLIF 
 
 
-| 《馬納格門達利》 | 叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。您可以指定完整網域名稱（FQDN）。如果使用安裝Astra Trident、則可設定使用IPv6位址 `--use-ipv6` 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
+| 《馬納格門達利》 | 叢集或SVM管理LIF的IP位址
+
+您可以指定完整網域名稱（FQDN）。
+
+如果使用安裝Astra Trident、則可設定使用IPv6位址 `--use-ipv6` 旗標。IPv6 位址必須以方括弧定義、例如 `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。
+
+如需無縫 MetroCluster 之間的互通性、請參閱 <<mcc-best>>。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
 
 
-| 「DataLIF」 | 傳輸協定LIF的IP位址。我們建議具體說明 `dataLIF`。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 。如果使用安裝Astra Trident、則可設定使用IPv6位址 `--use-ipv6` 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 | 指定位址或從SVM衍生（若未指定）（不建議使用） 
+| 「DataLIF」 | 傳輸協定LIF的IP位址。
+
+我們建議具體說明 `dataLIF`。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。
+
+可在初始設定之後變更。請參閱 。
+
+如果使用安裝Astra Trident、則可設定使用IPv6位址 `--use-ipv6` 旗標。IPv6 位址必須以方括弧定義、例如 `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。
+
+* MetroCluster 請省略。 * 請參閱 <<mcc-best>>。 | 指定位址或從SVM衍生（若未指定）（不建議使用） 
+
+
+| 《虛擬機器》 | 要使用的儲存虛擬機器
+
+* MetroCluster 請省略。 * 請參閱 <<mcc-best>>。 | 如果指定SVM "managementLIF"則衍生 
 
 
 | 「AutoExpportPolicy」 | 啟用自動匯出原則建立及更新[布 林值]。使用 `autoExportPolicy` 和 `autoExportCIDRs` 選項：Astra Trident可自動管理匯出原則。 | 錯 
@@ -64,9 +83,6 @@ summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動
 
 
 | 密碼 | 連線至叢集/ SVM的密碼。用於認證型驗證 |  
-
-
-| 《虛擬機器》 | 要使用的儲存虛擬機器 | 如果指定SVM "managementLIF"則衍生 
 
 
 | 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。設定後無法更新 | 「Trident」 
@@ -109,11 +125,11 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。 | `s
 |===
 
 
-=== 用於資源配置磁碟區的後端組態選項
+== 用於資源配置磁碟區的後端組態選項
 
 您可以使用中的這些選項來控制預設資源配置 `defaults` 組態區段。如需範例、請參閱下列組態範例。
 
-[cols="3"]
+[cols="1,3,2"]
 |===
 | 參數 | 說明 | 預設 
 
@@ -161,7 +177,7 @@ NOTE: 搭配Astra Trident使用QoS原則群組需要ONTAP 使用更新版本的�
 
 
 
-==== Volume資源配置範例
+=== Volume資源配置範例
 
 以下是定義預設值的範例：
 
@@ -216,8 +232,8 @@ image::../media/volume-show-nas.png[顯示Volume show命令的輸出。]
 
 NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX、建議您指定lifs的DNS名稱、而非IP位址。
 
-.的最低組態 <code>ontap-nas-economy</code>
-[%collapsible%open]
+.ONTAP NAS 經濟效益範例
+[%collapsible]
 ====
 [listing]
 ----
@@ -231,8 +247,8 @@ username: vsadmin
 password: password
 ----
 ====
-.的最低組態 <code>ontap-nas-flexgroup</code>
-[%collapsible%open]
+.ONTAP NAS FlexGroup 範例
+[%collapsible]
 ====
 [listing]
 ----
@@ -246,8 +262,25 @@ username: vsadmin
 password: password
 ----
 ====
-.SMB 磁碟區的最低組態
-[%collapsible%open]
+.MetroCluster 範例
+[#mcc-best%collapsible]
+====
+您可以設定後端、避免在切換和切換期間手動更新後端定義 link:../trident-reco/backup.html#svm-replication-and-recovery["SVM 複寫與還原"]。
+
+若要無縫切換和切換、請使用指定 SVM `managementLIF` 並省略 `dataLIF` 和 `svm` 參數。例如：
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+managementLIF: 192.168.1.66
+username: vsadmin
+password: password
+----
+====
+.SMB Volume 範例
+[%collapsible]
 ====
 [listing]
 ----
@@ -266,8 +299,8 @@ username: vsadmin
 password: password
 ----
 ====
-.憑證型驗證
-[%collapsible%open]
+.憑證型驗證範例
+[%collapsible]
 ====
 這是最小的後端組態範例。 `clientCertificate`、 `clientPrivateKey`和 `trustedCACertificate` （選用、如果使用信任的CA）會填入 `backend.json` 並分別取得用戶端憑證、私密金鑰及信任CA憑證的基礎64編碼值。
 
@@ -286,8 +319,8 @@ trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 storagePrefix: myPrefix_
 ----
 ====
-.自動匯出原則
-[%collapsible%open]
+.自動匯出原則範例
+[%collapsible]
 ====
 本範例說明如何指示Astra Trident使用動態匯出原則來自動建立及管理匯出原則。這對的運作方式相同 `ontap-nas-economy` 和 `ontap-nas-flexgroup` 驅動程式：
 
@@ -310,8 +343,8 @@ password: password
 nfsMountOptions: nfsvers=4
 ----
 ====
-.使用IPv6位址
-[%collapsible%open]
+.IPv6 位址範例
+[%collapsible]
 ====
 此範例顯示 `managementLIF` 使用IPv6位址。
 
@@ -330,8 +363,8 @@ username: vsadmin
 password: password
 ----
 ====
-.使用 SMB Volume 的 Amazon FSX for ONTAP
-[%collapsible%open]
+.Amazon FSX for ONTAP 使用 SMB Volume 範例
+[%collapsible]
 ====
 。 `smbShare` 使用 SMB 磁碟區的 ONTAP 需要 FSX 參數。
 

@@ -47,25 +47,33 @@ kubectl get tbc -n trident
 更新後端可能有多種原因：
 
 * 儲存系統的認證資料已變更。若要更新認證資料、必須更新「TridentBackendConfig」物件中使用的Kubernetes Secret。Astra Trident會自動以提供的最新認證資料更新後端。執行下列命令以更新Kubernetes Secret：
-
-
++
 [listing]
 ----
 kubectl apply -f <updated-secret-file.yaml> -n trident
 ----
-* 需要ONTAP 更新參數（例如使用的SVM名稱）。在這種情況下、「TridentBackendConfig」物件可直接透過Kubernetes更新。
-
-
+* 需要ONTAP 更新參數（例如使用的SVM名稱）。
++
+** 您可以更新 `TridentBackendConfig` 使用下列命令直接透過 Kubernetes 執行物件：
++
 [listing]
 ----
 kubectl apply -f <updated-backend-file.yaml>
 ----
-或者、您也可以執行下列命令來變更現有的「TridentBackendConfig」CR：
-
+** 或者、您也可以變更現有的 `TridentBackendConfig` 使用下列命令的 CR ：
++
 [listing]
 ----
 kubectl edit tbc <tbc-name> -n trident
 ----
-如果後端更新失敗、後端仍會繼續維持其最後已知的組態。您可以執行「kubecl Get tbc <tbc-name>-o yaml -n trident」或「kubecl描述tbc <tbc-name>-n trident」來檢視記錄以判斷原因。
 
-識別並修正組態檔的問題之後、即可重新執行update命令。
+
+
+
+[NOTE]
+====
+* 如果後端更新失敗、後端仍會繼續維持其最後已知的組態。您可以執行「kubecl Get tbc <tbc-name>-o yaml -n trident」或「kubecl描述tbc <tbc-name>-n trident」來檢視記錄以判斷原因。
+* 識別並修正組態檔的問題之後、即可重新執行update命令。
+
+
+====

@@ -431,8 +431,6 @@
   <block id="93dbcf0189ff94d39230d2e3726969ab" category="section-title">更新後端</block>
   <block id="93700a3ea9dc6d858638cd66cd2f2bfa" category="paragraph">更新後端可能有多種原因：</block>
   <block id="56cdd71a65518838d73e00276ed6fab1" category="list-text">儲存系統的認證資料已變更。若要更新認證資料、必須更新「TridentBackendConfig」物件中使用的Kubernetes Secret。Astra Trident會自動以提供的最新認證資料更新後端。執行下列命令以更新Kubernetes Secret：</block>
-  <block id="6ef0ccb954a07e30d4ff894b5256ae30" category="list-text">需要ONTAP 更新參數（例如使用的SVM名稱）。在這種情況下、「TridentBackendConfig」物件可直接透過Kubernetes更新。</block>
-  <block id="d4609cbe039ed7019e7151718c417bec" category="paragraph">或者、您也可以執行下列命令來變更現有的「TridentBackendConfig」CR：</block>
   <block id="d38f034e9aa082af3ec19c23caff4b0f" category="paragraph">如果後端更新失敗、後端仍會繼續維持其最後已知的組態。您可以執行「kubecl Get tbc &lt;tbc-name&gt;-o yaml -n trident」或「kubecl描述tbc &lt;tbc-name&gt;-n trident」來檢視記錄以判斷原因。</block>
   <block id="5878b59fb3a8430928026b63b5ca336f" category="paragraph">識別並修正組態檔的問題之後、即可重新執行update命令。</block>
   <block id="28b0abcecaf7a63edb46e4e137337018" category="doc">設定Azure NetApp Files 一個靜態後端</block>
@@ -2761,8 +2759,6 @@
   <block id="3b84c7b88317953423192c633a83db9f" category="cell">*必須設定為<block ref="79e0f325804dafbdaef73b3b17c0fd8d" prefix=" " category="inline-code"></block>.*如果為null、則預設為<block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix=" " category="inline-code"></block>。</block>
   <block id="1928bae58ae496b53ef1a163c3dbeeb4" category="cell">新磁碟區的模式。SMB磁碟區*必須保留為空白。*</block>
   <block id="ded47128219e64b5f24343dab357151b" category="admonition">Astra Trident強制執行空白<block ref="7cfbb6f07899c8071ff38e69dca190e2" prefix=" " category="inline-code"></block> 針對所建立的磁碟區。對於iSCSI後端、建議強制執行<block ref="01cd995fd9a843d3ca767e057de28873" prefix=" " category="inline-code"></block> 在StorageClass中。您應該刪除現有的StorageClass並重新建立<block ref="01cd995fd9a843d3ca767e057de28873" prefix=" " category="inline-code"></block> 已指定。</block>
-  <block id="5b7532a7b48ec4e7b24ef0f5977589de" category="cell">叢集的IP位址或SVM管理LIF若要順暢MetroCluster 切換、您必須指定SVM管理LIF。您可以指定完整網域名稱（FQDN）。如果使用安裝Astra Trident、則可設定使用IPv6位址<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。</block>
-  <block id="dccf51176372af70ec697fc2b11f83d8" category="cell">傳輸協定LIF的IP位址。*請勿指定iSCSI。* Astra Trident的用途 <block ref="2de2f329c45219df280af5a70ed7a17c" category="inline-link-macro-rx"></block> 探索建立多重路徑工作階段所需的iSCI LIF。如果發生此情況、將會產生警告<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block> 已明確定義。</block>
   <block id="3418e818bbbe397a49b7096a5ed87929" category="cell">源自SVM</block>
   <block id="1545a9d9aae1b8b83497bbe9185d348b" category="cell">使用CHAP驗證iSCSI以供ONTAP 支援不支援的SAN驅動程式使用[布林值]。設定為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> 用於Astra Trident設定及使用雙向CHAP做為後端SVM的預設驗證。請參閱 <block ref="866e591dc2a03ecc454dad25a664ca86" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
   <block id="2da9f60cc5b99a5987580c38e6db0842" category="cell">受信任CA憑證的Base64編碼值。選用。用於憑證型驗證。</block>
@@ -2783,7 +2779,6 @@
   <block id="065b7cc24b33be7af1e15f59024402d2" category="paragraph">Astra Trident將決定選取哪個虛擬集區、並確保符合儲存需求。</block>
   <block id="c632eed28bf53466df8b8a33aedab3af" category="list-text">虛擬資源池（若有）必須維持與原始後端相同的順序。</block>
   <block id="87a522ecb9df14bf978f6f1da8a654a8" category="list-text">您無法藉由移除來撤銷對來源PVc的存取權<block ref="287f26e3328f9ac0f3f4da2cdaddd3e2" prefix=" " category="inline-code"></block> 或<block ref="11650d25d20af47978d85fd6e19c89aa" prefix=" " category="inline-code"></block> 註釋或刪除<block ref="d6995f631b22fb3f8e94aad1b40d1280" prefix=" " category="inline-code"></block> CR.若要撤銷存取權、您必須刪除從屬的PVc。</block>
-  <block id="41a45a3b55b7354dab0d81bb0ad06493" category="cell">傳輸協定LIF的IP位址。我們建議具體說明<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block>。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 <block ref="b2c939cb81e81d99a25f4be74f517f2f" category="inline-xref-macro-rx"></block>。如果使用安裝Astra Trident、則可設定使用IPv6位址<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。</block>
   <block id="ae8df8316f5c485b7db4e7141e899701" category="cell">指定位址或從SVM衍生（若未指定）（不建議使用）</block>
   <block id="ad898a5f5863162f9c13e958485877d5" category="cell">啟用自動匯出原則建立及更新[布 林值]。使用<block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix=" " category="inline-code"></block> 和<block ref="b9c40fbe9daa81e40e06509d5bbd5a6c" prefix=" " category="inline-code"></block> 選項：Astra Trident可自動管理匯出原則。</block>
   <block id="82530dd92610570d634788e7fac29c1b" category="cell">如果使用率高於此百分比、則無法進行資源配置。*不適用於Amazon FSX for ONTAP Sfor Sfor *</block>
@@ -3293,9 +3288,7 @@
   <block id="d0c5a28c77fc4e37f7271d37f7372724" category="list-text">t<block ref="2e63b2ff91d4aeb88b54db5c90b71443" prefix=" " category="inline-code"></block> StorageClass 會對應至中的第三個虛擬集區<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 後端：這是唯一提供銀級保護和 20000 個信用點數的資源池。</block>
   <block id="0191eea3640b05213a7522d6581a2fd5" category="list-text">。<block ref="a96bee9dd30f3ea0af93b4c64ca1e4a4" prefix=" " category="inline-code"></block> StorageClass 會對應至中的第三個虛擬集區<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 後端和中的第二個虛擬集區<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 後端：這是唯一擁有 5000 個信用點數的集區方案。</block>
   <block id="c9410b4405958bba6c2f782b5da4c684" category="admonition">如果您在 NetApp ONTAP 上搭配 Astra Trident 使用 Amazon FSX 、建議您指定生命的 DNS 名稱、而非 IP 位址。</block>
-  <block id="69a7d5311f7a48959dd5b1cdbc093cec" category="example-title">ONTAP SAN 最小化組態範例</block>
   <block id="cd5dd52b9f0bba70b1336e13afe05818" category="paragraph">這是使用的基本組態<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 驅動程式：</block>
-  <block id="2964cdc4ba96fd3e792322682498d593" category="example-title">ONTAP SAN 經濟型最低組態範例</block>
   <block id="31089bb4131b18ca65c3d384cdd49644" category="example-title">雙向 CHAP 範例</block>
   <block id="17baa03e9287aee400bc2e606d247156" category="paragraph">這些範例使用建立後端<block ref="099cb468880f266cba40b49391fa46bc" prefix=" " category="inline-code"></block> 設定為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>。</block>
   <block id="7a4c6868ec70d1fbee3cb3a7483e21d0" category="listing-title">ONTAP SAN CHAP 範例</block>
@@ -3327,15 +3320,8 @@ ONTAP 後端的 Amazon FSX 需要此參數。</block>
 對於內部部署 ONTAP 、此參數為選用項目。
 
 Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</block>
-  <block id="8bf31f01da88d12bf642a85ce9b3d644" category="example-title">的最低組態 &lt;code&gt;ontap-nas-economy&lt;/code&gt;</block>
-  <block id="a48054bf8652cee4ee1d7dd8f08ffa1f" category="example-title">的最低組態 &lt;code&gt;ontap-nas-flexgroup&lt;/code&gt;</block>
-  <block id="7cf30ff82fa389224936afba832f444f" category="example-title">SMB 磁碟區的最低組態</block>
-  <block id="e7a2472a002479764cade728d64dcd9e" category="example-title">憑證型驗證</block>
   <block id="78e5b29e139db71ceb7ca6bc99b5e228" category="paragraph">這是最小的後端組態範例。<block ref="79fffaff4013c1e8c508e76646eca77b" prefix=" " category="inline-code"></block>、<block ref="19dce7ac7f5290fc8fa218ad0c858df5" prefix=" " category="inline-code"></block>和<block ref="8468461bca00a47ab5ddba2afc45f52c" prefix=" " category="inline-code"></block> （選用、如果使用信任的CA）會填入<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> 並分別取得用戶端憑證、私密金鑰及信任CA憑證的基礎64編碼值。</block>
-  <block id="30cc3e263c594cde4b2a573283348bb1" category="example-title">自動匯出原則</block>
   <block id="8c35a9f7d631f51e05811b36617db641" category="paragraph">本範例說明如何指示Astra Trident使用動態匯出原則來自動建立及管理匯出原則。這對的運作方式相同<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 和<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 驅動程式：</block>
-  <block id="85435c5aae5ecdb04ef9ad8f7d48e88a" category="example-title">使用IPv6位址</block>
-  <block id="4627b40a8eea6e0ef04368d12d76d239" category="example-title">使用 SMB Volume 的 Amazon FSX for ONTAP</block>
   <block id="33ef55e82416e2c1c4beb9cba9560b02" category="paragraph">。<block ref="5910159ef86741f119f7574a9064b5b0" prefix=" " category="inline-code"></block> 使用 SMB 磁碟區的 ONTAP 需要 FSX 參數。</block>
   <block id="ef0e40b987d8b9ad523bdde2bba5157a" category="summary">瞭解使用 ONTAP NAS 驅動程式設定 ONTAP 後端的需求、驗證選項和匯出原則。</block>
   <block id="c63609aba869239be30364b58d99b1a3" category="section-title">驗證 ONTAP 後端</block>
@@ -3828,4 +3814,48 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="660807cada2c8061fb92638cfe0568d0" category="list-text">為了方便升級和重新安裝、解除安裝 Astra Trident 並不會移除 Astra Trident 所建立的 CRD 或相關物件。如果您需要完全移除 Astra Trident 及其所有資料、請參閱 <block ref="9d95a644de0932ac2f909a32a488bd14" category="inline-link-macro-rx"></block>。</block>
   <block id="3277c9131339b6e3e8b8401d060b2ace" category="list-text">刪除<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>：*移除<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 用來部署Astra Trident的CR、您可以指示操作員解除安裝Trident。操作員會處理的移除作業<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 然後繼續移除Astra Trident部署和取消安裝、刪除它在安裝過程中建立的Trident Pod。</block>
   <block id="d92f992bb942ae97af56a9921f1fb6d0" category="paragraph">使用<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> 命令輸入<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 移除與 Astra Trident 相關的所有資源、但 CRD 和相關物件除外。</block>
+  <block id="88251b113e3f1da4ba88b0d4283d23ed" category="paragraph">瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP SAN 驅動程式。本節提供後端組態範例及將後端對應至 StorageClasses 的詳細資料。</block>
+  <block id="00100eed0a9df5b2142497897b426d44" category="cell">叢集或 SVM 管理 LIF 的 IP 位址。
+
+您可以指定完整網域名稱（FQDN）。
+
+如果使用安裝Astra Trident、則可設定使用IPv6位址<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> 旗標。IPv6 位址必須以方括弧定義、例如<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>。
+
+如需無縫 MetroCluster 之間的互通性、請參閱 <block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>。</block>
+  <block id="53f89913149599078aa2763e20f64db1" category="cell">傳輸協定LIF的IP位址。
+
+*請勿指定iSCSI。* Astra Trident的用途 <block ref="2de2f329c45219df280af5a70ed7a17c" category="inline-link-macro-rx"></block> 探索建立多重路徑工作階段所需的iSCI LIF。如果發生此情況、將會產生警告<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block> 已明確定義。
+
+* MetroCluster 請省略。 * 請參閱 <block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>。</block>
+  <block id="19611c32e434019e356af9e0da999936" category="cell">要使用的儲存虛擬機器
+
+* MetroCluster 請省略。 * 請參閱 <block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>。</block>
+  <block id="16d35233bf6aa04a2ff7b9ec19d64661" category="example-title">MetroCluster 範例</block>
+  <block id="fd9313829353096dad83775c55ce66f8" category="paragraph">您可以設定後端、避免在切換和切換期間手動更新後端定義 <block ref="6ffda35fd03109cc0d7cf7a1f79d2c30" category="inline-link-macro-rx"></block>。</block>
+  <block id="abc765e949697f25e96670a5cab132f3" category="paragraph">若要無縫切換和切換、請使用指定 SVM<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> 並省略<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block> 和<block ref="924ff83ff1e671bacfb07ff12b845703" prefix=" " category="inline-code"></block> 參數。例如：</block>
+  <block id="d1cc287cede970a7472833938f39b940" category="list-text">需要ONTAP 更新參數（例如使用的SVM名稱）。</block>
+  <block id="bb5c9e20ecc2d96bd9d91107161bf89b" category="list-text">您可以更新<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> 使用下列命令直接透過 Kubernetes 執行物件：</block>
+  <block id="ccec41e7609b17a7fe58691b5cbf68ea" category="list-text">或者、您也可以變更現有的<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> 使用下列命令的 CR ：</block>
+  <block id="9c12c9edc9fbb4ee2f0331555cd8de1b" category="paragraph">瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動程式。本節提供後端組態範例及將後端對應至 StorageClasses 的詳細資料。</block>
+  <block id="630864bd1af028bd4049fce933eeed43" category="cell">叢集或SVM管理LIF的IP位址
+
+您可以指定完整網域名稱（FQDN）。
+
+如果使用安裝Astra Trident、則可設定使用IPv6位址<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> 旗標。IPv6 位址必須以方括弧定義、例如<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>。
+
+如需無縫 MetroCluster 之間的互通性、請參閱 <block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>。</block>
+  <block id="55ef3b8d4908e1b161b74799585d5b2b" category="cell">傳輸協定LIF的IP位址。
+
+我們建議具體說明<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block>。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。
+
+可在初始設定之後變更。請參閱 <block ref="b2c939cb81e81d99a25f4be74f517f2f" category="inline-xref-macro-rx"></block>。
+
+如果使用安裝Astra Trident、則可設定使用IPv6位址<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> 旗標。IPv6 位址必須以方括弧定義、例如<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>。
+
+* MetroCluster 請省略。 * 請參閱 <block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>。</block>
+  <block id="d24ddd1da817847ede47979e6e68c60e" category="example-title">ONTAP NAS FlexGroup 範例</block>
+  <block id="8788fe54575b03d9b62dbb1a38a7a277" category="example-title">SMB Volume 範例</block>
+  <block id="1ce00ab507a065e4febc57b244e25d18" category="example-title">自動匯出原則範例</block>
+  <block id="5ef13a507a243e20eb0469a9d7670527" category="example-title">IPv6 位址範例</block>
+  <block id="ee8af8063e9ea3725931d232730b8a8e" category="example-title">Amazon FSX for ONTAP 使用 SMB Volume 範例</block>
 </blocks>

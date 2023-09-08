@@ -1,0 +1,131 @@
+---
+sidebar: sidebar 
+permalink: trident-concepts/ontap-drivers.html 
+keywords: trident backend, AFF, FAS, ONTAP Select, Cloud, Amazon FSx for NetApp ONTAP, drivers, ONTAP drivers, access modes, rwo, rwx, rwp, rwop 
+summary: 1f0c7a14cb87fb29a7346e9b4c770751 
+---
+= f58e95baa778c9a2bd1a4597fb49d9b7
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+1f0c7a14cb87fb29a7346e9b4c770751
+
+
+
+== 9e5914532c650440b8c559c303ae8e04
+
+bff3ebc4ae5702fb7f811ba9acabc13a
+
+
+IMPORTANT: 如果您使用 Astra Control 來保護、恢復和移動、請閱讀 <<Astra Control 驅動程式相容性>>。
+
+[cols="2, 1, 1, 2, 2"]
+|===
+| 驅動程式 | 傳輸協定 | Volume模式 | 支援的存取模式 | 支援的檔案系統 
+
+
+| 「ONTAP-NAS」  a| 
+NFS
+中小企業
+ a| 
+檔案系統
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+7f4a1ee6a22ce0658ba6215c997ba8d8
+
+
+
+| 《ONTAP-NANAS經濟》  a| 
+NFS
+中小企業
+ a| 
+檔案系統
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+7f4a1ee6a22ce0658ba6215c997ba8d8
+
+
+
+| 「ONTAP-NAA-flexgroup」  a| 
+NFS
+中小企業
+ a| 
+檔案系統
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+7f4a1ee6a22ce0658ba6215c997ba8d8
+
+
+
+| 「ONTAP-SAN」  a| 
+iSCSI
+ a| 
+區塊
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+無檔案系統；原始區塊裝置
+
+
+
+| 「ONTAP-SAN」  a| 
+iSCSI
+ a| 
+檔案系統
+ a| 
+96b38cb92e67a8f09c2d13169b8bb555
+
+0453a3e06be842b09a9479fe06f0dd13
+ a| 
+《xfs》、《ext3》、《ext4》
+
+
+
+| 《ONTAP-san經濟》  a| 
+iSCSI
+ a| 
+區塊
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+無檔案系統；原始區塊裝置
+
+
+
+| 《ONTAP-san經濟》  a| 
+iSCSI
+ a| 
+檔案系統
+ a| 
+96b38cb92e67a8f09c2d13169b8bb555
+
+0453a3e06be842b09a9479fe06f0dd13
+ a| 
+《xfs》、《ext3》、《ext4》
+
+|===
+
+NOTE: 5e5ae25254f91097d911b58f235c0657
+
+
+
+== Astra Control 驅動程式相容性
+
+Astra Control可為使用建立的磁碟區提供無縫保護、災難恢復和移動性（在Kubernetes叢集之間移動磁碟區） `ontap-nas`、 `ontap-nas-flexgroup`和 `ontap-san` 驅動程式：請參閱 link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Astra Control複寫先決條件"^] 以取得詳細資料。
+
+[WARNING]
+====
+* 783c2760a502e1f1537de458c9dceb7a
+* a743248a7032cdf1d468935cf180bdee
+* 0655cc918eb576b740cfd35bbff9c8ac
+* 請勿使用 `ontap-nas-economy` 如果您預期需要資料保護、災難恢復或行動性、
+
+
+====

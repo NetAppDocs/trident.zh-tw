@@ -72,7 +72,7 @@ Astra Control可為使用建立的磁碟區提供無縫保護、災難恢復和�
 [WARNING]
 ====
 * 使用 `ontap-san-economy` 只有持續磁碟區使用量計數預期會高於 link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["支援的 ONTAP Volume 限制"^]。
-* 使用 `ontap-nas-economy` 只有持續磁碟區使用量計數預期會高於預期值時 link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["支援的 ONTAP Volume 限制"^] 和 `ontap-san-economy` 無法使用驅動程式。
+* 使用 `ontap-nas-economy` 只有持續磁碟區使用量計數預期會高於 link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["支援的 ONTAP Volume 限制"^] 和 `ontap-san-economy` 無法使用驅動程式。
 * 請勿使用 `ontap-nas-economy` 如果您預期需要資料保護、災難恢復或行動性、
 
 

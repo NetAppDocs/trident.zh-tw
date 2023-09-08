@@ -342,7 +342,6 @@
   <block id="89c3bcf0ecc1114f8d19734d9156cb40" category="doc">資源配置</block>
   <block id="2bd42f922a8c0b54b90557eba2071a76" category="paragraph">將後端儲存資源池與儲存類別建立關聯、取決於儲存類別所要求的屬性及其「儲存資源池」、「附加儲存資源池」及「排除儲存資源池」清單。當您建立儲存類別時、Trident會比較每個後端所提供的屬性和集區、以及儲存類別所要求的屬性和集區。如果儲存資源池的屬性和名稱符合所有要求的屬性和資源池名稱、Astra Trident會將該儲存資源池新增至該儲存類別適用的儲存資源池集合。此外、Astra Trident也會將「addionalStoragePools」清單中列出的所有儲存集區新增至該集、即使其屬性無法滿足所有或任何儲存類別的要求屬性。您應該使用「排除StoragePools」清單來覆寫及移除儲存類別的儲存資源池。每次新增後端時、Astra Trident都會執行類似的程序、檢查其儲存集區是否符合現有儲存類別的儲存集區、以及是否移除任何已標記為「已排除」的儲存資源池。</block>
   <block id="668ccb4dd1c284f07a3062637c57d21a" category="paragraph">Astra Trident接著會使用儲存類別與儲存資源池之間的關聯、來決定要在何處配置磁碟區。當您建立Volume時、Astra Trident會先取得該磁碟區儲存類別的儲存集區集區集區、 此外、如果您指定磁碟區的傳輸協定、Astra Trident會移除無法提供所需傳輸協定的儲存資源池（例如、NetApp HCI / SolidFire後端無法提供檔案型磁碟區、ONTAP 而非由NAS後端提供區塊型磁碟區）。Astra Trident會隨機排列此結果集的順序、以利均勻散佈磁碟區、然後透過磁碟區重複資料、進而嘗試在每個儲存集區上配置磁碟區。如果某個項目成功、則會成功傳回、並記錄程序中發生的任何故障。Astra Trident返回故障*僅當*無法在* all *上配置所需儲存類別和傳輸協定可用的儲存資源池時。</block>
-  <block id="f58e95baa778c9a2bd1a4597fb49d9b7" category="doc">驅動程式ONTAP</block>
   <block id="48cf24486d9a8e65a142b25682f19949" category="cell">驅動程式</block>
   <block id="1b5e109e8afd1f9b7f5bbf951eea3442" category="cell">Volume模式</block>
   <block id="d5e2d9f8d8f10044e38b71b49e675d2e" category="cell">支援的存取模式</block>
@@ -2311,7 +2310,6 @@
   <block id="0d41f8565b8b74a59fc029ccf2becd83" category="list-text">使用託管外掛系統啟動Astra Trident。更換<block ref="3d689bd3819ead35ed794427bd12f459" prefix=" " category="inline-code"></block> 使用您所使用的外掛程式版本（xxx.xxx.xx）。</block>
   <block id="4f0e7dc30ffb3e25e75331c9afb2243a" category="cell">Volume模式</block>
   <block id="28c142639a9bbdd526b8eb986c13907d" category="paragraph">無檔案系統；原始區塊裝置</block>
-  <block id="0453a3e06be842b09a9479fe06f0dd13" category="paragraph">Rwx無法在Filesystem Volume模式中使用。</block>
   <block id="964ea71824e902693c3ef56b57cf78be" category="summary">使用Astra Trident、您可以在主要命名空間中建立磁碟區、並將其共用於一或多個次要命名空間中。</block>
   <block id="98f770b0af18ca763421bac22b4b6805" category="section-title">功能</block>
   <block id="8ff961668c6784e84b25c265cbb629d7" category="paragraph">若要深入瞭解跨命名空間Volume存取：</block>
@@ -2864,9 +2862,6 @@
   <block id="ea3d51fb2b16acb7cb260f25bc8965b1" category="sidebar">Astra Trident是由NetApp維護的開放原始碼儲存資源配置程式和Orchestrator。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。</block>
   <block id="e267c2490c7d73d0ffa909b77267cfaf" category="inline-link-macro">Astra Control複寫先決條件</block>
   <block id="9814801b0db6e324ebd72f671418de64" category="paragraph">Astra Control可為使用建立的磁碟區提供無縫保護、災難恢復和移動性（在Kubernetes叢集之間移動磁碟區）<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>和<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 驅動程式：請參閱 <block ref="dfc981ac97be73172a3119f3b831eaf8" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
-  <block id="783c2760a502e1f1537de458c9dceb7a" category="list-text">您必須使用<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 適用於需要資料保護、災難恢復和行動力的正式作業工作負載。</block>
-  <block id="a743248a7032cdf1d468935cf180bdee" category="list-text">使用<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 當預期的Volume使用量將遠高於ONTAP 支援的容量時。</block>
-  <block id="0655cc918eb576b740cfd35bbff9c8ac" category="list-text">使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 只有在預期的Volume使用量會比ONTAP 支援的高出許多、以及<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 無法使用驅動程式。</block>
   <block id="df7dec428425115b59101028bbebe58c" category="list-text">請勿使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 如果您預期需要資料保護、災難恢復或行動性、</block>
   <block id="f5d176b3de4662ca3603a69ab08bc166" category="paragraph">NAS選項、可存取已配置的NFS Volume。</block>
   <block id="053b422d907cb55ac105c173adde1080" category="paragraph">NFS支援<block ref="1d770934d44de09b0d24f04fd01708ba" prefix=" " category="inline-code"></block> 和<block ref="4913a9178621eadcdf191db17915fbcb" prefix=" " category="inline-code"></block> 安全樣式：預設值為<block ref="4913a9178621eadcdf191db17915fbcb" prefix=" " category="inline-code"></block>。</block>
@@ -3243,11 +3238,7 @@
   <block id="1cfd9b4e20d41cdca62f758d3b0cb58b" category="paragraph-title">Azure NetApp Files 範例</block>
   <block id="bd46b0a8c2c4c89a60ee85052ad2dd0e" category="paragraph">下列範例會匯入<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 後端上的 Volume<block ref="d8dd89ab9d39f5487714722f9becb468" prefix=" " category="inline-code"></block> 磁碟區路徑<block ref="062b749476713f7b5bbc675159e90bad" prefix=" " category="inline-code"></block>。</block>
   <block id="0b8ca2be5f4fe564fb8e843cbc53703d" category="admonition">如果在 GKE 環境中建立隨需磁碟區快照、請勿建立快照控制器。GKE使用內建的隱藏式快照控制器。</block>
-  <block id="1f0c7a14cb87fb29a7346e9b4c770751" category="summary">Astra Trident提供五ONTAP 種獨特的Intel儲存驅動程式、可與ONTAP 各種叢集進行通訊。</block>
-  <block id="9e5914532c650440b8c559c303ae8e04" category="section-title">適用於 ONTAP 的 Astra Trident 儲存驅動程式</block>
-  <block id="bff3ebc4ae5702fb7f811ba9acabc13a" category="paragraph">Astra Trident 提供下列儲存驅動程式、可與 ONTAP 叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。</block>
   <block id="ad90b7d29d0d8a9c746868fe1f38ca90" category="paragraph">Rwo 、 ROX 、 rwx 、 RWOP</block>
-  <block id="96b38cb92e67a8f09c2d13169b8bb555" category="paragraph">RWO 、 ROX 、 RWOP</block>
   <block id="f28228f84cb57be6c4037bf94a6afbd2" category="paragraph">刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。移除 Volume 快照以刪除 Astra Trident Volume 。</block>
   <block id="f736607140d617c85245dd139003582e" category="list-text">在指定 Kubernetes 叢集中的所有命名空間中、應該只安裝一個 Astra Trident 執行個體。</block>
   <block id="69bdd71a77ecd87974ee464a579ebc8f" category="list-text">升級時、請務必提供<block ref="f6e7f85d8aee15940665bf722f7afac2" prefix=" " category="inline-code"></block> 在中<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block> 由Astra Trident使用。您可以刪除並重新建立<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block> 無需中斷既有的磁碟區。</block>
@@ -3343,7 +3334,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="7fbe6e40125b7d1b2f5c5c05044e7526" category="section-title">啟用憑證型驗證</block>
   <block id="3262251091b863054cfabf046c0e3493" category="paragraph">NFS
 中小企業</block>
-  <block id="7f4a1ee6a22ce0658ba6215c997ba8d8" category="paragraph">" 、 NFS 、 SMB</block>
   <block id="e8a058c8c47f6e4976a9fc5b5c00ec92" category="summary">建立 PersistentVolume （ PV ）和 PersistentVolume Claim （ PVC ）、使用設定的 Kubernetes StorageClass 來要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。</block>
   <block id="a3b7bd8edd528214a68ac3ceb5c9935c" category="doc">配置 Volume</block>
   <block id="5ba2aa62f23a406454c266617a909b2c" category="inline-link-macro">_PersistentVolumer_</block>
@@ -3500,7 +3490,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="fcf85cd17f22ed47dfe9169453e44dc1" category="paragraph">Astra Trident 會將新磁碟區與設定的存取群組建立關聯、但不會自行建立或以其他方式管理存取群組。存取群組必須先存在、才能將儲存後端新增至 Astra Trident 、而且必須包含 Kubernetes 叢集中每個節點的 iSCSI IQN 、這些節點可能會裝載該後端所佈建的磁碟區。在大多數安裝中、這包括叢集中的每個工作節點。</block>
   <block id="ca3c25915a30bef4ec583f6082477acf" category="paragraph">如果您是從使用預設值的組態修改組態<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> 存取群組也會使用其他群組、包括的ID<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> 清單中的存取群組。</block>
   <block id="88e4f10ca85b56deb88df953f1b028c9" category="admonition">如果您使用 Astra Control 來保護、恢復和移動、請閱讀 <block ref="655b383e69b0d2ae89ad0b4bf7e37964" category="inline-xref-macro-rx"></block>。</block>
-  <block id="5e5ae25254f91097d911b58f235c0657" category="admonition">ONTAP 後端可以使用安全角色（使用者名稱 / 密碼）的登入認證、或是 ONTAP 叢集上安裝的私密金鑰和憑證來驗證。您可以使用更新現有的後端、以便從一個驗證模式移至另一個驗證模式<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>。</block>
   <block id="c6891a9678e67fff611982bdd3dc5a4d" category="section-title">Astra Control 驅動程式相容性</block>
   <block id="b2edeceecc054572188ee3b08cd58c64" category="list-text">放置二進位檔案並建立組態檔案之後、請使用所需的組態檔案啟動 Trident 精靈。</block>
   <block id="ed79382c003eb221606454bd2116c86f" category="summary">Astra Trident是由NetApp維護的開放原始碼儲存資源配置程式和Orchestrator。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。** 請閱讀版本說明、瞭解升級至 Astra Trident 23.07 的重要資訊。 **</block>
@@ -3864,5 +3853,5 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="ca6a658f1db1af30f178530c90cbe8fc" category="section-title">2007 年 23 月 23 日的變更</block>
   <block id="57154d2dcf591aaa3d4dcbfbba196075" category="inline-link-macro">支援的 ONTAP Volume 限制</block>
   <block id="7fe76f1189ac93d41118f7ba3e36e3ab" category="list-text">使用<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 只有持續磁碟區使用量計數預期會高於 <block ref="e5997a58d747f862af8a862cd1b54e31" category="inline-link-macro-rx"></block>。</block>
-  <block id="dd19a3f7646938a74ee3f35605e9c306" category="list-text">使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 只有持續磁碟區使用量計數預期會高於預期值時 <block ref="e5997a58d747f862af8a862cd1b54e31" category="inline-link-macro-rx"></block> 和<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 無法使用驅動程式。</block>
+  <block id="a6b18abf4de4d534121b0cca3b164d74" category="list-text">使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 只有持續磁碟區使用量計數預期會高於 <block ref="e5997a58d747f862af8a862cd1b54e31" category="inline-link-macro-rx"></block> 和<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 無法使用驅動程式。</block>
 </blocks>

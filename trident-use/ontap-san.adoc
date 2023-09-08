@@ -81,12 +81,14 @@ RWO 、 RWOP
 
 Astra Control可為使用建立的磁碟區提供無縫保護、災難恢復和移動性（在Kubernetes叢集之間移動磁碟區） `ontap-nas`、 `ontap-nas-flexgroup`和 `ontap-san` 驅動程式：請參閱 link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Astra Control複寫先決條件"^] 以取得詳細資料。
 
-* 您必須使用 `ontap-nas` 適用於需要資料保護、災難恢復和行動力的正式作業工作負載。
-* 使用 `ontap-san-economy` 當預期的Volume使用量將遠高於ONTAP 支援的容量時。
-* 使用 `ontap-nas-economy` 只有在預期的Volume使用量會比ONTAP 支援的高出許多、以及 `ontap-san-economy` 無法使用驅動程式。
+[WARNING]
+====
+* 使用 `ontap-san-economy` 只有持續磁碟區使用量計數預期會高於 link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["支援的 ONTAP Volume 限制"^]。
+* 使用 `ontap-nas-economy` 只有持續磁碟區使用量計數預期會高於預期值時 link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["支援的 ONTAP Volume 限制"^] 和 `ontap-san-economy` 無法使用驅動程式。
 * 請勿使用 `ontap-nas-economy` 如果您預期需要資料保護、災難恢復或行動性、
 
 
+====
 
 
 == 使用者權限

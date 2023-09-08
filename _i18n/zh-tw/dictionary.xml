@@ -3862,4 +3862,7 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="b686eadf7765eed3e9de8f9cbded0fe8" category="section-title">23.07.1 的新功能</block>
   <block id="06918a8f55f386d79e64a70ca217b501" category="paragraph">* Kubernetes ： * 修正刪除程式集的問題、以支援零停機升級（<block ref="6f993c83118cc4a1dd5351c8501e26c9" category="inline-link-macro-rx"></block>）。</block>
   <block id="ca6a658f1db1af30f178530c90cbe8fc" category="section-title">2007 年 23 月 23 日的變更</block>
+  <block id="57154d2dcf591aaa3d4dcbfbba196075" category="inline-link-macro">支援的 ONTAP Volume 限制</block>
+  <block id="7fe76f1189ac93d41118f7ba3e36e3ab" category="list-text">使用<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 只有持續磁碟區使用量計數預期會高於 <block ref="e5997a58d747f862af8a862cd1b54e31" category="inline-link-macro-rx"></block>。</block>
+  <block id="dd19a3f7646938a74ee3f35605e9c306" category="list-text">使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 只有持續磁碟區使用量計數預期會高於預期值時 <block ref="e5997a58d747f862af8a862cd1b54e31" category="inline-link-macro-rx"></block> 和<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 無法使用驅動程式。</block>
 </blocks>

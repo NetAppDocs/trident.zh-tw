@@ -273,12 +273,12 @@ NOTE: Volume Snapshot的生命週期與來源PVCs無關：即使刪除來源PVCs
 
 Kubernetes「Volume SnapshotContent」物件代表從已配置的磁碟區擷取的快照。它類似於「PersistentVolume」、代表儲存叢集上已配置的快照。與「PeristentVolume Claim」和「PeristentVolume」物件類似、建立快照時、「Volume SnapshotContent」物件會維持一對一的對應、以對應「Volume Snapshot」物件、該物件已要求建立快照。
 
-
-NOTE: Trident會建立「Volume SnapshotContent」物件、並根據其所配置的磁碟區、自動在Kubernetes叢集上登錄。您不需要自行管理。
-
 「Volume SnapshotContent」物件包含可唯一識別快照的詳細資料、例如「快照資料」。此「快照處理」是PV名稱與「Volume SnapshotContent」物件名稱的獨特組合。
 
 當快照要求出現時、Trident會在後端建立快照。建立快照之後、Trident會設定「Volume SnapshotContent」物件、並將快照公開給Kubernetes API。
+
+
+NOTE: 一般而言、您不需要管理 `VolumeSnapshotContent` 物件：這是您想要的例外情況 link:../trident-use/vol-snapshots.html#import-a-volume-snapshot["匯入 Volume 快照"] 在 Astra Trident 外部建立。
 
 
 

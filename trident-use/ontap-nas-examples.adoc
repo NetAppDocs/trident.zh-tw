@@ -28,10 +28,10 @@ summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動
 | 「分度」 |  | 永遠為1 
 
 
-| 「torageDriverName」 | 儲存驅動程式名稱 | 「ONTAP-NAS」、「ONTAP-NAS-節約 型」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」、「ONTAP-san經濟型」 
+| 「torageDriverName」 | 儲存驅動程式名稱 | 「 ONTAP - NAS 」、「 ONTAP - NAS - 經濟」、「 ONTAP - NAS - Flexgroup 」、「 ONTAP - SAN 」、「 ONTAP - SAN 經濟」 
 
 
-| 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+ dataLIF 
+| 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱 + "_" + dataLIF 
 
 
 | 《馬納格門達利》 | 叢集或SVM管理LIF的IP位址
@@ -64,19 +64,19 @@ summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動
 
 | 《AutoExpportCIDR》（自動匯出CTR） | 篩選 Kubernetes 節點 IP 的 CIDR 清單、以對抗時間 `autoExportPolicy` 已啟用。
 
-使用 `autoExportPolicy` 和 `autoExportCIDRs` 選項：Astra Trident可自動管理匯出原則。 | [「0.00.0/0」、「：/0」] 
+使用 `autoExportPolicy` 和 `autoExportCIDRs` 選項：Astra Trident可自動管理匯出原則。 | ["0.0.0/0" 、 ":/0"]` 
 
 
-| 《標籤》 | 套用到磁碟區的任意JSON-格式化標籤集 | 「」 
+| 《標籤》 | 套用到磁碟區的任意JSON-格式化標籤集 | " 
 
 
-| 「用戶端憑證」 | 用戶端憑證的Base64編碼值。用於憑證型驗證 | 「」 
+| 「用戶端憑證」 | 用戶端憑證的Base64編碼值。用於憑證型驗證 | " 
 
 
-| 「clientPrivate Key」 | 用戶端私密金鑰的Base64編碼值。用於憑證型驗證 | 「」 
+| 「clientPrivate Key」 | 用戶端私密金鑰的Base64編碼值。用於憑證型驗證 | " 
 
 
-| 「可信賴的CACertifcate」 | 受信任CA憑證的Base64編碼值。選用。用於憑證型驗證 | 「」 
+| 「可信賴的CACertifcate」 | 受信任CA憑證的Base64編碼值。選用。用於憑證型驗證 | " 
 
 
 | 《使用者名稱》 | 連線至叢集/ SVM的使用者名稱。用於認證型驗證 |  
@@ -85,31 +85,33 @@ summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動
 | 密碼 | 連線至叢集/ SVM的密碼。用於認證型驗證 |  
 
 
-| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。設定後無法更新 | 「Trident」 
+| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。設定後無法更新 | " Trident " 
 
 
-| 「限制Aggregateusage」 | 如果使用率高於此百分比、則無法進行資源配置。*不適用於Amazon FSX for ONTAP Sfor Sfor * | 「」（預設不強制執行） 
+| 「限制Aggregateusage」 | 如果使用率高於此百分比、則無法進行資源配置。*不適用於Amazon FSX for ONTAP Sfor Sfor * | ""（預設不強制執行） 
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。 | 「」（預設不強制執行） 
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。 | "" （預設不會強制執行） 
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN、以及的磁碟區大小上限 `qtreesPerFlexvol` 選項可自訂每FlexVol 個支援區的配額樹數上限。 | 「」（預設不強制執行） 
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN、以及的磁碟區大小上限 `qtreesPerFlexvol` 選項可自訂每FlexVol 個支援區的配額樹數上限。 | "" （預設不會強制執行） 
 
 
-| 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200] | 「100」 
+| 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200] | "100" 
 
 
-| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「method」：true｝不使用 `debugTraceFlags` 除非您正在疑難排解並需要詳細的記錄傾印。 | null 
+| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。例如、 ｛ "api" ： false 、 "method" ： true}
+
+請勿使用 `debugTraceFlags` 除非您正在疑難排解並需要詳細的記錄傾印。 | null 
 
 
 | `nasType` | 設定NFS或SMB磁碟區建立。選項包括 `nfs`、 `smb` 或null。NFS磁碟區的預設值設為null。 | `nfs` 
 
 
-| 「nfsMountOptions」 | 以逗號分隔的NFS掛載選項清單。Kubernetes持續磁碟區的掛載選項通常會在儲存類別中指定、但如果儲存類別中未指定掛載選項、則Astra Trident會改回使用儲存後端組態檔中指定的掛載選項。如果儲存類別或組態檔中未指定掛載選項、Astra Trident將不會在相關的持續磁碟區上設定任何掛載選項。 | 「」 
+| 「nfsMountOptions」 | 以逗號分隔的NFS掛載選項清單。Kubernetes持續磁碟區的掛載選項通常會在儲存類別中指定、但如果儲存類別中未指定掛載選項、則Astra Trident會改回使用儲存後端組態檔中指定的掛載選項。如果儲存類別或組態檔中未指定掛載選項、Astra Trident將不會在相關的持續磁碟區上設定任何掛載選項。 | " 
 
 
-| "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] | 「200」 
+| "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] | "200" 
 
 
 | `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱；允許 Astra Trident 建立 SMB 共用的名稱；或將參數保留空白以防止共用磁碟區存取。
@@ -134,40 +136,40 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。 | `s
 | 參數 | 說明 | 預設 
 
 
-| "paceAllocate（配置）" | LUN的空間分配 | 「真的」 
+| "paceAllocate（配置）" | LUN的空間分配 | " 對 " 
 
 
-| 《保護區》 | 空間保留模式；「無」（精簡）或「Volume」（完整） | 「無」 
+| 《保護區》 | 空間保留模式；「無」（精簡）或「 Volume 」（粗） | " 無 " 
 
 
-| 「快照原則」 | 要使用的Snapshot原則 | 「無」 
+| 「快照原則」 | 要使用的Snapshot原則 | " 無 " 
 
 
-| 「qosPolicy」 | 要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy | 「」 
+| 「qosPolicy」 | 要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy | " 
 
 
-| 《adaptiveQosPolicy》 | 要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy。不受ONTAP-NAS-經濟支援。 | 「」 
+| 《adaptiveQosPolicy》 | 要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy。不受ONTAP-NAS-經濟支援。 | " 
 
 
-| 「快照保留區」 | 保留給快照「0」的磁碟區百分比 | 如果「快照原則」為「無」、則其他為「」 
+| 「快照保留區」 | 保留給快照的磁碟區百分比 | 「 0 」如果 `snapshotPolicy` 為「無」、否則為「」 
 
 
-| 「PlitOnClone」 | 建立複本時、從其父複本分割複本 | 「假」 
+| 「PlitOnClone」 | 建立複本時、從其父複本分割複本 | "假" 
 
 
-| 加密 | 在新磁碟區上啟用NetApp Volume Encryption（NVE）；預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都會啟用NAE。如需詳細資訊、請參閱： link:../trident-reco/security-reco.html["Astra Trident如何與NVE和NAE搭配運作"]。 | 「假」 
+| 加密 | 在新磁碟區上啟用NetApp Volume Encryption（NVE）；預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都會啟用NAE。如需詳細資訊、請參閱： link:../trident-reco/security-reco.html["Astra Trident如何與NVE和NAE搭配運作"]。 | "假" 
 
 
-| 「分層政策」 | 分層原則以使用「無」 | ONTAP 9.5之前的SVM-DR組態為「純快照」 
+| 「分層政策」 | 分層原則以使用「無」 | 「僅限快照」適用於 ONTAP 9.5 之前的 SVM-DR 組態 
 
 
-| 「unixPermissions」 | 新磁碟區的模式 | NFS磁碟區為「777」；SMB磁碟區為空白（不適用） 
+| 「unixPermissions」 | 新磁碟區的模式 | "777" 表示 NFS 磁碟區； SMB 磁碟區為空的（不適用） 
 
 
-| 「napshotDir | 控制「.snapshot」目錄的可見度 | 「假」 
+| 「napshotDir | 控制對的存取 `.snapshot` 目錄 | "假" 
 
 
-| 「匯出政策」 | 要使用的匯出原則 | 「預設」 
+| 「匯出政策」 | 要使用的匯出原則 | "預設" 
 
 
 | 《生態樣式》 | 新磁碟區的安全樣式。NFS支援 `mixed` 和 `unix` 安全樣式：SMB支援 `mixed` 和 `ntfs` 安全樣式： | NFS預設為 `unix`。SMB預設為 `ntfs`。 
@@ -391,7 +393,7 @@ storagePrefix: myPrefix_
 
 在下面顯示的後端定義檔案範例中、會針對所有儲存池設定特定的預設值、例如 `spaceReserve` 無、 `spaceAllocation` 假、和 `encryption` 錯。虛擬資源池是在儲存區段中定義的。
 
-Astra Trident會在「Comments」欄位中設定資源配置標籤。註解設定FlexVol 於支援對象 `ontap-nas` 或FlexGroup 支援 `ontap-nas-flexgroup`。Astra Trident會在資源配置時、將虛擬資源池上的所有標籤複製到儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。
+Astra Trident 會在「意見」欄位中設定資源配置標籤。註解是在的 FlexVol 上設定 `ontap-nas` 或FlexGroup 支援 `ontap-nas-flexgroup`。Astra Trident會在資源配置時、將虛擬資源池上的所有標籤複製到儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。
 
 在這些範例中、有些儲存池是自行設定的 `spaceReserve`、 `spaceAllocation`和 `encryption` 值、而某些資源池會覆寫預設值。
 

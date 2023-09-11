@@ -18,7 +18,7 @@ summary: 您可以使用業者輕鬆升級現有的Astra Trident安裝。
 
 == 升級手動安裝
 
-您可以將從叢集範圍的 Trident 運算子安裝升級至另一個叢集範圍的 Trident 運算子安裝。所有Astra Trident版本21.01及更新版本均使用叢集範圍的運算子。
+您可以從叢集範圍的 Trident 運算子安裝升級到另一個叢集範圍的 Trident 運算子安裝。所有Astra Trident版本21.01及更新版本均使用叢集範圍的運算子。
 
 
 NOTE: 若要從使用命名空間範圍運算子（ 20.07 至 20.10 版）安裝的 Astra Trident 進行升級、請使用的升級指示 link:../earlier-versions.html["您已安裝的版本"] Astra Trident 的

@@ -100,8 +100,6 @@
   <block id="0322003a3502f221fdb74b059dfff46e" category="cell">《服務層級》</block>
   <block id="1631dca111b8c1a922c7f29d48eb7121" category="cell">網路</block>
   <block id="9c64942fe493cb70c474ff447429d8a4" category="cell">「匯出規則」</block>
-  <block id="2907de5eba980e910513008165ea2c2b" category="paragraph">控制「.snapshot」目錄的可見度</block>
-  <block id="19b4c847405d74614976bd1228f59c9f" category="paragraph">「假」</block>
   <block id="7450cfde7058dc5e1f7909d0280fd7ae" category="inline-link">Azure NetApp Files</block>
   <block id="b12fb354025b3dfa01277964eb72c060" category="inline-link">應用程式註冊</block>
   <block id="f494e4df0fff53e809d6563f8ec1782f" category="inline-link">委派的子網路</block>
@@ -767,10 +765,8 @@
   <block id="4a59ce1bc63fd7e6333968fb4bbd9d45" category="section-title">步驟4：驗證擴充</block>
   <block id="c70f05fed7c73e0be4a0b24c8532a87c" category="paragraph">您可以檢查PVc、PV和Astra Trident Volume的大小、以正確驗證調整大小：</block>
   <block id="19ce3b2e7823907e5153f00fe04f64f7" category="doc">組態選項與範例</block>
-  <block id="a85f55a18073767a4945eac810e72cb2" category="cell">「ONTAP-NAS」、「ONTAP-NAS-節約 型」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」、「ONTAP-san經濟型」</block>
   <block id="237d7a1666794b0937adde704bb4795c" category="cell">驅動程式名稱+「_」+ dataLIF</block>
   <block id="c560b8d02093547d93a87c72d8b16eaf" category="cell">「10.0.0.1」、「[2001:1234:abcd:::fefo]」</block>
-  <block id="e537a193eb90bd46a645ce750bb5f3fc" category="cell">[「0.00.0/0」、「：/0」]</block>
   <block id="b5cbbe3dadaab4a036fdb38af67ee936" category="cell">套用到磁碟區的任意JSON-格式化標籤集</block>
   <block id="1d76382e861d2df96647216b26d38948" category="cell">「」</block>
   <block id="cbdaf784161be9806a24fe78a8046c01" category="cell">「用戶端憑證」</block>
@@ -784,29 +780,20 @@
   <block id="972abf48cbbadbcd573754140d35e19a" category="cell">要使用的儲存虛擬機器</block>
   <block id="ef65dd3301d78701f7cfcf8a01834f2f" category="cell">如果指定SVM "managementLIF"則衍生</block>
   <block id="e3f688f3aa653574b3253640aa98f47c" category="cell">在SVM中配置新磁碟區時所使用的前置碼。設定後無法更新</block>
-  <block id="a996d2f8e072c583d6cc26aa1e4aba87" category="cell">「Trident」</block>
-  <block id="9d96dfa28e7454a1119de523123a1e05" category="cell">「」（預設不強制執行）</block>
   <block id="c9a303edbc714d051896c3a678e59a8a" category="cell">《lunsPerFlexvol》</block>
   <block id="79892588cbecd0b88729ea1a55b2a3a4" category="cell">每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200]</block>
-  <block id="2d782f413944b272c911c548418a18a3" category="cell">「100」</block>
   <block id="ae0784115c8f815d4a2ca170c59f3c99" category="cell">疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「方法」：true｝</block>
   <block id="a13306f726fdf72d2d992a7ebdc63b1b" category="cell">每FlexVol 個邊的最大qtree數、必須在範圍內[50、300]</block>
-  <block id="28326357ec2f8c06e01271c4ee2201f1" category="cell">「200」</block>
   <block id="f703d18584e163e18762e4dc13ad96a0" category="cell">《useREST》</block>
   <block id="193a49bcfb561fea878daa5efe72cad9" category="section-title">用於資源配置磁碟區的後端組態選項</block>
   <block id="26161d08a960162cd8633d0e23058aed" category="cell">LUN的空間分配</block>
-  <block id="3be488c6a2bc52ceb7e8685ca24927d7" category="cell">「真的」</block>
   <block id="3bce5b103341500856287f5347e19f28" category="cell">空間保留模式；「無」（精簡）或「Volume」（完整）</block>
-  <block id="e84c56670c389b09fcad5da7309a165b" category="cell">「無」</block>
   <block id="77f69e470b8766d2dc5df4b7f469ed72" category="cell">要使用的Snapshot原則</block>
   <block id="54b94bba5d336f4e3d5fd7e88544fad1" category="cell">要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy</block>
   <block id="952e3a12d35e717bf86a6000b0c08976" category="cell">《adaptiveQosPolicy》</block>
   <block id="11f9fcd55c1d81cf352f86fe4cdfd444" category="cell">保留給快照「0」的磁碟區百分比</block>
-  <block id="af6626456fa359992271ea88de34094f" category="cell">如果「快照原則」為「無」、則其他為「」</block>
   <block id="6f5c0c94b1a17baffd2c33facaa10db6" category="cell">建立複本時、從其父複本分割複本</block>
   <block id="41da49bdd3fd88b2ddc6be7d6df1b335" category="cell">新磁碟區的安全樣式</block>
-  <block id="592a5879ac095ef6ca504cc43a9d7939" category="cell">分層原則以使用「無」</block>
-  <block id="ee6508d5290be6edafccc6e0f471f120" category="cell">ONTAP 9.5之前的SVM-DR組態為「純快照」</block>
   <block id="c005e78d4bd808038335c32dd84cf7da" category="cell">unix權限</block>
   <block id="3e9a232d025270ed6767c385b8291871" category="cell">新磁碟區的模式</block>
   <block id="647ce4e5394e2e595e46b4fc50a628e9" category="cell">匯出原則</block>
@@ -1633,7 +1620,6 @@
   <block id="f67af493d1fd83b472d5f27307b2f3d9" category="paragraph">當磁碟區快照要求出現時、Trident會自動管理後端磁碟區的快照建立、並建立獨特的「Volume SnapshotContent」物件來公開快照。您可以從現有的PVCS建立快照、並在建立新的PVCS時、將快照作為DataSource使用。</block>
   <block id="53847015682974d066a919b1b45a44a5" category="admonition">Volume Snapshot的生命週期與來源PVCs無關：即使刪除來源PVCs、快照仍會持續存在。刪除具有相關快照的永久虛擬磁碟時、Trident會將此永久虛擬磁碟的備份磁碟區標示為*刪除*狀態、但不會將其完全移除。刪除所有相關的快照時、即會移除該磁碟區。</block>
   <block id="e562bdcf97dce6973a736651f45eb054" category="paragraph">Kubernetes「Volume SnapshotContent」物件代表從已配置的磁碟區擷取的快照。它類似於「PersistentVolume」、代表儲存叢集上已配置的快照。與「PeristentVolume Claim」和「PeristentVolume」物件類似、建立快照時、「Volume SnapshotContent」物件會維持一對一的對應、以對應「Volume Snapshot」物件、該物件已要求建立快照。</block>
-  <block id="ca8035550d447392debfcaeb62855bd3" category="admonition">Trident會建立「Volume SnapshotContent」物件、並根據其所配置的磁碟區、自動在Kubernetes叢集上登錄。您不需要自行管理。</block>
   <block id="af741aec1c66e51c00d35a38f92471de" category="paragraph">「Volume SnapshotContent」物件包含可唯一識別快照的詳細資料、例如「快照資料」。此「快照處理」是PV名稱與「Volume SnapshotContent」物件名稱的獨特組合。</block>
   <block id="b22c73e808eef321ee9941ec2e58b64f" category="paragraph">當快照要求出現時、Trident會在後端建立快照。建立快照之後、Trident會設定「Volume SnapshotContent」物件、並將快照公開給Kubernetes API。</block>
   <block id="7c43d52062b795d2d8e7f33b9dbbf671" category="paragraph">Kubernetes自訂資源是Kubernetes API中由系統管理員定義的端點、用於將類似物件分組。Kubernetes支援建立自訂資源來儲存物件集合。您可以執行「kubecl Get crds」來取得這些資源定義。</block>
@@ -2765,14 +2751,12 @@
   <block id="a0de2cc0c77c388210e1f48423eea29c" category="cell">在SVM中配置新磁碟區時所使用的前置碼。稍後無法修改。若要更新此參數、您需要建立新的後端。</block>
   <block id="e54cbd8ca5da26dc7e4be3bbfd23467e" category="cell">如果使用率高於此百分比、則無法進行資源配置。如果您使用Amazon FSX for NetApp ONTAP Sendbackend、請勿指定 <block ref="d57551b1efacf8a7be84b4d10c5a6e99" prefix=" " category="inline-code"></block>。提供的<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block> 和<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> 請勿包含擷取Aggregate使用量所需的權限、並使用Astra Trident加以限制。</block>
   <block id="f804cd6668c0728e26448509210268d3" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN磁碟區大小上限。</block>
-  <block id="b3a74fee006256ec5d63fe251b553f1d" category="cell">疑難排解時要使用的偵錯旗標。例如、除非您正在疑難排解並需要詳細的記錄傾印、否則請勿使用｛"API"：假、「method」：true｝。</block>
   <block id="cc30671ec52693851659adb7020e02b1" category="cell">使用ONTAP Isrest API的布林參數。*技術預覽*<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block> 以*技術預覽*的形式提供、建議用於測試環境、而非用於正式作業工作負載。設定為時<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、Astra Trident將使用ONTAP 靜止API與後端進行通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取<block ref="a9ba4dc88fa11d44cc7c0c918d174778" prefix=" " category="inline-code"></block> 應用程式：這是預先定義的<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> 和<block ref="fdb6ba311fad29ec53069808f10ebef4" prefix=" " category="inline-code"></block> 角色：<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block> 不支援MetroCluster 使用支援。</block>
   <block id="c59183b2f668b355e81e7bb1256f92b3" category="paragraph">您可以使用中的這些選項來控制預設資源配置<block ref="a4a918a45181164207929d52aec36aec" prefix=" " category="inline-code"></block> 組態區段。如需範例、請參閱下列組態範例。</block>
   <block id="d4fbfa2dd496728ba6294eb840ce25eb" category="cell">要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy。搭配Astra Trident使用QoS原則群組需要ONTAP 使用更新版本的版本。我們建議使用非共用的QoS原則群組、並確保原則群組會個別套用至每個組成群組。共享的QoS原則群組將強制所有工作負載的總處理量上限。</block>
   <block id="b71ccf1062cee8c376a7eb37e3c42603" category="cell">啟用LUKS加密。請參閱 <block ref="569f9f91cdcc19909b8acbf6f423daf7" category="inline-link-macro-rx"></block>。</block>
   <block id="e62f5d0a5a95571e25197caafe78cd98" category="section-title">Volume資源配置範例</block>
   <block id="1b9ef354b22d8a8b125247fd538da4b2" category="section-title">虛擬集區的後端範例</block>
-  <block id="dbd1f003df542a684d9c10246dc8a88f" category="paragraph">Astra Trident會在「Comments」欄位中設定資源配置標籤。請在FlexVol The過程中提出意見。Astra Trident會在資源配置時、將虛擬資源池上的所有標籤複製到儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。</block>
   <block id="615c9f89b360c50cfba2b2de02584387" category="paragraph">下列StorageClass定義是指上述虛擬資源池。使用<block ref="bed471c4a88e25ac9a7e4a7b980700a8" prefix=" " category="inline-code"></block> 欄位中、每個StorageClass會呼叫哪些虛擬資源池可用於裝載Volume。磁碟區將會在所選的虛擬資源池中定義各個層面。</block>
   <block id="065b7cc24b33be7af1e15f59024402d2" category="paragraph">Astra Trident將決定選取哪個虛擬集區、並確保符合儲存需求。</block>
   <block id="c632eed28bf53466df8b8a33aedab3af" category="list-text">虛擬資源池（若有）必須維持與原始後端相同的順序。</block>
@@ -2783,9 +2767,7 @@
   <block id="9f0e1cc91ea4107261588e8f1bd02d07" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN、以及的磁碟區大小上限<block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix=" " category="inline-code"></block> 選項可自訂每FlexVol 個支援區的配額樹數上限。</block>
   <block id="5c8b39f8ec19acb1fddb0b5c021f090d" category="cell">疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「method」：true｝不使用<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block> 除非您正在疑難排解並需要詳細的記錄傾印。</block>
   <block id="b660669829d401dc613c20939ed01e6e" category="cell">以逗號分隔的NFS掛載選項清單。Kubernetes持續磁碟區的掛載選項通常會在儲存類別中指定、但如果儲存類別中未指定掛載選項、則Astra Trident會改回使用儲存後端組態檔中指定的掛載選項。如果儲存類別或組態檔中未指定掛載選項、Astra Trident將不會在相關的持續磁碟區上設定任何掛載選項。</block>
-  <block id="a2b63939d1ced2a10bc8dec4d3ef2604" category="cell">NFS磁碟區為「777」；SMB磁碟區為空白（不適用）</block>
   <block id="0275de02c3bba722f4540469d23cc535" category="paragraph">此範例顯示<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> 使用IPv6位址。</block>
-  <block id="bc0c77920482bbcdc79d8f24445101e0" category="paragraph">Astra Trident會在「Comments」欄位中設定資源配置標籤。註解設定FlexVol 於支援對象<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 或FlexGroup 支援<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>。Astra Trident會在資源配置時、將虛擬資源池上的所有標籤複製到儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。</block>
   <block id="0bd54df5242a2a2e9eca045fc695b41f" category="section-title">更新<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block> 初始組態之後</block>
   <block id="d0b121ba3c5e39bba858ccfcf5a75957" category="paragraph">您可以在初始組態後變更資料LIF、方法是執行下列命令、以更新資料LIF提供新的後端Json檔案。</block>
   <block id="3fa13ec46a3746ee36c97d65fa53f096" category="admonition">如果將PVCS附加至一或多個Pod、您必須關閉所有對應的Pod、然後將其重新啟動、新的資料LIF才會生效。</block>
@@ -3389,21 +3371,8 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="8d9f716dc04d23bb9af0a64fef3bbbd9" category="paragraph">以下範例使用建立 PVC<block ref="2599ab7993e15386327b6345bc1cc4e1" prefix=" " category="inline-code"></block> 做為資料來源。</block>
   <block id="c2d480d58505386b1609d69c842aaf44" category="section-title">匯入 Volume 快照</block>
   <block id="868f2cc6f424bbd531c3ac4f053a8125" category="inline-link-macro">Kubernetes 預先配置的快照程序</block>
-  <block id="4310796b4ecbee0387355c47d26e79f6" category="paragraph">Astra Trident 支援 <block ref="a3174ff04e144786ca73f65ec9b76f58" category="inline-link-macro-rx"></block> 可讓叢集管理員建立<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 並讓 Astra Trident 以外建立的快照可供使用。</block>
-  <block id="1e0e621824f4773df03d972d64c7892c" category="paragraph">若要匯入 Volume 快照、 Astra Trident 會使用 PV 名稱和 Volume SnapshotContent 附註來找出內部快照、並命名其建立的 TridentSnapshot CR 。</block>
-  <block id="861e4c53fb0c4a84065e8b437db9f614" category="admonition">快照必須有父磁碟區。</block>
-  <block id="72aec08b3316c218c1f87677e0a51ed0" category="list-text">* 叢集管理： * 建立<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 參考後端快照的功能。</block>
-  <block id="c202fb047149bdb0116d555ea38063d1" category="list-text">。<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 註釋必須是<block ref="a9a33d21059c79525ad20995b3255379" prefix=" " category="inline-code"></block>。</block>
-  <block id="a2d471e4f64ec00dc1822cec2fd5995b" category="list-text">。<block ref="39133e4ee9648ecb1a2dae934a22788a" prefix=" " category="inline-code"></block> 必須是<block ref="6ae97f23de0ab758768fc09b1f363e79" prefix=" " category="inline-code"></block>。這是中外部快照機提供給 Astra Trident 的唯一資訊<block ref="b4dfa9524f461a609ad4726f69b847e9" prefix=" " category="inline-code"></block> 致電：</block>
-  <block id="bddec5d361b469ba15d203f21980b727" category="paragraph">下列範例會建立<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 用於命名的後端快照<block ref="82645407d5a235bd775551b0a8455cd1" prefix=" " category="inline-code"></block> 和<block ref="2348ca4190691eced72fb5d6eeba6ae6" prefix=" " category="inline-code"></block> 已命名<block ref="8da549176ef577547f8791c32a1da91a" prefix=" " category="inline-code"></block>。</block>
-  <block id="f2048b2fb4bf379591abc388d9eade66" category="admonition">。<block ref="2348ca4190691eced72fb5d6eeba6ae6" prefix=" " category="inline-code"></block> 由於 CR 命名限制、名稱無法永遠與後端快照名稱相符。</block>
-  <block id="e3631e30d03158f2ee7f5abe3814ae2c" category="list-text">* 叢集管理： * 連結<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> 至<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 其中<block ref="ac2950be4b8a710dd81ec4c2cff071da" prefix=" " category="inline-code"></block> 是您在中指定的名稱<block ref="2348ca4190691eced72fb5d6eeba6ae6" prefix=" " category="inline-code"></block>。</block>
-  <block id="60648a03d093f2a24b63474813c14f83" category="paragraph">以下範例連結 Volume Snapshot<block ref="8da549176ef577547f8791c32a1da91a" prefix=" " category="inline-code"></block> 至<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 已命名<block ref="5509d2df2b7e97b55de9ac8c06cfc6e1" prefix=" " category="inline-code"></block>。</block>
-  <block id="481efebb9fccb590cd87e8ac2f5dec96" category="list-text">* 內部處理（不需要任何動作）： * 外部快照機會看到新建立的 Volume SnapshotContent 並執行<block ref="b4dfa9524f461a609ad4726f69b847e9" prefix=" " category="inline-code"></block> 致電：Astra Trident 會建立<block ref="9a303ae09fee10afe60e5fd9e00e5e45" prefix=" " category="inline-code"></block>。</block>
-  <block id="373ac13882294b603bb64da84dc4fae5" category="list-text">外部快照器會設定<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 至<block ref="bdc3aa73b1bbfc0b0212a8f6a8bb2077" prefix=" " category="inline-code"></block> 以及磁碟區快照<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>。</block>
   <block id="f6e6b6f8bbabf2b4d61efaa16f96f7c7" category="list-text">Trident 退貨<block ref="0253f5e864e2646df8eab03ca4f066ee" prefix=" " category="inline-code"></block>。</block>
   <block id="2fae3f8997b56adf73a63fcf9e10a75d" category="list-text">* 任何使用者： * 建立<block ref="2b3f8e4d49589c4452db0a07d619d824" prefix=" " category="inline-code"></block> 以參考新的<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block>、其中<block ref="be455c19a1930c91806853db05c277d9" prefix=" " category="inline-code"></block> （或<block ref="43cbd4bd62b601d2f5e0b618220b0f44" prefix=" " category="inline-code"></block>）名稱為<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> 名稱。</block>
-  <block id="dbb9cfb0687e7c3a92a94550713c8e6d" category="paragraph">下列範例建立一個 PVC 參照<block ref="8da549176ef577547f8791c32a1da91a" prefix=" " category="inline-code"></block> Volume Snapshot ：</block>
   <block id="35d57da577b5f55299f7644e8b2de091" category="section-title">刪除含有相關快照的 PV</block>
   <block id="b1bc7c11251b98a19ba1fc0ad08275ed" category="section-title">部署 Volume Snapshot 控制器</block>
   <block id="785a74cfc0b587326abdc91a50fc4a95" category="paragraph">Astra Trident 提供動態管理 ONTAP 後端匯出原則的能力。這可讓儲存管理員為工作節點IP指定允許的位址空間、而非手動定義明確的規則。它可大幅簡化匯出原則管理；修改匯出原則不再需要在儲存叢集上進行手動介入。此外、這有助於限制只有在指定範圍內有IP的工作者節點才能存取儲存叢集、以支援精細且自動化的管理。</block>
@@ -3608,7 +3577,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="7a15e63f1d0efc213151254bbc1b2d0d" category="doc">升級 Trident 營運商安裝</block>
   <block id="0f443eb922735ce52f2b490ffca00e49" category="paragraph">您可以使用 Trident 運算子手動或使用 Helm 來升級 Astra Trident 。您可以從 Trident 運算子安裝升級至其他 Trident 運算子安裝、或從升級<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 安裝至 Trident 運算子版本。檢閱 <block ref="5cffa5fbe758cc3901f0e33c78b29d1b" category="inline-link-macro-rx"></block> 在升級 Trident 操作員安裝之前。</block>
   <block id="3ef75911ec16a9d0ba70cfd4e68dcb71" category="section-title">升級手動安裝</block>
-  <block id="5ed69ef07355e375ad2d6619b584ffe9" category="paragraph">您可以將從叢集範圍的 Trident 運算子安裝升級至另一個叢集範圍的 Trident 運算子安裝。所有Astra Trident版本21.01及更新版本均使用叢集範圍的運算子。</block>
   <block id="b0e74afe1fdeb605b5c47b501c43b71b" category="inline-link-macro">您已安裝的版本</block>
   <block id="4642420c93e6091ce8421e89a16fd80d" category="admonition">若要從使用命名空間範圍運算子（ 20.07 至 20.10 版）安裝的 Astra Trident 進行升級、請使用的升級指示 <block ref="567dd1ff029f25a404a69ff1e3c8d83b" category="inline-link-macro-rx"></block> Astra Trident 的</block>
   <block id="eb7a4fa3d9aff7ec5b23abb8b82d516b" category="paragraph">Trident 提供一個套件檔案、可讓您用來安裝運算子、並為 Kubernetes 版本建立相關的物件。</block>
@@ -3854,4 +3822,42 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="57154d2dcf591aaa3d4dcbfbba196075" category="inline-link-macro">支援的 ONTAP Volume 限制</block>
   <block id="7fe76f1189ac93d41118f7ba3e36e3ab" category="list-text">使用<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 只有持續磁碟區使用量計數預期會高於 <block ref="e5997a58d747f862af8a862cd1b54e31" category="inline-link-macro-rx"></block>。</block>
   <block id="a6b18abf4de4d534121b0cca3b164d74" category="list-text">使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 只有持續磁碟區使用量計數預期會高於 <block ref="e5997a58d747f862af8a862cd1b54e31" category="inline-link-macro-rx"></block> 和<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 無法使用驅動程式。</block>
+  <block id="aa33f1094363f0d5dc3ca342e19ec6e0" category="paragraph">您可以從叢集範圍的 Trident 運算子安裝升級到另一個叢集範圍的 Trident 運算子安裝。所有Astra Trident版本21.01及更新版本均使用叢集範圍的運算子。</block>
+  <block id="2dd987ed7fd9d4bf9fb445cc7738223b" category="paragraph">Astra Trident 支援 <block ref="a3174ff04e144786ca73f65ec9b76f58" category="inline-link-macro-rx"></block> 可讓叢集管理員建立<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 在 Astra Trident 外部建立的物件和匯入快照。</block>
+  <block id="44028ad7f17b2bd495c04edf7e9e6b36" category="paragraph">Astra Trident 必須已建立或匯入快照的父磁碟區。</block>
+  <block id="60f1523169568857649514e4ad6e4f40" category="list-text">* 叢集管理： * 建立<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 參照後端快照的物件。這會啟動 Astra Trident 中的快照工作流程。</block>
+  <block id="44ce6c838becb17913e38bbe2b0096fe" category="list-text">在中指定後端快照的名稱<block ref="4ab6864fc58ecd8b598ee10dfe2ac311" prefix=" " category="inline-code"></block> 做為<block ref="d42b3f1355513faa92e8e6b438dffc73" prefix=" " category="inline-code"></block>。</block>
+  <block id="4f45cf3342acaba38e45ce6b09a79e04" category="list-text">指定<block ref="62c99546614b1610927a47ea682b6d63" prefix=" " category="inline-code"></block> 在中<block ref="39133e4ee9648ecb1a2dae934a22788a" prefix=" " category="inline-code"></block>。這是中外部快照機提供給 Astra Trident 的唯一資訊<block ref="b4dfa9524f461a609ad4726f69b847e9" prefix=" " category="inline-code"></block> 致電：</block>
+  <block id="e0668acdd6b1e131a130998184f4f7fc" category="admonition">。<block ref="8773ea16ee304585aa1da2afd8f25434" prefix=" " category="inline-code"></block> 由於 CR 命名限制、無法永遠符合後端快照名稱。</block>
+  <block id="90a9b62f2d9107ff002b3ffcff75c334" category="paragraph">下列範例建立<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 參照後端快照的物件<block ref="82645407d5a235bd775551b0a8455cd1" prefix=" " category="inline-code"></block>。</block>
+  <block id="b385a638aafc60dc851702d7207b1460" category="list-text">* 叢集管理： * 建立<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> 參照的 CR<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 物件：這會要求存取權以使用<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> 在指定的命名空間中。</block>
+  <block id="4fd027fecd2883c25a41ecd68536b1d6" category="paragraph">下列範例建立<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> CR 命名<block ref="117b36cc8905f43e1ffd580e8b17723b" prefix=" " category="inline-code"></block> 這是參考的<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 已命名<block ref="ae79a6ea6405531b451963557819c96a" prefix=" " category="inline-code"></block>。</block>
+  <block id="b44a9af30767857be583043a573285f8" category="list-text">* 內部處理（不需採取任何行動）： * 外部快照機可辨識新建立的<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 並執行<block ref="b4dfa9524f461a609ad4726f69b847e9" prefix=" " category="inline-code"></block> 致電：Astra Trident 會建立<block ref="9a303ae09fee10afe60e5fd9e00e5e45" prefix=" " category="inline-code"></block>。</block>
+  <block id="92aa04a2cf75f40187ef422ef48baa9f" category="list-text">外部快照器會設定<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 至<block ref="bdc3aa73b1bbfc0b0212a8f6a8bb2077" prefix=" " category="inline-code"></block> 和<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> 至<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>。</block>
+  <block id="5581736d9cc57d1f1193e52f799c03b2" category="paragraph">下列範例建立一個 PVC 參照<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> 已命名<block ref="117b36cc8905f43e1ffd580e8b17723b" prefix=" " category="inline-code"></block>。</block>
+  <block id="a288b0971f8f6c63f5e6510bcebf421b" category="cell">驅動程式名稱 + "_" + dataLIF</block>
+  <block id="280a6a6866847c57b1a98bbcdc929268" category="cell">"" （預設不會強制執行）</block>
+  <block id="3eeb940d8060411516e1578a9fd70a15" category="cell">疑難排解時要使用的偵錯旗標。例如、 ｛ "api" ： false 、 "method" ： true}
+
+除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用。</block>
+  <block id="ebc576222020c2a2ae2fc769169f1d2a" category="cell">" 對 "</block>
+  <block id="c41b872c22969c2098a0056121589349" category="cell">空間保留模式；「無」（精簡）或「 Volume 」（粗）</block>
+  <block id="f6d62a8e69201d3806ac1ef24ec64c4d" category="cell">" 無 "</block>
+  <block id="6b3e1a8dae111668b3e4e13c5949a7c0" category="cell">「 0 」如果<block ref="0a236e7685e50a59df980d0a30929d6c" prefix=" " category="inline-code"></block> 為「無」、否則為「」</block>
+  <block id="7639141e9ab9cd89ef8bc0b16fd34e6a" category="cell">分層原則以使用「無」</block>
+  <block id="07b6e78dbb76bc803c585f0e0579de56" category="cell">「僅限快照」適用於 ONTAP 9.5 之前的 SVM-DR 組態</block>
+  <block id="472f537653935d084b34d91ce4119f17" category="paragraph">Astra Trident 會在「意見」欄位中設定資源配置標籤。請在FlexVol The過程中提出意見。Astra Trident會在資源配置時、將虛擬資源池上的所有標籤複製到儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。</block>
+  <block id="a486595fa1d9f349d9f9385ef2cb39f0" category="cell">「 ONTAP - NAS 」、「 ONTAP - NAS - 經濟」、「 ONTAP - NAS - Flexgroup 」、「 ONTAP - SAN 」、「 ONTAP - SAN 經濟」</block>
+  <block id="e50e8adc0d4818a8ed496eb95b3aea51" category="cell">["0.0.0/0" 、 ":/0"]`</block>
+  <block id="86780ad6247dfbcd90ca1455ee592852" category="cell">" Trident "</block>
+  <block id="e70237f69c6dce25fd2312b8d7f00b1e" category="cell">"100"</block>
+  <block id="7e6a32bd8074b1aa2c8c0d2529140ae4" category="cell">疑難排解時要使用的偵錯旗標。例如、 ｛ "api" ： false 、 "method" ： true}
+
+請勿使用<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block> 除非您正在疑難排解並需要詳細的記錄傾印。</block>
+  <block id="89ffa293e05655bd6be9d422345be38a" category="cell">"200"</block>
+  <block id="3eda001907760c018e29ddf4cb7aa3c8" category="cell">"777" 表示 NFS 磁碟區； SMB 磁碟區為空的（不適用）</block>
+  <block id="7e8aabb1dc00b7d4aac6d0876f6507f4" category="cell">控制對的存取<block ref="a15da8cecb1f1192c4d913b8ba676121" prefix=" " category="inline-code"></block> 目錄</block>
+  <block id="5f04fbb334c6fb8030146ad8f76a953a" category="paragraph">Astra Trident 會在「意見」欄位中設定資源配置標籤。註解是在的 FlexVol 上設定<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 或FlexGroup 支援<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>。Astra Trident會在資源配置時、將虛擬資源池上的所有標籤複製到儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。</block>
+  <block id="aea10b5a282698ad4477a7113234ae65" category="inline-link-macro">匯入 Volume 快照</block>
+  <block id="4999635328ae714b8eb5f24934a24943" category="admonition">一般而言、您不需要管理<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 物件：這是您想要的例外情況 <block ref="0b4cdf17ac3e4123330cb8e51ec533a2" category="inline-link-macro-rx"></block> 在 Astra Trident 外部建立。</block>
 </blocks>

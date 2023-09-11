@@ -141,21 +141,23 @@ spec:
 
 == 匯入 Volume 快照
 
-Astra Trident 支援 link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Kubernetes 預先配置的快照程序"^] 可讓叢集管理員建立 `VolumeSnapshotContent` 並讓 Astra Trident 以外建立的快照可供使用。
+Astra Trident 支援 link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Kubernetes 預先配置的快照程序"^] 可讓叢集管理員建立 `VolumeSnapshotContent` 在 Astra Trident 外部建立的物件和匯入快照。
 
-若要匯入 Volume 快照、 Astra Trident 會使用 PV 名稱和 Volume SnapshotContent 附註來找出內部快照、並命名其建立的 TridentSnapshot CR 。
-
-
-NOTE: 快照必須有父磁碟區。
+.開始之前
+Astra Trident 必須已建立或匯入快照的父磁碟區。
 
 .步驟
-. * 叢集管理： * 建立 `VolumeSnapshotContent` 參考後端快照的功能。
+. * 叢集管理： * 建立 `VolumeSnapshotContent` 參照後端快照的物件。這會啟動 Astra Trident 中的快照工作流程。
 +
-** 。 `VolumeSnapshotContent` 註釋必須是 `trident.netapp.io/internalSnapshotName: <backend-snapshot-name>`。
-** 。 `snapshotHandle` 必須是 `<pv-name>/<VolumeSnapshotContent-name>`。這是中外部快照機提供給 Astra Trident 的唯一資訊 `ListSnapshots` 致電：
+** 在中指定後端快照的名稱 `annotations` 做為 `trident.netapp.io/internalSnapshotName: <"backend-snapshot-name">`。
+** 指定 `<name-of-parent-volume-in-trident>/<volume-snapshot-content-name>` 在中 `snapshotHandle`。這是中外部快照機提供給 Astra Trident 的唯一資訊 `ListSnapshots` 致電：
++
+
+NOTE: 。 `<volumeSnapshotContentName>` 由於 CR 命名限制、無法永遠符合後端快照名稱。
+
 +
 .範例
-下列範例會建立 `VolumeSnapshotContent` 用於命名的後端快照 `snap-01` 和 `volumeSnapshotRef` 已命名 `test-snapshot`。
+下列範例建立 `VolumeSnapshotContent` 參照後端快照的物件 `snap-01`。
 
 +
 [listing]
@@ -163,28 +165,21 @@ NOTE: 快照必須有父磁碟區。
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotContent
 metadata:
-  name: my-trident-snapshot-content
+  name: import-snap-content
   annotations:
-    trident.netapp.io/internalSnapshotName: snap-01  # This represents the name of the snapshot on the backend
+    trident.netapp.io/internalSnapshotName: "snap-01"  # This is the name of the snapshot on the backend
 spec:
   deletionPolicy: Retain
   driver: csi.trident.netapp.io
   source:
-    snapshotHandle: pvc-3e5cda7a-200b-46ab-b5d0-c9cd8db2cc01/my-trident-snapshot-content  # This is the only information provided to Trident in the ListSnapshots call
-  volumeSnapshotRef:
-    name: test-snapshot
-    namespace: default
+    snapshotHandle: pvc-f71223b5-23b9-4235-bbfe-e269ac7b84b0/import-snap-content # <import PV name or source PV name>/<volume-snapshot-content-name>
 ----
-+
-
-NOTE: 。 `volumeSnapshotRef` 由於 CR 命名限制、名稱無法永遠與後端快照名稱相符。
 
 
-
-. * 叢集管理： * 連結 `VolumeSnapshot` 至 `VolumeSnapshotContent` 其中 `volumeSnapshotContentName` 是您在中指定的名稱 `volumeSnapshotRef`。
+. * 叢集管理： * 建立 `VolumeSnapshot` 參照的 CR `VolumeSnapshotContent` 物件：這會要求存取權以使用 `VolumeSnapshot` 在指定的命名空間中。
 +
 .範例
-以下範例連結 Volume Snapshot `test-snapshot` 至 `VolumeSnapshotContent` 已命名 `my-trident-snapshot-content`。
+下列範例建立 `VolumeSnapshot` CR 命名 `import-snap` 這是參考的 `VolumeSnapshotContent` 已命名 `import-snap-content`。
 
 +
 [listing]
@@ -192,22 +187,22 @@ NOTE: 。 `volumeSnapshotRef` 由於 CR 命名限制、名稱無法永遠與後�
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshot
 metadata:
-  name: test-snapshot
-  namespace: default
+  name: import-snap
 spec:
+  # volumeSnapshotClassName: csi-snapclass (not required for pre-provisioned or imported snapshots)
   source:
-    volumeSnapshotContentName: my-trident-snapshot-content
+    volumeSnapshotContentName: import-snap-content
 ----
-. * 內部處理（不需要任何動作）： * 外部快照機會看到新建立的 Volume SnapshotContent 並執行 `ListSnapshots` 致電：Astra Trident 會建立 `TridentSnapshot`。
+. * 內部處理（不需採取任何行動）： * 外部快照機可辨識新建立的 `VolumeSnapshotContent` 並執行 `ListSnapshots` 致電：Astra Trident 會建立 `TridentSnapshot`。
 +
-** 外部快照器會設定 `VolumeSnapshotContent` 至 `readyToUse` 以及磁碟區快照 `true`。
+** 外部快照器會設定 `VolumeSnapshotContent` 至 `readyToUse` 和 `VolumeSnapshot` 至 `true`。
 ** Trident 退貨 `readyToUse=true`。
 
 
 . * 任何使用者： * 建立 `PersistentVolumeClaim` 以參考新的 `VolumeSnapshot`、其中 `spec.dataSource` （或 `spec.dataSourceRef`）名稱為 `VolumeSnapshot` 名稱。
 +
 .範例
-下列範例建立一個 PVC 參照 `test-snapshot` Volume Snapshot ：
+下列範例建立一個 PVC 參照 `VolumeSnapshot` 已命名 `import-snap`。
 
 +
 [listing]
@@ -224,8 +219,7 @@ spec:
     requests:
       storage: 1Gi
   dataSource:
-    name: test-snapshot
-    namespace: default
+    name: import-snap
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
 ----

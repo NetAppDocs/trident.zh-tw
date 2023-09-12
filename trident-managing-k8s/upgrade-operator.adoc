@@ -44,10 +44,9 @@ Trident 提供一個套件檔案、可讓您用來安裝運算子、並為 Kuber
 +
 [listing]
 ----
-kubectl delete -f 23.04/trident-installer/deploy/bundle.yaml -n trident
+kubectl delete -f 23.04/trident-installer/deploy/<bundle-name.yaml> -n trident
 ----
 . 如果您使用自訂初始安裝 `TridentOrchestrator` 屬性、您可以編輯 `TridentOrchestrator` 物件以修改安裝參數。這可能包括針對離線模式指定鏡射Trident和csi映像登錄、啟用偵錯記錄或指定映像提取機密所做的變更。
-. 使用適用於您環境的正確套裝組合Yaml檔案和Astra Trident版本來安裝Astra Trident。例如、如果您要為 Kubernetes 1.27 安裝 Astra Trident 23.07 、請執行下列命令：
 . 使用適用於您環境的正確套裝組合Yaml檔案和Astra Trident版本來安裝Astra Trident。例如、如果您要為 Kubernetes 1.27 安裝 Astra Trident 23.07 、請執行下列命令：
 +
 [listing]
@@ -119,7 +118,7 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.1
 +
 [listing]
 ----
-kubectl create -f deploy/<BUNDLE.YAML>
+kubectl create -f deploy/<bundle-name.yaml>
 
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created

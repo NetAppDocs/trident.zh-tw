@@ -4,7 +4,7 @@ indexpage:
   tiles:
   - title: 版本資訊
     links:
-    - title: 新增功能
+    - title: 新功能
       url: trident-rn.html
     - title: 舊版
       url: "/earlier-versions.html"

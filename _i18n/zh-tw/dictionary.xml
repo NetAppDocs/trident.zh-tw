@@ -1350,8 +1350,6 @@
   <block id="06da281bf5e01c3c59892dc886cd0067" category="list-text">建立「TridentOrchestrator」、以安裝Astra Trident。</block>
   <block id="43f17763173fe230bdd78477152f5f7d" category="doc">解除安裝Astra Trident</block>
   <block id="8656f6a3d04342ff6248bd7d32949c2a" category="paragraph">如果您使用Helm安裝Astra Trident、您可以使用「helm uninstall」來解除安裝。</block>
-  <block id="c416a70504ae36e8cfbf555ad0d13ab9" category="paragraph">如果您使用運算子安裝了Astra Trident、您可以執行下列其中一項來解除安裝：</block>
-  <block id="245e84de93b9b41f643f9e737c17e702" category="paragraph">當「uninstall」旗標設定為「true」時、Trident操作者會解除安裝Trident、但不會移除TridentOrchestrator本身。如果您想要再次安裝Trident、請清理TridentOrchestrator並建立新的Trident。</block>
   <block id="3bda6d3452a50ffddd40bb74b05d6c50" category="summary">Astra Trident依照每季發行時段進行、每一日曆年發行四個主要版本。每個新版本均以舊版為基礎、提供新功能與效能增強功能、以及錯誤修正與改善功能。我們建議您每年至少升級一次、以善用Astra Trident的新功能。</block>
   <block id="3386987a97643481040e99019808e020" category="doc">升級Astra Trident</block>
   <block id="f71fd95d4de4797557e6830c1448c945" category="summary">您可以使用「tridentctl」輕鬆升級現有的Astra Trident安裝。</block>
@@ -3570,8 +3568,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="426346b94737adca6c2d979d911464ef" category="section-title">解除安裝 Trident 運算子安裝</block>
   <block id="253ead25988bfe2dee06d2227693e39d" category="paragraph">您可以手動或使用 Helm 解除安裝 Trident 運算子安裝。</block>
   <block id="2985edaba812b8b31d08cc8513fee0a3" category="section-title">解除安裝手動安裝</block>
-  <block id="932d8e226d5e26c888990ae2e734feb8" category="list-text">編輯<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 若要設定解除安裝旗標：*您可以編輯<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 並設定<block ref="f41a95848a012f4f1a6550ce79c588aa" prefix=" " category="inline-code"></block>。</block>
-  <block id="d7348a31cc49a1353d8a060756d323e4" category="list-text">編輯<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 並設定<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> 旗標如下所示：</block>
   <block id="55f6e2744208ccefe34f3e05ced2c988" category="section-title">解除安裝 Helm 安裝</block>
   <block id="99dec4df69ba043a5eb3118e1e0b364e" category="section-title">解除安裝<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 安裝</block>
   <block id="7a15e63f1d0efc213151254bbc1b2d0d" category="doc">升級 Trident 營運商安裝</block>
@@ -3756,8 +3752,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="fed6290ac938ca603cf5f4f680802954" category="open-title">&lt;code&gt;tridentctl&lt;/code&gt;</block>
   <block id="cc40bbe559f5f0b7306a8ae2941647b5" category="paragraph">若要在使用解除安裝 Astra Trident 之後完全移除 CRD<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
   <block id="660807cada2c8061fb92638cfe0568d0" category="list-text">為了方便升級和重新安裝、解除安裝 Astra Trident 並不會移除 Astra Trident 所建立的 CRD 或相關物件。如果您需要完全移除 Astra Trident 及其所有資料、請參閱 <block ref="9d95a644de0932ac2f909a32a488bd14" category="inline-link-macro-rx"></block>。</block>
-  <block id="3277c9131339b6e3e8b8401d060b2ace" category="list-text">刪除<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>：*移除<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 用來部署Astra Trident的CR、您可以指示操作員解除安裝Trident。操作員會處理的移除作業<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 然後繼續移除Astra Trident部署和取消安裝、刪除它在安裝過程中建立的Trident Pod。</block>
-  <block id="d92f992bb942ae97af56a9921f1fb6d0" category="paragraph">使用<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> 命令輸入<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 移除與 Astra Trident 相關的所有資源、但 CRD 和相關物件除外。</block>
   <block id="88251b113e3f1da4ba88b0d4283d23ed" category="paragraph">瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP SAN 驅動程式。本節提供後端組態範例及將後端對應至 StorageClasses 的詳細資料。</block>
   <block id="00100eed0a9df5b2142497897b426d44" category="cell">叢集或 SVM 管理 LIF 的 IP 位址。
 
@@ -3816,7 +3810,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="d265ac83a999c5664002082de4a65e05" category="list-text"><block ref="40ecbfec412666aee449608e50f67b87" prefix="" category="inline-code"></block> 如果您的映像都位於單一登錄中。</block>
   <block id="183ccfb0be6f36dfc545d9bf582a1180" category="list-text"><block ref="d3a400126b30a5fb9f887818fc7e1f04" prefix="" category="inline-code"></block> 如果Trident映像與您的csi映像位於不同的登錄中。</block>
   <block id="d06187756592965157c9f1bc4fc51a9c" category="cell">"NetApp/trident 自動支援： 23.07"</block>
-  <block id="b686eadf7765eed3e9de8f9cbded0fe8" category="section-title">23.07.1 的新功能</block>
   <block id="06918a8f55f386d79e64a70ca217b501" category="paragraph">* Kubernetes ： * 修正刪除程式集的問題、以支援零停機升級（<block ref="6f993c83118cc4a1dd5351c8501e26c9" category="inline-link-macro-rx"></block>）。</block>
   <block id="ca6a658f1db1af30f178530c90cbe8fc" category="section-title">2007 年 23 月 23 日的變更</block>
   <block id="57154d2dcf591aaa3d4dcbfbba196075" category="inline-link-macro">支援的 ONTAP Volume 限制</block>
@@ -3860,4 +3853,10 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="5f04fbb334c6fb8030146ad8f76a953a" category="paragraph">Astra Trident 會在「意見」欄位中設定資源配置標籤。註解是在的 FlexVol 上設定<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 或FlexGroup 支援<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>。Astra Trident會在資源配置時、將虛擬資源池上的所有標籤複製到儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。</block>
   <block id="aea10b5a282698ad4477a7113234ae65" category="inline-link-macro">匯入 Volume 快照</block>
   <block id="4999635328ae714b8eb5f24934a24943" category="admonition">一般而言、您不需要管理<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> 物件：這是您想要的例外情況 <block ref="0b4cdf17ac3e4123330cb8e51ec533a2" category="inline-link-macro-rx"></block> 在 Astra Trident 外部建立。</block>
+  <block id="4aa76d97b44b3ff21dced31974f437dc" category="paragraph">如果您使用運算子安裝 Astra Trident 、您可以執行下列其中一項動作來解除安裝：</block>
+  <block id="6418f8ccde0bb975a1ad82cf1d5250c6" category="list-text">編輯<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> CR 並設定解除安裝旗標 ** ：</block>
+  <block id="30abd17d4913fab8af9d1efd63c15f9c" category="paragraph">當<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> 旗標設定為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、Trident運算子會卸載Trident、但不會移除TridentOrchestrator本身。如果您想要再次安裝Trident、請清理TridentOrchestrator並建立新的Trident。</block>
+  <block id="0b5b18e58101a5fdc2d3618c85a04814" category="list-text">刪除<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>** ：移除<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 用來部署Astra Trident的CR、您可以指示操作員解除安裝Trident。操作員會處理的移除作業<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 然後繼續移除Astra Trident部署和取消安裝、刪除它在安裝過程中建立的Trident Pod。</block>
+  <block id="566ef0ea3e228b1c501652e83def2c9d" category="paragraph">使用<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> 命令輸入<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 若要移除與 Astra Trident 相關的所有資源、但 CRD 和相關物件除外：</block>
+  <block id="3d11c687c20c6a6a9fec2b3d07f861f0" category="section-title">23.07.1 的新功能</block>
 </blocks>

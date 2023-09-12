@@ -1752,8 +1752,6 @@
   <block id="3de05f78e401869f4630ec8cabf339df" category="section-title">我可以直接從舊版本升級至新版本（跳過幾個版本）嗎？</block>
   <block id="ce44cbbc54839f39b351c091b0e3caa5" category="paragraph">NetApp支援將Astra Trident從一個重大版本升級至下一個重大版本。您可以從11.xx版升級至19.xx、19.xx版升級至20.xx版、依此類推。在正式作業部署之前、您應該先在實驗室中測試升級。</block>
   <block id="0399b9e6348e554937a4d65efc97a1b8" category="section-title">是否能將Trident降級至先前的版本？</block>
-  <block id="d307563c01953bd90a41ddd049f96d51" category="inline-link-macro">降級一節</block>
-  <block id="72fec731c958562fd09df08eef5fbb89" category="paragraph">如果您想要降級、有許多因素需要評估。請參閱 <block ref="ea621a0de3f004c488ea799d0fd7e41d" category="inline-link-macro-rx"></block>。</block>
   <block id="ba9c59aa9d07b25e124dcf6ca88d689a" category="section-title">管理後端和磁碟區</block>
   <block id="ffe72215dff9a93d62ee68905212025e" category="section-title">我是否需要在ONTAP 一個後端定義檔案中定義管理和資料生命期？</block>
   <block id="f3997f0b9446951754e665cfe7591cef" category="section-title">Astra Trident是否能設定CHAP以ONTAP 供後端使用？</block>
@@ -3884,4 +3882,6 @@ Astra Trident</block>
   <block id="d64d0e5bb5a552ae4986a713f41c8fc3" category="cell">用於 Pod 的其他節點選取器。	格式與相同<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>。</block>
   <block id="875ce721843c20d7f9aae240673ed68b" category="cell">覆寫 Pod 的 Kubernetes 公差。遵循與相同的格式<block ref="f1fa64fcf5077601cb803e995a51fa4f" prefix=" " category="inline-code"></block>。</block>
   <block id="00e8e1706119ce5300bdc9141ececc37" category="cell">用於 Pod 的其他節點選取器。格式與相同<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>。</block>
+  <block id="7786076739da628161f45de338cd6e69" category="inline-link-macro">解除安裝 Astra Trident</block>
+  <block id="bc2d347a4b0e30ef46f4d91b07267ca7" category="paragraph">如果您需要修正在升級、相依性問題或升級失敗或不完整之後發現的錯誤、您應該這樣做 <block ref="b6be8ee390417a446f993452ffee9585" category="inline-link-macro-rx"></block> 並依照該版本的特定指示重新安裝舊版。這是降級至舊版的唯一建議方法。</block>
 </blocks>

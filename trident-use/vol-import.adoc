@@ -245,7 +245,7 @@ tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -
 
 === Azure NetApp Files
 
-Astra Trident 支援使用匯入 Volume `azure-netapp-files` 和 `azure-netapp-files-subvolume` 驅動程式：
+Astra Trident 支援使用匯入 Volume `azure-netapp-files` 驅動程式：
 
 
 NOTE: 若要匯入 Azure NetApp Files Volume 、請依磁碟區路徑識別該磁碟區。Volume 路徑是之後 Volume 匯出路徑的一部分 `:/`。例如、如果掛載路徑為 `10.0.0.2:/importvol1`、磁碟區路徑為 `importvol1`。

@@ -35,18 +35,6 @@ Rwo 、 ROX 、 rwx 、 RWOP
  a| 
 `nfs`、 `smb`
 
-
-
-| `azure-netapp-files-subvolume`  a| 
-NFS
-中小企業
- a| 
-檔案系統
- a| 
-RWO 、 RWOP
- a| 
-`xfs`,`ext3`、 `ext4`
-
 |===
 
 

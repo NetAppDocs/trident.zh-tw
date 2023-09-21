@@ -91,9 +91,6 @@ summary: 瞭解如何在 Astra Trident 安裝中建立及使用 ONTAP NAS 驅動
 | 「限制Aggregateusage」 | 如果使用率高於此百分比、則無法進行資源配置。*不適用於Amazon FSX for ONTAP Sfor Sfor * | ""（預設不強制執行） 
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。 | "" （預設不會強制執行） 
-
-
 | 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN、以及的磁碟區大小上限 `qtreesPerFlexvol` 選項可自訂每FlexVol 個支援區的配額樹數上限。 | "" （預設不會強制執行） 
 
 

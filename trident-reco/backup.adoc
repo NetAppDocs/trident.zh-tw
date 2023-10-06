@@ -106,7 +106,7 @@ NOTE: 如果您指定 `-identity-preserve true`、當目的地 SVM 啟動時、 
 
 Astra Trident 無法設定 SnapMirror 複寫關係、不過儲存管理員可以使用 link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["ONTAP SnapMirror 複寫與還原"^] 複寫 Astra Trident 所建立的 Volume 。
 
-然後、您可以使用將復原的磁碟區匯入 Astra Trident link:trident-use/vol-import.adoc["tridentctl Volume 匯入"]。
+然後、您可以使用將復原的磁碟區匯入 Astra Trident link:../trident-use/vol-import.html["tridentctl Volume 匯入"]。
 
 
 NOTE: 匯入不受支援 `ontap-nas-economy`、  `ontap-san-economy`或 `ontap-flexgroup-economy` 驅動程式：
@@ -119,7 +119,7 @@ NOTE: 匯入不受支援 `ontap-nas-economy`、  `ontap-san-economy`或 `ontap-f
 
 * 外部快照控制器和 CRD 、用於建立持續磁碟區（ PV ）的 Kubernetes Volume 快照。
 +
-link:trident-use/vol-snapshots.adoc["Volume快照"]
+link:../trident-use/vol-snapshots.html["Volume快照"]
 
 * ONTAP 快照可還原磁碟區的全部內容、或是還原個別檔案或 LUN 。
 +

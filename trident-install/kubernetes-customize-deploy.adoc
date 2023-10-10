@@ -52,7 +52,7 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示 Astra Triden
 | `windows` | 設定為 `true` 可在Windows工作節點上安裝。 | 錯 
 
 
-| `useIPv6` | 透過IPv6安裝Astra Trident | 錯 
+| `IPv6` | 透過IPv6安裝Astra Trident | 錯 
 
 
 | `k8sTimeout` | Kubernetes作業逾時 | 30秒 

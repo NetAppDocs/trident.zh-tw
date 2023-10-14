@@ -159,23 +159,23 @@ Usage:
 ----
 旗標：
 
-* ``--autosupport-image string`： AutoSupport 遙測的容器映像（預設為「 NetApp/trident autosupport ： <current-version> 」）。
-* 「-autosupport-proxy]：代理伺服器的位址/連接埠、用於傳送AutoSupport 「遙測」。
-* 「-enable節點準備」：嘗試在節點上安裝所需的套件。
-* 「-generame-custom-yaml」：產生Yaml檔案、無需安裝任何內容。
-* 「-h、-help'：安裝說明。
-* ``--http-request-timeout`：覆寫 Trident 控制器 REST API 的 HTTP 要求逾時（預設值為 1m30s ）。
-* 「-image-registry字串」：內部映像登錄的位址/連接埠。
-* 「-k8s-timeout duration」（k8s-timeout持續時間）：所有Kubernetes作業的逾時時間（預設為3個月）。
-* 「-kubelet-dir字串」：kubelet內部狀態的主機位置（預設為「/var/lib/kubelet」）。
-* 「-log-format字串」：Astra Trident記錄格式（文字、json）（預設為「text」）。
-* 「-PV字串」：Astra Trident使用的舊PV名稱、可確保不存在（預設為「Trident」）。
-* 「-PVc字串」：Astra Trident使用的舊版PVc名稱、可確保不存在（預設為「Trident」）。
-* 「-Silence-autosupport」：請勿AutoSupport 自動將支援套裝組合傳送至NetApp（預設為true）。
-* 「-silent」：安裝期間停用大部分的輸出。
-* 「-trident映像字串」：要安裝的Astra Trident映像。
-* 「用途自訂yaml」：使用安裝目錄中現有的任何Yaml檔案。
-* 《使用IPv6》：使用IPv6進行Astra Trident的通訊。
+* `--autosupport-image string`： AutoSupport 遙測的容器映像（預設為「 NetApp/trident autosupport ： <current-version> 」）。
+* `--autosupport-proxy string`：代理伺服器的位址/連接埠、用於傳送AutoSupport 「遙測」功能。
+* `--enable-node-prep`：嘗試在節點上安裝所需的套件。
+* `--generate-custom-yaml`：在不安裝任何內容的情況下生成Yaml文件。
+* `-h, --help`：安裝說明。
+* `--http-request-timeout`：覆寫 Trident 控制器 REST API 的 HTTP 要求逾時（預設值為 1m30s ）。
+* `--image-registry string`：內部映像登錄的位址/連接埠。
+* `--k8s-timeout duration`：所有Kubernetes作業的逾時時間（預設為3個月）。
+* `--kubelet-dir string`：Kuvelet內部狀態的主機位置（預設為「/var/lib/kubelet」）。
+* `--log-format string`：Astra Trident記錄格式（text、json）（預設「text」）。
+* `--pv string`：Astra Trident使用的舊PV名稱、確保不存在（預設為「Trident」）。
+* `--pvc string`：Astra Trident使用的舊版永久虛擬室早名稱、確保不存在（預設為「Trident」）。
+* `--silence-autosupport`：請勿AutoSupport 自動將不實的套裝組合傳送至NetApp（預設為true）。
+* `--silent`：安裝期間禁用大多數輸出。
+* `--trident-image string`：要安裝的Astra Trident映像。
+* `--use-custom-yaml`：使用安裝目錄中現有的任何Yaml檔案。
+* `--use-ipv6`：使用IPv6進行Astra Trident的通訊。
 
 
 

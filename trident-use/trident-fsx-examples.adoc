@@ -38,10 +38,16 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 
 您可以指定完整網域名稱（FQDN）。
 
-如果使用安裝Astra Trident、則可設定使用IPv6位址 `--use-ipv6` 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
+如果使用 IPv6 旗標安裝 Astra Trident 、則可以設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
 
 
-| 「DataLIF」 | 傳輸協定LIF的IP位址。*不適用NAS驅動程式*：建議您指定dataLIF ONTAP 。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 。*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Astra Trident使用ONTAP 「選擇性LUN地圖」來探索建立多重路徑工作階段所需的iSCI lifs。如果明確定義dataLIF、就會產生警告。如果使用安裝Astra Trident、則可設定使用IPv6位址 `--use-ipv6` 旗標。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 |  
+| 「DataLIF」 | 傳輸協定LIF的IP位址。
+
+*不適用NAS驅動程式*：建議您指定dataLIF ONTAP 。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 。
+
+*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Astra Trident使用ONTAP 「選擇性LUN地圖」來探索建立多重路徑工作階段所需的iSCI lifs。如果明確定義dataLIF、就會產生警告。
+
+如果使用 IPv6 旗標安裝 Astra Trident 、則可以設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 |  
 
 
 | 「AutoExpportPolicy」 | 啟用自動匯出原則建立及更新[布 林值]。使用 `autoExportPolicy` 和 `autoExportCIDRs` 選項：Astra Trident可自動管理匯出原則。 | 「假」 

@@ -38,7 +38,7 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 
 您可以指定完整網域名稱（FQDN）。
 
-如果使用安裝Astra Trident、則可設定使用IPv6位址 `--use-ipv6` 旗標。IPv6 位址必須以方括弧定義、例如 `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。
+如果使用 IPv6 旗標安裝 Astra Trident 、則可以設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義、例如 `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。
 
 如需無縫 MetroCluster 之間的互通性、請參閱 <<mcc-best>>。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
 

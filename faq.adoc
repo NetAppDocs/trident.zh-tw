@@ -194,7 +194,7 @@ NetApp支援將Astra Trident從一個重大版本升級至下一個重大版本�
 
 === 是否能將Trident降級至先前的版本？
 
-如果您需要修正在升級、相依性問題或升級失敗或不完整之後發現的錯誤、您應該這樣做 link:../trident-managing-k8s/uninstall-trident.html["解除安裝 Astra Trident"] 並依照該版本的特定指示重新安裝舊版。這是降級至舊版的唯一建議方法。
+如果您需要修正在升級、相依性問題或升級失敗或不完整之後發現的錯誤、您應該這樣做 link:trident-managing-k8s/uninstall-trident.html["解除安裝 Astra Trident"] 並依照該版本的特定指示重新安裝舊版。這是降級至舊版的唯一建議方法。
 
 
 
@@ -232,7 +232,7 @@ Astra Trident支援定義IPv6位址：
 * `managementLIF` 適用於SAN後端ONTAP 。您無法指定 `dataLIF` 在SAN後端ONTAP 。
 
 
-必須使用安裝Astra Trident ``--use-ipv6` 旗標可讓IT透過IPv6運作。
+Astra Trident 必須使用旗標安裝 `--use-ipv6` （適用於 `tridentctl` 安裝）、 `IPv6` （適用於 Trident 運算子）、或 `tridentTPv6` （適用於 Helm 安裝）、讓 IT 能夠透過 IPv6 運作。
 
 
 

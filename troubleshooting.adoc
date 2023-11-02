@@ -162,7 +162,7 @@ INFO Trident uninstallation succeeded.
 您可以完全移除 Astra Trident 和所有建立的客戶需求日、以及相關的自訂資源。
 
 
-WARNING: 此動作無法復原。除非您想要全新安裝 Astra Trident 、否則請勿這麼做。若要在不移除客戶需求日的情況下解除安裝 Astra Trident 、請參閱 link:../trident-managing-k8s/uninstall-trident.html["解除安裝Astra Trident"]。
+WARNING: 此動作無法復原。除非您想要全新安裝 Astra Trident 、否則請勿這麼做。若要在不移除客戶需求日的情況下解除安裝 Astra Trident 、請參閱 link:trident-managing-k8s/uninstall-trident.html["解除安裝Astra Trident"]。
 
 [role="tabbed-block"]
 ====

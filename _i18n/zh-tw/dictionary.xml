@@ -3702,7 +3702,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="629ac35dda697ad18f8fef7094213871" category="list-text">如果您想要降級至舊版的 Trident 、請先執行<block ref="ac8650577d1b744589a6a11b60ac38c7" prefix=" " category="inline-code"></block> 移除Trident的命令。下載所需的<block ref="f3d78353f8dac3e49bbefeb5f6a2383b" category="inline-link-rx"></block> 並使用安裝<block ref="430bf77bee6c59d385d4194f84c21b16" prefix=" " category="inline-code"></block> 命令。</block>
   <block id="2a1db8dc71dec3264e9155d610575785" category="section-title">完全移除 Astra Trident 和 CRD</block>
   <block id="de752588132c292a8a12ad2441fbf43c" category="paragraph">您可以完全移除 Astra Trident 和所有建立的客戶需求日、以及相關的自訂資源。</block>
-  <block id="90dc0d986558510d55c898cb62f4f2d5" category="admonition">此動作無法復原。除非您想要全新安裝 Astra Trident 、否則請勿這麼做。若要在不移除客戶需求日的情況下解除安裝 Astra Trident 、請參閱 <block ref="6b2eb9a0745ceac90657a4978cb010ca" category="inline-link-macro-rx"></block>。</block>
   <block id="4f5dbc74e3448e08fe0e7bfd62876fc8" category="open-title">Trident運算子</block>
   <block id="f4508049a2ac2bdb5cb9fde92120497a" category="paragraph">若要解除安裝 Astra Trident 、並使用 Trident 運算子完全移除 CRD ：</block>
   <block id="152090ff5e9a05ea7e1cf0c248449638" category="open-title">掌舵</block>
@@ -3886,4 +3885,5 @@ Astra Trident</block>
   <block id="c739dc3ddc713880b7989d4cb214b126" category="list-text"><block ref="8026926641b283123174e50f80da83de" prefix="" category="inline-code"></block>：使用安裝目錄中現有的任何Yaml檔案。</block>
   <block id="b4a7a23f7c478405b46b2605053c1b1c" category="list-text"><block ref="4a4ef9f92e69acc000120379678aadcf" prefix="" category="inline-code"></block>：使用IPv6進行Astra Trident的通訊。</block>
   <block id="131adabe09344184458d12d3b2b31dc0" category="list-text">使用適用於您環境的正確套件 YAML 檔案安裝 Astra Trident<block ref="98f5e7907d122797ada0893820664b60" prefix=" " category="inline-code"></block> 是<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block> 或<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block> 以 Kubernetes 版本為基礎。例如、如果您要安裝 Astra Trident 23.07 、請執行下列命令：</block>
+  <block id="c2246b326c72ec59a183d35d55147b05" category="admonition">此動作無法復原。除非您想要全新安裝 Astra Trident 、否則請勿這麼做。若要在不移除客戶需求日的情況下解除安裝 Astra Trident 、請參閱 <block ref="3ac8f1f328a77d784290ca23df4860e6" category="inline-link-macro-rx"></block>。</block>
 </blocks>

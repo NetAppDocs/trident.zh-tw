@@ -3545,7 +3545,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="0832423fdef6d1073376febeafb11832" category="list-text">對於執行 Kubernetes 1.24 或更早版本的叢集、請使用 <block ref="8b8083e47d4f32cbe1da275ad704ec28" category="inline-link-macro-rx"></block>。</block>
   <block id="4ac6364736606467ebc3be7abadfb0ef" category="list-text">對於執行 Kubernetes 1.25 或更新版本的叢集、請使用 <block ref="44d1f465bf50a20fa85c56cfe0e1804f" category="inline-link-macro-rx"></block>。</block>
   <block id="0af6b3e2ec6d581f66df3a49e97c5c55" category="list-text">刪除用來安裝目前Astra Trident執行個體的Trident運算子。例如、如果您是從 23.04 升級、請執行下列命令：</block>
-  <block id="300b059e0bac5cb2864932371a494a8a" category="list-text">使用適用於您環境的正確套裝組合Yaml檔案和Astra Trident版本來安裝Astra Trident。例如、如果您要為 Kubernetes 1.27 安裝 Astra Trident 23.07 、請執行下列命令：</block>
   <block id="3ae662c67d403e6230b019a96e787b63" category="paragraph">您可以升級 Astra Trident Helm 安裝。</block>
   <block id="613909529798c8a2543da8e954e5d742" category="section-title">從升級<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 安裝至 Trident 操作員</block>
   <block id="9142b40107d9c5a0b86ef0ce8c25a88b" category="paragraph">您可以從升級至最新版的Trident運算子<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 安裝：現有的後端和 PVC 將會自動提供使用。</block>
@@ -3886,4 +3885,5 @@ Astra Trident</block>
   <block id="22948ed4deb04f4041cba28bf7536c9a" category="list-text"><block ref="356c2fa7142c3aee4cd6204d96ea0890" prefix="" category="inline-code"></block>：要安裝的Astra Trident映像。</block>
   <block id="c739dc3ddc713880b7989d4cb214b126" category="list-text"><block ref="8026926641b283123174e50f80da83de" prefix="" category="inline-code"></block>：使用安裝目錄中現有的任何Yaml檔案。</block>
   <block id="b4a7a23f7c478405b46b2605053c1b1c" category="list-text"><block ref="4a4ef9f92e69acc000120379678aadcf" prefix="" category="inline-code"></block>：使用IPv6進行Astra Trident的通訊。</block>
+  <block id="131adabe09344184458d12d3b2b31dc0" category="list-text">使用適用於您環境的正確套件 YAML 檔案安裝 Astra Trident<block ref="98f5e7907d122797ada0893820664b60" prefix=" " category="inline-code"></block> 是<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block> 或<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block> 以 Kubernetes 版本為基礎。例如、如果您要安裝 Astra Trident 23.07 、請執行下列命令：</block>
 </blocks>

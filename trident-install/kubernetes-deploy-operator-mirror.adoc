@@ -118,17 +118,17 @@ kubectl apply -f deploy/namespace.yaml
 ----
 * 可在非的命名空間中部署運算子 `trident` 命名空間、更新 `serviceaccount.yaml`、 `clusterrolebinding.yaml` 和 `operator.yaml` 並使用產生套裝組合檔案 `kustomization.yaml`。
 +
-.. 建立 `kustomization.yaml` 使用下列命令、其中包含 <bundle> `bundle_pre_1_25` 或 `bundle_post_1_25` 以 Kubernetes 版本為基礎。
+.. 建立 `kustomization.yaml` 使用下列命令、其中包含 <bundle.yaml> `bundle_pre_1_25.yaml` 或 `bundle_post_1_25.yaml` 以 Kubernetes 版本為基礎。
 +
 [listing]
 ----
-cp kustomization_<bundle>.yaml kustomization.yaml
+cp deploy/kustomization_<bundle.yaml> deploy/kustomization.yaml
 ----
-.. 使用以下命令編譯套件（其中的 <bundle> 是） `bundle_pre_1_25` 或 `bundle_post_1_25` 以 Kubernetes 版本為基礎。
+.. 使用以下命令編譯套件（其中的 <bundle.yaml> 是） `bundle_pre_1_25.yaml` 或 `bundle_post_1_25.yaml` 以 Kubernetes 版本為基礎。
 +
 [listing]
 ----
-kubectl kustomize deploy/ > deploy/<bundle>.yaml
+kubectl kustomize deploy/ > deploy/<bundle.yaml>
 ----
 
 
@@ -139,7 +139,7 @@ kubectl kustomize deploy/ > deploy/<bundle>.yaml
 +
 [listing]
 ----
-kubectl kustomize deploy/ > deploy/<bundle>.yaml
+kubectl create -f deploy/<bundle.yaml>
 ----
 . 確認已建立運算子、部署和複本集。
 +

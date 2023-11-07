@@ -302,7 +302,7 @@ CRD是Kubernetes建構。上述資源的物件是由Trident所建立。例如、
 
 == Astra Trident `StorageClass` 物件
 
-Trident會為Kubernetes「torageClass」物件建立相符的儲存類別、並在其資源配置程式欄位中指定「csi.trident.netapp.io`/`netapp.io/trident`」。儲存類別名稱與Kubernetes「torageClass」物件的名稱相符。
+Trident為Kubernetes建立相符的儲存類別 `StorageClass` 指定的物件 `csi.trident.netapp.io` 在他們的資源配置工具欄位中。儲存類別名稱與Kubernetes名稱相符 `StorageClass` 所代表的物件。
 
 
 NOTE: 使用Kubernetes、當Kubernetes「torageClass」以Trident做為資源配置程式登錄時、就會自動建立這些物件。

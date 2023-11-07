@@ -68,7 +68,7 @@ helm upgrade <name> trident-operator-21.07.1-custom.tgz --set tridentDebug=true`
 
 
 
-== 使用操作員疑難排解不成功的Trident部署
+== 使用運算子的 Trident 部署不成功
 
 如果您使用運算子來部署Trident、則「TridentOrchestrator」的狀態會從「安裝」變更為「安裝」。如果您看到「失敗」狀態、而且操作員本身無法恢復、您應該執行下列命令來檢查操作員的記錄：
 
@@ -135,7 +135,7 @@ trident-operator-766f7b8658-ldzsv   1/1     Running            0          8m17s
 
 
 
-== 使用疑難排解不成功的Trident部署 `tridentctl`
+== 使用不成功的 Trident 部署 `tridentctl`
 
 為了協助您找出問題所在、您可以使用「-d'」引數再次執行安裝程式、這會開啟偵錯模式、並協助您瞭解問題所在：
 
@@ -194,3 +194,33 @@ tridentctl obliviate crd
 ----
 --
 ====
+
+
+== 在 Kubernetes 1.26 上使用 rwx 原始區塊命名空間時、 NVMe 節點非分段失敗
+
+如果您執行的是 Kubernetes 1.26 、則當使用含 rwx 原始區塊命名空間的 NVMe / TCP 時、節點解除暫存可能會失敗。下列案例提供故障的因應措施。或者、您也可以將 Kubernetes 升級至 1.27 。
+
+
+
+=== 已刪除命名空間和 Pod
+
+請考慮將 Astra Trident 託管命名空間（ NVMe 持續磁碟區）附加至 Pod 的案例。如果您直接從 ONTAP 後端刪除命名空間、則在嘗試刪除 Pod 之後、取消暫存程序會卡住。此案例不會影響 Kubernetes 叢集或其他功能。
+
+.因應措施
+從個別節點上卸載持續磁碟區（對應於該命名空間）、然後將其刪除。
+
+
+
+=== 封鎖 dataLIFs
+
+ If you block (or bring down) all the dataLIFs of the NVMe Astra Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+.因應措施
+開啟 dataLIFS 以還原完整功能。
+
+
+
+=== 刪除命名空間對應
+
+ If you remove the `hostNQN` of the worker node from the corresponding subsystem, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+.因應措施
+新增 `hostNQN` 返回子系統。

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/anf-prep.html 
-keywords: trident backend, azure netapp files, smb volumes, smb, windows, active directory, csi proxy 
+keywords: trident backend, azure netapp files, smb volumes, smb, windows, active directory, csi proxy, aks, managed identities 
 summary: 在您設定Azure NetApp Files 完後端功能之前、您必須確保符合下列要求。 
 ---
 = 準備設定Azure NetApp Files 一個功能完善的後端
@@ -18,10 +18,12 @@ summary: 在您設定Azure NetApp Files 完後端功能之前、您必須確保�
 
 == NFS 和 SMB 磁碟區的必要條件
 
-
-NOTE: 如果您是第一次使用 Azure NetApp Files 、或是在新位置使用、則必須先進行一些初始設定、才能設定 Azure NetApp Files 並建立 NFS Volume 。請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure：設定Azure NetApp Files 功能以建立NFS Volume"^]。
+如果您是第一次使用 Azure NetApp Files 、或是在新位置使用、則必須先進行一些初始設定、才能設定 Azure NetApp Files 並建立 NFS Volume 。請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure：設定Azure NetApp Files 功能以建立NFS Volume"^]。
 
 若要設定及使用 https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] 後端、您需要下列項目：
+
+
+NOTE: `subscriptionID`、 `tenantID`、 `clientID`、 `location`和 `clientSecret` 在 AKS 叢集上使用託管身分識別時為選用項目。
 
 * 容量集區。請參閱 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Microsoft ：為 Azure NetApp Files 建立容量集區"^]。
 * 委派給 Azure NetApp Files 的子網路。請參閱 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Microsoft ：將子網路委派給 Azure NetApp Files"^]。
@@ -31,6 +33,9 @@ NOTE: 如果您是第一次使用 Azure NetApp Files 、或是在新位置使用
 ** 擁有者或貢獻者角色 link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["由Azure預先定義"^]。
 ** 答 link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["自訂貢獻者角色"] 在訂購層級 (`assignableScopes`）具有下列權限、僅限於Astra Trident所需的權限。建立自訂角色之後、 link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["使用Azure入口網站指派角色"^]。
 +
+.自訂參與者角色
+[%collapsible]
+====
 [source, JSON]
 ----
 {
@@ -73,6 +78,7 @@ NOTE: 如果您是第一次使用 Azure NetApp Files 、或是在新位置使用
     }
 }
 ----
+====
 
 
 * Azure `location` 至少包含一個 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["委派的子網路"^]。從Trident 22.01起 `location` 參數是後端組態檔最上層的必填欄位。會忽略虛擬資源池中指定的位置值。

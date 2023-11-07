@@ -52,6 +52,34 @@ RWO 、 RWOP
 
 
 
+| 「ONTAP-SAN」  a| 
+NVMe / TCP
+
+請參閱 <<NVMe / TCP 的其他考量事項>>。
+ a| 
+區塊
+ a| 
+Rwo 、 ROX 、 rwx 、 RWOP
+ a| 
+無檔案系統；原始區塊裝置
+
+
+
+| 「ONTAP-SAN」  a| 
+NVMe / TCP
+
+請參閱 <<NVMe / TCP 的其他考量事項>>。
+ a| 
+檔案系統
+ a| 
+RWO 、 RWOP
+
+檔案系統磁碟區模式中無法使用 Rox 和 rwx 。
+ a| 
+《xfs》、《ext3》、《ext4》
+
+
+
 | 《ONTAP-san經濟》  a| 
 iSCSI
  a| 
@@ -99,3 +127,24 @@ Astra Trident希望以ONTAP 支援或SVM管理員的身分執行、通常是使�
 NOTE: 如果您使用「limitAggregateusage」參數、則需要叢集管理權限。使用Amazon FSx for NetApp ONTAP 支援Astra Trident時、「limitAggregateusage」參數無法搭配「vsadmin」和「fsxadmin」使用者帳戶使用。如果您指定此參數、組態作業將會失敗。
 
 雖然可以在 ONTAP 中建立更具限制性的角色、讓 Trident 驅動程式可以使用、但我們不建議這樣做。Trident的大多數新版本都會呼叫額外的API、而這些API必須納入考量、使升級變得困難且容易出錯。
+
+
+
+== NVMe / TCP 的其他考量事項
+
+Astra Trident 支援使用的非揮發性記憶體高速（ NVMe ）傳輸協定 `ontap-san` 驅動程式包括：
+
+* IPv6
+* NVMe 磁碟區的快照和複本
+* 調整 NVMe 磁碟區大小
+* 匯入 Astra Trident 外部建立的 NVMe Volume 、以便 Astra Trident 管理其生命週期
+* NVMe 原生多重路徑
+* K8s 節點正常或不正常關機（ 23.10 ）
+
+
+Astra Trident 不支援：
+
+* NVMe 原生支援的 DH-HMAC-CHAP
+* 裝置對應工具（ DM ）多重路徑
+* LUKS 加密
+

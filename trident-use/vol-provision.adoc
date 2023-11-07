@@ -54,6 +54,9 @@ spec:
 .PersistentVolume Claim 範例資訊清單
 [%collapsible]
 ====
+這些範例顯示基本的 PVC 組態選項。
+
+.可存取 RWO 的 PVC
 此範例顯示具有 rwo 存取權的基本 PVC 、與命名的 StorageClass 相關聯 `basic-csi`。
 
 [listing]
@@ -70,10 +73,31 @@ spec:
       storage: 1Gi
   storageClassName: basic-csi
 ----
+.採用 NVMe / TCP 的 PVC
+此範例顯示 NVMe / TCP 的基本 PVC 、並提供與命名 StorageClass 相關的 rwo 存取 `protection-gold`。
+
+[listing]
+----
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+name: pvc-san-nvme
+spec:
+accessModes:
+  - ReadWriteOnce
+resources:
+  requests:
+    storage: 300Mi
+storageClassName: protection-gold
+----
 ====
 .Pod 資訊清單範例
 [%collapsible]
 ====
+這些範例顯示將 PVC 連接至 Pod 的基本組態。
+
+.基本組態
 [listing]
 ----
 kind: Pod
@@ -94,6 +118,32 @@ spec:
       volumeMounts:
         - mountPath: "/my/mount/path"
           name: pv-storage
+----
+.基本 NVMe / TCP 組態
+[listing]
+----
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  containers:
+    - image: nginx
+      name: nginx
+      resources: {}
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+      claimName: pvc-san-nvme
 ----
 ====
 

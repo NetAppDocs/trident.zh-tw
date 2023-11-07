@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/anf.html 
-keywords: trident backend, azure netapp files, smb volumes, smb, windows, drivers, access modes, rwo, rwx, rwp, rwop, file system 
-summary: 您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NAS 和 SMB 磁碟區。 
+keywords: trident backend, azure netapp files, smb volumes, smb, windows, drivers, access modes, rwo, rwx, rwp, rwop, file system, aks, managed identities, azure 
+summary: 您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NFS 和 SMB 磁碟區。Astra Trident 也支援使用 Azure Kubernetes Services （ aks ）叢集的託管身分識別來進行認證管理。 
 ---
 = 設定Azure NetApp Files 一個靜態後端
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您
 
 
 [role="lead"]
-您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NFS 和 SMB 磁碟區。
+您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NFS 和 SMB 磁碟區。Astra Trident 也支援使用 Azure Kubernetes Services （ aks ）叢集的託管身分識別來進行認證管理。
 
 
 
@@ -38,8 +38,58 @@ Rwo 、 ROX 、 rwx 、 RWOP
 |===
 
 
-== 考量
+=== 考量
 
 * 此支援服務不支援小於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、Astra Trident會自動建立100-GB磁碟區。
 * Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
+
+
+
+
+== 管理的身分識別
+
+Astra Trident 支援 link:https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview["託管身分識別"^] 適用於 Azure Kubernetes Services 叢集。若要善用託管身分識別所提供的簡化認證管理功能、您必須具備：
+
+* 使用 aks 部署的 Kubernetes 叢集
+* 在 aks Kubernetes 叢集上設定的託管身分識別
+* 安裝的 Astra Trident 包含 `cloudProvider` 以指定 `"Azure"`。
++
+[role="tabbed-block"]
+====
+.Trident運算子
+--
+若要使用 Trident 運算子安裝 Astra Trident 、請編輯 `tridentorchestrator_cr.yaml` 以設定 `cloudProvider` 至 `"Azure"`。例如：
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullPolicy: IfNotPresent
+  cloudProvider: "Azure"
+----
+--
+.掌舵
+--
+以下範例安裝 Astra Trident Set `cloudProvider` 使用環境變數將資源移轉至 Azure `$CP`：
+
+[listing]
+----
+helm install trident trident-operator-23.10.0-custom.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
+----
+--
+.<code>tridentctl</code>
+--
+下列範例安裝 Astra Trident Set 設定 `cloudProvider` 標記為 `Azure`：
+
+[listing]
+----
+tridentctl install --cloud-provider="Azure" -n trident
+----
+--
+====
 

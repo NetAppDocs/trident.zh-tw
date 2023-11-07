@@ -40,50 +40,53 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示 Astra Triden
 | 參數 | 說明 | 預設 
 
 
-| `namespace` | 用於安裝Astra Trident的命名空間 | "預設" 
+| `namespace` | 用於安裝Astra Trident的命名空間 | `"default"` 
 
 
-| 「Debug」 | 啟用Astra Trident的偵錯功能 | 錯 
+| 「Debug」 | 啟用Astra Trident的偵錯功能 | 「假」 
 
 
 | `enableForceDetach` | `ontap-san` 和 `ontap-san-economy` 僅限。與 Kubernetes Non-Graceful Node Shutdown （ NGNS ）一起運作、讓叢集管理員能夠在節點發生問題時、將已掛載磁碟區的工作負載安全移轉至新節點。* 這是 23.04 的實驗功能。 * 請參閱 <<強制分離的詳細資料>> 以取得重要詳細資料。 | 「假」 
 
 
-| `windows` | 設定為 `true` 可在Windows工作節點上安裝。 | 錯 
+| `windows` | 設定為 `true` 可在Windows工作節點上安裝。 | 「假」 
+
+
+| `cloudProvider` | 設定為 `"Azure"` 在 AKS 叢集上使用託管身分識別時。 | `""` 
 
 
 | `IPv6` | 透過IPv6安裝Astra Trident | 錯 
 
 
-| `k8sTimeout` | Kubernetes作業逾時 | 30秒 
+| `k8sTimeout` | Kubernetes作業逾時 | `30sec` 
 
 
 | `silenceAutosupport` | 請勿將 AutoSupport 套裝組合傳送至 NetApp
-自動 | 錯 
+自動 | 「假」 
 
 
-| 「autosupportImage」 | 遙測的容器影像AutoSupport | "NetApp/trident 自動支援： 23.07" 
+| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:23.10"` 
 
 
 | 「autosupportProxy」 | 用於傳送 AutoSupport 的 Proxy 位址 / 連接埠
-遙測 | "http://proxy.example.com:8888"[] 
+遙測 | `"http://proxy.example.com:8888"` 
 
 
-| 解除安裝 | 用來解除安裝Astra Trident的旗標 | 錯 
+| 解除安裝 | 用來解除安裝Astra Trident的旗標 | 「假」 
 
 
-| `logFormat` | 要使用的Astra Trident記錄格式[text、json] | "文字" 
+| `logFormat` | 要使用的Astra Trident記錄格式[text、json] | `"text"` 
 
 
-| 「TridentImage」 | 要安裝的Astra Trident映像 | 「 NetApp/Trident ： 23.07 」 
+| 「TridentImage」 | 要安裝的Astra Trident映像 | `"netapp/trident:23.10"` 
 
 
 | 「影像登錄」 | 內部登錄的路徑、格式
-`<registry FQDN>[:port][/subpath]` | "k8s.gcr.io/sig-storage （ k8s 1.19+ ）
-或「 quay.io/k8scsi 」 
+`<registry FQDN>[:port][/subpath]` | `"k8s.gcr.io/sig-storage"` （ Kubernetes 1.19+ ）
+或 `"quay.io/k8scsi"` 
 
 
-| 《kubeletDir | 主機上的kubelet目錄路徑 | "/var/lib/kubelet" 
+| 《kubeletDir | 主機上的kubelet目錄路徑 | `"/var/lib/kubelet"` 
 
 
 | `wipeout` | 要刪除以執行完整移除的資源清單
@@ -142,12 +145,12 @@ NOTE: Trident 控制器會拒絕新的發佈 Volume 要求、直到節點重新�
 
 == 組態範例
 
-您可以在定義時使用上述屬性 `TridentOrchestrator` 以自訂安裝。
+您可以在中使用屬性 <<組態選項>> 定義時 `TridentOrchestrator` 以自訂安裝。
 
-.範例1：基本自訂組態
-[%collapsible%open]
+.基本自訂組態
+[%collapsible]
 ====
-這是基本自訂組態的範例。
+這是基本自訂安裝的範例。
 
 [listing]
 ----
@@ -163,10 +166,10 @@ spec:
   - thisisasecret
 ----
 ====
-.範例2：使用節點選取器進行部署
-[%collapsible%open]
+.節點選取器
+[%collapsible]
 ====
-此範例說明如何使用節點選取器來部署Trident：
+此範例會安裝 Astra Trident 搭配節點選取器。
 
 [listing]
 ----
@@ -183,10 +186,10 @@ spec:
     storage: netapp
 ----
 ====
-.範例3：部署在Windows工作節點上
-[%collapsible%open]
+.Windows 工作者節點
+[%collapsible]
 ====
-此範例說明如何在Windows工作節點上進行部署。
+此範例會在 Windows 工作者節點上安裝 Astra Trident 。
 
 [listing]
 ----
@@ -199,5 +202,22 @@ spec:
   debug: true
   namespace: trident
   windows: true
+----
+====
+.在 AKS 叢集上的託管身分識別
+[%collapsible]
+====
+此範例安裝 Astra Trident 、可在 Aaks 叢集上啟用受管理的身分識別。
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  cloudProvider: "Azure"
 ----
 ====

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/prereqs-docker.html 
-keywords: deploy, astra trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config 
+keywords: deploy, astra trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, nvme/tcp, nvme 
 summary: 您必須先在主機上安裝並設定必要的傳輸協定先決條件、才能部署Astra Trident。 
 ---
 = 部署的先決條件
@@ -25,90 +25,168 @@ summary: 您必須先在主機上安裝並設定必要的傳輸協定先決條�
 ----
 docker --version
 ----
-* 確認已在您的主機上安裝及設定通訊協定先決條件：
-
-
-[cols="3*"]
-|===
-| 傳輸協定 | 作業系統 | 命令 
-
-
-| NFS  a| 
-RHEL 8以上
- a| 
-「Udo yum install -y ns-utils」
+* 確認主機上已安裝並設定通訊協定先決條件。
 
 
 
-| NFS  a| 
-Ubuntu
- a| 
-「Udo apt-Get install -y nfs通用」
+
+=== NFS工具
+
+使用作業系統的命令來安裝NFS工具。
+
+[role="tabbed-block"]
+====
+.RHEL 8以上
+--
+[listing]
+----
+sudo yum install -y nfs-utils
+----
+--
+.Ubuntu
+--
+[listing]
+----
+sudo apt-get install -y nfs-common
+----
+--
+====
+
+WARNING: 安裝NFS工具之後、請重新啟動工作節點、以避免將磁碟區附加至容器時發生故障。
 
 
 
-| iSCSI  a| 
-RHEL 8以上
- a| 
+=== iSCSI工具
+
+使用適用於您作業系統的命令來安裝iSCSI工具。
+
+[role="tabbed-block"]
+====
+.RHEL 8以上
+--
 . 安裝下列系統套件：
 +
-「Udo yum install -y lsscsi iscsi-initiator－utils sg3_utils device-mapper-multipath'
-
+[listing]
+----
+sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
+----
 . 檢查iscsite-initier-utils版本是否為6.6.0.874-2.el7或更新版本：
 +
-「rpm -q iscsiscsiscs-initier-utils」
-
+[listing]
+----
+rpm -q iscsi-initiator-utils
+----
 . 將掃描設為手動：
 +
-「Udo sed -I 's/^\（node.session.scan\).*/\1 = manual /」/etc/iscsi/iscsid.conf）
-
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
 . 啟用多重路徑：
 +
-「Udo mpathconf --enable --with _docathd y --fisco_multipaths n」
-
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
 +
 
 NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipaths no"。
 
 . 確保運行的是"iscsid"和"multipathd"：
 +
-「啟用Udo systemctl -現在是iscsid多路徑」
-
+[listing]
+----
+sudo systemctl enable --now iscsid multipathd
+----
 . 啟用並啟動「iSCSI」：
 +
-「Udo systemctl enable - NOW iSCSI」
+[listing]
+----
+sudo systemctl enable --now iscsi
+----
 
 
-
-
-
-| iSCSI  a| 
-Ubuntu
- a| 
+--
+.Ubuntu
+--
 . 安裝下列系統套件：
 +
-「Udo apt-Get install -y open-iscsi sg3-utils multipath-tools scsitols」
-
+[listing]
+----
+sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
+----
 . 檢查開放式iSCSI版本是否為2.0.874-5ubuntu2．10或更新版本（適用於雙聲網路）或2.0.874-7.1ubuntu6.1或更新版本（適用於焦點）：
 +
-「Dpkg -l open-iscsi」
-
+[listing]
+----
+dpkg -l open-iscsi
+----
 . 將掃描設為手動：
 +
-「Udo sed -I 's/^\（node.session.scan\).*/\1 = manual /」/etc/iscsi/iscsid.conf）
-
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
 . 啟用多重路徑：
 +
-「Udo tee /etc/multipath.conf」<<-'EOF'預設值｛user_易 記名稱yes focs_multipaths no｝EOF Sudo systemctl enable --NOW multipath-tools.service Sudo服務multipath-ttools restart」
-
+[listing]
+----
+sudo tee /etc/multipath.conf <<-'EOF'
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
 +
 
 NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipaths no"。
 
 . 確保已啟用並執行「open-iscsi」和「多路徑工具」：
 +
-「Udo systemctl狀態multipath-ttools/」「show systemcl enable -現在open-iscsi.service`「show systemctl狀態open-iscsi」
+[listing]
+----
+sudo systemctl status multipath-tools
+sudo systemctl enable --now open-iscsi.service
+sudo systemctl status open-iscsi
+----
 
 
+--
+====
 
-|===
+
+== NVMe 工具
+
+使用適用於您作業系統的命令來安裝 NVMe 工具。
+
+[NOTE]
+====
+* NVMe 需要 RHEL 9 或更新版本。
+* 如果 Kubernetes 節點的核心版本太舊、或 NVMe 套件無法用於您的核心版本、您可能必須使用 NVMe 套件將節點的核心版本更新為一個。
+
+
+====
+[role="tabbed-block"]
+====
+.RHEL 9.
+--
+[listing]
+----
+sudo yum install nvme-cli
+sudo yum install linux-modules-extra-$(uname -r)
+sudo modprobe nvme-tcp
+----
+--
+.Ubuntu
+--
+[listing]
+----
+sudo apt install nvme-cli
+sudo apt -y install linux-modules-extra-$(uname -r)
+sudo modprobe nvme-tcp
+----
+--
+====

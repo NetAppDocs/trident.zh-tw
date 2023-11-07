@@ -39,22 +39,32 @@ Azure NetApp Files 後端提供這些組態選項。
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+隨機字元 
 
 
-| 《訂閱ID》 | Azure訂閱的訂閱ID |  
+| 《訂閱ID》 | Azure訂閱的訂閱ID
+
+在 AKS 叢集上啟用受管理的身分識別時為選用項目。 |  
 
 
-| 「TenantId」 | 應用程式註冊的租戶ID |  
+| 「TenantId」 | 應用程式註冊的租戶ID
+
+在 AKS 叢集上啟用受管理的身分識別時為選用項目。 |  
 
 
-| "clientID" | 應用程式註冊的用戶端ID |  
+| "clientID" | 應用程式註冊的用戶端ID
+
+在 AKS 叢集上啟用受管理的身分識別時為選用項目。 |  
 
 
-| 「客戶機密」 | 應用程式註冊的用戶端機密 |  
+| 「客戶機密」 | 應用程式註冊的用戶端機密
+
+在 AKS 叢集上啟用受管理的身分識別時為選用項目。 |  
 
 
 | 《服務層級》 | 其中一種是「標準」、「高級」或「超高」 | ""（隨機） 
 
 
-| 位置 | 要建立新磁碟區的Azure位置名稱 |  
+| 位置 | 要建立新磁碟區的Azure位置名稱
+
+在 AKS 叢集上啟用受管理的身分識別時為選用項目。 |  
 
 
 | "來源群組" | 用於篩選已探索資源的資源群組清單 | 「[]」（無篩選器） 
@@ -145,8 +155,10 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 
 == 組態範例
 
-.範例1：最低組態
-[%collapsible%open]
+下列範例顯示基本組態、讓大部分參數保留預設值。這是定義後端最簡單的方法。
+
+.最小組態
+[%collapsible]
 ====
 這是絕對最低的後端組態。有了這項組態、 Astra Trident 會探索您在設定位置中委派給 Azure NetApp Files 的所有 NetApp 帳戶、容量集區和子網路、並隨機將新磁碟區放在其中一個集區和子網路上。因為 `nasType` 省略 `nfs` 預設會套用、後端會為NFS磁碟區進行資源配置。
 
@@ -164,8 +176,30 @@ clientSecret: SECRET
 location: eastus
 ----
 ====
-.範例2：使用容量集區篩選器的特定服務層級組態
-[%collapsible%open]
+.管理的身分識別
+[%collapsible]
+====
+此後端組態已不再如此 `subscriptionID`、 `tenantID`、 `clientID`和 `clientSecret`，使用託管身分識別時為選用功能。
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-anf-1
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: azure-netapp-files
+  capacityPools: ["ultra-pool"]
+  resourceGroups: ["aks-ami-eastus-rg"]
+  netappAccounts: ["smb-na"]
+  virtualNetwork: eastus-prod-vnet
+  subnet: eastus-anf-subnet
+----
+====
+.具有容量集區篩選器的特定服務層級組態
+[%collapsible]
 ====
 此後端組態可將Volume置於Azure中 `eastus` 位置 `Ultra` 容量資源池：Astra Trident 會自動探索該位置中委派給 Azure NetApp Files 的所有子網路、並隨機在其中一個子網路上放置新的磁碟區。
 
@@ -185,8 +219,8 @@ capacityPools:
 - application-group-1/account-1/ultra-2
 ----
 ====
-.範例3：進階組態
-[%collapsible%open]
+.進階組態
+[%collapsible]
 ====
 此後端組態可進一步將磁碟區放置範圍縮小至單一子網路、並修改部分Volume資源配置預設值。
 
@@ -217,8 +251,8 @@ defaults:
 
 ----
 ====
-.範例4：虛擬資源池組態
-[%collapsible%open]
+.虛擬集區組態
+[%collapsible]
 ====
 此後端組態可在單一檔案中定義多個儲存集區。當您有多個容量集區支援不同的服務層級、而且想要在Kubernetes中建立代表這些層級的儲存類別時、這很有用。虛擬資源池標籤是用來區分資源池的依據 `performance`。
 
@@ -307,8 +341,8 @@ allowVolumeExpansion: true
 
 使用 `nasType`、 `node-stage-secret-name`和  `node-stage-secret-namespace`、您可以指定SMB磁碟區、並提供所需的Active Directory認證資料。
 
-.範例1：預設命名空間的基本組態
-[%collapsible%open]
+.預設命名空間的基本組態
+[%collapsible]
 ====
 [listing]
 ----
@@ -325,8 +359,8 @@ parameters:
 
 ----
 ====
-.範例2：每個命名空間使用不同的機密
-[%collapsible%open]
+.每個命名空間使用不同的機密
+[%collapsible]
 ====
 [listing]
 ----
@@ -342,8 +376,8 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
 ----
 ====
-.範例3：每個磁碟區使用不同的機密
-[%collapsible%open]
+.每個磁碟區使用不同的機密
+[%collapsible]
 ====
 [listing]
 ----
@@ -360,7 +394,7 @@ parameters:
 ----
 ====
 
-NOTE: `nasType: `smb` 支援SMB磁碟區的集區篩選器。 `nasType: `nfs` 或 `nasType: `null` NFS集區的篩選器。
+NOTE: `nasType: smb` 支援SMB磁碟區的集區篩選器。 `nasType: nfs` 或 `nasType: null` NFS集區的篩選器。
 
 
 

@@ -23,10 +23,10 @@ summary: 在安裝Astra Trident之前、您應該先檢閱這些一般系統需�
 .關於Astra Trid-功能 的資訊</strong> <strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.27 現在支援 Trident 。升級Kubernetes之前先升級Trident。
+* Kubernetes 1.28 現在支援 Trident 。升級 Kubernetes 之前、請先升級 Astra Trident 。
 * Astra Trident在SAN環境中嚴格執行多重路徑組態的使用、建議的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
 +
-使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
+使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Astra Trident 建議使用 `find_multipaths: no` 自21.07版本以來。
 
 
 
@@ -38,7 +38,7 @@ summary: 在安裝Astra Trident之前、您應該先檢閱這些一般系統需�
 Astra Trident支援多個容器引擎和協調器、包括：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.12
-* Kubernetes 1.22 - 1.27
+* Kubernetes 1.23 - 1.28
 * Mirantis Kubernetes Engine 3.5
 * OpenShift 4.10 - 4.13
 
@@ -46,7 +46,7 @@ Astra Trident支援多個容器引擎和協調器、包括：
 這些版本支援Trident運算子：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.12
-* Kubernetes 1.22 - 1.27
+* Kubernetes 1.23 - 1.28
 * OpenShift 4.10 - 4.13
 
 
@@ -82,56 +82,56 @@ WARNING: 在將Kubernetes叢集從1.24升級至1.25或更新版本、且已安�
 
 
 | Astra Trident  a| 
-1.22 - 1.27
+1.23 - 1.28
  a| 
 否
 
 
 
 | Volume Snapshot  a| 
-1.22 - 1.27
+1.23 - 1.28
  a| 
 否
 
 
 
 | 來自Volume Snapshot的PVc  a| 
-1.22 - 1.27
+1.23 - 1.28
  a| 
 否
 
 
 
 | iSCSI PV調整大小  a| 
-1.22 - 1.27
+1.23 - 1.28
  a| 
 否
 
 
 
 | 資訊雙向CHAP ONTAP  a| 
-1.22 - 1.27
+1.23 - 1.28
  a| 
 否
 
 
 
 | 動態匯出原則  a| 
-1.22 - 1.27
+1.23 - 1.28
  a| 
 否
 
 
 
 | Trident運算子  a| 
-1.22 - 1.27
+1.23 - 1.28
  a| 
 否
 
 
 
 | csi拓撲  a| 
-1.22 - 1.27
+1.23 - 1.28
  a| 
 否
 
@@ -144,6 +144,10 @@ WARNING: 在將Kubernetes叢集從1.24升級至1.25或更新版本、且已安�
 
 * 受 OpenShift Container Platform （ AMD64 和 ARM64 ）支援的 RedHat CoreOS （ RHCOS ）版本
 * RHEL 8+ （ AMD64 和 ARM64 ）
++
+
+NOTE: NVMe / TCP 需要 RHEL 9 或更新版本。
+
 * Ubuntu 22.04 或更新版本（ AMD64 和 ARM64 ）
 * Windows Server 2019 （ AMD64 ）
 
@@ -156,7 +160,7 @@ WARNING: 在將Kubernetes叢集從1.24升級至1.25或更新版本、且已安�
 
 == 主機組態
 
-Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。若要準備工作節點、您必須根據所選的驅動程式來安裝NFS或iSCSI工具。
+Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。若要準備工作節點、您必須根據您選擇的驅動程式來安裝 NFS 、 iSCSI 或 NVMe 工具。
 
 link:../trident-use/worker-node-prep.html["準備工作節點"]
 
@@ -187,80 +191,80 @@ link:../trident-reference/ports.html["Astra Trident連接埠"]
 | Kubernetes版本 | Container映像 
 
 
-| 1.22.0版  a| 
-* Docker 。 IO/NetApp/Trident ： 23.07.1
-* Docker 。 IO/NetApp/trident 自動支援： 23.07
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.5.0
-* 登錄 .k8s.IO/SIG-storage / csi 附加程式： v4.3.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.8.0
-* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.2
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： V2.5.0
-* Docker 。 IO/NetApp/Trident 營運商： 23.07.1 （選用）
-
-
-
-
 | 1.23.0版  a| 
-* Docker 。 IO/NetApp/Trident ： 23.07.1
-* Docker 。 IO/NetApp/trident 自動支援： 23.07
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.5.0
-* 登錄 .k8s.IO/SIG-storage / csi 附加程式： v4.3.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.8.0
-* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.2
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： V2.5.0
-* Docker 。 IO/NetApp/Trident 營運商： 23.07.1 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.10.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.10
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
+* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* Docker 。 IO/NetApp/Trident ： 23.10.0 （選用）
 
 
 
 
 | 1.24.0版  a| 
-* Docker 。 IO/NetApp/Trident ： 23.07.1
-* Docker 。 IO/NetApp/trident 自動支援： 23.07
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.5.0
-* 登錄 .k8s.IO/SIG-storage / csi 附加程式： v4.3.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.8.0
-* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.2
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： V2.5.0
-* Docker 。 IO/NetApp/Trident 營運商： 23.07.1 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.10.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.10
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
+* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* Docker 。 IO/NetApp/Trident ： 23.10.0 （選用）
 
 
 
 
 | v1.25.0  a| 
-* Docker 。 IO/NetApp/Trident ： 23.07.1
-* Docker 。 IO/NetApp/trident 自動支援： 23.07
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.5.0
-* 登錄 .k8s.IO/SIG-storage / csi 附加程式： v4.3.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.8.0
-* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.2
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： V2.5.0
-* Docker 。 IO/NetApp/Trident 營運商： 23.07.1 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.10.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.10
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
+* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* Docker 。 IO/NetApp/Trident ： 23.10.0 （選用）
 
 
 
 
 | 1.26.0版  a| 
-* Docker 。 IO/NetApp/Trident ： 23.07.1
-* Docker 。 IO/NetApp/trident 自動支援： 23.07
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.5.0
-* 登錄 .k8s.IO/SIG-storage / csi 附加程式： v4.3.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.8.0
-* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.2
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： V2.5.0
-* Docker 。 IO/NetApp/Trident 營運商： 23.07.1 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.10.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.10
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
+* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* Docker 。 IO/NetApp/Trident ： 23.10.0 （選用）
 
 
 
 
 | v1.27.0  a| 
-* Docker 。 IO/NetApp/Trident ： 23.07.1
-* Docker 。 IO/NetApp/trident 自動支援： 23.07
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.5.0
-* 登錄 .k8s.IO/SIG-storage / csi 附加程式： v4.3.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.8.0
-* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.2.2
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： V2.5.0
-* Docker 。 IO/NetApp/Trident 營運商： 23.07.1 （選用）
+* Docker 。 IO/NetApp/Trident ： 23.10.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.10
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
+* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* Docker 。 IO/NetApp/Trident ： 23.10.0 （選用）
+
+
+
+
+| v1.28.0  a| 
+* Docker 。 IO/NetApp/Trident ： 23.10.0
+* Docker 。 IO/NetApp/trident 自動支援： 23.10
+* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
+* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* Docker 。 IO/NetApp/Trident ： 23.10.0 （選用）
 
 
 |===

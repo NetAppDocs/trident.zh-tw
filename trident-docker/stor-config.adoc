@@ -159,14 +159,21 @@ Astra Trident 會建立及管理每個節點 `igroups` 做為 `netappdvp`。
 
 
 | "qtreesPerFlexvol"  a| 
-每FlexVol 個邊區最多qtree數、範圍必須為[50、300]、預設值為200。*對於「ONTAP-NAS-P節約」驅動程式、此選項可自訂每FlexVol 個版本的qtree數量上限*。
+每FlexVol 個邊區最多qtree數、範圍必須為[50、300]、預設值為200。
+
+*適用於 `ontap-nas-economy` 驅動程式、此選項可自訂每FlexVol 個版本的qtree數量上限*。
  a| 
 `300`
 
+
+
+| `sanType` | * 支援 `ontap-san` 僅限驅動程式。 *
+
+用於選擇 `iscsi` 適用於 iSCSI 或 `nvme` 適用於 NVMe / TCP 。 | `iscsi` 如果空白 
 |===
 您可以使用預設選項、避免在您建立的每個Volume上指定這些選項：
 
-[cols="3*"]
+[cols="1,3,2"]
 |===
 | 選項 | 說明 | 範例 
 
@@ -285,8 +292,9 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
 
 === 範例ONTAP ：功能組態檔
 
-*「ONTAP-NAS」驅動程式*的NFS範例
-
+.<code>ontap-nas</code> 驅動程式的 NFS 範例
+[%collapsible]
+====
 [listing]
 ----
 {
@@ -305,8 +313,10 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
     }
 }
 ----
-*「ONTAP-NAA-flexgroup」驅動程式*的NFS範例
-
+====
+.<code>ontap-nas-flexgroup</code> 驅動程式的 NFS 範例
+[%collapsible]
+====
 [listing]
 ----
 {
@@ -324,8 +334,10 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
     }
 }
 ----
-* ONTAP NAS經濟驅動程式*的NFS範例
-
+====
+.<code>ontap-nas-economy</code> 驅動程式的 NFS 範例
+[%collapsible]
+====
 [listing]
 ----
 {
@@ -339,8 +351,10 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
     "aggregate": "aggr1"
 }
 ----
-* iSCSI的「ONTAP-san」驅動程式*範例
-
+====
+.<code>ontap-san</code> 驅動程式的 iSCSI 範例
+[%collapsible]
+====
 [listing]
 ----
 {
@@ -355,8 +369,10 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
     "igroupName": "netappdvp"
 }
 ----
-*「ONTAP-san經濟」驅動程式*的NFS範例
-
+====
+.<code>ontap-san-economy</code> 驅動程式的 NFS 範例
+[%collapsible]
+====
 [listing]
 ----
 {
@@ -371,6 +387,25 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
     "igroupName": "netappdvp"
 }
 ----
+====
+.<code>ontap-san</code> 驅動程式的 NVMe / TCP 範例
+[%collapsible]
+====
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "NVMeBackend",
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "svm": "svm_nvme",
+  "username":"vsadmin",
+  "password":"password",
+  "sanType": "nvme",
+  "useREST": true
+}
+----
+====
 
 
 == 元件軟體組態

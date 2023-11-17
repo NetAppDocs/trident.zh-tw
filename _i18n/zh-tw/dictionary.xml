@@ -4036,4 +4036,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="4c326d958c0bd182aa53c9e9bba722ad" category="paragraph">如果您未執行 Astra Trident 23.10 、則會根據提供先前版本的文件 <block ref="6e1ac221c7aa10f6bb30cbfd51cb3204" category="inline-link-macro-rx"></block>。</block>
   <block id="6933dffe806f29980dbedda6aef6fda7" category="inline-link">Astra Trident 23.07</block>
   <block id="5190d8b9f5b246f225722ffa2f20e6b3" category="list-text"><block ref="5190d8b9f5b246f225722ffa2f20e6b3" category="inline-link-rx"></block></block>
+  <block id="0cd8d0588cd2b20face3a0379d38f777" category="admonition">使用動態匯出原則時、請勿使用網路位址轉譯（ NAT ）。使用 NAT 時、儲存控制器會看到前端 NAT 位址、而非實際 IP 主機位址、因此在匯出規則中找不到相符項目時、就會拒絕存取。</block>
 </blocks>

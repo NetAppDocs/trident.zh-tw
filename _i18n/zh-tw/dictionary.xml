@@ -1610,7 +1610,6 @@
   <block id="05f95d89af1ccd9b986014406a4b1fc8" category="paragraph">不可以就使用者體驗和功能而言、沒有任何改變。使用的置備程式名稱是「csi.trident.netapp.io`」。如果您想要使用目前和未來版本所提供的所有新功能、建議使用這種安裝Astra Trident的方法。</block>
   <block id="0a7e87df44869b8d60a83f35d1e2747b" category="section-title">在Kubernetes叢集上安裝及使用Astra Trident</block>
   <block id="bde6cb03741f92107c63aeebe62d3278" category="section-title">Astra Trident是否支援從私有登錄進行離線安裝？</block>
-  <block id="45b09f7cb3dcbe0274eef2b3fce46bea" category="paragraph">可以、Astra Trident可以離線安裝。請參閱 <block ref="4a2b27d6d4bc3dd7ae85bfd131d50753" category="inline-link-macro-rx"></block>。</block>
   <block id="1c51806b370d428d5779dbcacd940174" category="section-title">我可以從遠端安裝Astra Trident嗎？</block>
   <block id="bf858450c271da75a3df3a15ca761330" category="paragraph">是的。Astra Trident 18.10及更新版本可從任何對叢集具有「kubectl」存取權的機器、支援遠端安裝功能。驗證「kubecll」存取後（例如、從遠端機器啟動「kubecll Get nodes」命令進行驗證）、請遵循安裝指示。</block>
   <block id="12694c2de4575e39a6f7e81d55e35de9" category="section-title">我可以使用Astra Trident設定高可用度嗎？</block>
@@ -1619,7 +1618,6 @@
   <block id="6f67e1edfd4aa5b0e695528a9c7d8898" category="paragraph">Astra Trident從Kubernetes API伺服器讀取、以判斷應用程式何時要求新的PVCS、因此需要存取Kube-system。</block>
   <block id="16cdb35003b5bcf0f30556e0bc477511" category="section-title">Astra Trident使用哪些角色和權限？</block>
   <block id="8ff39a39871cc30228035bc0580a6af4" category="section-title">我可以在本機產生安裝所用的確切資訊清單檔案嗎？</block>
-  <block id="0f43ba8a9cfc14b033c2c652f53bfcb9" category="paragraph">如有需要、您可以在本機產生及修改安裝所使用的確切資訊清單檔案Astra Trident。請參閱 <block ref="7a68296d6f600eac17d317743bea0050" category="inline-link-macro-rx"></block>。</block>
   <block id="e6af67b71bd46d7588b50f28e1414f9b" category="section-title">我是否可以針對ONTAP 兩個獨立Kubernetes叢集的兩個Astra Trident執行個體、共用相同的支援功能後端SVM？</block>
   <block id="7bbf9b47e035f0f9bb7c46098e78fb4d" category="paragraph">雖然不建議使用、但您可以針對兩個Astra Trident執行個體使用相同的後端SVM。在安裝期間為每個執行個體指定唯一的Volume名稱、並（或）在「Setup/backend.json」檔案中指定唯一的「儲存前置字元」參數。這是為了確保FlexVol 兩個執行個體都不會使用相同的功能。</block>
   <block id="9840a5bb6278469ed550bcdcc92c29c5" category="section-title">是否能在ContainerLinux（前身為CoreOS）下安裝Astra Trident？</block>
@@ -2144,7 +2142,6 @@
   <block id="f18a50f02f48551895d57b81dd288142" category="sidebar">跨命名空間共用NFS磁碟區</block>
   <block id="fd1117c82327fbe8671f26e897ceb8f4" category="inline-link-macro">使用BlueXP的Astra Trident</block>
   <block id="a76a1e164520105317267dc41b95e8ce" category="paragraph">與 <block ref="f8c16e8c21124ccc028d2db7fd32a98f" category="inline-link-macro-rx"></block>、您可以升級至最新版的Astra Trident、新增及管理儲存類別、並將其連線至工作環境、以及使用Cloud Backup Service NetApp備份持續的Volume。BlueXP支援使用Trident操作者手動或使用Helm進行Astra Trident部署。</block>
-  <block id="6ce33e8f1e198bf1c3583bc5ef789b75" category="paragraph">您可以使用後端定義檔中的加密參數、在Trident所提供的磁碟區上設定加密。如需詳細資訊、請參閱： <block ref="3260a21902518174ce8d9bfef42be276" category="inline-link-macro-rx"></block></block>
   <block id="66f2c42a4ca561f5472459301bc7d096" category="list-text">目前市面上已普遍提供適用於整個過程的自動功能、例如針對不適用的驅動程式進行交換偵測。MetroCluster ONTAP</block>
   <block id="e87ded5ef8bc8adbc3c135528636f4f2" category="list-text"><block ref="e87ded5ef8bc8adbc3c135528636f4f2" category="inline-link-macro-rx"></block></block>
   <block id="fce586d9f649fb529d0a1846495ba259" category="list-text"><block ref="fce586d9f649fb529d0a1846495ba259" category="inline-link-macro-rx"></block></block>
@@ -3505,7 +3502,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="40c7465c2468fd6e890691f6cb612731" category="paragraph">升級版Trident安裝的首碼。如果您使用 1.3.2 之前的 Trident 版本、並使用現有的 Volume 執行升級、則必須設定此值、才能存取透過 Volume 名稱方法對應的舊 Volume 。</block>
   <block id="7f86daacf34c67c042470fa9d926ba49" category="paragraph">標準記錄層級應可讓您診斷大多數問題。如果您覺得還不夠、可以啟用偵錯記錄。</block>
   <block id="6bdfdbfc466bb6d93222dbf7b3a374fe" category="list-text">如果您在主機上執行二進位檔本身、則主機的記錄檔中會有可用的記錄檔<block ref="849fc2421f236e9c9b49a9d3fed2c404" prefix=" " category="inline-code"></block> 目錄。若要啟用偵錯記錄、請指定<block ref="9b945915b0cddbee22047fd529d642f6" prefix=" " category="inline-code"></block> 當您執行外掛程式時。</block>
-  <block id="856df87d418b99d5e88b1e337987cad3" category="paragraph">Trident 安裝程式會建立 Kubernetes ClusterRole 、該程式可存取叢集的 PersistentVolume 、 PersistentVolumVolume Claim 、 StorageClass 和 Kubernetes 叢集的 Secret 資源。請參閱 <block ref="7a68296d6f600eac17d317743bea0050" category="inline-link-macro-rx"></block>。</block>
   <block id="1a4c36220ae60b6a6a4c2285be05a43a" category="section-title">我的儲存系統密碼已變更、 Astra Trident 不再運作、我該如何恢復？</block>
   <block id="a988578d4c176cf950a2211099db7d92" category="paragraph">使用更新後端的密碼<block ref="00a81aa9b1d406861879017de885e0fb" prefix=" " category="inline-code"></block>。更換<block ref="3d9fd17a5232cc24eeeaec2b07af5417" prefix=" " category="inline-code"></block> 在範例中、使用您的後端名稱、和<block ref="27ab7e8dbd45daf638f3144d4891ef3b" prefix=" " category="inline-code"></block> 並將路徑移至正確位置<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> 檔案：</block>
   <block id="8cb93d7a514e5569b46cba45dedc7daf" category="paragraph">如果Trident Pod遭到破壞、資料將不會遺失。Trident 中繼資料儲存在 CRD 物件中。所有由Trident提供的PV均可正常運作。</block>
@@ -4037,4 +4033,8 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="6933dffe806f29980dbedda6aef6fda7" category="inline-link">Astra Trident 23.07</block>
   <block id="5190d8b9f5b246f225722ffa2f20e6b3" category="list-text"><block ref="5190d8b9f5b246f225722ffa2f20e6b3" category="inline-link-rx"></block></block>
   <block id="0cd8d0588cd2b20face3a0379d38f777" category="admonition">使用動態匯出原則時、請勿使用網路位址轉譯（ NAT ）。使用 NAT 時、儲存控制器會看到前端 NAT 位址、而非實際 IP 主機位址、因此在匯出規則中找不到相符項目時、就會拒絕存取。</block>
+  <block id="11e8ef6c378ba835810fad2cc65ce5b5" category="paragraph">可以、Astra Trident可以離線安裝。請參閱 <block ref="8b57b68a0e3f8b19c1d735a44663ac45" category="inline-link-macro-rx"></block>。</block>
+  <block id="85d1bf3ede0fe784fd2bd122a9f9488f" category="paragraph">Trident 安裝程式會建立 Kubernetes ClusterRole 、該程式可存取叢集的 PersistentVolume 、 PersistentVolumVolume Claim 、 StorageClass 和 Kubernetes 叢集的 Secret 資源。請參閱 <block ref="52b05a1acf0f0f7fbbce1ec1469188fc" category="inline-link-macro-rx"></block>。</block>
+  <block id="5b72286a318e05b9dba4ea3ab28f1892" category="paragraph">如有需要、您可以在本機產生及修改安裝所使用的確切資訊清單檔案Astra Trident。請參閱 <block ref="52b05a1acf0f0f7fbbce1ec1469188fc" category="inline-link-macro-rx"></block>。</block>
+  <block id="de05556ddd203d92c70611ab918d657a" category="paragraph">您可以使用後端定義檔中的加密參數、在Trident所提供的磁碟區上設定加密。如需詳細資訊、請參閱： <block ref="22dccd9f6b27b25deeed93972d237440" category="inline-link-macro-rx"></block></block>
 </blocks>

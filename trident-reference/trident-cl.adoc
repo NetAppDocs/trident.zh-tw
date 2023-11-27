@@ -18,38 +18,38 @@ Astra Trident提供Trident Orchestrator的數個命令列選項。您可以使�
 
 == 記錄
 
-* debug'：啟用除錯輸出。
-* 記錄層級：設定記錄層級（偵錯、資訊、警告、錯誤、嚴重）。預設為資訊。
+`-debug`:: 啟用除錯輸出。
+`-loglevel <level>`:: 設定記錄層級（偵錯、資訊、警告、錯誤、嚴重）。預設為資訊。
 
 
 
 
 == Kubernetes
 
-* 「-k8s_pod」：使用此選項或「-k8s_API_server'」來啟用Kubernetes支援。設定此選項會使Trident使用內含Pod的Kubernetes服務帳戶認證、來聯絡API伺服器。這只有當Trident在Kubernetes叢集中以Pod形式執行、且已啟用服務帳戶時才會運作。
-* k8s_API_server <ininside-address:inimite-port>:使用此選項或`-k8s_pod'來啟用Kubernetes支援。如果指定、Trident會使用提供的不安全位址和連接埠、連線至Kubernetes API伺服器。這可讓Trident部署在Pod外部、但它只支援不安全的API伺服器連線。若要安全連線、請使用「-k8s_pod」選項、在Pod中部署Trident。
-* 「-k8s_config_path <file>'：必要；您必須指定KubeConfig檔案的路徑。
+`-k8s_pod`:: 使用此選項或 `-k8s_api_server` 以啟用Kubernetes支援。設定此選項會使Trident使用內含Pod的Kubernetes服務帳戶認證、來聯絡API伺服器。這只有當Trident在Kubernetes叢集中以Pod形式執行、且已啟用服務帳戶時才會運作。
+`-k8s_api_server <insecure-address:insecure-port>`:: 使用此選項或 `-k8s_pod` 以啟用Kubernetes支援。如果指定、Trident會使用提供的不安全位址和連接埠、連線至Kubernetes API伺服器。這可讓Trident部署在Pod外部、但它只支援不安全的API伺服器連線。若要安全地連線、請將Trident部署在Pod中 `-k8s_pod` 選項。
 
 
 
 
 == Docker
 
-* -`-volume驅動程式<name>：登錄Docker外掛程式時使用的驅動程式名稱。預設為「NetApp」。
-* -`driver_port <port-number>'：偵聽此連接埠、而非UNIX網域通訊端。
-* 「-config」：必要；您必須指定後端組態檔的路徑。
+`-volume_driver <name>`:: 登錄 Docker 外掛程式時使用的驅動程式名稱。預設為 `netapp`。
+`-driver_port <port-number>`:: 聆聽此連接埠、而非 UNIX 網域通訊端。
+`-config <file>`:: 必要；您必須指定後端組態檔案的路徑。
 
 
 
 
 == 休息
 
-* -`-address<ip-or主機>'：指定Trident的REST伺服器應接聽的位址。預設為localhost。當偵聽localhost並在Kubernetes Pod內部執行時、無法從Pod外部直接存取REST介面。使用「-address」（位址）可讓REST介面從Pod IP位址存取。
-
-
+`-address <ip-or-host>`:: 指定 Trident 的 REST 伺服器應接聽的位址。預設為localhost。當偵聽localhost並在Kubernetes Pod內部執行時、無法從Pod外部直接存取REST介面。使用 `-address ""` 可讓REST介面從Pod IP位址存取。
++
+--
 
 CAUTION: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用於IPV4）或[:1]（適用於IPv6）。
 
-* -`-port <port-number>'：指定Trident的REST伺服器應接聽的連接埠。預設為8000。
-* 「-REST」：啟用REST介面。預設為true。
+--
+`-port <port-number>`:: 指定 Trident 的 REST 伺服器應接聽的連接埠。預設為8000。
+`-rest`:: 啟用 REST 介面。預設為true。
 

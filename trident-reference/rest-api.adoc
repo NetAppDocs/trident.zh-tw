@@ -26,33 +26,41 @@ REST API適用於在非Kubernetes部署中使用Astra Trident做為獨立二進�
 
 == 使用REST API
 
+如需如何呼叫這些API的範例、請通過偵錯 (`-d`）旗標。如需詳細資訊、請參閱 link:../trident-managing-k8s/tridentctl.html["使用 Tridentctl 管理 Astra Trident"]。
+
 API的運作方式如下：
 
 
 
-=== `GET`
+=== 取得
 
-* 「Get <trident位址>/trident / v1/<object-type >」：列出該類型的所有物件。
-* 「Get <trident位址>/trident / v1/<object-typed>/<object-name>」：取得命名物件的詳細資料。
-
-
+`GET <trident-address>/trident/v1/<object-type>`:: 列出該類型的所有物件。
+`GET <trident-address>/trident/v1/<object-type>/<object-name>`:: 取得命名物件的詳細資料。
 
 
-=== `POST`
 
-「POST <trident位址>/trident / v1/<object-type>」：建立指定類型的物件。
 
-* 需要Json組態才能建立物件。如需每種物件類型的規格、請參閱 link:tridentctl.html["ce87eb03803d5633c163541464e9e7f2"]。
+=== 貼文
+
+`POST <trident-address>/trident/v1/<object-type>`:: 建立指定類型的物件。
++
+--
+* 需要Json組態才能建立物件。如需每種物件類型的規格、請參閱 link:../trident-managing-k8s/tridentctl.html["使用 Tridentctl 管理 Astra Trident"]。
 * 如果物件已經存在、行為會有所不同：後端會更新現有物件、而其他所有物件類型都會使作業失敗。
 
 
+--
 
 
-=== `DELETE`
-
-「刪除<trident位址>/trident / v1/<object-typed>/<object-name>：刪除命名的資源。
 
 
-NOTE: 與後端或儲存類別相關聯的磁碟區將繼續存在、必須分別刪除。如需詳細資訊、請參閱 link:tridentctl.html["ce87eb03803d5633c163541464e9e7f2"]。
+=== 刪除
 
-如需這些API的名稱範例、請傳遞DEBUG（`-d'）旗標。如需詳細資訊、請參閱 link:tridentctl.html["ce87eb03803d5633c163541464e9e7f2"]。
+`DELETE <trident-address>/trident/v1/<object-type>/<object-name>`:: 刪除命名資源。
++
+--
+
+NOTE: 與後端或儲存類別相關聯的磁碟區將繼續存在、必須分別刪除。如需詳細資訊、請參閱 link:../trident-managing-k8s/tridentctl.html["使用 Tridentctl 管理 Astra Trident"]。
+
+--
+

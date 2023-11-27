@@ -50,6 +50,58 @@ NOTE: 請勿在正式作業環境中使用這些指示來建置 Kubernetes 叢�
 
 
 
+== Kubernetes 與 NetApp 產品整合
+
+NetApp 儲存產品組合可與 Kubernetes 叢集的許多層面整合、提供進階的資料管理功能、強化 Kubernetes 部署的功能、功能、效能和可用度。
+
+.Amazon FSX for NetApp ONTAP 產品
+[%collapsible]
+====
+link:https://www.netapp.com/aws/fsx-ontap/["Amazon FSX for NetApp ONTAP 產品"^] 是一項完全託管的 AWS 服務、可讓您啟動及執行 NetApp ONTAP 儲存作業系統所支援的檔案系統。
+
+====
+.Azure NetApp Files
+[%collapsible]
+====
+https://www.netapp.com/azure/azure-netapp-files/["Azure NetApp Files"^] 是採用NetApp技術的企業級Azure檔案共享服務。您可以在Azure原生環境中執行最嚴苛的檔案型工作負載、並享有NetApp所提供的效能與豐富資料管理功能。
+
+====
+.Cloud Volumes ONTAP
+[%collapsible]
+====
+link:https://www.netapp.com/cloud-services/cloud-volumes-ontap/["Cloud Volumes ONTAP"^] 是一款純軟體的儲存應用裝置、可在ONTAP 雲端上執行功能完善的資料管理軟體。
+
+====
+.適用於 Google Cloud Cloud Volumes Service
+[%collapsible]
+====
+link:https://bluexp.netapp.com/google-cloud-netapp-volumes?utm_source=GitHub&utm_campaign=Trident["適用於Cloud Volumes Service Google Cloud的NetApp解決方案"^] 是雲端原生檔案服務、可透過NFS和SMB提供NAS磁碟區的All Flash效能。
+
+====
+.Element軟體
+[%collapsible]
+====
+https://www.netapp.com/data-management/element-software/["元素"^] 儲存管理員可藉由保證效能、並簡化及簡化儲存設備佔用空間、來整合工作負載。
+
+====
+.NetApp HCI
+[%collapsible]
+====
+link:https://docs.netapp.com/us-en/hci/docs/concept_hci_product_overview.html["NetApp HCI"^] 將例行工作自動化、讓基礎架構管理員能夠專注於更重要的功能、進而簡化資料中心的管理與規模。
+
+Astra Trident 可直接根據基礎 NetApp HCI 儲存平台、為容器化應用程式佈建及管理儲存裝置。
+
+====
+.NetApp ONTAP
+[%collapsible]
+====
+link:https://docs.netapp.com/us-en/ontap/index.html["NetApp ONTAP"^] 是 NetApp 多重傳輸協定、統一化的儲存作業系統、可為任何應用程式提供進階的資料管理功能。
+
+支援所有Flash、混合式或全硬碟組態的系統、可提供多種不同的部署模式、包括工程設計硬體（英文版）、白箱（英文版）和僅雲端（英文版）ONTAP FAS AFF ONTAP Select Cloud Volumes ONTAP 。Astra Trident 支援這些 ONTAP 部署模式。
+
+====
+
+
 == 以取得更多資訊
 
 * https://docs.netapp.com/us-en/astra-family/intro-family.html["NetApp Astra產品系列"^]

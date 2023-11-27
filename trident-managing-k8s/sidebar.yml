@@ -14,6 +14,8 @@ entries:
       url: "/trident-managing-k8s/upgrade-operator.html"
   - title: 使用tridentctl進行升級
     url: "/trident-managing-k8s/upgrade-tridentctl.html"
+- title: 使用 Tridentctl 管理 Astra Trident
+  url: "/trident-managing-k8s/tridentctl.html"
 - title: 監控Astra Trident
   url: "/trident-use/monitor-trident.html"
 - title: 解除安裝Astra Trident

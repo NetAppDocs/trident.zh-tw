@@ -87,7 +87,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 === 儲存類別範例
 
-Astra Trident 提供 https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/pvc-samples["特定後端的簡單儲存類別定義"^]。
+Astra Trident 提供 https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/storage-class-samples["特定後端的簡單儲存類別定義"^]。
 
 或者、您也可以編輯 `sample-input/storage-class-csi.yaml.templ` 安裝程式隨附並取代的檔案 `__BACKEND_TYPE__` 儲存驅動程式名稱。
 

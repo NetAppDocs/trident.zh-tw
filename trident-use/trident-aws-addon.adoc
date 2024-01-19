@@ -4,7 +4,7 @@ permalink: trident-use/trident-aws-addon.html
 keywords: Trident add-on, Astra Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
 summary: 將 Astra Trident EKS 附加元件新增至 Kubernetes 叢集。 
 ---
-= 在 EKS cluser 上設定 Astra Trident EKS 附加版本 23.10
+= 在 EKS 叢集上設定 Astra Trident EKS 附加版本 23.10
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

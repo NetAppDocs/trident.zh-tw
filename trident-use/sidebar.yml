@@ -44,6 +44,8 @@ entries:
       url: "/trident-use/trident-fsx-prep.html"
     - title: 組態選項與範例
       url: "/trident-use/trident-fsx-examples.html"
+    - title: 在 EKS 叢集上設定 Astra Trident EKS 附加元件
+      url: "/trident-use/trident-aws-addon.html"
   - title: 使用kubecl建立後端
     url: "/trident-use/backend-kubectl.html"
   - title: 管理後端

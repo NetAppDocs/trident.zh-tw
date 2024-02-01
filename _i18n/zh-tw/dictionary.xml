@@ -4047,4 +4047,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="7ed15597cafdca20d5859b7e394bc0ab" category="doc">在 EKS 叢集上設定 Astra Trident EKS 附加版本 23.10</block>
   <block id="4262957957c18f0bab73d8ddafcb642f" category="list-text">此支援服務不支援小於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、 Astra Trident 會自動建立 100-GiB 磁碟區。</block>
   <block id="f825c914a8659f5b0de8a9219ab365b6" category="paragraph">若要將新建立的20MiB PV調整至1GiB、請編輯該PVC並設定組合<block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block> 至 1GiB ：</block>
+  <block id="f3554362e5b550c58586036685aca0f6" category="list-text">認證型：此模式需要對 ONTAP 後端擁有足夠的權限。建議您使用與預先定義的安全登入角色相關聯的帳戶、例如<block ref="21232f297a57a5a743894a0e4a801fc3" prefix=" " category="inline-code"></block> 或<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> 以確保與ONTAP 更新版本的最大相容性。</block>
+  <block id="c2307fcf7cb538e28610fdc783f224a5" category="list-text">憑證型：此模式需要在後端安裝憑證、 Astra Trident 才能與 ONTAP 叢集通訊。在此處、後端定義必須包含用戶端憑證、金鑰及信任的CA憑證（建議使用）的Base64編碼值。</block>
 </blocks>

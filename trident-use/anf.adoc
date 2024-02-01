@@ -40,7 +40,7 @@ Rwo 、 ROX 、 rwx 、 RWOP
 
 === 考量
 
-* 此支援服務不支援小於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、Astra Trident會自動建立100-GB磁碟區。
+* 此支援服務不支援小於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、 Astra Trident 會自動建立 100-GiB 磁碟區。
 * Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
 
 

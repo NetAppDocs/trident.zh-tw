@@ -229,7 +229,7 @@ pvc-08f3d561-b199-11e9-8d9f-5254004dfdb7   20Mi       RWO            Delete     
 
 === 步驟3：展開PV
 
-若要將新建立的20MiB PV調整至1GiB、請編輯PVC並將「siec.resumes.requests.storage」設為1GB：
+若要將新建立的20MiB PV調整至1GiB、請編輯該PVC並設定組合 `spec.resources.requests.storage` 至 1GiB ：
 
 [listing]
 ----

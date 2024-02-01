@@ -733,7 +733,6 @@
   <block id="27b4a9ed8609e35526601aa8d8be1ab9" category="paragraph">如果您已經建立了沒有此選項的儲存類別、只要使用「kubecl Edit storageclass'」來編輯現有的儲存類別、即可進行磁碟區擴充。</block>
   <block id="784f78e647973a0dcfa11b7a028c7eae" category="paragraph">Astra Trident應為此PVC建立20MiB NFS PV：</block>
   <block id="3b16cea25bd4a9aaf5a9c3dcc13ea7eb" category="section-title">步驟3：展開PV</block>
-  <block id="e5c2c0bfcfbe01e6174199aaff9616a5" category="paragraph">若要將新建立的20MiB PV調整至1GiB、請編輯PVC並將「siec.resumes.requests.storage」設為1GB：</block>
   <block id="4a59ce1bc63fd7e6333968fb4bbd9d45" category="section-title">步驟4：驗證擴充</block>
   <block id="c70f05fed7c73e0be4a0b24c8532a87c" category="paragraph">您可以檢查PVc、PV和Astra Trident Volume的大小、以正確驗證調整大小：</block>
   <block id="19ce3b2e7823907e5153f00fe04f64f7" category="doc">組態選項與範例</block>
@@ -2113,7 +2112,6 @@
   <block id="c51cc3b801a879870aea846bdde1c7a3" category="section-title">建立後端</block>
   <block id="7d8058d93ec1d95c673d83bf303326ff" category="doc">列舉NAS組態選項與範例ONTAP</block>
   <block id="ea61e2c2ff507048203824add1eb7c21" category="section-title">考量</block>
-  <block id="8f395c84ad002394e9f070a25937dcc4" category="list-text">此支援服務不支援小於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、Astra Trident會自動建立100-GB磁碟區。</block>
   <block id="1cf44a6bee7fa333861e5d0042926fb5" category="list-text">Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。</block>
   <block id="ef0f938ae67a04ac3370fe516c2a6baf" category="list-text">新增對Kubernetes 1.25的支援。在升級至Kubernetes 1.25之前、您必須先將Astra Trident升級至22.10。</block>
   <block id="d041a310ba7cc2599250e64801594107" category="list-text">新增支援 <block ref="ca184a2eda203b6d98158bdf24e5cf7d" category="inline-link-macro-rx"></block>。</block>
@@ -4047,4 +4045,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="e1f272eb0b2aaba7b1cb689543f653e0" category="paragraph">下列命令會解除安裝 Astra Trident EKS 附加元件：<block ref="09a3e9c644b219341aa6e2e8a8922e59" prefix=" " category="inline-code"></block></block>
   <block id="c6861e88433ccd90f1ce8143d7e5fed0" category="sidebar">在 EKS 叢集上設定 Astra Trident EKS 附加元件</block>
   <block id="7ed15597cafdca20d5859b7e394bc0ab" category="doc">在 EKS 叢集上設定 Astra Trident EKS 附加版本 23.10</block>
+  <block id="4262957957c18f0bab73d8ddafcb642f" category="list-text">此支援服務不支援小於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、 Astra Trident 會自動建立 100-GiB 磁碟區。</block>
+  <block id="f825c914a8659f5b0de8a9219ab365b6" category="paragraph">若要將新建立的20MiB PV調整至1GiB、請編輯該PVC並設定組合<block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block> 至 1GiB ：</block>
 </blocks>

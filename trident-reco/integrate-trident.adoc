@@ -141,7 +141,7 @@ Astra Trident使用 `gcp-cvs` 在Cloud Volumes Service Google Cloud上連結至�
 
 若要在Astra Trident上設定Google Cloud後端、您必須指定 `projectNumber`、 `apiRegion`和 `apiKey` 在後端檔案中。您可以在Google Cloud主控台找到專案編號。API金鑰取自您在Google Cloud Volumes Service Cloud上設定API存取功能時所建立的服務帳戶私密金鑰檔案。
 
-如需Cloud Volumes Service 有關Google Cloud服務類型與服務層級的詳細資訊、請參閱 link:../trident-use/gcp.html["瞭解Astra Trident對CVS for GCP的支援"]。
+如需 Cloud Volumes Service on Google Cloud 服務類型和服務層級的詳細資訊、請參閱 link:../trident-use/gcp.html["瞭解Astra Trident對CVS for GCP的支援"]。
 
 [cols="20,10,10,10,10,10,10"]
 |===

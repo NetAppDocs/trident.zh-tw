@@ -27,7 +27,7 @@ summary: 您可以使用「tridentctl」輕鬆升級現有的Astra Trident安裝
 ----
 ./tridentctl uninstall -n <namespace>
 ----
-. 重新安裝 Astra Trident 。請參閱 link:..trident-get-started/kubernetes-deploy-tridentctl.html["使用tridentctl安裝Astra Trident"]。
+. 重新安裝 Astra Trident 。請參閱 link:../trident-get-started/kubernetes-deploy-tridentctl.html["使用tridentctl安裝Astra Trident"]。
 
 
 

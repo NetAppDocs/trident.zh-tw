@@ -22,9 +22,13 @@ summary: 在您設定Azure NetApp Files 完後端功能之前、您必須確保�
 
 若要設定及使用 https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] 後端、您需要下列項目：
 
+[NOTE]
+====
+* `subscriptionID`、 `tenantID`、 `clientID`、 `location`和 `clientSecret` 在 AKS 叢集上使用託管身分識別時為選用項目。
+* `tenantID`、 `clientID`和 `clientSecret` 在 AKS 叢集上使用雲端身分識別時為選用項目。
 
-NOTE: `subscriptionID`、 `tenantID`、 `clientID`、 `location`和 `clientSecret` 在 AKS 叢集上使用託管身分識別時為選用項目。
 
+====
 * 容量集區。請參閱 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Microsoft ：為 Azure NetApp Files 建立容量集區"^]。
 * 委派給 Azure NetApp Files 的子網路。請參閱 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Microsoft ：將子網路委派給 Azure NetApp Files"^]。
 * Azure訂閱提供的「SubscriptionID」Azure NetApp Files （含功能不支援的功能）。
@@ -81,7 +85,8 @@ NOTE: `subscriptionID`、 `tenantID`、 `clientID`、 `location`和 `clientSecre
 ====
 
 
-* Azure `location` 至少包含一個 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["委派的子網路"^]。從Trident 22.01起 `location` 參數是後端組態檔最上層的必填欄位。會忽略虛擬資源池中指定的位置值。
+* Azure `location` 至少包含一個 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["委派的子網路"^]。從Trident 22.01起 `location` 參數是後端組態檔最上層的必填欄位。會忽略虛擬資源池中指定的位置值。
+* 以供使用 `Cloud Identity`請取得 `client ID` 從 https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities["使用者指派的託管身分識別"^] 並在中指定該 ID `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`。
 
 
 

@@ -16,7 +16,7 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 
 
 
-== Astra Trident 23.10 的重要資訊
+== Astra Trident 24.02 的重要資訊
 
 *您必須閱讀下列有關Astra Trident的重要資訊。*
 
@@ -49,11 +49,11 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. 使用 `helm install` 並指定部署名稱、如下例所示 `23.10.0` 是您要安裝的Astra Trident版本。
+. 使用 `helm install` 並指定部署名稱、如下例所示 `24.02.0` 是您要安裝的Astra Trident版本。
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 24.02.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -83,11 +83,11 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 在命令列上指定置換。
 
 |===
-例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `23.10.0` 您要安裝的Astra Trident版本：
+例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `24.02.0` 您要安裝的Astra Trident版本：
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 24.02.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -205,7 +205,10 @@ helm install <name> netapp-trident/trident-operator --version 23.10.0  --create-
 | `excludePodSecurityPolicy` | 不建立營運商 Pod 安全性原則。 | 「假」 
 
 
-| `cloudProvider` | 設定為 `"Azure"` 在 AKS 叢集上使用託管身分識別時。 | `""` 
+| `cloudProvider` | 設定為 `"Azure"` 在 AKS 叢集上使用託管身分識別或雲端身分識別時。在 EKS 叢集上使用雲端身分識別時、請設定為「 AWS 」。 | `""` 
+
+
+| `cloudIdentity` | 在 AKS 叢集上使用雲端身分識別時、請設定為工作負載身分識別（「 azure.Workload .idental/client-id ： XXXXXXXX-xxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxx 」）。在 EKS 叢集上使用雲端身分識別時、請設定為 AWS IAM 角色（「 eks.amazonaws.com/role-arn: arn:AWS:iam::123456 ：角色 / 身分識別角色」）。 | `""` 
 |===
 
 

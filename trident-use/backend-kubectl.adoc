@@ -51,7 +51,7 @@ spec:
 ----
 您也可以查看中的範例 https://github.com/NetApp/trident/tree/stable/v21.07/trident-installer/sample-input/backends-samples["Trident安裝程式"^] 所需儲存平台/服務的範例組態目錄。
 
-「show」會採用後端特定的組態參數。在此範例中、後端使用「ONTAP-san」儲存驅動程式、並使用此處表格列出的組態參數。如需所需儲存驅動程式的組態選項清單、請參閱 link:backends.html["儲存驅動程式的後端組態資訊"^]。
+。 `spec` 採用後端特定的組態參數。在此範例中、後端使用 `ontap-san` 儲存驅動程式、並使用此處列出的組態參數。如需所需儲存驅動程式的組態選項清單、請參閱 link:backends.html["儲存驅動程式的後端組態資訊"^]。
 
 在《TridentBackendConfig》（CRR）中新推出的「sPEC」一節也包含「認證」和「刪除原則」欄位：
 

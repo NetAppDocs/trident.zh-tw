@@ -22,8 +22,6 @@ https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon
 
 使用Astra Trident搭配Amazon FSX for NetApp ONTAP 供應NetApp時、您可以確保在Amazon Elastic Kubernetes Service（EKS）中執行的Kubernetes叢集、能夠配置區塊和檔案以ONTAP 支援的持續磁碟區。
 
-適用於NetApp ONTAP 的Amazon FSX https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mgng-stor-tier-fp/GUID-5A78F93F-7539-4840-AB0B-4A6E3252CF84.html["FabricPool"^] 管理儲存層。它可讓您根據資料是否經常存取、將資料儲存在一個層級中。
-
 
 
 == 考量
@@ -31,17 +29,14 @@ https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon
 * SMB Volume：
 +
 ** 使用支援SMB磁碟區 `ontap-nas` 僅限驅動程式。
+** Astra Trident EKS 附加元件不支援 SMB Volume 。
 ** Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
 
 
-* 在啟用自動備份的Amazon FSX檔案系統上建立的磁碟區、無法由Trident刪除。若要刪除PVCs、您需要手動刪除PV和FSXfor ONTAP the Sesfvolume。若要避免此問題：
+* 在 Astra Trident 24.02 之前、 Trident 無法刪除在 Amazon FSX 檔案系統上建立且已啟用自動備份的磁碟區。若要在 Astra Trident 24.02 或更新版本中避免此問題、請指定 `fsxFilesystemID`、 AWS `apiRegion`、 AWS `apikey`和 AWS `secretKey` 在 AWS FSX for ONTAP 的後端組態檔案中。
 +
-** 請勿使用「*快速建立*」來建立FSX for ONTAP the Suse檔案系統。快速建立工作流程可自動備份、但不提供退出選項。
-** 使用「*標準建立*」時、請停用自動備份。停用自動備份可讓Trident成功刪除磁碟區、而無需進一步手動介入。
-+
-image:screenshot-fsx-backup-disable.png["AWS主控台停用自動備份的快照。"]
 
-
+NOTE: 如果您要指定 Astra Trident 的 IAM 角色、則可以省略指定 `apiRegion`、 `apiKey`和 `secretKey` 明確地將欄位移至 Astra Trident 。如需詳細資訊、請參閱 link:../trident-use/trident-fsx-examples.html["FSX提供ONTAP 各種組態選項和範例"]。
 
 
 
@@ -80,6 +75,70 @@ WARNING: Astra Trident希望以 `vsadmin` SVM使用者或具有相同角色之�
 
 * link:ontap-nas-prep.html["ASNAS驗證ONTAP"]
 * link:ontap-san-prep.html["支援SAN驗證ONTAP"]
+
+
+
+
+== EKS 的雲端身分識別
+
+雲端身分識別可讓 Kubernetes Pod 以 AWS IAM 角色的身分驗證、而非提供明確的 AWS 認證、來存取 AWS 資源。
+
+若要在 AWS 中使用雲端身分識別、您必須具備：
+
+* 使用 EKS 部署的 Kubernetes 叢集
+* 安裝的 Astra Trident 包含 `cloudProvider` 指定 `"AWS"` 和 `cloudIdentity` 指定 AWS IAM 角色。
++
+[role="tabbed-block"]
+====
+.Trident運算子
+--
+若要使用 Trident 運算子安裝 Astra Trident 、請編輯 `tridentorchestrator_cr.yaml` 以設定 `cloudProvider` 至 `"AWS"` 並設定 `cloudIdentity` 至 AWS IAM 角色。
+
+例如：
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullPolicy: IfNotPresent
+  cloudProvider: "AWS"
+  cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"
+----
+--
+.掌舵
+--
+使用下列環境變數設定 * 雲端供應商 * 和 * 雲端 IDENTITY * 旗標的值：
+
+`export CP="AWS"`
+`export CI="'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"`
+
+以下範例安裝 Astra Trident 和 Sets `cloudProvider` 至 `AWS` 使用環境變數 `$CP` 並使用環境變數設定 'cloudIdentity' `$CI`：
+
+[listing]
+----
+helm install trident trident-operator-100.2402.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI
+----
+--
+.<code>tridentctl</code>
+--
+使用下列環境變數設定 * 雲端供應商 * 和 * 雲端 IDENTITY * 旗標的值：
+
+`export CP="AWS"`
+`export CI="'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"`
+
+下列範例安裝 Astra Trident 並設定 `cloud-provider` 標記為 `$CP`和 `cloud-identity` 至 `$CI`：
+
+[listing]
+----
+tridentctl install --cloud-provider=$CP --cloud-identity="$CI" -n trident
+----
+--
+====
 
 
 

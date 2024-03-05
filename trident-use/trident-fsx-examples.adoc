@@ -110,6 +110,25 @@ ONTAP 後端的 Amazon FSX 需要此參數。 | `smb-share`
 
 | 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*
 `useREST` 以*技術預覽*的形式提供、建議用於測試環境、而非用於正式作業工作負載。設定為時 `true`、Astra Trident將使用ONTAP 靜止API與後端進行通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取 `ontap` 應用程式：這是預先定義的 `vsadmin` 和 `cluster-admin` 角色： | 「假」 
+
+
+| `aws` | 您可以在 AWS FSX for ONTAP 的組態檔中指定下列項目：
+- `fsxFilesystemID`：指定 AWS FSX 檔案系統的 ID 。
+- `apiRegion`： AWS API 區域名稱。
+- `apikey`： AWS API 金鑰。
+- `secretKey`： AWS 秘密金鑰。 | ``
+``
+
+
+`""`
+`""`
+`""` 
+
+
+| `credentials` | 指定要儲存在 AWS Secret Manager 中的 FSX SVM 認證。
+- `name`：機密的 Amazon 資源名稱（ ARN ）、其中包含 SVM 的認證。
+- `type`：設為 `awsarn`。
+請參閱 link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["建立 AWS Secrets Manager 密碼"^] 以取得更多資訊。 |  
 |===
 
 
@@ -172,8 +191,11 @@ NOTE: 如果將PVCS附加至一或多個Pod、您必須關閉所有對應的Pod�
 |===
 
 
-== 範例
+== 組態範例
 
+.SMB 磁碟區的儲存類別組態
+[%collapsible]
+====
 使用 `nasType`、 `node-stage-secret-name`和 `node-stage-secret-namespace`、您可以指定SMB磁碟區、並提供所需的Active Directory認證資料。使用支援SMB磁碟區 `ontap-nas` 僅限驅動程式。
 
 [listing]
@@ -189,3 +211,26 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
   csi.storage.k8s.io/node-stage-secret-namespace: "default"
 ----
+====
+.搭配加密管理程式的 AWS FSX for ONTAP 組態
+[%collapsible]
+====
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: tbc-ontap-nas
+  svm: svm-name
+  aws:
+    fsxFilesystemID: fs-xxxxxxxxxx
+  managementLIF:
+  credentials:
+    name: "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name"
+    type: awsarn
+----
+====

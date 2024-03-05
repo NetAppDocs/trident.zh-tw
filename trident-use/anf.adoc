@@ -79,16 +79,81 @@ spec:
 
 [listing]
 ----
-helm install trident trident-operator-23.10.0-custom.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
+helm install trident trident-operator-100.2402.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
 ----
 --
 .<code>tridentctl</code>
 --
-下列範例安裝 Astra Trident Set 設定 `cloudProvider` 標記為 `Azure`：
+下列範例安裝 Astra Trident 並設定 `cloudProvider` 標記為 `Azure`：
 
 [listing]
 ----
 tridentctl install --cloud-provider="Azure" -n trident
+----
+--
+====
+
+
+
+
+== 雲端身分識別
+
+雲端身分識別可讓 Kubernetes Pod 以 AWS IAM 角色的身分驗證、而非提供明確的 AWS 認證、來存取 AWS 資源。
+
+若要在 AWS 中使用雲端身分識別、您必須具備：
+
+* 使用 aks 部署的 Kubernetes 叢集
+* 在 OKS Kubernetes 叢集上設定的工作負載識別和 oidc-c發行 者
+* 安裝的 Astra Trident 包含 `cloudProvider` 以指定 `"Azure"` 和 `cloudIdentity` 指定工作負載身分識別
++
+[role="tabbed-block"]
+====
+.Trident運算子
+--
+若要使用 Trident 運算子安裝 Astra Trident 、請編輯 `tridentorchestrator_cr.yaml` 以設定 `cloudProvider` 至 `"Azure"` 並設定 `cloudIdentity` 至 `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`。
+
+例如：
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullPolicy: IfNotPresent
+  cloudProvider: "Azure"
+  *cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'*
+----
+--
+.掌舵
+--
+使用下列環境變數設定 * 雲端供應商（ CP ） * 和 * 雲端身分識別（ CI ） * 旗標的值：
+
+`export CP="Azure"`
+`export CI="azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"`
+
+以下範例安裝 Astra Trident 和 Sets `cloudProvider` 使用環境變數將資源移轉至 Azure `$CP` 並設定 `cloudIdentity` 使用環境變數 `$CI`：
+
+[listing]
+----
+helm install trident trident-operator-100.2402.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI
+----
+--
+.<code>tridentctl</code>
+--
+使用下列環境變數設定 * 雲端供應商 * 和 * 雲端 IDENTITY * 旗標的值：
+
+`export CP="Azure"`
+`export CI="azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"`
+
+下列範例安裝 Astra Trident 並設定 `cloud-provider` 標記為 `$CP`和 `cloud-identity` 至 `$CI`：
+
+[listing]
+----
+tridentctl install --cloud-provider=$CP --cloud-identity="$CI" -n trident
 ----
 --
 ====

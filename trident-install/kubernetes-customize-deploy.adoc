@@ -46,13 +46,18 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示 Astra Triden
 | 「Debug」 | 啟用Astra Trident的偵錯功能 | 「假」 
 
 
-| `enableForceDetach` | `ontap-san` 和 `ontap-san-economy` 僅限。與 Kubernetes Non-Graceful Node Shutdown （ NGNS ）一起運作、讓叢集管理員能夠在節點發生問題時、將已掛載磁碟區的工作負載安全移轉至新節點。* 這是 23.04 的實驗功能。 * 請參閱 <<強制分離的詳細資料>> 以取得重要詳細資料。 | 「假」 
+| `enableForceDetach` | `ontap-san` 和 `ontap-san-economy` 僅限。
+
+與 Kubernetes Non-Graceful Node Shutdown （ NGNS ）一起運作、讓叢集管理員能夠在節點發生問題時、將已掛載磁碟區的工作負載安全移轉至新節點。 | 「假」 
 
 
 | `windows` | 設定為 `true` 可在Windows工作節點上安裝。 | 「假」 
 
 
-| `cloudProvider` | 設定為 `"Azure"` 在 AKS 叢集上使用託管身分識別時。 | `""` 
+| `cloudProvider` | 設定為 `"Azure"` 在 AKS 叢集上使用託管身分識別或雲端身分識別時。在 EKS 叢集上使用雲端身分識別時、請設定為「 AWS 」。 | `""` 
+
+
+| `cloudIdentity` | 在 AKS 叢集上使用雲端身分識別時、請設定為工作負載身分識別（「 azure.Workload .idental/client-id ： XXXXXXXX-xxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxx 」）。在 EKS 叢集上使用雲端身分識別時、請設定為 AWS IAM 角色（「 eks.amazonaws.com/role-arn: arn:AWS:iam::123456 ：角色 / 身分識別角色」）。 | `""` 
 
 
 | `IPv6` | 透過IPv6安裝Astra Trident | 錯 
@@ -65,7 +70,7 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示 Astra Triden
 自動 | 「假」 
 
 
-| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:23.10"` 
+| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:24.02"` 
 
 
 | 「autosupportProxy」 | 用於傳送 AutoSupport 的 Proxy 位址 / 連接埠
@@ -78,7 +83,7 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示 Astra Triden
 | `logFormat` | 要使用的Astra Trident記錄格式[text、json] | `"text"` 
 
 
-| 「TridentImage」 | 要安裝的Astra Trident映像 | `"netapp/trident:23.10"` 
+| 「TridentImage」 | 要安裝的Astra Trident映像 | `"netapp/trident:24.02"` 
 
 
 | 「影像登錄」 | 內部登錄的路徑、格式
@@ -114,7 +119,7 @@ Astra Trident |
 | 「nodePluginBolerations」 | 覆寫 Pod 的 Kubernetes 公差。遵循與相同的格式 `pod.spec.Tolerations`。 | 無預設值；選用 
 |===
 
-NOTE: 如需格式化Pod參數的詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["將Pod指派給節點"^]。
+NOTE: 如需格式化 Pod 參數的詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["將Pod指派給節點"^]。
 
 
 
@@ -219,5 +224,42 @@ spec:
   debug: true
   namespace: trident
   cloudProvider: "Azure"
+----
+====
+.在 AKS 叢集上的雲端身分識別
+[%collapsible]
+====
+本範例安裝 Astra Trident 、以搭配 Astra 叢集上的雲端身分識別使用。
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  cloudProvider: "Azure"
+  cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'
+
+----
+====
+.EKS 叢集上的雲端身分識別
+[%collapsible]
+====
+本範例安裝 Astra Trident 、以搭配 Astra 叢集上的雲端身分識別使用。
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  cloudProvider: "AWS"
+  cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"
 ----
 ====

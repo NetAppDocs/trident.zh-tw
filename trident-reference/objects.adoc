@@ -223,7 +223,7 @@ ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-sa
 |===
 [TIP]
 ====
-* 「FSType」參數用於控制SAN LUN所需的檔案系統類型。此外、Kubernetes也會在儲存類別中使用「FSType」表示檔案系統存在。只有在設定「FSType」時、才能使用Pod的「fsGroup」安全內容來控制Volume擁有權。請參閱 link:https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["Kubernetes：設定Pod或Container的安全內容"^] 如需使用「fsGroup」內容設定磁碟區所有權的總覽。Kubernetes只會在下列情況下套用「fsGroup」值：
+* 。 `fsType` 參數用於控制SAN LUN所需的檔案系統類型。此外、Kubernetes也會使用的 `fsType` 在儲存類別中、表示檔案系統存在。您可以使用來控制Volume擁有權 `fsGroup` 只有在下列情況下、Pod的安全內容才會出現 `fsType` 已設定。請參閱 link:https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["Kubernetes：設定Pod或Container的安全內容"^] 如需使用設定Volume擁有權的總覽 `fsGroup` 背景。Kubernetes將套用 `fsGroup` 只有在下列情況下才會有
 +
 ** 「FSType」是在儲存類別中設定的。
 ** PVc存取模式為rwo。
@@ -295,7 +295,7 @@ CRD是Kubernetes建構。上述資源的物件是由Trident所建立。例如、
 以下是Trident客戶需求日的幾點重點：
 
 * 安裝Trident時、會建立一組客戶需求日、並可像使用任何其他資源類型一樣使用。
-* 使用「tridentctl uninstall」命令解除安裝Trident時、會刪除Trident Pod、但不會清除建立的CRD。請參閱 link:../trident-managing-k8s/uninstall-trident.html["解除安裝Trident"] 瞭解如何徹底移除Trident並從頭重新設定。
+* 使用解除安裝Trident時 `tridentctl uninstall` 命令、Trident Pod會刪除、但建立的客戶需求日不會清除。請參閱 link:../trident-managing-k8s/uninstall-trident.html["解除安裝Trident"] 瞭解如何徹底移除Trident並從頭重新設定。
 
 
 

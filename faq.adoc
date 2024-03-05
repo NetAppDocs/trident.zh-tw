@@ -62,7 +62,7 @@ Astra Trident並不依賴其他NetApp軟體產品、而是以獨立應用程式�
 
 === Astra Trident是否支援從私有登錄進行離線安裝？
 
-可以、Astra Trident可以離線安裝。請參閱 link:trident-get-started/kubernetes-deploy.html["請按這裡"]。
+可以、Astra Trident可以離線安裝。請參閱 link:../trident-get-started/kubernetes-deploy.html["瞭解Astra Trident安裝"^]。
 
 
 
@@ -86,13 +86,13 @@ Astra Trident從Kubernetes API伺服器讀取、以判斷應用程式何時要�
 
 === Astra Trident使用哪些角色和權限？
 
-Trident 安裝程式會建立 Kubernetes ClusterRole 、該程式可存取叢集的 PersistentVolume 、 PersistentVolumVolume Claim 、 StorageClass 和 Kubernetes 叢集的 Secret 資源。請參閱 link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["請按這裡"]。
+Trident 安裝程式會建立 Kubernetes ClusterRole 、該程式可存取叢集的 PersistentVolume 、 PersistentVolumVolume Claim 、 StorageClass 和 Kubernetes 叢集的 Secret 資源。請參閱 link:../trident-get-started/kubernetes-customize-deploy-tridentctl.html["自訂tridentctl安裝"^]。
 
 
 
 === 我可以在本機產生安裝所用的確切資訊清單檔案嗎？
 
-如有需要、您可以在本機產生及修改安裝所使用的確切資訊清單檔案Astra Trident。請參閱 link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["請按這裡"]。
+如有需要、您可以在本機產生及修改安裝所使用的確切資訊清單檔案Astra Trident。請參閱 link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["自訂tridentctl安裝"^]。
 
 
 

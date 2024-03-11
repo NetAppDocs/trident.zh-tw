@@ -49,11 +49,11 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. 使用 `helm install` 並指定部署名稱、如下例所示 `24.02.0` 是您要安裝的Astra Trident版本。
+. 使用 `helm install` 並指定部署名稱、如下例所示 `100.2402.0` 是您要安裝的Astra Trident版本。
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 24.02.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2402.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -83,11 +83,11 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 在命令列上指定置換。
 
 |===
-例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `24.02.0` 您要安裝的Astra Trident版本：
+例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `100.2402.0` 您要安裝的Astra Trident版本：
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 24.02.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2402.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 

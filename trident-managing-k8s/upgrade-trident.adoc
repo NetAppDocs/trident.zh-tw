@@ -62,7 +62,7 @@ NOTE: 在 OpenShift Container Platform 上使用 Trident 運算子進行升級�
 ** 如果有操作員 Pod 、則使用 Trident 操作員手動或使用 Helm 來安裝 Astra Trident 。
 
 
-. 如果有操作員 Pod 、請使用 `kubectl describe tproc trident` 判斷 Astra Trident 是否使用 Helm 安裝。
+. 如果有操作員 Pod 、請使用 `kubectl describe torc` 判斷 Astra Trident 是否使用 Helm 安裝。
 +
 ** 如果有 Helm 標籤、則使用 Helm 安裝 Astra Trident 。
 ** 如果沒有 Helm 標籤、則使用 Trident 運算子手動安裝 Astra Trident 。

@@ -98,9 +98,9 @@ tridentctl install --cloud-provider="Azure" -n trident
 
 == 雲端身分識別
 
-雲端身分識別可讓 Kubernetes Pod 以 AWS IAM 角色的身分驗證、而非提供明確的 AWS 認證、來存取 AWS 資源。
+雲端身分識別可讓 Kubernetes Pod 以工作負載身分驗證來存取 Azure 資源、而非提供明確的 Azure 認證。
 
-若要在 AWS 中使用雲端身分識別、您必須具備：
+若要在 Azure 中使用雲端身分識別、您必須具備：
 
 * 使用 aks 部署的 Kubernetes 叢集
 * 在 OKS Kubernetes 叢集上設定的工作負載識別和 oidc-c發行 者

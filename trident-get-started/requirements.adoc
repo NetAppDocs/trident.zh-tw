@@ -195,11 +195,11 @@ link:../trident-reference/ports.html["Astra Trident連接埠"]
 | 1.23.0版  a| 
 * Docker 。 IO/NetApp/Trident ： 24.02.0
 * Docker 。 IO/NetApp/Trident 自動支援： 24.02
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* registry ． k8s.io/sig-storage / csi 置備程式： v4.0
 * 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
-* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.9.3.
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.3.3
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.10.0
 * Docker 。 IO/NetApp/Trident ： 24.02.0 （選用）
 
 
@@ -208,11 +208,11 @@ link:../trident-reference/ports.html["Astra Trident連接埠"]
 | 1.24.0版  a| 
 * Docker 。 IO/NetApp/Trident ： 24.02.0
 * Docker 。 IO/NetApp/Trident 自動支援： 24.02
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* registry ． k8s.io/sig-storage / csi 置備程式： v4.0
 * 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
-* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.9.3.
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.3.3
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.10.0
 * Docker 。 IO/NetApp/Trident ： 24.02.0 （選用）
 
 
@@ -221,11 +221,11 @@ link:../trident-reference/ports.html["Astra Trident連接埠"]
 | v1.25.0  a| 
 * Docker 。 IO/NetApp/Trident ： 24.02.0
 * Docker 。 IO/NetApp/Trident 自動支援： 24.02
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* registry ． k8s.io/sig-storage / csi 置備程式： v4.0
 * 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
-* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.9.3.
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.3.3
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.10.0
 * Docker 。 IO/NetApp/Trident ： 24.02.0 （選用）
 
 
@@ -234,11 +234,11 @@ link:../trident-reference/ports.html["Astra Trident連接埠"]
 | 1.26.0版  a| 
 * Docker 。 IO/NetApp/Trident ： 24.02.0
 * Docker 。 IO/NetApp/Trident 自動支援： 24.02
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* registry ． k8s.io/sig-storage / csi 置備程式： v4.0
 * 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
-* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.9.3.
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.3.3
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.10.0
 * Docker 。 IO/NetApp/Trident ： 24.02.0 （選用）
 
 
@@ -247,11 +247,11 @@ link:../trident-reference/ports.html["Astra Trident連接埠"]
 | v1.27.0  a| 
 * Docker 。 IO/NetApp/Trident ： 24.02.0
 * Docker 。 IO/NetApp/Trident 自動支援： 24.02
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* registry ． k8s.io/sig-storage / csi 置備程式： v4.0
 * 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
-* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.9.3.
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.3.3
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.10.0
 * Docker 。 IO/NetApp/Trident ： 24.02.0 （選用）
 
 
@@ -260,11 +260,11 @@ link:../trident-reference/ports.html["Astra Trident連接埠"]
 | v1.28.0  a| 
 * Docker 。 IO/NetApp/Trident ： 24.02.0
 * Docker 。 IO/NetApp/Trident 自動支援： 24.02
-* registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0
+* registry ． k8s.io/sig-storage / csi 置備程式： v4.0
 * 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0
-* 登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.9.3.
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v6.3.3
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.10.0
 * Docker 。 IO/NetApp/Trident ： 24.02.0 （選用）
 
 

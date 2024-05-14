@@ -1554,7 +1554,6 @@
   <block id="af2a4d2810d86aa0169c117f82682f9a" category="doc">常見問題集</block>
   <block id="96ab491ef73d5db0cd15f55e1552cc22" category="section-title">一般問題</block>
   <block id="b34c3d20de0f1b2c7a69bdc59002ad47" category="section-title">Astra Trident多久發佈一次？</block>
-  <block id="2f55088c7d055eb361252b15d5d7af10" category="paragraph">Astra Trident每三個月發佈一次：1月、4月、7月和10月。這是Kubernetes發表後的一個月。</block>
   <block id="15602d1e4b699ebca549a3d953672d8c" category="section-title">Astra Trident是否支援特定Kubernetes版本中發行的所有功能？</block>
   <block id="d860923e20119473e7f7d50683cb0559" category="paragraph">Astra Trident通常不支援Kubernetes的Alpha功能。Trident可能支援Kubernetes試用版之後的兩個Trident版本中的試用版功能。</block>
   <block id="52ffcf336df0055235949cf324a8624b" category="section-title">Astra Trident是否因其運作而依賴其他NetApp產品？</block>
@@ -3275,7 +3274,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="33ab2c3f94452baf7f17dab03982edfb" category="paragraph">之後<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 更新後、營運者會處理更新並修補現有安裝。這可能會觸發建立新的 Pod 、以據此修改安裝。</block>
   <block id="ac0482b416d6b2d907db760f79e018a7" category="example-title">&lt;strong&gt; 的重新安裝過程 &lt;/strong&gt;</block>
   <block id="ae2cbb250a37c9e09570ff02857e4cbe" category="paragraph">叢集範圍的 Trident 運算子可清除移除叢集範圍的資源。使用者可以完全解除安裝 Astra Trident 、並輕鬆重新安裝。</block>
-  <block id="8e2504f56599a577cd2bbee322a41d4e" category="paragraph">Astra Trident依照每季發行時段進行、每一日曆年發行四個主要版本。每個新版本均以舊版為基礎、並提供新功能、效能增強、錯誤修正及改善功能。我們鼓勵您每年至少升級一次、以善用Astra Trident的新功能。</block>
   <block id="4aa39142850a8999e9a4e9350f8bfbe9" category="list-text">Astra Trident 23.07 及更新版本需要 v1 Volume 快照、不再支援 Alpha 或 beta 快照。</block>
   <block id="34c1edfb4ac8581528c3791be680aeb3" category="inline-link-macro">CVS服務類型</block>
   <block id="5797c3891863b81173e1bb10d6488a72" category="inline-link-macro">CVS 服務類型範例</block>
@@ -3767,11 +3765,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="0acb661700c6422ee3bfc29c43c715c6" category="paragraph">使用非多重路徑組態或使用<block ref="a3a1d5b95e345a3db24a5a30e349f699" prefix=" " category="inline-code"></block> 或<block ref="e82e6d155396541f07f7347c984444ea" prefix=" " category="inline-code"></block> 多重路徑.conf檔案中的值會導致掛載失敗。Astra Trident 建議使用<block ref="db729c5c8df447087e5a84b961df14f6" prefix=" " category="inline-code"></block> 自21.07版本以來。</block>
   <block id="8554748be67b956e550de942edae807d" category="admonition">NVMe / TCP 需要 RHEL 9 或更新版本。</block>
   <block id="e379ebca8f2245b4a0c32803c6d7f845" category="paragraph">Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。若要準備工作節點、您必須根據您選擇的驅動程式來安裝 NFS 、 iSCSI 或 NVMe 工具。</block>
-  <block id="f1ddd80e14c81c1d754dfbdb2f850757" category="list-text">registry ． k8s.io/SIG-storage / csi 置備程序： v3.0.0</block>
-  <block id="9907e74008defde26417cd6b70b41a28" category="list-text">登錄 .k8s.io/SIG-storage / csi 附加程式： v4.5.0</block>
-  <block id="0412a949ebb008aa6aa55f27dd6db71c" category="list-text">登錄 .k8s.io/SIG-storage / csi 大小調整： v1.0.0</block>
-  <block id="1b18bb70ac8b9e2989b63f692a170f14" category="list-text">登錄 .k8s.io/SIG-storage / csi 快照機： v6.3.0</block>
-  <block id="bfcfde74961d9f3991b8fb27f23b564f" category="list-text">登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.0.0</block>
   <block id="df935b95f4f5aa4b8cc6b78b9011196d" category="cell">v1.28.0</block>
   <block id="2564a762d021b4beae21f01627773c0f" category="inline-link-macro">問題 #834</block>
   <block id="e53ddb8a6947ad5b93f8c82a86836f16" category="list-text">如果新要求的大小小於 ONTAP NAS 和 ONTAP NAS 的總磁碟區大小、則為固定磁碟區擴充（<block ref="6140c2bc2ecfc555b47da5841f5fd8ae" category="inline-link-macro-rx"></block>）。</block>
@@ -4083,7 +4076,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="e7afa8f188dd7bf2c172108b10e2e2df" category="list-text">登錄 .k8s.io/SIG-storage / csi 大小調整： v1.9.3.</block>
   <block id="5268a90435480eab7edcef1c31af78ea" category="list-text">登錄 .k8s.IO/SIG-storage / csi 快照機： v6.3.3</block>
   <block id="dc33446faca12c219dd12f5e1c73cf51" category="list-text">登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.10.0</block>
-  <block id="528d64fadb48dbbc71a3bf878d210988" category="list-text">Docker 。 IO/NetApp/Trident ： 24.02.0 （選用）</block>
   <block id="62f429770359674b482a69dc8eb1c822" category="paragraph">如需 Cloud Volumes Service on Google Cloud 服務類型和服務層級的詳細資訊、請參閱 <block ref="5b5fd03722abab2c395288a6ee42ad11" category="inline-link-macro-rx"></block>。</block>
   <block id="cb1cfaffdbb4cc0c4c444a11e40e3262" category="paragraph">針對使用SAN儲存驅動程式的幕後作業、Astra Trident可設定雙向CHAP、並透過管理CHAP使用者名稱和機密ONTAP<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。
 請參閱 <block ref="5cdb093a3afb814148505ae9813b18af" category="inline-link-macro-rx"></block> 瞭解Astra Trident如何在ONTAP 不景點上設定CHAP。</block>
@@ -4117,4 +4109,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="fabc0fa737916420805fcbdf1e73d723" category="list-text">如果有操作員 Pod 、請使用<block ref="9ce56b0c50ae80fe754522969b1c96b9" prefix=" " category="inline-code"></block> 判斷 Astra Trident 是否使用 Helm 安裝。</block>
   <block id="f77d4be42f8ef9e2474d677786cf6d7a" category="paragraph">雲端身分識別可讓 Kubernetes Pod 以工作負載身分驗證來存取 Azure 資源、而非提供明確的 Azure 認證。</block>
   <block id="088be2b53cfa8710d751578d273c4af0" category="paragraph">若要在 Azure 中使用雲端身分識別、您必須具備：</block>
+  <block id="309d4be2a929a72254d2e0ec91b427b3" category="paragraph">從 24.02 版開始、 Astra Trident 每四個月發行一次：二月、六月和十月。這是Kubernetes發表後的一個月。</block>
+  <block id="d9242a3acb300b393c2167774404ecc0" category="paragraph">從 24.02 版開始、 Astra Trident 遵循四個月的發行步調、每年提供三個主要版本。每個新版本均以舊版為基礎、並提供新功能、效能增強、錯誤修正及改善功能。我們鼓勵您每年至少升級一次、以善用Astra Trident的新功能。</block>
 </blocks>

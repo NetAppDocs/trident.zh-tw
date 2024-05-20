@@ -39,14 +39,14 @@ Astra Trident支援多個容器引擎和協調器、包括：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
 * Kubernetes 1.23 - 1.29
-* OpenShift 4.10 - 4.14
+* OpenShift 4.10 - 4.15
 
 
 這些版本支援Trident運算子：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
 * Kubernetes 1.23 - 1.29
-* OpenShift 4.10 - 4.14
+* OpenShift 4.10 - 4.15
 
 
 Astra Trident 也與許多其他完全託管且自我管理的 Kubernetes 產品合作、包括 Google Kubernetes Engine （ GKE ）、 Amazon Elastic Kubernetes Services （ EKS ）、 Azure Kubernetes Service （ aks ）、 Mirantis Kubernetes Engine （ MKE ）、 Rancher 和 VMware Tanzu Portfolio 。

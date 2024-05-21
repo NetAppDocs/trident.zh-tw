@@ -4,7 +4,7 @@ permalink: trident-managing-k8s/upgrade-operator.html
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
 summary: 您可以使用業者輕鬆升級現有的Astra Trident安裝。 
 ---
-= 升級 Trident 營運商安裝
+= 使用 Trident 運算子或 Helm 升級 Astra Trident 安裝
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

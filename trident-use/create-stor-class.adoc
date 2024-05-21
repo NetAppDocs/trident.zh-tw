@@ -18,7 +18,7 @@ summary: 您可以設計 Kubernetes StorageClass 檔案、並建立 StorageClass
 
 == 設定 Kubernetes StorageClass 物件
 
-。 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^] 將 Astra Trident 識別為用於該類別的資源配置程式、指示 Astra Trident 如何佈建 Volume 。例如：
+。 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^] 將 Astra Trident 識別為用於該類別的資源配置程式、並指示 Astra Trident 如何資源配置 Volume 。例如：
 
 [listing]
 ----

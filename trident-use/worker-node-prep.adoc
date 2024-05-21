@@ -231,6 +231,48 @@ NOTE: 對於Ubuntu 18.04、您必須先使用「iscsiadmd」探索目標連接�
 ====
 
 
+=== 設定或停用 iSCSI 自我修復
+
+您可以設定下列 Astra Trident iSCSI 自我修復設定、以修正過時的工作階段：
+
+* *iSCSI 自我修復時間間隔 * ：決定啟動 iSCSI 自我修復的頻率（預設值： 5 分鐘）。您可以設定較小的數字、或設定較大的數字、將其設定為較常執行。
+
+
+[NOTE]
+====
+將 iSCSI 自我修復時間間隔設為 0 會完全停止 iSCSI 自我修復。我們不建議停用 iSCSI 自我修復功能；只有在 iSCSI 自我修復功能未如預期運作或無法進行偵錯時、才應停用 iSCSI 自我修復功能。
+
+====
+* *iSCSI 自我修復等待時間 * ：決定 iSCSI 自我修復等待的時間、再登出不正常的工作階段並再次嘗試登入（預設值： 7 分鐘）。您可以將其設定為較大的數目、以便識別為不正常的工作階段必須等待較長時間才能登出、然後再嘗試重新登入、或是較小的數目來登出和較早登入。
+
+
+[role="tabbed-block"]
+====
+.掌舵
+--
+若要設定或變更 iSCSI 自我修復設定、請通過 `iscsiSelfHealingInterval` 和 `iscsiSelfHealingWaitTime` 在 helm 安裝或 helm 更新期間的參數。
+
+以下範例將 iSCSI 自我修復間隔設為 3 分鐘、而自我修復等候時間設為 6 分鐘：
+
+[listing]
+----
+helm install trident trident-operator-100.2402.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+----
+--
+.試用
+--
+若要設定或變更 iSCSI 自我修復設定、請通過 `iscsi-self-healing-interval` 和 `iscsi-self-healing-wait-time` 在 Tridentctl 安裝或更新期間的參數。
+
+以下範例將 iSCSI 自我修復間隔設為 3 分鐘、而自我修復等候時間設為 6 分鐘：
+
+[listing]
+----
+tridentctl install --iscsi-self-healing-interval=3m0s --iscsi-self-healing-wait-time=6m0s -n trident
+----
+--
+====
+
+
 == NVMe / TCP 磁碟區
 
 使用適用於您作業系統的命令來安裝 NVMe 工具。

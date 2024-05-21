@@ -4112,4 +4112,19 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="e007fb329975dfac9458f3defd0f7fc1" category="inline-link-macro">安裝 NVMe 工具</block>
   <block id="fd7af40a7e3f81bfb0a51eac257dc730" category="paragraph"><block ref="8ac92b41418caf5b4c74c2a77a0c349a" category="inline-link-macro-rx"></block> 如果您正在使用<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 適用於透過 TCP （ NVMe / TCP ）傳輸協定的非揮發性記憶體高速（ NVMe ）。</block>
   <block id="7e757604a320b645d3e338eaa6d9bca2" category="paragraph">。<block ref="da3f7f170e13df7f56e057fc4226aa85" category="inline-link-rx"></block> 將 Astra Trident 識別為用於該類別的資源配置程式、並指示 Astra Trident 如何資源配置 Volume 。例如：</block>
+  <block id="50f9796c3e95f29464ed077bb59ca6a5" category="cell"><block ref="a1edaea62dbed344534369e9668223b1" prefix="" category="inline-code"></block></block>
+  <block id="d3ee0f95ea35db45a8c5d2deb96b4eb9" category="cell">啟動 iSCSI 自我修復的時間間隔。</block>
+  <block id="d2393ee8411e83742fc73a79660d81ba" category="cell"><block ref="48899b1fc217fef67f8c9c11d2af0800" prefix="" category="inline-code"></block></block>
+  <block id="5368476cef8604c12ee3f8a741319473" category="cell"><block ref="85fc372a514da766ce84a222668f8e62" prefix="" category="inline-code"></block></block>
+  <block id="a5c601ef1c412054e22a761067edb9da" category="cell">iSCSI 自我修復透過執行登出和後續登入來嘗試解決過時工作階段的持續時間。</block>
+  <block id="e1bd8a641f8c3114c2698aa76942b621" category="cell"><block ref="4fe853d0c57c2a118a755c207068b052" prefix="" category="inline-code"></block></block>
+  <block id="d03a790fb20fccc8b27cff74c7a10709" category="section-title">設定或停用 iSCSI 自我修復</block>
+  <block id="1c804f3ccd207f84562f1fad6c4d35f5" category="paragraph">您可以設定下列 Astra Trident iSCSI 自我修復設定、以修正過時的工作階段：</block>
+  <block id="160cc91d68e6399b864fe236e7a6d11e" category="list-text">*iSCSI 自我修復時間間隔 * ：決定啟動 iSCSI 自我修復的頻率（預設值： 5 分鐘）。您可以設定較小的數字、或設定較大的數字、將其設定為較常執行。</block>
+  <block id="af6999fe88eb0d5f3cf5f3c7570bf014" category="paragraph">將 iSCSI 自我修復時間間隔設為 0 會完全停止 iSCSI 自我修復。我們不建議停用 iSCSI 自我修復功能；只有在 iSCSI 自我修復功能未如預期運作或無法進行偵錯時、才應停用 iSCSI 自我修復功能。</block>
+  <block id="fe240a869a7a9e3bdc68d460aa116db2" category="list-text">*iSCSI 自我修復等待時間 * ：決定 iSCSI 自我修復等待的時間、再登出不正常的工作階段並再次嘗試登入（預設值： 7 分鐘）。您可以將其設定為較大的數目、以便識別為不正常的工作階段必須等待較長時間才能登出、然後再嘗試重新登入、或是較小的數目來登出和較早登入。</block>
+  <block id="7c3dfaf40c8f6c1208932661e70ca6b2" category="paragraph">若要設定或變更 iSCSI 自我修復設定、請通過<block ref="a1edaea62dbed344534369e9668223b1" prefix=" " category="inline-code"></block> 和<block ref="85fc372a514da766ce84a222668f8e62" prefix=" " category="inline-code"></block> 在 helm 安裝或 helm 更新期間的參數。</block>
+  <block id="ba53a946a5e7dedfdc75a569107f3a66" category="paragraph">以下範例將 iSCSI 自我修復間隔設為 3 分鐘、而自我修復等候時間設為 6 分鐘：</block>
+  <block id="c67fd1b99934afa248dfeb285a9a4191" category="open-title">試用</block>
+  <block id="03c688458c87383f238f17223a52f7bd" category="paragraph">若要設定或變更 iSCSI 自我修復設定、請通過<block ref="95df96489cc6481c74d24c1397e3edd9" prefix=" " category="inline-code"></block> 和<block ref="4ad3b66813348b71002bd232a403581c" prefix=" " category="inline-code"></block> 在 Tridentctl 安裝或更新期間的參數。</block>
 </blocks>

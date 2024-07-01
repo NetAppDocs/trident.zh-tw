@@ -22,7 +22,7 @@ summary: 尋找有關安裝、設定、升級及疑難排解Astra Trident的常�
 
 === Astra Trident多久發佈一次？
 
-從 24.02 版開始、 Astra Trident 每四個月發行一次：二月、六月和十月。這是Kubernetes發表後的一個月。
+從 24.02 版開始、 Astra Trident 每四個月發行一次：二月、六月和十月。
 
 
 

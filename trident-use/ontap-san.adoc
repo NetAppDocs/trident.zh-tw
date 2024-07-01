@@ -139,7 +139,7 @@ Astra Trident 支援使用的非揮發性記憶體高速（ NVMe ）傳輸協定
 * 調整 NVMe 磁碟區大小
 * 匯入 Astra Trident 外部建立的 NVMe Volume 、以便 Astra Trident 管理其生命週期
 * NVMe 原生多重路徑
-* K8s 節點正常或不正常關機（ 24.02 ）
+* K8s 節點正常或不正常關機（ 24.06 ）
 
 
 Astra Trident 不支援：

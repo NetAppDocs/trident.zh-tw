@@ -108,13 +108,10 @@ summary: 瞭解如何透過ONTAP Astra Trident安裝來建立及使用支援NetA
 除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用。 | `null` 
 
 
-| 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*
-
-`useREST` 以*技術預覽*的形式提供、建議用於測試環境、而非用於正式作業工作負載。設定為時 `true`、Astra Trident將使用ONTAP 靜止API與後端進行通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取 `ontap` 應用程式：這是預先定義的 `vsadmin` 和 `cluster-admin` 角色：
-
-`useREST` 不支援MetroCluster 使用支援。
-
-`useREST` 完全符合 NVMe / TCP 的資格。 | 「假」 
+| 《useREST》 | 使用ONTAP Isrest API的布林參數。
+`useREST` 設為 `true`時、 Astra Trident 將使用 ONTAP REST API 與後端通訊；設為 `false`時、 Astra Trident 將使用 ONTAP ZAPI 呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontap` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Astra Trident 24.06 版本開始、 ONTAP 9.15.1 或更新版本 `userREST` 預設為 `true` ；變更
+`useREST` 為 `false` 使用 ONTAP ZAPI 呼叫。
+`useREST` 完全符合 NVMe / TCP 的資格。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
 
 
 | `sanType` | 用於選擇 `iscsi` 適用於 iSCSI 或 `nvme` 適用於 NVMe / TCP 。 | `iscsi` 如果空白 
@@ -163,6 +160,9 @@ NVMe / TCP 不支援 LUKS 加密。 | "
 
 
 | 「分層政策」 | 分層原則以使用「無」 | 「僅限快照」適用於 ONTAP 9.5 之前的 SVM-DR 組態 
+
+
+| `nameTemplate` | 建立自訂磁碟區名稱的範本。 | " 
 |===
 
 
@@ -251,8 +251,11 @@ username: vsadmin
 password: <password>
 ----
 ====
-.MetroCluster 範例
-[#mcc-best%collapsible]
+[[mcc-best]]
+. 範例
+
+
+[]
 ====
 您可以設定後端、避免在切換和切換期間手動更新後端定義 link:../trident-reco/backup.html#svm-replication-and-recovery["SVM 複寫與還原"]。
 
@@ -349,6 +352,25 @@ username: vsadmin
 password: password
 sanType: nvme
 useREST: true
+----
+====
+.名稱範本的後端組態範例
+[%collapsible]
+====
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-san
+backendName: ontap-san-backend
+managementLIF: <ip address>
+svm: svm0
+username: <admin>
+password: <password>
+defaults: {
+    "nameTemplate": "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.volume.RequestName}}"
+},
+"labels": {"cluster": "ClusterA", "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"}
 ----
 ====
 

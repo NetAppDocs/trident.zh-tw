@@ -12,8 +12,9 @@ summary: 您可以使用版本選取器、在最新版本與前四個版本之�
 
 
 [role="lead"]
-如果您未執行 Astra Trident 24.02 、則會根據提供先前版本的文件 link:get-help.html["Astra Trident 支援生命週期"]。
+如果您未執行 Astra Trident 24.06 、則可根據取得舊版的文件 link:get-help.html["Astra Trident 支援生命週期"]。
 
+* https://docs.netapp.com/us-en/trident-2402/index.html["Astra Trident 24.02"^]
 * https://docs.netapp.com/us-en/trident-2310/index.html["Astra Trident 23.10"^]
 * https://docs.netapp.com/us-en/trident-2307/index.html["Astra Trident 23.07"^]
 * https://docs.netapp.com/us-en/trident-2304/index.html["Astra Trident 23.04"^]

@@ -70,7 +70,7 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示 Astra Triden
 自動 | 「假」 
 
 
-| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:24.02"` 
+| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:24.06"` 
 
 
 | 「autosupportProxy」 | 用於傳送 AutoSupport 的 Proxy 位址 / 連接埠
@@ -83,7 +83,7 @@ WARNING: `spec.namespace` 在中指定 `TridentOrchestrator` 表示 Astra Triden
 | `logFormat` | 要使用的Astra Trident記錄格式[text、json] | `"text"` 
 
 
-| 「TridentImage」 | 要安裝的Astra Trident映像 | `"netapp/trident:24.02"` 
+| 「TridentImage」 | 要安裝的Astra Trident映像 | `"netapp/trident:24.06"` 
 
 
 | 「影像登錄」 | 內部登錄的路徑、格式

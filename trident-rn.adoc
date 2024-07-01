@@ -19,7 +19,54 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 
 
-== 24.02 的新功能
+== 24.06 的新功能
+
+
+
+=== 增強功能
+
+* ** 重要 ** ：此 `limitVolumeSize` 參數現在限制了 ONTAP 經濟驅動程式中的 qtree /LUN 大小。使用新  `limitVolumePoolSize` 參數來控制這些驅動程式中的 FlexVol 大小。（link:https://github.com/NetApp/trident/issues/341["問題 #341"]）。
+* 增加了 iSCSI 自我修復功能，可在使用過時的 igroup 時，以確切的 LUN ID 啟動 SCSI 掃描（link:https://github.com/NetApp/trident/issues/883["問題 #883"]）。
+* 新增對 Volume Clone 的支援、即使後端處於暫停模式、也能調整作業大小。
+* 新增功能、可讓 Trident 控制器的使用者設定記錄設定傳播至 Astra Trident 節點 Pod 。
+* 在 Astra Trident 中新增支援、預設使用 REST 、而非 ONTAP 9.15.1 版及更新版本的 ZAPI 。
+* 新增對 ONTAP 儲存設備後端上的自訂磁碟區名稱和中繼資料的支援、以供新的持續磁碟區使用。
+* 增強 `azure-netapp-files` （ anf ）驅動程式、可在 NFS 裝載選項設定為使用 NFS 版本 4.x 時、依預設自動啟用快照目錄
+* 新增對 NFS 磁碟區的 Bottlerocket 支援。
+* 新增 Google Cloud NetApp Volumes 的技術預覽支援。
+
+
+
+
+==== Kubernetes
+
+* Astra Trident demonSet 可在啟動時清理殭屍掛載和剩餘追蹤檔案（link:https://github.com/NetApp/trident/issues/883["問題 #883"]）。
+* 新增 PVC 註解 `trident.netapp.io/luksEncryption` 以動態匯入 LUKS Volume （link:https://github.com/NetApp/trident/issues/849["問題 #849"]）。
+* 新增拓撲感知功能至 anf 驅動程式。
+
+
+
+
+=== 修正
+
+* 修復因過時交易而導致的 Astra Trident 安裝失敗。
+* 修正 tridentctl 以忽略 Kubernetes （）的警告訊息link:https://github.com/NetApp/trident/issues/892["問題 #892"]。
+* 已將 Astra Trident 控制器優先級更改 `SecurityContextConstraint` 爲 `0` （link:https://github.com/NetApp/trident/issues/887["問題 #887"]）。
+* ONTAP 驅動程式現在接受低於 20MiB 的磁碟區大小（link:https://github.com/NetApp/trident/issues/885["問題 [#885"]）。
+* 固定式 Astra Trident 可防止在 ONTAP SAN 驅動程式調整大小作業期間縮小 FlexVols 。
+* 修正 NFS v4.1 的磁碟區匯入失敗。
+
+
+
+
+=== 棄用
+
+* 移除對 EOL Windows Server 2019 的支援。
+
+
+
+
+== 24.02 的變更
 
 
 

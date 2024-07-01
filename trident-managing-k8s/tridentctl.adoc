@@ -225,17 +225,74 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 `tridentctl update backend state <backend-name> [flag]`
 
+.需要考量的重點
+* 如果使用 TridentBackendConfig （ tbc ）建立後端、則無法使用檔案更新後端 `backend.json` 。
+* 如果已在 tbc 中設定、則 `userState` 無法使用命令加以修改 `tridentctl update backend state <backend-name> --user-state suspended/normal` 。
+* 若要重新取得透過 tbc 設定 Via tridentctl 後的設定能力 `userState` 、必須從 tbc `userState` 移除該欄位。這可以使用命令來完成 `kubectl edit tbc` 。 `userState`欄位移除後、您可以使用 `tridentctl update backend state` 命令來變更 `userState` 後端的。
+* 使用 `tridentctl update backend state` 變更 `userState`。您也可以更新 `userState` 使用 `TridentBackendConfig` 或 `backend.json` 檔案、這會觸發後端的完整重新初始化、而且可能會耗費時間。
++
 旗標:: `-h`、 `--help`：後端狀態說明。
 `--user-state`：設為 `suspended` 暫停後端作業。設定為 `normal` 以恢復後端作業。設定為時 `suspended`：
+
+
+* `AddVolume` 和 `Import Volume` 已暫停。
+* `CloneVolume`、、 `ResizeVolume` `PublishVolume` `UnPublishVolume` `CreateSnapshot`、、 `GetSnapshot` `RestoreSnapshot`、、 `DeleteSnapshot` `RemoveVolume` `GetVolumeExternal`、、 `ReconcileNodeAccess` 保持可用狀態。
+
+
+您也可以使用後端組態檔案或中的欄位來更新後端狀態 `userState` `TridentBackendConfig` `backend.json`。如需詳細資訊、請參閱 link:../trident-use/backend_options.html["管理後端的選項"] 和 link:../trident-use/backend_ops_kubectl.html["以KECBECVL執行後端管理"]。
+
+*範例：*
+
+[role="tabbed-block"]
+====
+.JSON
+--
+請依照下列步驟使用檔案更新 `userState` `backend.json` ：
+
+. 編輯 `backend.json` 檔案、 `userState` 將欄位的值設為「已待定」。
+. 使用命令和更新檔案的路徑來更新後端 `tridentctl backend update` `backend.json` 。
 +
+* 範例 * ： `tridentctl backend update -f /<path to backend JSON file>/backend.json`
+
+
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "managementLIF": "<redacted>",
+    "svm": "nas-svm",
+    "backendName": "customBackend",
+    "username": "<redacted>",
+    "password": "<redacted>",
+    "userState": "suspended",
+}
+
+----
 --
-* `AddVolume`、 `CloneVolume`、 `Import Volume`、 `ResizeVolume` 已暫停。
-* `PublishVolume`、 `UnPublishVolume`、 `CreateSnapshot`、 `GetSnapshot`、 `RestoreSnapshot`、 `DeleteSnapshot`、 `RemoveVolume`、 `GetVolumeExternal`、 `ReconcileNodeAccess` 保持可用狀態。
-
-
+.YAML
 --
+您可以在使用命令套用 tbc 之後編輯它 `kubectl edit <tbc-name> -n <namespace>` 。下列範例會使用選項更新後端狀態以暫停 `userState: suspended` ：
 
-
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-ontap-nas
+spec:
+  version: 1
+  backendName: customBackend
+  storageDriverName: ontap-nas
+  managementLIF: <redacted>
+  svm: nas-svm
+userState: suspended
+  credentials:
+    name: backend-tbc-ontap-nas-secret
+----
+--
+====
 
 
 === 版本

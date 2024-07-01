@@ -108,8 +108,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 ONTAP 後端的 Amazon FSX 需要此參數。 | `smb-share` 
 
 
-| 《useREST》 | 使用ONTAP Isrest API的布林參數。*技術預覽*
-`useREST` 以*技術預覽*的形式提供、建議用於測試環境、而非用於正式作業工作負載。設定為時 `true`、Astra Trident將使用ONTAP 靜止API與後端進行通訊。此功能需要ONTAP 使用更新版本的版本。此外ONTAP 、所使用的登入角色必須能夠存取 `ontap` 應用程式：這是預先定義的 `vsadmin` 和 `cluster-admin` 角色： | 「假」 
+| 《useREST》 | 使用ONTAP Isrest API的布林參數。 `useREST` 設為 `true`時、 Astra Trident 將使用 ONTAP REST API 與後端通訊；設為 `false`時、 Astra Trident 將使用 ONTAP ZAPI 呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontap` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Astra Trident 24.06 版本開始、 ONTAP 9.15.1 或更新版本 `userREST` 預設為 `true` ；變更 `useREST` 為 `false` 使用 ONTAP ZAPI 呼叫。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
 
 
 | `aws` | 您可以在 AWS FSX for ONTAP 的組態檔中指定下列項目：

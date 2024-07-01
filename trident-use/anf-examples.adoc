@@ -95,6 +95,9 @@ Azure NetApp Files 後端提供這些組態選項。
 
 
 | `nasType` | 設定NFS或SMB磁碟區建立。選項包括 `nfs`、 `smb` 或null。NFS磁碟區的預設值設為null。 | `nfs` 
+
+
+| `supportedTopologies` | 代表此後端所支援的區域和區域清單。如需詳細資訊、請 link:../trident-use/csi-topology.html["使用「csi拓撲」"]參閱。 |  
 |===
 
 NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["設定Azure NetApp Files 適用於某個聲音量的網路功能"^]。
@@ -316,6 +319,32 @@ storage:
   - standard-1
   - standard-2
 
+----
+====
+.支援的拓撲組態
+[%collapsible]
+====
+Astra Trident 可根據區域和可用性區域、為工作負載提供更多資源。 `supportedTopologies`此後端組態中的區塊用於提供每個後端的區域和區域清單。此處指定的區域和區域值必須符合每個 Kubernetes 叢集節點上標籤的區域和區域值。這些區域和區域代表可在儲存類別中提供的允許值清單。對於包含後端所提供區域和區域子集的儲存類別、 Astra Trident 會在所述區域和區域中建立磁碟區。如需詳細資訊、請 link:../trident-use/csi-topology.html["使用「csi拓撲」"]參閱。
+
+[listing]
+----
+---
+version: 1
+storageDriverName: azure-netapp-files
+subscriptionID: 9f87c765-4774-fake-ae98-a721add45451
+tenantID: 68e4f836-edc1-fake-bff9-b2d865ee56cf
+clientID: dd043f63-bf8e-fake-8076-8de91e5713aa
+clientSecret: SECRET
+location: eastus
+serviceLevel: Ultra
+capacityPools:
+- application-group-1/account-1/ultra-1
+- application-group-1/account-1/ultra-2
+supportedTopologies:
+- topology.kubernetes.io/region: eastus
+  topology.kubernetes.io/zone: eastus-1
+- topology.kubernetes.io/region: eastus
+  topology.kubernetes.io/zone: eastus-2
 ----
 ====
 

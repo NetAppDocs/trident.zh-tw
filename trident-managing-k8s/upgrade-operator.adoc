@@ -66,7 +66,7 @@ kubectl create -f 24.06.0/trident-installer/deploy/<bundle.yaml> -n trident
 WARNING: 將Kubernetes叢集從1.24升級至1.25或更新版本、且已安裝Astra Trident時、您必須更新vales.yaml才能設定 `excludePodSecurityPolicy` 至 `true` 或新增 `--set excludePodSecurityPolicy=true` 至 `helm upgrade` 命令、然後才能升級叢集。
 
 .步驟
-. 如果您 link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-astra-trident-using-helm["使用 Helm 安裝 Astra Trident"]、您可以使用 `helm upgrade trident netapp-trident/trident-operator --version 100.2402.0` 只需一步即可升級。如果您未新增 Helm repo 或無法使用它來升級：
+. 如果您 link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-astra-trident-using-helm["使用 Helm 安裝 Astra Trident"]是、您可以在單一步驟中使用 `helm upgrade trident netapp-trident/trident-operator --version 100.2406.0` 進行升級。如果您未新增 Helm repo 或無法使用它來升級：
 +
 .. 從下載最新的 Astra Trident 版本 link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]。
 .. 使用 `helm upgrade` 反映您要升級至的版本的命令 `trident-operator-24.06.0.tgz` 。

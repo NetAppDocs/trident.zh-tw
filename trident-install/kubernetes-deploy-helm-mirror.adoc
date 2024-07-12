@@ -49,7 +49,7 @@ summary: 您可以部署Trident運算子、並使用Helm安裝Astra Trident。�
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. 使用 `helm install` 並指定部署和映像登錄位置的名稱。您的 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有的SCSI映像都必須位於同一個登錄中。在範例中、 `100.2402.0` 是您要安裝的Astra Trident版本。
+. 使用 `helm install` 並指定部署和映像登錄位置的名稱。您 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有 CSI 映像都必須位於同一個登錄中。在範例中 `100.2406.0` 、是您要安裝的 Astra Trident 版本。
 +
 [role="tabbed-block"]
 ====
@@ -98,7 +98,7 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 在命令列上指定置換。
 
 |===
-例如、變更的預設值 `debug`請執行下列步驟 `--set` 命令位置 `100.2402.0` 您要安裝的Astra Trident版本：
+例如、若要變更的預設值 `debug`、請執行下列命令、 `--set` 其中 `100.2406.0` 是您要安裝的 Astra Trident 版本：
 
 [listing]
 ----

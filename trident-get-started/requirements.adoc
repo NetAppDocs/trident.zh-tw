@@ -150,7 +150,6 @@ WARNING: 將安裝 Astra Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 �
 NOTE: NVMe / TCP 需要 RHEL 9 或更新版本。
 
 * Ubuntu 22.04 或更新版本（ AMD64 和 ARM64 ）
-* Windows Server 2019 （ AMD64 ）
 
 
 依預設、Astra Trident會在容器中執行、因此會在任何Linux工作者上執行。不過、這些員工必須能夠使用標準NFS用戶端或iSCSI啟動器來掛載Astra Trident提供的磁碟區、視您使用的後端而定。

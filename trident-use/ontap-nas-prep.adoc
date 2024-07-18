@@ -301,7 +301,7 @@ WARNING: 您必須在 SVM 上同時設定 NFS 和 SMB/CIFS 通訊協定、才能
 .開始之前
 在配置 SMB 磁碟區之前、您必須具備下列項目。
 
-* Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2019的Windows工作節點。Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
+* Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2022的Windows工作節點。Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
 * 至少有一個Astra Trident機密、其中包含您的Active Directory認證資料。以產生機密 `smbcreds`：
 +
 [listing]

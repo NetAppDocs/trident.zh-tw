@@ -43,6 +43,7 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 * Astra Trident demonSet 可在啟動時清理殭屍掛載和剩餘追蹤檔案（link:https://github.com/NetApp/trident/issues/883["問題 #883"]）。
 * 新增 PVC 註解 `trident.netapp.io/luksEncryption` 以動態匯入 LUKS Volume （link:https://github.com/NetApp/trident/issues/849["問題 #849"]）。
 * 新增拓撲感知功能至 anf 驅動程式。
+* 新增對Windows Server 2022節點的支援。
 
 
 

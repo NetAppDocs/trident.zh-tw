@@ -4196,4 +4196,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="2dd7e74e47b2fea3bc13eda279fe6caa" category="list-text">如果您 <block ref="701383cb184d92daac13becc67e9c1be" category="inline-link-macro-rx"></block>是、您可以在單一步驟中使用<block ref="aa057bb2523e090dc6e3052f2e88741e" prefix=" " category="inline-code"></block> 進行升級。如果您未新增 Helm repo 或無法使用它來升級：</block>
   <block id="bd97885496639b0f4498d4131198ac36" category="list-text">新增對Windows Server 2022節點的支援。</block>
   <block id="f0d0d71ad406bc532f207cda7d40e0bf" category="list-text">Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2022的Windows工作節點。Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。</block>
+  <block id="de547bcab0e20f54ec4d5e95ba44b0b1" category="list-text">Windows Server 2022</block>
 </blocks>

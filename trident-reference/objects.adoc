@@ -213,7 +213,7 @@ ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-sa
 | 屬性 | 類型 | 價值 | 說明 | 相關驅動因素 | Kubernetes版本 
 
 
-| FSType | 字串 | ext4、ext3、xfs等 | 區塊磁碟區的檔案系統類型 | solidfire-san、ontap、nap、nap、nas經濟、ontap、nas、flexgroup、ontap、san、ONTAP-san經濟型 | 全部 
+| FSType | 字串 | ext4 、 ext3 、 xfs | 區塊磁碟區的檔案系統類型 | solidfire-san、ontap、nap、nap、nas經濟、ontap、nas、flexgroup、ontap、san、ONTAP-san經濟型 | 全部 
 
 
 | owVolume擴充 | 布林值 | 對、錯 | 啟用或停用對增加PVc大小的支援 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、ONTAP-san經濟型、 solidfire-san、gcp-CVS、azure-netapp檔案 | 1.11+ 

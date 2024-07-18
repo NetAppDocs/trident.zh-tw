@@ -1447,7 +1447,6 @@
   <block id="0e6ac0d7fca9c59e6545312a071555b6" category="cell">相關驅動因素</block>
   <block id="ae6b2a160dd2fafdee385c348edee0c1" category="cell">Kubernetes版本</block>
   <block id="7cfbb6f07899c8071ff38e69dca190e2" category="cell">FSType</block>
-  <block id="64b6d80cc167d5c657b60054dbe396ee" category="cell">ext4、ext3、xfs等</block>
   <block id="7928a56d4874d982a06a59e3f30f6935" category="cell">區塊磁碟區的檔案系統類型</block>
   <block id="b1c94ca2fbc3e78fc30069c8d0f01680" category="cell">全部</block>
   <block id="6add71a247c8f4513060920be14857bc" category="cell">owVolume擴充</block>
@@ -4197,4 +4196,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="bd97885496639b0f4498d4131198ac36" category="list-text">新增對Windows Server 2022節點的支援。</block>
   <block id="f0d0d71ad406bc532f207cda7d40e0bf" category="list-text">Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2022的Windows工作節點。Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。</block>
   <block id="de547bcab0e20f54ec4d5e95ba44b0b1" category="list-text">Windows Server 2022</block>
+  <block id="010e61d0b40eeb84b96a1321e8f0bab7" category="cell">ext4 、 ext3 、 xfs</block>
 </blocks>

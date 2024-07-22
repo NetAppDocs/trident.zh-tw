@@ -23,7 +23,7 @@ summary: 您可以手動部署Trident運算子來安裝Astra Trident。此程序
 .關於Astra Trid-功能 的資訊</strong> <strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.29 現在支援 Astra Trident 。升級Kubernetes之前先升級Trident。
+* Kubernetes 1.30 現在支援 Astra Trident 。升級Kubernetes之前先升級Trident。
 * Astra Trident在SAN環境中嚴格執行多重路徑組態的使用、建議的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。

@@ -171,5 +171,5 @@ Usage:
 若要深入瞭解跨命名空間Volume存取：
 
 * 請造訪 link:https://cloud.netapp.com/blog/astra-blg-sharing-volumes-between-namespaces-say-hello-to-cross-namespace-volume-access["在命名空間之間共用磁碟區：歡迎使用跨命名空間磁碟區存取"^]。
-* 觀看示範 link:http://netapp.tv/cloud/details/29594?playlist_id=81&mcid=63262890210074608700682715883688763007["NetAppTV"^]。
+* 觀看上的示範 link:https://media.netapp.com/page/9071d19d-1438-5ed3-a7aa-ea4d73c28b7f/solutions-products["NetAppTV"^]。
 

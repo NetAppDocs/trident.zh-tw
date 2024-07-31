@@ -282,7 +282,7 @@ CHAP驗證（驗證啟動器是否為預定的Volume使用者）僅支援帳戶�
 
 *《*》ONTAP
 
-* https://www.netapp.com/us/media/tr-4067.pdf["NFS最佳實務與實作指南"^]
+* https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["NFS最佳實務與實作指南"^]
 * http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["SAN管理指南"^] （適用於iSCSI）
 * http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-iscsi-rhel-cg/home.html["適用於RHEL的iSCSI Express組態"^]
 
@@ -300,11 +300,11 @@ CHAP驗證（驗證啟動器是否為預定的Volume使用者）僅支援帳戶�
 
 *應用程式最佳實務做法資訊*
 
-* https://www.netapp.com/us/media/tr-4722.pdf["MySQL ONTAP 的最佳實務做法"^]
+* https://docs.netapp.com/us-en/ontap-apps-dbs/mysql/mysql-overview.html["MySQL ONTAP 的最佳實務做法"^]
 * https://www.netapp.com/pdf.html?item=/media/10510-tr-4605.pdf["MySQL SolidFire 的最佳實務做法"^]
-* http://www.netapp.com/us/media/tr-4635.pdf["NetApp SolidFire 的功能與Cassandra"^]
-* http://www.netapp.com/us/media/tr-4606.pdf["Oracle SolidFire 的最佳實務做法"^]
-* http://www.netapp.com/us/media/tr-4610.pdf["PostgreSQL SolidFire 的最佳實務做法"^]
+* https://www.netapp.com/pdf.html?item=/media/10513-tr-4635pdf.pdf["NetApp SolidFire 的功能與Cassandra"^]
+* https://www.netapp.com/pdf.html?item=/media/10511-tr4606pdf.pdf["Oracle SolidFire 的最佳實務做法"^]
+* https://www.netapp.com/pdf.html?item=/media/10512-tr-4610pdf.pdf["PostgreSQL SolidFire 的最佳實務做法"^]
 
 
 並非所有應用程式都有特定的準則、請務必與您的NetApp團隊合作並使用 https://www.netapp.com/search/["NetApp資料庫"^] 以尋找最新的文件。

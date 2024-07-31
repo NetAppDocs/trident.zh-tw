@@ -146,7 +146,7 @@ kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes * 100
 * Astra Trident也可透過「tridentctl傳送AutoSupport 功能」、隨需將容器記錄傳送給NetApp Support。您需要觸發Astra Trident來上傳記錄。在您提交記錄之前、您應該接受NetApp的https://www.netapp.com/company/legal/privacy-policy/["隱私權政策"^]。
 * 除非另有說明、Astra Trident會從過去24小時擷取記錄。
 * 您可以使用指定記錄保留時間範圍 `--since` 旗標。例如： `tridentctl send autosupport --since=1h`。此資訊會透過收集和傳送 `trident-autosupport` 安裝於Astra Trident旁的容器。您可以從取得Container映像 https://hub.docker.com/r/netapp/trident-autosupport["Trident AutoSupport 的"^]。
-* Trident AutoSupport 無法收集或傳輸個人識別資訊（PII）或個人資訊。隨附a https://www.netapp.com/us/media/enduser-license-agreement-worldwide.pdf["EULA"^] 這不適用於Trident Container映像本身。您可以深入瞭解NetApp對資料安全性與信任的承諾 https://www.netapp.com/us/company/trust-center/index.aspx["請按這裡"^]。
+* Trident AutoSupport 無法收集或傳輸個人識別資訊（PII）或個人資訊。隨附 https://www.netapp.com/us/media/enduser-license-agreement-worldwide.pdf["EULA"^] 不適用於 Trident 容器映像本身的。您可以深入瞭解 NetApp 對資料安全與信任的承諾 https://www.netapp.com/pdf.html?item=/media/14114-enduserlicenseagreementworldwidepdf.pdf["請按這裡"^]。
 
 
 Astra Trident傳送的有效負載範例如下：

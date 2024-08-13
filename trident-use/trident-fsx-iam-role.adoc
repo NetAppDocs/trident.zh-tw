@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-fsx-iam-role.html 
+keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
+summary: 使用 Astra Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 備份的區塊和檔案持續性磁碟區。 
+---
+= 建立 IAM 角色和 AWS 密碼
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以將 Kubernetes Pod 設定為以 AWS IAM 角色進行驗證、而非提供明確的 AWS 認證、以存取 AWS 資源。
+
+
+NOTE: 若要使用 AWS IAM 角色進行驗證、您必須使用 EKS 部署 Kubernetes 叢集。
+
+
+
+== 建立 AWS Secret Manager 機密
+
+此範例建立 AWS Secret Manager 機密以儲存 Astra Trident CSI 認證：
+
+`aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"user":"vsadmin","password":"<svmpassword>"}"`
+
+
+
+== 建立 IAM 原則
+
+下列範例使用 AWS CLI 建立 IAM 原則：
+
+`aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document file://policy.json --description "This policy grants access to Trident CSI to FSxN and Secret manager"`
+
+* 政策 JSON 檔案 * ：
+
+[listing]
+----
+policy.json:
+{
+    "Statement": [
+        {
+            "Action": [
+                "fsx:DescribeFileSystems",
+                "fsx:DescribeVolumes",
+                "fsx:CreateVolume",
+                "fsx:RestoreVolumeFromSnapshot",
+                "fsx:DescribeStorageVirtualMachines",
+                "fsx:UntagResource",
+                "fsx:UpdateVolume",
+                "fsx:TagResource",
+                "fsx:DeleteVolume"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "secretsmanager:GetSecretValue",
+            "Effect": "Allow",
+            "Resource": "arn:aws:secretsmanager:<aws-region>:<aws-account-id>:secret:<aws-secret-manager-name>"
+        }
+    ],
+    "Version": "2012-10-17"
+}
+----
+
+
+== 為服務帳戶建立和 IAM 角色
+
+以下範例為 EKS 中的服務帳戶建立 IAM 角色：
+
+`eksctl create iamserviceaccount --name trident-controller --namespace trident --cluster <my-cluster> --role-name <AmazonEKS_FSxN_CSI_DriverRole> --role-only --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonFSxNCSIDriverPolicy --approve`

@@ -1,0 +1,212 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-fsx-storageclass-pvc.html 
+keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
+summary: 使用 Astra Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 備份的區塊和檔案持續性磁碟區。 
+---
+= 設定儲存類別和 PVC
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+設定 Kubernetes StorageClass 物件並建立儲存類別、以指示 Astra Trident 如何配置 Volume 。建立 PersistentVolume （ PV ）和 PersistentVolume Claim （ PVC ）、使用設定的 Kubernetes StorageClass 來要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。
+
+
+
+== 建立儲存類別
+
+
+
+=== 設定 Kubernetes StorageClass 物件
+
+ https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^]將 Astra Trident 識別為該類別所使用的資源配置程式、指示 Astra Trident 如何資源配置 Volume 。例如：
+
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  media: "ssd"
+  provisioningType: "thin"
+  snapshots: "true"
+----
+請參閱 link:../trident-reference/objects.html["Kubernetes和Trident物件"] 如需儲存類別如何與互動的詳細資訊、請參閱 `PersistentVolumeClaim` 以及用於控制 Astra Trident 如何配置容量的參數。
+
+
+
+=== 建立儲存類別
+
+.步驟
+. 這是 Kubernetes 物件、請使用 `kubectl` 在Kubernetes中建立。
++
+[listing]
+----
+kubectl create -f storage-class-ontapnas.yaml
+----
+. 現在您應該會看到Kubernetes和Astra Trident中的* basic、csi *儲存類別、而Astra Trident應該已經在後端探索集區。
++
+[listing]
+----
+kubectl get sc basic-csi
+NAME         PROVISIONER             AGE
+basic-csi    csi.trident.netapp.io   15h
+
+----
+
+
+
+
+== 建立 PV 和 PVC
+
+答 link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["_PersistentVolumer_"^] （ PV ）是叢集管理員在 Kubernetes 叢集上配置的實體儲存資源。。 https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolume Claim"^] （ PVC ）是存取叢集上 PersistentVolume 的要求。
+
+可將 PVC 設定為要求儲存特定大小或存取模式。叢集管理員可以使用相關的 StorageClass 來控制超過 PersistentVolume 大小和存取模式的權限、例如效能或服務層級。
+
+建立 PV 和 PVC 之後、您可以將磁碟區裝入 Pod 。
+
+
+
+=== 範例資訊清單
+
+.PersistentVolume 範例資訊清單
+[%collapsible]
+====
+此範例資訊清單顯示與 StorageClass 相關的 10Gi 基本 PV `basic-csi`。
+
+[listing]
+----
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-storage
+  labels:
+    type: local
+spec:
+  storageClassName: basic-csi
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/my/host/path"
+----
+====
+.PersistentVolume Claim 範例資訊清單
+[%collapsible]
+====
+這些範例顯示基本的 PVC 組態選項。
+
+.可存取 RWO 的 PVC
+此範例顯示具有 rwx 存取權的基本 PVC 、與名稱為的 StorageClass 相關聯 `basic-csi`。
+
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-storage
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: basic-csi
+----
+.採用 NVMe / TCP 的 PVC
+此範例顯示 NVMe / TCP 的基本 PVC 、並提供與命名 StorageClass 相關的 rwo 存取 `protection-gold`。
+
+[listing]
+----
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+name: pvc-san-nvme
+spec:
+accessModes:
+  - ReadWriteOnce
+resources:
+  requests:
+    storage: 300Mi
+storageClassName: protection-gold
+----
+====
+
+
+=== 建立 PV 和 PVC
+
+.步驟
+. 建立 PV 。
++
+[listing]
+----
+kubectl create -f pv.yaml
+----
+. 確認 PV 狀態。
++
+[listing]
+----
+kubectl get pv
+NAME        CAPACITY  ACCESS MODES  RECLAIM POLICY  STATUS    CLAIM  STORAGECLASS  REASON  AGE
+pv-storage  4Gi       RWO           Retain          Available                              7s
+----
+. 建立 PVC 。
++
+[listing]
+----
+kubectl create -f pvc.yaml
+----
+. 確認 PVC 狀態。
++
+[listing]
+----
+kubectl get pvc
+NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
+pvc-storage Bound  pv-name 2Gi      RWO                       5m
+----
+
+
+請參閱 link:../trident-reference/objects.html["Kubernetes和Trident物件"] 如需儲存類別如何與互動的詳細資訊、請參閱 `PersistentVolumeClaim` 以及用於控制 Astra Trident 如何配置容量的參數。
+
+
+
+== Astra Trident 屬性
+
+這些參數決定應使用哪些 Astra Trident 管理的儲存資源池來配置指定類型的磁碟區。
+
+[cols=",,,,,"]
+|===
+| 屬性 | 類型 | 價值 | 優惠 | 申請 | 支援者 
+
+
+| 媒體1^ | 字串 | HDD、混合式、SSD | 資源池包含此類型的媒體、混合式表示兩者 | 指定的媒體類型 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-san 
+
+
+| 資源配置類型 | 字串 | 纖薄、厚實 | Pool支援此資源配置方法 | 指定的資源配置方法 | 厚：全ONTAP 是邊、薄：全ONTAP 是邊、邊、邊、邊、邊、邊、邊、邊、邊、邊、邊 
+
+
+| 後端類型 | 字串  a| 
+ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN、solidfire-san、GCP-CVS、azure-NetApp-Files、ONTAP-san經濟
+| 集區屬於此類型的後端 | 指定後端 | 所有驅動程式 
+
+
+| 快照 | 布爾 | 對、錯 | 集區支援具有快照的磁碟區 | 已啟用快照的Volume | ONTAP-NAS、ONTAP-SAN、Solidfire-SAN、GCP-CVS 
+
+
+| 複製 | 布爾 | 對、錯 | 資源池支援複製磁碟區 | 已啟用複本的Volume | ONTAP-NAS、ONTAP-SAN、Solidfire-SAN、GCP-CVS 
+
+
+| 加密 | 布爾 | 對、錯 | 資源池支援加密磁碟區 | 已啟用加密的Volume | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS- FlexGroups、ONTAP-SAN 
+
+
+| IOPS | 內部 | 正整數 | 集區能夠保證此範圍內的IOPS | Volume保證這些IOPS | solidfire-san 
+|===
+^1^：ONTAP Select 不受支援

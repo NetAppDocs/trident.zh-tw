@@ -40,10 +40,16 @@ entries:
     entries:
     - title: 總覽
       url: "/trident-use/trident-fsx.html"
-    - title: 整合Amazon FSX for ONTAP Sf
-      url: "/trident-use/trident-fsx-prep.html"
-    - title: 組態選項與範例
-      url: "/trident-use/trident-fsx-examples.html"
+    - title: 建立 IAM 角色和 AWS 密碼
+      url: "/trident-use/trident-fsx-iam-role.html"
+    - title: 安裝Astra Trident
+      url: "/trident-use/trident-fsx-install-trident.html"
+    - title: 設定儲存後端
+      url: "/trident-use/trident-fsx-storage-backend.html"
+    - title: 設定儲存類別和 PVC
+      url: "/trident-use/trident-fsx-storageclass-pvc.html"
+    - title: 部署範例應用程式
+      url: "/trident-use/trident-fsx-deploy-sample.html"
     - title: 在 EKS 叢集上設定 Astra Trident EKS 附加元件
       url: "/trident-use/trident-aws-addon.html"
   - title: 使用kubecl建立後端

@@ -1273,8 +1273,6 @@
   <block id="7669b0b69333e81c7c208aea3d1a3c6f" category="list-text"><block ref="7669b0b69333e81c7c208aea3d1a3c6f" category="inline-link-rx"></block></block>
   <block id="cce172403b73af5c2a4e93081affcc7f" category="inline-link">Astra Trident 21.10</block>
   <block id="606b9e83fb467a43b3065d4fd5037094" category="list-text"><block ref="606b9e83fb467a43b3065d4fd5037094" category="inline-link-rx"></block></block>
-  <block id="a93e9e44b7a375a4236260f5ff2b251e" category="inline-link">Astra Trident 21.07</block>
-  <block id="3830d427e146a8a64454dc373d9b1502" category="list-text"><block ref="3830d427e146a8a64454dc373d9b1502" category="inline-link-rx"></block></block>
   <block id="dec54888538ac86f51d29a3d043e6bf6" category="summary">您可以使用業者輕鬆升級現有的Astra Trident安裝。</block>
   <block id="5ff3faebb0ff710340bdbee89a4667ad" category="doc">與營運者一起升級</block>
   <block id="199ed8c975e8bb544d18428ba17adbc3" category="inline-link">GitHub問題詳細資料</block>
@@ -3320,8 +3318,6 @@ Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。</blo
   <block id="1d6d13ec4b4db5f5d3487f7624ba2730" category="paragraph"><block ref="1d6d13ec4b4db5f5d3487f7624ba2730" category="inline-link-macro-rx"></block></block>
   <block id="ecdd0ca053bad0e4dd13561a556a27a2" category="inline-link-macro">21.10.</block>
   <block id="26868cf4e34a30cd32082fe3a81f7a5b" category="paragraph"><block ref="26868cf4e34a30cd32082fe3a81f7a5b" category="inline-link-macro-rx"></block></block>
-  <block id="b327964aef72f8262abc54b607c5acf2" category="inline-link-macro">21.07</block>
-  <block id="989e34685c65cba24936de4972bf6714" category="paragraph"><block ref="989e34685c65cba24936de4972bf6714" category="inline-link-macro-rx"></block></block>
   <block id="1cf7168782187634fbc408c66b895dbc" category="section-title">社群支援</block>
   <block id="314c5cdde6da009a7b0571d60c8422ae" category="paragraph">我們的 Astra 上有一個充滿活力的公共容器使用者社群（包括 Astra Trident 開發人員） <block ref="6130664377fa14615bb1abd5257e9714" category="inline-link-macro-rx"></block>。這是您提出專案相關一般問題、並與志同道合的同儕討論相關主題的好地方。</block>
   <block id="965b11d07d6acceebc9efec23e5e74a9" category="section-title">NetApp 技術支援</block>
@@ -3875,11 +3871,9 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="2af6474930eac7fe47a45b3658bef5bf" category="image-alt">AWS EKS 05</block>
   <block id="cec2926f3f12e3edd6577d4f1edd4e22" category="section-title">使用 CLI 安裝 / 解除安裝 Astra Trident EKS 附加元件</block>
   <block id="64f82c86eee854db6eefc72dbf352f85" category="paragraph-title">使用 CLI 安裝 Astra Trident EKS 附加元件：</block>
-  <block id="8a9b3d7ba157ca60525a14459fd3f806" category="paragraph">下列命令範例會安裝 Astra Trident EKS 附加元件：<block ref="b0cca58f8f0307eaab81f8066a9e1952" prefix=" " category="inline-code"></block><block ref="c1ad0081ff15bc4dd47b3591865bef09" prefix=" " category="inline-code"></block> （使用專用版本）</block>
   <block id="5fef1c4f3767262a0ef823aaa69e1703" category="paragraph-title">使用 CLI 解除安裝 Astra Trident EKS 附加元件：</block>
   <block id="e1f272eb0b2aaba7b1cb689543f653e0" category="paragraph">下列命令會解除安裝 Astra Trident EKS 附加元件：<block ref="09a3e9c644b219341aa6e2e8a8922e59" prefix=" " category="inline-code"></block></block>
   <block id="c6861e88433ccd90f1ce8143d7e5fed0" category="sidebar">在 EKS 叢集上設定 Astra Trident EKS 附加元件</block>
-  <block id="7ed15597cafdca20d5859b7e394bc0ab" category="doc">在 EKS 叢集上設定 Astra Trident EKS 附加版本 23.10</block>
   <block id="4262957957c18f0bab73d8ddafcb642f" category="list-text">此支援服務不支援小於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、 Astra Trident 會自動建立 100-GiB 磁碟區。</block>
   <block id="f825c914a8659f5b0de8a9219ab365b6" category="paragraph">若要將新建立的20MiB PV調整至1GiB、請編輯該PVC並設定組合<block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block> 至 1GiB ：</block>
   <block id="f3554362e5b550c58586036685aca0f6" category="list-text">認證型：此模式需要對 ONTAP 後端擁有足夠的權限。建議您使用與預先定義的安全登入角色相關聯的帳戶、例如<block ref="21232f297a57a5a743894a0e4a801fc3" prefix=" " category="inline-code"></block> 或<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> 以確保與ONTAP 更新版本的最大相容性。</block>
@@ -4270,4 +4264,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="53f64465dc89ebfc8f426b3cdf4d1614" category="sidebar">建立 IAM 角色和 AWS 密碼</block>
   <block id="0a3c6c3b1b9418c792ec73b934ca8fdd" category="sidebar">設定儲存後端</block>
   <block id="50399b7d6597b32502708277dd2be03c" category="sidebar">設定儲存類別和 PVC</block>
+  <block id="264f54d7bb69e0d02e466e1cb2cf3f28" category="doc">在 EKS 叢集上設定 Astra Trident EKS 附加元件</block>
+  <block id="1cc677653e529e467295ac3f9837cb49" category="paragraph">下列命令範例會安裝 Astra Trident EKS 附加元件：<block ref="b953d7904e30d543f476863b48e725fe" prefix=" " category="inline-code"></block><block ref="f8f93460dda1ad1de5db2f2f1c577532" prefix=" " category="inline-code"></block> （含專用版本）</block>
+  <block id="5ec02c0ee9e1b493e42f3bb5a9e8b94c" category="list-text">Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。如 <block ref="5d9770278862f1ca4af19e761a5fa655" category="inline-link-macro-rx"></block> 需詳細資訊、請參閱。</block>
 </blocks>

@@ -43,7 +43,7 @@ NOTE: 請務必遵循Amazon Linux和Ubuntu所需的節點準備步驟 https://do
 +
 ** 使用支援SMB磁碟區 `ontap-nas` 僅限驅動程式。
 ** Astra Trident EKS 附加元件不支援 SMB Volume 。
-** Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。請參閱 <<準備配置SMB磁碟區>> 以取得詳細資料。
+** Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。如 link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["準備配置SMB磁碟區"] 需詳細資訊、請參閱。
 
 
 * 在 Astra Trident 24.02 之前、 Trident 無法刪除在 Amazon FSX 檔案系統上建立且已啟用自動備份的磁碟區。若要在 Astra Trident 24.02 或更新版本中避免此問題、請指定 `fsxFilesystemID`、 AWS `apiRegion`、 AWS `apikey`和 AWS `secretKey` 在 AWS FSX for ONTAP 的後端組態檔案中。

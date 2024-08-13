@@ -4,7 +4,7 @@ permalink: trident-use/trident-aws-addon.html
 keywords: Trident add-on, Astra Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
 summary: 將 Astra Trident EKS 附加元件新增至 Kubernetes 叢集。 
 ---
-= 在 EKS 叢集上設定 Astra Trident EKS 附加版本 23.10
+= 在 EKS 叢集上設定 Astra Trident EKS 附加元件
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -65,8 +65,8 @@ image::../media/aws-eks-05.png[AWS EKS 05]
 
 .使用 CLI 安裝 Astra Trident EKS 附加元件：
 下列命令範例會安裝 Astra Trident EKS 附加元件：
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v23.10.0-eksbuild.`
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v23.10.0-eksbuild.1` （使用專用版本）
+`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.`
+`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.1` （含專用版本）
 
 .使用 CLI 解除安裝 Astra Trident EKS 附加元件：
 下列命令會解除安裝 Astra Trident EKS 附加元件：

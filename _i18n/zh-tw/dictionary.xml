@@ -4267,4 +4267,59 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="264f54d7bb69e0d02e466e1cb2cf3f28" category="doc">在 EKS 叢集上設定 Astra Trident EKS 附加元件</block>
   <block id="1cc677653e529e467295ac3f9837cb49" category="paragraph">下列命令範例會安裝 Astra Trident EKS 附加元件：<block ref="b953d7904e30d543f476863b48e725fe" prefix=" " category="inline-code"></block><block ref="f8f93460dda1ad1de5db2f2f1c577532" prefix=" " category="inline-code"></block> （含專用版本）</block>
   <block id="5ec02c0ee9e1b493e42f3bb5a9e8b94c" category="list-text">Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。如 <block ref="5d9770278862f1ca4af19e761a5fa655" category="inline-link-macro-rx"></block> 需詳細資訊、請參閱。</block>
+  <block id="cb4d8d2a5476183e7996047b4bd621a5" category="summary">瞭解 Google Cloud NetApp Volume 的 NFS 和 NFS 後端組態選項、並檢閱組態範例。</block>
+  <block id="45868a9cc24b15883bb385cc21568b9c" category="doc">Google Cloud NetApp Volumes 後端組態選項和範例</block>
+  <block id="87e818a9e54a1044aee0c06933ae4154" category="paragraph">瞭解 Google Cloud NetApp Volumes 的 NFS 後端組態選項、並檢閱組態範例。</block>
+  <block id="24efddb2a68726b53abbc21ed25602ec" category="cell">的值<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block> 必須指定為「 googoogle 雲端 -NetApp-Volumes 」。</block>
+  <block id="486c28964f4c2b1cb7d4cf8476c6f43b" category="cell">（選用）儲存後端的自訂名稱</block>
+  <block id="04075132f95c6ef305485ab113422c5a" category="cell">選用參數、用於指定用於建立磁碟區的儲存資源池。</block>
+  <block id="3c48ebd4c4115423adde42d518db3987" category="cell">Astra Trident 建立 GCNV Volume 的 Google Cloud 位置。建立跨區域 Kubernetes 叢集時、在中建立的磁碟區<block ref="d5189de027922f81005951e6efe0efd5" prefix=" " category="inline-code"></block> 可用於跨多個 Google Cloud 區域的節點上排程的工作負載。跨區域流量會產生額外成本。</block>
+  <block id="1124e7ce466aaa9571f3fbccbdc49189" category="cell">具有此角色的 Google Cloud 服務帳戶的 API 金鑰<block ref="4a5395c87dd91b3242056f83b7cedb9b" prefix=" " category="inline-code"></block> 。其中包含Google Cloud服務帳戶私密金鑰檔案（逐字複製到後端組態檔）的JSON-格式內容。<block ref="c9ff119073ea2567730fb42e3a4fe805" prefix=" " category="inline-code"></block>必須包含下列金鑰的金鑰值配對：<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block><block ref="b098ad43c65e68f3d8ce27a3c7e6f6e2" prefix=" " category="inline-code"></block>、、<block ref="a4a9fd77bfb3720e66b510bef7ffe71a" prefix=" " category="inline-code"></block>、<block ref="2bfe9d72a4aae8f06a31025b7536be80" prefix=" " category="inline-code"></block>、<block ref="478cc0e49bfbb9ded4ffc7ea662d3968" prefix=" " category="inline-code"></block><block ref="98b215082431c21156af94f3aa69f838" prefix=" " category="inline-code"></block><block ref="8201fe8e688f4f948a62370fd1b411d4" prefix=" " category="inline-code"></block>、和<block ref="61426bc7fdd11e59a5c98e7ee37e3dbb" prefix=" " category="inline-code"></block>。</block>
+  <block id="1713a0b57aa7aa8811b66291bd6740ea" category="cell">儲存池及其磁碟區的服務層級。這些值包括<block ref="897a779351421523cadbafccdce22efe" prefix=" " category="inline-code"></block>、<block ref="c00f0c4675b91fb8b918e4079a0b1bac" prefix=" " category="inline-code"></block>、<block ref="a288195832f8717bca4671416014a464" prefix=" " category="inline-code"></block>或<block ref="287e9593819b2fcdf9945e7ccacd637d" prefix=" " category="inline-code"></block>。</block>
+  <block id="c1a95f00cc65baba0b4226ef5a52eb6c" category="cell">用於 GCNV Volume 的 Google Cloud 網路。</block>
+  <block id="ed9bce6a4d879e7f479badb9932b75b3" category="cell">疑難排解時要使用的偵錯旗標。範例：<block ref="448bcae3131355f9b92b192b1057af2f" prefix=" " category="inline-code"></block>。除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用此功能。</block>
+  <block id="fb52ca5d2a493e686d9e2211731e6746" category="cell">代表此後端所支援的區域和區域清單。如需詳細資訊、請 <block ref="a735758eec435cad1c5672b75bd657c0" category="inline-link-macro-rx"></block>參閱。例如：<block ref="8a9f2f1da64ded561b14b71ac1693e00" prefix=" " category="inline-code"></block></block>
+  <block id="95c5fc7684c0c685ae305908e8360de5" category="cell">新磁碟區的匯出規則。必須是以逗號分隔的任何 IPv4 位址組合清單。</block>
+  <block id="3731633acfd0b9fb847e03ce2fdab4fa" category="cell">" （接受預設值 0 ）</block>
+  <block id="f666bd4432d66c3d0a6c3eb68602a507" category="cell">新磁碟區的UNIX權限（4個八進位數字）。</block>
+  <block id="d4f218c41505a7c6161c931fe87b30f3" category="paragraph">這是絕對最低的後端組態。有了這項組態、 Astra Trident 會探索您在設定位置中委派給 Google Cloud NetApp Volumes 的所有儲存資源池、並隨機將新磁碟區放在其中一個資源池上。由於省略、因此<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block><block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix=" " category="inline-code"></block> 會套用預設值、而後端會為 NFS 磁碟區進行資源配置。</block>
+  <block id="b0663450e547d90a59ef16fd10b49313" category="paragraph">當您剛開始使用 Google Cloud NetApp Volumes 並試用時、這項組態非常理想、但實際上您很可能需要為您所配置的 Volume 提供額外的範圍。</block>
+  <block id="2d55ceabc505d58735d6f639a0ddee3c" category="example-title">使用 StoragePools 篩選器進行組態</block>
+  <block id="9f50e88dc1b2f50c32d6623a46186422" category="paragraph">此後端組態會在單一檔案中定義多個虛擬集區。虛擬集區是在一節中定義<block ref="ddecebdea58b5f264d27f1f7909bab74" prefix=" " category="inline-code"></block> 。當您有多個儲存集區支援不同的服務層級、而且您想要在 Kubernetes 中建立代表這些層級的儲存類別時、這些功能就很有用。虛擬集區標籤用於區分集區。例如、在下面的範例中、<block ref="c05f6c233521207f6fe311afef550c3c" prefix=" " category="inline-code"></block> 標籤和<block ref="f1d0ae63f2e948a9e43dcc60303d595d" prefix=" " category="inline-code"></block> 類型是用來區分虛擬集區。</block>
+  <block id="88b8febb44310d1976318cdfbfc8e272" category="paragraph">您也可以將某些預設值設定為適用於所有虛擬集區、並覆寫個別虛擬集區的預設值。在下列範例中<block ref="bb0d75280f9b683f2f1f0767fd0aff9b" prefix=" " category="inline-code"></block> 、並<block ref="c72971f17465d2a32345bc872af62a34" prefix=" " category="inline-code"></block> 做為所有虛擬集區的預設值。</block>
+  <block id="6a34de146c5cb15d515a8eccfe1e159a" category="paragraph">如需詳細資訊、請 <block ref="2485f0c91682fe52be2f7fb65e682d5e" category="inline-link-macro-rx"></block>參閱。</block>
+  <block id="aae18f7253cac406ae284f53b287a9df" category="paragraph">若要確認後端已成功建立、請執行下列命令：</block>
+  <block id="03b8a172613e4de074d79fb4f46074a3" category="paragraph">如果後端建立失敗、表示後端組態有問題。您可以使用命令來描述後端<block ref="229abe1e223382a9207e6c5818f53303" prefix=" " category="inline-code"></block> 、或是執行下列命令來檢視記錄以判斷原因：</block>
+  <block id="c80946da495de259ca1ba66a90f669f1" category="paragraph">識別並修正組態檔的問題之後、您可以刪除後端、然後再次執行 create 命令。</block>
+  <block id="f43bca7c7b2ce941f9a34838d862550f" category="section-title">更多範例</block>
+  <block id="d66e2be406c48591554571ad9aec4297" category="section-title">儲存類別定義範例</block>
+  <block id="7412fabe1fe110c48954fa7d913c7aa6" category="paragraph">以下是上述後端的基本<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> 定義。</block>
+  <block id="73edba1e6e192a3d47eeb049261cf706" category="paragraph">* 使用欄位的範例定義<block ref="4d859186a09b1da3597e5901157d9400" prefix=" " category="inline-code"></block> ： *</block>
+  <block id="131942def57ce0eceb784a70e3a3c6b7" category="inline-link-macro">虛擬集區</block>
+  <block id="21f282d336bd6884d8049de5c63672b5" category="paragraph">使用、<block ref="4d859186a09b1da3597e5901157d9400" prefix=" " category="inline-code"></block> 您可以為用於裝載 Volume 的每個指定<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> <block ref="6679d756882db6798c9460928c0b140b" category="inline-link-macro-rx"></block> 。該磁碟區會在所選的資源池中定義各個層面。</block>
+  <block id="017c90fe97524fad37b16a935c4a6d93" category="paragraph">如需儲存類別的詳細資訊、請 <block ref="70514be1adf68f525abe0b1ddd1123f6" category="inline-link-macro-rx"></block>參閱。</block>
+  <block id="f9f2eb48a9034cb5dc809b4a8cfe0514" category="section-title">PVC 定義範例</block>
+  <block id="1fa71ec0db169cb1ef6cfabf7648910e" category="paragraph">若要驗證 PVC 是否受限、請執行下列命令：</block>
+  <block id="42d7c2849e22a4d78da8b275f64f75aa" category="summary">在您設定 Google Cloud NetApp Volumes 後端之前、您必須確保符合下列需求。</block>
+  <block id="b50d4e4fb1b847d1270df87e42364fe0" category="doc">準備設定 Google Cloud NetApp Volumes 後端</block>
+  <block id="0935df2153a18d9a4776751ebfb7cb82" category="section-title">NFS Volume 的必要條件</block>
+  <block id="a03c3224ff98ca5b518f8a11ed9d6f72" category="paragraph">如果您是第一次使用 Google Cloud NetApp Volumes 、或是在新位置使用、則需要進行一些初始設定、才能設定 Google Cloud NetApp Volumes 並建立 NFS Volume 。請參閱 <block ref="d2edeebd0b5ddcd8a293f6eb7960f37c" category="inline-link-macro-rx"></block>。</block>
+  <block id="ec8b4b1603705e8f5deb17b1f83c5b04" category="paragraph">在設定 Google Cloud NetApp Volumes 後端之前、請先確認您擁有下列項目：</block>
+  <block id="1215f8190533dfdf63d2224a6d88266f" category="inline-link-macro">Google Cloud NetApp Volumes</block>
+  <block id="cbd1a08f0c7e9ece495b85acebbda95f" category="list-text">使用 Google Cloud NetApp Volumes 服務設定的 Google Cloud 帳戶。請參閱 <block ref="633097af004065de10009ea2f33900c4" category="inline-link-macro-rx"></block>。</block>
+  <block id="d602f37c15ba943e502f28694eb5a2b1" category="inline-link-macro">識別專案</block>
+  <block id="ecf1c0124555e123ac90e38128ef83e5" category="list-text">Google Cloud 帳戶的專案編號。請參閱 <block ref="64c0ff4c5d45f1d3f3d8ce4197eed1cc" category="inline-link-macro-rx"></block>。</block>
+  <block id="aa22e5fd0429d1ecf78d5deedf0c6dc8" category="inline-link-macro">身分識別與存取管理角色與權限</block>
+  <block id="53541745c9aef32587459280a54f1807" category="list-text">具有 Volumes Admin （ NetApp Volume 管理）角色的 Google Cloud 服務帳戶 <block ref="4a5395c87dd91b3242056f83b7cedb9b" prefix="(" category="inline-code"></block>。請參閱 <block ref="4f506c30a158c85db714d53536a12770" category="inline-link-macro-rx"></block>。</block>
+  <block id="2046572933d7db54142d1425499e1cb2" category="inline-link-macro">使用 API 金鑰進行驗證</block>
+  <block id="1cfccdf67b855dda984a356f4d29b923" category="list-text">您的 GCNV 帳戶的 API 金鑰檔案。請參閱 <block ref="37c61838ce0a305950c70b2b32fc8104" category="inline-link-macro-rx"></block></block>
+  <block id="ef2186bedd233e9b009e5d1764dc1e3c" category="inline-link-macro">儲存資源池總覽</block>
+  <block id="33773afc759728866f9a57d82940a56c" category="list-text">儲存池。請參閱 <block ref="d347dce2da907b926fcf6a02a7257712" category="inline-link-macro-rx"></block>。</block>
+  <block id="dd2c158264290c91be79556252aca308" category="inline-link-macro">設定 Google Cloud NetApp Volumes 的存取權</block>
+  <block id="7cef0ad261753740989fa192df2e19e9" category="paragraph">如需如何設定 Google Cloud NetApp Volumes 存取權限的詳細資訊、請 <block ref="5e9b4ec852ec4a511a1370be58118d01" category="inline-link-macro-rx"></block>參閱。</block>
+  <block id="b73a4f3ea8538e5ef0b4078c119b3c8d" category="doc">設定 Google Cloud NetApp Volumes 後端</block>
+  <block id="32487801edf6d6f388bbce7941ff4901" category="paragraph">您現在可以將 Google Cloud NetApp Volumes 設定為 Astra Trident 的後端。您可以使用 Google Cloud NetApp Volumes 後端來附加 NFS 磁碟區。</block>
+  <block id="23fa813a6884f33dc0d2070ae5260e6a" category="section-title">Google Cloud NetApp Volumes 驅動程式詳細資料</block>
+  <block id="5fb193ca50759ba375397b4085f1116f" category="paragraph">Astra Trident 提供<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 與叢集通訊的驅動程式。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。</block>
+  <block id="5ab9649a1218ec1b35bfb38efbeaea76" category="cell"><block ref="94594b2ccbc8e0d220ad37504461650b" prefix="" category="inline-code"></block></block>
 </blocks>

@@ -36,7 +36,6 @@
   <block id="876885770cf58d20ef5672cc5594e85d" category="inline-link">請參閱此處的NFS主機組態資訊</block>
   <block id="0a19ca3d1db7e5bc24b58f73b91c3f49" category="paragraph">精細控制NFS掛載選項；預設為「-o nfsver=3」。*僅適用於「ONTAP-NAS」和「ONTAP-NAS-經濟」驅動程式*。<block ref="71f7a3f48cfd3876cffba401813b7db0" category="inline-link-rx"></block>。</block>
   <block id="3b890f58db76bb3003ada171cd18c4db" category="cell">「igroupName」</block>
-  <block id="5c5adadf8175fd69d4af9bfdb608c42c" category="paragraph">可申請的Volume大小上限和qtree父Volume大小上限。*對於「ONTAP-NAS經濟」驅動程式、此選項會進一步限制其所建立的FlexVols大小*。</block>
   <block id="07f6b23cad3d6da54012935ff972affe" category="cell">"qtreesPerFlexvol"</block>
   <block id="3890063556e337d458019437f027030b" category="paragraph">您可以使用預設選項、避免在您建立的每個Volume上指定這些選項：</block>
   <block id="a6bddf19eed00dbe2199864dee8454ce" category="cell">《保護區》</block>
@@ -4322,4 +4321,11 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="23fa813a6884f33dc0d2070ae5260e6a" category="section-title">Google Cloud NetApp Volumes 驅動程式詳細資料</block>
   <block id="5fb193ca50759ba375397b4085f1116f" category="paragraph">Astra Trident 提供<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 與叢集通訊的驅動程式。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。</block>
   <block id="5ab9649a1218ec1b35bfb38efbeaea76" category="cell"><block ref="94594b2ccbc8e0d220ad37504461650b" prefix="" category="inline-code"></block></block>
+  <block id="74d08e13aea757b8172499f067668443" category="paragraph">可要求的最大磁碟區大小。</block>
+  <block id="f14a3ef36727dfbbea91c1d6b3fdbede" category="cell"><block ref="c8f83e727d4a4255a6485c24776e86bb" prefix="" category="inline-code"></block></block>
+  <block id="33fefa32caf35cd4691465f3592a0539" category="cell">*<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block><block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 僅支援和驅動程式。 *在 ONTAP ONTAP NAS 經濟型和 ONTAP SAN 經濟型驅動程式中限制 FlexVol 大小。</block>
+  <block id="1b75c146ff0568d5fc11072b08cfe580" category="section-title">限制 Trident 所建立的 FlexVols 大小上限</block>
+  <block id="913d5950907a31c9d3ea6cd0a3b6a524" category="paragraph">若要將 FlexVols 的最大大小設定為用於 ONTAP SAN 經濟型和 ONTAP NAS 經濟型驅動程式的集區、請使用<block ref="c8f83e727d4a4255a6485c24776e86bb" prefix=" " category="inline-code"></block><block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>定義中的參數。</block>
+  <block id="ae7be78c2d3d933d426bc82820accfae" category="cell">在 ONTAP NAS 經濟型後端使用 qtree 時、可要求的 FlexVol 大小上限。</block>
+  <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">在 ONTAP SAN 經濟型後端中使用 LUN 時、可要求的最大 FlexVol 大小。</block>
 </blocks>

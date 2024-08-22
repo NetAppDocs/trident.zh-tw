@@ -80,6 +80,12 @@ vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
 
 
 
+=== 限制 Trident 所建立的 FlexVols 大小上限
+
+若要將 FlexVols 的最大大小設定為用於 ONTAP SAN 經濟型和 ONTAP NAS 經濟型驅動程式的集區、請使用 `limitVolumePoolSize` `backend.json`定義中的參數。
+
+
+
 === 設定Trident使用雙向CHAP
 
 您可以在後端定義中指定CHAP啟動器和目標使用者名稱和密碼、並在SVM上啟用Trident啟用CHAP。使用 `useCHAP` 後端組態中的參數、Trident會驗證iSCSI連線ONTAP 、以CHAP作為後端。

@@ -152,7 +152,7 @@ Astra Trident 會建立及管理每個節點 `igroups` 做為 `netappdvp`。
 
 
 | 《限制Volume大小》  a| 
-可申請的Volume大小上限和qtree父Volume大小上限。*對於「ONTAP-NAS經濟」驅動程式、此選項會進一步限制其所建立的FlexVols大小*。
+可要求的最大磁碟區大小。
  a| 
 `300g`
 
@@ -170,6 +170,11 @@ Astra Trident 會建立及管理每個節點 `igroups` 做為 `netappdvp`。
 | `sanType` | * 支援 `ontap-san` 僅限驅動程式。 *
 
 用於選擇 `iscsi` 適用於 iSCSI 或 `nvme` 適用於 NVMe / TCP 。 | `iscsi` 如果空白 
+
+
+| `limitVolumePoolSize` | * `ontap-san-economy` `ontap-san-economy` 僅支援和驅動程式。 *在 ONTAP ONTAP NAS 經濟型和 ONTAP SAN 經濟型驅動程式中限制 FlexVol 大小。  a| 
+`300g`
+
 |===
 您可以使用預設選項、避免在您建立的每個Volume上指定這些選項：
 

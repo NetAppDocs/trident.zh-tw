@@ -163,6 +163,9 @@ NVMe / TCP 不支援 LUKS 加密。 | "
 
 
 | `nameTemplate` | 建立自訂磁碟區名稱的範本。 | " 
+
+
+| `limitVolumePoolSize` | 在 ONTAP SAN 經濟型後端中使用 LUN 時、可要求的最大 FlexVol 大小。 | ""（預設不強制執行） 
 |===
 
 

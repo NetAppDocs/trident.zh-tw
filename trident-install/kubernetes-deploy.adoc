@@ -115,12 +115,6 @@ kubectl patch torc <trident-orchestrator-name> -n trident --type=merge -p '{"spe
 NOTE: 如果叢集升級至不受支援的版本、則操作員將無法安裝Astra Trident。如果操作員已安裝Astra Trident、則會顯示警告、指出Astra Trident安裝在不受支援的Kubernetes版本上。
 
 ====
-.使用BlueXP（前身為Cloud Manager）進行叢集管理</strong> <strong>
-[%collapsible]
-====
-與 link:https://docs.netapp.com/us-en/cloud-manager-kubernetes/concept-kubernetes.html["使用BlueXP的Astra Trident"^]、您可以升級至最新版的Astra Trident、新增及管理儲存類別、並將其連線至工作環境、以及使用Cloud Backup Service NetApp備份持續的Volume。BlueXP支援使用Trident操作者手動或使用Helm進行Astra Trident部署。
-
-====
 
 
 === 使用 `tridentctl`

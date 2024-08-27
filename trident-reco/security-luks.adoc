@@ -115,6 +115,29 @@ defaults:
 ----
 
 
+== 用於匯入 LUKS Volume 的 PVC 組態
+
+若要動態匯入 LUKS Volume 、請將註釋設 `trident.netapp.io/luksEncryption`為 `true`、並在 PVC 中包含啟用 LUKS 的儲存類別、如本範例所示。
+
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: luks-pvc
+  namespace: trident
+  annotations:
+    trident.netapp.io/luksEncryption: "true"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: luks-sc
+----
+
+
 == 旋轉LUKS複雜密碼
 
 您可以旋轉LUKS複雜密碼並確認輪調。

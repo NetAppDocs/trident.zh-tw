@@ -2058,8 +2058,6 @@
   <block id="d041a310ba7cc2599250e64801594107" category="list-text">新增支援 <block ref="ca184a2eda203b6d98158bdf24e5cf7d" category="inline-link-macro-rx"></block>。</block>
   <block id="adbfe36f6399f2846983b2901604a962" category="list-text">新增 <block ref="40be42d37bc6014716dcd0a1d368ffb5" category="inline-link-macro-rx"></block> 透過<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 儲存驅動程式：</block>
   <block id="f18a50f02f48551895d57b81dd288142" category="sidebar">跨命名空間共用NFS磁碟區</block>
-  <block id="fd1117c82327fbe8671f26e897ceb8f4" category="inline-link-macro">使用BlueXP的Astra Trident</block>
-  <block id="a76a1e164520105317267dc41b95e8ce" category="paragraph">與 <block ref="f8c16e8c21124ccc028d2db7fd32a98f" category="inline-link-macro-rx"></block>、您可以升級至最新版的Astra Trident、新增及管理儲存類別、並將其連線至工作環境、以及使用Cloud Backup Service NetApp備份持續的Volume。BlueXP支援使用Trident操作者手動或使用Helm進行Astra Trident部署。</block>
   <block id="66f2c42a4ca561f5472459301bc7d096" category="list-text">目前市面上已普遍提供適用於整個過程的自動功能、例如針對不適用的驅動程式進行交換偵測。MetroCluster ONTAP</block>
   <block id="e87ded5ef8bc8adbc3c135528636f4f2" category="list-text"><block ref="e87ded5ef8bc8adbc3c135528636f4f2" category="inline-link-macro-rx"></block></block>
   <block id="fce586d9f649fb529d0a1846495ba259" category="list-text"><block ref="fce586d9f649fb529d0a1846495ba259" category="inline-link-macro-rx"></block></block>
@@ -2231,7 +2229,6 @@
   <block id="cbbeebc91e4ea4f1960f7a74b5b14c23" category="paragraph">您可以輕鬆地與營運者一起更新現有的部署。您只需要編輯<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 以更新安裝。</block>
   <block id="561b04cbccb34a376c360e7325ad76d0" category="paragraph">例如、假設您需要啟用Astra Trident來產生偵錯記錄的案例。若要這麼做、請修補您的<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 以設定<block ref="8cddd364bfd0d68f21e3a9ba1123b849" prefix=" " category="inline-code"></block> 至<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>：</block>
   <block id="f72ba1a3a498489a96fd8774bfa9ea9d" category="example-title">支援升級功能的不一樣之處&lt;/strong&gt; &lt;strong&gt;</block>
-  <block id="c3b2fe84f143129d7a18ad12df229bc6" category="example-title">使用BlueXP（前身為Cloud Manager）進行叢集管理&lt;/strong&gt; &lt;strong&gt;</block>
   <block id="4c24a3b9facf2ea9fc7ed2ca52dab45d" category="inline-link-macro">客製化安裝功能&lt;block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category='inline-code'/&gt;</block>
   <block id="40beff6895ce0eeff65f9568dd5c7247" category="paragraph">您可以 <block ref="d16089dfa270d6679e80d43ec8b5c378" category="inline-link-macro-rx"></block> 以產生Trident資源的資訊清單。這包括部署、取消程式集、服務帳戶、以及Astra Trident在安裝過程中所建立的叢集角色。</block>
   <block id="cb024a74bf03f9ba7a9433337492808e" category="admonition">從22.04版開始、每次安裝Astra Trident時、AES金鑰就不會再重新產生。在這個版本中、Astra Trident會安裝一個新的秘密物件、並在安裝過程中持續存在。這表示、<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 在22.04中可以解除安裝舊版Trident、但舊版無法解除安裝22.04安裝。選取適當的安裝方法_。</block>
@@ -4328,4 +4325,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="913d5950907a31c9d3ea6cd0a3b6a524" category="paragraph">若要將 FlexVols 的最大大小設定為用於 ONTAP SAN 經濟型和 ONTAP NAS 經濟型驅動程式的集區、請使用<block ref="c8f83e727d4a4255a6485c24776e86bb" prefix=" " category="inline-code"></block><block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>定義中的參數。</block>
   <block id="ae7be78c2d3d933d426bc82820accfae" category="cell">在 ONTAP NAS 經濟型後端使用 qtree 時、可要求的 FlexVol 大小上限。</block>
   <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">在 ONTAP SAN 經濟型後端中使用 LUN 時、可要求的最大 FlexVol 大小。</block>
+  <block id="64049136ec90cc479c7521e9b6e172eb" category="section-title">用於匯入 LUKS Volume 的 PVC 組態</block>
+  <block id="b49b86551096c421a3bc5d3b79eede84" category="paragraph">若要動態匯入 LUKS Volume 、請將註釋設<block ref="36720d50814e4335401b2047257bfedf" prefix=" " category="inline-code"></block>為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、並在 PVC 中包含啟用 LUKS 的儲存類別、如本範例所示。</block>
 </blocks>

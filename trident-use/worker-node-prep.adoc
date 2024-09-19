@@ -112,6 +112,13 @@ NOTE: 例如、如果在儲存控制器上旋轉CHAP機密、而網路失去連�
 * 遺失LUN
 
 
+* 升級 Trident 之前應考慮的要點 *
+
+* 如果僅使用每個節點的 igroup （於 23.04+ 推出）、 iSCSI 自我修復將會為 SCSI 匯流排中的所有裝置啟動 SCSI 重新掃描。
+* 如果僅使用後端範圍的 igroup （自 2004 年 23 日起已過時）、 iSCSI 自我修復將會針對 SCSI 匯流排中的確切 LUN ID 啟動 SCSI 重新掃描。
+* 如果混合使用每個節點的 igroup 和後端範圍的 igroup 、 iSCSI 自我修復將會啟動 SCSI 重新掃描、以取得 SCSI 匯流排中的確切 LUN ID 。
+
+
 
 
 === 安裝iSCSI工具

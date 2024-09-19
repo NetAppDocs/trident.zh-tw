@@ -4327,4 +4327,8 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">在 ONTAP SAN 經濟型後端中使用 LUN 時、可要求的最大 FlexVol 大小。</block>
   <block id="64049136ec90cc479c7521e9b6e172eb" category="section-title">用於匯入 LUKS Volume 的 PVC 組態</block>
   <block id="b49b86551096c421a3bc5d3b79eede84" category="paragraph">若要動態匯入 LUKS Volume 、請將註釋設<block ref="36720d50814e4335401b2047257bfedf" prefix=" " category="inline-code"></block>為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、並在 PVC 中包含啟用 LUKS 的儲存類別、如本範例所示。</block>
+  <block id="eb80be396693610ba21c23b6b222bb73" category="paragraph">* 升級 Trident 之前應考慮的要點 *</block>
+  <block id="b100864b32a36993557470c9854e7e3a" category="list-text">如果僅使用每個節點的 igroup （於 23.04+ 推出）、 iSCSI 自我修復將會為 SCSI 匯流排中的所有裝置啟動 SCSI 重新掃描。</block>
+  <block id="284bb2f9d2596017aa72985df760fdb3" category="list-text">如果僅使用後端範圍的 igroup （自 2004 年 23 日起已過時）、 iSCSI 自我修復將會針對 SCSI 匯流排中的確切 LUN ID 啟動 SCSI 重新掃描。</block>
+  <block id="0d6cf1de077f00140ee25c03f94e4805" category="list-text">如果混合使用每個節點的 igroup 和後端範圍的 igroup 、 iSCSI 自我修復將會啟動 SCSI 重新掃描、以取得 SCSI 匯流排中的確切 LUN ID 。</block>
 </blocks>

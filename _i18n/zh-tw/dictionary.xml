@@ -4149,12 +4149,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="f0d0d71ad406bc532f207cda7d40e0bf" category="list-text">Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2022的Windows工作節點。Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。</block>
   <block id="de547bcab0e20f54ec4d5e95ba44b0b1" category="list-text">Windows Server 2022</block>
   <block id="010e61d0b40eeb84b96a1321e8f0bab7" category="cell">ext4 、 ext3 、 xfs</block>
-  <block id="86b88ff1a66ea55358ae99627ffdf01c" category="list-text">Kubernetes 1.30 現在支援 Astra Trident 。升級 Kubernetes 之前、請先升級 Astra Trident 。</block>
-  <block id="7bcc7742161f309a6d9639847cd756b4" category="list-text">Kubernetes 1.24 - 1.30</block>
   <block id="c9db4c3d8dc7c24ea723ab5fe1e45fdb" category="list-text">OpenShift 4.10 - 4.16</block>
-  <block id="7c15363cb005546ae95eb8bf83c3cadd" category="paragraph">1.24 - 1.30</block>
-  <block id="88a2f4201bf0a82365ef81af5f2afeac" category="cell">v1.24.0 、 v1.25.0 、 v1.26.0 、 v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0</block>
-  <block id="b443358b172ce4f75319c7828483fb8b" category="list-text">Kubernetes 1.30 現在支援 Astra Trident 。升級Kubernetes之前先升級Trident。</block>
   <block id="e422e290c66eca7f882976f830b781b4" category="list-text">增加了對 Kubernetes 1.30 的支援。</block>
   <block id="190dbae19c88b1e68bf03f7783c5d5d1" category="list-text"><block ref="190dbae19c88b1e68bf03f7783c5d5d1" category="inline-link-rx"></block></block>
   <block id="430c6bcb8516befc45fb8173b0ca4e1f" category="list-text"><block ref="430c6bcb8516befc45fb8173b0ca4e1f" category="inline-link-rx"></block></block>
@@ -4331,4 +4326,9 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="b100864b32a36993557470c9854e7e3a" category="list-text">如果僅使用每個節點的 igroup （於 23.04+ 推出）、 iSCSI 自我修復將會為 SCSI 匯流排中的所有裝置啟動 SCSI 重新掃描。</block>
   <block id="284bb2f9d2596017aa72985df760fdb3" category="list-text">如果僅使用後端範圍的 igroup （自 2004 年 23 日起已過時）、 iSCSI 自我修復將會針對 SCSI 匯流排中的確切 LUN ID 啟動 SCSI 重新掃描。</block>
   <block id="0d6cf1de077f00140ee25c03f94e4805" category="list-text">如果混合使用每個節點的 igroup 和後端範圍的 igroup 、 iSCSI 自我修復將會啟動 SCSI 重新掃描、以取得 SCSI 匯流排中的確切 LUN ID 。</block>
+  <block id="a0deacb8333950a84bc0c07161a5ec2e" category="list-text">Kubernetes 1.31 現在支援 Astra Trident 。升級 Kubernetes 之前、請先升級 Astra Trident 。</block>
+  <block id="3494d431429bb2e868fc95f1c0b9665c" category="list-text">Kubernetes 1.24 - 1.31</block>
+  <block id="e421e06325a1dc27ebce6f0b648866a4" category="paragraph">1.24 - 1.31</block>
+  <block id="5e6f6bf1a3cfa3238a4162a4f0aa6baa" category="cell">v1.24.0 、 v1.25.0 、 v1.26.0 、 v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0</block>
+  <block id="569091f6518520ecabc37c249e96bd28" category="list-text">Kubernetes 1.31 現在支援 Astra Trident 。升級Kubernetes之前先升級Trident。</block>
 </blocks>

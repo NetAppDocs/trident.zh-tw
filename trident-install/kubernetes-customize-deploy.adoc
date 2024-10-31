@@ -268,7 +268,7 @@ spec:
 .GKE 的雲端身分識別
 [%collapsible]
 ====
-本範例安裝 Astra Trident 、以搭配 GKE 叢集上的雲端身分識別使用。
+此範例會安裝 Trident 、以搭配 GKE 叢集上的雲端身分識別使用。
 
 [listing]
 ----

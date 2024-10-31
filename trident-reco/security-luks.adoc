@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/security-luks.html 
 keywords: security, luks, linux unified key setup, encryption, key rotation, resizing, advanced encryption, rotation, key, import 
-summary: 您可以在ONTAP Astra Trident上啟用Linux Unified Key Setup（LUKS）來加密支援的SAN和ONTAP 支援的SAN經濟版磁碟區。Astra Trident支援LUKS加密磁碟區的磁碟區大小調整和金鑰（通關密碼）旋轉。 
+summary: 您可以啟用 Linux 統一金鑰設定（ LUKS ）來加密 Trident 上的 ONTAP SAN 和 ONTAP SAN 經濟磁碟區。Trident 支援磁碟區大小調整和 LUKS 加密磁碟區的金鑰（複雜密碼）旋轉。 
 ---
 = Linux統一化金鑰設定（LUKS）
 :hardbreaks:
@@ -12,9 +12,9 @@ summary: 您可以在ONTAP Astra Trident上啟用Linux Unified Key Setup（LUKS�
 
 
 [role="lead"]
-您可以在ONTAP Astra Trident上啟用Linux Unified Key Setup（LUKS）來加密支援的SAN和ONTAP 支援的SAN經濟版磁碟區。Astra Trident支援使用密碼的輪替和磁碟區擴充、適用於使用LUKS加密的磁碟區。
+您可以啟用 Linux 統一金鑰設定（ LUKS ）來加密 Trident 上的 ONTAP SAN 和 ONTAP SAN 經濟磁碟區。Trident 支援使用複雜密碼的旋轉和磁碟區擴充、適用於使用 LUKS 加密的磁碟區。
 
-在Astra Trident中、LUKS加密的磁碟區會依照所建議的方式使用AES-XTS-plain64 cypher和模式 link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^]。
+在 Trident 中， LUKS 加密的磁碟區使用 AES-XTS-plain64 cypher 和模式link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^]，如所建議。
 
 .開始之前
 * 工作者節點必須安裝密碼設定2.1或更高版本（但低於3.0）。如需詳細資訊、請造訪 link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab：密碼設定"^]。
@@ -96,7 +96,7 @@ LUKS加密磁碟區無法利用ONTAP 重複資料刪除技術與壓縮技術。
 
 == 用於匯入 LUKS Volume 的後端組態
 
-若要匯入 LUKS Volume 、您必須設定 `luksEncryption` 至(`true` 在後端。。 `luksEncryption` 選項會告訴 Astra Trident 、磁碟區是否符合 LUKS 標準 (`true`）或不符合 LUKS 規範 (`false`）如以下範例所示。
+若要匯入 LUKS Volume 、您必須在後端將設 `luksEncryption`為(`true`。 `luksEncryption`選項告訴 Trident 卷是否符合 LUKS (`false`）(`true`或不符合 LUKS ），如下例所示。
 
 [listing]
 ----
@@ -146,7 +146,7 @@ spec:
 WARNING: 請勿忘記密碼、除非您已驗證它不再被任何磁碟區、快照或機密所引用。如果參考的通關密碼遺失、您可能無法掛載磁碟區、而且資料將保持加密且無法存取。
 
 .關於這項工作
-如果在指定新的LUKS通關密碼之後建立裝載磁碟區的Pod、則會發生LUKS通關密碼循環。建立新的Pod時、Astra Trident會比較磁碟區上的LUKS通關密碼與機密中的作用中通關密碼。
+如果在指定新的LUKS通關密碼之後建立裝載磁碟區的Pod、則會發生LUKS通關密碼循環。建立新的 Pod 時、 Trident 會將磁碟區上的 LUKS 複雜密碼與機密中的作用中複雜密碼進行比較。
 
 * 如果磁碟區上的通關密碼與機密中的作用中通關密碼不相符、就會發生輪調。
 * 如果磁碟區上的通關密碼與機密中的作用中通關密碼相符 `previous-luks-passphrase` 參數被忽略。

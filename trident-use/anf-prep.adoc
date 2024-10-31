@@ -35,7 +35,7 @@ summary: 在您設定Azure NetApp Files 完後端功能之前、您必須確保�
 * `tenantID`、 `clientID`和 `clientSecret` 從 link:https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal["應用程式註冊"^] 在Azure Active Directory中、具備Azure NetApp Files 充分的權限執行此功能。應用程式登錄應使用下列其中一項：
 +
 ** 擁有者或貢獻者角色 link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["由Azure預先定義"^]。
-** 答 link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["自訂貢獻者角色"] 在訂購層級 (`assignableScopes`）具有下列權限、僅限於Astra Trident所需的權限。建立自訂角色之後、 link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["使用Azure入口網站指派角色"^]。
+** link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["自訂貢獻者角色"](`assignableScopes`（在訂閱級別），具有以下權限，僅限於 Trident 所需的權限。建立自訂角色之後link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["使用Azure入口網站指派角色"^]，。
 +
 .自訂參與者角色
 [%collapsible]
@@ -96,8 +96,8 @@ summary: 在您設定Azure NetApp Files 完後端功能之前、您必須確保�
 若要建立 SMB Volume 、您必須具備：
 
 * Active Directory 已設定並連線至 Azure NetApp Files 。請參閱 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/create-active-directory-connections["Microsoft ：建立及管理 Azure NetApp Files 的 Active Directory 連線"^]。
-* Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2022的Windows工作節點。Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
-* 至少有一個 Astra Trident 秘密、內含您的 Active Directory 認證、以便 Azure NetApp Files 能夠驗證至 Active Directory 。以產生機密 `smbcreds`：
+* Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2022的Windows工作節點。Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。
+* 至少有一個 Trident 機密包含您的 Active Directory 認證、以便 Azure NetApp Files 能夠驗證至 Active Directory 。產生機密 `smbcreds`：
 +
 [listing]
 ----

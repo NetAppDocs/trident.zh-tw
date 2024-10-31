@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-docker/known-issues-docker.html 
 keywords: known issues, trident, trident for docker, docker 
-summary: 尋找使用Astra Trident搭配Docker時已知問題的相關資訊。 
+summary: 在搭配 Docker 使用 Trident 時、尋找已知問題的相關資訊。 
 ---
 = 已知問題與限制
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 尋找使用Astra Trident搭配Docker時已知問題的相關資訊。
 
 
 [role="lead"]
-尋找使用Astra Trident搭配Docker時已知問題和限制的相關資訊。
+在搭配 Docker 使用 Trident 時、尋找已知問題和限制的相關資訊。
 
 
 
@@ -48,11 +48,11 @@ NOTE: 這是Docker用戶端的限制。用戶端會將單一字元名稱解譯�
 
 
 
-== Docker swarm具有某些行為、可防止Astra Trident在每個儲存設備和驅動程式組合中支援它。
+== Docker swarm 具有某些行為、可防止 Trident 在每個儲存設備和驅動程式組合中支援它。
 
 * Docker swarm目前使用Volume名稱、而非Volume ID做為其唯一的Volume識別碼。
 * Volume要求會同時傳送至swarm叢集中的每個節點。
-* Volume外掛程式（包括Astra Trident）必須在swarm叢集中的每個節點上獨立執行。由於功能不一、ONTAP 「ONTAP-NAS」和「ONTAP-SAN」驅動程式的運作方式、因此它們是唯一能夠在這些限制範圍內運作的驅動程式。
+* Volume 外掛程式（包括 Trident ）必須在 swarm 叢集中的每個節點上分別執行。由於 ONTAP 的運作方式、以及和 `ontap-san`驅動程式的運作方式 `ontap-nas`、這些都是唯一能夠在這些限制範圍內運作的方法。
 
 
 其餘的驅動程式可能會受到競爭狀況等問題的影響、導致在單一要求中建立大量磁碟區、而不需要明確的「贏家」；例如、Element的功能可讓磁碟區擁有相同名稱但不同ID。

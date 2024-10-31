@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-operator.html 
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
-summary: 您可以使用業者輕鬆升級現有的Astra Trident安裝。 
+summary: 您可以使用操作員輕鬆升級現有的 Trident 安裝。 
 ---
-= 使用 Trident 運算子或 Helm 升級 Astra Trident 安裝
+= 使用 Trident 營運商或 Helm 升級 Trident 安裝
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,47 +12,47 @@ summary: 您可以使用業者輕鬆升級現有的Astra Trident安裝。
 
 
 [role="lead"]
-您可以使用 Trident 運算子手動或使用 Helm 來升級 Astra Trident 。您可以從 Trident 運算子安裝升級至其他 Trident 運算子安裝、或從升級 `tridentctl` 安裝至 Trident 運算子版本。檢閱 link:upgrade-trident.html#select-an-upgrade-method["選擇升級方法"] 在升級 Trident 操作員安裝之前。
+您可以手動或使用 Helm 、使用 Trident 營運商來升級 Trident 。您可以從 Trident 營運商安裝升級至其他 Trident 營運商安裝、或從安裝升級 `tridentctl`至 Trident 營運商版本。在升級 Trident 操作員安裝之前、請先檢閱link:upgrade-trident.html#select-an-upgrade-method["選擇升級方法"]。
 
 
 
 == 升級手動安裝
 
-您可以從叢集範圍的 Trident 運算子安裝升級到另一個叢集範圍的 Trident 運算子安裝。所有Astra Trident版本21.01及更新版本均使用叢集範圍的運算子。
+您可以從叢集範圍的 Trident 運算子安裝升級到另一個叢集範圍的 Trident 運算子安裝。所有 Trident 版本 21.01 及更新版本均使用叢集範圍的運算子。
 
 
-NOTE: 若要從使用命名空間範圍運算子（ 20.07 至 20.10 版）安裝的 Astra Trident 進行升級、請使用的升級指示 link:../earlier-versions.html["您已安裝的版本"] Astra Trident 的
+NOTE: 若要從使用命名空間範圍運算子（ 20.07 至 20.10 版）安裝的 Trident 升級、請使用 Trident 的升級指示link:../earlier-versions.html["您已安裝的版本"]。
 
 .關於這項工作
 Trident 提供一個套件檔案、可讓您用來安裝運算子、並為 Kubernetes 版本建立相關的物件。
 
-* 對於運行 Kubernetes 1.24 的羣集，請使用 link:https://github.com/NetApp/trident/tree/stable/v24.06/deploy/bundle_pre_1_25.yaml["bunder_pre_1_25.yaml"^]。
-* 對於運行 Kubernetes 1.25 或更高版本的羣集，請使用 link:https://github.com/NetApp/trident/tree/stable/v24.06/deploy/bundle_post_1_25.yaml["bunder_POST_1_25.yaml"^]。
+* 對於運行 Kubernetes 1.24 的羣集，請使用 link:https://github.com/NetApp/trident/tree/stable/v24.10/deploy/bundle_pre_1_25.yaml["bunder_pre_1_25.yaml"^]。
+* 對於運行 Kubernetes 1.25 或更高版本的羣集，請使用 link:https://github.com/NetApp/trident/tree/stable/v24.10/deploy/bundle_post_1_25.yaml["bunder_POST_1_25.yaml"^]。
 
 
 .開始之前
 確保您使用的是執行中的 Kubernetes 叢集 link:../trident-get-started/requirements.html["支援的Kubernetes版本"]。
 
 .步驟
-. 驗證 Astra Trident 版本：
+. 驗證您的 Trident 版本：
 +
 [listing]
 ----
 ./tridentctl -n trident version
 ----
-. 刪除用來安裝目前Astra Trident執行個體的Trident運算子。例如、如果您是從 23.07 升級、請執行下列命令：
+. 刪除用於安裝目前 Trident 執行個體的 Trident 運算子。例如、如果您是從 23.07 升級、請執行下列命令：
 +
 [listing]
 ----
 kubectl delete -f 23.07.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 . 如果您使用自訂初始安裝 `TridentOrchestrator` 屬性、您可以編輯 `TridentOrchestrator` 物件以修改安裝參數。這可能包括針對離線模式指定鏡射Trident和csi映像登錄、啟用偵錯記錄或指定映像提取機密所做的變更。
-. 使用適用於您環境的正確套件 YAML 檔案安裝 Astra Trident <bundle.yaml> 、其中 _Kubernetes 版本為 _
-`bundle_pre_1_25.yaml` 或 `bundle_post_1_25.yaml` 以 Kubernetes 版本為基礎。例如、如果您要安裝 Astra Trident 24.06 、請執行下列命令：
+. 使用適用於您環境的正確套件 YAML 檔案安裝 Trident 、其中 _Kubernetes <bundle.yaml> 版本為 _
+`bundle_pre_1_25.yaml` 或 `bundle_post_1_25.yaml`以 Kubernetes 版本為基礎。例如、如果您要安裝 Trident 24.10 、請執行下列命令：
 +
 [listing]
 ----
-kubectl create -f 24.06.0/trident-installer/deploy/<bundle.yaml> -n trident
+kubectl create -f 24.10.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 
 
@@ -60,20 +60,37 @@ kubectl create -f 24.06.0/trident-installer/deploy/<bundle.yaml> -n trident
 
 == 升級 Helm 安裝
 
-您可以升級 Astra Trident Helm 安裝。
+您可以升級 Trident Helm 安裝。
 
 
-WARNING: 將Kubernetes叢集從1.24升級至1.25或更新版本、且已安裝Astra Trident時、您必須更新vales.yaml才能設定 `excludePodSecurityPolicy` 至 `true` 或新增 `--set excludePodSecurityPolicy=true` 至 `helm upgrade` 命令、然後才能升級叢集。
+WARNING: 將已安裝 Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 或更新版本時、您必須 `true`先更新 values.yaml 以設定 `excludePodSecurityPolicy`或新增 `--set excludePodSecurityPolicy=true`至 `helm upgrade`命令、才能升級叢集。
 
-.步驟
-. 如果您 link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-astra-trident-using-helm["使用 Helm 安裝 Astra Trident"]是、您可以在單一步驟中使用 `helm upgrade trident netapp-trident/trident-operator --version 100.2406.0` 進行升級。如果您未新增 Helm repo 或無法使用它來升級：
-+
-.. 從下載最新的 Astra Trident 版本 link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]。
-.. 使用 `helm upgrade` 反映您要升級至的版本的命令 `trident-operator-24.06.0.tgz` 。
+如果您已經將 Kubernetes 叢集從 1.24 升級至 1.25 、而不升級 Trident helm 、則 helm 升級將會失敗。若要順利完成升級、請先執行下列步驟：
+
+. 從安裝 helm-mapkubeaps 外掛程式 https://github.com/helm/helm-mapkubeapis[]。
+. 在安裝 Trident 的命名空間中、為 Trident 版本執行演習。這會列出將會清除的資源。
 +
 [listing]
 ----
-helm upgrade <name> trident-operator-24.06.0.tgz
+helm mapkubeapis --dry-run trident  --namespace trident
+----
+. 以 helm 執行完整執行以進行清理。
++
+[listing]
+----
+helm mapkubeapis trident  --namespace trident
+----
+
+
+.步驟
+. 如果您 link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-trident-using-helm["已使用 Helm 安裝 Trident"]是、您可以在單一步驟中使用 `helm upgrade trident netapp-trident/trident-operator --version 100.2410.0` 進行升級。如果您未新增 Helm repo 或無法使用它來升級：
++
+.. 從下載最新的 Trident 版本link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]。
+.. 使用 `helm upgrade` 反映您要升級至的版本的命令 `trident-operator-24.10.0.tgz` 。
++
+[listing]
+----
+helm upgrade <name> trident-operator-24.10.0.tgz
 ----
 +
 
@@ -94,15 +111,15 @@ NOTE: 如果您在初始安裝期間設定自訂選項（例如指定 Trident �
 NOTE: 在安裝方法之間切換之前、請參閱 link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["在安裝方法之間移動"]。
 
 .步驟
-. 下載最新的Astra Trident版本。
+. 下載最新的 Trident 版本。
 +
 [listing]
 ----
-# Download the release required [24.060.0]
-mkdir 24.06.0
-cd 24.06.0
-wget https://github.com/NetApp/trident/releases/download/v24.06.0/trident-installer-24.06.0.tar.gz
-tar -xf trident-installer-24.06.0.tar.gz
+# Download the release required [24.10.0]
+mkdir 24.10.0
+cd 24.10.0
+wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.10.0.tar.gz
+tar -xf trident-installer-24.10.0.tar.gz
 cd trident-installer
 ----
 . 從資訊清單建立「TridentOrchestrator」CRD。
@@ -129,7 +146,7 @@ trident-controller-79df798bdc-m79dc   6/6     Running   0          150d
 trident-node-linux-xrst8              2/2     Running   0          150d
 trident-operator-5574dbbc68-nthjv     1/1     Running   0          1m30s
 ----
-. 建立「TridentOrchestrator」、以安裝Astra Trident。
+. 建立 `TridentOrchestrator` CR 以安裝 Trident 。
 +
 [listing]
 ----
@@ -159,6 +176,6 @@ kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
-Version:                v24.06.0
+Version:                v24.10.0
 ----
 

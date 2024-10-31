@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/deploy-reco.html 
 keywords: deployment, deploy, trident, namespace 
-summary: 部署Astra Trident時、請使用此處列出的建議。 
+summary: 部署 Trident 時、請使用此處列出的建議。 
 ---
 = 部署
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 部署Astra Trident時、請使用此處列出的建議。
 
 
 [role="lead"]
-部署Astra Trident時、請使用此處列出的建議。
+部署 Trident 時、請使用此處列出的建議。
 
 
 
 == 部署至專屬命名空間
 
-https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["命名空間"^] 在不同的應用程式之間提供管理分離、是資源共用的障礙。例如、某個命名空間的某個永久虛電路無法從另一個命名空間使用。Astra Trident為Kubernetes叢集中的所有命名空間提供PV資源、並因此運用具有較高權限的服務帳戶。
+https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["命名空間"^]在不同的應用程式之間提供管理上的分離、是資源共用的障礙。例如、某個命名空間的某個永久虛電路無法從另一個命名空間使用。Trident 為 Kubernetes 叢集中的所有命名空間提供 PV 資源、因此會運用 Privileges 提升的服務帳戶。
 
 此外、存取Trident Pod可能會讓使用者存取儲存系統認證和其他敏感資訊。請務必確保應用程式使用者和管理應用程式無法存取Trident物件定義或Pod本身。
 

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/anf.html 
 keywords: trident backend, azure netapp files, smb volumes, smb, windows, drivers, access modes, rwo, rwx, rwp, rwop, file system, aks, managed identities, azure 
-summary: 您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NFS 和 SMB 磁碟區。Astra Trident 也支援使用 Azure Kubernetes Services （ aks ）叢集的託管身分識別來進行認證管理。 
+summary: 您可以將 Azure NetApp Files 設定為 Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NFS 和 SMB 磁碟區。Trident 也支援使用 Azure Kubernetes Services （ aks ）叢集的託管身分識別來進行認證管理。 
 ---
 = 設定Azure NetApp Files 一個靜態後端
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您
 
 
 [role="lead"]
-您可以將 Azure NetApp Files 設定為 Astra Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NFS 和 SMB 磁碟區。Astra Trident 也支援使用 Azure Kubernetes Services （ aks ）叢集的託管身分識別來進行認證管理。
+您可以將 Azure NetApp Files 設定為 Trident 的後端。您可以使用 Azure NetApp Files 後端連接 NFS 和 SMB 磁碟區。Trident 也支援使用 Azure Kubernetes Services （ aks ）叢集的託管身分識別來進行認證管理。
 
 
 
 == Azure NetApp Files 驅動程式詳細資料
 
-Astra Trident 提供下列 Azure NetApp Files 儲存驅動程式來與叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
+Trident 提供下列 Azure NetApp Files 儲存驅動程式、可與叢集進行通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
 
 [cols="2, 1, 1, 2, 2"]
 |===
@@ -40,25 +40,25 @@ Rwo 、 ROX 、 rwx 、 RWOP
 
 === 考量
 
-* 此支援服務不支援小於100 GB的磁碟區。Azure NetApp Files如果要求較小的磁碟區、 Astra Trident 會自動建立 100-GiB 磁碟區。
-* Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
+* Azure NetApp Files 服務不支援小於 50 GiB 的磁碟區。如果要求較小的磁碟區、 Trident 會自動建立 50-GiB 磁碟區。
+* Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。
 
 
 
 
 == 管理的身分識別
 
-Astra Trident 支援 link:https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview["託管身分識別"^] 適用於 Azure Kubernetes Services 叢集。若要善用託管身分識別所提供的簡化認證管理功能、您必須具備：
+Trident 支援 link:https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview["託管身分識別"^]Azure Kubernetes 服務叢集。若要善用託管身分識別所提供的簡化認證管理功能、您必須具備：
 
 * 使用 aks 部署的 Kubernetes 叢集
 * 在 aks Kubernetes 叢集上設定的託管身分識別
-* 安裝的 Astra Trident 包含 `cloudProvider` 以指定 `"Azure"`。
+* 安裝的 Trident ，其中包括 `cloudProvider`要指定 `"Azure"`的。
 +
 [role="tabbed-block"]
 ====
 .Trident運算子
 --
-若要使用 Trident 運算子安裝 Astra Trident 、請編輯 `tridentorchestrator_cr.yaml` 以設定 `cloudProvider` 至 `"Azure"`。例如：
+若要使用 Trident 運算子安裝 Trident 、請編輯 `tridentorchestrator_cr.yaml`以設定為 `cloudProvider` `"Azure"`。例如：
 
 [listing]
 ----
@@ -75,16 +75,16 @@ spec:
 --
 .掌舵
 --
-以下範例安裝 Astra Trident Set `cloudProvider` 使用環境變數將資源移轉至 Azure `$CP`：
+以下範例使用環境變數將 Trident Set 安裝 `cloudProvider`至 Azure `$CP` ：
 
 [listing]
 ----
-helm install trident trident-operator-100.2406.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
+helm install trident trident-operator-100.2410.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
 ----
 --
 .<code>tridentctl</code>
 --
-下列範例安裝 Astra Trident 並設定 `cloudProvider` 標記為 `Azure`：
+以下範例安裝 Trident 並將旗標設定 `cloudProvider`為 `Azure`：
 
 [listing]
 ----
@@ -104,13 +104,13 @@ tridentctl install --cloud-provider="Azure" -n trident
 
 * 使用 aks 部署的 Kubernetes 叢集
 * 在 OKS Kubernetes 叢集上設定的工作負載識別和 oidc-c發行 者
-* 安裝的 Astra Trident 包含 `cloudProvider` 以指定 `"Azure"` 和 `cloudIdentity` 指定工作負載身分識別
+* 安裝的 Trident 、其中包含 `cloudProvider`指定 `"Azure"`及 `cloudIdentity`指定工作負載身分識別的
 +
 [role="tabbed-block"]
 ====
 .Trident運算子
 --
-若要使用 Trident 運算子安裝 Astra Trident 、請編輯 `tridentorchestrator_cr.yaml` 以設定 `cloudProvider` 至 `"Azure"` 並設定 `cloudIdentity` 至 `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`。
+若要使用 Trident 運算子安裝 Trident 、請編輯 `tridentorchestrator_cr.yaml`以設定為 `cloudProvider` `"Azure"`、並設定 `cloudIdentity`為 `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`。
 
 例如：
 
@@ -135,11 +135,11 @@ spec:
 `export CP="Azure"`
 `export CI="azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"`
 
-以下範例安裝 Astra Trident 和 Sets `cloudProvider` 使用環境變數將資源移轉至 Azure `$CP` 並設定 `cloudIdentity` 使用環境變數 `$CI`：
+下列範例使用環境變數安裝 Trident 並將設定 `cloudProvider`為 Azure `$CP` 、並使用環境變數 `$CI`設定 `cloudIdentity`：
 
 [listing]
 ----
-helm install trident trident-operator-100.2406.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI
+helm install trident trident-operator-100.2410.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI
 ----
 --
 .<code>tridentctl</code>
@@ -149,7 +149,7 @@ helm install trident trident-operator-100.2406.0.tgz --set cloudProvider=$CP --s
 `export CP="Azure"`
 `export CI="azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"`
 
-下列範例安裝 Astra Trident 並設定 `cloud-provider` 標記為 `$CP`和 `cloud-identity` 至 `$CI`：
+以下範例會安裝 Trident 並將旗標設定 `cloud-provider`為 `$CP`、和 `cloud-identity` `$CI`：
 
 [listing]
 ----

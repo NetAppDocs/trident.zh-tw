@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reference/trident-cl.html 
 keywords: command-line, options, logging, kubernetes, docker, ports 
-summary: Astra Trident提供Trident Orchestrator的數個命令列選項、並透過特定連接埠進行通訊。 
+summary: Trident 為 Trident Orchestrator 提供數個命令列選項、並透過特定連接埠進行通訊。 
 ---
 = 命令列選項
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Astra Trident提供Trident Orchestrator的數個命令列選項、並�
 
 
 [role="lead"]
-Astra Trident提供Trident Orchestrator的數個命令列選項。您可以使用這些選項來修改部署。
+Trident 為 Trident Orchestrator 提供數個命令列選項。您可以使用這些選項來修改部署。
 
 
 
@@ -27,7 +27,7 @@ Astra Trident提供Trident Orchestrator的數個命令列選項。您可以使�
 == Kubernetes
 
 `-k8s_pod`:: 使用此選項或 `-k8s_api_server` 以啟用Kubernetes支援。設定此選項會使Trident使用內含Pod的Kubernetes服務帳戶認證、來聯絡API伺服器。這只有當Trident在Kubernetes叢集中以Pod形式執行、且已啟用服務帳戶時才會運作。
-`-k8s_api_server <insecure-address:insecure-port>`:: 使用此選項或 `-k8s_pod` 以啟用Kubernetes支援。如果指定、Trident會使用提供的不安全位址和連接埠、連線至Kubernetes API伺服器。這可讓Trident部署在Pod外部、但它只支援不安全的API伺服器連線。若要安全地連線、請將Trident部署在Pod中 `-k8s_pod` 選項。
+`-k8s_api_server <insecure-address:insecure-port>`:: 使用此選項或 `-k8s_pod`啟用 Kubernetes 支援。如果指定、Trident會使用提供的不安全位址和連接埠、連線至Kubernetes API伺服器。如此一來、 Trident 就能部署在 Pod 之外、但它只支援與 API 伺服器的不安全連線。若要安全連線、請在具有選項的 Pod 中部署 Trident `-k8s_pod` 。
 
 
 

@@ -16,9 +16,9 @@ NetApp儲存產品組合可與Kubernetes叢集的許多不同層面整合、提�
 
 
 
-== Astra
+== Trident
 
-https://docs.netapp.com/us-en/astra/["Astra"^] 讓企業更輕鬆地管理、保護及搬移在公有雲內部及內部部署的Kubernetes上執行的資料豐富的容器化工作負載。Astra 使用公有雲和內部部署中備受肯定且廣泛的 NetApp 儲存產品組合中的 Trident 、提供永續的容器儲存設備。此外、它還提供一組豐富的進階應用程式感知資料管理功能、例如Snapshot、備份與還原、活動記錄、以及資料保護、災難/資料恢復、資料稽核、以及Kubernetes工作負載的移轉使用案例的主動複製。
+https://docs.netapp.com/us-en/trident/["Trident"^]讓企業更容易管理、保護及移動在公有雲和內部部署環境中、 Kubernetes 上執行的資料豐富容器化工作負載。Trident 使用經實證且廣泛的 NetApp 儲存產品組合中的 Trident 、在公有雲和內部部署中配置並提供永續的容器儲存設備。此外、它還提供一組豐富的進階應用程式感知資料管理功能、例如Snapshot、備份與還原、活動記錄、以及資料保護、災難/資料恢復、資料稽核、以及Kubernetes工作負載的移轉使用案例的主動複製。
 
 
 

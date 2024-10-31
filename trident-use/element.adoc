@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/element.html 
 keywords: trident backend, solidfire, netapp hci, drivers, access modes, rwo, rwx, rwp, rwop, file system 
-summary: 瞭解如何在安裝Astra Trident時建立及使用元素後端。 
+summary: 瞭解如何在您的Trident安裝中建立及使用Element後端。 
 ---
 = 設定NetApp HCI 一個不只是功能的SolidFire 後端
 :hardbreaks:
@@ -12,15 +12,15 @@ summary: 瞭解如何在安裝Astra Trident時建立及使用元素後端。
 
 
 [role="lead"]
-瞭解如何在 Astra Trident 安裝中建立和使用元素後端。
+瞭解如何在 Trident 安裝中建立和使用元素後端。
 
 
 
 == 元素驅動程式詳細資料
 
-Astra Trident 提供 `solidfire-san` 用於與叢集通訊的儲存驅動程式。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
+Trident 提供 `solidfire-san`儲存驅動程式以與叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
 
-。 `solidfire-san` 儲存驅動程式支援 _file_ 和 _block_ 磁碟區模式。適用於 `Filesystem` 磁碟區代碼、Astra Trident會建立磁碟區並建立檔案系統。檔案系統類型由StorageClass指定。
+ `solidfire-san`儲存驅動程式支援 _file_ 和 _block_ 磁碟區模式。對於 `Filesystem` volemode 、 Trident 會建立一個 Volume 並建立檔案系統。檔案系統類型由StorageClass指定。
 
 [cols="5"]
 |===
@@ -94,7 +94,7 @@ RWO 、 RWOP
 | 《初始器IFACE》 | 將iSCSI流量限制在特定的主機介面 | 「預設」 
 
 
-| 《UseCHAP》 | 使用 CHAP 驗證 iSCSI 。Astra Trident 使用 CHAP 。 | 是的 
+| 《UseCHAP》 | 使用 CHAP 驗證 iSCSI 。Trident 使用 CHAP 。 | 是的 
 
 
 | 《存取群組》 | 要使用的存取群組ID清單 | 尋找名為「Trident」的存取群組ID 
@@ -153,7 +153,7 @@ Types:
 
 此範例顯示使用虛擬資源池設定的後端定義檔、以及參照這些資源池的StorageClass。
 
-Astra Trident會在資源配置時、將儲存資源池上的標籤複製到後端儲存LUN。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。
+Trident 會在資源配置時、將儲存池上的標籤複製到後端儲存 LUN 。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。
 
 在下圖所示的範例後端定義檔中、會針對所有設定的儲存資源池設定特定的預設值 `type` 銀級。虛擬資源池是在中定義的 `storage` 區段。在此範例中、有些儲存資源池會自行設定類型、有些資源池則會覆寫上述預設值。
 
@@ -211,7 +211,7 @@ storage:
 ----
 下列StorageClass定義是指上述虛擬資源池。使用 `parameters.selector` 欄位中、每個StorageClass會呼叫哪些虛擬資源池可用於裝載Volume。磁碟區將會在所選的虛擬資源池中定義各個層面。
 
-第一個StorageClass (`solidfire-gold-four`）將對應至第一個虛擬資源池。這是唯一提供黃金級效能的資源池 `Volume Type QoS` 金級。最後一個StorageClass (`solidfire-silver`）撥出任何提供銀級效能的儲存資源池。Astra Trident將決定選取哪個虛擬集區、並確保符合儲存需求。
+第一個 StorageClass (`solidfire-gold-four`）將映射到第一個虛擬池。這是唯一提供黃金級效能的集區 `Volume Type QoS`。Last StorageClass (`solidfire-silver`（最後一個 StorageClass ）調用任何提供銀牌性能的存儲池。Trident 會決定要選取哪個虛擬集區、並確保符合儲存需求。
 
 [listing]
 ----

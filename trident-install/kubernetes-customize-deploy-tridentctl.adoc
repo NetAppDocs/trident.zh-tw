@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-customize-deploy-tridentctl.html 
-keywords: deploy, astra trident, methods, operator, tridentctl, helm, attributes, customize 
-summary: 您可以使用Astra Trident安裝程式來自訂部署。 
+keywords: deploy, Trident, methods, operator, tridentctl, helm, attributes, customize 
+summary: 您可以使用 Trident 安裝程式自訂部署。 
 ---
 = 自訂tridentctl安裝
 :hardbreaks:
@@ -12,13 +12,16 @@ summary: 您可以使用Astra Trident安裝程式來自訂部署。
 
 
 [role="lead"]
-您可以使用Astra Trident安裝程式來自訂安裝。
+您可以使用 Trident 安裝程式自訂安裝。
 
 
 
 == 深入瞭解安裝程式
 
-Astra Trident安裝程式可讓您自訂屬性。例如、如果您已將Trident映像複製到私有儲存庫、則可以使用來指定映像名稱 `--trident-image`。如果您已將Trident映像及所需的csi sidecar映像複製到私有儲存庫、最好使用指定該儲存庫的位置 `--image-registry` 交換器、採用格式 `<registry FQDN>[:port]`。
+Trident 安裝程式可讓您自訂屬性。例如，如果您已將 Trident 映像複製到私有儲存庫，則可以使用指定映像名稱 `--trident-image`。如果您已將 Trident 映像以及所需的 CSI sidecar 映像複製到私有儲存庫，最好使用採用格式的交換器 `<registry FQDN>[:port]`來指定該儲存庫的位置 `--image-registry`。
+
+
+IMPORTANT: 在私有儲存庫中安裝 Trident 時、如果您使用 `--image-registry`交換器來指定儲存庫位置、請勿在儲存庫路徑中使用 `/netapp/`。例如： `./tridentctl install --image-registry <image-registry> -n <namespace>`
 
 如果您使用Kubernetes的發佈方式、而其中的「kubelet」將資料保留在通常「/var/lib/kubelet」以外的路徑上、您可以使用「-kubelet-dir」來指定替代路徑。
 

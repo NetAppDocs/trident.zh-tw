@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-reference/ports.html 
-keywords: astra trident, port, ports 
-summary: 深入瞭解Astra Trident透過哪些連接埠進行通訊。 
+keywords: Trident, port, ports 
+summary: 深入瞭解 Trident 所通訊的連接埠。 
 ---
-= Astra Trident連接埠
+= Trident 連接埠
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,13 +12,13 @@ summary: 深入瞭解Astra Trident透過哪些連接埠進行通訊。
 
 
 [role="lead"]
-深入瞭解Astra Trident用於通訊的連接埠。
+深入瞭解 Trident 用於通訊的連接埠。
 
 
 
-== Astra Trident連接埠
+== Trident 連接埠
 
-Astra Trident透過下列連接埠進行通訊：
+Trident 透過下列連接埠進行通訊：
 
 [cols="2,4"]
 |===

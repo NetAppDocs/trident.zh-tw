@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-tridentctl.html 
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
-summary: 您可以使用「tridentctl」輕鬆升級現有的Astra Trident安裝。 
+summary: '您可以使用輕鬆升級現有的 Trident 安裝 `tridentctl`。' 
 ---
 = 使用tridentctl進行升級
 :hardbreaks:
@@ -12,22 +12,22 @@ summary: 您可以使用「tridentctl」輕鬆升級現有的Astra Trident安裝
 
 
 [role="lead"]
-您可以使用輕鬆升級現有的Astra Trident安裝 `tridentctl`。
+您可以使用輕鬆升級現有的 Trident 安裝 `tridentctl`。
 
 .關於這項工作
-解除安裝和重新安裝Astra Trident可做為升級。當您解除安裝Trident時、不會刪除由Astra Trident部署所使用的持續磁碟區宣告（PVc）和持續磁碟區（PV）。當Astra Trident離線時、已配置的PV仍可繼續使用、而Astra Trident會在任何建立於過渡期間的永久虛電路恢復上線後、為其配置磁碟區。
+解除安裝及重新安裝 Trident 即為升級。當您解除安裝 Trident 時、不會刪除 Trident 部署所使用的持續 Volume Claim （ PVC ）和持續 Volume （ PV ）。Trident 離線時、已佈建的 PV 仍可繼續使用、而 Trident 會在恢復上線後、為在此期間建立的任何 PVC 配置磁碟區。
 
 .開始之前
 檢閱 link:upgrade-trident.html#select-an-upgrade-method["選擇升級方法"] 使用升級之前 `tridentctl`。
 
 .步驟
-. 在中執行解除安裝命令 `tridentctl` 移除與 Astra Trident 相關的所有資源、但 CRD 和相關物件除外。
+. 執行中的解除安裝命令 `tridentctl`、移除 CRD 和相關物件以外的所有與 Trident 相關的資源。
 +
 [listing]
 ----
 ./tridentctl uninstall -n <namespace>
 ----
-. 重新安裝 Astra Trident 。請參閱 link:../trident-get-started/kubernetes-deploy-tridentctl.html["使用tridentctl安裝Astra Trident"]。
+. 重新安裝 Trident 。請參閱 link:../trident-get-started/kubernetes-deploy-tridentctl.html["使用 tridentctl 安裝 Trident"]。
 
 
 

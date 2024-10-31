@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-trident.html 
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
-summary: Astra Trident 遵循四個月的發行步調、每年提供三個主要版本。每個新版本均以舊版為基礎、提供新功能與效能增強功能、以及錯誤修正與改善功能。我們建議您每年至少升級一次、以善用Astra Trident的新功能。 
+summary: Trident 遵循為期四個月的發行步調、每年提供三個主要版本。每個新版本均以舊版為基礎、提供新功能與效能增強功能、以及錯誤修正與改善功能。我們建議您每年至少升級一次、以充分利用 Trident 的新功能。 
 ---
-= 升級Astra Trident
+= 升級 Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,18 +12,18 @@ summary: Astra Trident 遵循四個月的發行步調、每年提供三個主要
 
 
 [role="lead"]
-從 24.02 版開始、 Astra Trident 遵循四個月的發行步調、每個日曆年度提供三個主要版本。每個新版本均以舊版為基礎、並提供新功能、效能增強、錯誤修正及改善功能。我們鼓勵您每年至少升級一次、以善用Astra Trident的新功能。
+從 24.02 版開始、 Trident 遵循四個月的發行步調、每個日曆年度提供三個主要版本。每個新版本均以舊版為基礎、並提供新功能、效能增強、錯誤修正及改善功能。我們建議您每年至少升級一次、以充分利用 Trident 的新功能。
 
 
 
 == 升級前的考量
 
-升級至最新版Astra Trident時、請考慮下列事項：
+升級至最新版的 Trident 時、請考慮下列事項：
 
-* 在指定 Kubernetes 叢集中的所有命名空間中、應該只安裝一個 Astra Trident 執行個體。
-* Astra Trident 23.07 及更新版本需要 v1 Volume 快照、不再支援 Alpha 或 beta 快照。
-* 如果您在中建立了 Cloud Volumes Service for Google Cloud link:../trident-use/gcp.html#learn-about-astra-trident-support-for-cloud-volumes-service-for-google-cloud["CVS服務類型"]、您必須更新後端組態才能使用 `standardsw` 或 `zoneredundantstandardsw` 從 Astra Trident 23.01 升級時的服務層級。無法更新 `serviceLevel` 在後端中、可能會導致磁碟區故障。請參閱 link:../trident-use/gcp.html#cvs-service-type-examples["CVS 服務類型範例"] 以取得詳細資料。
-* 升級時、請務必提供 `parameter.fsType` 在中 `StorageClasses` 由Astra Trident使用。您可以刪除並重新建立 `StorageClasses` 無需中斷既有的磁碟區。
+* 在指定的 Kubernetes 叢集中、所有命名空間都應該只安裝一個 Trident 執行個體。
+* Trident 23.07 及更新版本需要 v1 Volume 快照、不再支援 Alpha 或 beta 快照。
+* 如果您在中建立了 Cloud Volumes Service for Google Cloud link:../trident-use/gcp.html#learn-about-trident-support-for-cloud-volumes-service-for-google-cloud["CVS服務類型"]、則從 Trident 23.01 升級時、必須更新後端組態、才能使用 `standardsw`或 `zoneredundantstandardsw`服務層級。如果無法在後端更新 `serviceLevel`、可能會導致磁碟區失敗。如 link:../trident-use/gcp.html#cvs-service-type-examples["CVS 服務類型範例"] 需詳細資訊、請參閱。
+* 升級時、 Trident 必須提供 `parameter.fsType`使用中的 `StorageClasses`資訊。您可以在不中斷現有磁碟區的情況下刪除及重新建立 `StorageClasses`磁碟區。
 +
 ** 這是強制實施的一項**要求 https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["安全性內容"^] 適用於SAN磁碟區。
 ** https://github.com/NetApp/trident/tree/master/trident-installer/sample-input[sample INPUT ^] 目錄包含 https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ 等範例[`storage-class-basic.yaml.templ`^] 和連結： https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml[`storage-class-bronze-default.yaml`^]。
@@ -36,7 +36,7 @@ summary: Astra Trident 遵循四個月的發行步調、每年提供三個主要
 
 == 步驟 1 ：選取版本
 
-Astra Trident版本遵循日期型 `YY.MM` 命名慣例、其中「是」是一年的最後兩位數、「公釐」是月份。DOT版本遵循A `YY.MM.X` 慣例、其中「X」是修補程式層級。您將根據要升級的版本、選擇要升級的版本。
+Trident 版本遵循日期 `YY.MM`命名慣例、其中「是」是年份的最後兩位數、「 MM 」是月份。DOT 版本遵循 `YY.MM.X`慣例、其中「 X 」是修補程式層級。您將根據要升級的版本、選擇要升級的版本。
 
 * 您可以直接升級至安裝版本的四個版本範圍內的任何目標版本。例如、您可以直接從 23.04 （或任何 23.04 點版本）升級至 24.06 。
 * 如果您要從四個版本的外部版本升級、請執行多步驟升級。使用升級說明從升級至最新版本、以符合四個版本的 link:../earlier-versions.html["舊版"] 視窗。例如、如果您執行的是 22.01 、而且想要升級至 24.06 ：
@@ -54,18 +54,18 @@ NOTE: 在 OpenShift Container Platform 上使用 Trident 運算子進行升級�
 
 == 步驟 2 ：確定原始安裝方法
 
-若要判斷您原本用來安裝 Astra Trident 的版本：
+若要判斷您最初安裝 Trident 的版本：
 
 . 使用 `kubectl get pods -n trident` 檢查 Pod 。
 +
-** 如果沒有操作員 Pod 、則使用安裝 Astra Trident `tridentctl`。
-** 如果有操作員 Pod 、則使用 Trident 操作員手動或使用 Helm 來安裝 Astra Trident 。
+** 如果沒有運算子 Pod 、則使用安裝 Trident `tridentctl` 。
+** 如果有操作員 Pod 、則 Trident 是使用 Trident 操作員手動或使用 Helm 來安裝。
 
 
-. 如果有操作員 Pod 、請使用 `kubectl describe torc` 判斷 Astra Trident 是否使用 Helm 安裝。
+. 如果有操作員 Pod 、請使用 `kubectl describe torc`判斷是否使用 Helm 安裝 Trident 。
 +
-** 如果有 Helm 標籤、則使用 Helm 安裝 Astra Trident 。
-** 如果沒有 Helm 標籤、則使用 Trident 運算子手動安裝 Astra Trident 。
+** 如果有 Helm 標籤、則使用 Helm 安裝 Trident 。
+** 如果沒有 Helm 標籤、則會使用 Trident 操作員手動安裝 Trident 。
 
 
 
@@ -74,7 +74,7 @@ NOTE: 在 OpenShift Container Platform 上使用 Trident 運算子進行升級�
 
 == 步驟 3 ：選擇升級方法
 
-一般而言、您應該使用與初始安裝相同的方法進行升級、不過您可以 link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["在安裝方法之間移動"]。有兩種方法可以升級Astra Trident。
+一般而言，您應該使用初始安裝所使用的相同方法進行升級link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["在安裝方法之間移動"]，不過您可以。升級 Trident 有兩個選項。
 
 * link:upgrade-operator.html["使用Trident營運者進行升級"]
 +

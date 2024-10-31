@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/volumes-docker.html 
-keywords: create volumes, astra trident, trident for docker, docker, docker volume 
-summary: 若要建立磁碟區、請使用標準的「docker volume」命令、並在需要時指定Astra Trident驅動程式名稱。 
+keywords: create volumes, Trident, trident for docker, docker, docker volume 
+summary: '若要建立 Volume 、請使用標準命令、 `docker volume`並在需要時指定 Trident 驅動程式名稱。' 
 ---
 = 使用Volume
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 若要建立磁碟區、請使用標準的「docker volume」命令、�
 
 
 [role="lead"]
-您可以使用標準的「磁碟區」命令、並在需要時指定Astra Trident驅動程式名稱、輕鬆建立、複製及移除磁碟區。
+您可以使用標準命令、在需要時指定 Trident 驅動程式名稱、輕鬆建立、複製及移除磁碟區 `docker volume`。
 
 
 
@@ -24,7 +24,7 @@ summary: 若要建立磁碟區、請使用標準的「docker volume」命令、�
 ----
 docker volume create -d netapp --name firstVolume
 ----
-* 建立具有特定Astra Trident執行個體的Volume：
+* 使用特定的 Trident 執行個體建立 Volume ：
 +
 [listing]
 ----
@@ -62,13 +62,13 @@ IMPORTANT: 使用「Poolidfire - san」驅動程式時、上述範例會刪除�
 
 
 
-執行下列步驟以升級適用於Docker的Astra Trident。
+請執行下列步驟以升級 Trident for Docker 。
 
 
 
 == 複製磁碟區
 
-使用「ONTAP-NAS」、「ONTAP-SAN」、「Poolidfire - SAN」和「GCP - CVS儲存驅動程式」時、Astra Trident可以複製磁碟區。使用「ONTAP-NAS-flexgroup」或「ONTAP-NAS-節約」驅動程式時、不支援複製。從現有磁碟區建立新磁碟區、將會產生新的快照。
+使用 `ontap-nas`、 `ontap-san`、 `solidfire-san`和 `gcp-cvs storage drivers`時， Trident 可以複製卷。使用 `ontap-nas-flexgroup`或 `ontap-nas-economy`驅動程式時、不支援複製。從現有磁碟區建立新磁碟區、將會產生新的快照。
 
 * 檢查磁碟區以列舉快照：
 +
@@ -130,4 +130,4 @@ docker volume rm volFromSnap
 
 == 存取外部建立的磁碟區
 
-如果容器沒有分割區、而且Astra Trident支援其檔案系統、則您可以使用Trident * Only *來存取外部建立的區塊裝置（或其複製）（例如：無法透過Astra Trident存取「ext4」格式的「dev/sdc1」）。
+如果容器沒有分割區、且 Trident 支援其檔案系統、您可以使用 Trident * only* 存取外部建立的區塊裝置（或其複本）（例如：無法透過 Trident 存取格式化的 `/dev/sdc1`檔案系統 `ext4`）。

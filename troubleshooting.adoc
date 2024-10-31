@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: troubleshooting.html 
 keywords: troubleshooting, trident 
-summary: 請使用此處提供的指標來疑難排解安裝及使用Astra Trident時可能遇到的問題。 
+summary: 請使用此處提供的指標來疑難排解您在安裝和使用 Trident 時可能遇到的問題。 
 ---
 = 疑難排解
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 請使用此處提供的指標來疑難排解安裝及使用Astra Tride
 
 
 [role="lead"]
-請使用此處提供的指標來疑難排解安裝及使用Astra Trident時可能遇到的問題。
+請使用此處提供的指標來疑難排解您在安裝和使用 Trident 時可能遇到的問題。
 
 
 
@@ -33,7 +33,7 @@ kubectl patch torc trident -n <namespace> --type=merge -p '{"spec":{"debug":true
 ----
 這會重新啟動所有Trident Pod、可能需要數秒鐘的時間。您可以查看輸出「kubecll Get pod - n triident」中的「年齡」欄位來檢查。
 
-對於Astra Trident 20.07和20.10、請使用「tprov」取代「torc」。
+對於 Trident 20.07 和 20.10 ，請使用 `tprov`代替 `torc`。
 
 --
 與Helm一起安裝::
@@ -157,18 +157,18 @@ INFO Trident uninstallation succeeded.
 ----
 
 
-== 完全移除 Astra Trident 和 CRD
+== 完全移除 Trident 和客戶需求日
 
-您可以完全移除 Astra Trident 和所有建立的客戶需求日、以及相關的自訂資源。
+您可以完全移除 Trident 和所有建立的客戶需求日、以及相關的自訂資源。
 
 
-WARNING: 此動作無法復原。除非您想要全新安裝 Astra Trident 、否則請勿這麼做。若要在不移除客戶需求日的情況下解除安裝 Astra Trident 、請參閱 link:trident-managing-k8s/uninstall-trident.html["解除安裝Astra Trident"]。
+WARNING: 此動作無法復原。除非您想要全新安裝 Trident 、否則請勿這麼做。若要在不移除客戶需求日的情況下解除安裝 Trident link:trident-managing-k8s/uninstall-trident.html["解除安裝Trident"]、請參閱。
 
 [role="tabbed-block"]
 ====
 .Trident運算子
 --
-若要解除安裝 Astra Trident 、並使用 Trident 運算子完全移除 CRD ：
+若要解除安裝 Trident 、並使用 Trident 操作員完全移除客戶需求日：
 
 [listing]
 ----
@@ -177,7 +177,7 @@ kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeou
 --
 .掌舵
 --
-若要解除安裝 Astra Trident 、並使用 Helm 完全移除 CRD ：
+若要解除安裝 Trident 並使用 Helm 完全移除客戶需求日：
 
 [listing]
 ----
@@ -186,7 +186,7 @@ kubectl patch torc trident --type=merge -p '{"spec":{"wipeout":["crds"],"uninsta
 --
 .<code>tridentctl</code>
 --
-若要在使用解除安裝 Astra Trident 之後完全移除 CRD `tridentctl`
+若要在使用解除安裝 Trident 後完全移除客戶需求日、請執行以下步驟 `tridentctl`
 
 [listing]
 ----
@@ -204,7 +204,7 @@ tridentctl obliviate crd
 
 === 已刪除命名空間和 Pod
 
-請考慮將 Astra Trident 託管命名空間（ NVMe 持續磁碟區）附加至 Pod 的案例。如果您直接從 ONTAP 後端刪除命名空間、則在嘗試刪除 Pod 之後、取消暫存程序會卡住。此案例不會影響 Kubernetes 叢集或其他功能。
+請考慮將 Trident 託管命名空間（ NVMe 持續磁碟區）附加至 Pod 的案例。如果您直接從 ONTAP 後端刪除命名空間、則在嘗試刪除 Pod 之後、取消暫存程序會卡住。此案例不會影響 Kubernetes 叢集或其他功能。
 
 .因應措施
 從個別節點上卸載持續磁碟區（對應於該命名空間）、然後將其刪除。
@@ -213,7 +213,7 @@ tridentctl obliviate crd
 
 === 封鎖 dataLIFs
 
- If you block (or bring down) all the dataLIFs of the NVMe Astra Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+ If you block (or bring down) all the dataLIFs of the NVMe Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
 .因應措施
 開啟 dataLIFS 以還原完整功能。
 

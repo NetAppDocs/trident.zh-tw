@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/csi-topology.html 
 keywords: volumes, csi topology, storage classes, backends, kubernetes 
-summary: Astra Trident可以利用「SCSI拓撲功能」、選擇性地建立磁碟區、並將磁碟區附加到Kubernetes叢集中的節點。 
+summary: Trident 可以利用 CSI 拓撲功能、選擇性地建立磁碟區、並將其附加至 Kubernetes 叢集中的節點。 
 ---
 = 使用「csi拓撲」
 :hardbreaks:
@@ -12,20 +12,20 @@ summary: Astra Trident可以利用「SCSI拓撲功能」、選擇性地建立磁
 
 
 [role="lead"]
-Astra Trident可以利用、選擇性地建立磁碟區、並將磁碟區附加至Kubernetes叢集中的節點 https://kubernetes-csi.github.io/docs/topology.html["「csi拓撲」功能"^]。
+Trident 可以利用來選擇性地建立磁碟區、並將其附加至 Kubernetes 叢集中的節點 https://kubernetes-csi.github.io/docs/topology.html["「csi拓撲」功能"^]。
 
 
 
 == 總覽
 
-使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。如今、雲端供應商可讓Kubernetes管理員建立以區域為基礎的節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中配置工作負載的磁碟區、Astra Trident使用了csi拓撲。
+使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。如今、雲端供應商可讓Kubernetes管理員建立以區域為基礎的節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中為工作負載配置磁碟區、 Trident 使用 CSI 拓撲。
 
 
 TIP: 深入瞭解「csi拓撲」功能 https://kubernetes.io/blog/2018/10/11/topology-aware-volume-provisioning-in-kubernetes/["請按這裡"^]。
 
 Kubernetes提供兩種獨特的Volume繫結模式：
 
-* 與 `VolumeBindingMode` 設定為 `Immediate`Astra Trident在沒有任何拓撲感知的情況下建立磁碟區。建立永久虛擬磁碟時、即會處理磁碟區繫結和動態資源配置。這是預設值 `VolumeBindingMode` 適用於未強制拓撲限制的叢集。持續磁碟區的建立不需依賴要求的 Pod 排程需求。
+* 如果 `VolumeBindingMode`設置爲 `Immediate`，則 Trident 會在沒有任何拓撲感知的情況下創建卷。建立永久虛擬磁碟時、即會處理磁碟區繫結和動態資源配置。這是預設值 `VolumeBindingMode`、適用於不強制執行拓撲限制的叢集。持續磁碟區的建立不需依賴要求的 Pod 排程需求。
 * 將「Volume BindingMode」設為「WaitForFirst消費者」時、會延遲建立和繫結永久磁碟區、直到排程並建立使用永久磁碟的Pod為止。如此一來、就能建立磁碟區、以符合拓撲需求所強制執行的排程限制。
 
 
@@ -43,7 +43,7 @@ kubectl version
 Client Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.3", GitCommit:"1e11e4a2108024935ecfcb2912226cedeafd99df", GitTreeState:"clean", BuildDate:"2020-10-14T12:50:19Z", GoVersion:"go1.15.2", Compiler:"gc", Platform:"linux/amd64"}
 Server Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.3", GitCommit:"1e11e4a2108024935ecfcb2912226cedeafd99df", GitTreeState:"clean", BuildDate:"2020-10-14T12:41:49Z", GoVersion:"go1.15.2", Compiler:"gc", Platform:"linux/amd64"}
 ----
-* 叢集中的節點應該有標籤來介紹拓撲認知（「topology、Kubernetes.io/sregion」和「topology、Kubernetes.io/Zone」）。在安裝Astra Trident以識別拓撲之前、這些標籤*應該會出現在叢集*的節點上。
+* 叢集中的節點應具有標籤、以引入拓撲感知(`topology.kubernetes.io/region`和 `topology.kubernetes.io/zone`）。在安裝 Trident 之前，這些標籤 * 應該存在於叢集 * 的節點上，以便 Trident 能夠感知拓撲。
 +
 [listing]
 ----
@@ -58,7 +58,7 @@ kubectl get nodes -o=jsonpath='{range .items[*]}[{.metadata.name}, {.metadata.la
 
 == 步驟1：建立可感知拓撲的後端
 
-Astra Trident儲存後端可根據可用性區域、選擇性地配置磁碟區。每個後端都可以帶有一個可選的 `supportedTopologies` 區塊、代表支援的區域和區域清單。對於使用此類後端的StorageClass、只有在受支援地區/區域中排程的應用程式要求時、才會建立Volume。
+Trident 儲存設備後端可根據可用性區域、選擇性地配置磁碟區。每個後端都可以帶有一個可選的 `supportedTopologies` 區塊、代表支援的區域和區域清單。對於使用此類後端的StorageClass、只有在受支援地區/區域中排程的應用程式要求時、才會建立Volume。
 
 以下是後端定義範例：
 
@@ -104,7 +104,7 @@ supportedTopologies:
 --
 ====
 
-NOTE: 「支援拓撲」是用來提供每個後端的區域和區域清單。這些區域和區域代表StorageClass中可提供的允許值清單。對於包含後端所提供之區域和區域子集的StorageClass、Astra Trident會在後端建立磁碟區。
+NOTE: `supportedTopologies`用於提供每個後端的區域和區域清單。這些區域和區域代表StorageClass中可提供的允許值清單。對於包含後端所提供區域和區域子集的 StorageClasses 、 Trident 會在後端建立磁碟區。
 
 您也可以定義每個儲存資源池的「支援拓撲」。請參閱下列範例：
 
@@ -165,7 +165,7 @@ allowedTopologies:
 parameters:
   fsType: "ext4"
 ----
-在上述StorageClass定義中、「volumeBindingMode」設定為「WaitForFirst消費者」。在Pod中引用此StorageClass所要求的PVCS之前、系統不會對其採取行動。此外、「opedtopologies」也提供要使用的區域和區域。《NetApp-san—use-east1》StorageClass將在上述定義的「SAN後端-us-east1」後端上建立PVCS。
+在上面提供的 StorageClass 定義中 `volumeBindingMode`，設置爲 `WaitForFirstConsumer`。在Pod中引用此StorageClass所要求的PVCS之前、系統不會對其採取行動。此外、還 `allowedTopologies`提供要使用的區域和區域。StorageClass 會 `netapp-san-us-east1`在上述定義的後端建立 PVC `san-backend-us-east1` 。
 
 
 

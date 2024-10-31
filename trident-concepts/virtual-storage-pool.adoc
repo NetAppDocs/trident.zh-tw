@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-concepts/virtual-storage-pool.html 
-keywords: virtual pools, astra trident, backends 
-summary: 虛擬資源池在Astra Trident的儲存後端與Kubernetes的StorageClass之間提供抽象層。管理員可透過通用的後端不受後端限制的方式、定義各個層級的位置、效能及保護、而無需使用StorageClass來指定要用於符合所需條件的實體後端、後端集區或後端類型。 
+keywords: virtual pools, Trident, backends 
+summary: 虛擬集區在 Trident 的儲存後端和 Kubernetes 的 StorageClasses 之間提供抽象層。管理員可透過通用的後端不受後端限制的方式、定義各個層級的位置、效能及保護、而無需使用StorageClass來指定要用於符合所需條件的實體後端、後端集區或後端類型。 
 ---
 = 虛擬資源池
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 虛擬資源池在Astra Trident的儲存後端與Kubernetes的StorageCl
 
 
 [role="lead"]
-虛擬資源池可在Astra Trident儲存後端與Kubernetes之間提供抽象層 `StorageClasses`。管理員可以透過通用的後端不受限制的方式、定義各個方面、例如位置、效能及每個後端的保護、而無需進行任何操作 `StorageClass` 指定要用於符合所需條件的實體後端、後端集區或後端類型。
+虛擬池在 Trident 儲存後端和 Kubernetes 之間提供抽象層 `StorageClasses`。這些功能可讓系統管理員以通用、不受後端限制的方式、定義各個後端的位置、效能和保護等層面、而無需 `StorageClass`指定要使用哪種實體後端、後端集區或後端類型來符合所需的條件。
 
 
 
 == 瞭解虛擬資源池
 
-儲存管理員可在Json或Yaml定義檔案的任何Astra Trident後端上定義虛擬資源池。
+儲存管理員可以在 JSON 或 YAML 定義檔案的任何 Trident 後端上定義虛擬集區。
 
 image::virtual_storage_pools.png[顯示虛擬集區的概念性圖表。]
 

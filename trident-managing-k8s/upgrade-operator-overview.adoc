@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-operator-overview.html 
 keywords: upgrade, trident, operator, helm, controller, daemonset, node pods, rolling upgrade, zero downtime 
-summary: 在使用 Trident 運算子升級 Astra Trident 之前、您應該先瞭解升級期間發生的背景程序。其中包括 Trident 控制器、控制器 Pod 和節點 Pod 的變更、以及啟用循環更新的節點示範集。 
+summary: 在使用 Trident 操作員升級 Trident 之前、您應該先瞭解升級期間所發生的背景程序。其中包括 Trident 控制器、控制器 Pod 和節點 Pod 的變更、以及啟用循環更新的節點示範集。 
 ---
 = 瞭解營運商升級工作流程
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 在使用 Trident 運算子升級 Astra Trident 之前、您應該先�
 
 
 [role="lead"]
-在使用 Trident 運算子升級 Astra Trident 之前、您應該先瞭解升級期間發生的背景程序。其中包括 Trident 控制器、控制器 Pod 和節點 Pod 的變更、以及啟用循環更新的節點示範集。
+在使用 Trident 操作員升級 Trident 之前、您應該先瞭解升級期間所發生的背景程序。其中包括 Trident 控制器、控制器 Pod 和節點 Pod 的變更、以及啟用循環更新的節點示範集。
 
 
 
 == Trident 營運商升級處理
 
-其中一項 link:../trident-get-started/kubernetes-deploy.html["使用 Trident 運算子的優點"] 安裝和升級 Astra Trident 是自動處理 Astra Trident 和 Kubernetes 物件、而不會中斷現有的掛載磁碟區。如此一來、 Astra Trident 就能支援零停機的升級、或 link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["滾動更新 _"^]。尤其是 Trident 運算子會與 Kubernetes 叢集通訊、以便：
+安裝和升級 Trident 的其中一項link:../trident-get-started/kubernetes-deploy.html["使用 Trident 運算子的優點"]、是在不中斷現有掛載磁碟區的情況下、自動處理 Trident 和 Kubernetes 物件。如此一來、 Trident 就能支援零停機的升級、或link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["滾動更新 _"^]。尤其是 Trident 運算子會與 Kubernetes 叢集通訊、以便：
 
 * 刪除並重新建立 Trident Controller 部署和節點示範集。
 * 以新版本更換 Trident 控制器 Pod 和 Trident 節點 Pod 。
@@ -30,7 +30,7 @@ summary: 在使用 Trident 運算子升級 Astra Trident 之前、您應該先�
 
 
 
-TIP: 如需 Kubernetes 叢集上 Astra Trident 架構的詳細資訊、請參閱 link:trident-concepts/intro.html#astra-trident-architecture["Astra Trident 架構"]。
+TIP: 有關 Kubernetes 叢集上 Trident 架構的詳細資訊link:trident-concepts/intro.html#trident-architecture["Trident 架構"]、請參閱。
 
 
 
@@ -40,7 +40,7 @@ TIP: 如需 Kubernetes 叢集上 Astra Trident 架構的詳細資訊、請參閱
 
 . * Trident 運算子 * ：
 +
-.. 偵測目前安裝的 Astra Trident 版本（版本 _n_ ）。
+.. 偵測目前安裝的 Trident 版本（版本 _n_ ）。
 .. 更新所有 Kubernetes 物件、包括 CRD 、 RBAC 和 Trident SVC 。
 .. 刪除版本 _n_ 的 Trident 控制器部署。
 .. 為版本 _n+1_ 建立 Trident Controller 部署。

@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/intro.html 
-keywords: product overview, astra trident, fsx, element, astra, google cloud, cvs, architecture, test drive, node pod, controller pod, pods, csi, sidecar 
-summary: Astra Trident是NetApp在Astra產品系列中所維護的完整支援開放原始碼專案。其設計旨在協助您使用業界標準介面（例如 Container Storage Interface （ CSI ））來滿足容器化應用程式的持續需求。 
+keywords: product overview, Trident, fsx, element, google cloud, cvs, architecture, test drive, node pod, controller pod, pods, csi, sidecar 
+summary: Trident是NetApp所維護的完全支援的開放原始碼專案。其設計旨在協助您使用業界標準介面（例如 Container Storage Interface （ CSI ））來滿足容器化應用程式的持續需求。 
 ---
-= 瞭解Astra Trident
+= 瞭解 Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,36 +12,26 @@ summary: Astra Trident是NetApp在Astra產品系列中所維護的完整支援�
 
 
 [role="lead"]
-Astra Trident 是由 NetApp 維護的完全支援開放原始碼專案、是的一部分 link:https://docs.netapp.com/us-en/astra-family/intro-family.html["Astra產品系列"^]。其設計旨在協助您使用業界標準介面（例如 Container Storage Interface （ CSI ））來滿足容器化應用程式的持續需求。
+Trident 是 NetApp 所維護的完全支援的開放原始碼專案。其設計旨在協助您使用業界標準介面（例如 Container Storage Interface （ CSI ））來滿足容器化應用程式的持續需求。
 
 
 
-== 什麼是Astra？
+== 什麼是 Trident ？
 
-Astra可讓企業更輕鬆地管理、保護及搬移在公有雲內部及內部部署的Kubernetes上執行的資料豐富的容器化工作負載。
+NetApp Trident 可在所有熱門的 NetApp 儲存平台、公有雲或內部部署中、使用和管理儲存資源、包括 ONTAP （ AFF 、 FAS 、 Select 、 Cloud 、 Amazon FSX for NetApp ONTAP ）、 Element 軟體（ NetApp HCI 、 SolidFire ）、 Azure NetApp Files 服務和 Cloud Volumes Service on Google Cloud 。
 
-Astra 提供並提供以 Astra Trident 為基礎的永久性容器儲存設備。它也提供先進的應用程式感知資料管理功能、例如快照、備份與還原、活動記錄、以及主動複製、以保護資料、災難 / 資料恢復、資料稽核、以及 Kubernetes 工作負載的移轉使用案例。
+Trident 是符合 Container Storage Interface （ CSI ）規範的動態儲存協調器link:https://kubernetes.io/["Kubernetes"^]、可與原生整合。Trident 會在叢集中的每個工作節點上、以單一控制器 Pod 加上節點 Pod 的形式執行。如 link:../trident-get-started/architecture.html["Trident 架構"] 需詳細資訊、請參閱。
 
-深入瞭解 link:https://bluexp.netapp.com/astra["Astra 或註冊免費試用"^]。
-
-
-
-== 什麼是 Astra Trident ？
-
-Astra Trident 可在所有常見的 NetApp 儲存平台、公有雲或內部部署（包括 ONTAP （ AFF 、 FAS 、 Select 、 Cloud 、 Amazon FSX for NetApp ONTAP ）、 Element 軟體（ NetApp HCI 、 SolidFire ）、 Azure NetApp Files 服務、以及 Google Cloud 上的 Cloud Volumes Service 。
-
-Astra Trident 是符合 Container Storage Interface （ CSI ）規範的動態儲存協調器、可與原生整合 link:https://kubernetes.io/["Kubernetes"^]。Astra Trident 會在叢集中的每個工作節點上、以單一控制器 Pod 加上節點 Pod 的形式執行。請參閱 link:../trident-get-started/architecture.html["Astra Trident 架構"] 以取得詳細資料。
-
-Astra Trident 也可直接整合 NetApp 儲存平台的 Docker 生態系統。NetApp Docker Volume 外掛程式（ nDVP ）支援從儲存平台到 Docker 主機的儲存資源配置與管理。請參閱 link:../trident-docker/deploy-docker.html["部署適用於Docker的Astra Trident"] 以取得詳細資料。
+Trident 也可直接整合 NetApp 儲存平台的 Docker 生態系統。NetApp Docker Volume 外掛程式（ nDVP ）支援從儲存平台到 Docker 主機的儲存資源配置與管理。如 link:../trident-docker/deploy-docker.html["部署 Trident for Docker"] 需詳細資訊、請參閱。
 
 
 NOTE: 如果這是您第一次使用 Kubernetes 、您應該熟悉 link:https://kubernetes.io/docs/home/["Kubernetes 概念與工具"^]。
 
 
 
-== 參加 Astra Trident 試用
+== 參加 Trident 試用
 
-若要試用、請要求存取「輕鬆部署及複製容器化工作負載的持續儲存設備」 link:https://www.netapp.com/us/try-and-buy/test-drive/index.aspx["NetApp試用"^] 使用現成的實驗室映像。此測試磁碟機提供一個沙箱環境、其中安裝並設定了三節點 Kubernetes 叢集和 Astra Trident 。這是熟悉 Astra Trident 並探索其功能的好方法。
+若要試用、請使用現成的實驗室映像、要求存取「輕鬆部署及複製容器化工作負載的持續儲存設備」link:https://www.netapp.com/us/try-and-buy/test-drive/index.aspx["NetApp試用"^]。此測試磁碟機提供一個沙箱環境、其中安裝並設定了三節點 Kubernetes 叢集和 Trident 。這是熟悉 Trident 並探索其功能的好方法。
 
 另一個選項是 link:https://kubernetes.io/docs/setup/independent/install-kubeadm/["Kubeadm安裝指南"] 由Kubernetes提供。
 
@@ -89,7 +79,7 @@ https://www.netapp.com/data-management/element-software/["元素"^] 儲存管理
 ====
 link:https://docs.netapp.com/us-en/hci/docs/concept_hci_product_overview.html["NetApp HCI"^] 將例行工作自動化、讓基礎架構管理員能夠專注於更重要的功能、進而簡化資料中心的管理與規模。
 
-Astra Trident 可直接根據基礎 NetApp HCI 儲存平台、為容器化應用程式佈建及管理儲存裝置。
+Trident可直接針對底層NetApp HCI 的資訊儲存平台、為容器化應用程式配置及管理儲存設備。
 
 ====
 .NetApp ONTAP
@@ -97,15 +87,6 @@ Astra Trident 可直接根據基礎 NetApp HCI 儲存平台、為容器化應用
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["NetApp ONTAP"^] 是 NetApp 多重傳輸協定、統一化的儲存作業系統、可為任何應用程式提供進階的資料管理功能。
 
-支援所有Flash、混合式或全硬碟組態的系統、可提供多種不同的部署模式、包括工程設計硬體（英文版）、白箱（英文版）和僅雲端（英文版）ONTAP FAS AFF ONTAP Select Cloud Volumes ONTAP 。Astra Trident 支援這些 ONTAP 部署模式。
+支援所有Flash、混合式或全硬碟組態的系統、可提供多種不同的部署模式、包括工程設計硬體（英文版）、白箱（英文版）和僅雲端（英文版）ONTAP FAS AFF ONTAP Select Cloud Volumes ONTAP 。Trident 支援這些 ONTAP 部署模式。
 
 ====
-
-
-== 以取得更多資訊
-
-* https://docs.netapp.com/us-en/astra-family/intro-family.html["NetApp Astra產品系列"^]
-* https://docs.netapp.com/us-en/astra/get-started/intro.html["Astra Control Service文件"^]
-* https://docs.netapp.com/us-en/astra-control-center/index.html["Astra Control Center文件"^]
-* https://docs.netapp.com/us-en/astra-automation/get-started/before_get_started.html["Astra API文件"^]
-

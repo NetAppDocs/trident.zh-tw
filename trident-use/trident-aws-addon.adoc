@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/trident-aws-addon.html 
-keywords: Trident add-on, Astra Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
-summary: 將 Astra Trident EKS 附加元件新增至 Kubernetes 叢集。 
+keywords: Trident add-on, Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
+summary: 將 Trident EKS 附加元件新增至 Kubernetes 叢集。 
 ---
-= 在 EKS 叢集上設定 Astra Trident EKS 附加元件
+= 在 EKS 叢集上設定 Trident EKS 附加元件
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,13 +12,13 @@ summary: 將 Astra Trident EKS 附加元件新增至 Kubernetes 叢集。
 
 
 [role="lead"]
-Astra Trident 簡化了在 Kubernetes 進行 NetApp ONTAP 儲存管理的 Amazon FSX 、讓開發人員和管理員能夠專注於應用程式部署。Astra Trident EKS 附加元件包含最新的安全性修補程式、錯誤修正程式、並經過 AWS 驗證、可與 Amazon EKS 搭配使用。EKS 附加元件可讓您持續確保 Amazon EKS 叢集安全穩定、並減少安裝、設定及更新附加元件所需的工作量。
+Trident 簡化了 Kubernetes 中適用於 NetApp ONTAP 儲存管理的 Amazon FSX 、讓開發人員和管理員能夠專注於應用程式部署。Trident EKS 附加元件包含最新的安全性修補程式、錯誤修正、並經過 AWS 驗證、可與 Amazon EKS 搭配使用。EKS 附加元件可讓您持續確保 Amazon EKS 叢集安全穩定、並減少安裝、設定及更新附加元件所需的工作量。
 
 
 
 == 先決條件
 
-在設定 AWS EKS 的 Astra Trident 附加元件之前、請確定您具有下列項目：
+在設定 AWS EKS 的 Trident 附加元件之前、請確定您具有下列項目：
 
 * 具有附加訂閱的 Amazon EKS 叢集帳戶
 * AWS 對 AWS 市場的權限：
@@ -42,7 +42,7 @@ image::../media/aws-eks-01.png[AWS EKS 01]
 +
 image::../media/aws-eks-02.png[AWS EKS 02]
 
-. 找到 *> NetApp * 的「答案」、然後選取 Astra Trident 附加元件的核取方塊。
+. 找到 *> Trident by NetApp * 、然後選取 Trident 附加元件的核取方塊。
 . 選擇所需版本的附加元件。
 +
 image::../media/aws-eks-03.png[AWS EKS 03]
@@ -61,13 +61,13 @@ image::../media/aws-eks-05.png[AWS EKS 05]
 
 
 
-== 使用 CLI 安裝 / 解除安裝 Astra Trident EKS 附加元件
+== 使用 CLI 安裝 / 解除安裝 Trident EKS 附加元件
 
-.使用 CLI 安裝 Astra Trident EKS 附加元件：
-下列命令範例會安裝 Astra Trident EKS 附加元件：
+.使用 CLI 安裝 Trident EKS 附加元件：
+下列命令範例會安裝 Trident EKS 附加元件：
 `eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.`
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.1` （含專用版本）
+`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.1`（含專用版本）
 
-.使用 CLI 解除安裝 Astra Trident EKS 附加元件：
-下列命令會解除安裝 Astra Trident EKS 附加元件：
+.使用 CLI 解除安裝 Trident EKS 附加元件：
+下列命令會解除安裝 Trident EKS 附加元件：
 `eksctl delete addon --cluster K8s-arm --name netapp_trident-operator`

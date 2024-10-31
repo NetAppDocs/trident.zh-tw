@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-expansion.html 
 keywords: volumes, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion 
-summary: Astra Trident可讓Kubernetes使用者在建立磁碟區之後擴充磁碟區。尋找擴充iSCSI和NFS磁碟區所需組態的相關資訊。 
+summary: Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。尋找擴充iSCSI和NFS磁碟區所需組態的相關資訊。 
 ---
 = 展開Volume
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Astra Trident可讓Kubernetes使用者在建立磁碟區之後擴充磁
 
 
 [role="lead"]
-Astra Trident可讓Kubernetes使用者在建立磁碟區之後擴充磁碟區。尋找擴充iSCSI和NFS磁碟區所需組態的相關資訊。
+Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。尋找擴充iSCSI和NFS磁碟區所需組態的相關資訊。
 
 
 
@@ -65,7 +65,7 @@ spec:
       storage: 1Gi
   storageClassName: ontap-san
 ----
-Astra Trident會建立持續磁碟區（PV）、並將其與此持續磁碟區宣告（PVc）建立關聯。
+Trident 會建立持續 Volume （ PV ）、並將其與此持續 Volume Claim （ PVC ）相關聯。
 
 [listing]
 ----
@@ -83,8 +83,8 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 
 將 PV 附加至 Pod 、以便調整大小。調整iSCSI PV的大小有兩種情況：
 
-* 如果PV附加至Pod、Astra Trident會在儲存後端擴充磁碟區、重新掃描裝置、並重新調整檔案系統的大小。
-* 嘗試調整未附加PV的大小時、Astra Trident會在儲存後端上擴充磁碟區。在將永久虛擬磁碟綁定至Pod之後、Trident會重新掃描裝置並重新調整檔案系統的大小。然後、Kubernetes會在擴充作業成功完成後、更新PVc大小。
+* 如果 PV 附加至 Pod 、 Trident 會在儲存後端擴充磁碟區、重新掃描裝置、並調整檔案系統的大小。
+* 當嘗試調整未附加 PV 的大小時、 Trident 會在儲存後端擴充磁碟區。在將永久虛擬磁碟綁定至Pod之後、Trident會重新掃描裝置並重新調整檔案系統的大小。然後、Kubernetes會在擴充作業成功完成後、更新PVc大小。
 
 
 在此範例中、會建立使用「shan -PVc」的Pod。
@@ -151,7 +151,7 @@ spec:
 
 === 步驟5：驗證擴充
 
-您可以檢查PVc、PV和Astra Trident Volume的大小、以正確驗證擴充作業：
+您可以檢查 PVC 、 PV 和 Trident Volume 的大小、以驗證擴充是否正常運作：
 
 [listing]
 ----
@@ -172,7 +172,7 @@ tridentctl get volumes -n trident
 
 == 展開NFS Volume
 
-Astra Trident支援在「ONTAP-NAS」、「ONTAP-NAs-P節約」、「ONTAP-NAs-flexgroup」、「GCP-CVS」和「azure-NetApp-fils」後端配置NFS PV的Volume擴充。
+Trident 支援 NFS PV 的 Volume 擴充、部署於 `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup` `gcp-cvs`和 `azure-netapp-files`後端。
 
 
 
@@ -213,7 +213,7 @@ spec:
       storage: 20Mi
   storageClassName: ontapnas
 ----
-Astra Trident應為此PVC建立20MiB NFS PV：
+Trident 應為此 PVC 建立 20MiB NFS PV ：
 
 [listing]
 ----
@@ -265,7 +265,7 @@ spec:
 
 === 步驟4：驗證擴充
 
-您可以檢查PVc、PV和Astra Trident Volume的大小、以正確驗證調整大小：
+您可以檢查 PVC 、 PV 和 Trident Volume 的大小、以驗證調整大小是否正常運作：
 
 [listing]
 ----

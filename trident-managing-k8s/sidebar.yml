@@ -1,8 +1,8 @@
 ---
 section: trident-managing-k8s
-title: 管理和監控 Astra Trident
+title: 管理及監控 Trident
 entries:
-- title: 升級Astra Trident
+- title: 升級 Trident
   entries:
   - title: 升級總覽
     url: "/trident-managing-k8s/upgrade-trident.html"
@@ -14,9 +14,9 @@ entries:
       url: "/trident-managing-k8s/upgrade-operator.html"
   - title: 使用tridentctl進行升級
     url: "/trident-managing-k8s/upgrade-tridentctl.html"
-- title: 使用 Tridentctl 管理 Astra Trident
+- title: 使用 tridentctl 管理 Trident
   url: "/trident-managing-k8s/tridentctl.html"
-- title: 監控Astra Trident
+- title: 監控 Trident
   url: "/trident-use/monitor-trident.html"
-- title: 解除安裝Astra Trident
+- title: 解除安裝Trident
   url: "/trident-managing-k8s/uninstall-trident.html"

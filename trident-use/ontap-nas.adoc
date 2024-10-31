@@ -18,10 +18,7 @@ summary: 瞭解如何使用ONTAP NetApp NAS驅動程式設定功能的功能。O
 
 == ONTAP NAS 驅動程式詳細資料
 
-Astra Trident 提供下列 NAS 儲存驅動程式、可與 ONTAP 叢集通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
-
-
-IMPORTANT: 如果您使用 Astra Control 來保護、恢復和移動、請閱讀 <<Astra Control 驅動程式相容性>>。
+Trident 提供下列 NAS 儲存驅動程式、可與 ONTAP 叢集進行通訊。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
 
 [cols="2, 1, 1, 2, 2"]
 |===
@@ -63,12 +60,6 @@ Rwo 、 ROX 、 rwx 、 RWOP
 " 、 `nfs`、 `smb`
 
 |===
-
-
-=== Astra Control 驅動程式相容性
-
-Astra Control可為使用建立的磁碟區提供無縫保護、災難恢復和移動性（在Kubernetes叢集之間移動磁碟區） `ontap-nas`、 `ontap-nas-flexgroup`和 `ontap-san` 驅動程式：請參閱 link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Astra Control複寫先決條件"^] 以取得詳細資料。
-
 [WARNING]
 ====
 * 使用 `ontap-san-economy` 只有持續磁碟區使用量計數預期會高於 link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["支援的 ONTAP Volume 限制"^]。
@@ -81,11 +72,11 @@ Astra Control可為使用建立的磁碟區提供無縫保護、災難恢復和�
 
 == 使用者權限
 
-Astra Trident希望以ONTAP 支援的形式執行、通常是以支援的方式執行 `admin` 叢集使用者或 `vsadmin` SVM使用者、或具有相同角色之不同名稱的使用者。
+Trident 預期會以 ONTAP 或 SVM 管理員的身分執行、通常使用叢集使用者或 `vsadmin` SVM 使用者、或是使用 `admin`具有相同角色的不同名稱的使用者。
 
-對於Amazon FSX for NetApp ONTAP 支援的NetApp功能、Astra Trident預期會以ONTAP 使用叢集的形式執行、以執行支援或SVM管理員的身分 `fsxadmin` 使用者或 `vsadmin` SVM使用者、或具有相同角色之不同名稱的使用者。。 `fsxadmin` 使用者是叢集管理使用者的有限替代。
+對於用於 NetApp ONTAP 部署的 Amazon FSX 、 Trident 預期會以 ONTAP 或 SVM 管理員的身分、使用叢集使用者或 `vsadmin` SVM 使用者、或是具有相同角色的不同名稱的使用者來執行 `fsxadmin`。 `fsxadmin`使用者只能有限地取代叢集管理使用者。
 
 
-NOTE: 如果您使用「limitAggregateusage」參數、則需要叢集管理權限。使用Amazon FSx for NetApp ONTAP 支援Astra Trident時、「limitAggregateusage」參數無法搭配「vsadmin」和「fsxadmin」使用者帳戶使用。如果您指定此參數、組態作業將會失敗。
+NOTE: 如果您使用此 `limitAggregateUsage`參數、則需要叢集管理權限。將 Amazon FSX for NetApp ONTAP 搭配 Trident 使用時、此 `limitAggregateUsage`參數將無法與和 `fsxadmin`使用者帳戶搭配 `vsadmin`使用。如果您指定此參數、組態作業將會失敗。
 
 雖然可以在 ONTAP 中建立更具限制性的角色、讓 Trident 驅動程式可以使用、但我們不建議這樣做。Trident的大多數新版本都會呼叫額外的API、而這些API必須納入考量、使升級變得困難且容易出錯。

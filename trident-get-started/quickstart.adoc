@@ -4,7 +4,7 @@ permalink: trident-get-started/quickstart.html
 keywords: kubernetes cluster, simple installation, Kubernetes installation 
 summary: 如果您剛開始使用Kubernetes、請依照指示安裝Kubernetes來試用。這些說明提供了一個裸機、單節點叢集、Trident可與該叢集整合以供示範之用。 
 ---
-= Astra Trident 的快速入門
+= Trident 快速入門
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,17 +12,17 @@ summary: 如果您剛開始使用Kubernetes、請依照指示安裝Kubernetes來
 
 
 [role="lead"]
-您可以安裝 Astra Trident 、只需幾個步驟就能開始管理儲存資源。開始之前、請先檢閱 link:requirements.html["Astra Trident的需求"]。
+您可以在幾個步驟內安裝 Trident 並開始管理儲存資源。開始使用之前，請查看link:requirements.html["Trident 需求"]。
 
 
-NOTE: 如需 Docker 、請參閱 link:../trident-docker/deploy-docker.html["適合Docker的Astra Trident"]。
+NOTE: 若為 Docker link:../trident-docker/deploy-docker.html["Trident for Docker"]、請參閱。
 
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["一"] 安裝Astra Trident
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["一"]安裝 Trident
 [role="quick-margin-para"]
-Astra Trident 提供多種安裝方法和模式、針對各種環境和組織進行最佳化。
+Trident 提供多種安裝方法和模式、針對各種環境和組織進行最佳化。
 
 [role="quick-margin-para"]
-link:../trident-get-started/kubernetes-deploy.html["安裝Astra Trident"]
+link:../trident-get-started/kubernetes-deploy.html["安裝Trident"]
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["二"] 準備工作節點
 [role="quick-margin-para"]
@@ -33,14 +33,14 @@ link:../trident-use/worker-node-prep.html["準備工作節點"]
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["三"] 建立後端
 [role="quick-margin-para"]
-後端定義了Astra Trident與儲存系統之間的關係。它告訴Astra Trident如何與該儲存系統通訊、以及Astra Trident如何從該儲存系統配置磁碟區。
+後端定義 Trident 與儲存系統之間的關係。它告訴Trident如何與該儲存系統通訊、以及Trident如何從該儲存系統配置磁碟區。
 
 [role="quick-margin-para"]
 link:../trident-use/backends.html["設定後端"] 適用於您的儲存系統
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["四"] 建立 Kubernetes StorageClass
 [role="quick-margin-para"]
-Kubernetes StorageClass 物件會將 Astra Trident 指定為置備程式、並可讓您建立儲存類別、以使用可自訂的屬性來佈建磁碟區。Astra Trident 為 Kubernetes 物件建立相符的儲存類別、以指定 Astra Trident 資源配置程式。
+Kubernetes StorageClass 物件會將 Trident 指定為資源配置程式、並可讓您建立儲存類別、以使用可自訂的屬性來資源配置磁碟區。Trident 會為指定 Trident 資源配置程式的 Kubernetes 物件建立相符的儲存類別。
 
 [role="quick-margin-para"]
 link:../trident-use/create-stor-class.html["建立儲存類別"]

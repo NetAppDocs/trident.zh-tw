@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/backend_options.html 
 keywords: backends, storage system, anf, cvs for aws, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, kubectl, tridentctl, backend management options 
-summary: 瞭解Astra Trident管理後端的不同方法。 
+summary: 瞭解在 Trident 中管理後端的不同方法。 
 ---
 = 在後端管理選項之間切換
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 瞭解Astra Trident管理後端的不同方法。
 
 
 [role="lead"]
-瞭解Astra Trident管理後端的不同方法。
+瞭解在 Trident 中管理後端的不同方法。
 
 
 
@@ -36,7 +36,7 @@ summary: 瞭解Astra Trident管理後端的不同方法。
 * 使用「tridentctl」建立的新後端、而其他「TridentBackendConfig」物件則存在。
 
 
-在這兩種情況下、後端仍會繼續存在、Astra Trident排程磁碟區會繼續運作。系統管理員有兩種選擇之一：
+在這兩種情況下、都會繼續出現後端、並在 Trident 排程磁碟區上運作。系統管理員有兩種選擇之一：
 
 * 繼續使用「tridentctl」來管理使用它建立的後端。
 * 將使用「tridentctl」建立的後端連結至新的「TridentBackendConfig」物件。這樣做將意味着後端將使用“kubedl”而不是“tridentctl”來管理。
@@ -44,7 +44,7 @@ summary: 瞭解Astra Trident管理後端的不同方法。
 
 若要使用「kubecll」管理預先存在的後端、您需要建立連結至現有後端的「TridentBackendConfig」。以下是如何運作的總覽：
 
-. 建立Kubernetes機密。此機密包含Astra Trident與儲存叢集/服務通訊所需的認證資料。
+. 建立Kubernetes機密。機密包含 Trident 與儲存叢集 / 服務通訊所需的認證。
 . 建立「TridentBackendConfig」物件。其中包含有關儲存叢集/服務的詳細資訊、並參考上一步建立的機密。必須謹慎指定相同的組態參數（例如「s.pec.backendName」、「sec.storagePrefix」、「sPEec.storageDriverName」等）。必須將「Pec.backendName」設定為現有後端的名稱。
 
 
@@ -235,7 +235,7 @@ tridentctl get backend ontap-san-backend -n trident
 
 === 步驟1：確認 `deletionPolicy` 設為 `retain`
 
-讓我們來看看「改革政策」的價值。這需要設定為「維護」。這將確保刪除「TridentBackendConfig」（TridentBackendConfig）的CR時、後端定義仍會存在、而且可以使用「tridentctl」進行管理。
+讓我們來看看的價值 `deletionPolicy`。這需要設為 `retain`。如此可確保刪除 CR 時 `TridentBackendConfig`、後端定義仍會存在、並可透過進行管理 `tridentctl`。
 
 [listing]
 ----
@@ -273,4 +273,4 @@ tridentctl get backend ontap-san-backend -n trident
 | ontap-san-backend | ontap-san      | 81abcb27-ea63-49bb-b606-0a5315ac5f82 | online |      33 |
 +-------------------+----------------+--------------------------------------+--------+---------+
 ----
-刪除「TridentBackendConfig」物件之後、Astra Trident便會移除該物件、而不會實際刪除後端本身。
+刪除物件後 `TridentBackendConfig`、 Trident 只是將其移除、而不會實際刪除後端本身。

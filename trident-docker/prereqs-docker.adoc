@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/prereqs-docker.html 
-keywords: deploy, astra trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, nvme/tcp, nvme 
-summary: 您必須先在主機上安裝並設定必要的傳輸協定先決條件、才能部署Astra Trident。 
+keywords: deploy, Trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, nvme/tcp, nvme 
+summary: 您必須先在主機上安裝及設定必要的通訊協定先決條件、才能部署 Trident 。 
 ---
 = 部署的先決條件
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 您必須先在主機上安裝並設定必要的傳輸協定先決條�
 
 
 [role="lead"]
-您必須先在主機上安裝並設定必要的傳輸協定先決條件、才能部署Astra Trident。
+您必須先在主機上安裝及設定必要的通訊協定先決條件、才能部署 Trident 。
 
 
 

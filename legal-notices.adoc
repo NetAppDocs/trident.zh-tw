@@ -45,4 +45,4 @@ link:https://www.netapp.com/company/legal/privacy-policy/["https://www.netapp.co
 
 == 開放原始碼
 
-您可以在每個版本的通知檔案中檢閱NetApp軟體中用於Astra Trident的協力廠商版權與授權、網址為 https://github.com/NetApp/trident/[]。
+您可以在每個版本的通知檔中、檢閱 NetApp 軟體 for Trident 中使用的協力廠商版權和授權、網址為： https://github.com/NetApp/trident/[]。

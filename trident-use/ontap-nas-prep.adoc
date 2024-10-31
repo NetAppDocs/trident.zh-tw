@@ -18,20 +18,20 @@ summary: 瞭解使用 ONTAP NAS 驅動程式設定 ONTAP 後端的需求、驗�
 
 == 需求
 
-* 對於所有ONTAP 的不支援端點、Astra Trident至少需要指派一個集合體給SVM。
+* 對於所有 ONTAP 後端、 Trident 至少需要指派一個 Aggregate 給 SVM 。
 * 您可以執行多個驅動程式、並建立指向其中一個或另一個的儲存類別。例如、您可以設定使用的Gold類別 `ontap-nas` 驅動程式和銅級、使用 `ontap-nas-economy` 一、
 * 您所有的Kubernetes工作節點都必須安裝適當的NFS工具。請參閱 link:worker-node-prep.html["請按這裡"] 以取得更多詳細資料。
-* Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。請參閱 <<準備配置SMB磁碟區>> 以取得詳細資料。
+* Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。如 <<準備配置SMB磁碟區>> 需詳細資訊、請參閱。
 
 
 
 
 == 驗證 ONTAP 後端
 
-Astra Trident提供兩種驗ONTAP 證功能來驗證支援的後端。
+Trident 提供兩種驗證 ONTAP 後端的模式。
 
 * 認證型：此模式需要對 ONTAP 後端擁有足夠的權限。建議您使用與預先定義的安全登入角色相關聯的帳戶、例如 `admin` 或 `vsadmin` 以確保與ONTAP 更新版本的最大相容性。
-* 憑證型：此模式需要在後端安裝憑證、 Astra Trident 才能與 ONTAP 叢集通訊。在此處、後端定義必須包含用戶端憑證、金鑰及信任的CA憑證（建議使用）的Base64編碼值。
+* 憑證型：此模式需要在後端安裝憑證、 Trident 才能與 ONTAP 叢集通訊。在此處、後端定義必須包含用戶端憑證、金鑰及信任的CA憑證（建議使用）的Base64編碼值。
 
 
 您可以更新現有的後端、以便在認證型和憑證型方法之間移動。不過、一次只支援一種驗證方法。若要切換至不同的驗證方法、您必須從後端組態中移除現有方法。
@@ -43,7 +43,7 @@ WARNING: 如果您嘗試同時提供*認證與認證*、後端建立將會失敗
 
 === 啟用認證型驗證
 
-Astra Trident需要SVM範圍/叢集範圍管理員的認證資料、才能與ONTAP 該後端進行通訊。建議使用預先定義的標準角色、例如「admin」或「vsadmin」。這可確保與未來ONTAP 的支援版本保持前瞻相容、因為未來的Astra Trident版本可能會使用功能API。您可以建立自訂的安全登入角色、並與Astra Trident搭配使用、但不建議使用。
+Trident 需要 SVM 範圍 / 叢集範圍管理員的認證、才能與 ONTAP 後端通訊。建議您使用標準的預先定義角色、例如 `admin`或 `vsadmin`。如此可確保與未來 ONTAP 版本的前移相容性、這些版本可能會公開未來 Trident 版本所使用的功能 API 。自訂安全登入角色可建立並搭配 Trident 使用、但不建議使用。
 
 後端定義範例如下所示：
 
@@ -197,28 +197,90 @@ tridentctl update backend NasBackend -f cert-backend-updated.json -n trident
 
 NOTE: 當您旋轉密碼時、儲存管理員必須先更新ONTAP 使用者的密碼（位於BIOS）。接著是後端更新。在循環憑證時、可將多個憑證新增至使用者。然後更新後端以使用新的憑證、之後可從ONTAP 該叢集刪除舊的憑證。
 
-更新後端不會中斷對已建立之磁碟區的存取、也不會影響之後建立的磁碟區連線。成功的後端更新顯示Astra Trident可以與ONTAP 該後端通訊、並處理未來的Volume作業。
+更新後端不會中斷對已建立之磁碟區的存取、也不會影響之後建立的磁碟區連線。成功的後端更新表示 Trident 可以與 ONTAP 後端通訊、並處理未來的 Volume 作業。
+
+
+
+=== 為 Trident 建立自訂 ONTAP 角色
+
+您可以使用最低 Privileges 來建立 ONTAP 叢集角色、這樣就不需要使用 ONTAP 管理員角色來執行 Trident 中的作業。當您在 Trident 後端組態中包含使用者名稱時、 Trident 會使用您建立的 ONTAP 叢集角色來執行作業。
+
+如需建立 Trident 自訂角色的詳細資訊、請參閱link:https://github.com/NetApp/trident/tree/master/contrib/ontap/trident_role["Trident 自訂角色產生器"]。
+
+[role="tabbed-block"]
+====
+.使用 ONTAP CLI
+--
+. 使用下列命令建立新角色：
++
+`security login role create <role_name\> -cmddirname "command" -access all –vserver <svm_name\>`
+
+. 為 Trident 使用者建立使用者名稱：
++
+`security login create -username <user_name\> -application ontapi -authmethod <password\> -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+
+. 將角色對應至使用者：
++
+`security login modify username <user_name\> –vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
+
+
+
+--
+.使用System Manager
+--
+在 ONTAP 系統管理員中執行下列步驟：
+
+. * 建立自訂角色 * ：
++
+.. 若要在叢集層級建立自訂角色、請選取 * 叢集 > 設定 * 。
++
+（或）若要在 SVM 層級建立自訂角色、請選取 * 儲存設備 > 儲存 VM > > `required SVM` 設定 > 使用者與角色 * 。
+
+.. 選取 * 使用者和角色 * 旁的箭頭圖示（ * -> * ）。
+.. 在 * 角色 * 下選擇 *+Add* 。
+.. 定義角色的規則、然後按一下 * 儲存 * 。
+
+
+. * 將角色對應至 Trident 使用者 * ： + 在「 * 使用者與角色 * 」頁面上執行下列步驟：
++
+.. 在 * 使用者 * 下選取新增圖示 *+* 。
+.. 選取所需的使用者名稱、然後在 * 角色 * 的下拉式功能表中選取角色。
+.. 按一下「 * 儲存 * 」。
+
+
+
+
+--
+====
+如需詳細資訊、請參閱下列頁面：
+
+* link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/FAQ__Custom_roles_for_administration_of_ONTAP["用於管理 ONTAP 的自訂角色"^]或link:https://docs.netapp.com/us-en/ontap/authentication/define-custom-roles-task.html["定義自訂角色"^]
+* link:https://docs.netapp.com/us-en/ontap-automation/rest/rbac_roles_users.html#rest-api["與角色和使用者合作"^]
+
 
 
 
 == 管理NFS匯出原則
 
-Astra Trident使用NFS匯出原則來控制其所配置之磁碟區的存取。
+Trident 使用 NFS 匯出原則來控制對其所配置之磁碟區的存取。
 
-使用匯出原則時、Astra Trident提供兩種選項：
+Trident 在使用匯出原則時提供兩個選項：
 
-* Astra Trident可動態管理匯出原則本身；在此作業模式中、儲存管理員會指定代表可接受IP位址的CIDR區塊清單。Astra Trident會自動將這些範圍內的節點IP新增至匯出原則。或者、如果未指定CIDR、則會將節點上找到的任何全域範圍單點傳送IP新增至匯出原則。
-* 儲存管理員可以建立匯出原則、並手動新增規則。除非在組態中指定不同的匯出原則名稱、否則Astra Trident會使用預設的匯出原則。
+* Trident 可以動態管理匯出原則本身；在此作業模式中、儲存管理員會指定代表可接受 IP 位址的 CIDR 區塊清單。Trident 會在發佈時自動將屬於這些範圍的適用節點 IP 新增至匯出原則。或者、如果未指定 CIDR 、則在要發佈的磁碟區所在節點上找到的所有全域範圍單點傳播 IP 都會新增至匯出原則。
+* 儲存管理員可以建立匯出原則、並手動新增規則。除非在組態中指定不同的匯出原則名稱、否則 Trident 會使用預設匯出原則。
 
 
 
 
 === 動態管理匯出原則
 
-Astra Trident 提供動態管理 ONTAP 後端匯出原則的能力。這可讓儲存管理員為工作節點IP指定允許的位址空間、而非手動定義明確的規則。它可大幅簡化匯出原則管理；修改匯出原則不再需要在儲存叢集上進行手動介入。此外、這有助於限制只有在指定範圍內有IP的工作者節點才能存取儲存叢集、以支援精細且自動化的管理。
+Trident 提供動態管理 ONTAP 後端匯出原則的功能。這可讓儲存管理員為工作節點IP指定允許的位址空間、而非手動定義明確的規則。它可大幅簡化匯出原則管理；修改匯出原則不再需要在儲存叢集上進行手動介入。此外、這有助於將儲存叢集的存取限制在裝載磁碟區且指定範圍內有 IP 的工作節點、以支援精細且自動化的管理。
 
 
 NOTE: 使用動態匯出原則時、請勿使用網路位址轉譯（ NAT ）。使用 NAT 時、儲存控制器會看到前端 NAT 位址、而非實際 IP 主機位址、因此在匯出規則中找不到相符項目時、就會拒絕存取。
+
+
+NOTE: 在 Trident 24.10 中、 `ontap-nas`儲存驅動程式將繼續如舊版一樣運作； ONTAP NAS 驅動程式並未進行任何變更。只有儲存驅動程式才能 `ontap-nas-economy`在 Trident 24.10 中進行 Volume 型精細存取控制。
 
 
 
@@ -230,7 +292,7 @@ NOTE: 使用動態匯出原則時、請勿使用網路位址轉譯（ NAT ）。
 ----
 ---
 version: 1
-storageDriverName: ontap-nas
+storageDriverName: ontap-nas-economy
 backendName: ontap_nas_auto_export
 managementLIF: 192.168.0.135
 svm: svm1
@@ -241,19 +303,32 @@ autoExportCIDRs:
 autoExportPolicy: true
 ----
 
-NOTE: 使用此功能時、您必須確保SVM中的根連接點具有先前建立的匯出原則、並具有允許節點CIDR區塊（例如預設匯出原則）的匯出規則。請務必遵循 NetApp 建議的最佳實務做法、將 SVM 專門用於 Astra Trident 。
+NOTE: 使用此功能時、您必須確保SVM中的根連接點具有先前建立的匯出原則、並具有允許節點CIDR區塊（例如預設匯出原則）的匯出規則。請務必遵循 NetApp 建議的最佳實務做法、將 SVM 專用於 Trident 。
 
 以下是使用上述範例說明此功能的運作方式：
 
-* 將「AutoExpportPolicy」設為「true」。這表示Astra Trident將為「svm1」SVM建立匯出原則、並使用「AutoExportCIDR」位址區塊來處理新增和刪除規則的作業。例如、在SVM上、UUID為403b5326-8482-40dB/96d0-d83fb3f4daec和「autodportPolicy」設為「true」的後端會建立名為「trident 403b5326-8482-40dB/96d0-d83fb3f4daec」的匯出原則。
-* 「AutoExportCIDR」包含位址區塊清單。此欄位為選用欄位、預設為「0.00.0.0/0」、「：/0」。如果未定義、Astra Trident會新增在工作者節點上找到的所有全域範圍單點傳送位址。
+* `autoExportPolicy`設定為 `true`。這表示 Trident 會為使用此後端為 SVM 佈建的每個 Volume 建立匯出原則 `svm1`、並使用位址區塊來處理規則的新增和刪除 `autoexportCIDRs`。在磁碟區附加至節點之前、該磁碟區會使用沒有規則的空匯出原則、以防止不必要的存取該磁碟區。當磁碟區發佈至節點 Trident 時、會建立一個匯出原則、其名稱與包含指定 CIDR 區塊內節點 IP 的基礎 qtree 相同。這些 IP 也會新增至父 FlexVol 所使用的匯出原則。
++
+** 例如：
++
+*** 後端 UUID 403b5326-8482-40der-96d0-d83fb3f4daec
+*** `autoExportPolicy`設定為 `true`
+*** 儲存字首 `trident`
+*** PVC UUID a79bcf5f-7b6d-4a40-9876-e2551f159c1c
+*** qtree 名稱為 Trident _PVC_a79bcf5f_7b6d_4a40_9876_e2551f159c1c FlexVol 、會為命名的 qtree 建立匯出原則、為命名的 qtree 建立匯 `trident-403b5326-8482-40db96d0-d83fb3f4daec`出原則、
+`trident_pvc_a79bcf5f_7b6d_4a40_9876_e2551f159c1c`以及在 SVM 上命名的空白匯出原則 `trident_empty`。FlexVol 匯出原則的規則將是 qtree 匯出原則所包含的任何規則的超集。未附加的任何磁碟區都會重複使用空的匯出原則。
 
 
-在此範例中、會提供「192．168．0．0/24」位址空間。這表示、屬於此位址範圍的Kubernetes節點IP將新增至Astra Trident所建立的匯出原則。當Astra Trident登錄其執行的節點時、會擷取節點的IP位址、並對照「AutoExpportCIDR」中提供的位址區塊進行檢查。篩選IP之後、Astra Trident會針對所探索的用戶端IP建立匯出原則規則、並針對所識別的每個節點建立一個規則。
+
+
+* `autoExportCIDRs`包含位址區塊清單。此欄位為選用欄位、預設為「0.00.0.0/0」、「：/0」。如果未定義、 Trident 會新增所有在工作節點上找到的全域範圍單點傳播位址、並提供出版物。
+
+
+在此範例中 `192.168.0.0/24`、會提供位址空間。這表示位於此位址範圍內的 Kubernetes 節點 IP 與出版物將會新增至 Trident 所建立的匯出原則。當 Trident 登錄其執行的節點時，它會擷取節點的 IP 位址，並對照中提供的位址區塊進行檢查 `autoExportCIDRs`。在發佈時，在篩選 IP 之後， Trident 會為其所發佈節點的用戶端 IP 建立匯出原則規則。
 
 您可以在建立後端後、更新「AutoExpportPolicy」和「AutoExpportCTR」。您可以為自動管理或刪除現有CIDR的後端附加新的CIDR。刪除CIDR時請務必謹慎、以確保不會中斷現有的連線。您也可以選擇停用後端的「autodportPolicy」、然後回到手動建立的匯出原則。這需要在後端組態中設定「exportPolicy」參數。
 
-Astra Trident建立或更新後端之後、您可以使用「tridentctl」或對應的「tridentbackend」CRD來檢查後端：
+Trident 建立或更新後端之後、您可以使用或對應的 `tridentbackend` CRD 來檢查後端 `tridentctl`：
 
 [listing]
 ----
@@ -278,16 +353,14 @@ items:
       exportPolicy: <automatic>
       fileSystemType: ext4
 ----
-當節點新增至Kubernetes叢集並向Astra Trident控制器註冊時、現有後端的匯出原則會更新（前提是它們位於後端的「AutoExpportCIDR」中指定的位址範圍內）。
+移除節點時、 Trident 會檢查所有匯出原則、以移除對應於節點的存取規則。透過從受管理後端的匯出原則中移除此節點 IP 、 Trident 可防止惡意掛載、除非叢集中的新節點重複使用此 IP 。
 
-移除節點時、Astra Trident會檢查所有線上的後端、以移除節點的存取規則。Astra Trident將此節點IP從託管後端的匯出原則中移除、可防止惡意掛載、除非叢集中的新節點重複使用此IP。
-
-對於先前現有的後端、請使用更新後端 `tridentctl update backend` 將確保Astra Trident自動管理匯出原則。如此將會建立以後端 UUID 命名的新匯出原則、並在重新掛載後端上的磁碟區時、使用新建立的匯出原則。
+對於先前存在的後端、使用更新後端 `tridentctl update backend`可確保 Trident 自動管理匯出原則。這會在需要時建立兩個以後端 UUID 和 qtree 名稱命名的新匯出原則。後端上的磁碟區會在新建立的匯出原則卸載並重新掛載之後、使用這些原則。
 
 
 NOTE: 刪除具有自動管理匯出原則的後端、將會刪除動態建立的匯出原則。如果重新建立後端、則會將其視為新的後端、並導致建立新的匯出原則。
 
-如果即時節點的IP位址已更新、您必須重新啟動節點上的Astra Trident Pod。Astra Trident接著會更新其管理的後端匯出原則、以反映此IP變更。
+如果即時節點的 IP 位址已更新、您必須在節點上重新啟動 Trident Pod 。然後 Trident 會更新匯出原則、以反映其所管理的 IP 變更。
 
 
 
@@ -298,11 +371,14 @@ NOTE: 刪除具有自動管理匯出原則的後端、將會刪除動態建立�
 
 WARNING: 您必須在 SVM 上同時設定 NFS 和 SMB/CIFS 通訊協定、才能建立 `ontap-nas-economy` 適用於內部部署 ONTAP 的 SMB Volume 。若未設定上述任一種通訊協定、將導致 SMB 磁碟區建立失敗。
 
+
+NOTE: `autoExportPolicy`不支援 SMB Volume 。
+
 .開始之前
 在配置 SMB 磁碟區之前、您必須具備下列項目。
 
-* Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2022的Windows工作節點。Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。
-* 至少有一個Astra Trident機密、其中包含您的Active Directory認證資料。以產生機密 `smbcreds`：
+* Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2022的Windows工作節點。Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。
+* 至少有一個 Trident 機密包含您的 Active Directory 認證。產生機密 `smbcreds`：
 +
 [listing]
 ----
@@ -312,7 +388,7 @@ kubectl create secret generic smbcreds --from-literal username=user --from-liter
 
 
 .步驟
-. 對於內部部署 ONTAP 、您可以選擇性地建立 SMB 共用、或是 Astra Trident 可以為您建立一個。
+. 對於內部部署 ONTAP 、您可以選擇性地建立 SMB 共用、或 Trident 可以為您建立 SMB 共用。
 +
 
 NOTE: Amazon FSX for ONTAP 需要 SMB 共享。
@@ -350,11 +426,7 @@ NOTE: 請參閱 link:https://docs.netapp.com/us-en/ontap/smb-config/create-share
 | 參數 | 說明 | 範例 
 
 
-| `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱；允許 Astra Trident 建立 SMB 共用的名稱；或將參數保留空白以防止共用磁碟區存取。
-
-對於內部部署 ONTAP 、此參數為選用項目。
-
-Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。 | `smb-share` 
+| `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱；允許 Trident 建立 SMB 共用的名稱；或將參數保留空白以防止共用磁碟區。對於內部部署 ONTAP 、此參數為選用項目。Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。 | `smb-share` 
 
 
 | `nasType` | *必須設定為 `smb`.*如果為null、則預設為 `nfs`。 | `smb` 

@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-deploy-operator.html 
-keywords: deploy, astra trident, methods, operator, tridentctl, registry, registries 
-summary: 您可以手動部署Trident運算子來安裝Astra Trident。此程序適用於未將Astra Trident所需的容器映像儲存在私有登錄中的安裝。 
+keywords: deploy, Trident, methods, operator, tridentctl, registry, registries 
+summary: 您可以手動部署 Trident 操作員來安裝 Trident 。此程序適用於 Trident 所需的容器映像未儲存在私有登錄中的安裝。 
 ---
 = 手動部署Trident運算子（標準模式）
 :hardbreaks:
@@ -12,24 +12,27 @@ summary: 您可以手動部署Trident運算子來安裝Astra Trident。此程序
 
 
 [role="lead"]
-您可以手動部署Trident運算子來安裝Astra Trident。此程序適用於未將Astra Trident所需的容器映像儲存在私有登錄中的安裝。如果您有私有映像登錄、請使用 link:kubernetes-deploy-operator-mirror.html["離線部署程序"]。
+您可以手動部署 Trident 操作員來安裝 Trident 。此程序適用於 Trident 所需的容器映像未儲存在私有登錄中的安裝。如果您有私有映像登錄，請使用link:kubernetes-deploy-operator-mirror.html["離線部署程序"]。
 
 
 
-== Astra Trident 24.06 的重要資訊
+== Trident 24.10 的重要資訊
 
-*您必須閱讀下列有關Astra Trident的重要資訊。*
+* 您必須閱讀下列有關 Trident 的重要資訊。 *
 
-.關於Astra Trid-功能 的資訊</strong> <strong>
+.<strong> 的 Trident </strong> 相關資訊
 [%collapsible%open]
 ====
-* Kubernetes 1.31 現在支援 Astra Trident 。升級Kubernetes之前先升級Trident。
-* Astra Trident在SAN環境中嚴格執行多重路徑組態的使用、建議的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
+[]
+=====
+* Kubernetes 1.31 現在支援 Trident 。升級Kubernetes之前先升級Trident。
+* Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值 `find_multipaths: no`。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
 
 
 
+=====
 ====
 
 
@@ -71,19 +74,19 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 
 === 步驟1：下載Trident安裝程式套件
 
-Astra Trident安裝程式套件包含部署Trident操作員及安裝Astra Trident所需的一切。從下載並擷取Trident安裝程式的最新版本 link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]。
+Trident 安裝程式套件包含部署 Trident 營運商和安裝 Trident 所需的一切。從下載並解壓縮最新版本link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]的Trident 安裝程式。
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v24.06.0/trident-installer-24.06.0.tar.gz
-tar -xf trident-installer-24.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.10.0.tar.gz
+tar -xf trident-installer-24.10.0.tar.gz
 cd trident-installer
 ----
 
 
 === 步驟2：建立 `TridentOrchestrator` 客戶需求日
 
-建立 `TridentOrchestrator` 自訂資源定義（CRD）。您將建立 `TridentOrchestrator` 稍後再自訂資源。請使用中適當的CRD Y反 洗錢版本 `deploy/crds` 以建立 `TridentOrchestrator` 客戶需求日
+建立 `TridentOrchestrator`自訂資源定義（ CRD ）。您稍後會建立 `TridentOrchestrator`自訂資源。使用中適當的 CRD YAML 版本 `deploy/crds`來建立 `TridentOrchestrator` CRD 。
 
 [listing]
 ----
@@ -93,7 +96,7 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.1
 
 === 步驟3：部署Trident運算子
 
-Astra Trident安裝程式提供一個套件檔案、可用來安裝運算子及建立相關的物件。套裝組合檔案是使用預設組態部署操作員及安裝Astra Trident的簡易方法。
+Trident 安裝程式提供套件檔案、可用於安裝操作員及建立相關物件。套件檔案是部署操作員及使用預設組態安裝 Trident 的簡單方法。
 
 * 對於運行 Kubernetes 1.24 的羣集，請使用 `bundle_pre_1_25.yaml`。
 * 對於執行 Kubernetes 1.25 或更新版本的叢集、請使用 `bundle_post_1_25.yaml`。
@@ -146,7 +149,7 @@ IMPORTANT: Kubernetes叢集中只應有*一個運算子執行個體*。請勿建
 
 === 步驟4：建立 `TridentOrchestrator` 並安裝Trident
 
-您現在可以建立 `TridentOrchestrator` 並安裝Astra Trident。您也可以選擇 link:kubernetes-customize-deploy.html["自訂您的Trident安裝"] 使用中的屬性 `TridentOrchestrator` 規格
+您現在可以建立 `TridentOrchestrator`並安裝 Trident 。您也可以選擇link:kubernetes-customize-deploy.html["自訂您的Trident安裝"]使用規格中的屬性 `TridentOrchestrator`。
 
 [listing]
 ----
@@ -165,11 +168,13 @@ Kind:        TridentOrchestrator
 Spec:
   Debug:     true
   Namespace: trident
+  nodePrep:
+  - iscsi
 Status:
   Current Installation Params:
     IPv6:                      false
     Autosupport Hostname:
-    Autosupport Image:         netapp/trident-autosupport:24.06
+    Autosupport Image:         netapp/trident-autosupport:24.10
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                     true
@@ -179,10 +184,10 @@ Status:
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Silence Autosupport:  false
-    Trident Image:        netapp/trident:24.06.0
+    Trident Image:        netapp/trident:24.10.0
   Message:                  Trident installed  Namespace:                trident
   Status:                   Installed
-  Version:                  v24.06.0
+  Version:                  v24.10.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -205,19 +210,20 @@ Events:
 | 狀態 | 說明 
 
 
-| 安裝 | 營運者使用此「TridentOrchestrator」CR來安裝Astra Trident。 
+| 安裝 | 操作人員正在使用此 CR 安裝 Trident `TridentOrchestrator` 。 
 
 
-| 已安裝 | Astra Trident已成功安裝。 
+| 已安裝 | Trident 已成功安裝。 
 
 
-| 正在解除安裝 | 操作員正在解除安裝Astra Trident、因為是「shpec.uninstall=true」。 
+| 正在解除安裝 | 操作員正在解除安裝 Trident 、因為
+`spec.uninstall=true`。 
 
 
-| 已解除安裝 | Astra Trident已解除安裝。 
+| 已解除安裝 | Trident 已解除安裝。 
 
 
-| 失敗 | 營運者無法安裝、修補、更新或解除安裝Astra Trident；營運者將自動嘗試從此狀態恢復。如果此狀態持續存在、您將需要疑難排解。 
+| 失敗 | 操作員無法安裝、修補、更新或解除安裝 Trident ；操作員將自動嘗試從此狀態恢復。如果此狀態持續存在、您將需要疑難排解。 
 
 
 | 正在更新 | 營運者正在更新現有的安裝。 
@@ -229,7 +235,7 @@ Events:
 
 === 使用Pod建立狀態
 
-您可以檢閱建立的Pod狀態、確認是否已完成Astra Trident安裝：
+您可以檢閱建立的 Pod 狀態、確認 Trident 安裝是否已完成：
 
 [listing]
 ----
@@ -246,7 +252,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 
 === 使用 `tridentctl`
 
-您可以使用 `tridentctl` 檢查安裝的Astra Trident版本。
+您可以使用 `tridentctl`檢查已安裝的 Trident 版本。
 
 [listing]
 ----
@@ -255,6 +261,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 24.06.0        | 24.06.0        |
+| 24.10.0        | 24.10.0        |
 +----------------+----------------+
 ----

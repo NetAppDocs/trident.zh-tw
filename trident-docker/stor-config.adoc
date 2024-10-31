@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-docker/stor-config.html 
 keywords: deploy, trident, docker, trident for docker, nfs, iscsi, protocol, nfs protocol, iscsi protocol, configure host, host config, storage config, options, variables, ontap, element, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes 
-summary: 請參閱Astra Trident組態的可用組態選項。 
+summary: 請參閱 Trident 組態可用的組態選項。 
 ---
 = 儲存組態選項
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 請參閱Astra Trident組態的可用組態選項。
 
 
 [role="lead"]
-請參閱Astra Trident組態的可用組態選項。
+請參閱 Trident 組態可用的組態選項。
 
 
 
 == 全域組態選項
 
-這些組態選項適用於所有Astra Trident組態、無論使用何種儲存平台。
+無論使用的儲存平台為何、這些組態選項都適用於所有 Trident 組態。
 
 [cols="3*"]
 |===
@@ -90,9 +90,9 @@ IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。
 | 「DataLIF」  a| 
 傳輸協定LIF的IP位址。
 
-*《NAS驅動程式*》：建議您指定ONTAP `dataLIF`。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。
+* ONTAP NAS 驅動程式 * ：建議您指定 `dataLIF`。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。
 
-*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Astra Trident的用途 link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^] 探索建立多重路徑工作階段所需的iSCI LIF。如果發生此情況、將會產生警告 `dataLIF` 已明確定義。
+*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Trident 使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^]來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義、就會產生警告 `dataLIF`。
  a| 
 `10.0.0.2`
 
@@ -120,7 +120,7 @@ IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。
 
 
 | 《Aggregate》  a| 
-用於資源配置的Aggregate（選用；如果已設定、則必須指派給SVM）。對於「ONTAP-NAS-flexgroup」驅動程式、此選項會被忽略。指派給SVM的所有集合體均可用來配置FlexGroup 一個SVolume。
+用於資源配置的Aggregate（選用；如果已設定、則必須指派給SVM）。對於 `ontap-nas-flexgroup`驅動程式、此選項會被忽略。指派給 SVM 的所有集合體都會用於佈建 FlexGroup Volume 。
  a| 
 `aggr1`
 
@@ -141,7 +141,7 @@ IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。
 
 
 | 「igroupName」  a| 
-Astra Trident 會建立及管理每個節點 `igroups` 做為 `netappdvp`。
+Trident 會以 `netappdvp`建立及管理每個節點 `igroups`。
 
 此值不可變更或省略。
 
@@ -167,9 +167,9 @@ Astra Trident 會建立及管理每個節點 `igroups` 做為 `netappdvp`。
 
 
 
-| `sanType` | * 支援 `ontap-san` 僅限驅動程式。 *
-
-用於選擇 `iscsi` 適用於 iSCSI 或 `nvme` 適用於 NVMe / TCP 。 | `iscsi` 如果空白 
+ a| 
+`sanType`
+| * 僅支援 `ontap-san`驅動程式。 *用於選擇 `iscsi` iSCSI 、 `nvme` NVMe / TCP 或 `fcp` SCSI over Fibre Channel （ FC ）。*'FCP （ SCSI over FC ）是 Trident 24.10 版本的技術預覽功能。 * | `iscsi` 如果空白 
 
 
 | `limitVolumePoolSize` | * `ontap-san-economy` `ontap-san-economy` 僅支援和驅動程式。 *在 ONTAP ONTAP NAS 經濟型和 ONTAP SAN 經濟型驅動程式中限制 FlexVol 大小。  a| 
@@ -214,9 +214,9 @@ Snapshot 保留百分比、預設為「」接受 ONTAP 預設值
 | 加密  a| 
 在新磁碟區上啟用NetApp Volume Encryption（NVE）；預設為「假」。必須在叢集上授權並啟用NVE、才能使用此選項。
 
-如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都會啟用NAE。
+如果在後端啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。
 
-如需詳細資訊、請參閱： link:../trident-reco/security-reco.html["Astra Trident如何與NVE和NAE搭配運作"]。
+如需更多資訊、請參閱link:../trident-reco/security-reco.html["Trident 如何與 NVE 和 NAE 搭配運作"]：。
  a| 
 是的
 
@@ -230,9 +230,9 @@ NAS 選項適用於已佈建的 NFS 磁碟區、預設為 `777`
 
 
 | 「napshotDir  a| 
-NAS選項、可存取 `.snapshot` 目錄、預設為 `false`
+用於存取目錄的 NAS 選項 `.snapshot`。
  a| 
-"真的"
+針對 NFSv3 的 NFSv4 "false" 為 "true"
 
 
 
@@ -280,18 +280,77 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
 
 「ONTAP-san經濟」驅動程式會在ONTAP 自動管理的FlexVols共用集區內、將Docker Volume建立為還原LUN。如此FlexVol 一來、每個支援不只侷限於一個LUN、而且能為SAN工作負載提供更好的擴充性。根據儲存陣列的不同、ONTAP 每個叢集最多可支援16384個LUN。由於磁碟區是下方的LUN、因此此驅動程式支援Docker磁碟區精細快照和複製。
 
-選擇「ONTAP-NAS-flexgroup」驅動程式、即可將平行處理能力提升至單一磁碟區、以數十億個檔案擴充至PB範圍。FlexGroups的一些理想使用案例包括AI / ML / DL、Big Data和分析、軟體建置、串流、檔案儲存庫等。Trident在配置FlexGroup 完一套SVM時、會使用指派給SVM的所有集合體。支援Trident也有下列考量：FlexGroup
+選擇 `ontap-nas-flexgroup`驅動程式來增加單一磁碟區的平行度、使其可擴充至數十億個檔案的 PB 範圍。FlexGroups的一些理想使用案例包括AI / ML / DL、Big Data和分析、軟體建置、串流、檔案儲存庫等。Trident 會在佈建 FlexGroup Volume 時、使用指派給 SVM 的所有集合體。支援Trident也有下列考量：FlexGroup
 
 * 需要ONTAP 9.2版或更新版本。
 * 截至本文撰寫時、FlexGroups僅支援NFS v3。
 * 建議啟用SVM的64位元NFSv3識別碼。
 * 建議的 FlexGroup 成員 / 磁碟區大小下限為 100GiB 。
-* 不支援FlexGroup 將複製複製用於實體磁碟區。
+* FlexGroup 磁碟區不支援複製。
 
 
-如需適用於FlexGroups的FlexGroups與工作負載相關資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["NetApp FlexGroup 《NetApp》《最佳實務做法與實作指南》"^]。
+有關適用於 FlexGroups 的 FlexGroups 和工作負載的資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["NetApp FlexGroup Volume 最佳實務做法與實作指南"^]。
 
 若要在同一個環境中獲得進階功能和龐大規模、您可以執行多個Docker Volume外掛程式執行個體、其中一個使用「ONTAP-NAS」、另一個使用「ONTAP-NAS-經濟」。
+
+
+
+=== Trident 的自訂 ONTAP 角色
+
+您可以使用最低 Privileges 來建立 ONTAP 叢集角色、這樣就不需要使用 ONTAP 管理員角色來執行 Trident 中的作業。當您在 Trident 後端組態中包含使用者名稱時、 Trident 會使用您建立的 ONTAP 叢集角色來執行作業。
+
+如需建立 Trident 自訂角色的詳細資訊、請參閱link:https://github.com/NetApp/trident/tree/master/contrib/ontap/trident_role["Trident 自訂角色產生器"]。
+
+[role="tabbed-block"]
+====
+.使用 ONTAP CLI
+--
+. 使用下列命令建立新角色：
++
+`security login role create <role_name\> -cmddirname "command" -access all –vserver <svm_name\>`
+
+. 為 Trident 使用者建立使用者名稱：
++
+`security login create -username <user_name\> -application ontapi -authmethod <password\> -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+
+. 將角色對應至使用者：
++
+`security login modify username <user_name\> –vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
+
+
+
+--
+.使用System Manager
+--
+在 ONTAP 系統管理員中執行下列步驟：
+
+. * 建立自訂角色 * ：
++
+.. 若要在叢集層級建立自訂角色、請選取 * 叢集 > 設定 * 。
++
+（或）若要在 SVM 層級建立自訂角色、請選取 * 儲存設備 > 儲存 VM > > `required SVM` 設定 > 使用者與角色 * 。
+
+.. 選取 * 使用者和角色 * 旁的箭頭圖示（ * -> * ）。
+.. 在 * 角色 * 下選擇 *+Add* 。
+.. 定義角色的規則、然後按一下 * 儲存 * 。
+
+
+. * 將角色對應至 Trident 使用者 * ： + 在「 * 使用者與角色 * 」頁面上執行下列步驟：
++
+.. 在 * 使用者 * 下選取新增圖示 *+* 。
+.. 選取所需的使用者名稱、然後在 * 角色 * 的下拉式功能表中選取角色。
+.. 按一下「 * 儲存 * 」。
+
+
+
+
+--
+====
+如需詳細資訊、請參閱下列頁面：
+
+* link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/FAQ__Custom_roles_for_administration_of_ONTAP["用於管理 ONTAP 的自訂角色"^]或link:https://docs.netapp.com/us-en/ontap/authentication/define-custom-roles-task.html["定義自訂角色"^]
+* link:https://docs.netapp.com/us-en/ontap-automation/rest/rbac_roles_users.html#rest-api["與角色和使用者合作"^]
+
 
 
 

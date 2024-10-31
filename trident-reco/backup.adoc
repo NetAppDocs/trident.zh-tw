@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/backup.html 
 keywords: data protection, replication, dr, disaster recovery, snapmirror, back up, snapshot, element, volume replication 
-summary: 瞭解 Astra Trident 的保護與恢復選項、以及使用 Astra Trident 建立的 Volume 。對於每個應用程式、您都應該有持續性需求的資料保護與還原策略。 
+summary: 瞭解使用 Trident 建立的 Trident 和磁碟區的保護與還原選項。對於每個應用程式、您都應該有持續性需求的資料保護與還原策略。 
 ---
 = 資料保護與災難恢復
 :hardbreaks:
@@ -12,19 +12,19 @@ summary: 瞭解 Astra Trident 的保護與恢復選項、以及使用 Astra Trid
 
 
 [role="lead"]
-瞭解 Astra Trident 的保護與恢復選項、以及使用 Astra Trident 建立的 Volume 。對於每個應用程式、您都應該有持續性需求的資料保護與還原策略。
+瞭解使用 Trident 建立的 Trident 和磁碟區的保護與還原選項。對於每個應用程式、您都應該有持續性需求的資料保護與還原策略。
 
 
 
-== Astra Trident 複寫與還原
+== Trident 複寫與還原
 
-您可以建立備份、在發生災難時還原 Astra Trident 。
+您可以建立備份、以便在發生災難時還原 Trident 。
 
 
 
-=== Astra Trident 複寫
+=== Trident 複寫
 
-Astra Trident 使用 Kubernetes CRD 來儲存及管理其本身的狀態、 Kubernetes 叢集 etcd 則用來儲存其中繼資料。
+Trident 使用 Kubernetes CRD 來儲存及管理其本身的狀態、並使用 Kubernetes 叢集 etcd 來儲存其中繼資料。
 
 .步驟
 . 使用備份 Kubernetes 叢集 etcd  link:https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster["Kubernetes ：備份 etcd 叢集"^]。
@@ -37,9 +37,9 @@ NOTE: 我們建議您保護 FlexVol 所在的 SVM 、並與另一個 SVM 建立 
 
 
 
-=== Astra Trident 恢復
+=== Trident 恢復
 
-使用 Kubernetes CRD 和 Kubernetes 叢集 etcd 快照、您可以復原 Astra Trident 。
+您可以使用 Kubernetes CRD 和 Kubernetes 叢集 etcd 快照來復原 Trident 。
 
 .步驟
 . 從目的地 SVM 、將包含 Kubernetes etcd 資料檔案和憑證的磁碟區掛載到將設定為主要節點的主機上。
@@ -52,7 +52,7 @@ NOTE: 我們建議您保護 FlexVol 所在的 SVM 、並與另一個 SVM 建立 
 
 == SVM 複寫與還原
 
-Astra Trident 無法設定複寫關係、不過儲存管理員可以使用 https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-concept.html["ONTAP SnapMirror"^] 複寫 SVM 。
+Trident 無法設定複寫關係、不過儲存管理員可以使用 https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-concept.html["ONTAP SnapMirror"^]複寫 SVM 。
 
 發生災難時、您可以啟動SnapMirror目的地SVM、開始提供資料服務。系統還原時、您可以切換回主要系統。
 
@@ -70,7 +70,7 @@ Astra Trident 無法設定複寫關係、不過儲存管理員可以使用 https
 
 您可以使用 link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-workflow-concept.html["ONTAP ： SnapMirror SVM 複寫"^] 建立 SVM 複寫關係。
 
-SnapMirror 可讓您設定選項、以控制要複寫的內容。您必須知道自己在進行預先設定時所選擇的選項 <<使用 Astra Trident 進行 SVM 恢復>>。
+SnapMirror 可讓您設定選項、以控制要複寫的內容。您需要知道您在進行預先設定時所選擇<<使用 Trident 進行 SVM 恢復>>的選項。
 
 * link:https://docs.netapp.com/us-en/ontap/data-protection/replicate-entire-svm-config-task.html["-identity 保留為真"^] 複寫整個 SVM 組態。
 * link:https://docs.netapp.com/us-en/ontap/data-protection/exclude-lifs-svm-replication-task.html["-discard 配置網路"^] 不包括生命和相關的網路設定。
@@ -79,9 +79,9 @@ SnapMirror 可讓您設定選項、以控制要複寫的內容。您必須知道
 
 
 
-=== 使用 Astra Trident 進行 SVM 恢復
+=== 使用 Trident 進行 SVM 恢復
 
-Astra Trident不會自動偵測SVM故障。發生災難時、管理員可以手動啟動 Trident 容錯移轉至新的 SVM 。
+Trident 不會自動偵測 SVM 故障。發生災難時、管理員可以手動啟動 Trident 容錯移轉至新的 SVM 。
 
 .步驟
 . 取消已排程和持續的 SnapMirror 傳輸、中斷複寫關係、停止來源 SVM 、然後啟動 SnapMirror 目的地 SVM 。
@@ -96,7 +96,7 @@ Astra Trident不會自動偵測SVM故障。發生災難時、管理員可以手�
 . 如果您指定 `-identity-preserve false` 或 `discard-config network`、您必須退回所有應用程式 Pod 。
 +
 
-NOTE: 如果您指定 `-identity-preserve true`、當目的地 SVM 啟動時、 Astra Trident 所佈建的所有磁碟區都會開始提供資料。
+NOTE: 如果您指定 `-identity-preserve true`、則當目的地 SVM 啟動時、 Trident 所佈建的所有磁碟區都會開始提供資料。
 
 
 
@@ -104,9 +104,9 @@ NOTE: 如果您指定 `-identity-preserve true`、當目的地 SVM 啟動時、 
 
 == Volume 複寫與還原
 
-Astra Trident 無法設定 SnapMirror 複寫關係、不過儲存管理員可以使用 link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["ONTAP SnapMirror 複寫與還原"^] 複寫 Astra Trident 所建立的 Volume 。
+Trident 無法設定 SnapMirror 複寫關係、不過儲存管理員可以使用link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["ONTAP SnapMirror 複寫與還原"^]複寫 Trident 建立的磁碟區。
 
-然後、您可以使用將復原的磁碟區匯入 Astra Trident link:../trident-use/vol-import.html["tridentctl Volume 匯入"]。
+然後，您可以使用將恢復的卷導入 Trident link:../trident-use/vol-import.html["tridentctl Volume 匯入"]。
 
 
 NOTE: 匯入不受支援 `ontap-nas-economy`、  `ontap-san-economy`或 `ontap-flexgroup-economy` 驅動程式：
@@ -126,11 +126,3 @@ link:../trident-use/vol-snapshots.html["Volume快照"]
 link:https://docs.netapp.com/us-en/ontap/data-protection/manage-local-snapshot-copies-concept.html["ONTAP 快照"^]
 
 
-
-
-
-== Astra Control Center 應用程式複寫
-
-使用 Astra Control 、您可以使用 SnapMirror 的非同步複寫功能、將資料和應用程式變更從一個叢集複寫到另一個叢集。
-
-link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html["Astra Control ：使用 SnapMirror 技術將應用程式複寫到遠端系統"^]

@@ -1,10 +1,10 @@
 ---
 section: trident-docker
-title: 適合Docker的Astra Trident
+title: Trident for Docker
 entries:
 - title: 部署的先決條件
   url: "/trident-docker/prereqs-docker.html"
-- title: 部署Astra Trident
+- title: 部署 Trident
   url: "/trident-docker/deploy-docker.html"
 - title: 升級或解除安裝Trident
   url: "/trident-docker/upgrade-uninstall-docker.html"
@@ -15,7 +15,7 @@ entries:
     url: "/trident-docker/volume-driver-options.html"
 - title: 收集記錄
   url: "/trident-docker/collect-logs-docker.html"
-- title: 管理多個Astra Trident執行個體
+- title: 管理多個 Trident 執行個體
   url: "/trident-docker/multiple-instances-docker.html"
 - title: 儲存組態選項
   url: "/trident-docker/stor-config.html"

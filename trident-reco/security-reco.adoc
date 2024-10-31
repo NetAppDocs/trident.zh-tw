@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/security-reco.html 
 keywords: security, chap, trident, namespace, nve, nae, encryption, volume encryption, aggregate encryption 
-summary: 請使用此處列出的建議、確保您的Astra Trident安裝安全無虞。 
+summary: 請使用此處列出的建議、確保 Trident 安裝安全無虞。 
 ---
 = 安全性
 :hardbreaks:
@@ -12,54 +12,53 @@ summary: 請使用此處列出的建議、確保您的Astra Trident安裝安全�
 
 
 [role="lead"]
-請使用此處列出的建議、確保您的Astra Trident安裝安全無虞。
+請使用此處列出的建議、確保 Trident 安裝安全無虞。
 
 
 
-== 在自己的命名空間中執行Astra Trident
+== 在自己的命名空間中執行 Trident
 
-防止應用程式、應用程式管理員、使用者及管理應用程式存取Astra Trident物件定義或Pod、以確保可靠的儲存並封鎖潛在的惡意活動、這一點非常重要。
+請務必防止應用程式、應用程式管理員、使用者和管理應用程式存取 Trident 物件定義或 Pod 、以確保可靠的儲存設備、並封鎖潛在的惡意活動。
 
-若要將其他應用程式和使用者與Astra Trident區隔開、請務必在Kubernetes命名空間（「trident」）中安裝Astra Trident。將Astra Trident放在自己的命名空間中、可確保只有Kubernetes管理人員能夠存取Astra Trident Pod、以及儲存在命名式CRD物件中的成品（例如後端和CHAP機密）。您應該確保只允許系統管理員存取Astra Trident命名空間、進而存取「tridentctl」應用程式。
+要將其他應用程序和用戶與 Trident 分開，請始終在其自己的 Kubernetes 命名空間中安裝 Trident (`trident`）。將 Trident 置於自己的命名空間中、可確保只有 Kubernetes 管理人員能夠存取 Trident Pod 、以及儲存在命名 CRD 物件中的成品（例如後端和 CHAP 機密、如果適用）。您應確保只允許系統管理員存取 Trident 命名空間、進而存取 `tridentctl`應用程式。
 
 
 
 == 使用CHAP驗證搭配ONTAP 使用支援SAN的功能
 
-Astra Trident支援ONTAP 以CHAP為基礎的驗證功能、適用於各種SAN工作負載（使用「ONTAP-SAN」和「ONTAP-san經濟」驅動程式）。NetApp建議使用雙向CHAP搭配Astra Trident進行主機與儲存後端之間的驗證。
+Trident 支援 ONTAP SAN 工作負載的 CHAP 型驗證（使用 `ontap-san`和 `ontap-san-economy`驅動程式）。NetApp 建議在主機和儲存後端之間使用 Trident 的雙向 CHAP 進行驗證。
 
-針對使用SAN儲存驅動程式的幕後作業、Astra Trident可設定雙向CHAP、並透過管理CHAP使用者名稱和機密ONTAP `tridentctl`。
-請參閱 link:../trident-use/ontap-san-prep.html[""^] 瞭解Astra Trident如何在ONTAP 不景點上設定CHAP。
+對於使用 SAN 儲存驅動程式的 ONTAP 後端、 Trident 可以設定雙向 CHAP 、並透過管理 CHAP 使用者名稱和機密 `tridentctl`。請參閱link:../trident-use/ontap-san-prep.html[""^]以瞭解 Trident 如何在 ONTAP 後端上設定 CHAP 。
 
 
 
 == 使用CHAP驗證NetApp HCI 搭配不景和SolidFire 不景的後端
 
-NetApp建議部署雙向CHAP、以確保主機與NetApp HCI 支援功能及SolidFire 支援功能之間的驗證。Astra Trident使用每個租戶包含兩個CHAP密碼的秘密物件。安裝 Astra Trident 時、它會管理 CHAP 機密、並將其儲存在中 `tridentvolume` 對應PV的CR物件。建立 PV 時、 Astra Trident 會使用 CHAP 機密來啟動 iSCSI 工作階段、並透過 CHAP 與 NetApp HCI 和 SolidFire 系統通訊。
+NetApp建議部署雙向CHAP、以確保主機與NetApp HCI 支援功能及SolidFire 支援功能之間的驗證。Trident 使用的是每個租戶包含兩個 CHAP 密碼的秘密物件。安裝 Trident 時、它會管理 CHAP 機密、並將其儲存在相關 PV 的 CR 物件中 `tridentvolume`。建立 PV 時、 Trident 會使用 CHAP 機密來啟動 iSCSI 工作階段、並透過 CHAP 與 NetApp HCI 和 SolidFire 系統通訊。
 
 
-NOTE: Astra Trident 所建立的磁碟區不會與任何 Volume Access Group 相關聯。
+NOTE: 由 Trident 建立的磁碟區不會與任何 Volume 存取群組相關聯。
 
 
 
-== 使用Astra Trident搭配NVE和NAE
+== 搭配 NVE 和 NAE 使用 Trident
 
 NetApp ONTAP 支援閒置資料加密、可在磁碟遭竊、退回或重新使用時、保護敏感資料。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["設定NetApp Volume Encryption總覽"^]。
 
-* 如果在後端啟用NAE、則Astra Trident中配置的任何磁碟區都將啟用NAE。
-* 如果後端未啟用NAE、則在Astra Trident中配置的任何Volume都會啟用NVE、除非您在後端組態中將NVE加密旗標設為「假」。
+* 如果在後端上啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。
+* 如果後端未啟用 NAE 、除非您在後端組態中將 NVE 加密旗標設為、否則在 Trident 中配置的任何 Volume 都將啟用 NVE `false` 。
 
 
 [NOTE]
 ====
-在啟用NAE的後端Astra Trident中建立的磁碟區、必須加密NVE或NAE。
+在啟用 NAE 的後端 Trident 中建立的磁碟區必須加密 NVE 或 NAE 。
 
 * 您可以在Trident後端組態中將NVE加密旗標設為「true」、以覆寫NAE加密、並以每個磁碟區為基礎使用特定的加密金鑰。
-* 在啟用NAE的後端將NVE加密旗標設為「假」、將會建立啟用NAE的Volume。您無法將NVE加密旗標設為「假」、以停用NAE加密。
+* 在啟用 NAE 的後端上、將 NVE 加密旗標設定為 `false`會建立啟用 NAE 的 Volume 。您無法透過將 NVE 加密旗標設定為來停用 NAE 加密 `false`。
 
 
 ====
-* 您可以在Astra Trident中手動建立NVE磁碟區、方法是將NVE加密旗標明確設定為「true」。
+* 您可以在 Trident 中手動建立 NVE Volume 、方法是將 NVE 加密旗標明確設定為 `true`。
 
 
 如需後端組態選項的詳細資訊、請參閱：

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-get-started/requirements.html 
 keywords: trident requirements, supported front ends, supported backends, kubernetes cluster, cluster requirements, version requirements, supported versions, host configuration, host os, system configuration, host operating system, fsx, ports, csi, images, orchestrators, storage systems, feature, kubernetes 
-summary: 在安裝Astra Trident之前、您應該先檢閱這些一般系統需求。特定後端可能有其他需求。 
+summary: 安裝 Trident 之前、您應該先檢閱這些一般系統需求。特定後端可能有其他需求。 
 ---
 = 需求
 :hardbreaks:
@@ -12,55 +12,60 @@ summary: 在安裝Astra Trident之前、您應該先檢閱這些一般系統需�
 
 
 [role="lead"]
-在安裝Astra Trident之前、您應該先檢閱這些一般系統需求。特定後端可能有其他需求。
+安裝 Trident 之前、您應該先檢閱這些一般系統需求。特定後端可能有其他需求。
 
 
 
-== Astra Trident 的重要資訊
+== Trident 的重要資訊
 
-*您必須閱讀下列有關Astra Trident的重要資訊。*
+* 您必須閱讀下列有關 Trident 的重要資訊。 *
 
-.關於Astra Trid-功能 的資訊</strong> <strong>
+.<strong> 的 Trident </strong> 相關資訊
 [%collapsible%open]
 ====
-* Kubernetes 1.31 現在支援 Astra Trident 。升級 Kubernetes 之前、請先升級 Astra Trident 。
-* Astra Trident在SAN環境中嚴格執行多重路徑組態的使用、建議的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
+[]
+=====
+* Kubernetes 1.31 現在支援 Trident 。升級Kubernetes之前先升級Trident。
+* Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值 `find_multipaths: no`。
 +
-使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Astra Trident 建議使用 `find_multipaths: no` 自21.07版本以來。
+使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
 
 
 
+=====
 ====
 
 
 == 支援的前端（協調器）
 
-Astra Trident支援多個容器引擎和協調器、包括：
+Trident 支援多個容器引擎和協調器、包括：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
-* Kubernetes 1.24 - 1.31
+* Kubernetes 1.25 - 1.31
 * OpenShift 4.10 - 4.16
+* Rancher Kubernetes Engine 2 （ RKE2 ） v1.28.5+rke2r1
 
 
 這些版本支援Trident運算子：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
-* Kubernetes 1.24 - 1.31
+* Kubernetes 1.25 - 1.31
 * OpenShift 4.10 - 4.16
+* Rancher Kubernetes Engine 2 （ RKE2 ） v1.28.5+rke2r1
 
 
-Astra Trident 也與許多其他完全託管且自我管理的 Kubernetes 產品合作、包括 Google Kubernetes Engine （ GKE ）、 Amazon Elastic Kubernetes Services （ EKS ）、 Azure Kubernetes Service （ aks ）、 Mirantis Kubernetes Engine （ MKE ）、 Rancher 和 VMware Tanzu Portfolio 。
+Trident 也與其他完全託管且自行管理的 Kubernetes 產品合作、包括 Google Kubernetes Engine （ GKE ）、 Amazon Elastic Kubernetes Services （ EKS ）、 Azure Kubernetes Service （ aks ）、 Mirantis Kubernetes Engine （ MKE ）和 VMware Tanzu Portfolio 。
 
-Astra Trident 和 ONTAP 可作為的儲存供應商 link:https://kubevirt.io/["KubeVirt"]。
+Trident 和 ONTAP 可作為的儲存供應商link:https://kubevirt.io/["KubeVirt"]。
 
 
-WARNING: 將安裝 Astra Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 或更新版本之前、請參閱 link:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-installation["升級 Helm 安裝"]。
+WARNING: 在將安裝了 Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 或更新版本之前link:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-installation["升級 Helm 安裝"]、請參閱。
 
 
 
 == 支援的後端（儲存）
 
-若要使用Astra Trident、您需要下列一或多個支援的後端：
+若要使用 Trident 、您需要下列一或多個支援的後端：
 
 * Amazon FSX for NetApp ONTAP 產品
 * Azure NetApp Files
@@ -75,64 +80,64 @@ WARNING: 將安裝 Astra Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 �
 
 == 功能需求
 
-下表摘要說明此Astra Trident版本的可用功能及其支援的Kubernetes版本。
+下表摘要說明此 Trident 版本的可用功能、以及其支援的 Kubernetes 版本。
 
 [cols="3"]
 |===
 | 功能 | Kubernetes版本 | 需要功能閘道？ 
 
 
-| Astra Trident  a| 
-1.24 - 1.31
+| Trident  a| 
+1.25 - 1.31
  a| 
 否
 
 
 
 | Volume Snapshot  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 否
 
 
 
 | 來自Volume Snapshot的PVc  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 否
 
 
 
 | iSCSI PV調整大小  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 否
 
 
 
 | 資訊雙向CHAP ONTAP  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 否
 
 
 
 | 動態匯出原則  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 否
 
 
 
 | Trident運算子  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 否
 
 
 
 | csi拓撲  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 否
 
@@ -141,7 +146,7 @@ WARNING: 將安裝 Astra Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 �
 
 == 已測試的主機作業系統
 
-儘管Astra Trident並未正式支援特定作業系統、但已知下列項目仍能正常運作：
+雖然 Trident 並未正式支援特定作業系統、但已知下列項目可以正常運作：
 
 * 受 OpenShift Container Platform （ AMD64 和 ARM64 ）支援的 RedHat CoreOS （ RHCOS ）版本
 * RHEL 8+ （ AMD64 和 ARM64 ）
@@ -153,7 +158,7 @@ NOTE: NVMe / TCP 需要 RHEL 9 或更新版本。
 * Windows Server 2022
 
 
-依預設、Astra Trident會在容器中執行、因此會在任何Linux工作者上執行。不過、這些員工必須能夠使用標準NFS用戶端或iSCSI啟動器來掛載Astra Trident提供的磁碟區、視您使用的後端而定。
+根據預設、 Trident 會在容器中執行、因此會在任何 Linux 工作者上執行。不過、這些工作者必須能夠使用標準的 NFS 用戶端或 iSCSI 啟動器來裝載 Trident 所提供的磁碟區、視您使用的後端而定。
 
 「tridentctl」公用程式也可在任何這些Linux版本上執行。
 
@@ -169,38 +174,38 @@ link:../trident-use/worker-node-prep.html["準備工作節點"]
 
 == 儲存系統組態
 
-Astra Trident可能需要變更儲存系統、才能使用後端組態。
+Trident 可能需要變更儲存系統、後端組態才能使用。
 
 link:../trident-use/backends.html["設定後端"]
 
 
 
-== Astra Trident連接埠
+== Trident 連接埠
 
-Astra Trident需要存取特定連接埠才能進行通訊。
+Trident 需要存取特定連接埠才能進行通訊。
 
-link:../trident-reference/ports.html["Astra Trident連接埠"]
+link:../trident-reference/ports.html["Trident 連接埠"]
 
 
 
 == Container映像和對應的Kubernetes版本
 
-對於空拍安裝、下列清單是安裝Astra Trident所需的容器映像參考資料。使用「tridentctl images)」命令來驗證所需的容器映像清單。
+對於無線安裝、下列清單是安裝 Trident 所需的容器映像參考資料。使用 `tridentctl images`命令來驗證所需的容器映像清單。
 
 [cols="2"]
 |===
 | Kubernetes 版本 | Container映像 
 
 
-| v1.24.0 、 v1.25.0 、 v1.26.0 、 v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0  a| 
-* Docker 。 IO/NetApp/Trident ： 24.06.0
-* Docker 。 IO/NetApp/Trident 自動支援： 24.06
-* registry ． k8s.io/sig-storage / csi 置備程式： v4.0
-* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.6.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.11.0.
-* 登錄 .k8s.IO/SIG-storage / csi 快照機： v7.0.2
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.10.0
-* Docker 。 IO/NetApp/Trident ： 24.06.0 （選用）
+| v1.25.0 、 v1.26.0 、 v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0  a| 
+* Docker 。 IO/NetApp/Trident ： 24.10.0
+* Docker 。 IO/NetApp/Trident 自動支援： 24.10
+* registry ． k8s.io/SIG-storage / csi 置備程式： v5.1.0
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.7.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.12.0.
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v8.1.0
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.12.0
+* Docker 。 IO/NetApp/Trident ： 24.10.0 （選用）
 
 
 |===

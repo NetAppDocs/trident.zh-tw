@@ -278,7 +278,7 @@ Kubernetes「Volume SnapshotContent」物件代表從已配置的磁碟區擷取
 當快照要求出現時、Trident會在後端建立快照。建立快照之後、Trident會設定「Volume SnapshotContent」物件、並將快照公開給Kubernetes API。
 
 
-NOTE: 一般而言、您不需要管理 `VolumeSnapshotContent` 物件：這是您想要的例外情況 link:../trident-use/vol-snapshots.html#import-a-volume-snapshot["匯入 Volume 快照"] 在 Astra Trident 外部建立。
+NOTE: 一般而言、您不需要管理 `VolumeSnapshotContent`物件。例外情況是您想要link:../trident-use/vol-snapshots.html#import-a-volume-snapshot["匯入 Volume 快照"]在 Trident 之外建立。
 
 
 
@@ -288,7 +288,7 @@ Kubernetes自訂資源是Kubernetes API中由系統管理員定義的端點、�
 
 自訂資源定義（CRD）及其相關的物件中繼資料會由Kubernetes儲存在其中繼資料儲存區中。如此一來、您就不需要另外建立Trident的儲存區。
 
-Astra Trident的用途 `CustomResourceDefinition` 保留Trident物件身分的物件、例如Trident後端、Trident儲存類別和Trident Volume。這些物件由Trident管理。此外、「csi Volume Snapshot」架構也引進了定義Volume快照所需的部分CRD。
+Trident 使用 `CustomResourceDefinition`物件來保留 Trident 物件的身分識別、例如 Trident 後端、 Trident 儲存類別和 Trident Volume 。這些物件由Trident管理。此外、「csi Volume Snapshot」架構也引進了定義Volume快照所需的部分CRD。
 
 CRD是Kubernetes建構。上述資源的物件是由Trident所建立。例如、當使用「tridentctl」建立後端時、Kubernetes會建立一個對應的「tridentbackend」CRD物件供其使用。
 
@@ -300,7 +300,7 @@ CRD是Kubernetes建構。上述資源的物件是由Trident所建立。例如、
 
 
 
-== Astra Trident `StorageClass` 物件
+== Trident 物件 `StorageClass`
 
 Trident為Kubernetes建立相符的儲存類別 `StorageClass` 指定的物件 `csi.trident.netapp.io` 在他們的資源配置工具欄位中。儲存類別名稱與Kubernetes名稱相符 `StorageClass` 所代表的物件。
 
@@ -313,7 +313,7 @@ NOTE: 使用Kubernetes、當Kubernetes「torageClass」以Trident做為資源配
 
 
 
-== Astra Trident 後端物件
+== Trident後端物件
 
 後端代表儲存供應商、其中Trident會配置磁碟區；單一Trident執行個體可管理任何數量的後端。
 
@@ -324,7 +324,7 @@ NOTE: 這是您自己建立和管理的兩種物件類型之一。另一個是Ku
 
 
 
-== Astra Trident `StoragePool` 物件
+== Trident 物件 `StoragePool`
 
 儲存資源池代表可在每個後端上進行資源配置的不同位置。就支援而言ONTAP 、這些項目對應於SVM中的集合體。對於NetApp HCI / SolidFire、這些服務會對應到系統管理員指定的QoS頻段。就架構而言、這些項目對應於雲端供應商所在的地區。Cloud Volumes Service每個儲存資源池都有一組獨特的儲存屬性、可定義其效能特性和資料保護特性。
 
@@ -332,7 +332,7 @@ NOTE: 這是您自己建立和管理的兩種物件類型之一。另一個是Ku
 
 
 
-== Astra Trident `Volume` 物件
+== Trident 物件 `Volume`
 
 Volume是資源配置的基本單位、包含NFS共用和iSCSI LUN等後端端點。在Kubernetes中、這些內容直接對應到「PersistentVolumes」。建立磁碟區時、請確定它有一個儲存類別、決定該磁碟區可以配置的位置及大小。
 
@@ -400,7 +400,7 @@ Trident在建立磁碟區時會產生「內部名稱」。這包括兩個步驟�
 
 
 
-== Astra Trident `Snapshot` 物件
+== Trident 物件 `Snapshot`
 
 快照是磁碟區的時間點複本、可用來配置新的磁碟區或還原狀態。在Kubernetes中、這些物件會直接對應到「Volume SnapshotContent」物件。每個快照都與一個Volume相關聯、該磁碟區是快照資料的來源。
 
@@ -442,11 +442,11 @@ NOTE: 在Kubernetes中、會自動管理這些物件。您可以檢視這些資�
 
 
 
-== Astra Trident `ResourceQuota` 物件
+== Trident 物件 `ResourceQuota`
 
-Trident刪除程式會使用「系統節點關鍵」優先順序類別、這是Kubernetes中最高的優先順序類別、以確保Astra Trident能在正常節點關機期間識別及清理磁碟區、並讓Trident取消安裝Pod在資源壓力較高的叢集中、預先部署優先順序較低的工作負載。
+Trident 去除會使用優先順序類別（ Kubernetes 中可用的最高優先順序類別）、以確保 Trident 能在正常節點關機期間識別及清理磁碟區、並允許 Trident 去 `system-node-critical`除設定群組在資源壓力較大的叢集中、以較低的優先順序來搶佔工作負載。
 
-為達成此目標、Astra Trident採用「資源配額」物件、確保Trident的「系統節點關鍵」優先等級符合要求。在部署和建立實體化設定之前、Astra Trident會尋找「資源配額」物件、如果未發現、則會套用該物件。
+為達成此目標、 Trident 採用 `ResourceQuota`物件來確保 Trident 標章集上的「系統節點關鍵」優先順序類別獲得滿足。在建立部署和取消設定集之前、 Trident 會先尋找物件、如果未發現、則會套用該 `ResourceQuota`物件。
 
 如果您需要對預設資源配額和優先順序類別的更多控制權、可以產生「custustry.yaml」、或使用Helm圖表來設定「資源配額」物件。
 
@@ -481,7 +481,7 @@ spec:
 
 === 移除 `ResourceQuota`
 
-如果您偏好控制自己的資源配置、可以使用下列命令移除Astra Trident的「資源配額」物件：
+如果您偏好控制自己的資源配置、可以使用下列命令移除 Trident `ResourceQuota` 物件：
 
 [listing]
 ----

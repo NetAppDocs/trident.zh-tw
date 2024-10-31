@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/multiple-instances-docker.html 
-keywords: deploy, astra trident, docker, trident for docker, managed plugin, trident instances, alias 
-summary: 如果您想要同時使用多個儲存組態、則需要使用多個Astra Trident執行個體。多個執行個體的關鍵是在主機上具現化Trident時、使用容器化外掛程式的-alias選項、或是-volume驅動程式選項、為它們指定不同的名稱。 
+keywords: deploy, Trident, docker, trident for docker, managed plugin, trident instances, alias 
+summary: 當您想要同時使用多個儲存組態時、需要多個Trident執行個體。多個執行個體的關鍵是在主機上具現化Trident時、使用容器化外掛程式的-alias選項、或是-volume驅動程式選項、為它們指定不同的名稱。 
 ---
-= 管理多個Astra Trident執行個體
+= 管理多個 Trident 執行個體
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

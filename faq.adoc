@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: faq.html 
 keywords: faq, frequently asked questions 
-summary: 尋找有關安裝、設定、升級及疑難排解Astra Trident的常見問題解答。 
+summary: 尋找有關安裝、設定、升級及疑難排解 Trident 的常見問題集解答。 
 ---
 = 常見問題集
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 尋找有關安裝、設定、升級及疑難排解Astra Trident的常�
 
 
 [role="lead"]
-尋找有關安裝、設定、升級及疑難排解Astra Trident的常見問題解答。
+尋找有關安裝、設定、升級及疑難排解 Trident 的常見問題集解答。
 
 
 
@@ -20,103 +20,103 @@ summary: 尋找有關安裝、設定、升級及疑難排解Astra Trident的常�
 
 
 
-=== Astra Trident多久發佈一次？
+=== Trident 的發行頻率為何？
 
-從 24.02 版開始、 Astra Trident 每四個月發行一次：二月、六月和十月。
-
-
-
-=== Astra Trident是否支援特定Kubernetes版本中發行的所有功能？
-
-Astra Trident通常不支援Kubernetes的Alpha功能。Trident可能支援Kubernetes試用版之後的兩個Trident版本中的試用版功能。
+從 24.02 版開始、 Trident 每四個月發佈一次： 2 月、 6 月和 10 月。
 
 
 
-=== Astra Trident是否因其運作而依賴其他NetApp產品？
+=== Trident 是否支援特定版本的 Kubernetes 所發行的所有功能？
 
-Astra Trident並不依賴其他NetApp軟體產品、而是以獨立應用程式的形式運作。不過、您應該擁有NetApp後端儲存設備。
-
-
-
-=== 如何取得完整的Astra Trident組態詳細資料？
-
-使用「tridentctl Get」命令可取得有關Astra Trident組態的詳細資訊。
+Trident 通常不支援 Kubernetes 中的 Alpha 功能。Trident可能支援Kubernetes試用版之後的兩個Trident版本中的試用版功能。
 
 
 
-=== 我可以取得Astra Trident如何配置儲存設備的指標嗎？
+=== Trident 是否因其運作而對其他 NetApp 產品有任何相依性？
 
-是的。可用於收集 Astra Trident 作業相關資訊的 Prometheus 端點、例如管理的後端數目、已配置的磁碟區數量、使用的位元組等。您也可以使用 link:https://docs.netapp.com/us-en/cloudinsights/["Cloud Insights"^] 用於監控與分析。
-
-
-
-=== 使用Astra Trident做為「csi資源配置工具」時、使用者是否會有變更？
-
-不可以就使用者體驗和功能而言、沒有任何改變。使用的置備程式名稱是「csi.trident.netapp.io`」。如果您想要使用目前和未來版本所提供的所有新功能、建議使用這種安裝Astra Trident的方法。
+Trident 與其他 NetApp 軟體產品沒有任何相依關係、而且可作為獨立應用程式使用。不過、您應該擁有NetApp後端儲存設備。
 
 
 
-== 在Kubernetes叢集上安裝及使用Astra Trident
+=== 如何取得完整的 Trident 組態詳細資料？
+
+使用 `tridentctl get`命令可取得有關 Trident 組態的更多資訊。
 
 
 
-=== Astra Trident是否支援從私有登錄進行離線安裝？
+=== 我是否可以取得 Trident 如何配置儲存設備的計量標準？
 
-可以、Astra Trident可以離線安裝。請參閱 link:../trident-get-started/kubernetes-deploy.html["瞭解Astra Trident安裝"^]。
-
-
-
-=== 我可以從遠端安裝Astra Trident嗎？
-
-是的。Astra Trident 18.10及更新版本可從任何對叢集具有「kubectl」存取權的機器、支援遠端安裝功能。驗證「kubecll」存取後（例如、從遠端機器啟動「kubecll Get nodes」命令進行驗證）、請遵循安裝指示。
+是的。可用來收集 Trident 作業相關資訊的 Prometheus 端點、例如管理的後端數、已配置的磁碟區數量、使用的位元組等。您也可以用於link:https://docs.netapp.com/us-en/cloudinsights/["Cloud Insights"^]監控和分析。
 
 
 
-=== 我可以使用Astra Trident設定高可用度嗎？
+=== 使用 Trident 做為 CSI 資源配置程式時、使用者體驗是否會改變？
 
-Astra Trident是以單一執行個體安裝為Kubernetes部署（ReplicaSet）、因此內建HA。您不應增加部署中的複本數量。如果安裝Astra Trident的節點遺失、或Pod無法存取、Kubernetes會自動將Pod重新部署至叢集中的健全節點。Astra Trident僅適用於控制面板、因此若重新部署Astra Trident、目前安裝的Pod不會受到影響。
-
-
-
-=== Astra Trident是否需要存取Kube系統命名空間？
-
-Astra Trident從Kubernetes API伺服器讀取、以判斷應用程式何時要求新的PVCS、因此需要存取Kube-system。
+否。就使用者體驗和功能而言、沒有任何變更。使用的置備程式名稱為 `csi.trident.netapp.io`。如果您想要使用目前和未來版本所提供的所有新功能、建議您使用這種安裝 Trident 的方法。
 
 
 
-=== Astra Trident使用哪些角色和權限？
+== 在 Kubernetes 叢集上安裝及使用 Trident
+
+
+
+=== Trident 是否支援從私人登錄進行離線安裝？
+
+可以、 Trident 可以離線安裝。請參閱 link:../trident-get-started/kubernetes-deploy.html["瞭解 Trident 安裝"^]。
+
+
+
+=== 我可以遠端安裝 Trident 嗎？
+
+是的。Trident 18.10 及更新版本支援從任何可存取叢集的機器進行遠端安裝 `kubectl`。驗證存取後 `kubectl`（例如、從遠端機器啟動 `kubectl get nodes`命令以驗證）、請遵循安裝指示進行。
+
+
+
+=== 我可以使用 Trident 設定高可用度嗎？
+
+Trident 是以 Kubernetes 部署（ ReplicaSet ）的形式安裝、其中包含一個執行個體、因此內建了 HA 。您不應該增加部署中的複本數量。如果安裝 Trident 的節點遺失、或 Pod 無法存取、 Kubernetes 會自動將 Pod 重新部署至叢集中的正常節點。Trident 僅適用於控制面板、因此如果重新部署 Trident 、目前安裝的 Pod 不會受到影響。
+
+
+
+=== Trident 是否需要存取 kube 系統命名空間？
+
+Trident 從 Kubernetes API 伺服器讀取資料、以判斷應用程式何時要求新的 PVC 、因此需要存取 kube-system 。
+
+
+
+=== Trident 使用哪些角色和 Privileges ？
 
 Trident 安裝程式會建立 Kubernetes ClusterRole 、該程式可存取叢集的 PersistentVolume 、 PersistentVolumVolume Claim 、 StorageClass 和 Kubernetes 叢集的 Secret 資源。請參閱 link:../trident-get-started/kubernetes-customize-deploy-tridentctl.html["自訂tridentctl安裝"^]。
 
 
 
-=== 我可以在本機產生安裝所用的確切資訊清單檔案嗎？
+=== 我可以在本機產生 Trident 用於安裝的確切資訊清單檔案嗎？
 
-如有需要、您可以在本機產生及修改安裝所使用的確切資訊清單檔案Astra Trident。請參閱 link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["自訂tridentctl安裝"^]。
-
-
-
-=== 我是否可以針對ONTAP 兩個獨立Kubernetes叢集的兩個Astra Trident執行個體、共用相同的支援功能後端SVM？
-
-雖然不建議使用、但您可以針對兩個Astra Trident執行個體使用相同的後端SVM。在安裝期間為每個執行個體指定唯一的Volume名稱、並（或）在「Setup/backend.json」檔案中指定唯一的「儲存前置字元」參數。這是為了確保FlexVol 兩個執行個體都不會使用相同的功能。
+如有需要、您可以在本機產生及修改 Trident 用於安裝的確切資訊清單檔案。請參閱 link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["自訂tridentctl安裝"^]。
 
 
 
-=== 是否能在ContainerLinux（前身為CoreOS）下安裝Astra Trident？
+=== 我是否可以針對兩個獨立的 Kubernetes 叢集、共用兩個獨立 Trident 執行個體的相同 ONTAP 後端 SVM ？
 
-Astra Trident只是Kubernetes Pod、可安裝在Kubernetes執行的任何位置。
-
-
-
-=== 我可以將Astra Trident搭配NetApp Cloud Volumes ONTAP 功能嗎？
-
-是的、AWS、Google Cloud和Azure均支援Astra Trident。
+雖然不建議使用相同的後端 SVM 來執行兩個 Trident 執行個體。在安裝期間為每個執行個體指定唯一的磁碟區名稱、及 / 或在檔案中指定唯一的 `StoragePrefix`參數 `setup/backend.json`。這是為了確保FlexVol 兩個執行個體都不會使用相同的功能。
 
 
 
-=== Astra Trident是否能與Cloud Volumes Services搭配運作？
+=== 是否能在 ContainerLinux （前身為 CoreOS ）下安裝 Trident ？
 
-是的、Astra Trident不僅支援Azure NetApp Files Azure中的「不二」服務、Cloud Volumes Service 也支援GCP中的「不二」功能。
+Trident 只是 Kubernetes Pod 、可在 Kubernetes 執行的任何地方安裝。
+
+
+
+=== 我可以搭配 NetApp Cloud Volumes ONTAP 使用 Trident 嗎？
+
+是的、 AWS 、 Google Cloud 和 Azure 支援 Trident 。
+
+
+
+=== Trident 是否能與雲端 Volume Services 搭配運作？
+
+是的、 Trident 支援 Azure 中的 Azure NetApp Files 服務、以及 GCP 中的 Cloud Volumes Service 。
 
 
 
@@ -124,9 +124,9 @@ Astra Trident只是Kubernetes Pod、可安裝在Kubernetes執行的任何位置�
 
 
 
-=== NetApp是否支援Astra Trident？
+=== NetApp 是否支援 Trident ？
 
-儘管Astra Trident是開放原始碼且免費提供、但只要您的NetApp後端受到支援、NetApp就能提供完整支援。
+雖然 Trident 是免費提供的開放原始碼、但只要支援您的 NetApp 後端、 NetApp 就能完全支援。
 
 
 
@@ -148,31 +148,31 @@ Astra Trident只是Kubernetes Pod、可安裝在Kubernetes執行的任何位置�
 
 === 如果我需要提出新功能的要求、該怎麼辦？
 
-在上建立問題 https://github.com/NetApp/trident["Astra Trident Github"^] 並在問題的主題和說明中提及* RFE*。
+在問題的主題和說明中建立問題 https://github.com/NetApp/trident["Trident Github"^]、並提及 * RFE* 。
 
 
 
 === 我該在哪裡提出瑕疵？
 
-在上建立問題 https://github.com/NetApp/trident["Astra Trident Github"^]。請務必附上與問題相關的所有必要資訊和記錄。
+在上建立問題 https://github.com/NetApp/trident["Trident Github"^]。請務必附上與問題相關的所有必要資訊和記錄。
 
 
 
-=== 如果我有關於Astra Trident的快速問題、而我需要澄清、會發生什麼情況？是否有社群或論壇？
+=== 如果我有關於 Trident 的快速問題需要澄清、會發生什麼事？是否有社群或論壇？
 
-如果您有任何問題、問題或要求、請透過我們的Astra與我們聯絡 link:https://discord.gg/NetApp["不和通路"^] 或GitHub。
+如果您有任何問題、問題或要求、請透過我們的 Trident 或 GitHub 與我們聯絡link:https://discord.gg/NetApp["不和通路"^]。
 
 
 
-=== 我的儲存系統密碼已變更、 Astra Trident 不再運作、我該如何恢復？
+=== 我的儲存系統密碼已變更、 Trident 無法再運作、我該如何恢復？
 
 使用更新後端的密碼 `tridentctl update backend myBackend -f </path/to_new_backend.json> -n trident`。更換 `myBackend` 在範例中、使用您的後端名稱、和 ``/path/to_new_backend.json` 並將路徑移至正確位置 `backend.json` 檔案：
 
 
 
-=== Astra Trident找不到Kubernetes節點。如何修正此問題？
+=== Trident 找不到我的 Kubernetes 節點。如何修正此問題？
 
-Astra Trident找不到Kubernetes節點的原因可能有兩種。這可能是因為Kubernetes內的網路問題或DNS問題。在每個Kubernetes節點上執行的Trident節點取消影像集、必須能夠與Trident控制器通訊、才能在Trident中登錄節點。如果在安裝Astra Trident之後發生網路變更、您只會遇到新增至叢集的Kubernetes節點的問題。
+Trident 找不到 Kubernetes 節點的可能情況有兩種。這可能是因為Kubernetes內的網路問題或DNS問題。在每個Kubernetes節點上執行的Trident節點取消影像集、必須能夠與Trident控制器通訊、才能在Trident中登錄節點。如果在安裝 Trident 之後發生網路變更、則只有新增至叢集的 Kubernetes 節點才會發生此問題。
 
 
 
@@ -182,19 +182,19 @@ Astra Trident找不到Kubernetes節點的原因可能有兩種。這可能是因
 
 
 
-== 升級Astra Trident
+== 升級 Trident
 
 
 
 === 我可以直接從舊版本升級至新版本（跳過幾個版本）嗎？
 
-NetApp支援將Astra Trident從一個重大版本升級至下一個重大版本。您可以從11.xx版升級至19.xx、19.xx版升級至20.xx版、依此類推。在正式作業部署之前、您應該先在實驗室中測試升級。
+NetApp 支援將 Trident 從一個主要版本升級至下一個立即的主要版本。您可以從11.xx版升級至19.xx、19.xx版升級至20.xx版、依此類推。在正式作業部署之前、您應該先在實驗室中測試升級。
 
 
 
 === 是否能將Trident降級至先前的版本？
 
-如果您需要修正在升級、相依性問題或升級失敗或不完整之後發現的錯誤、您應該這樣做 link:trident-managing-k8s/uninstall-trident.html["解除安裝 Astra Trident"] 並依照該版本的特定指示重新安裝舊版。這是降級至舊版的唯一建議方法。
+如果您需要修正在升級、相依性問題或升級失敗或不完整之後所觀察到的錯誤、您應該link:trident-managing-k8s/uninstall-trident.html["解除安裝 Trident"]使用該版本的特定指示重新安裝舊版。這是降級至舊版的唯一建議方法。
 
 
 
@@ -206,33 +206,33 @@ NetApp支援將Astra Trident從一個重大版本升級至下一個重大版本�
 
 管理LIF為必填項目。資料LIF會有所不同：
 
-* 支援SAN：請勿指定iSCSI ONTAP 。Astra Trident的用途 link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^] 探索建立多重路徑工作階段所需的iSCI LIF。如果發生此情況、將會產生警告 `dataLIF` 已明確定義。請參閱 link:trident-use/ontap-san-examples.html["SAN組態選項與範例ONTAP"] 以取得詳細資料。
-* ASNAS：建議您指定ONTAP `dataLIF`。如果未提供、Astra Trident會從SVM擷取資料lifs。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。請參閱 link:trident-use/ontap-nas-examples.html["列舉NAS組態選項與範例ONTAP"] 以取得詳細資料
+* 支援SAN：請勿指定iSCSI ONTAP 。Trident 使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^]來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義、就會產生警告 `dataLIF`。如 link:trident-use/ontap-san-examples.html["SAN組態選項與範例ONTAP"] 需詳細資訊、請參閱。
+* ONTAP NAS ：建議指定 `dataLIF`。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。如link:trident-use/ontap-nas-examples.html["列舉NAS組態選項與範例ONTAP"]需詳細資訊、請參閱
 
 
 
 
-=== Astra Trident是否能設定CHAP以ONTAP 供後端使用？
+=== Trident 是否可以為 ONTAP 後端設定 CHAP ？
 
-是的。Astra Trident 支援 ONTAP 後端的雙向 CHAP 。這需要設定 `useCHAP=true` 在後端組態中。
+是的。Trident 支援 ONTAP 後端的雙向 CHAP 。這需要在後端組態中設定 `useCHAP=true`。
 
 
 
-=== 如何使用Astra Trident管理匯出原則？
+=== 如何使用 Trident 管理匯出原則？
 
-Astra Trident可從20.04版起、動態建立及管理匯出原則。如此一來、儲存管理員就能在其後端組態中提供一或多個CIDR區塊、並將位於這些範圍內的Trident新增節點IP、加入其所建立的匯出原則。如此一來、Astra Trident就能自動管理新增和刪除在指定CIDR內具有IP的節點規則。
+Trident 可從 20.04 版開始、動態建立及管理匯出原則。如此一來、儲存管理員就能在其後端組態中提供一或多個CIDR區塊、並將位於這些範圍內的Trident新增節點IP、加入其所建立的匯出原則。如此一來、 Trident 便會自動管理在指定的 CIDR 內新增和刪除具有 IP 的節點規則。
 
 
 
 === IPv6位址是否可用於管理和資料生命量？
 
-Astra Trident支援定義IPv6位址：
+Trident 支援定義下列項目的 IPv6 位址：
 
 * `managementLIF` 和 `dataLIF` 適用於不支援NAS的後端ONTAP 。
 * `managementLIF` 適用於SAN後端ONTAP 。您無法指定 `dataLIF` 在SAN後端ONTAP 。
 
 
-Astra Trident 必須使用旗標安裝 `--use-ipv6` （適用於 `tridentctl` 安裝）、 `IPv6` （適用於 Trident 運算子）、或 `tridentTPv6` （適用於 Helm 安裝）、讓 IT 能夠透過 IPv6 運作。
+Trident 必須使用旗標（用於 `tridentctl`安裝）、（用於 Trident 運算子）或 `tridentTPv6`（用於 Helm 安裝）來安裝 `--use-ipv6`、 `IPv6`才能透過 IPv6 運作。
 
 
 
@@ -248,43 +248,43 @@ Astra Trident 必須使用旗標安裝 `--use-ipv6` （適用於 `tridentctl` �
 
 
 
-=== 我可以在Astra Trident中為Kubernetes建立多個後端嗎？
+=== 我可以在 Kubernetes 的 Trident 中建立多個後端嗎？
 
-Astra Trident可同時支援多個後端、無論是使用相同的驅動程式或不同的驅動程式。
-
-
-
-=== Astra Trident如何儲存後端認證資料？
-
-Astra Trident將後端認證儲存為Kubernetes Secrets。
+Trident 可以同時支援多個後端、無論是使用相同的驅動程式或不同的驅動程式。
 
 
 
-=== Astra Trident如何選擇特定的後端？
+=== Trident 如何儲存後端認證？
+
+Trident 將後端認證儲存為 Kubernetes Secrets 。
+
+
+
+=== Trident 如何選擇特定後端？
 
 如果後端屬性無法用於自動選擇某個類的正確池，則可使用"scoragePools"和"additionalStoragePools"參數來選擇特定的池集區集區集區集區。
 
 
 
-=== 如何確保Astra Trident不會從特定後端進行資源配置？
+=== 如何確保 Trident 不會從特定後端進行資源配置？
 
-使用「排除StoragePools」參數來篩選Astra Trident將用於資源配置的資源池集區集區、並移除任何相符的資源池。
-
-
-
-=== 如果有多個相同類型的後端、Astra Trident如何選擇要使用的後端？
-
-如果有多個相同類型的已設定後端、Astra Trident會根據「儲存類別」和「PeristentVolume Claim」中的參數、選取適當的後端。例如、如果有多個ONTAP-NAS驅動程式後端、Astra Trident會嘗試搭配「torageClass」和「PeristentVolume Claim」中的參數、並搭配後端、以滿足「torageClass」和「PeristentVolume Claim」中列出的需求。如果有多個後端符合要求、則Astra Trident會隨機從其中一個後端選取。
+此 `excludeStoragePools`參數用於篩選 Trident 用於資源配置的資源池集、並移除任何符合的資源池。
 
 
 
-=== Astra Trident是否支援採用Element / SolidFire的雙向CHAP？
+=== 如果有相同類型的多個後端、 Trident 如何選擇要使用的後端？
+
+如果有多個相同類型的設定後端、 Trident 會根據和 `PersistentVolumeClaim`中的參數來選取適當的後端 `StorageClass`。例如，如果有多個 ONTAP － NAS 驅動程序後端， Trident 會嘗試匹配中的參數 `StorageClass`，並 `PersistentVolumeClaim`將後端組合起來，以滿足和 `PersistentVolumeClaim`中列出的要求 `StorageClass`。如果有多個符合要求的後端、 Trident 會隨機選取其中一個。
+
+
+
+=== Trident 是否支援元素 / SolidFire 的雙向 CHAP ？
 
 是的。
 
 
 
-=== Astra Trident如何將qtree部署在ONTAP 一個邊角捲上？單一磁碟區可部署多少qtree？
+=== Trident 如何在 ONTAP 磁碟區上部署 qtree ？單一磁碟區可部署多少qtree？
 
 「ONTAP-NAS-節約」驅動程式可在同FlexVol 一個範圍內建立多達200個qtree（可設定為50到300個）、每個叢集節點可建立100、000個qtree、每個叢集可建立240萬個qtree。當您輸入經濟型驅動程式所提供的全新「PersistentVolume Claim」時、駕駛會查看FlexVol 是否已存在可為新Qtree提供服務的功能。如果FlexVol 不存在能夠服務Qtree的功能、FlexVol 就會建立新的功能。
 
@@ -292,13 +292,13 @@ Astra Trident將後端認證儲存為Kubernetes Secrets。
 
 === 我要如何為ONTAP 以NAS配置的Volume設定Unix權限？
 
-您可以在後端定義檔中設定參數、以設定Astra Trident所佈建的Volume上的Unix權限。
+您可以在後端定義檔中設定參數、在 Trident 所佈建的磁碟區上設定 Unix 權限。
 
 
 
 === 如何在ONTAP 配置Volume時、設定一組明確的靜態NFS掛載選項？
 
-依預設、Astra Trident不會使用Kubernetes將掛載選項設為任何值。若要在Kubernetes儲存類別中指定掛載選項、請遵循所提供的範例 link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-ontapnas-k8s1.8-mountoptions.yaml["請按這裡"^]。
+根據預設、 Trident 不會使用 Kubernetes 將掛載選項設定為任何值。要在 Kubernetes Storage Class 中指定掛載選項，請按照給定的示例link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-ontapnas-k8s1.8-mountoptions.yaml["請按這裡"^]操作。
 
 
 
@@ -308,19 +308,19 @@ Astra Trident將後端認證儲存為Kubernetes Secrets。
 
 
 
-=== 如何透過Astra Trident搭配ONTAP 使用才能設定Volume加密？
+=== 如何透過 Trident with ONTAP 設定磁碟區加密？
 
-您可以使用後端定義檔中的加密參數、在Trident所提供的磁碟區上設定加密。如需詳細資訊、請參閱： link:trident-reco/security-reco.html#use-astra-trident-with-nve-and-nae["Astra Trident如何與NVE和NAE搭配運作"]
+您可以使用後端定義檔中的加密參數、在Trident所提供的磁碟區上設定加密。如需詳細資訊、請參閱：link:trident-reco/security-reco.html#use-trident-with-nve-and-nae["Trident 如何與 NVE 和 NAE 搭配運作"]
 
 
 
-=== 什麼是透過ONTAP Astra Trident實作QoS for Sfor Sfor Sfor the S星？
+=== 透過 Trident 實作 ONTAP QoS 的最佳方法為何？
 
 使用「儲存類」來實作ONTAP QoS以利實現。
 
 
 
-=== 如何透過Astra Trident指定精簡或完整的資源配置？
+=== 如何透過 Trident 指定精簡或完整資源配置？
 
 支援精簡或密集資源配置的支援。ONTAP此功能預設為精簡配置。ONTAP如果需要完整資源配置、您應該設定後端定義檔或「儲存類別」。如果兩者都已設定、則「儲存類別」優先。設定ONTAP 下列項目以供參考：
 
@@ -336,9 +336,9 @@ Kubernetes從1.10版開始自動啟用PVc保護。
 
 
 
-=== 我可以擴充由Astra Trident所建立的NFS PVCs嗎？
+=== 我可以擴充 Trident 所建立的 NFS PVCS 嗎？
 
-是的。您可以擴充由Astra Trident所建立的永久虛電路。請注意、Volume自動擴充ONTAP 是不適用於Trident的功能。
+是的。您可以擴充 Trident 所建立的 PVC 。請注意、Volume自動擴充ONTAP 是不適用於Trident的功能。
 
 
 
@@ -355,33 +355,33 @@ Make sure to remove the DP mode or put the volume online before importing the vo
 
 === 資源配額如何轉譯至NetApp叢集？
 
-只要NetApp儲存設備具備容量、Kubernetes儲存資源配額就能運作。當NetApp儲存設備因為容量不足而無法遵守Kubernetes配額設定時、Astra Trident會嘗試進行資源配置、但卻發生錯誤。
+只要NetApp儲存設備具備容量、Kubernetes儲存資源配額就能運作。當 NetApp 儲存設備因容量不足而無法執行 Kubernetes 配額設定時、 Trident 會嘗試進行資源配置、但會排除錯誤。
 
 
 
-=== 我可以使用Astra Trident建立Volume Snapshot嗎？
+=== 我可以使用 Trident 建立 Volume Snapshot 嗎？
 
-是的。Astra Trident支援從快照建立隨需磁碟區快照和持續磁碟區。若要從快照建立PV、請確定已啟用「Volume SnapshotDataSource」功能閘道。
+是的。Trident 支援從快照建立隨需磁碟區快照和持續磁碟區。若要從快照建立 PV 、請確定 `VolumeSnapshotDataSource`功能閘道已啟用。
 
 
 
-=== 哪些驅動程式支援Astra Trident Volume快照？
+=== 哪些驅動程式支援 Trident Volume 快照？
 
 到目前爲止、我們的「ONTAP-NAS」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」、「ONTAP-san經濟型」、「Poolidfire SAN」、 「GCP-CVS」、以及「azure-NetApp-fil」後端驅動程式。
 
 
 
-=== 我要如何針對Astra Trident提供ONTAP 的含有「支援」功能的磁碟區進行快照備份？
+=== 我要如何使用 ONTAP 對由 Trident 所佈建的磁碟區進行快照備份？
 
 這可在「ONTAP-NAS」、「ONTAP-SAN」及「ONTAP-NAA-flexgroup」等驅動程式上使用。您也可以針對FlexVol 「ontap-san經濟」驅動程式指定「快照原則」、以利執行此作業。
 
-這也可在「ONTAP-NAS-節約」驅動程式中找到、但FlexVol 可在「不」於qtree層級精細度上找到。若要讓Astra Trident提供的磁碟區快照、請將後端參數選項「快照原則」設為ONTAP 在支援後端上定義的所需快照原則。Astra Trident不知道儲存控制器所拍攝的任何快照。
+這也可在驅動程式上使用、但在 FlexVol 層級精細度上使用 `ontap-nas-economy`、而不是在 qtree 層級精細度上使用。若要啟用由 Trident 提供快照磁碟區的功能、請將後端參數選項設定為 ONTAP 後端 `snapshotPolicy`上定義的所需快照原則。Trident 不知道儲存控制器所拍攝的任何快照。
 
 
 
-=== 我可以為透過Astra Trident佈建的磁碟區設定快照保留百分比嗎？
+=== 我可以為透過 Trident 配置的磁碟區設定快照保留百分比嗎？
 
-是的、您可以在後端定義檔中設定「快照保留區」屬性、保留特定百分比的磁碟空間、以便透過Astra Trident來儲存快照複本。如果您在後端定義檔中設定了「快照原則」和「快照保留」、則快照保留百分比會根據後端檔案中所述的「快照保留」百分比來設定。如果未提及「快照保留」百分比數字、ONTAP 則根據預設、將快照保留百分比設為5。如果將「快照原則」選項設為「無」、則快照保留百分比會設為0。
+是的、您可以在後端定義檔中設定屬性、以保留特定百分比的磁碟空間、以便透過 Trident 儲存快照複本 `snapshotReserve`。如果您已設定 `snapshotPolicy`後端定義檔中的、 `snapshotReserve`則會根據後端檔案中所述的百分比來設定快照保留 `snapshotReserve`百分比。如果 `snapshotReserve`未提及百分比數、則 ONTAP 預設會將快照保留百分比視為 5 。如果選項設為「無」、則 `snapshotPolicy`快照保留百分比會設為 0 。
 
 
 
@@ -391,7 +391,7 @@ Make sure to remove the DP mode or put the volume online before importing the vo
 
 
 
-=== 我可以透過Astra Trident為磁碟區設定SnapMirror嗎？
+=== 我可以透過 Trident 為磁碟區設定 SnapMirror 嗎？
 
 目前、SnapMirror必須使用ONTAP CLI或OnCommand 《系統管理程式》從外部設定。
 

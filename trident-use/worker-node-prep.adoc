@@ -32,24 +32,31 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nvm
 
 NOTE: 我們建議使用適用於 NVMe / TCP 的 ONTAP 9.12 或更新版本。
 
+.SCSI over FC 工具
+* SCSI over Fibre Channel （ FC ）是 Trident 24.10 版本的技術預覽功能。 *
+
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-iscsi-tools["安裝iSCSI工具"]如果您使用 `ontap-san` sanType `fcp` （ SCSI over FC ）。
+
+如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["設定 FC 擴大機、 FC-NVMe SAN 主機的方法"] 。
+
 
 
 == 節點服務探索
 
-Astra Trident會嘗試自動偵測節點是否能執行iSCSI或NFS服務。
+Trident 會嘗試自動偵測節點是否可以執行 iSCSI 或 NFS 服務。
 
 
 NOTE: 節點服務探索可識別探索到的服務、但無法保證服務已正確設定。相反地、沒有探索到的服務並不保證磁碟區掛載會失敗。
 
 .檢閱事件
-Astra Trident會為節點建立事件、以識別探索到的服務。若要檢閱這些事件、請執行：
+Trident 會為節點建立事件、以識別探索到的服務。若要檢閱這些事件、請執行：
 
 [listing]
 ----
 kubectl get event -A --field-selector involvedObject.name=<Kubernetes node name>
 ----
 .檢閱探索到的服務
-Astra Trident可識別Trident節點CR上每個節點所啟用的服務。若要檢視探索到的服務、請執行：
+Trident 會識別 Trident 節點 CR 上每個節點啟用的服務。若要檢視探索到的服務、請執行：
 
 [listing]
 ----
@@ -85,25 +92,25 @@ WARNING: 安裝NFS工具之後、請重新啟動工作節點、以避免將磁�
 
 == iSCSI磁碟區
 
-Astra Trident可自動建立iSCSI工作階段、掃描LUN、探索多重路徑裝置、將其格式化、並將其掛載至Pod。
+Trident 可以自動建立 iSCSI 工作階段、掃描 LUN 、探索多重路徑裝置、將其格式化、並將其裝載至 Pod 。
 
 
 
 === iSCSI自我修復功能
 
-對於支援此技術的系統、Astra Trident每五分鐘執行一次iSCSI自我修復、以便ONTAP ：
+對於 ONTAP 系統、 Trident 每五分鐘執行一次 iSCSI 自我修復、以：
 
 . *識別*所需的iSCSI工作階段狀態和目前的iSCSI工作階段狀態。
-. *比較*所需狀態與目前狀態、以識別所需的維修。Astra Trident決定了維修優先順序、以及何時預先排除維修。
+. *比較*所需狀態與目前狀態、以識別所需的維修。Trident 會決定維修優先順序、以及何時優先執行維修。
 . *執行必要的修復*、以將目前的iSCSI工作階段狀態恢復至所需的iSCSI工作階段狀態。
 
 
 
-NOTE: 自我修復活動記錄位於 `trident-main` 容器位於各自的Dempon Pod上。若要檢視記錄、您必須設定好 `debug` 在Astra Trident安裝期間達到「true」。
+NOTE: 自我修復活動記錄位於個別 Dem隨 選裝置上的容器中 `trident-main`。若要檢視記錄、您必須在 Trident 安裝期間將其設 `debug`為「 true 」。
 
-Astra Trident iSCSI自我修復功能有助於預防：
+Trident iSCSI 自我修復功能有助於防止：
 
-* 發生網路連線問題後、可能會發生過時或不正常的iSCSI工作階段。在過時的工作階段中、Astra Trident會在登出前等待七分鐘、重新建立與入口網站的連線。
+* 發生網路連線問題後、可能會發生過時或不正常的iSCSI工作階段。如果工作階段過時、 Trident 會在登出前等待七分鐘、以重新建立與入口網站的連線。
 +
 
 NOTE: 例如、如果在儲存控制器上旋轉CHAP機密、而網路失去連線、則舊的（_stal__）CHAP機密可能會持續存在。自我修復可辨識此情況、並自動重新建立工作階段、以套用更新的CHAP機密。
@@ -144,19 +151,13 @@ sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.c
 +
 [listing]
 ----
-sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
+sudo yum install -y lsscsi iscsi-initiator-utils device-mapper-multipath
 ----
 . 檢查iscsite-initier-utils版本是否為6.6.0.874-2.el7或更新版本：
 +
 [listing]
 ----
 rpm -q iscsi-initiator-utils
-----
-. 將掃描設為手動：
-+
-[listing]
-----
-sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
 ----
 . 啟用多重路徑：
 +
@@ -240,7 +241,7 @@ NOTE: 對於Ubuntu 18.04、您必須先使用「iscsiadmd」探索目標連接�
 
 === 設定或停用 iSCSI 自我修復
 
-您可以設定下列 Astra Trident iSCSI 自我修復設定、以修正過時的工作階段：
+您可以設定下列 Trident iSCSI 自我修復設定、以修復過時的工作階段：
 
 * *iSCSI 自我修復時間間隔 * ：決定啟動 iSCSI 自我修復的頻率（預設值： 5 分鐘）。您可以設定較小的數字、或設定較大的數字、將其設定為較常執行。
 
@@ -263,7 +264,7 @@ NOTE: 對於Ubuntu 18.04、您必須先使用「iscsiadmd」探索目標連接�
 
 [listing]
 ----
-helm install trident trident-operator-100.2406.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+helm install trident trident-operator-100.2410.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
 ----
 --
 .試用
@@ -323,4 +324,4 @@ sudo modprobe nvme-tcp
 cat /etc/nvme/hostnqn
 ----
 
-WARNING: Astra Trident 會修改 `ctrl_device_tmo` 確保 NVMe 在故障時不會放棄路徑的價值。請勿變更此設定。
+WARNING: Trident 會修改此 `ctrl_device_tmo`值、確保 NVMe 在故障時不會放棄路徑。請勿變更此設定。

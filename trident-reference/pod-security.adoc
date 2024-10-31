@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reference/pod-security.html 
 keywords: psp, pss, scc, pod security, pod security standards, pod security policies, security context constraints 
-summary: Kubernetes Pod安全標準（Ps）和Pod安全政策（Ps）定義權限等級、並限制Pod的行為。OpenShift Security內容限制（SCC）同樣定義OpenShift Kubernetes Engine特有的Pod限制。為了提供此自訂功能、Astra Trident可在安裝期間啟用特定權限。 
+summary: Kubernetes Pod安全標準（Ps）和Pod安全政策（Ps）定義權限等級、並限制Pod的行為。OpenShift Security內容限制（SCC）同樣定義OpenShift Kubernetes Engine特有的Pod限制。為了提供此自訂功能、 Trident 會在安裝期間啟用特定權限。 
 ---
 = Pod安全標準（PSS）與安全內容限制（SCC）
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Kubernetes Pod安全標準（Ps）和Pod安全政策（Ps）定義權�
 
 
 [role="lead"]
-Kubernetes Pod安全標準（Ps）和Pod安全政策（Ps）定義權限等級、並限制Pod的行為。OpenShift Security內容限制（SCC）同樣定義OpenShift Kubernetes Engine特有的Pod限制。為了提供此自訂功能、Astra Trident可在安裝期間啟用特定權限。以下各節詳細說明Astra Trident設定的權限。
+Kubernetes Pod安全標準（Ps）和Pod安全政策（Ps）定義權限等級、並限制Pod的行為。OpenShift Security內容限制（SCC）同樣定義OpenShift Kubernetes Engine特有的Pod限制。為了提供此自訂功能、 Trident 會在安裝期間啟用特定權限。下列各節詳細說明 Trident 所設定的權限。
 
 
 NOTE: PSS-取代Pod安全性原則（PSP）。在Kubernetes v1.21中、已不再使用PSP、將在v1.25中移除。如需詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/security/["Kubernetes：安全性"]。
@@ -35,16 +35,16 @@ NOTE: PSS-取代Pod安全性原則（PSP）。在Kubernetes v1.21中、已不再
 | 主機iPC | NFS使用程序間通訊（IPC）與nfsd通訊。 
 
 
-| 主機PID | 需要啟動NFS的「rps-statd」。Astra Trident會查詢主機處理程序、以判斷在掛載NFS磁碟區之前是否正在執行「rps-statd」。 
+| 主機PID | 啟動 NFS 所需 `rpc-statd`。Trident 會查詢主機處理程序、以判斷在掛載 NFS 磁碟區之前是否 `rpc-statd`正在執行。 
 
 
 | 功能 | 「SYS-ADMIN」功能是專為特殊權限容器提供的預設功能之一。例如、Docker為特殊權限容器設定了這些功能：「CapPrm：0000003fffffffff'、「CapEff: 0000003fffffff'」 
 
 
-| Seccomp | Seccomp設定檔在特殊權限容器中一律為「未限制」、因此無法在Astra Trident中啟用。 
+| Seccomp | Seccomp 設定檔在特殊權限的容器中一律為「未限制」、因此無法在 Trident 中啟用。 
 
 
-| SELinux | 在OpenShift上、權限容器會在「spc_t」（「超級權限容器」）網域中執行、而非權限容器則會在「container_t」網域中執行。在安裝了「containerd」的「container-SELinux」上、所有的容器都會在「spc_t」網域中執行、這會有效停用SELinux。因此、Astra Trident不會在容器中加入「sheLinux選項」。 
+| SELinux | 在 OpenShift 上、權限容器會在（「超級貴賓 Container 」）網域中執行 `spc_t`、而非權限容器則會在網域中執行 `container_t`。在上 `containerd`、安裝後 `container-selinux`、所有容器都會在網域中執行 `spc_t`、這會有效停用 SELinux 。因此、 Trident 不會新增 `seLinuxOptions`至容器。 
 
 
 | DAC | 權限容器必須以root身分執行。非權限容器會以root身分執行、以存取csi所需的UNIX通訊端。 

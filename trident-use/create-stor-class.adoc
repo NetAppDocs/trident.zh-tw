@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/create-stor-class.html 
 keywords: storage class, manage storage class, storage classes, kubernetes storage classes 
-summary: 您可以設計 Kubernetes StorageClass 檔案、並建立 StorageClass 以指示 Astra Trident 如何配置 Volume 。 
+summary: 您可以設計 Kubernetes StorageClass 檔案、並建立 StorageClass 以指示 Trident 如何配置磁碟區。 
 ---
 = 建立儲存類別
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 您可以設計 Kubernetes StorageClass 檔案、並建立 StorageClass
 
 
 [role="lead"]
-設定 Kubernetes StorageClass 物件並建立儲存類別、以指示 Astra Trident 如何配置 Volume 。
+設定 Kubernetes StorageClass 物件並建立儲存類別、以指示 Trident 如何配置磁碟區。
 
 
 
 == 設定 Kubernetes StorageClass 物件
 
-。 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^] 將 Astra Trident 識別為用於該類別的資源配置程式、並指示 Astra Trident 如何資源配置 Volume 。例如：
+會 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^]將 Trident 識別為該類別所使用的資源配置程式、並指示 Trident 如何資源配置 Volume 。例如：
 
 [listing]
 ----
@@ -33,7 +33,7 @@ parameters:
 allowVolumeExpansion: true
 volumeBindingMode: Immediate
 ----
-請參閱 link:../trident-reference/objects.html["Kubernetes和Trident物件"] 如需儲存類別如何與互動的詳細資訊、請參閱 `PersistentVolumeClaim` 以及用於控制 Astra Trident 如何配置容量的參數。
+如需儲存類別如何與互動的詳細資訊 `PersistentVolumeClaim`、以及控制 Trident 配置磁碟區的參數、請參閱link:../trident-reference/objects.html["Kubernetes和Trident物件"]。
 
 
 
@@ -48,7 +48,7 @@ volumeBindingMode: Immediate
 ----
 kubectl create -f sample-input/storage-class-basic-csi.yaml
 ----
-. 現在您應該會看到Kubernetes和Astra Trident中的* basic、csi *儲存類別、而Astra Trident應該已經在後端探索集區。
+. 現在您應該會在 Kubernetes 和 Trident 中同時看到 * base-csi* 儲存類別、而 Trident 應該已經在後端上探索到這些集區。
 +
 [listing]
 ----
@@ -87,7 +87,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 === 儲存類別範例
 
-Astra Trident 提供 https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/storage-class-samples["特定後端的簡單儲存類別定義"^]。
+Trident 提供 https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/storage-class-samples["特定後端的簡單儲存類別定義"^]。
 
 或者、您也可以編輯 `sample-input/storage-class-csi.yaml.templ` 安裝程式隨附並取代的檔案 `__BACKEND_TYPE__` 儲存驅動程式名稱。
 

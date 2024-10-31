@@ -25,7 +25,7 @@ summary: 在您設定 Google Cloud NetApp Volumes 後端之前、您必須確保
 * 使用 Google Cloud NetApp Volumes 服務設定的 Google Cloud 帳戶。請參閱 link:https://cloud.google.com/netapp-volumes["Google Cloud NetApp Volumes"^]。
 * Google Cloud 帳戶的專案編號。請參閱 link:https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects["識別專案"^]。
 * 具有 Volumes Admin （ NetApp Volume 管理）角色的 Google Cloud 服務帳戶 (`netappcloudvolumes.admin`。請參閱 link:https://cloud.google.com/netapp/volumes/docs/get-started/configure-access/iam#roles_and_permissions["身分識別與存取管理角色與權限"^]。
-* 您的 GCNV 帳戶的 API 金鑰檔案。請參閱 link:https://cloud.google.com/docs/authentication/api-keys["使用 API 金鑰進行驗證"^]
+* 您的 GCNV 帳戶的 API 金鑰檔案。請參閱 link:https://cloud.google.com/iam/docs/keys-create-delete#creating["建立服務帳戶金鑰"^]
 * 儲存池。請參閱 link:https://cloud.google.com/netapp/volumes/docs/configure-and-use/storage-pools/overview["儲存資源池總覽"^]。
 
 

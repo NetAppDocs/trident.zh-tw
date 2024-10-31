@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/gcp.html 
 keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes, drivers, access modes, rwo, rwx, rwp, rwop, file system 
-summary: 瞭Cloud Volumes Service 解如何使用提供的範例組態、將適用於Google Cloud的功能組態設定為Astra Trident安裝的後端。 
+summary: 瞭解如何使用提供的範例組態、將 Cloud Volumes Service for Google Cloud 設定為 Trident 安裝的後端。 
 ---
 = 設定Cloud Volumes Service 適用於Google Cloud後端的功能
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 瞭Cloud Volumes Service 解如何使用提供的範例組態、將適�
 
 
 [role="lead"]
-瞭Cloud Volumes Service 解如何使用提供的範例組態、將NetApp for Google Cloud設定為Astra Trident安裝的後端。
+瞭解如何使用提供的範例組態、將 NetApp Cloud Volumes Service for Google Cloud 設定為 Trident 安裝的後端。
 
 
 
 == Google Cloud 驅動程式詳細資料
 
-Astra Trident 提供 `gcp-cvs` 與叢集通訊的驅動程式。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
+Trident 提供 `gcp-cvs`與叢集通訊的驅動程式。支援的存取模式包括： _ReadWriteOnce_ （ rwo ）、 _ReadOnlyMany （ ROX ）、 _ReadWriteMany （ rwx ）、 _ReadWriteOncePod （ RWOP_ ）。
 
 [cols="1, 1, 1, 2, 2"]
 |===
@@ -37,11 +37,11 @@ Rwo 、 ROX 、 rwx 、 RWOP
 |===
 
 
-== 深入瞭解Astra Trident對Cloud Volumes Service Google Cloud的支援
+== 瞭解 Trident 支援 Cloud Volumes Service for Google Cloud
 
-Astra Trident可在Cloud Volumes Service 兩個地方建立一個不二的資料區 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["服務類型"^]：
+Trident 可以在link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["服務類型"^]以下兩種中的其中一種中建立 Cloud Volumes Service Volume ：
 
-* * CVS效能*：預設的Astra Trident服務類型。這種效能最佳化的服務類型最適合重視效能的正式作業工作負載。CVS效能服務類型是一種硬體選項、可支援最小100 GiB大小的磁碟區。您可以選擇其中一項 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs-performance_service_type["三種服務層級"^]：
+* *CVS-Performance * ：預設的 Trident 服務類型。這種效能最佳化的服務類型最適合重視效能的正式作業工作負載。CVS效能服務類型是一種硬體選項、可支援最小100 GiB大小的磁碟區。您可以選擇link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs-performance_service_type["三種服務層級"^]下列其中一項：
 +
 ** `standard`
 ** `premium`
@@ -85,7 +85,7 @@ Astra Trident可在Cloud Volumes Service 兩個地方建立一個不二的資料
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+ API金鑰的一部分 
 
 
-| 「torageClass」 | 用於指定CVS服務類型的選用參數。使用 `software` 可選擇CVS服務類型。否則、Astra Trident會採用CVS效能服務類型 (`hardware`）。 |  
+| 「torageClass」 | 用於指定CVS服務類型的選用參數。用於 `software`選擇 CVS 服務類型。否則， Trident 將採用 CVS-Performance 服務類型(`hardware`）。 |  
 
 
 | `storagePools` | 僅限CVS服務類型。選用參數、用於指定用於建立磁碟區的儲存資源池。 |  
@@ -97,7 +97,7 @@ Astra Trident可在Cloud Volumes Service 兩個地方建立一個不二的資料
 | 「hostProjectNumber」 | 如果使用共享VPC網路、則為必要項目。在此案例中、 `projectNumber` 是服務專案、以及 `hostProjectNumber` 是主機專案。 |  
 
 
-| 《apiRegion》 | Astra Trident在Google Cloud區域建立Cloud Volumes Service 了各種不全的功能。建立跨區域Kubernetes叢集時、會在中建立磁碟區 `apiRegion` 可用於在多個Google Cloud區域的節點上排程的工作負載。跨區域流量會產生額外成本。 |  
+| 《apiRegion》 | Trident 建立 Cloud Volumes Service Volume 的 Google Cloud 區域。建立跨區域 Kubernetes 叢集時、在中建立的磁碟區 `apiRegion`可用於跨多個 Google Cloud 區域的節點上排程的工作負載。跨區域流量會產生額外成本。 |  
 
 
 | 「apiKey」 | 的Google Cloud服務帳戶API金鑰 `netappcloudvolumes.admin` 角色：其中包含Google Cloud服務帳戶私密金鑰檔案（逐字複製到後端組態檔）的JSON-格式內容。 |  
@@ -354,7 +354,7 @@ allowVolumeExpansion: true
 ----
 ====
 * 第一個StorageClass (`cvs-extreme-extra-protection`）對應至第一個虛擬資源池。這是唯一提供極致效能、快照保留率為10%的資源池。
-* 最後一個StorageClass (`cvs-extra-protection`）撥出提供快照保留10%的任何儲存資源池。Astra Trident決定選取哪個虛擬集區、並確保符合快照保留需求。
+* Last StorageClass (`cvs-extra-protection`（最後一個 StorageClass ）調用任何提供 10% 快照保留的儲存池。Trident 會決定要選取哪個虛擬集區、並確保符合快照保留要求。
 
 
 

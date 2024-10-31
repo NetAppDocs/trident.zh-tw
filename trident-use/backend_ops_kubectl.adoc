@@ -18,7 +18,7 @@ summary: 瞭解如何使用「kubecll」來執行後端管理作業。
 
 == 刪除後端
 
-刪除「TridentBackendConfig」（TridentBackendConfig）之後、即指示Astra Trident刪除/保留後端（根據「刪除原則」）。若要刪除後端、請確定「刪除原則」已設定為刪除。如果只要刪除「TridentBackendConfig」、請確定「刪除原則」已設定為保留。這可確保後端仍存在、並可使用「tridentctl」進行管理。
+刪除 `TridentBackendConfig`後、您會指示 Trident 刪除 / 保留後端（根據 `deletionPolicy`）。若要刪除後端、請確定已 `deletionPolicy`設定為刪除。若要僅刪除 `TridentBackendConfig`、請確定已 `deletionPolicy`設定為保留。這可確保後端仍存在、並可使用進行管理 `tridentctl`。
 
 執行下列命令：
 
@@ -26,7 +26,7 @@ summary: 瞭解如何使用「kubecll」來執行後端管理作業。
 ----
 kubectl delete tbc <tbc-name> -n trident
 ----
-Astra Trident並不會刪除「TridentBackendConfig」所使用的Kubernetes Secrets。Kubernetes使用者負責清除機密。刪除機密時必須小心。只有在後端未使用機密時、才應刪除這些機密。
+Trident 不會刪除使用中的 Kubernetes 機密 `TridentBackendConfig`。Kubernetes使用者負責清除機密。刪除機密時必須小心。只有在後端未使用機密時、才應刪除這些機密。
 
 
 
@@ -46,7 +46,7 @@ kubectl get tbc -n trident
 
 更新後端可能有多種原因：
 
-* 儲存系統的認證資料已變更。若要更新認證資料、必須更新「TridentBackendConfig」物件中使用的Kubernetes Secret。Astra Trident會自動以提供的最新認證資料更新後端。執行下列命令以更新Kubernetes Secret：
+* 儲存系統的認證資料已變更。若要更新認證、必須更新物件中使用的 Kubernetes Secret `TridentBackendConfig` 。Trident 會使用提供的最新認證、自動更新後端。執行下列命令以更新Kubernetes Secret：
 +
 [listing]
 ----

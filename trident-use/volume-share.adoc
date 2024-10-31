@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/volume-share.html 
 keywords: volref, volume reference, share, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing 
-summary: 使用Astra Trident、您可以在主要命名空間中建立磁碟區、並將其共用於一或多個次要命名空間中。 
+summary: 使用 Trident 、您可以在主要命名空間中建立磁碟區、並在一或多個次要命名空間中共用該磁碟區。 
 ---
 = 跨命名空間共用NFS磁碟區
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 使用Astra Trident、您可以在主要命名空間中建立磁碟區�
 
 
 [role="lead"]
-使用Astra Trident、您可以在主要命名空間中建立磁碟區、並將其共用於一或多個次要命名空間中。
+使用 Trident 、您可以在主要命名空間中建立磁碟區、並在一或多個次要命名空間中共用該磁碟區。
 
 
 
 == 功能
 
-Astra TridentVolume Reference CR可讓您在一或多個Kubernetes命名空間中安全地共用ReadWriteMany（rwx）NFS磁碟區。此Kubernetes原生解決方案具有下列優點：
+TridentVolume Reference CR 可讓您安全地跨一或多個 Kubernetes 命名空間共用 ReadWriteMany （ rwx ） NFS 磁碟區。此Kubernetes原生解決方案具有下列優點：
 
 * 多層存取控制、確保安全性
 * 可搭配所有Trident NFS Volume驅動程式使用
@@ -78,7 +78,7 @@ spec:
       storage: 100Gi
 ----
 +
-Astra Trident會建立PV及其後端NFS儲存磁碟區。
+Trident 會建立 PV 及其後端 NFS 儲存磁碟區。
 
 +
 [NOTE]
@@ -129,13 +129,13 @@ NOTE: 目的地PVc的大小必須小於或等於來源PVc。
 
 
 .結果
-Astra Trident讀取 `shareFromPVC` 在目的地永久虛擬磁碟上註釋、並將目的地PV建立為從屬磁碟區、而其本身並無儲存資源指向來源PV並共用來源PV儲存資源。目的地的PVc和PV似乎正常連結。
+Trident 會讀取 `shareFromPVC`目的地 PVC 上的附註、並將目的地 PV 建立為次級磁碟區、而不會有本身的儲存資源指向來源 PV 、並共用來源 PV 儲存資源。目的地的PVc和PV似乎正常連結。
 
 
 
 == 刪除共享Volume
 
-您可以刪除跨多個命名空間共用的磁碟區。Astra Trident會移除對來源命名空間上磁碟區的存取權、並維持對其他共用該磁碟區的命名空間的存取權。當所有參照磁碟區的命名空間都移除時、Astra Trident會刪除該磁碟區。
+您可以刪除跨多個命名空間共用的磁碟區。Trident 將移除來源命名空間上的磁碟區存取權、並維護共用該磁碟區的其他命名空間的存取權。移除所有參照該 Volume 的命名空間時、 Trident 會刪除該 Volume 。
 
 
 
@@ -159,7 +159,7 @@ Usage:
 
 == 限制
 
-* Astra Trident無法防止目的地命名空間寫入共用磁碟區。您應該使用檔案鎖定或其他程序來防止覆寫共用Volume資料。
+* Trident 無法防止目的地命名空間寫入共用磁碟區。您應該使用檔案鎖定或其他程序來防止覆寫共用Volume資料。
 * 您無法藉由移除來撤銷對來源PVc的存取權 `shareToNamespace` 或 `shareFromNamespace` 註釋或刪除 `TridentVolumeReference` CR.若要撤銷存取權、您必須刪除從屬的PVc。
 * 在從屬磁碟區上無法執行快照、複製和鏡射。
 

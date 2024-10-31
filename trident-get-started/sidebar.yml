@@ -2,11 +2,11 @@
 section: trident-get-started
 title: 開始使用
 entries:
-- title: 瞭解Astra Trident
+- title: 瞭解 Trident
   entries:
-  - title: Astra Trident總覽
+  - title: Trident 總覽
     url: "/trident-get-started/intro.html"
-  - title: Astra Trident 架構
+  - title: Trident 架構
     url: "/trident-get-started/architecture.html"
   - title: 概念
     entries:

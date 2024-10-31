@@ -6,7 +6,7 @@ entries:
   url: "/trident-reco/deploy-reco.html"
 - title: 儲存組態
   url: "/trident-reco/storage-config-best-practices.html"
-- title: Astra Trident整合
+- title: Trident 整合
   url: "/trident-reco/integrate-trident.html"
 - title: 資料保護與災難恢復
   url: "/trident-reco/backup.html"

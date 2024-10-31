@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-use/trident-fsx.html 
 keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
-summary: 使用 Astra Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 備份的區塊和檔案持續性磁碟區。 
+summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 支援的區塊和檔案持續性磁碟區。 
 ---
-= 使用Astra Trident搭配Amazon FSX for NetApp ONTAP 解決方案
+= 搭配 Amazon FSX for NetApp ONTAP 使用 Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -14,17 +14,17 @@ summary: 使用 Astra Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確
 [role="lead"]
 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX for NetApp ONTAP 產品"^] 是完全託管的AWS服務、可讓客戶啟動及執行採用NetApp ONTAP 資訊儲存作業系統的檔案系統。FSX for ONTAP VMware可讓您運用熟悉的NetApp功能、效能和管理功能、同時充分發揮儲存AWS資料的簡易性、敏捷度、安全性和擴充性。FSX for ONTAP Sfor支援ONTAP Isf供 檔案系統功能和管理API。
 
-您可以將Amazon FSX for NetApp ONTAP 的支援文件系統與Astra Trident整合、以確保在Amazon Elastic Kubernetes Service（EKS）中執行的Kubernetes叢集能夠配置區塊並以ONTAP 支援的方式歸檔持續Volume。
+您可以將 Amazon FSX for NetApp ONTAP 檔案系統與 Trident 整合、以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可配置由 ONTAP 備份的區塊和檔案持續磁碟區。
 
 檔案系統是Amazon FSX的主要資源、類似ONTAP 於內部部署的一個叢集。在每個SVM中、您可以建立一個或多個磁碟區、這些磁碟區是儲存檔案系統中檔案和資料夾的資料容器。有了Amazon FSX for NetApp ONTAP 的功能、Data ONTAP 即可在雲端以託管檔案系統的形式提供支援。新的檔案系統類型稱為* NetApp ONTAP Sing*。
 
-使用Astra Trident搭配Amazon FSX for NetApp ONTAP 供應NetApp時、您可以確保在Amazon Elastic Kubernetes Service（EKS）中執行的Kubernetes叢集、能夠配置區塊和檔案以ONTAP 支援的持續磁碟區。
+使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 支援的區塊和檔案持續性磁碟區。
 
 
 
 == 需求
 
-此外 link:../trident-get-started/requirements.html["Astra Trident的需求"]、若要將FSXfor ONTAP 支援與Astra Trident整合、您需要：
+除了link:../trident-get-started/requirements.html["Trident 需求"]、若要將適用於 ONTAP 的 FSX 與 Trident 整合、您還需要：
 
 * 現有的Amazon EKS叢集或自行管理的Kubernetes叢集、已安裝「kubecll」。
 * 可從叢集工作節點存取的現有 Amazon FSX for NetApp ONTAP 檔案系統和儲存虛擬機器（ SVM ）。
@@ -42,14 +42,14 @@ NOTE: 請務必遵循Amazon Linux和Ubuntu所需的節點準備步驟 https://do
 * SMB Volume：
 +
 ** 使用支援SMB磁碟區 `ontap-nas` 僅限驅動程式。
-** Astra Trident EKS 附加元件不支援 SMB Volume 。
-** Astra Trident僅支援安裝在Windows節點上執行的Pod上的SMB磁碟區。如 link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["準備配置SMB磁碟區"] 需詳細資訊、請參閱。
+** Trident EKS 附加元件不支援 SMB Volume 。
+** Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。如 link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["準備配置SMB磁碟區"] 需詳細資訊、請參閱。
 
 
-* 在 Astra Trident 24.02 之前、 Trident 無法刪除在 Amazon FSX 檔案系統上建立且已啟用自動備份的磁碟區。若要在 Astra Trident 24.02 或更新版本中避免此問題、請指定 `fsxFilesystemID`、 AWS `apiRegion`、 AWS `apikey`和 AWS `secretKey` 在 AWS FSX for ONTAP 的後端組態檔案中。
+* 在 Trident 24.02 之前、在已啟用自動備份的 Amazon FSX 檔案系統上建立的磁碟區、無法由 Trident 刪除。若要在 Trident 24.02 或更新版本中避免此問題、請在 AWS FSX for ONTAP 的後端組態檔案中指定 `fsxFilesystemID`、 AWS `apiRegion`、 AWS `apikey` 和 AWS `secretKey` 。
 +
 
-NOTE: 如果您要指定 Astra Trident 的 IAM 角色、則可以省略指定 `apiRegion`、 `apiKey`和 `secretKey` 明確地將欄位移至 Astra Trident 。如需詳細資訊、請參閱 link:../trident-use/trident-fsx-examples.html["FSX提供ONTAP 各種組態選項和範例"]。
+NOTE: 如果您要將 IAM 角色指定給 Trident 、則可以省略將、 `apiKey`和 `secretKey`欄位明確指定 `apiRegion`給 Trident 。如需詳細資訊、請 link:../trident-use/trident-fsx-examples.html["FSX提供ONTAP 各種組態選項和範例"]參閱。
 
 
 
@@ -57,14 +57,14 @@ NOTE: 如果您要指定 Astra Trident 的 IAM 角色、則可以省略指定 `a
 
 == 驗證
 
-Astra Trident提供兩種驗證模式。
+Trident 提供兩種驗證模式。
 
 * 認證型（建議）：在 AWS Secrets Manager 中安全地儲存認證。您可以將使用者用於檔案系統、或是使用 `fsxadmin` `vsadmin` 為 SVM 設定的使用者。
 +
 
-WARNING: Astra Trident希望以 `vsadmin` SVM使用者或具有相同角色之不同名稱的使用者。適用於NetApp ONTAP 的Amazon FSX具備以下功能 `fsxadmin` 使用者只能有限地取代ONTAP 此功能 `admin` 叢集使用者：強烈建議使用 `vsadmin` 使用Astra Trident。
+WARNING: Trident 應以 SVM 使用者或具有相同角色之不同名稱的使用者身分執行 `vsadmin`。Amazon FSX for NetApp ONTAP 的 `fsxadmin`使用者僅能有限地取代 ONTAP `admin` 叢集使用者。我們強烈建議搭配 Trident 使用 `vsadmin`。
 
-* 憑證型：Astra Trident會使用SVM上安裝的憑證、與FSX檔案系統上的SVM進行通訊。
+* 憑證型： Trident 將使用 SVM 上安裝的憑證、與 FSX 檔案系統上的 SVM 通訊。
 
 
 如需啟用驗證的詳細資訊、請參閱您的驅動程式類型驗證：

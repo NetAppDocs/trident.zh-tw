@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-concepts/vol-access-groups.html 
-keywords: volume access groups, element, solidfire, chap, astra trident, hci, netapp hci, storage system, access volumes, 
-summary: 深入瞭解Astra Trident如何使用Volume存取群組。 
+keywords: volume access groups, element, solidfire, chap, Trident, hci, netapp hci, storage system, access volumes, 
+summary: 深入瞭解 Trident 如何使用 Volume 存取群組。 
 ---
 = Volume存取群組
 :hardbreaks:
@@ -12,18 +12,18 @@ summary: 深入瞭解Astra Trident如何使用Volume存取群組。
 
 
 [role="lead"]
-深入瞭解Astra Trident的使用方式 https://docs.netapp.com/us-en/element-software/concepts/concept_solidfire_concepts_volume_access_groups.html["Volume存取群組"^]。
+深入瞭解 Trident 的使用 https://docs.netapp.com/us-en/element-software/concepts/concept_solidfire_concepts_volume_access_groups.html["Volume存取群組"^]方式。
 
 
-NOTE: 如果您使用的是CHAP、建議您略過本節、以簡化管理並避免以下所述的擴充限制。此外、如果您在「csi」模式中使用Astra Trident、則可以忽略本節。Astra Trident在安裝為增強的SCSI資源配置程式時、會使用CHAP。
+NOTE: 如果您使用的是CHAP、建議您略過本節、以簡化管理並避免以下所述的擴充限制。此外、如果您在 CSI 模式中使用 Trident 、則可以忽略此部分。當 Trident 安裝為增強式 CSI 資源配置程式時、會使用 CHAP 。
 
 
 
 == 深入瞭解Volume存取群組
 
-Astra Trident可使用Volume存取群組來控制其所配置之磁碟區的存取。如果停用CHAP、除非您在組態中指定一或多個存取群組ID、否則會尋找稱為「Trident」的存取群組。
+Trident 可以使用 Volume 存取群組來控制對其所配置之磁碟區的存取。如果停用 CHAP 、除非您在組態中指定一或多個存取群組 ID 、否則它會預期找到一個稱為的存取群 `trident`組。
 
-Astra Trident 會將新磁碟區與設定的存取群組建立關聯、但不會自行建立或以其他方式管理存取群組。存取群組必須先存在、才能將儲存後端新增至 Astra Trident 、而且必須包含 Kubernetes 叢集中每個節點的 iSCSI IQN 、這些節點可能會裝載該後端所佈建的磁碟區。在大多數安裝中、這包括叢集中的每個工作節點。
+雖然 Trident 會將新磁碟區與設定的存取群組建立關聯、但不會自行建立或管理存取群組。存取群組必須先存在、才能將儲存後端新增至 Trident 、而且必須包含 Kubernetes 叢集中每個節點的 iSCSI IQN 、這些節點可能會裝載該後端所佈建的磁碟區。在大多數安裝中、這包括叢集中的每個工作節點。
 
 對於具有超過64個節點的Kubernetes叢集、您應該使用多個存取群組。每個存取群組最多可包含64個IQN、每個磁碟區可屬於四個存取群組。在設定最多四個存取群組的情況下、叢集中最多256個節點的任何節點都能存取任何磁碟區。如需 Volume 存取群組的最新限制、請參閱 https://docs.netapp.com/us-en/element-software/concepts/concept_solidfire_concepts_volume_access_groups.html["請按這裡"^]。
 

@@ -18,7 +18,7 @@ summary: 您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入�
 
 == 總覽與考量
 
-您可以將磁碟區匯入 Astra Trident 、以便：
+您可以將磁碟區匯入 Trident 、以便：
 
 * 將應用程式容器化、並重新使用其現有的資料集
 * 針對臨時應用程式使用資料集的複本
@@ -29,20 +29,20 @@ summary: 您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入�
 .考量
 匯入 Volume 之前、請先檢閱下列考量事項。
 
-* Astra Trident 只能匯入 RW （讀寫）類型的 ONTAP Volume 。DP （資料保護）類型磁碟區是 SnapMirror 目的地磁碟區。您應該先中斷鏡射關係、再將 Volume 匯入 Astra Trident 。
+* Trident 只能匯入 RW （讀寫）類型的 ONTAP Volume 。DP （資料保護）類型磁碟區是 SnapMirror 目的地磁碟區。您應該先中斷鏡射關係、再將磁碟區匯入 Trident 。
 * 我們建議您在沒有作用中連線的情況下匯入磁碟區。若要匯入使用中的 Volume 、請複製該 Volume 、然後執行匯入。
 +
 
 WARNING: 這對區塊磁碟區特別重要、因為 Kubernetes 不會知道先前的連線、而且很容易將作用中的磁碟區附加到 Pod 。這可能導致資料毀損。
 
-* 不過 `StorageClass` 必須在 PVC 上指定、 Astra Trident 在匯入期間不會使用此參數。建立磁碟區時會使用儲存類別、根據儲存特性從可用的集區中選取。由於該磁碟區已經存在、因此在匯入期間不需要選取任何集區。因此、即使磁碟區存在於與 PVC 中指定的儲存類別不相符的後端或集區、匯入也不會失敗。
+* 雖然必須在 PVC 上指定、但 `StorageClass` Trident 在匯入期間不會使用此參數。建立磁碟區時會使用儲存類別、根據儲存特性從可用的集區中選取。由於該磁碟區已經存在、因此在匯入期間不需要選取任何集區。因此、即使磁碟區存在於與 PVC 中指定的儲存類別不相符的後端或集區、匯入也不會失敗。
 * 現有的 Volume 大小是在 PVC 中決定和設定的。儲存驅動程式匯入磁碟區之後、PV會以PVc的ClaimRef建立。
 +
 ** 回收原則一開始設定為 `retain` 在PV中。Kubernetes成功繫結了PVc和PV之後、系統會更新回收原則以符合儲存類別的回收原則。
 ** 如果儲存類別的回收原則為 `delete`、儲存磁碟區會在PV刪除時刪除。
 
 
-* 根據預設、 Astra Trident 會管理 PVC 、並重新命名後端上的 FlexVol 和 LUN 。您可以通過 `--no-manage` 用於匯入非託管磁碟區的旗標。如果您使用 `--no-manage`、 Astra Trident 在物件生命週期內、不會在 PVC 或 PV 上執行任何其他作業。刪除 PV 時不會刪除儲存磁碟區、也會忽略其他操作、例如 Volume Clone 和 Volume resize 。
+* 根據預設、 Trident 會管理 PVC 並重新命名後端上的 FlexVol 和 LUN 。您可以傳遞 `--no-manage`旗標來匯入未受管理的磁碟區。如果您使用 `--no-manage`、 Trident 在物件生命週期內不會在 PVC 或 PV 上執行任何其他作業。刪除 PV 時不會刪除儲存磁碟區、也會忽略其他操作、例如 Volume Clone 和 Volume resize 。
 +
 
 TIP: 如果您想要將Kubernetes用於容器化工作負載、但想要管理Kubernetes以外儲存磁碟區的生命週期、則此選項非常實用。
@@ -78,7 +78,7 @@ spec:
 
 WARNING: 請勿包含其他參數、例如 PV 名稱或 Volume 大小。這可能會導致匯入命令失敗。
 
-. 使用 `tridentctl import` 用於指定 Astra Trident 後端名稱的命令、該後端包含磁碟區、以及唯一識別儲存區中磁碟區的名稱（例如： ONTAP FlexVol 、 Element Volume 、 Cloud Volumes Service 路徑）。。 `-f` 需要引數來指定 PVC 檔案的路徑。
+. 使用 `tridentctl import`命令指定 Trident 後端的名稱、該後端包含磁碟區、以及唯一識別儲存區中磁碟區的名稱（例如： ONTAP FlexVol 、 Element Volume 、 Cloud Volumes Service 路徑）。 `-f`需要引數來指定 PVC 檔案的路徑。
 +
 [listing]
 ----
@@ -96,7 +96,7 @@ tridentctl import volume <backendName> <volumeName> -f <path-to-pvc-file>
 
 === ONTAP NAS 和 ONTAP NAS FlexGroup
 
-Astra Trident 支援使用匯入 Volume `ontap-nas` 和 `ontap-nas-flexgroup` 驅動程式：
+Trident 支援使用和 `ontap-nas-flexgroup`驅動程式進行 Volume 匯入 `ontap-nas`。
 
 [NOTE]
 ====
@@ -129,7 +129,7 @@ tridentctl import volume ontap_nas managed_volume -f <path-to-pvc-file>
 --
 .非託管 Volume
 --
-使用時 `--no-manage` 引數 Astra Trident 不會重新命名 Volume 。
+使用 `--no-manage`引數時、 Trident 不會重新命名磁碟區。
 
 以下範例匯入 `unmanaged_volume` 在上 `ontap_nas` 後端：
 
@@ -149,9 +149,9 @@ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-ma
 
 === SAN ONTAP
 
-Astra Trident 支援使用匯入 Volume `ontap-san` 驅動程式：不支援使用匯入 Volume `ontap-san-economy` 驅動程式：
+Trident 支援使用和 `ontap-san-economy`驅動程式進行 Volume 匯入 `ontap-san`。
 
-Astra Trident 可以匯入包含單一 LUN 的 ONTAP SAN FlexVols 。這與一致 `ontap-san` 驅動程式、為FlexVol 每個實體磁碟和FlexVol 一個LUN建立一個實體。Astra Trident 會匯入 FlexVol 、並將其與 PVC 定義相關聯。
+Trident 可以匯入包含單一 LUN 的 ONTAP SAN FlexVols 。這與驅動程式一致 `ontap-san`、可為 FlexVol 中的每個 PVC 和 LUN 建立 FlexVol 。Trident 會匯入 FlexVol 、並將其與 PVC 定義相關聯。
 
 .ONTAP SAN 範例
 以下是託管 Volume 和非託管 Volume 匯入的範例。
@@ -160,7 +160,7 @@ Astra Trident 可以匯入包含單一 LUN 的 ONTAP SAN FlexVols 。這與一�
 ====
 .託管 Volume
 --
-對於託管的 Volume 、 Astra Trident 會將 FlexVol 重新命名為 `pvc-<uuid>` 格式化及FlexVol LUN在功能區內 `lun0`。
+對於託管卷， Trident 將 FlexVol 重命名爲格式，並將 FlexVol 中的 LUN `lun0` 重命名爲 `pvc-<uuid>`。
 
 下列範例會匯入 `ontap-san-managed` 上的顯示FlexVol `ontap_san_default` 後端：
 
@@ -201,10 +201,10 @@ image:./san-import-igroup.png["對應至 iqn 和叢集 iqn 的 LUN 影像。"]
 
 === 元素
 
-Astra Trident 支援使用 NetApp Element 軟體和 NetApp HCI Volume 匯入 `solidfire-san` 驅動程式：
+Trident 支援使用驅動程式的 NetApp Element 軟體和 NetApp HCI Volume 匯入 `solidfire-san`。
 
 
-NOTE: Element驅動程式支援重複的Volume名稱。不過、如果有重複的磁碟區名稱、 Astra Trident 會傳回錯誤。因應措施是複製磁碟區、提供唯一的磁碟區名稱、然後匯入複製的磁碟區。
+NOTE: Element驅動程式支援重複的Volume名稱。不過、如果有重複的磁碟區名稱、 Trident 會傳回錯誤。因應措施是複製磁碟區、提供唯一的磁碟區名稱、然後匯入複製的磁碟區。
 
 .元素範例
 下列範例會匯入 `element-managed` 後端上的 Volume `element_default`。
@@ -223,7 +223,7 @@ tridentctl import volume element_default element-managed -f pvc-basic-import.yam
 
 === Google Cloud Platform
 
-Astra Trident 支援使用匯入 Volume `gcp-cvs` 驅動程式：
+Trident 支援使用驅動程式進行 Volume 匯入 `gcp-cvs`。
 
 
 NOTE: 若要在 Google Cloud Platform 中匯入以 NetApp Cloud Volumes Service 為後盾的 Volume 、請依其 Volume 路徑識別該 Volume 。Volume 路徑是之後 Volume 匯出路徑的一部分 `:/`。例如、如果匯出路徑為 `10.0.0.1:/adroit-jolly-swift`、磁碟區路徑為 `adroit-jolly-swift`。
@@ -245,7 +245,7 @@ tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -
 
 === Azure NetApp Files
 
-Astra Trident 支援使用匯入 Volume `azure-netapp-files` 驅動程式：
+Trident 支援使用驅動程式進行 Volume 匯入 `azure-netapp-files`。
 
 
 NOTE: 若要匯入 Azure NetApp Files Volume 、請依磁碟區路徑識別該磁碟區。Volume 路徑是之後 Volume 匯出路徑的一部分 `:/`。例如、如果掛載路徑為 `10.0.0.2:/importvol1`、磁碟區路徑為 `importvol1`。

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/trident-fsx-iam-role.html 
 keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
-summary: 使用 Astra Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 備份的區塊和檔案持續性磁碟區。 
+summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 支援的區塊和檔案持續性磁碟區。 
 ---
 = 建立 IAM 角色和 AWS 密碼
 :hardbreaks:
@@ -21,7 +21,7 @@ NOTE: 若要使用 AWS IAM 角色進行驗證、您必須使用 EKS 部署 Kuber
 
 == 建立 AWS Secret Manager 機密
 
-此範例建立 AWS Secret Manager 機密以儲存 Astra Trident CSI 認證：
+以下範例建立 AWS Secret Manager 密碼來儲存 Trident CSI 認證：
 
 `aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"user":"vsadmin","password":"<svmpassword>"}"`
 

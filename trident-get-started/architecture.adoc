@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-get-started/architecture.html 
 keywords: trident backend, AFF, FAS, ONTAP Select, Cloud, Amazon FSx for NetApp ONTAP, drivers, ONTAP drivers 
-summary: Astra Trident 會在叢集中的每個工作節點上、以單一控制器 Pod 加上節點 Pod 的形式執行。節點 Pod 必須在任何想要裝載 Astra Trident Volume 的主機上執行。 
+summary: Trident 會在叢集中的每個工作節點上、以單一控制器 Pod 加上節點 Pod 的形式執行。節點 Pod 必須在任何想要掛載 Trident Volume 的主機上執行。 
 ---
-= Astra Trident 架構
+= Trident 架構
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,22 +12,22 @@ summary: Astra Trident 會在叢集中的每個工作節點上、以單一控制
 
 
 [role="lead"]
-Astra Trident 會在叢集中的每個工作節點上、以單一控制器 Pod 加上節點 Pod 的形式執行。節點 Pod 必須在任何想要裝載 Astra Trident Volume 的主機上執行。
+Trident 會在叢集中的每個工作節點上、以單一控制器 Pod 加上節點 Pod 的形式執行。節點 Pod 必須在任何想要掛載 Trident Volume 的主機上執行。
 
 
 
 == 瞭解控制器 Pod 和節點 Pod
 
-Astra Trident 部署為單一 <<Trident 控制器 Pod>> 以及一或多個 <<Trident 節點 Pod>> 在 Kubernetes 叢集上、並使用標準 Kubernetes _CSI Sidecar Containers_ 來簡化 CSI 外掛程式的部署。 link:https://kubernetes-csi.github.io/docs/sidecar-containers.html["Kubernetes CSI Sidecar Container"^] 由 Kubernetes 儲存社群維護。
+Trident 在 Kubernetes 叢集上部署為單一<<Trident 控制器 Pod>>和多個、<<Trident 節點 Pod>>並使用標準 Kubernetes _CSI Sidecar Containers_ 來簡化 CSI 外掛程式的部署。link:https://kubernetes-csi.github.io/docs/sidecar-containers.html["Kubernetes CSI Sidecar Container"^]由 Kubernetes 儲存社群維護。
 
-Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["節點選取器"^] 和 link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["容忍和污染"^] 用於限制 Pod 在特定或偏好的節點上執行。您可以在 Astra Trident 安裝期間、為控制器和節點 Pod 設定節點選取器和公差。
+Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["節點選取器"^] 和link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["容忍和污染"^]用於限制 Pod 在特定或偏好的節點上執行。您可以在 Trident 安裝期間、為控制器和節點 Pod 設定節點選取器和公差。
 
 * 控制器外掛程式可處理磁碟區資源配置與管理、例如快照和調整大小。
 * 節點外掛程式會處理將儲存設備附加至節點的問題。
 
 
-.Astra Trident 部署在 Kubernetes 叢集上
-image::../media/trident-arch.png[Kubernetes 叢集上的 Astra Trident 架構圖表。]
+.Trident 部署在 Kubernetes 叢集上
+image::../media/trident-arch.png[Kubernetes 叢集上的 Trident 架構圖表。]
 
 
 
@@ -61,7 +61,7 @@ image::../media/node-pod.png[使用適用的 CSI sidecar 執行 CSI Node 外掛�
 
 == 支援的Kubernetes叢集架構
 
-下列Kubernetes架構支援Astra Trident：
+Trident 支援下列 Kubernetes 架構：
 
 [cols="3,1,2"]
 |===

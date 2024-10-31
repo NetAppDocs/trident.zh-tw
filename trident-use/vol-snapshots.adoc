@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-snapshots.html 
 keywords: volumes, on-demand volume snapshots, create snapshots, backends, kubernetes, create PVCs, PVCs, snapshot, volume snapshot, import snapshot, recover data 
-summary: Kubernetes 持續磁碟區（ PV ）的磁碟區快照可啟用磁碟區的時間點複本。您可以建立使用 Astra Trident 建立的磁碟區快照、匯入 Astra Trident 外部建立的快照、從現有快照建立新的磁碟區、以及從快照復原磁碟區資料。 
+summary: Kubernetes 持續磁碟區（ PV ）的磁碟區快照可啟用磁碟區的時間點複本。您可以建立使用 Trident 建立的磁碟區快照、匯入在 Trident 外部建立的快照、從現有快照建立新的磁碟區、以及從快照復原磁碟區資料。 
 ---
 = 使用快照
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Kubernetes 持續磁碟區（ PV ）的磁碟區快照可啟用磁碟�
 
 
 [role="lead"]
-Kubernetes 持續磁碟區（ PV ）的磁碟區快照可啟用磁碟區的時間點複本。您可以建立使用 Astra Trident 建立的磁碟區快照、匯入 Astra Trident 外部建立的快照、從現有快照建立新的磁碟區、以及從快照復原磁碟區資料。
+Kubernetes 持續磁碟區（ PV ）的磁碟區快照可啟用磁碟區的時間點複本。您可以建立使用 Trident 建立的磁碟區快照、匯入在 Trident 外部建立的快照、從現有快照建立新的磁碟區、以及從快照復原磁碟區資料。
 
 
 
@@ -35,7 +35,7 @@ NOTE: 如果在 GKE 環境中建立隨需磁碟區快照、請勿建立快照控
 .步驟
 . 建立 `VolumeSnapshotClass`。如需詳細資訊、請參閱 link:../trident-reference/objects.html#kubernetes-volumesnapshotclass-objects["Volume SnapshotClass"]。
 +
-** 。 `driver` 指向 Astra Trident CSI 驅動程式。
+**  `driver`指向 Trident CSI 驅動程式。
 ** `deletionPolicy` 可以 `Delete` 或 `Retain`。設定為時 `Retain`、儲存叢集上的基礎實體快照、即使在 `VolumeSnapshot` 物件已刪除。
 +
 .範例
@@ -141,16 +141,16 @@ spec:
 
 == 匯入 Volume 快照
 
-Astra Trident 支援 link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Kubernetes 預先配置的快照程序"^] 可讓叢集管理員建立 `VolumeSnapshotContent` 在 Astra Trident 外部建立的物件和匯入快照。
+Trident 支援、link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Kubernetes 預先配置的快照程序"^]可讓叢集管理員建立 `VolumeSnapshotContent`物件、並匯入在 Trident 之外建立的快照。
 
 .開始之前
-Astra Trident 必須已建立或匯入快照的父磁碟區。
+Trident 必須已建立或匯入快照的父磁碟區。
 
 .步驟
-. * 叢集管理： * 建立 `VolumeSnapshotContent` 參照後端快照的物件。這會啟動 Astra Trident 中的快照工作流程。
+. * 叢集管理： * 建立 `VolumeSnapshotContent`參照後端快照的物件。這會在 Trident 中啟動快照工作流程。
 +
 ** 在中指定後端快照的名稱 `annotations` 做為 `trident.netapp.io/internalSnapshotName: <"backend-snapshot-name">`。
-** 指定 `<name-of-parent-volume-in-trident>/<volume-snapshot-content-name>` 在中 `snapshotHandle`。這是中外部快照機提供給 Astra Trident 的唯一資訊 `ListSnapshots` 致電：
+** 請在中 `snapshotHandle`指定 `<name-of-parent-volume-in-trident>/<volume-snapshot-content-name>`。這是通話中外部快照機提供給 Trident 的唯一資訊 `ListSnapshots`。
 +
 
 NOTE: 。 `<volumeSnapshotContentName>` 由於 CR 命名限制、無法永遠符合後端快照名稱。
@@ -193,7 +193,7 @@ spec:
   source:
     volumeSnapshotContentName: import-snap-content
 ----
-. * 內部處理（不需採取任何行動）： * 外部快照機可辨識新建立的 `VolumeSnapshotContent` 並執行 `ListSnapshots` 致電：Astra Trident 會建立 `TridentSnapshot`。
+. * 內部處理（不需採取任何行動）： * 外部快照機可辨識新建立的 `VolumeSnapshotContent`、並執行 `ListSnapshots`通話。Trident 會建立 `TridentSnapshot`。
 +
 ** 外部快照器會設定 `VolumeSnapshotContent` 至 `readyToUse` 和 `VolumeSnapshot` 至 `true`。
 ** Trident 退貨 `readyToUse=true`。
@@ -244,7 +244,7 @@ NOTE: 當您還原快照複本時、會覆寫現有的 Volume 組態。建立快
 
 == 刪除含有相關快照的 PV
 
-刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。移除 Volume 快照以刪除 Astra Trident Volume 。
+刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。移除磁碟區快照以刪除 Trident 磁碟區。
 
 
 

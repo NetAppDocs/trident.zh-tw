@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/deploy-docker.html 
-keywords: deploy, astra trident, trident for docker, docker 
-summary: Astra Trident for Docker 可直接整合 NetApp 儲存平台的 Docker 生態系統。它支援從儲存平台到Docker主機的儲存資源資源配置與管理、並提供架構、可在未來新增更多平台。 
+keywords: deploy, Trident, trident for docker, docker 
+summary: Trident for Docker 可直接與適用於 NetApp 儲存平台的 Docker 生態系統整合。它支援從儲存平台到Docker主機的儲存資源資源配置與管理、並提供架構、可在未來新增更多平台。 
 ---
-= 部署Astra Trident
+= 部署 Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,12 +12,12 @@ summary: Astra Trident for Docker 可直接整合 NetApp 儲存平台的 Docker 
 
 
 [role="lead"]
-Astra Trident for Docker 可直接整合 NetApp 儲存平台的 Docker 生態系統。它支援從儲存平台到Docker主機的儲存資源資源配置與管理、並提供架構、可在未來新增更多平台。
+Trident for Docker 可直接與適用於 NetApp 儲存平台的 Docker 生態系統整合。它支援從儲存平台到Docker主機的儲存資源資源配置與管理、並提供架構、可在未來新增更多平台。
 
-多個Astra Trident執行個體可同時在同一個主機上執行。這可同時連線至多個儲存系統和儲存類型、並可自訂Docker磁碟區所使用的儲存設備。
+Trident 的多個執行個體可以同時在同一部主機上執行。這可同時連線至多個儲存系統和儲存類型、並可自訂Docker磁碟區所使用的儲存設備。
 
 .您需要的產品
-請參閱 link:prereqs-docker.html["部署的先決條件"]。在您確定已符合先決條件之後、就可以開始部署Astra Trident。
+請參閱link:prereqs-docker.html["部署的先決條件"]。在您確定符合先決條件之後、即可開始部署 Trident 。
 
 
 
@@ -25,7 +25,7 @@ Astra Trident for Docker 可直接整合 NetApp 儲存平台的 Docker 生態系
 
 .開始之前
 
-NOTE: 如果您在傳統精靈方法中使用Astra Trident preer Docker 1.3/17.03、請務必先停止Astra Trident程序、然後重新啟動Docker精靈、再使用託管外掛方法。
+NOTE: 如果您在傳統的精靈方法中使用 Trident pred Docker 1.3/17.03 、請務必先停止 Trident 程序、然後重新啟動 Docker 精靈、再使用託管外掛程式方法。
 
 . 停止所有執行中的執行個體：
 +
@@ -85,13 +85,13 @@ EOF
 
 
 
-. 使用託管外掛系統啟動Astra Trident。更換 `<version>` 使用您所使用的外掛程式版本（xxx.xxx.xx）。
+. 使用託管外掛程式系統啟動 Trident 。請以您使用的外掛程式版本（ xxx.xxx.x ）取代 `<version>`。
 +
 [listing]
 ----
 docker plugin install --grant-all-permissions --alias netapp netapp/trident-plugin:<version> config=myConfigFile.json
 ----
-. 開始使用Astra Trident來消耗已設定系統的儲存空間。
+. 開始使用 Trident 從設定的系統中消耗儲存設備。
 +
 .. 建立名為「firstVolume」的Volume：
 +
@@ -147,8 +147,8 @@ curl -fsSL https://get.docker.com/ | sh
 +
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.06.0.tar.gz
-tar zxf trident-installer-24.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.10.0.tar.gz
+tar zxf trident-installer-24.10.0.tar.gz
 ----
 .. 移至Bin路徑中的位置：
 +
@@ -219,7 +219,7 @@ docker volume rm trident_2
 
 
 
-== 在系統啟動時啟動Astra Trident
+== 在系統啟動時啟動 Trident
 
 如需系統型系統的單元檔案範例、請參閱 `contrib/trident.service.example` 在Git repo中。若要搭配RHEL使用檔案、請執行下列步驟：
 

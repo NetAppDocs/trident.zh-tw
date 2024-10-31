@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-deploy.html 
-keywords: deploy, astra trident, methods, operator, tridentctl, helm, tanzu, vmware 
-summary: '您可以使用Trident運算子（手動或使用Helm）或搭配安裝Astra Trident `tridentctl`。本主題提供重要資訊、協助您選擇正確的安裝程序。' 
+keywords: deploy, Trident, methods, operator, tridentctl, helm, tanzu, vmware 
+summary: '您可以使用 Trident 運算子（手動或使用 Helm ）或搭配來安裝 Trident `tridentctl` 。本主題提供重要資訊、協助您選擇正確的安裝程序。' 
 ---
-= 瞭解Astra Trident安裝
+= 瞭解 Trident 安裝
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,24 +12,27 @@ summary: '您可以使用Trident運算子（手動或使用Helm）或搭配安�
 
 
 [role="lead"]
-為了確保Astra Trident可安裝在各種環境和組織中、NetApp提供多種安裝選項。您可以使用Trident運算子（手動或使用Helm）或搭配安裝Astra Trident `tridentctl`。本主題提供重要資訊、協助您選擇正確的安裝程序。
+為了確保 Trident 能夠安裝在各種環境和組織中、 NetApp 提供多種安裝選項。您可以使用 Trident 運算子（手動或使用 Helm ）或搭配來安裝 Trident `tridentctl` 。本主題提供重要資訊、協助您選擇正確的安裝程序。
 
 
 
-== Astra Trident 24.06 的重要資訊
+== Trident 24.06 的重要資訊
 
-*您必須閱讀下列有關Astra Trident的重要資訊。*
+* 您必須閱讀下列有關 Trident 的重要資訊。 *
 
-.關於Astra Trid-功能 的資訊</strong> <strong>
+.<strong> 的 Trident </strong> 相關資訊
 [%collapsible%open]
 ====
-* Kubernetes 1.31 現在支援 Astra Trident 。升級Kubernetes之前先升級Trident。
-* Astra Trident在SAN環境中嚴格執行多重路徑組態的使用、建議的值為 `find_multipaths: no` 在多重路徑.conf檔案中。
+[]
+=====
+* Kubernetes 1.31 現在支援 Trident 。升級Kubernetes之前先升級Trident。
+* Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值 `find_multipaths: no`。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
 
 
 
+=====
 ====
 
 
@@ -58,11 +61,11 @@ TIP: 如果您尚未熟悉 link:../trident-concepts/intro.html["基本概念"^]�
 
 === 使用Trident運算子
 
-無論是手動部署或使用Helm、Trident營運者都是簡化安裝及動態管理Astra Trident資源的絕佳方式。您甚至可以 link:../trident-get-started/kubernetes-customize-deploy.html["自訂您的Trident營運者部署"] 使用中的屬性 `TridentOrchestrator` 自訂資源（CR）。
+無論是手動部署或使用 Helm 、 Trident 營運者都是簡化安裝並動態管理 Trident 資源的絕佳方式。您甚至可以link:../trident-get-started/kubernetes-customize-deploy.html["自訂您的Trident營運者部署"]使用自訂資源（ CR ）中的屬性 `TridentOrchestrator`。
 
 使用Trident營運者的好處包括：
 
-.不只是個Trident物件、更是個可說是個可說是個地方</strong> <strong>
+.<strong> Trident 物件建立 </strong>
 [%collapsible]
 ====
 Trident運算子會自動為Kubernetes版本建立下列物件。
@@ -77,13 +80,13 @@ Trident運算子會自動為Kubernetes版本建立下列物件。
 .<strong> 問責表 </strong>
 [%collapsible]
 ====
-叢集範圍的 Trident 運算子可在叢集層級管理與 Astra Trident 安裝相關的資源。這可減輕使用命名空間範圍運算子來維護叢集範圍資源時可能造成的錯誤。這對於自我修復和修補至關重要。
+叢集範圍的 Trident 操作員可在叢集層級管理與 Trident 安裝相關的資源。這可減輕使用命名空間範圍運算子來維護叢集範圍資源時可能造成的錯誤。這對於自我修復和修補至關重要。
 
 ====
 .還原功能的功能</strong> <strong>
 [%collapsible]
 ====
-營運者會監控Astra Trident安裝、並主動採取措施來處理問題、例如刪除部署或意外修改部署。答 `trident-operator-<generated-id>` 建立Pod以建立關聯 `TridentOrchestrator` 含Astra Trident安裝的CR。如此可確保叢集中只有一個Astra Trident執行個體、並控制其設定、確保安裝功能強大。當對安裝進行變更（例如刪除部署或節點取消設定）時、操作員會分別識別並修正這些變更。
+操作人員會監控 Trident 安裝、並主動採取措施來解決問題、例如刪除部署或意外修改部署的時間。 `trident-operator-<generated-id>`系統會建立一個 Pod 、將 CR 與 Trident 安裝建立關聯 `TridentOrchestrator`。這可確保叢集中只有一個 Trident 執行個體、並控制其設定、確保安裝具有冪等功能。當對安裝進行變更（例如刪除部署或節點取消設定）時、操作員會分別識別並修正這些變更。
 
 ====
 .更新至現有安裝的更新功能</strong> <strong>
@@ -91,7 +94,7 @@ Trident運算子會自動為Kubernetes版本建立下列物件。
 ====
 您可以輕鬆地與營運者一起更新現有的部署。您只需要編輯 `TridentOrchestrator` 以更新安裝。
 
-例如、假設您需要啟用Astra Trident來產生偵錯記錄的案例。若要這麼做、請修補您的 `TridentOrchestrator` 以設定 `spec.debug` 至 `true`：
+例如、請考慮需要啟用 Trident 來產生偵錯記錄的案例。若要執行此操作、請將您的 `TridentOrchestrator`設 `spec.debug`為 `true`：
 
 [listing]
 ----
@@ -103,28 +106,28 @@ kubectl patch torc <trident-orchestrator-name> -n trident --type=merge -p '{"spe
 .<strong> 的重新安裝過程 </strong>
 [%collapsible]
 ====
-叢集範圍的 Trident 運算子可清除移除叢集範圍的資源。使用者可以完全解除安裝 Astra Trident 、並輕鬆重新安裝。
+叢集範圍的 Trident 運算子可清除移除叢集範圍的資源。使用者可以完全解除安裝 Trident 、並輕鬆重新安裝。
 
 ====
 .支援升級功能的不一樣之處</strong> <strong>
 [%collapsible]
 ====
-當叢集的Kubernetes版本升級至支援的版本時、營運者會自動更新現有的Astra Trident安裝、並加以變更、以確保其符合Kubernetes版本的要求。
+當叢集的 Kubernetes 版本升級為支援的版本時、操作員會自動更新現有的 Trident 安裝、並加以變更、以確保它符合 Kubernetes 版本的要求。
 
 
-NOTE: 如果叢集升級至不受支援的版本、則操作員將無法安裝Astra Trident。如果操作員已安裝Astra Trident、則會顯示警告、指出Astra Trident安裝在不受支援的Kubernetes版本上。
+NOTE: 如果叢集升級為不受支援的版本、則操作員會阻止安裝 Trident 。如果已與操作員一起安裝 Trident 、則會顯示警告訊息、指出 Trident 安裝在不受支援的 Kubernetes 版本上。
 
 ====
 
 
 === 使用 `tridentctl`
 
-如果您現有的部署必須升級、或是想要高度自訂部署、您應該考慮 。這是部署Astra Trident的傳統方法。
+如果您現有的部署必須升級、或是想要高度自訂部署、您應該考慮。這是部署 Trident 的傳統方法。
 
-您可以  以產生Trident資源的資訊清單。這包括部署、取消程式集、服務帳戶、以及Astra Trident在安裝過程中所建立的叢集角色。
+您可以產生 Trident 資源的資訊清單。這包括 Trident 在安裝時所建立的部署、取消設定程式集、服務帳戶和叢集角色。
 
 
-NOTE: 從22.04版開始、每次安裝Astra Trident時、AES金鑰就不會再重新產生。在這個版本中、Astra Trident會安裝一個新的秘密物件、並在安裝過程中持續存在。這表示、 `tridentctl` 在22.04中可以解除安裝舊版Trident、但舊版無法解除安裝22.04安裝。選取適當的安裝方法_。
+NOTE: 從 22.04 版本開始、每次安裝 Trident 時、就不會再重新產生 AES 金鑰。在此版本中、 Trident 會安裝一個新的秘密物件、在整個安裝過程中都會持續存在。這表示 `tridentctl`在 22.04 中可以解除安裝舊版 Trident 、但舊版無法解除安裝 22.04 安裝。選取適當的安裝方法_。
 
 
 
@@ -136,12 +139,12 @@ NOTE: 從22.04版開始、每次安裝Astra Trident時、AES金鑰就不會再�
 ====
 .標準安裝
 --
-這是安裝Astra Trident最簡單的方法、適用於大多數不受網路限制的環境。標準安裝模式使用預設登錄來儲存所需的Trident (`docker.io`）和csi (`registry.k8s.io`）影像。
+這是安裝 Trident 最簡單的方法、適用於大多數不設有網路限制的環境。標準安裝模式使用默認註冊表來存儲所需的 Trident (`registry.k8s.io`）(`docker.io`和 CSI （ CSI ）映像。
 
-使用標準模式時、Astra Trident安裝程式會：
+使用標準模式時、 Trident 安裝程式會：
 
 * 透過網際網路擷取容器映像
-* 在Kubernetes叢集中的所有合格節點上建立部署或節點取消設定、以執行Astra Trident Pod
+* 建立部署或節點取消設定集、可在 Kubernetes 叢集中的所有合格節點上啟動 Trident Pod
 
 
 --
@@ -157,7 +160,7 @@ NOTE: 無論您的登錄組態為何、都必須將csi映像存放在單一登�
 --
 以下是遠端安裝程序的高階概觀：
 
-* 在遠端機器上部署適當版本的「kubecll」、以便部署Astra Trident。
+* 在您要部署 Trident 的遠端機器上部署適當版本的 `kubectl`。
 * 從Kubernetes叢集複製組態檔、然後在遠端機器上設定「KUBECCONFIG」環境變數。
 * 啟動「kubectl Get nodes」命令、確認您可以連線至所需的Kubernetes叢集。
 * 使用標準安裝步驟、從遠端機器完成部署。
@@ -200,8 +203,8 @@ link:kubernetes-deploy-tridentctl.html["標準或離線安裝"]
 
 您可以決定變更安裝方法。在執行此操作之前、請先考慮下列事項：
 
-* 安裝及解除安裝Astra Trident時、請務必使用相同的方法。如果您已部署 `tridentctl`、您應該使用適當版本的 `tridentctl` 二進位以解除安裝Astra Trident。同樣地、如果您是與操作員一起部署、則應該編輯 `TridentOrchestrator` 並設定 `spec.uninstall=true` 解除安裝Astra Trident。
-* 如果您想要移除並改用以營運者為基礎的部署 `tridentctl` 若要部署Astra Trident、您應該先編輯 `TridentOrchestrator` 並設定 `spec.uninstall=true` 解除安裝Astra Trident。然後刪除 `TridentOrchestrator` 以及營運者部署。然後您可以使用安裝 `tridentctl`。
+* 請務必使用相同的方法來安裝和解除安裝 Trident 。如果您已與一起部署 `tridentctl`、則應該使用適當的二進位版本 `tridentctl`來解除安裝 Trident 。同樣地、如果您是與運算子一起部署、則應編輯 `TridentOrchestrator` CR 並設定 `spec.uninstall=true`為解除安裝 Trident 。
+* 如果您想要移除並改用以營運者為基礎的部署 `tridentctl`來部署 Trident 、則應先編輯 `TridentOrchestrator`並設定 `spec.uninstall=true`為解除安裝 Trident 。然後刪除 `TridentOrchestrator`和操作員部署。然後您可以使用安裝 `tridentctl`。
 * 如果您有手動的操作員型部署、而且想要使用以Helm為基礎的Trident操作員部署、您應該先手動解除安裝操作員、然後再執行Helm安裝。如此一來、Helm就能部署具有所需標籤和註釋的Trident運算子。如果您不這麼做、則Helm型Trident營運者部署將會失敗、並顯示標籤驗證錯誤和註釋驗證錯誤。如果您有 `tridentctl`根據部署、您可以使用以Helm為基礎的部署、而不會發生問題。
 
 
@@ -209,7 +212,7 @@ link:kubernetes-deploy-tridentctl.html["標準或離線安裝"]
 
 == 其他已知組態選項
 
-在VMware Tanzu產品組合產品上安裝Astra Trident時：
+在 VMware Tanzu Portfolio 產品上安裝 Trident 時：
 
 * 叢集必須支援特殊權限的工作負載。
 * 「-kubelet-dir」旗標應設定為kubelet目錄的位置。依預設、這是「/var/vcap/data/kubelet」。

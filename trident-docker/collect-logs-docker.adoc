@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/collect-logs-docker.html 
-keywords: deploy, astra trident, trident for docker, docker, logs, binary, managed plugin 
+keywords: deploy, Trident, trident for docker, docker, logs, binary, managed plugin 
 summary: 您可以收集記錄以協助疑難排解。收集記錄的方法會因執行Docker外掛程式的方式而有所不同。 
 ---
 = 收集記錄
@@ -19,7 +19,7 @@ summary: 您可以收集記錄以協助疑難排解。收集記錄的方法會�
 == 收集記錄以進行疑難排解
 
 .步驟
-. 如果您使用建議的託管外掛程式方法執行Astra Trident（亦即使用「docker plugin」命令）、請依照下列方式檢視：
+. 如果您使用建議的託管外掛程式方法（亦即使用命令）來執行 Trident `docker plugin` 、請依下列方式檢視：
 +
 [listing]
 ----

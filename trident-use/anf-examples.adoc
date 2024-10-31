@@ -18,10 +18,10 @@ summary: 瞭解 Azure NetApp Files 的 NFS 和 SMB 後端組態選項、並檢�
 
 == 後端組態選項
 
-Astra Trident 使用您的後端組態（子網路、虛擬網路、服務層級和位置）、在所要求位置的可用容量集區上建立 Azure NetApp Files Volume 、並符合所要求的服務層級和子網路。
+Trident 使用後端組態（子網路、虛擬網路、服務層級和位置）、在所要求位置的可用容量集區上建立 Azure NetApp Files Volume 、並符合所要求的服務層級和子網路。
 
 
-NOTE: Astra Trident不支援手動QoS容量集區。
+NOTE: Trident 不支援手動 QoS 容量集區。
 
 Azure NetApp Files 後端提供這些組態選項。
 
@@ -106,7 +106,7 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 
 === 必要的權限與資源
 
-如果您在建立 PVC 時收到「找不到容量集區」錯誤、您的應用程式註冊可能沒有相關的必要權限和資源（子網路、虛擬網路、容量集區）。如果啟用偵錯、Astra Trident會記錄在建立後端時探索到的Azure資源。確認使用的角色是否適當。
+如果您在建立 PVC 時收到「找不到容量集區」錯誤、您的應用程式註冊可能沒有相關的必要權限和資源（子網路、虛擬網路、容量集區）。如果啟用除錯功能、 Trident 會記錄建立後端時所探索到的 Azure 資源。確認使用的角色是否適當。
 
 的值 `resourceGroups`、 `netappAccounts`、 `capacityPools`、 `virtualNetwork`和 `subnet` 可以使用簡短或完整名稱來指定。在大多數情況下、建議使用完整名稱、因為短名稱可以符合多個名稱相同的資源。
 
@@ -146,7 +146,7 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 `exportRule` 必須是以逗號分隔的清單、以CIDR表示法列出所有的IPv4位址或IPv4子網路組合。SMB磁碟區已忽略。 | 「0.00.0.0/0」 
 
 
-| 「napshotDir | 控制.snapshot目錄的可見度 | "假" 
+| 「napshotDir | 控制.snapshot目錄的可見度 | 針對 NFSv3 的 NFSv4 "false" 為 "true" 
 
 
 | 《大小》 | 新磁碟區的預設大小 | 100公克 
@@ -163,7 +163,7 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 .最小組態
 [%collapsible]
 ====
-這是絕對最低的後端組態。有了這項組態、 Astra Trident 會探索您在設定位置中委派給 Azure NetApp Files 的所有 NetApp 帳戶、容量集區和子網路、並隨機將新磁碟區放在其中一個集區和子網路上。因為 `nasType` 省略 `nfs` 預設會套用、後端會為NFS磁碟區進行資源配置。
+這是絕對最低的後端組態。使用此組態、 Trident 會探索您在設定位置中委派給 Azure NetApp Files 的所有 NetApp 帳戶、容量集區和子網路、並隨機將新磁碟區放在其中一個集區和子網路上。由於省略、因此 `nasType` `nfs` 會套用預設值、而後端會為 NFS 磁碟區進行資源配置。
 
 當您剛開始使用 Azure NetApp Files 並試用時、這項組態是理想的選擇、但實際上您會想要為您所配置的磁碟區提供額外的範圍。
 
@@ -234,7 +234,7 @@ spec:
 .具有容量集區篩選器的特定服務層級組態
 [%collapsible]
 ====
-此後端組態可將Volume置於Azure中 `eastus` 位置 `Ultra` 容量資源池：Astra Trident 會自動探索該位置中委派給 Azure NetApp Files 的所有子網路、並隨機在其中一個子網路上放置新的磁碟區。
+此後端組態會將磁碟區放置在 Azure 的位置、並置於 `eastus`容量集區中 `Ultra`。Trident 會自動探索該位置中委派給 Azure NetApp Files 的所有子網路、並隨機在其中一個磁碟區上放置新的磁碟區。
 
 [listing]
 ----
@@ -330,7 +330,7 @@ storage:
 .支援的拓撲組態
 [%collapsible]
 ====
-Astra Trident 可根據區域和可用性區域、為工作負載提供更多資源。 `supportedTopologies`此後端組態中的區塊用於提供每個後端的區域和區域清單。此處指定的區域和區域值必須符合每個 Kubernetes 叢集節點上標籤的區域和區域值。這些區域和區域代表可在儲存類別中提供的允許值清單。對於包含後端所提供區域和區域子集的儲存類別、 Astra Trident 會在所述區域和區域中建立磁碟區。如需詳細資訊、請 link:../trident-use/csi-topology.html["使用「csi拓撲」"]參閱。
+Trident 可根據地區和可用性區域、為工作負載提供更多資源。 `supportedTopologies`此後端組態中的區塊用於提供每個後端的區域和區域清單。此處指定的區域和區域值必須符合每個 Kubernetes 叢集節點上標籤的區域和區域值。這些區域和區域代表可在儲存類別中提供的允許值清單。對於包含後端所提供區域和區域子集的儲存類別、 Trident 會在所述區域和區域中建立磁碟區。如需詳細資訊、請 link:../trident-use/csi-topology.html["使用「csi拓撲」"]參閱。
 
 [listing]
 ----

@@ -172,6 +172,9 @@ NOTE: 在 SVM 中更新 Aggregate 清單時、會透過輪詢 SVM 而無需重�
 
 
 | `nameTemplate` | 建立自訂磁碟區名稱的範本。 | " 
+
+
+| `denyNewVolumePools` | 限制 `ontap-nas-economy`後端建立新的 FlexVol 磁碟區以包含其 qtree 。只有預先存在的 FlexVols 可用於佈建新的 PV 。 |  
 |===
 
 NOTE: 搭配 Trident 使用 QoS 原則群組需要 ONTAP 9 8 或更新版本。您應該使用非共用的 QoS 原則群組、並確保個別將原則群組套用至每個成員。共享 QoS 原則群組會強制執行所有工作負載總處理量的上限。

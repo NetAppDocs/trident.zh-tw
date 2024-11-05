@@ -106,7 +106,6 @@ link:https://docs.netapp.com/us-en/trident-2201/index.html["22.01"^]
 
 == 以取得更多資訊
 
-* link:https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Trident 部落格"^]
+* link:https://github.com/NetApp/trident["Trident 資源"^]
 * link:https://cloud.netapp.com/kubernetes-hub["Kubernetes Hub"^]
-* link:https://netapp.io/["NetApp.IO"^]
 

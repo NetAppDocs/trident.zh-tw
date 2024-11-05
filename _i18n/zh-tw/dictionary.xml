@@ -2080,7 +2080,6 @@
   <block id="394d848f17683e31e21f6cde5fd9e3e4" category="cell">與ONTAP 該叢集通訊所需的使用者名稱。用於認證型驗證。</block>
   <block id="6f0acf4836d44b03512e1caa0d774777" category="cell">與ONTAP 該叢集通訊所需的密碼。用於認證型驗證。</block>
   <block id="a0de2cc0c77c388210e1f48423eea29c" category="cell">在SVM中配置新磁碟區時所使用的前置碼。稍後無法修改。若要更新此參數、您需要建立新的後端。</block>
-  <block id="f804cd6668c0728e26448509210268d3" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN磁碟區大小上限。</block>
   <block id="c59183b2f668b355e81e7bb1256f92b3" category="paragraph">您可以使用中的這些選項來控制預設資源配置<block ref="a4a918a45181164207929d52aec36aec" prefix=" " category="inline-code"></block> 組態區段。如需範例、請參閱下列組態範例。</block>
   <block id="e62f5d0a5a95571e25197caafe78cd98" category="section-title">Volume資源配置範例</block>
   <block id="1b9ef354b22d8a8b125247fd538da4b2" category="section-title">虛擬集區的後端範例</block>
@@ -2676,7 +2675,6 @@
   <block id="1cf7168782187634fbc408c66b895dbc" category="section-title">社群支援</block>
   <block id="965b11d07d6acceebc9efec23e5e74a9" category="section-title">NetApp 技術支援</block>
   <block id="8f4c1b75985ff2903107b7115115ea58" category="list-text"><block ref="8f4c1b75985ff2903107b7115115ea58" category="inline-link-macro-rx"></block></block>
-  <block id="b86b16f39688f208b4a554adb7958c46" category="list-text"><block ref="b86b16f39688f208b4a554adb7958c46" category="inline-link-macro-rx"></block></block>
   <block id="0adc03eac86772ad2c75c8f140be417e" category="sidebar">知識與支援</block>
   <block id="fabfc25ef8996fd90836e58a4c0b26b6" category="sidebar">取得協助</block>
   <block id="5248a0897439d95866d14416e307c927" category="sidebar">設定及管理後端</block>
@@ -2781,7 +2779,6 @@
   <block id="a486595fa1d9f349d9f9385ef2cb39f0" category="cell">「 ONTAP - NAS 」、「 ONTAP - NAS - 經濟」、「 ONTAP - NAS - Flexgroup 」、「 ONTAP - SAN 」、「 ONTAP - SAN 經濟」</block>
   <block id="e50e8adc0d4818a8ed496eb95b3aea51" category="cell">["0.0.0/0" 、 ":/0"]`</block>
   <block id="86780ad6247dfbcd90ca1455ee592852" category="cell">" Trident "</block>
-  <block id="e70237f69c6dce25fd2312b8d7f00b1e" category="cell">"100"</block>
   <block id="7e6a32bd8074b1aa2c8c0d2529140ae4" category="cell">疑難排解時要使用的偵錯旗標。例如、 ｛ "api" ： false 、 "method" ： true}
 
 請勿使用<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block> 除非您正在疑難排解並需要詳細的記錄傾印。</block>
@@ -3362,7 +3359,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="33fefa32caf35cd4691465f3592a0539" category="cell">*<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block><block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 僅支援和驅動程式。 *在 ONTAP ONTAP NAS 經濟型和 ONTAP SAN 經濟型驅動程式中限制 FlexVol 大小。</block>
   <block id="1b75c146ff0568d5fc11072b08cfe580" category="section-title">限制 Trident 所建立的 FlexVols 大小上限</block>
   <block id="913d5950907a31c9d3ea6cd0a3b6a524" category="paragraph">若要將 FlexVols 的最大大小設定為用於 ONTAP SAN 經濟型和 ONTAP NAS 經濟型驅動程式的集區、請使用<block ref="c8f83e727d4a4255a6485c24776e86bb" prefix=" " category="inline-code"></block><block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>定義中的參數。</block>
-  <block id="ae7be78c2d3d933d426bc82820accfae" category="cell">在 ONTAP NAS 經濟型後端使用 qtree 時、可要求的 FlexVol 大小上限。</block>
   <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">在 ONTAP SAN 經濟型後端中使用 LUN 時、可要求的最大 FlexVol 大小。</block>
   <block id="64049136ec90cc479c7521e9b6e172eb" category="section-title">用於匯入 LUKS Volume 的 PVC 組態</block>
   <block id="b49b86551096c421a3bc5d3b79eede84" category="paragraph">若要動態匯入 LUKS Volume 、請將註釋設<block ref="36720d50814e4335401b2047257bfedf" prefix=" " category="inline-code"></block>為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、並在 PVC 中包含啟用 LUKS 的儲存類別、如本範例所示。</block>
@@ -3491,7 +3487,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="9cc21385e3a5bbf0e140948125e39e4c" category="paragraph">我們的上有一個充滿活力的公共容器使用者社群（包括 Trident 開發人員）<block ref="6130664377fa14615bb1abd5257e9714" category="inline-link-macro-rx"></block>。這是您提出專案相關一般問題、並與志同道合的同儕討論相關主題的好地方。</block>
   <block id="b27fcb3adc5d56564559e3f24a9659c8" category="paragraph">如需 Trident 的說明、請使用建立支援服務組合<block ref="1d41e2024c69110ad6054ffc785ca8e0" prefix=" " category="inline-code"></block>、並將其傳送至<block ref="da34ca64df3f236a423516102d4096c2" prefix=" " category="inline-code"></block>。</block>
   <block id="40d95260a6bcacc40a23df4576b97ec8" category="inline-link-macro">Trident 部落格</block>
-  <block id="a8a63a855db4681941d1e94768ac71b6" category="list-text"><block ref="a8a63a855db4681941d1e94768ac71b6" category="inline-link-macro-rx"></block></block>
   <block id="952c901e482a50d005ae898106cd4571" category="summary">Trident 是由 NetApp 維護的開放原始碼儲存資源配置程式與協調程式。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。** 請閱讀版本說明、以取得升級至 Trident 24.10.** 的重要資訊</block>
   <block id="5165d9ce1563da7d69f720dbb362a3ae" category="doc">Trident 24.10 文件</block>
   <block id="e476cbfc1ce1aee033e17376d6942cf3" category="paragraph">您可以在每個版本的通知檔中、檢閱 NetApp 軟體 for Trident 中使用的協力廠商版權和授權、網址為：<block ref="4a3c8c5a408c6db1c44c04391a8a0a2f" category="inline-link-rx"></block>。</block>
@@ -3912,7 +3907,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="7d4a55ae858dcca9ad616f33e6035cc6" category="paragraph">請務必防止應用程式、應用程式管理員、使用者和管理應用程式存取 Trident 物件定義或 Pod 、以確保可靠的儲存設備、並封鎖潛在的惡意活動。</block>
   <block id="59eb6cc525324355d85d541c963c8697" category="paragraph">要將其他應用程序和用戶與 Trident 分開，請始終在其自己的 Kubernetes 命名空間中安裝 Trident <block ref="47cb44be55a0dffa15dfc900a4c687be" prefix="(" category="inline-code"></block>）。將 Trident 置於自己的命名空間中、可確保只有 Kubernetes 管理人員能夠存取 Trident Pod 、以及儲存在命名 CRD 物件中的成品（例如後端和 CHAP 機密、如果適用）。您應確保只允許系統管理員存取 Trident 命名空間、進而存取<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>應用程式。</block>
   <block id="9d9837d692b44e524c96b427964bea85" category="paragraph">Trident 支援 ONTAP SAN 工作負載的 CHAP 型驗證（使用<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>和<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>驅動程式）。NetApp 建議在主機和儲存後端之間使用 Trident 的雙向 CHAP 進行驗證。</block>
-  <block id="3541ea2c55cdc61240be724622aa6e3c" category="paragraph">對於使用 SAN 儲存驅動程式的 ONTAP 後端、 Trident 可以設定雙向 CHAP 、並透過管理 CHAP 使用者名稱和機密<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。請參閱<block ref="5cdb093a3afb814148505ae9813b18af" category="inline-link-macro-rx"></block>以瞭解 Trident 如何在 ONTAP 後端上設定 CHAP 。</block>
   <block id="a77f6a8d6a33d8d8102cdeed9631b96d" category="paragraph">NetApp建議部署雙向CHAP、以確保主機與NetApp HCI 支援功能及SolidFire 支援功能之間的驗證。Trident 使用的是每個租戶包含兩個 CHAP 密碼的秘密物件。安裝 Trident 時、它會管理 CHAP 機密、並將其儲存在相關 PV 的 CR 物件中<block ref="3ddc70b4b408f6dd5bbd5fe7d6008993" prefix=" " category="inline-code"></block>。建立 PV 時、 Trident 會使用 CHAP 機密來啟動 iSCSI 工作階段、並透過 CHAP 與 NetApp HCI 和 SolidFire 系統通訊。</block>
   <block id="99dfe9c8c9bd791b7382d67a440c38be" category="admonition">由 Trident 建立的磁碟區不會與任何 Volume 存取群組相關聯。</block>
   <block id="9559c7656e8a28d235478856aa8e44ce" category="section-title">搭配 NVE 和 NAE 使用 Trident</block>
@@ -4358,4 +4352,11 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="7ba174e1291062b960ec1b8607b6e1e2" category="paragraph">以下範例使用環境變數安裝 Trident 並設定<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block>為 GCP<block ref="e7b51407a2bfaa34b58afce0107e9a5f" prefix=" " category="inline-code"></block> 、並使用環境變數<block ref="fab50dca589d1a68fdf56bd4ae0b4a83" prefix=" " category="inline-code"></block>設定<block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix=" " category="inline-code"></block>：</block>
   <block id="bde178d22672aa38120646e529ed04b5" category="paragraph">以下範例會安裝 Trident 並將旗標設定<block ref="e33bb4eb32023da4a8ea7a1ba6927067" prefix=" " category="inline-code"></block>為<block ref="e7b51407a2bfaa34b58afce0107e9a5f" prefix=" " category="inline-code"></block>、和<block ref="c5af480af77c330e04a1fce1f6c2b03a" prefix=" " category="inline-code"></block><block ref="fab50dca589d1a68fdf56bd4ae0b4a83" prefix=" " category="inline-code"></block>：</block>
   <block id="dc3d22611e67d08cb39256f8980be582" category="cell">限制<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>後端建立新的 FlexVol 磁碟區以包含其 qtree 。只有預先存在的 FlexVols 可用於佈建新的 PV 。</block>
+  <block id="eddc3ab7d283c02464f100ff837cf055" category="inline-link-macro">Trident 資源</block>
+  <block id="01ba66c56fa9029a3ce0095f09b9b340" category="list-text"><block ref="01ba66c56fa9029a3ce0095f09b9b340" category="inline-link-macro-rx"></block></block>
+  <block id="10c80ca6b662fb62c61b4f3551fa4460" category="paragraph">對於使用 SAN 儲存驅動程式的 ONTAP 後端、 Trident 可以設定雙向 CHAP 、並透過管理 CHAP 使用者名稱和機密<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>。請參閱<block ref="647d5f494fdd01a14f263aa1b49a3db4" category="inline-link-macro-rx"></block>以瞭解 Trident 如何在 ONTAP 後端上設定 CHAP 。</block>
+  <block id="5284eab1174c1855178274272e78ca5a" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 qtree 的最大磁碟區大小、且此<block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix=" " category="inline-code"></block>選項可讓您自訂每個 FlexVol 的最大 qtree 數量。</block>
+  <block id="98b1298645505c6ec838667dff651c81" category="cell">在 ONTAP NAS 經濟型後端使用 qtree 時、可要求的 FlexVol 大小上限。</block>
+  <block id="7be7ec1f4262cda30e19c85af89449af" category="cell">qtree 的空間分配</block>
+  <block id="bc78339d85241498c635b61d8f201ef9" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 LUN 的最大磁碟區大小。</block>
 </blocks>

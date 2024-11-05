@@ -28,7 +28,7 @@ summary: 請使用此處列出的建議、確保 Trident 安裝安全無虞。
 
 Trident 支援 ONTAP SAN 工作負載的 CHAP 型驗證（使用 `ontap-san`和 `ontap-san-economy`驅動程式）。NetApp 建議在主機和儲存後端之間使用 Trident 的雙向 CHAP 進行驗證。
 
-對於使用 SAN 儲存驅動程式的 ONTAP 後端、 Trident 可以設定雙向 CHAP 、並透過管理 CHAP 使用者名稱和機密 `tridentctl`。請參閱link:../trident-use/ontap-san-prep.html[""^]以瞭解 Trident 如何在 ONTAP 後端上設定 CHAP 。
+對於使用 SAN 儲存驅動程式的 ONTAP 後端、 Trident 可以設定雙向 CHAP 、並透過管理 CHAP 使用者名稱和機密 `tridentctl`。請參閱link:../trident-use/ontap-san-prep.html["準備使用ONTAP 支援的SAN驅動程式來設定後端"^]以瞭解 Trident 如何在 ONTAP 後端上設定 CHAP 。
 
 
 

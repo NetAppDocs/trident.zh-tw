@@ -1,0 +1,175 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-cli.html 
+keywords: trident, protect, command line utility, cli, netapp, custom, resources 
+summary: 您可以使用 protecttctl 命令建立自訂資源，並與 Trident 互動。 
+---
+= 安裝 Trident Protect CLI 外掛程式
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用 Trident Protect 命令列外掛程式（ Trident 公用程式的延伸 `tridentctl`）來建立自訂資源（ CRS ），並與 Trident 互動。
+
+
+
+== 安裝 Trident Protect CLI 外掛程式
+
+在使用命令列公用程式之前，您必須先將其安裝在用來存取叢集的機器上。根據您的機器使用的是 x64 或 ARM CPU ，請遵循下列步驟。
+
+[role="tabbed-block"]
+====
+.下載適用於 Linux AMD64 CPU 的外掛程式
+--
+. 下載 Trident Protect CLI 外掛程式：
++
+[source, console]
+----
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/24.10.0/tridentctl-protect-linux-amd64
+----
+
+
+--
+.下載適用於 Linux ARM64 CPU 的外掛程式
+--
+. 下載 Trident Protect CLI 外掛程式：
++
+[source, console]
+----
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/24.10.0/tridentctl-protect-linux-arm64
+----
+
+
+--
+.下載適用於 Mac AMD64 CPU 的外掛程式
+--
+. 下載 Trident Protect CLI 外掛程式：
++
+[source, console]
+----
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/24.10.0/tridentctl-protect-macos-amd64
+----
+
+
+--
+.下載 Mac ARM64 CPU 的外掛程式
+--
+. 下載 Trident Protect CLI 外掛程式：
++
+[source, console]
+----
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/24.10.0/tridentctl-protect-macos-arm64
+----
+
+
+--
+====
+. 啟用二進位檔案的執行權限：
++
+[source, console]
+----
+chmod +x tridentctl-protect
+----
+. 將外掛程式二進位檔複製到您選擇的路徑：
++
+[source, console]
+----
+cp ./tridentctl-protect ~/bin/
+----
+. 或者，若要以全域方式安裝二進位檔，請將外掛程式二進位檔複製到全域路徑。例如： `/usr/bin`或 `/usr/local/bin`（您可能需要提升的 Privileges ）：
++
+[source, console]
+----
+cp ./tridentctl-protect /usr/local/bin/
+----
+
+
+
+
+== 檢視 Trident CLI 外掛程式說明
+
+您可以使用內建的外掛程式說明功能，取得外掛程式功能的詳細說明：
+
+.步驟
+. 使用說明功能檢視使用指南：
++
+[source, console]
+----
+tridentctl protect help
+----
+
+
+
+
+== 啟用命令自動完成
+
+安裝 Trident Protect CLI 外掛程式之後，您可以啟用某些命令的自動完成功能。
+
+[role="tabbed-block"]
+====
+.啟用 Bash Shell 的自動完成功能
+--
+. 下載完成指令碼：
++
+[source, console]
+----
+curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/24.10.0/tridentctl-completion.bash
+----
+. 在主目錄中建立新目錄以包含指令碼：
++
+[source, console]
+----
+md ~/.bash/completions
+----
+. 將下載的指令碼移至 `~/.bash/completions`目錄：
++
+[source, console]
+----
+mv tridentctl-completion.bash ~/.bash/completions/
+----
+. 將下列行新增至 `~/.bashrc`主目錄中的檔案：
++
+[source, console]
+----
+source ~/.bash/completions/tridentctl-completion.bash
+----
+
+
+--
+.啟用 Z Shell 的自動完成功能
+--
+. 下載完成指令碼：
++
+[source, console]
+----
+curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/24.10.0/tridentctl-completion.zsh
+----
+. 在主目錄中建立新目錄以包含指令碼：
++
+[source, console]
+----
+md ~/.zsh/completions
+----
+. 將下載的指令碼移至 `~/.zsh/completions`目錄：
++
+[source, console]
+----
+mv tridentctl-completion.zsh ~/.zsh/completions/
+----
+. 將下列行新增至 `~/.zprofile`主目錄中的檔案：
++
+[source, console]
+----
+source ~/.zsh/completions/tridentctl-completion.zsh
+----
+
+
+--
+====
+.結果
+下次登入 Shell 時，您可以使用命令自動完成與 tridentctl Protect 外掛程式。

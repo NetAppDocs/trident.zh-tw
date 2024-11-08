@@ -1,0 +1,195 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-use-execution-hooks.html 
+keywords: trident, protect, execution hooks 
+summary: 您可以使用 Trident Protect 為應用程式建立自訂執行掛鉤。您需要擁有擁有擁有者、管理員或成員權限、才能建立執行掛勾。 
+---
+= 管理執行攔截器
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+執行攔截是一種自訂動作、可設定搭配託管應用程式的資料保護作業一起執行。例如、如果您有資料庫應用程式、您可以使用執行掛勾來暫停快照之前的所有資料庫交易、並在快照完成後繼續交易。如此可確保應用程式一致的快照。
+
+
+
+== 執行掛勾的類型
+
+Trident Protect 支援下列類型的執行掛鉤，視執行時機而定：
+
+* 快照前
+* 快照後
+* 預先備份
+* 備份後
+* 還原後
+* 容錯移轉後
+
+
+
+
+=== 執行順序
+
+執行資料保護作業時、執行掛機事件會依照下列順序發生：
+
+. 任何適用的自訂操作前執行掛勾都會在適當的容器上執行。您可以視需要建立及執行任意數量的自訂操作前掛勾、但在作業之前執行這些掛勾的順序既不保證也無法設定。
+. 執行資料保護作業。
+. 任何適用的自訂操作後執行掛勾都會在適當的容器上執行。您可以視需要建立及執行任意數量的自訂後置作業掛勾、但在作業後執行這些掛勾的順序並不保證也無法設定。
+
+
+如果您建立同一類型的多個執行掛勾（例如預先快照）、則無法保證這些掛勾的執行順序。不過、不同類型的掛勾的執行順序也有保證。例如，以下是具有所有不同類型勾點的組態執行順序：
+
+. 執行快照前掛勾
+. 快照後掛勾已執行
+. 執行備份前掛勾
+. 執行備份後掛勾
+
+
+
+NOTE: 上述順序範例僅適用於執行不使用現有快照的備份時。
+
+
+NOTE: 在正式作業環境中啟用執行攔截指令碼之前、請務必先進行測試。您可以使用'kubecl exec'命令來方便地測試指令碼。在正式作業環境中啟用執行掛勾之後、請測試所產生的快照和備份、以確保它們一致。您可以將應用程式複製到暫用命名空間、還原快照或備份、然後測試應用程式、藉此完成此作業。
+
+
+
+== 關於自訂執行掛勾的重要注意事項
+
+規劃應用程式的執行掛勾時、請考量下列事項。
+
+* 執行攔截必須使用指令碼來執行動作。許多執行掛勾可以參照相同的指令碼。
+* Trident Protect 需要以可執行的 Shell 指令碼格式寫入執行攔截程式所使用的指令碼。
+* 指令碼大小上限為96KB。
+* Trident Protect 使用執行掛鉤設定和任何符合條件，來判斷哪些掛勾適用於快照，備份或還原作業。
+
+
+
+NOTE: 由於執行掛勾通常會減少或完全停用執行中應用程式的功能、因此您應該一律盡量縮短自訂執行掛勾執行所需的時間。如果您以相關的執行掛勾開始備份或快照作業、但隨後取消它、則如果備份或快照作業已經開始、仍允許掛勾執行。這表示備份後執行掛勾中使用的邏輯無法假設備份已完成。
+
+
+
+== 執行攔截篩選器
+
+當您新增或編輯應用程式的執行掛鉤時，您可以將篩選器新增至執行掛鉤，以管理掛鉤將符合的容器。篩選器對於在所有容器上使用相同容器映像的應用程式來說非常實用、但可能會將每個映像用於不同的用途（例如Elasticsearch）。篩選器可讓您建立執行攔截器在某些容器上執行的案例、但不一定所有容器都相同。如果您為單一執行掛勾建立多個篩選器、這些篩選器會與邏輯和運算子結合使用。每個執行掛機最多可有10個作用中篩選器。
+
+您新增至執行掛勾的每個篩選器都會使用規則運算式來比對叢集中的容器。當掛機符合容器時、掛機會在該容器上執行其相關的指令碼。篩選器的規則運算式使用規則運算式2（RE2）語法、不支援建立篩選器、將容器從相符項目清單中排除。如需 Trident Protect 支援執行攔截篩選器中規則運算式的語法資訊，請參閱 https://github.com/google/re2/wiki/Syntax["規則運算式2（RE2）語法支援"^]。
+
+
+NOTE: 如果您將命名空間篩選器新增至執行掛勾、而執行還原或複製作業之後執行、且還原或複製來源與目的地位於不同的命名空間、則命名空間篩選器只會套用至目的地命名空間。
+
+
+
+== 執行攔截範例
+
+請造訪 https://github.com/NetApp/Verda["NetApp Verda GitHub專案"] 下載熱門應用程式（例如 Apache Cassandra 和 Elasticsearch ）的實際執行連結。您也可以查看範例、瞭解如何建構您自己的自訂執行掛勾。
+
+
+
+== 建立執行掛鉤
+
+您可以使用 Trident Protect 為應用程式建立自訂執行掛鉤。您需要擁有擁有擁有者、管理員或成員權限、才能建立執行掛勾。
+
+[role="tabbed-block"]
+====
+.使用 CR
+--
+. 建立自訂資源（ CR ）檔案並命名為 `trident-protect-hook.yaml`。
+. 設定下列屬性以符合 Trident Protect 環境和叢集組態：
++
+** * metadata.name*: （ _required ）此自訂資源的名稱；為您的環境選擇唯一且合理的名稱。
+** *SPEC.applicationRef* ：（ _required _ ）要執行執行攔截的應用程式 Kubernetes 名稱。
+** *spec.Stage * ：（ _required _ ）一個字串，指出執行掛鉤應在動作期間執行的階段。可能值：
++
+*** 準備
+*** 貼文
+
+
+** *spec.ACTION* ：（ _required _ ）字串，表示執行攔截將採取的行動，前提是指定的任何執行攔截篩選條件都已相符。可能值：
++
+*** Snapshot
+*** 備份
+*** 還原
+*** 容錯移轉
+
+
+** *spec.enabled* ：（ _Optional_ ）表示此執行掛鉤是否已啟用或停用。如果未指定，則預設值為 true 。
+** *spec.hookSource* ：（ _required _ ）包含 base64 編碼 hook 指令碼的字串。
+** *spec.timeout* ：（ _Optional_ ）一個數字，定義允許執行掛鉤執行的時間（以分鐘為單位）。最小值為 1 分鐘，如果未指定，預設值為 25 分鐘。
+** *spec.arguments* ：（ _Optional_ ） YAML 引數清單，您可以為執行攔截器指定。
+** *spec.mmatchingCriteria ：（ _Optional_ ）選擇性的條件金鑰值配對清單，每個配對組成執行掛機篩選器。每個執行掛鉤最多可新增 10 個篩選器。
+** *spec.matchingCriteria.type* ：（ _Optional_ ）識別執行掛鉤篩選器類型的字串。可能值：
++
+*** ContainerImage
+*** ContainerName
+*** PodName
+*** PodLabel
+*** NamespaceName
+
+
+** *spec.matchingCriteria.value* ：（ _Optional_ ）識別執行掛鉤篩選值的字串或規則運算式。
++
+YAML 範例：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: ExecHook
+metadata:
+  name: example-hook-cr
+  namespace: my-app-namespace
+  annotations:
+    astra.netapp.io/astra-control-hook-source-id: /account/test/hookSource/id
+spec:
+  applicationRef: my-app-name
+  stage: Pre
+  action: Snapshot
+  enabled: true
+  hookSource: IyEvYmluL2Jhc2gKZWNobyAiZXhhbXBsZSBzY3JpcHQiCg==
+  timeout: 10
+  arguments:
+    - FirstExampleArg
+    - SecondExampleArg
+  matchingCriteria:
+    - type: containerName
+      value: mysql
+    - type: containerImage
+      value: bitnami/mysql
+    - type: podName
+      value: mysql
+    - type: namespaceName
+      value: mysql-a
+    - type: podLabel
+      value: app.kubernetes.io/component=primary
+    - type: podLabel
+      value: helm.sh/chart=mysql-10.1.0
+    - type: podLabel
+      value: deployment-type=production
+----
+
+
+. 在您以正確的值填入 CR 檔案之後，請套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-hook.yaml
+----
+
+
+--
+.使用CLI
+--
+. 建立執行掛鉤，以環境資訊取代方括號中的值。例如：
++
+[source, console]
+----
+tridentctl protect create exechook <my_exec_hook_name> --action <action_type> --app <app_to_use_hook> --stage <pre_or_post_stage> --source-file <script-file>
+----
+
+
+--
+====

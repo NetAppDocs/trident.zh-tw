@@ -1,0 +1,80 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-generate-support-bundle.html 
+keywords: trident, protect, bundle, support, netapp, custom, resource, file 
+summary: Trident Protect 可讓系統管理員產生套件組合，其中包含 NetApp 支援所需的資訊，包括所管理叢集和應用程式的記錄，度量和拓撲資訊。如果您已連線至網際網路，則可以使用自訂資源（ CR ）檔案，將支援套件上傳至 NetApp 支援網站（ NSS ）。 
+---
+= 產生支援服務組合
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident Protect 可讓系統管理員產生套件組合，其中包含 NetApp 支援所需的資訊，包括所管理叢集和應用程式的記錄，度量和拓撲資訊。如果您已連線至網際網路，則可以使用自訂資源（ CR ）檔案，將支援套件上傳至 NetApp 支援網站（ NSS ）。
+
+[role="tabbed-block"]
+====
+.使用 CR 建立支援服務組合
+--
+. 建立自訂資源（ CR ）檔案並命名（例如 `trident-protect-support-bundle.yaml`）。
+. 設定下列屬性：
++
+** * metadata.name*: （ _required ）此自訂資源的名稱；為您的環境選擇唯一且合理的名稱。
+** *spec.triggerType* ：（ _required _ ）決定是立即產生支援套件，還是排程產生。排定的套件產生時間為上午 12 點， UTC 。可能值：
++
+*** 已排程
+*** 手冊
+
+
+** *SPEC.uploadEnabled* ：（ _Optional_ ）控制是否應在支援服務組合產生後，將其上傳至 NetApp 支援網站。如果未指定，則默認爲 `false`。可能值：
++
+*** 是的
+*** 否（預設）
+
+
+** *spec.daWindowStart* ：（ _Optional_ ） RFC 3339 格式的日期字串，指定支援套件中所包含資料的視窗應開始的日期與時間。如果未指定，則預設為 24 小時前。您可以指定的最早時間是 7 天前。
++
+YAML 範例：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AutoSupportBundle
+metadata:
+  name: trident-protect-support-bundle
+spec:
+  triggerType: Manual
+  uploadEnabled: true
+  dataWindowStart: 2024-05-05T12:30:00Z
+----
+
+
+. 在您以正確的值填入檔案之後 `astra-support-bundle.yaml` 、請套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-support-bundle.yaml
+----
+
+
+--
+.使用 CLI 建立支援服務包
+--
+. 建立支援服務組合，以環境資訊取代括號中的值。 `trigger-type`決定套件是立即建立，還是建立時間取決於排程，可以是 `Manual`或 `Scheduled`。預設設定為 `Manual`。
++
+例如：
+
++
+[source, console]
+----
+tridentctl protect create autosupportbundle <my_bundle_name> --trigger-type <trigger_type>
+----
+
+
+--
+====

@@ -1,0 +1,510 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-use-snapmirror-replication.html 
+keywords: trident, protect, netapp, snapmirror, data, asynchronous, replication, clusters 
+summary: 使用 Trident Protect ，您可以使用 NetApp SnapMirror 技術的非同步複寫功能，將資料和應用程式變更從一個儲存後端複寫到另一個儲存後端，在同一個叢集或不同叢集之間複寫。 
+---
+= 使用 NetApp SnapMirror 複寫應用程式
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 Trident Protect ，您可以使用 NetApp SnapMirror 技術的非同步複寫功能，將資料和應用程式變更從一個儲存後端複寫到另一個儲存後端，在同一個叢集或不同叢集之間複寫。
+
+
+
+== 設定複寫關係
+
+設定複寫關係涉及下列事項：
+
+* 選擇 Trident Protect 拍攝應用程式快照的頻率（包括應用程式的 Kubernetes 資源，以及每個應用程式磁碟區的磁碟區快照）
+* 選擇複寫排程（包括 Kubernetes 資源及持續磁碟區資料）
+* 設定拍攝快照的時間
+
+
+.步驟
+. 為來源叢集上的來源應用程式建立 AppVault 。視您的儲存供應商而定，請修改中的範例link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源"]以符合您的環境：
++
+[role="tabbed-block"]
+====
+.使用 CR 建立 AppVault
+--
+.. 建立自訂資源（ CR ）檔案並命名（例如 `trident-protect-appvault-primary-source.yaml`）。
+.. 設定下列屬性：
++
+*** * metadata.name*: （ _required ） AppVault 自訂資源的名稱。請記下您選擇的名稱，因為複寫關係所需的其他 CR 檔案會參照此值。
+*** * spec.providerConfig*: （ _required ）儲存使用指定供應商存取 AppVault 所需的組態。請為您的供應商選擇一個「鎖釦名稱」和任何其他必要的詳細資料。請記下您選擇的值，因為複寫關係所需的其他 CR 檔案會參照這些值。如需 AppVault CRS 與其他供應商的範例，請參閱link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源"]。
+*** * spec.providerCredentials*: （ _required _ ）會儲存使用指定提供者存取 AppVault 所需之任何認證的參考資料。
++
+**** * spec.providerCredentials.valueFromSecret*: （ _required _ ）表示認證值應來自機密。
++
+***** *key* ：（ _required _ ）要從中選擇的密碼的有效金鑰。
+***** * 名稱 * ：（ _ 必要 _ ）包含此欄位值的機密名稱。必須位於相同的命名空間中。
+
+
+**** * spec.providerCredentials.secretAccessKey*: （ _required _ ）存取提供者所用的存取金鑰。* 名稱 * 應與 * spec.providerCredentials.valueFromSecret.name* 相符。
+
+
+*** * spec.providerType*: （ _required _ ）決定提供備份的內容，例如 NetApp ONTAP S3 ，一般 S3 ， Google Cloud 或 Microsoft Azure 。可能值：
++
+**** AWS
+**** Azure
+**** GCP
+**** generic-S3
+**** ONTAP S3
+**** StorageGRID S3
+
+
+
+
+.. 在您以正確的值填入檔案之後 `trident-protect-appvault-primary-source.yaml` 、請套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-appvault-primary-source.yaml -n trident-protect
+----
+
+
+--
+.使用 CLI 建立 AppVault
+--
+.. 建立 AppVault ，以環境資訊取代方括號中的值：
++
+[source, console]
+----
+tridentctl protect create vault Azure <vault-name> --account <account-name> --bucket <bucket-name> --secret <secret-name>
+----
+
+
+--
+====
+. 建立來源應用程式 CR ：
++
+[role="tabbed-block"]
+====
+.使用 CR 建立來源應用程式
+--
+.. 建立自訂資源（ CR ）檔案並命名（例如 `trident-protect-app-source.yaml`）。
+.. 設定下列屬性：
++
+*** * metadata.name*: （ _required ）應用程式自訂資源的名稱。請記下您選擇的名稱，因為複寫關係所需的其他 CR 檔案會參照此值。
+*** * spec.includedNamespaces*: （ _required ）一組命名空間和相關標籤。使用命名空間名稱，並選擇性地使用標籤來縮小命名空間的範圍，以指定此處列出的命名空間中存在的資源。應用程式命名空間必須是此陣列的一部分。
++
+* YAML* 範例：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: maria
+  namespace: my-app-namespace
+spec:
+  includedNamespaces:
+    - namespace: maria
+      labelSelector: {}
+----
+
+
+.. 在您以正確的值填入檔案之後 `trident-protect-app-source.yaml` 、請套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-app-source.yaml -n my-app-namespace
+----
+
+
+--
+.使用 CLI 建立來源應用程式
+--
+.. 建立來源應用程式。例如：
++
+[source, console]
+----
+tridentctl protect create app maria --namespaces maria -n my-app-namespace
+----
+
+
+--
+====
+. 您也可以選擇拍攝來源應用程式的快照。此快照是作為目的地叢集上應用程式的基礎。如果您略過此步驟，則需要等待下一個排定的快照執行，以便擁有最近的快照。
++
+[role="tabbed-block"]
+====
+.使用 CR 拍攝快照
+--
+.. 建立來源應用程式的複寫排程：
++
+... 建立自訂資源（ CR ）檔案並命名（例如 `trident-protect-schedule.yaml`）。
+... 設定下列屬性：
++
+**** * metadata.name*: （ _required ）排程自訂資源的名稱。
+**** *spec.AppVaultRef* ：（ _required _ ）此值必須符合來源應用程式的 AppVault metadata.name 欄位。
+**** *spec.ApplicationRef* ：（ _required _ ）此值必須符合來源應用程式 CR 的 metadata.name 欄位。
+**** *spec.backupRetention * ：（ _required _ ）此欄位為必填欄位，且值必須設為 0 。
+**** *spec.enabled* ：必須設置爲 true 。
+**** * spec.granularity*: 必須設定為 `Custom`。
+**** *spec.recurrenceRule* ：以 UTC 時間和循環時間間隔定義開始日期。
+**** *spec.snapshotRetention * ：必須設定為 2 。
++
+YAML 範例：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  name: appmirror-schedule-0e1f88ab-f013-4bce-8ae9-6afed9df59a1
+  namespace: my-app-namespace
+spec:
+  appVaultRef: generic-s3-trident-protect-src-bucket-04b6b4ec-46a3-420a-b351-45795e1b5e34
+  applicationRef: maria
+  backupRetention: "0"
+  enabled: true
+  granularity: custom
+  recurrenceRule: |-
+    DTSTART:20220101T000200Z
+    RRULE:FREQ=MINUTELY;INTERVAL=5
+  snapshotRetention: "2"
+----
+
+
+... 在您以正確的值填入檔案之後 `trident-protect-schedule.yaml` 、請套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-schedule.yaml -n my-app-namespace
+----
+
+
+
+
+--
+.使用 CLI 拍攝快照
+--
+.. 建立快照，以您環境的資訊取代方括號中的值。例如：
++
+[source, console]
+----
+tridentctl protect create snapshot <my_snapshot_name> --appvault <my_appvault_name> --app <name_of_app_to_snapshot>
+----
+
+
+--
+====
+. 在目的地叢集上建立與您在來源叢集上套用的 AppVault CR 相同的來源應用程式 AppVault CR ，並命名該應用程式（例如 `trident-protect-appvault-primary-destination.yaml`）。
+. 套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-appvault-primary-destination.yaml -n my-app-namespace
+----
+. 為目的地叢集上的目的地應用程式建立 AppVault 。視您的儲存供應商而定，請修改中的範例link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源"]以符合您的環境：
++
+.. 建立自訂資源（ CR ）檔案並命名（例如 `trident-protect-appvault-secondary-destination.yaml`）。
+.. 設定下列屬性：
++
+*** * metadata.name*: （ _required ） AppVault 自訂資源的名稱。請記下您選擇的名稱，因為複寫關係所需的其他 CR 檔案會參照此值。
+*** * spec.providerConfig*: （ _required ）儲存使用指定供應商存取 AppVault 所需的組態。請為您的供應商選擇 `bucketName`和任何其他必要詳細資料。請記下您選擇的值，因為複寫關係所需的其他 CR 檔案會參照這些值。如需 AppVault CRS 與其他供應商的範例，請參閱link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源"]。
+*** * spec.providerCredentials*: （ _required _ ）會儲存使用指定提供者存取 AppVault 所需之任何認證的參考資料。
++
+**** * spec.providerCredentials.valueFromSecret*: （ _required _ ）表示認證值應來自機密。
++
+***** *key* ：（ _required _ ）要從中選擇的密碼的有效金鑰。
+***** * 名稱 * ：（ _ 必要 _ ）包含此欄位值的機密名稱。必須位於相同的命名空間中。
+
+
+**** * spec.providerCredentials.secretAccessKey*: （ _required _ ）存取提供者所用的存取金鑰。* 名稱 * 應與 * spec.providerCredentials.valueFromSecret.name* 相符。
+
+
+*** * spec.providerType*: （ _required _ ）決定提供備份的內容，例如 NetApp ONTAP S3 ，一般 S3 ， Google Cloud 或 Microsoft Azure 。可能值：
++
+**** AWS
+**** Azure
+**** GCP
+**** generic-S3
+**** ONTAP S3
+**** StorageGRID S3
+
+
+
+
+.. 在您以正確的值填入檔案之後 `trident-protect-appvault-secondary-destination.yaml` 、請套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n my-app-namespace
+----
+
+
+. 建立 AppMirrorRelationship CR 檔案：
++
+[role="tabbed-block"]
+====
+.使用 CR 建立 AppMirrorRelationship
+--
+.. 建立自訂資源（ CR ）檔案並命名（例如 `trident-protect-relationship.yaml`）。
+.. 設定下列屬性：
++
+*** * metadata.name:* （必要） AppMirrorRelationship 自訂資源的名稱。
+*** * spec.destinationAppVaultRef*: （ _required _ ）此值必須符合目的地叢集上目的地應用程式的 AppVault 名稱。
+*** * spec.namespaceMapping*: （ _required _ ）目的地和來源命名空間必須符合各自應用程式 CR 中定義的應用程式命名空間。
+*** *spec.sourceAppVaultRef* ：（ _required _ ）此值必須符合來源應用程式的 AppVault 名稱。
+*** *spec.sourceApplicationName* ：（ _required _ ）此值必須符合您在來源應用程式 CR 中定義的來源應用程式名稱。
+*** *spec.storageClassName* ：（ _required _ ）選擇叢集上有效儲存類別的名稱。儲存類別必須與部署來源應用程式的來源叢集上所使用的儲存類別對等。
+*** *spec.recurrenceRule* ：以 UTC 時間和循環時間間隔定義開始日期。
++
+YAML 範例：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppMirrorRelationship
+metadata:
+  name: amr-16061e80-1b05-4e80-9d26-d326dc1953d8
+  namespace: my-app-namespace
+spec:
+  desiredState: Established
+  destinationAppVaultRef: generic-s3-trident-protect-dst-bucket-8fe0b902-f369-4317-93d1-ad7f2edc02b5
+  namespaceMapping:
+    - destination: my-app-namespace
+      source: my-app-namespace
+  recurrenceRule: |-
+    DTSTART:20220101T000200Z
+    RRULE:FREQ=MINUTELY;INTERVAL=5
+  sourceAppVaultRef: generic-s3-trident-protect-src-bucket-b643cc50-0429-4ad5-971f-ac4a83621922
+  sourceApplicationName: maria
+  sourceApplicationUID: 7498d32c-328e-4ddd-9029-122540866aeb
+  storageClassName: sc-vsim-2
+----
+
+
+.. 在您以正確的值填入檔案之後 `trident-protect-relationship.yaml` 、請套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
+----
+
+
+--
+.使用 CLI 建立 AppMirrorRelationship
+--
+.. 建立並套用 AppMirrorRelationship 物件，以環境資訊取代方括號中的值。例如：
++
+[source, console]
+----
+tridentctl protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --recurrence-rule <rule> --source-app <my_source_app> --source-app-vault <my_source_app_vault>
+----
+
+
+--
+====
+. （ _Optional_ ）檢查複寫關係的狀態和狀態：
++
+[source, console]
+----
+kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' | jq
+----
+
+
+
+
+=== 容錯移轉至目的地叢集
+
+使用 Trident Protect ，您可以將複寫的應用程式容錯移轉至目的地叢集。此程序會停止複寫關係、並在目的地叢集上使應用程式上線。如果來源叢集上的應用程式正常運作， Trident Protect 不會停止該應用程式。
+
+.步驟
+. 開啟 AppMirrorRelationship CR 檔案（例如 `trident-protect-relationship.yaml`），並將 * spec.desiredState* 的值變更為 `Promoted`。
+. 儲存 CR 檔案。
+. 套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
+----
+. （ _Optional_ ）在容錯移轉應用程式上建立所需的任何保護排程。
+. （ _Optional_ ）檢查複寫關係的狀態和狀態：
++
+[source, console]
+----
+kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' | jq
+----
+
+
+
+
+=== 重新同步容錯移轉複寫關係
+
+重新同步作業會重新建立複寫關係。執行重新同步作業後，原始來源應用程式即成為執行中的應用程式，而對目的地叢集上執行中的應用程式所做的任何變更都會被捨棄。
+
+此程序會在重新建立複寫之前，停止目的地叢集上的應用程式。
+
+
+IMPORTANT: 在容錯移轉期間寫入目的地應用程式的任何資料都會遺失。
+
+.步驟
+. 建立來源應用程式的快照。
+. 打開 AppMirrorRelationship CR 文件（例如 `trident-protect-relationship.yaml`），然後將 spec.desiredState 的值更改爲 `Established`。
+. 儲存 CR 檔案。
+. 套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
+----
+. 如果您在目的地叢集上建立任何保護排程來保護容錯移轉應用程式，請將其移除。任何仍會導致磁碟區快照失敗的排程。
+
+
+
+
+=== 反轉重新同步容錯移轉複寫關係
+
+當您反向重新同步容錯移轉複寫關係時，目的地應用程式會變成來源應用程式，來源會變成目的地。在容錯移轉期間對目的地應用程式所做的變更會保留下來。
+
+.步驟
+. 刪除原始目的地叢集上的 AppMirrorRelationship CR 。這會導致目的地成為來源。如果新的目的地叢集上還有任何保護排程，請將其移除。
+. 套用原先用來設定與相對叢集關係的 CR 檔案，以設定複寫關係。
+. 確保每個叢集上的 AppVault CRS 均已就緒。
+. 在相對的叢集上設定複寫關係，設定反轉方向的值。
+
+
+
+
+== 反轉應用程式複寫方向
+
+當您反轉複寫方向時， Trident Protect 會將應用程式移至目的地儲存後端，同時繼續複寫回原始來源儲存後端。Trident Protect 會停止來源應用程式，並在容錯移轉至目的地應用程式之前，將資料複寫到目的地。
+
+在這種情況下、您要交換來源和目的地。
+
+.步驟
+. 建立關機快照：
++
+[role="tabbed-block"]
+====
+.使用 CR 建立關機快照
+--
+.. 停用來源應用程式的保護原則排程。
+.. 建立 ShutdownSnapshot CR 檔案：
++
+... 建立自訂資源（ CR ）檔案並命名（例如 `trident-protect-shutdownsnapshot.yaml`）。
+... 設定下列屬性：
++
+**** * metadata.name*: （ _required ）自訂資源的名稱。
+**** *spec.AppVaultRef* ：（ _required _ ）此值必須符合來源應用程式的 AppVault metadata.name 欄位。
+**** *spec.ApplicationRef* ：（ _required _ ）此值必須符合來源應用程式 CR 檔案的 metadata.name 欄位。
++
+YAML 範例：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: ShutdownSnapshot
+metadata:
+  name: replication-shutdown-snapshot-afc4c564-e700-4b72-86c3-c08a5dbe844e
+  namespace: my-app-namespace
+spec:
+  appVaultRef: generic-s3-trident-protect-src-bucket-04b6b4ec-46a3-420a-b351-45795e1b5e34
+  applicationRef: maria
+----
+
+
+
+
+.. 在您以正確的值填入檔案之後 `trident-protect-shutdownsnapshot.yaml` 、請套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-shutdownsnapshot.yaml -n my-app-namespace
+----
+
+
+--
+.使用 CLI 建立關機快照
+--
+.. 建立關機快照，以環境資訊取代方括號中的值。例如：
++
+[source, console]
+----
+tridentctl protect create shutdownsnapshot <my_shutdown_snapshot> --appvault <my_vault> --app <app_to_snapshot>
+----
+
+
+--
+====
+. 快照完成後，取得快照的狀態：
++
+[source, console]
+----
+kubectl get shutdownsnapshot -n my-app-namespace <shutdown_snapshot_name> -o yaml
+----
+. 使用下列命令尋找 * shutdownsnapshot .status.appArchivePath* 的值，並記錄檔案路徑的最後一部分（也稱為 basename ；這將是最後一個斜線之後的所有項目）：
++
+[source, console]
+----
+k get shutdownsnapshot -n my-app-namespace <shutdown_snapshot_name> -o jsonpath='{.status.appArchivePath}'
+----
+. 執行容錯移轉，從目的地叢集移轉至來源叢集，並進行下列變更：
++
+
+NOTE: 在容錯移轉程序的步驟 2 中，將欄位包含在 `spec.promotedSnapshot` AppMirrorRelationship CR 檔案中，並將其值設為您在上述步驟 3 中記錄的基礎名稱。
+
+. 執行中的反向重新同步步驟<<Reverse resync a failed over replication>>。
+. 在新的來源叢集上啟用保護排程。
+
+
+
+
+=== 結果
+
+由於反向複寫，因此會發生下列動作：
+
+* 原始來源應用程式的 Kubernetes 資源會擷取快照。
+* 刪除應用程式的Kubernetes資源（保留PVCS和PVs）、即可順利停止原始來源應用程式的Pod。
+* 當 Pod 關機之後、應用程式的磁碟區快照就會被擷取和複寫。
+* SnapMirror關係中斷、使目的地磁碟區準備好進行讀寫。
+* 應用程式的 Kubernetes 資源會從關機前快照還原、並使用原始來源應用程式關機後複寫的 Volume 資料。
+* 複寫會以相反方向重新建立。
+
+
+
+
+=== 將應用程式容錯移轉至原始來源叢集
+
+使用 Trident Protect ，您可以使用下列作業順序，在容錯移轉作業之後達成「容錯回復」。在此工作流程中，為了還原原始複寫方向， Trident Protect 會在還原複寫方向之前，將任何應用程式變更複寫回原始來源應用程式。
+
+此程序從已完成容錯移轉至目的地的關係開始、並涉及下列步驟：
+
+* 從容錯移轉狀態開始。
+* 反轉重新同步關係。
+* 反轉複寫。
+
+
+.步驟
+. 執行<<Resync a failed over replication>>步驟
+. 執行<<Reverse resync a failed over replication>>步驟
+
+
+
+
+=== 刪除複寫關係
+
+您可以隨時刪除複寫關係。當您刪除應用程式複寫關係時，會產生兩個獨立的應用程式，兩者之間沒有任何關係。
+
+.步驟
+. 刪除 AppMirrorRelationship CR ：
++
+[source, console]
+----
+kubectl delete -f trident-protect-relationship.yaml -n my-app-namespace
+----
+

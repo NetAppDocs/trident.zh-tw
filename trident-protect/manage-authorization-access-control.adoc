@@ -1,0 +1,191 @@
+---
+permalink: trident-protect/manage-authorization-access-control.html 
+sidebar: sidebar 
+keywords: manage, authentication, rbac 
+summary: Trident Protect 採用 Kubernetes 角色型存取控制（ RBAC ）模式。您可以使用 Trident Protect RBAC 功能來更精細地控制資源存取。 
+---
+= 管理授權與存取控制
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident Protect 採用 Kubernetes 角色型存取控制（ RBAC ）模式。根據預設， Trident Protect 提供單一系統命名空間及其相關的預設服務帳戶。如果組織有許多使用者或特定的安全需求，您可以使用 Trident Protect 的 RBAC 功能，更精細地控制對資源和命名空間的存取。
+
+叢集管理員一律可以存取預設命名空間中的資源 `trident-protect`，也可以存取所有其他命名空間中的資源。若要控制對資源和應用程式的存取，您需要建立額外的命名空間，並將資源和應用程式新增至這些命名空間。
+
+請注意，沒有使用者可以在預設命名空間中建立應用程式資料管理 CRS `trident-protect` 。您需要在應用程式命名空間中建立應用程式資料管理 CRS （最佳做法是在與其相關應用程式相同的命名空間中建立應用程式資料管理 CRS ）。
+
+[NOTE]
+====
+只有系統管理員才能存取授權的 Trident 保護自訂資源物件，包括：
+
+* * AppVault* ：需要儲存庫認證資料
+* * AutoSupportBundle * ：收集指標，記錄及其他敏感的 Trident Protect 資料
+* * AutoSupportBundleSchedule* ：管理記錄收集排程
+
+
+最佳做法是使用 RBAC 來限制系統管理員存取權限物件。
+
+====
+如需 RBAC 如何規範資源和命名空間存取的詳細資訊，請參閱 https://kubernetes.io/docs/reference/access-authn-authz/rbac/["Kubernetes RBAC 文件"^]。
+
+如需服務帳戶的相關資訊，請參閱 https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/["Kubernetes 服務帳戶文件"^]。
+
+
+
+== 範例：管理兩組使用者的存取權
+
+例如，組織有叢集管理員，一組工程設計使用者，以及一組行銷使用者。叢集管理員將完成下列工作，以建立一個環境，其中工程群組和行銷群組各自只能存取指派給各自命名空間的資源。
+
+
+
+=== 步驟 1 ：建立命名空間以包含每個群組的資源
+
+建立命名空間可讓您以邏輯方式分隔資源，並更有效地控制誰有權存取這些資源。
+
+.步驟
+. 為工程群組建立命名空間：
++
+[source, console]
+----
+kubectl create ns engineering-ns
+----
+. 為行銷群組建立命名空間：
++
+[source, console]
+----
+kubectl create ns marketing-ns
+----
+
+
+
+
+=== 步驟 2 ：建立新的服務帳戶，與每個命名空間中的資源互動
+
+您所建立的每個新命名空間都有預設服務帳戶，但您應該為每個使用者群組建立服務帳戶，以便日後在必要時在群組之間進一步分割 Privileges 。
+
+.步驟
+. 為工程群組建立服務帳戶：
++
+[source, yaml]
+----
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: eng-user
+  namespace: engineering-ns
+----
+. 為行銷群組建立服務帳戶：
++
+[source, yaml]
+----
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mkt-user
+  namespace: marketing-ns
+----
+
+
+
+
+=== 步驟 3 ：為每個新的服務帳戶建立秘密
+
+服務帳戶密碼是用來驗證服務帳戶，如果受到入侵，也可以輕鬆刪除和重新建立。
+
+.步驟
+. 為工程服務帳戶建立秘密：
++
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    kubernetes.io/service-account.name: eng-user
+  name: eng-user-secret
+  namespace: engineering-ns
+type: kubernetes.io/service-account-token
+----
+. 為行銷服務帳戶建立秘密：
++
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    kubernetes.io/service-account.name: mkt-user
+  name: mkt-user-secret
+  namespace: marketing-ns
+type: kubernetes.io/service-account-token
+----
+
+
+
+
+=== 步驟 4 ：建立 RoleBinding 物件，將 ClusterRole 物件繫結至每個新的服務帳戶
+
+安裝 Trident Protect 時會建立預設的 ClusterRole 物件。您可以建立並套用角色繫結物件，將此 ClusterRole 繫結至服務帳戶。
+
+.步驟
+. 將 ClusterRole 繫結至工程服務帳戶：
++
+[source, yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: engineering-ns-tenant-rolebinding
+  namespace: engineering-ns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: trident-protect-tenant-cluster-role
+subjects:
+- kind: ServiceAccount
+  name: eng-user
+  namespace: engineering-ns
+----
+. 將 ClusterRole 連結至行銷服務帳戶：
++
+[source, yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: marketing-ns-tenant-rolebinding
+  namespace: marketing-ns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: trident-protect-tenant-cluster-role
+subjects:
+- kind: ServiceAccount
+  name: mkt-user
+  namespace: marketing-ns
+----
+
+
+
+
+=== 步驟 5 ：測試權限
+
+測試權限是否正確。
+
+.步驟
+. 確認工程使用者可以存取工程資源：
++
+[source, console]
+----
+kubectl auth can-i --as=system:serviceaccount:engineering-ns:eng-user get applications.protect.trident.netapp.io -n engineering-ns
+----
+. 確認工程使用者無法存取行銷資源：
++
+[source, console]
+----
+kubectl auth can-i --as=system:serviceaccount:engineering-ns:eng-user get applications.protect.trident.netapp.io -n marketing-ns
+----
+

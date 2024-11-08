@@ -3281,8 +3281,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="5f06738a5749e735a4681f5c09e2bafc" category="paragraph">下列範例更新 EKS 附加元件：</block>
   <block id="14aac489d4434a82a3f9f97e8fe91694" category="paragraph"><block ref="187beb49762f7fb831051ad42bd762fe" prefix="" category="inline-code"></block></block>
   <block id="d8c918c170a0768203b4c2a6218e22bf" category="paragraph">您有兩種移除 Amazon EKS 附加元件的選項：</block>
-  <block id="d43d72969793ea80734b71e9c2406b2a" category="list-text">* 保留叢集上的附加軟體 * –此選項會移除 Amazon EKS 對任何設定的管理。它也會移除 Amazon EKS 通知您更新的功能、並在您啟動更新後自動更新 Amazon EKS 附加元件。不過、它會保留叢集上的附加軟體。此選項可讓附加元件成為自我管理的安裝、而非 Amazon EKS 附加元件。有了這個選項、附加元件就不會停機。保留<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 命令中的選項以保留附加元件。</block>
-  <block id="4c467d48a00d885ea22b1e685b747492" category="list-text">* 從叢集完全移除附加軟體 * –我們建議您只有在叢集上沒有任何相關資源的情況下、才從叢集移除 Amazon EKS 附加元件。從命令中移除<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 選項<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> 以移除附加元件。</block>
   <block id="577a7d77fb14f745abf0c5ee04b72879" category="admonition">如果附加元件有相關的 IAM 帳戶、則不會移除 IAM 帳戶。</block>
   <block id="ae7c26e7d90f669e27bf9a36527336ec" category="list-text">在左導覽窗格中、按一下 * 叢集 * 。</block>
   <block id="99e7173540f126412137b25a0caaf2d1" category="list-text">按一下您要移除 NetApp Trident CSI 附加元件的叢集名稱。</block>
@@ -3982,7 +3980,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="86c0118c20bbec39a37e58e07b4ca78e" category="list-text">已將支援的 Kubernetes 最小值更新為 1.25 。</block>
   <block id="8b1b4442b4204fbf84931236c6402e37" category="list-text">移除 Pod 安全性原則的支援。</block>
   <block id="4f52a386be5239d16bac5e9e054c7686" category="section-title">產品重新品牌化</block>
-  <block id="e0c7c5b86117f728a9a34a3fdaeabc46" category="paragraph">從 24.10 版本開始、 Astra Trident 將改為 Trident （ NetApp Trident ）品牌。這項品牌重塑不會影響 Trident 的任何功能、支援的平台和互通性。</block>
   <block id="b56fb7b6833a5dc3a047885cd9fb56b3" category="section-title">24.06 的變更</block>
   <block id="59757b96b5b7c76f5131b54a97bfb34b" category="list-text">新增功能、可讓使用者為 Trident 控制器設定記錄檔設定、以傳播至 Trident 節點 Pod 。</block>
   <block id="65aba759730c3a57f815e388e62498df" category="list-text">在 Trident 中新增支援、預設使用 REST 、而非 ONTAP 9.15.1 版及更新版本的 ZAPI 。</block>
@@ -4359,4 +4356,572 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="98b1298645505c6ec838667dff651c81" category="cell">在 ONTAP NAS 經濟型後端使用 qtree 時、可要求的 FlexVol 大小上限。</block>
   <block id="7be7ec1f4262cda30e19c85af89449af" category="cell">qtree 的空間分配</block>
   <block id="bc78339d85241498c635b61d8f201ef9" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 LUN 的最大磁碟區大小。</block>
+  <block id="579198c91fea423d4b79c97828ac3da4" category="summary">Trident Protect 可讓您使用 Trident 來保護應用程式和應用程式資料。</block>
+  <block id="a53f4cc048a3d0227206b8b6182e67dc" category="doc">瞭解 Trident Protect</block>
+  <block id="6d8d3279a9b2226029d9af309058363b" category="paragraph">NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化由 NetApp ONTAP 儲存系統和 NetApp Trident CSI 儲存資源配置程式所支援的狀態化 Kubernetes 應用程式的功能與可用度。Trident Protect 可簡化跨公有雲和內部部署環境的容器化工作負載管理，保護和移動。它也透過 API 和 CLI 提供自動化功能。</block>
+  <block id="6a945469c2d9fdc27b0cb844d066c984" category="paragraph">您可以 Trident 建立自訂資源（ CRS ），或使用 Trident Protect CLI 來保護應用程式。</block>
+  <block id="7e6f9558ca98ca29afd74d0bbb0b2bce" category="paragraph">您可以在安裝 Trident Protect 要求之前先瞭解相關資訊：</block>
+  <block id="a0a1eb9fbd2b7284352e6b610999f841" category="inline-link-macro">Trident 保護需求</block>
+  <block id="8d806bd87636d4fd0eecab0333057f10" category="list-text"><block ref="8d806bd87636d4fd0eecab0333057f10" category="inline-link-macro-rx"></block></block>
+  <block id="af68364761ed4114c192b6bb2962467b" category="summary">Trident Protect 採用 Kubernetes 角色型存取控制（ RBAC ）模式。您可以使用 Trident Protect RBAC 功能來更精細地控制資源存取。</block>
+  <block id="3f94255d3ae6517615821f8939ba6230" category="doc">管理授權與存取控制</block>
+  <block id="9991f5d4b3aa4ae5a36fb2ad6a637d73" category="paragraph">Trident Protect 採用 Kubernetes 角色型存取控制（ RBAC ）模式。根據預設， Trident Protect 提供單一系統命名空間及其相關的預設服務帳戶。如果組織有許多使用者或特定的安全需求，您可以使用 Trident Protect 的 RBAC 功能，更精細地控制對資源和命名空間的存取。</block>
+  <block id="a22c0a4dfca95968d88392eb0bbb2dcf" category="paragraph">叢集管理員一律可以存取預設命名空間中的資源<block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block>，也可以存取所有其他命名空間中的資源。若要控制對資源和應用程式的存取，您需要建立額外的命名空間，並將資源和應用程式新增至這些命名空間。</block>
+  <block id="661e3b2b32de1ab85fb426b5abec28f3" category="paragraph">請注意，沒有使用者可以在預設命名空間中建立應用程式資料管理 CRS<block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block> 。您需要在應用程式命名空間中建立應用程式資料管理 CRS （最佳做法是在與其相關應用程式相同的命名空間中建立應用程式資料管理 CRS ）。</block>
+  <block id="b1f69b20762545a6c94e024888638df8" category="paragraph">只有系統管理員才能存取授權的 Trident 保護自訂資源物件，包括：</block>
+  <block id="4516bb1529fba64216073cc95812839c" category="list-text">* AppVault* ：需要儲存庫認證資料</block>
+  <block id="984eb0d94901a4b5f9105f96d4d2b4a9" category="list-text">* AutoSupportBundle * ：收集指標，記錄及其他敏感的 Trident Protect 資料</block>
+  <block id="10e6811ca4c78900349b612176a3233b" category="list-text">* AutoSupportBundleSchedule* ：管理記錄收集排程</block>
+  <block id="7cfd5c25f0cd486a1157966cad4acba7" category="paragraph">最佳做法是使用 RBAC 來限制系統管理員存取權限物件。</block>
+  <block id="407b2fe2d3bbcc55c8ae895a2fd8263c" category="inline-link">Kubernetes RBAC 文件</block>
+  <block id="280879df8b54b2167169ec47c5cabf6d" category="paragraph">如需 RBAC 如何規範資源和命名空間存取的詳細資訊，請參閱<block ref="4825a411217f39ad9486c7b5e7edfd2b" category="inline-link-rx"></block>。</block>
+  <block id="1f8885e14663f7eb65b23f1fb65cf1ad" category="inline-link">Kubernetes 服務帳戶文件</block>
+  <block id="6d2eefddf1d006b070ac00f2cf8d9f2e" category="paragraph">如需服務帳戶的相關資訊，請參閱<block ref="37bf82f0fc7d7e935aabd2fb73032b3c" category="inline-link-rx"></block>。</block>
+  <block id="c8daba6f7a2139f5744d1f673acae2b4" category="section-title">範例：管理兩組使用者的存取權</block>
+  <block id="9a9f2142e8d53ddda9013b6fc97827cd" category="paragraph">例如，組織有叢集管理員，一組工程設計使用者，以及一組行銷使用者。叢集管理員將完成下列工作，以建立一個環境，其中工程群組和行銷群組各自只能存取指派給各自命名空間的資源。</block>
+  <block id="62e8eb1beb4089e76f084fa767746c24" category="section-title">步驟 1 ：建立命名空間以包含每個群組的資源</block>
+  <block id="bff98f2ace11d8e7b9fe541ae444c93a" category="paragraph">建立命名空間可讓您以邏輯方式分隔資源，並更有效地控制誰有權存取這些資源。</block>
+  <block id="34bc7fd01806723536ffab05992d77d0" category="list-text">為工程群組建立命名空間：</block>
+  <block id="ba644a4cbff232b5b4157a0f8bfc30f8" category="list-text">為行銷群組建立命名空間：</block>
+  <block id="aac00f41716d928be61ef3ff1cd6fc2d" category="section-title">步驟 2 ：建立新的服務帳戶，與每個命名空間中的資源互動</block>
+  <block id="3e8da71376257c3915a88fb2bfe69a27" category="paragraph">您所建立的每個新命名空間都有預設服務帳戶，但您應該為每個使用者群組建立服務帳戶，以便日後在必要時在群組之間進一步分割 Privileges 。</block>
+  <block id="7bd34dd5c1a41f3a7aeea2aaad2469b5" category="list-text">為工程群組建立服務帳戶：</block>
+  <block id="37281883196948d16907e71598070c79" category="list-text">為行銷群組建立服務帳戶：</block>
+  <block id="2cdbda2406e807bdae6ccf33ad2445f3" category="section-title">步驟 3 ：為每個新的服務帳戶建立秘密</block>
+  <block id="a15042adaad3bebc86d46ef450a4f98c" category="paragraph">服務帳戶密碼是用來驗證服務帳戶，如果受到入侵，也可以輕鬆刪除和重新建立。</block>
+  <block id="78a7dfb4e5b60d84d3c54ec150be8a80" category="list-text">為工程服務帳戶建立秘密：</block>
+  <block id="b098f513abca683a5e1c36cbc8b244db" category="list-text">為行銷服務帳戶建立秘密：</block>
+  <block id="d1732b3423240a19064951afa9a3266a" category="section-title">步驟 4 ：建立 RoleBinding 物件，將 ClusterRole 物件繫結至每個新的服務帳戶</block>
+  <block id="720de81bb5619bda23df5ae99eb9ebcb" category="paragraph">安裝 Trident Protect 時會建立預設的 ClusterRole 物件。您可以建立並套用角色繫結物件，將此 ClusterRole 繫結至服務帳戶。</block>
+  <block id="067d8d99affb5418a3d899eba8658cc4" category="list-text">將 ClusterRole 繫結至工程服務帳戶：</block>
+  <block id="b25ecd55b23c424058fdad947fe23b13" category="list-text">將 ClusterRole 連結至行銷服務帳戶：</block>
+  <block id="574c7934280b498080dfc2272c570f69" category="section-title">步驟 5 ：測試權限</block>
+  <block id="8d65423ec256f18737823ea6cedeae87" category="paragraph">測試權限是否正確。</block>
+  <block id="7b0c0cd292b286167249cc067be6d47d" category="list-text">確認工程使用者可以存取工程資源：</block>
+  <block id="37aa0c3d444b765e5080a77f572f9040" category="list-text">確認工程使用者無法存取行銷資源：</block>
+  <block id="1317a4b523ecc5ea298adec08e7ba407" category="summary">Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVaults 是儲存貯體的宣告性 Kubernetes 工作流程表示。</block>
+  <block id="618ce5e44021c1c57c9655e5e3846eda" category="doc">使用 AppVault 物件來管理貯體</block>
+  <block id="f39726752bf5b117fe78f8c383e31cdd" category="paragraph">Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVault 物件是儲存貯體的宣告性 Kubernetes 工作流程表示。AppVault CR 包含用於保護作業（例如備份，快照，還原作業和 SnapMirror 複寫）的儲存庫所需的組態。只有管理員可以建立 AppVaults 。</block>
+  <block id="b0f47f6adf0e419b1f2eec1a0a995e8c" category="section-title">金鑰產生與 AppVault 定義範例</block>
+  <block id="e1acb82bf1e9f5db4a12c5a7eb653d47" category="paragraph">定義 AppVault CR 時，您需要加入認證，才能存取供應商託管的資源。您產生認證金鑰的方式會因供應商而異。以下是數個提供者的命令列金鑰產生範例，接著是每個提供者的 AppVault 定義範例。</block>
+  <block id="56ef2682280ac110060b881925a87b80" category="section-title">Google Cloud</block>
+  <block id="740ca32fc91467fd47fb71d2414cfef5" category="paragraph">金鑰產生範例：</block>
+  <block id="194398b8524e2cd4b7f246805e250ed0" category="paragraph">以下 AppVault 定義範例是以 CR 的形式提供，您可以使用及修改，或是以 Trident Protect CLI 命令的範例來為您產生 AppVault CR ：</block>
+  <block id="717b55966fdf152c0b975d5025c190c0" category="open-title">範例 AppVault CR</block>
+  <block id="970235f2b49975fd398ad1272198687b" category="open-title">使用 Trident Protect CLI 建立 AppVault CR 範例</block>
+  <block id="270fcb785810d0206945029bb05f4e97" category="section-title">Amazon S3</block>
+  <block id="cde0d86b75c5d9604be18e3bd522bf17" category="open-title">使用 CLI 建立 AppVault 範例</block>
+  <block id="1668ca1bd914c1d847f23b491319ac91" category="section-title">Microsoft Azure</block>
+  <block id="017615c1142fadb040de32a937ba28a5" category="section-title">提供者類型和供應商組態的支援值</block>
+  <block id="f6583553f122a79fc1cb33273af12b71" category="paragraph"><block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block>AppVault CR 中的和<block ref="93fc18ae6fe8f42e5ec9235d62051855" prefix=" " category="inline-code"></block>金鑰需要特定值。下表列出金鑰支援的值<block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block>，以及每個值所需使用的相關<block ref="93fc18ae6fe8f42e5ec9235d62051855" prefix=" " category="inline-code"></block>金鑰<block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block>。</block>
+  <block id="465bce4ca7a51a41028b39e2638813e7" category="cell">支援<block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block>的值</block>
+  <block id="62047e0c7c39225e57ee4ea7021c2c03" category="cell"><block ref="93fc18ae6fe8f42e5ec9235d62051855" prefix=" " category="inline-code"></block>關聯金鑰</block>
+  <block id="4847e034bb0a55fcbc8a3380d6a3ab80" category="cell">AWS</block>
+  <block id="c0828e0381730befd1f7a025057c74fb" category="cell">s3</block>
+  <block id="3a580f142203677f1f0bc30898f63f53" category="cell">Azure</block>
+  <block id="cf04a02e37b774fc311a48f605c3c597" category="cell">Azure</block>
+  <block id="c731f72e1d22a7c5e01a7cb789a8885e" category="cell">GCP</block>
+  <block id="50f66ecbc45488ee5826941bfbc50411" category="cell">GCP</block>
+  <block id="7f93d53700ceda931b2ea8335eef2b68" category="cell">GenericS3</block>
+  <block id="e65506feb09d12651a37ac31d3023758" category="cell">OntapS3</block>
+  <block id="339a160f314b213eaa0ef1a17608793b" category="cell">StorageGridS3</block>
+  <block id="4ac6e7a03fe8abedfa131f8cf6680984" category="section-title">使用 AppVault 瀏覽器檢視 AppVault 資訊</block>
+  <block id="ce8f41081c98b9eea8be01b08936dbb0" category="paragraph">您可以使用 Trident Protect CLI 外掛程式來檢視已在叢集上建立的 AppVault 物件相關資訊。</block>
+  <block id="485573baf8bfa9487485deb07780d89f" category="list-text">檢視 AppVault 物件的內容：</block>
+  <block id="10dce9030ad8783afd2b4e831da49b7f" category="paragraph">* 輸出範例 * ：</block>
+  <block id="72444a17ff17655124f96b02602fe90f" category="list-text">（可選）要查看每個資源的 AppVaultPath ，請使用標誌<block ref="a9b1c03a99224cbb5c6773ccbe51d4fb" prefix=" " category="inline-code"></block>。</block>
+  <block id="caef5be37857b92378c0054db6bc8696" category="paragraph">只有在 Trident Protect helm 安裝中指定叢集名稱時，表格第一欄中的叢集名稱才能使用。例如<block ref="b84d46473a6782105f40ea4fa2bc2964" prefix=" " category="inline-code"></block>：。</block>
+  <block id="eb5dcb495342ee5285be31fb17267ccc" category="section-title">移除 AppVault</block>
+  <block id="086d4622dbc50dc37c51fc80568681a2" category="paragraph">您可以隨時移除 AppVault 物件。</block>
+  <block id="79f2a1cdb1287644a5d3176157cc43c4" category="admonition">刪除 AppVault 物件之前，請勿移除<block ref="276c63528ef3085f91fb1bc80a3febc0" prefix=" " category="inline-code"></block> AppVault CR 中的機碼。如果您這麼做，可能會導致 AppVault 貯體中的剩餘資料，以及叢集中的孤立資源。</block>
+  <block id="49e2b1aa2d6325460e3268f3fac8fd30" category="paragraph">確保您已刪除儲存在相關儲存庫中的所有快照和備份。</block>
+  <block id="33850d305da8c5eb949c81e70e40a54d" category="open-title">使用 Kubernetes CLI 移除 AppVault</block>
+  <block id="1921311333af338cd3327c59e3b9a4ab" category="list-text">移除 AppVault 物件，以要移除的 AppVault 物件名稱取代<block ref="c57e6773097b6f688f96a88c56c16d47" prefix=" " category="inline-code"></block>：</block>
+  <block id="cec4e9b4984eb35ca6068b0c9dcd5aa7" category="open-title">使用 Trident CLI 移除 AppVault</block>
+  <block id="6c4ae71603666b23d3e05193118a3147" category="summary">您可以使用 protecttctl 命令建立自訂資源，並與 Trident 互動。</block>
+  <block id="40e0842217cf3fc8b760cbd68cc14a76" category="doc">安裝 Trident Protect CLI 外掛程式</block>
+  <block id="bd0df34f0c12fe6faae3a05dde47f3a9" category="paragraph">您可以使用 Trident Protect 命令列外掛程式（ Trident 公用程式的延伸<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>）來建立自訂資源（ CRS ），並與 Trident 互動。</block>
+  <block id="2b1100a071932a4cb5f33e22121f48fa" category="paragraph">在使用命令列公用程式之前，您必須先將其安裝在用來存取叢集的機器上。根據您的機器使用的是 x64 或 ARM CPU ，請遵循下列步驟。</block>
+  <block id="852f04e90409df288c69ca8f37453383" category="open-title">下載適用於 Linux AMD64 CPU 的外掛程式</block>
+  <block id="567471047b313eb49e48a17b4213a1d1" category="list-text">下載 Trident Protect CLI 外掛程式：</block>
+  <block id="b64b2077b896969e7810dbb0a2de2f1a" category="open-title">下載適用於 Linux ARM64 CPU 的外掛程式</block>
+  <block id="d58e744bd40cf0f8373ee5b2c7d11387" category="open-title">下載適用於 Mac AMD64 CPU 的外掛程式</block>
+  <block id="fd3e558ef6c1af851bddabf0eb1945d7" category="open-title">下載 Mac ARM64 CPU 的外掛程式</block>
+  <block id="412a5def83fe5329b38679035cfea675" category="list-text">啟用二進位檔案的執行權限：</block>
+  <block id="9bd9e61654b5ae02837f94c50605b5e3" category="list-text">將外掛程式二進位檔複製到您選擇的路徑：</block>
+  <block id="42be0effe300120c50a16b27b8feac25" category="list-text">或者，若要以全域方式安裝二進位檔，請將外掛程式二進位檔複製到全域路徑。例如：<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block>或<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block>（您可能需要提升的 Privileges ）：</block>
+  <block id="b23c395acc963a69b0a5f06a20bb4887" category="section-title">檢視 Trident CLI 外掛程式說明</block>
+  <block id="305f79cb740685921820521a57e525e5" category="paragraph">您可以使用內建的外掛程式說明功能，取得外掛程式功能的詳細說明：</block>
+  <block id="09b4818c610e8f967a9f5257455a3a2a" category="list-text">使用說明功能檢視使用指南：</block>
+  <block id="da9d072bec5b191d5b5120761a2094e5" category="section-title">啟用命令自動完成</block>
+  <block id="2994879f05c105b10427c87890d6ce6a" category="paragraph">安裝 Trident Protect CLI 外掛程式之後，您可以啟用某些命令的自動完成功能。</block>
+  <block id="df7d0aa2cf46fe870b9bba130ea4d964" category="open-title">啟用 Bash Shell 的自動完成功能</block>
+  <block id="dc8d08efd37c5c2cd13f1da4b74b2004" category="list-text">下載完成指令碼：</block>
+  <block id="bbd32e1d32af84e3002666b13f548cce" category="list-text">在主目錄中建立新目錄以包含指令碼：</block>
+  <block id="63f01fb9933705d6d795c4c690a6504c" category="list-text">將下載的指令碼移至<block ref="37476bab24bad3126a5edbc11fab761e" prefix=" " category="inline-code"></block>目錄：</block>
+  <block id="4a76f80f250e570c9fd0b4b8b9e41486" category="list-text">將下列行新增至<block ref="b8cb707d54dfbd8ab64f0b1dc81b72e1" prefix=" " category="inline-code"></block>主目錄中的檔案：</block>
+  <block id="51c2c8a3b8dd4aaaa1d5640e39860408" category="open-title">啟用 Z Shell 的自動完成功能</block>
+  <block id="45dba4471beecdb4813778042a6ccfc2" category="list-text">將下載的指令碼移至<block ref="d6ca46a9bae5529cb8e845fb419ba1e0" prefix=" " category="inline-code"></block>目錄：</block>
+  <block id="e2f12f24108169a5ab9aa9923f95a468" category="list-text">將下列行新增至<block ref="f0f9c4057b7322a99704208706a05ba7" prefix=" " category="inline-code"></block>主目錄中的檔案：</block>
+  <block id="8eea62084ca7e541d918e823422bd82e" category="paragraph-title">結果</block>
+  <block id="a2290b3f31cfd85a3e9ff7885be716a7" category="paragraph">下次登入 Shell 時，您可以使用命令自動完成與 tridentctl Protect 外掛程式。</block>
+  <block id="7b6672be7a52979b1357ccc3d2a45f8a" category="summary">Trident Protect 可讓系統管理員產生套件組合，其中包含 NetApp 支援所需的資訊，包括所管理叢集和應用程式的記錄，度量和拓撲資訊。如果您已連線至網際網路，則可以使用自訂資源（ CR ）檔案，將支援套件上傳至 NetApp 支援網站（ NSS ）。</block>
+  <block id="c06b3814928e21adcd4d633f11293a23" category="doc">產生支援服務組合</block>
+  <block id="e984343e441956b7136d09919877b5ab" category="open-title">使用 CR 建立支援服務組合</block>
+  <block id="dd942fa25b8e28c96c8d05e37b0f157e" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="699c503b46d4ca3ec78905dff3704cac" prefix=" " category="inline-code"></block>）。</block>
+  <block id="18924d9e76d2dc9a88bddb772904461d" category="list-text">設定下列屬性：</block>
+  <block id="3dbbdf39618ebec771728a10e75c52f9" category="list-text">* metadata.name*: （ _required ）此自訂資源的名稱；為您的環境選擇唯一且合理的名稱。</block>
+  <block id="1d18312b2c5bd000f0693d25f38bddc9" category="list-text">*spec.triggerType* ：（ _required _ ）決定是立即產生支援套件，還是排程產生。排定的套件產生時間為上午 12 點， UTC 。可能值：</block>
+  <block id="2b7dabba0077abe3732e0418b048a56b" category="list-text">已排程</block>
+  <block id="e1ba155a9f2e8c3be94020eef32a0301" category="list-text">手冊</block>
+  <block id="b541a1c308699e3b9e58d7a1aa6d3ad6" category="list-text">*SPEC.uploadEnabled* ：（ _Optional_ ）控制是否應在支援服務組合產生後，將其上傳至 NetApp 支援網站。如果未指定，則默認爲<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>。可能值：</block>
+  <block id="e836d7c4f6371da7534f60641286999b" category="list-text">否（預設）</block>
+  <block id="fa3e867f8599e4541ced8b0ced5b2cf1" category="list-text">*spec.daWindowStart* ：（ _Optional_ ） RFC 3339 格式的日期字串，指定支援套件中所包含資料的視窗應開始的日期與時間。如果未指定，則預設為 24 小時前。您可以指定的最早時間是 7 天前。</block>
+  <block id="139f344cca23a89c521bc7cc6c7100b8" category="paragraph">YAML 範例：</block>
+  <block id="1f5c923d658756149d27388a30350ece" category="list-text">在您以正確的值填入檔案之後<block ref="f242db754742ad72c7a0a3fa93d314df" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="b69675775a82aaa1e3307ebbe6a45fc0" category="open-title">使用 CLI 建立支援服務包</block>
+  <block id="2294988013d14e5c254422b8164d83ad" category="list-text">建立支援服務組合，以環境資訊取代括號中的值。<block ref="769627afa23a2b90f925b1091e474dc5" prefix=" " category="inline-code"></block>決定套件是立即建立，還是建立時間取決於排程，可以是<block ref="e1ba155a9f2e8c3be94020eef32a0301" prefix=" " category="inline-code"></block>或<block ref="2b7dabba0077abe3732e0418b048a56b" prefix=" " category="inline-code"></block>。預設設定為<block ref="e1ba155a9f2e8c3be94020eef32a0301" prefix=" " category="inline-code"></block>。</block>
+  <block id="4351048276414d4fad273a0c7ad9f491" category="summary">如果您的環境符合需求，您可以依照下列步驟安裝 Trident Protect 。</block>
+  <block id="9ee0b57319616120eef37546fa8e4c42" category="doc">安裝及設定 Trident Protect</block>
+  <block id="dc48a335c2095fb6a79ee14ee62b4806" category="paragraph">如果您的環境符合 Trident Protect 的要求，您可以依照下列步驟在叢集上安裝 Trident Protect 。您可以從 NetApp 取得 Trident Protect ，或從您自己的私有登錄安裝。如果您的叢集無法存取網際網路，從私有登錄安裝會很有幫助。</block>
+  <block id="1d5f2a4008fa2c223d0ebc6aea423256" category="open-title">安裝 Trident Protect from NetApp</block>
+  <block id="6802e29016a0674682497c848bf90236" category="list-text">使用 Helm 安裝 Trident Protect 。以叢集名稱取代<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>，該名稱將指派給叢集，用於識別此叢集的備份和快照：</block>
+  <block id="b533d7fe842e47fbd62d24400867d3f2" category="list-text">您也可以凍結 VM 。如果您使用 KubeVirt 支援 SnapMirror ，則凍結虛擬機器可協助您有效管理：</block>
+  <block id="e49b02afb984c32aa521917480fc4012" category="inline-link-macro">安裝 OpenShift 虛擬化</block>
+  <block id="c096df753a5c7335177118895259c96a" category="admonition">您必須設定虛擬化，凍結功能才能正常運作。在此設定之後部署的 VM 包括凍結和取消凍結所需的二進位檔。若要深入瞭解設定虛擬化的相關<block ref="2e657c6eb92d8a54673acb8e93eb84d5" category="inline-link-macro-rx"></block>資訊，請參閱。</block>
+  <block id="f1db582519ebcfcc20d90e41c0c5e9cc" category="open-title">從私有登錄安裝 Trident Protect</block>
+  <block id="73dac5f92be0a06ecbcb1b8139b40593" category="paragraph">如果 Kubernetes 叢集無法存取網際網路，您可以從私有映像登錄安裝 Trident Protect 。在這些範例中，請將方括號中的值取代為環境中的資訊：</block>
+  <block id="dfb8cfd789dde682f000a96e0aabb1f1" category="list-text">將下列影像拉到您的本機電腦，更新標記，然後將它們推送到您的私人登錄：</block>
+  <block id="2dcd4437dbff8aff3bc16ac15a71b74d" category="list-text">建立 Trident Protect 系統命名空間：</block>
+  <block id="e0f6b701766eb28d805d7ba1e820f582" category="list-text">登入登錄：</block>
+  <block id="814565bb5d7e7359fff967986fd4195a" category="list-text">建立用於私人登錄驗證的拉出密碼：</block>
+  <block id="9fd6c1e403ca347a1528f0f6688f6a06" category="list-text">建立名稱包含下列 Trident Protect 設定的檔案<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block>：</block>
+  <block id="5d276dc92276b59621488d2545356081" category="list-text">使用 Helm 安裝 Trident Protect ：</block>
+  <block id="86e8b34710172d33dcae839e1f4dd07e" category="summary">您可以建立應用程式 CR 和相關的 AppVault CR ，讓 Trident Protect 瞭解您想要管理的應用程式。</block>
+  <block id="80b940e5c68d020c06f9dc2f188d2169" category="doc">定義管理應用程式</block>
+  <block id="1e10d655f5307ce7f79aeee68a9e72f3" category="paragraph">您可以建立應用程式 CR 和相關的 AppVault CR ，以定義您想要使用 Trident Protect 管理的應用程式。</block>
+  <block id="58bd941b0268654136e17a3f6361fa75" category="section-title">建立 AppVault CR</block>
+  <block id="f5ddee36f3439fbf6875de509925b804" category="inline-link-macro">AppVault 自訂資源。</block>
+  <block id="2c2c79b6a4bc3f3b90fed9b96ab44d05" category="paragraph">您需要建立 AppVault CR ，以便在應用程式上執行資料保護作業時使用，而 AppVault CR 必須位於安裝 Trident Protect 的叢集上。AppVault CR 專屬於您的環境，如需 AppVault CRS 的範例，請參閱<block ref="7e7838343a821a01b97d2b866c568a54" category="inline-link-macro-rx"></block></block>
+  <block id="bb54028c613908a73e7575bf50ce2f8b" category="section-title">建立應用程式 CR</block>
+  <block id="650b7f6eb7d8e2a1b558878be64e787f" category="paragraph">您需要為每個想要使用 Trident Protect 管理的應用程式建立應用程式 CR 。您可以手動建立應用程式 CR ，或使用 Trident Protect CLI 建立 CR 來新增應用程式以進行管理。</block>
+  <block id="7eb786201a1068df31c2a8d7805c50bf" category="open-title">使用 CR 新增應用程式</block>
+  <block id="b4b10aa7102ef4de9ba1d5672445c895" category="list-text">建立目的地應用程式 CR 檔案：</block>
+  <block id="0f14679ea6b53d676a4e19300d32937e" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="6e1c6964e1bb7e391ff353b09e122d80" prefix=" " category="inline-code"></block>）。</block>
+  <block id="3b96edf2a12486fc5d9dfaf7e692cdfc" category="list-text">* metadata.name*: （ _required ）應用程式自訂資源的名稱。請注意您選擇的名稱，因為保護作業所需的其他 CR 檔案都會參照此值。</block>
+  <block id="fcf820f08f5d5769772e80b226253850" category="list-text">* spec.includedNamespaces*: （ _required _ ）使用命名空間標籤或命名空間名稱來指定應用程式資源所在的命名空間。應用程式命名空間必須是此清單的一部分。</block>
+  <block id="edb32c41feaaffb2d7ff10dac9d80312" category="open-title">使用 CLI 新增應用程式</block>
+  <block id="c7b530e751fba67f8910728e6bfca47d" category="list-text">建立並套用應用程式定義，以環境資訊取代方括號中的值。您可以使用以逗號分隔的清單，將命名空間和資源包含在應用程式定義中，並附上下列範例所示的引數：</block>
+  <block id="0ef657dffb550796349fff7260ee7b1f" category="summary">您可以將備份或快照資料還原至不同的叢集或儲存類別</block>
+  <block id="5d23a9c0c55a80ece74daa65c04f1d66" category="doc">移轉應用程式</block>
+  <block id="f0947115fd72dc8926d993b03e13a329" category="paragraph">您可以將備份或快照資料還原至不同的叢集或儲存類別，在叢集或儲存類別之間移轉應用程式。</block>
+  <block id="85ff05ce333a3cc83e4b1bece0b1a885" category="admonition">當您移轉應用程式時，為應用程式設定的所有執行掛鉤都會隨應用程式一起移轉。如果存在還原後執行掛鉤，則會在還原作業中自動執行。</block>
+  <block id="dea2f94d534ebdd522c0137cd11f63bf" category="section-title">備份與還原作業</block>
+  <block id="b21f1727ed04fb70c8e47cb11cdfb2bb" category="paragraph">若要針對下列案例執行備份與還原作業，您可以自動化特定的備份與還原工作。</block>
+  <block id="a9764be0f1589c38e0a7df19889c7d63" category="section-title">複製到同一個叢集</block>
+  <block id="5a9889aaf704b3737fe054ecabd850fc" category="paragraph">若要將應用程式複製到同一個叢集，請建立快照或備份，然後將資料還原到同一個叢集。</block>
+  <block id="365d382b2d9ecca9b0d40171c69b38ff" category="list-text">執行下列其中一項：</block>
+  <block id="af9c364e0933200b7b8c1e7e13947ccf" category="inline-link-macro">建立快照</block>
+  <block id="a73aa64574ccfae0cf05d9da96bd1301" category="list-text"><block ref="e078308a27dcac975eec5d2adaa1104c" category="inline-link-macro-rx"></block>。</block>
+  <block id="f99b69945a176ffbedac86a22cf6c413" category="inline-link-macro">建立備份</block>
+  <block id="d0b37af201761eb2698b45f7c3f6d0d8" category="list-text"><block ref="7d9cd4227c8376552577f7b664ce81bb" category="inline-link-macro-rx"></block>。</block>
+  <block id="cf36005406fb9e7864efedea0a35a8a0" category="list-text">在同一個叢集上，視您建立的是快照或備份而定，請執行下列其中一項：</block>
+  <block id="2d173330624878d1a02dc399b82aa10b" category="inline-link-macro">從快照還原資料</block>
+  <block id="00b559822f9df33b751ce11389fb7c7a" category="list-text"><block ref="137b81ae6c60df62029e75ad69c6bacd" category="inline-link-macro-rx"></block>。</block>
+  <block id="1c7b9a68982aa2ad5f1d69eeb5bdf99e" category="inline-link-macro">從備份還原資料</block>
+  <block id="e27031b9d0bffffcf2abd2136eed21f5" category="list-text"><block ref="71bc4096317f8eb78a9951851bc1165b" category="inline-link-macro-rx"></block>。</block>
+  <block id="403ecb1db6fa0f1bb20e787bb5f5dacd" category="section-title">複製到不同叢集</block>
+  <block id="1fe732d5921038b3ec81023b7a5d8068" category="paragraph">若要將應用程式複製到不同的叢集（執行跨叢集複製），請建立快照或備份，並將資料還原到不同的叢集。請確定目的地叢集上已安裝 Trident Protect 。</block>
+  <block id="884bacf23a56346ab0468809c6cb7145" category="list-text">請確定已在目的地叢集上設定包含備份或快照之物件儲存貯體的 AppVault CR 。</block>
+  <block id="f5c64bf182766988d3561488bae5bf83" category="list-text">在目的地叢集上，視您建立的是快照或備份而定，請執行下列其中一項：</block>
+  <block id="181aa092ab965b34bcee90e25056f876" category="section-title">將應用程式從一個儲存類別移轉至另一個儲存類別</block>
+  <block id="97a1f17d0c2154050e8ba2ecfd07ecf4" category="paragraph">您可以將快照還原至不同的目的地儲存類別，將應用程式從一個儲存類別移轉至不同的儲存類別。</block>
+  <block id="f1ad7bca566917ee78958caa78fab3f5" category="paragraph">例如（從還原 CR 中排除機密）：</block>
+  <block id="daf2d2aebeca09dea5ece5c9c1513383" category="open-title">使用 CR 還原快照</block>
+  <block id="a35b06511e032bee46bbed064afa12dc" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="fac6dff7f801a4983f4a536dbcbd40d7" prefix=" " category="inline-code"></block>。</block>
+  <block id="3585700696abe40ccc0973202ddace0a" category="list-text">在您建立的檔案中，設定下列屬性：</block>
+  <block id="ac6cdb13ccdd5d0ac3195b3301db572c" category="list-text">*spec.appArchivePath* ：在 AppVault 中儲存快照內容的路徑。您可以使用下列命令來尋找此路徑：</block>
+  <block id="d2e7f59eea5f95f37b023a243745727d" category="list-text">*spec.appVaultRef* ：（ _required _ ）儲存快照內容的 AppVault 名稱。</block>
+  <block id="33dc1feba43183f93ade318576611f4a" category="list-text">*spec.namespaceMapping*: 將還原作業的來源命名空間對應至目的地命名空間。以環境中的資訊取代<block ref="a6f7f0a873c27a67ee3194949076866b" prefix=" " category="inline-code"></block>和<block ref="2cfb071d6be7d4cf9e297100f62858fe" prefix=" " category="inline-code"></block>。</block>
+  <block id="12ed8140e585382bd7caee15c2ebb002" category="list-text">或者，如果您只需要選取要還原的應用程式特定資源，請新增篩選功能，以包含或排除標記有特定標籤的資源：</block>
+  <block id="15212a55e2108abef019ef0de4a2d413" category="list-text">*resourceFilter.resourceSelectionCriteria ：（篩選所需）用於<block ref="0daf9ee05d33b85e4cfc7be473c64e9b" prefix=" " category="inline-code"></block>包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：</block>
+  <block id="1ca8ced6065c9f465611bb5ff24699bc" category="list-text">* 要篩選的資源的 resourceMatchers.group*: （ _Optional_ ）群組。</block>
+  <block id="1abc2ced311814dde4619aba0c0ae69d" category="list-text">*resourceMatchers.y* ：（ _Optional_ ）要篩選的資源種類。</block>
+  <block id="f2afaee5bf5a6e08b3f94e1fe23f9ddf" category="list-text">*resourceMatchers.version* ：（ _Optional_ ）要篩選的資源版本。</block>
+  <block id="cd7c33fdac590384c71373183085354e" category="list-text">* 要篩選之資源的 Kubernetes metadata.name 欄位中的 resourceMatchers.names*: （ _Optional_ ）名稱。</block>
+  <block id="bcf62d122b3627832ee25e9e69aa4701" category="list-text">* 要篩選之資源的 Kubernetes metadata.name 欄位中的 resourceMatchers.namespaces*: （ _Optional_ ）命名空間。</block>
+  <block id="d9348d075dc7b3c91cff99d56dfc327b" category="inline-link">Kubernetes文件</block>
+  <block id="c436fdf7e5393ae3a8821f5bd3058215" category="list-text">資源的 Kubernetes metadata.name 欄位中的 *resourceMatchers.labelSelectors * ：（ _Optional_ ） Label 選取器字串，如中所定義<block ref="d4ce3da8407a7d8e148bb1287288e778" category="inline-link-rx"></block>。例如<block ref="6ea45baf659f1f35e51c8dc9005eac03" prefix=" " category="inline-code"></block>：。</block>
+  <block id="bca1b1b2b1a229dc37dffa4f7012c02d" category="list-text">在您以正確的值填入檔案之後<block ref="fac6dff7f801a4983f4a536dbcbd40d7" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="ffe607ccb2c74bd77fcfcd7f0ff7691e" category="open-title">使用 CLI 還原快照</block>
+  <block id="a77b4ff586cfbf08c54732a1ced52e4f" category="list-text">將快照還原至不同的命名空間，以環境中的資訊取代方括號中的值。</block>
+  <block id="4f7a601ab79eb07bd8f0460d0e4ebccf" category="list-text"><block ref="c322d3de29d2b0c5e2e011dad5e77df2" prefix=" " category="inline-code"></block>引數使用格式的命名空間和快照名稱<block ref="7310980de32cd5ca687291f4b01b2e19" prefix=" " category="inline-code"></block>。</block>
+  <block id="9a3152a9bfe0e487c80e9e42ee22e9f0" category="list-text">此<block ref="65e11896cb6b19f7dcb2432e67c74725" prefix=" " category="inline-code"></block>引數使用以冒號分隔的命名空間，以格式將來源命名空間對應至正確的目的地命名空間<block ref="07c70c21dcae158a4b2f0d389a52981b" prefix=" " category="inline-code"></block>。</block>
+  <block id="3909674c7e76459d193fe9c27f127cbf" category="summary">使用自動保護原則或以臨機操作的方式、擷取快照與備份資料、以保護所有應用程式。</block>
+  <block id="ca73b42f56baa81e1c83e31ee5c53d42" category="doc">保護應用程式</block>
+  <block id="2530ad97c013f5d8d9c69004a4e7ee67" category="section-title">建立隨需快照</block>
+  <block id="9bbdcd6083ca1f29424ab7d4e6e6d3f5" category="paragraph">您可以隨時建立隨需快照。</block>
+  <block id="ca5d8da21766c0b74083bb89d9b98f19" category="open-title">使用 CR 建立快照</block>
+  <block id="d3455b82ff23d66412cff307dea26e95" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="30f7bac2bbe029d2d24e82f27526854c" prefix=" " category="inline-code"></block>。</block>
+  <block id="14c5017706ef7ba38dbfced0b670f7e4" category="list-text">*SPEC.applicationRef* ：要快照的應用程式的 Kubernetes 名稱。</block>
+  <block id="92c5bebe15e018e9b60ed9fa2a5d7736" category="list-text">*spec.appVaultRef* ：（ _required _ ）應儲存快照內容（中繼資料）的 AppVault 名稱。</block>
+  <block id="a9860c462819471295facd0a13fc4275" category="list-text">*spec.relaimersPolicy* ：（ _Optional_ ）定義刪除快照 CR 時，應用程式歸檔會發生什麼情況。這表示即使設定為，快照也<block ref="afece4245269582cb2f1009d4fb52047" prefix=" " category="inline-code"></block>會被刪除。有效選項：</block>
+  <block id="ff5ca6a0665c8d286d507fe36b867e1c" category="list-text"><block ref="afece4245269582cb2f1009d4fb52047" prefix="" category="inline-code"></block> （預設）</block>
+  <block id="c009f85498c5a7a2db78e1874e6dd4b1" category="list-text"><block ref="f2a6c498fb90ee345d997f888fce3b18" prefix="" category="inline-code"></block></block>
+  <block id="e405f936b8c322965ea5098c0dbead5e" category="list-text">在您以正確的值填入檔案之後<block ref="30f7bac2bbe029d2d24e82f27526854c" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="70e7d17c41da1ec8002b8b8735b5d0b2" category="open-title">使用 CLI 建立快照</block>
+  <block id="210011bd2b9ec4d5301f86e4a42cd17a" category="list-text">建立快照，以您環境的資訊取代方括號中的值。例如：</block>
+  <block id="6c4e6d5940a93fcf9cfb1c5d53280da3" category="section-title">建立隨選備份</block>
+  <block id="f874973a64b67b3f5a5bb3aa28c5ed12" category="paragraph">您可以隨時備份應用程式。</block>
+  <block id="e0babda055ca7a962e4010e772393eb7" category="open-title">使用 CR 建立備份</block>
+  <block id="adfd482111138eb2dfed01cdbaf4bead" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="a130741c8dff3b771a616715e2390607" prefix=" " category="inline-code"></block>。</block>
+  <block id="888ea90f9844794ae90f13cbee8b341f" category="list-text">*SPEC.applicationRef* ：（ _required _ ）要備份的應用程式 Kubernetes 名稱。</block>
+  <block id="df4c9919e99b5b20e10644af2e6480e1" category="list-text">*spec.appVaultRef* ：（ _required _ ）應儲存備份內容的 AppVault 名稱。</block>
+  <block id="2c5daece4baabe00a1e913f6f4248b54" category="list-text">*spec.dataMover * ：（ _Optional_ ）字串，指出備份作業所使用的備份工具。可能的值（區分大小寫）：</block>
+  <block id="2baffe938961bfb9edd7d7ddfd52e2e1" category="list-text"><block ref="5f1c05bdfa0fa9da52e78fce65f0891a" prefix="" category="inline-code"></block></block>
+  <block id="02c4383beef4fc06361dc4ef7bd9762a" category="list-text"><block ref="d112b025f416527f157666baac7d0ff7" prefix="" category="inline-code"></block> （預設）</block>
+  <block id="5a848fb25ba88be36b674bded99badbd" category="list-text">*spec.reClaimPolicy* ：（ _Optional_ ）定義備份從宣告中釋出時會發生什麼情況。可能值：</block>
+  <block id="731a2e076f0d59b6593efc1178b86131" category="list-text">*Spec.snapshotRef* ：（ _Optional_ ）：用於備份來源的快照名稱。如果未提供，將會建立並備份暫存快照。</block>
+  <block id="e3cdcd12b4f53ac42049007406401d18" category="list-text">在您以正確的值填入檔案之後<block ref="a130741c8dff3b771a616715e2390607" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="4dd48cffc8290e0b33e5c4ee6ddc6dbb" category="open-title">使用 CLI 建立備份</block>
+  <block id="25ccf268b4f889fe28d3f3de94aace02" category="list-text">建立備份，以您環境的資訊取代括號中的值。例如：</block>
+  <block id="451d39e79b7f4418d96b486e79bbce7d" category="section-title">建立資料保護排程</block>
+  <block id="45ad0235a77627fe6b23b64997cecf69" category="paragraph">保護原則可在已定義的排程中建立快照、備份或兩者、以保護應用程式。您可以選擇每小時、每天、每週和每月建立快照和備份、也可以指定要保留的複本數量。</block>
+  <block id="1f3ba9ee33f6eeade259b37d0a9d4295" category="open-title">使用 CR 建立排程</block>
+  <block id="0e94d109e3c6dd8f63d25b03253b5d5b" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="8b0c6e1f32e0c117335dedae62b11dba" prefix=" " category="inline-code"></block>。</block>
+  <block id="fd3508664419c1ac5449e5dc6073188b" category="list-text">*SPEC.applicationRef* ：要備份之應用程式的 Kubernetes 名稱。</block>
+  <block id="42423d5a056001113d7894f5f70d7b91" category="list-text">*SPEC.BackupRetention * ：要保留的備份數量。零表示不應建立備份。</block>
+  <block id="53ea99d8bfae17bb8fc2186524166892" category="list-text">*spec.snapshotRetention * ：要保留的快照數。零表示不應建立任何快照。</block>
+  <block id="da9137c7fbfdc9b7f02e3ca8def0431d" category="list-text">* spec.granularity*: 執行排程的頻率。可能的值、以及必要的相關欄位：</block>
+  <block id="682d677bcf1ee88366ae753c477ace2d" category="list-text"><block ref="745fd0ea7f576f350a0eed4b8c48a8e2" prefix="" category="inline-code"></block> （要求您指定<block ref="aadd5cec42dbc02d51f62a1095401f59" prefix=" " category="inline-code"></block>）</block>
+  <block id="a1fbdfda9f5f05dbe5b05383881f400f" category="list-text"><block ref="bea79186fd7af2da67e59b4b15df5a26" prefix="" category="inline-code"></block> （要求您指定<block ref="aadd5cec42dbc02d51f62a1095401f59" prefix=" " category="inline-code"></block> 和<block ref="9199af27775b1a2a876e6d7b25540711" prefix=" " category="inline-code"></block>）</block>
+  <block id="41f071e1fad48cd8dcd577b1ac9c6917" category="list-text"><block ref="4a11fc05ed694c195f0703605b64da90" prefix="" category="inline-code"></block>（要求您指定<block ref="d5870327522a71f5b75f9d3793d0dc97" prefix=" " category="inline-code"></block>，和<block ref="4a04848e0e6e9423892ebc93ae61842d" prefix=" " category="inline-code"></block>）</block>
+  <block id="80ec5614051d9052a9306e31ccee727b" category="list-text"><block ref="708638881f3bac9d9c8c742c79502811" prefix="" category="inline-code"></block>（要求您指定<block ref="d5870327522a71f5b75f9d3793d0dc97" prefix=" " category="inline-code"></block>，和<block ref="9a7606959f42328ceeef95d70c353158" prefix=" " category="inline-code"></block>）</block>
+  <block id="fcf190043fb09fd4804fe6782a78a9a2" category="list-text">*spec.dayOfMontth* ：（ _Optional_ ）排程應執行的月份日期（ 1 - 31 ）。如果精細度設為、則此欄位為必<block ref="708638881f3bac9d9c8c742c79502811" prefix=" " category="inline-code"></block>填。</block>
+  <block id="2af4c701bc864e6f851f67ac3c19d5ea" category="list-text">*spec.dayOfWeek * ：（ _Optional _ ）排程應執行的一週中的一天（ 0 - 7 ）。0 或 7 的值表示星期日。如果精細度設為、則此欄位為必<block ref="4a11fc05ed694c195f0703605b64da90" prefix=" " category="inline-code"></block>填。</block>
+  <block id="b3af349c3c5d7f7aaa212c92d5ea9e51" category="list-text">*spec.hour * ：（ _Optional _ ）排程應執行的一天中的小時（ 0 - 23 ）。如果精細度設置爲、或，則此字段爲必填字段<block ref="bea79186fd7af2da67e59b4b15df5a26" prefix=" " category="inline-code"></block><block ref="4a11fc05ed694c195f0703605b64da90" prefix=" " category="inline-code"></block><block ref="708638881f3bac9d9c8c742c79502811" prefix=" " category="inline-code"></block>。</block>
+  <block id="27c9cf2998853e8a9b756268b2844110" category="list-text">* 規格分鐘 * ：（ _ 選用 _ ）排程應執行的小時（ 0 - 59 ）分鐘。如果精細度設置爲、、或，則此字段爲必填字段<block ref="745fd0ea7f576f350a0eed4b8c48a8e2" prefix=" " category="inline-code"></block><block ref="bea79186fd7af2da67e59b4b15df5a26" prefix=" " category="inline-code"></block><block ref="4a11fc05ed694c195f0703605b64da90" prefix=" " category="inline-code"></block><block ref="708638881f3bac9d9c8c742c79502811" prefix=" " category="inline-code"></block>。</block>
+  <block id="1326c499c45cd471c6075891c6573130" category="list-text">在您以正確的值填入檔案之後<block ref="8b0c6e1f32e0c117335dedae62b11dba" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="6bb2ab2bbc2b0f3f5faec961628f6f4b" category="open-title">使用 CLI 建立排程</block>
+  <block id="95e2bfc6f531a05575927e45b0a34558" category="list-text">建立保護排程，以環境資訊取代方括號中的值。例如：</block>
+  <block id="7f0d505baa6b3480c3d32ad1383aa91c" category="admonition">您可以使用<block ref="d37e701d9d74e65c6aded6370cecbd15" prefix=" " category="inline-code"></block>來檢視此命令的詳細說明資訊。</block>
+  <block id="efb44cfe1d5b8d9954ea045385675c66" category="section-title">刪除快照</block>
+  <block id="a37bf6328466dc531288498c6041de5f" category="paragraph">刪除不再需要的排程或隨需快照。</block>
+  <block id="3eb928cdf7a13317d47b6aff6e1777bc" category="list-text">移除與快照相關的 Snapshot CR ：</block>
+  <block id="cb2cecbd9776fc0c17c7929541fe9404" category="section-title">刪除備份</block>
+  <block id="2072fc95a1bd08ae58a002d5b61a84d0" category="paragraph">刪除不再需要的排程或隨需備份。</block>
+  <block id="7b30bbf41be45c1c70a68e6dd971d83a" category="list-text">移除與備份相關的備份 CR ：</block>
+  <block id="b4907a30deb60cd2f8ea2856235ce4d7" category="section-title">檢查備份作業的狀態</block>
+  <block id="b030755f5014f11eb86aee527d4ef872" category="paragraph">您可以使用命令列來檢查正在進行，已完成或已失敗的備份作業狀態。</block>
+  <block id="83fe182363ccdea33046e538aec4ac23" category="list-text">使用下列命令可擷取備份作業的狀態，以環境中的資訊取代方括號中的值：</block>
+  <block id="bdd3c7731ba2eae7059bfebd0d56c7e3" category="section-title">啟用 NetApp 檔案（ anf ）作業的備份與還原</block>
+  <block id="e9730662640f8238dbf4ed30d6292ecb" category="paragraph">如果您已安裝 Trident Protect ，您可以啟用節省空間的備份與還原功能，以供使用 NetApp 檔案儲存類別的儲存後端使用，並在 Trident 24.06 之前建立。此功能可與 NFSv4 磁碟區搭配使用，不會佔用容量集區的額外空間。</block>
+  <block id="a3ba5a3fd33b03f148e52fd833cda7c3" category="paragraph">請確認下列事項：</block>
+  <block id="a6cdb2021351db573212b98138416717" category="list-text">您已安裝 Trident Protect 。</block>
+  <block id="1b56af5799cb507ae72605b020a620df" category="list-text">您已在 Trident Protect 中定義應用程式。在您完成此程序之前、此應用程式的保護功能有限。</block>
+  <block id="a9910fb38baec2aa849c3ea6191b1cf9" category="list-text">您已<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 選擇儲存後端的預設儲存類別。</block>
+  <block id="579cc8ac85c74501fbfa1bac4d013c1f" category="example-title">展開以進行組態步驟</block>
+  <block id="b1927eae954479de09c736cae4ed08dd" category="list-text">如果 anf Volume 是在升級至 Trident 24.10 之前建立的，請在 Trident 中執行下列動作：</block>
+  <block id="119a6ab21356c173b517e4baf8ab21d3" category="list-text">針對每個以 NetApp 檔案為基礎且與應用程式相關的 PV ，啟用快照目錄：</block>
+  <block id="9cb0a94d3b3051cae7cda63d4c5aa1d6" category="list-text">確認已為每個相關的 PV 啟用快照目錄：</block>
+  <block id="54472d1da4b0c6eadf8684e846b25dcc" category="paragraph">回應：</block>
+  <block id="77c9498d5c74a08af1c5918bd5fd8ee1" category="paragraph">未啟用 Snapshot 目錄時， Trident Protect 會選擇一般備份功能，在備份程序期間會暫時佔用容量集區中的空間。在這種情況下，請確保容量集區中有足夠的可用空間，以建立備份磁碟區大小的暫存磁碟區。</block>
+  <block id="2efd4c8775ce47d6aa29183091d2a4e2" category="paragraph">應用程式已準備好使用 Trident Protect 進行備份與還原。每個 PVC 也可供其他應用程式用於備份和還原。</block>
+  <block id="697f51e8965440d487236d46d469510d" category="summary">首先，請確認您的營運環境，應用程式叢集，應用程式和授權是否準備就緒。確保您的環境符合這些需求，以部署及操作 Trident Protect 。</block>
+  <block id="f52842953ff751bb11c3849b84337de2" category="section-title">Trident 保護 Kubernetes 相容性</block>
+  <block id="c8f91050b5ec3e677d9c7e16e424f9bc" category="paragraph">Trident Protect 可與多種完全託管且自我管理的 Kubernetes 產品相容，包括：</block>
+  <block id="480c9b5f979d1ce95ea2a58b09826d1b" category="list-text">Amazon Elastic Kubernetes Service （ EKS ）</block>
+  <block id="974030a30a48754684d05541fd5e96c9" category="list-text">Google Kubernetes Engine（GKE）</block>
+  <block id="f3bd1985b243e9691bbbd63c6702344b" category="list-text">Microsoft Azure Kubernetes服務（英文）</block>
+  <block id="b175d08ac03101cd40f077848d436e1f" category="list-text">Red Hat OpenShift</block>
+  <block id="6577b94f9943e513915919cfd0dc5909" category="list-text">SUSE Rancher</block>
+  <block id="c395793804bd9dfa82ff727781faf3c5" category="list-text">VMware Tanzu產品組合</block>
+  <block id="1de3a8db0dcc39abe68ae2b506a8f0ac" category="list-text">上游Kubernetes</block>
+  <block id="f6fbfc99b1ed4fcb2dee65355a088f0b" category="section-title">Trident 保護儲存後端相容性</block>
+  <block id="dc754c1df3be627f8c83600f4c69aade" category="paragraph">Trident Protect 支援下列儲存設備後端：</block>
+  <block id="ca3930511e1c5997e851e891e33190ab" category="list-text">ONTAP 儲存陣列</block>
+  <block id="e254891423d193d0e614eaf948880de5" category="paragraph">確保您的儲存後端符合下列需求：</block>
+  <block id="79a749f4efd0990a7c186a6c8b0b8f85" category="list-text">確保連接至叢集的 NetApp 儲存設備使用 Astra Trident 24.02 或更新版本（建議使用 Trident 24.10 ）。</block>
+  <block id="f230e68f84bd24699c72ae6e8b9b926c" category="list-text">如果 Astra Trident 早於 24.06.1 版，且您計畫使用 NetApp SnapMirror 災難恢復功能，則需要手動啟用 Astra 控制項資源配置程式。</block>
+  <block id="46a6a1c4196079f75ce0891927733cf0" category="list-text">確保您擁有最新的 Astra 控制備份程式（預設為 Astra Trident 24.06.1 ）。</block>
+  <block id="1efa9b79a24750278cc3058eaf2ead00" category="list-text">確保您擁有 NetApp ONTAP 儲存後端。</block>
+  <block id="c9a524733ac9eb25fbf1980538b5437d" category="list-text">請確定您已設定物件儲存貯體以儲存備份。</block>
+  <block id="953216b11f9b494b0b28bcec605cbea1" category="list-text">建立您計畫用於應用程式或應用程式資料管理作業的任何應用程式命名空間。Trident Protect 不會為您建立這些命名空間；如果您在自訂資源中指定不存在的命名空間，則作業將會失敗。</block>
+  <block id="f4ce5a5f08fdc6de51b81cc305a21fd0" category="section-title">NAS 經濟容量需求</block>
+  <block id="85641afe25671a9190f50185f6e499d5" category="paragraph">Trident Protect 支援 NAS 經濟型磁碟區的備份與還原作業。目前不支援快照，複製和 SnapMirror 複寫至 NAS 經濟型磁碟區。您需要為打算搭配 Trident Protect 使用的每個 NAS 經濟型磁碟區啟用快照目錄。</block>
+  <block id="43da051477acee60af3ad54451d3d090" category="paragraph">某些應用程式與使用 Snapshot 目錄的磁碟區不相容。對於這些應用程式，您需要在 ONTAP 儲存系統上執行下列命令，以隱藏快照目錄：</block>
+  <block id="beb2d6f4cedfc5b87a39d1766369fade" category="paragraph">您可以針對每個 NAS 經濟型磁碟區執行下列命令，以您要變更的磁碟區 UUID 取代，來啟用 Snapshot 目錄<block ref="a86374477aa0b3d451812bb6ced0458d" prefix=" " category="inline-code"></block>：</block>
+  <block id="70117c3862b4c793cc80799862e6fde9" category="admonition">您可以將 Trident 後端組態選項設定為，為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>新的磁碟區預設啟用快照目錄<block ref="7ad68fdac2eac069eb8ed0fc45b0fb74" prefix=" " category="inline-code"></block>。現有的磁碟區不受影響。</block>
+  <block id="3ab436334531996382ccf17d7d3a4d69" category="section-title">SnapMirror 複寫需求</block>
+  <block id="3253fc268f721dc313863b81e2a0762f" category="paragraph">NetApp SnapMirror 可與 Trident Protect 搭配使用，適用於下列 ONTAP 解決方案：</block>
+  <block id="2b304856171196502641312a496c6d54" category="list-text">NetApp ASA</block>
+  <block id="8bf5bd6530ea430a8edac8a795165179" category="list-text">NetApp AFF</block>
+  <block id="4ba8114dd624dc2130553b7742f70d88" category="list-text">NetApp FAS</block>
+  <block id="00ae925249b1dcd734cdb679b48bf8f7" category="list-text">NetApp ONTAP Select</block>
+  <block id="0f0b99ea2f70cd363c2c6a279f74e760" category="list-text">NetApp Cloud Volumes ONTAP</block>
+  <block id="9f91d52d37c43ec162560596ac851ec9" category="section-title">SnapMirror 複寫的 ONTAP 叢集需求</block>
+  <block id="6ed8f95cb1dcd3baff756120151793a9" category="paragraph">如果您打算使用 SnapMirror 複寫，請確保 ONTAP 叢集符合下列需求：</block>
+  <block id="48d3e1a20815766a05a0edaac0e45679" category="list-text">* Astra 控制備份程式或 Trident * ： Astra 控制備份程式或 Trident 必須同時存在於使用 ONTAP 作為後端的來源叢集和目的地 Kubernetes 叢集上。Trident Protect 使用下列驅動程式所支援的儲存類別，以 NetApp SnapMirror 技術支援複寫：</block>
+  <block id="ba84728ffba482ceb12371a53be2f636" category="inline-link">SnapMirror授權概述ONTAP</block>
+  <block id="b677eb65f7f869d18b845725a133a8d5" category="list-text">* 授權 * ：使用資料保護套件的 ONTAP SnapMirror 非同步授權必須同時在來源和目的地 ONTAP 叢集上啟用。如需詳細資訊、請參閱<block ref="a7b9425cefc4a3715b38951f4b2b6b35" category="inline-link-rx"></block> 。</block>
+  <block id="ed097f5d093bf5311313c62bfb2f2d5a" category="section-title">SnapMirror 複寫的對等考量</block>
+  <block id="a56ca0c4752a7197e296cb9141e9be9f" category="paragraph">如果您計畫使用儲存後端對等，請確保您的環境符合下列需求：</block>
+  <block id="9fecd08b776fdfca7b33426363edf913" category="inline-link">叢集與SVM對等概觀</block>
+  <block id="ddae31913091b421eaff815ed1e19b4f" category="list-text">* 叢集與 SVM* ：必須對 ONTAP 儲存設備的後端進行對等處理。如需詳細資訊、請參閱<block ref="36ecaf21e9ca81a83e736deb4ff5c657" category="inline-link-rx"></block> 。</block>
+  <block id="94ac6b3955eab183cb88ab17c91000eb" category="admonition">確保兩個 ONTAP 叢集之間複寫關係中使用的 SVM 名稱是唯一的。</block>
+  <block id="ab44b8630d7609691da158960d9b30b6" category="list-text">*Astra 控制資源配置程式或 Trident 和 SVM* ：對等的遠端 SVM 必須可用於目的地叢集上的 Astra 控制資源配置程式或 Trident 。</block>
+  <block id="e05c29680eacd6a4c163eefe138ff9fd" category="list-text">* 託管後端 * ：您需要在 Trident Protect 中新增及管理 ONTAP 儲存後端，才能建立複寫關係。</block>
+  <block id="1000954a94920c8ffd3752b548978ccf" category="list-text">*NVMe over TCP* ： Trident Protect 不支援 NetApp SnapMirror 複寫，用於使用 NVMe over TCP 傳輸協定的儲存後端。</block>
+  <block id="57fe82c052fea1c269ca2b14e92e80d3" category="section-title">用於 SnapMirror 複寫的 Trident / ONTAP 組態</block>
+  <block id="59292a70a610fc937685ef1c3a3b5cb1" category="paragraph">Trident Protect 要求您至少設定一個儲存後端，以支援來源叢集和目的地叢集的複寫。如果來源叢集和目的地叢集相同、則目的地應用程式應使用不同於來源應用程式的儲存後端、以獲得最佳恢復能力。</block>
+  <block id="3b3186bfde639bfb8d074bc442b4dd99" category="section-title">使用 KubeVirt 時的考量</block>
+  <block id="848b401dccd2553e826a5baf5064321a" category="paragraph">如果您打算使用<block ref="dfbafe671f5f5e6c95dde413429a5999" category="inline-link-rx"></block>虛擬機器進行 SnapMirror 複寫，則需要設定虛擬化，以便凍結和取消凍結 SVM 。設定虛擬化之後，您部署的 SVM 將包含凍結和取消凍結所需的工具。若要深入瞭解設定虛擬化的相關資訊，請<block ref="e91eeccdebb36ea585bcf119dba9a3b4" category="inline-link-rx"></block>參閱。</block>
+  <block id="4b92c534580865d96f1efb9f86289249" category="summary">您可以使用 Trident Protect 從快照或備份還原應用程式。將應用程式還原至同一個叢集時、從現有的快照還原速度會更快。</block>
+  <block id="ff29014f3961a30f52557df7142d1a65" category="doc">還原應用程式</block>
+  <block id="f346d32ba5d9c332bf8577bf1bacda07" category="admonition">當您還原應用程式時，為應用程式設定的所有執行掛鉤都會隨應用程式一起還原。如果存在還原後執行掛鉤，則會在還原作業中自動執行。</block>
+  <block id="a082effb2d23d4eb077129001a77582f" category="section-title">從備份還原至不同的命名空間</block>
+  <block id="80a8842041758f0012a710677ab91939" category="paragraph">當您使用備份還原 CR 將備份還原至不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程式，但還原的應用程式不會自動受到 Trident Protect 的保護。為了保護還原的應用程式，您需要為還原的應用程式建立應用程式 CR ，以便受到 Trident Protect 保護。</block>
+  <block id="5a3a68cc2fb27d13057472b4869353f1" category="open-title">使用 CR</block>
+  <block id="0334c5d881452d9144d4edf93d44ff85" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="aa3356b96c40153ef83fe9854ede7a70" prefix=" " category="inline-code"></block>。</block>
+  <block id="8ebefb3e84a05b2e3bf54824870d776d" category="list-text">*spec.appArchivePath* ：儲存備份內容的 AppVault 內部路徑。您可以使用下列命令來尋找此路徑：</block>
+  <block id="3f1db1c30ba33e5d04499f000ed77f97" category="list-text">*spec.appVaultRef* ：（ _required _ ）儲存備份內容的 AppVault 名稱。</block>
+  <block id="3e209c1619d0c38cf60c13838ca4cf72" category="list-text">*spec.storageClassMapping* ：將還原作業的來源儲存類別對應至目的地儲存類別。以環境中的資訊取代<block ref="6d4164a2db4b8f123f2f4666f47d1304" prefix=" " category="inline-code"></block>和<block ref="cb3a1d54728d178b537383d31afb4b53" prefix=" " category="inline-code"></block>。</block>
+  <block id="a5085953f7b15a312b4e12827abc66e5" category="list-text">（ _Optional_ ）如果您只需要選取應用程式的某些資源來還原，請新增篩選功能，以包含或排除標記有特定標籤的資源：</block>
+  <block id="792236c6092ad20b208a284b7be14046" category="list-text">*resourceFilter.resourceMatchers* ： resourceMatcher 物件陣列。</block>
+  <block id="be16b6e14200639734fb9694e3c0f655" category="list-text">*resourceMatchers[].group* ：（ _Optional_ ）要篩選的資源群組。</block>
+  <block id="2162d9f0c97d87c37f838ea27ecb393a" category="list-text">*resourceMatchers[].cher* ：（ _Optional_ ）要篩選的資源種類。</block>
+  <block id="862dca1a77422225d13abda4b7bf539b" category="list-text">*resourceMatchers[].version* ：（ _Optional_ ）要篩選的資源版本。</block>
+  <block id="f5d1dcaf86934b4541162f010db1d3e1" category="list-text">要篩選之資源的 Kubernetes metadata.name 欄位中的 * resourceMatchers[].names* ：（ _Optional_ ）名稱。</block>
+  <block id="19c69b04e9f9adb29979cc0ff90625b2" category="list-text">要篩選之資源的 Kubernetes metadata.name 欄位中的 * resourceMatchers[].names* ：（ _Optional_ ）命名空間。</block>
+  <block id="cb4354b08a6a88b3c12671390a85c520" category="list-text">資源的 Kubernetes metadata.name 欄位中的 *resourceMatchers[].labelSelectors * ：（ _Optional_ ） Label 選取器字串，如中所定義<block ref="d4ce3da8407a7d8e148bb1287288e778" category="inline-link-rx"></block>。例如<block ref="6ea45baf659f1f35e51c8dc9005eac03" prefix=" " category="inline-code"></block>：。</block>
+  <block id="18ad656f28db1ef6b2d76d21959ca243" category="list-text">在您以正確的值填入檔案之後<block ref="aa3356b96c40153ef83fe9854ede7a70" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="8a9e0f8224695e94f0988f444488877b" category="open-title">使用CLI</block>
+  <block id="6a07207e8441bfa8c4c36dc925112780" category="list-text">將備份還原至不同的命名空間，以環境中的資訊取代括弧中的值。此<block ref="65e11896cb6b19f7dcb2432e67c74725" prefix=" " category="inline-code"></block>引數使用以冒號分隔的命名空間，以格式將來源命名空間對應至正確的目的地命名空間<block ref="07c70c21dcae158a4b2f0d389a52981b" prefix=" " category="inline-code"></block>。例如：</block>
+  <block id="0bfcabe961e72fea535a073143d53fad" category="section-title">從備份還原至原始命名空間</block>
+  <block id="7260bc412b6c22c2589f01098c1f4430" category="paragraph">您可以隨時將備份還原至原始命名空間。</block>
+  <block id="ccad4e21e7ba2bf4cc861355c3bd79ad" category="admonition">將備份還原至具有現有資源的命名空間，並不會改變任何與備份中共用名稱的資源。若要還原備份中的所有資源，請刪除並重新建立目標命名空間，或將備份還原至新的命名空間。</block>
+  <block id="34653be4af07bad31b9a3775f18b1b5f" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="59a09233aaa2a2c9e25fc46650bd6dee" prefix=" " category="inline-code"></block>。</block>
+  <block id="349d4c53fe9d2e740d60f7ce8094c294" category="list-text">在您以正確的值填入檔案之後<block ref="59a09233aaa2a2c9e25fc46650bd6dee" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="11d13ce9542ccbfd1e47138c96b125a1" category="list-text">將備份還原至原始命名空間，以環境中的資訊取代括弧中的值。<block ref="402051f4be0cc3aad33bcf3ac3d6532b" prefix=" " category="inline-code"></block>引數使用的名稱空間和備份名稱格式為<block ref="7310980de32cd5ca687291f4b01b2e19" prefix=" " category="inline-code"></block>。例如：</block>
+  <block id="db4c6bfd26488f4d6ab2ec6129b067d8" category="section-title">從快照還原至不同的命名空間</block>
+  <block id="9abe0b166b3dc77e35a8be1d062ece32" category="paragraph">您可以使用自訂資源（ CR ）檔案、將資料從快照還原至不同的命名空間或原始來源命名空間。當您使用 SnapshotRestore CR 將快照還原至不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程式，但還原的應用程式並不會受到 Trident Protect 的自動保護。為了保護還原的應用程式，您需要為還原的應用程式建立應用程式 CR ，以便受到 Trident Protect 保護。</block>
+  <block id="941a76112ae80457a7a22ae552218be9" category="section-title">從快照還原至原始命名空間</block>
+  <block id="a392e5395f0751460dc460cd6ec5e89d" category="paragraph">您可以隨時將快照還原至原始命名空間。</block>
+  <block id="4d18dba9a79fbe92e2bb99f0a9300df3" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="620b0dae36dbe6aeaae5d993f961c634" prefix=" " category="inline-code"></block>。</block>
+  <block id="54625166c25afd8a6a484aaf2f346fbb" category="list-text">在您以正確的值填入檔案之後<block ref="620b0dae36dbe6aeaae5d993f961c634" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="6bd960f94c189d42fef14b770c0ac909" category="list-text">將快照還原至原始命名空間，以環境中的資訊取代方括號中的值。例如：</block>
+  <block id="ba2718de6be08337811d049982d9f03f" category="section-title">檢查還原作業的狀態</block>
+  <block id="97dedb929a195e839af5f7d7f8ef0ec5" category="paragraph">您可以使用命令列來檢查進行中，已完成或已失敗的還原作業狀態。</block>
+  <block id="c076e91339c1f092aaad1d36a9c18a7a" category="list-text">使用下列命令可擷取還原作業的狀態，以環境中的資訊取代方括號中的值：</block>
+  <block id="3b236bd888d7d3460e381b13adb8f6b8" category="summary">如果您要從試用版升級至完整版產品，則可能需要移除 Trident Protect 元件。</block>
+  <block id="1bc8acdabd6fc240195da5f19b986dd6" category="doc">解除安裝 Trident Protect</block>
+  <block id="fb509ce83a58c3beeca23f5d55c8d75c" category="paragraph">若要移除 Trident Protect ，請執行下列步驟。</block>
+  <block id="f6116aed83b3970c50d28447d27f4f97" category="list-text">移除 Trident Protect CR 檔案：</block>
+  <block id="aec02c2a1b714f40a949aa18d1f2d588" category="list-text">移除 Trident Protect ：</block>
+  <block id="20c06650be80c297c0e4dc5ae977d44f" category="list-text">移除 Trident Protect 命名空間：</block>
+  <block id="a8c1fc9f09b8338dd9f8badd5c3d30c0" category="summary">您可以使用 Trident Protect 為應用程式建立自訂執行掛鉤。您需要擁有擁有擁有者、管理員或成員權限、才能建立執行掛勾。</block>
+  <block id="cbb269e08085ebb437449cc744357ee6" category="doc">管理執行攔截器</block>
+  <block id="ccd62d676165e34c2e9c6d088c06e70f" category="paragraph">執行攔截是一種自訂動作、可設定搭配託管應用程式的資料保護作業一起執行。例如、如果您有資料庫應用程式、您可以使用執行掛勾來暫停快照之前的所有資料庫交易、並在快照完成後繼續交易。如此可確保應用程式一致的快照。</block>
+  <block id="83fbf1604bedff410ea11872b40ab9f0" category="section-title">執行掛勾的類型</block>
+  <block id="d702711249a4d54c15ce81c80152b8e7" category="paragraph">Trident Protect 支援下列類型的執行掛鉤，視執行時機而定：</block>
+  <block id="9c6a9cc04a4d5840a5d237b232190a35" category="list-text">快照前</block>
+  <block id="65db6b15c7f05c97a1647c11699053e3" category="list-text">快照後</block>
+  <block id="0a2055495a94f091655a2e4d421cffe2" category="list-text">預先備份</block>
+  <block id="cf6e97e89c4b36c29252fcb7b0728d2f" category="list-text">備份後</block>
+  <block id="349b93d2884e6ca3d41d0d9dab41dcd8" category="list-text">還原後</block>
+  <block id="0952ad82f36d650828c9197bb777ee05" category="list-text">容錯移轉後</block>
+  <block id="a9f57378169166a88acf61a71442e5fb" category="section-title">執行順序</block>
+  <block id="e8132483e0cae3565c87c193b3fd8f57" category="paragraph">執行資料保護作業時、執行掛機事件會依照下列順序發生：</block>
+  <block id="4a6ccf1757fd10978b3fb28d81187dcc" category="list-text">任何適用的自訂操作前執行掛勾都會在適當的容器上執行。您可以視需要建立及執行任意數量的自訂操作前掛勾、但在作業之前執行這些掛勾的順序既不保證也無法設定。</block>
+  <block id="cfbed2286711be0cf6dbc12aba602709" category="list-text">執行資料保護作業。</block>
+  <block id="9465fae733e0b5fdcd6e532ef8a78b08" category="list-text">任何適用的自訂操作後執行掛勾都會在適當的容器上執行。您可以視需要建立及執行任意數量的自訂後置作業掛勾、但在作業後執行這些掛勾的順序並不保證也無法設定。</block>
+  <block id="a4ce4f522b635b3063f4af5d138933cc" category="paragraph">如果您建立同一類型的多個執行掛勾（例如預先快照）、則無法保證這些掛勾的執行順序。不過、不同類型的掛勾的執行順序也有保證。例如，以下是具有所有不同類型勾點的組態執行順序：</block>
+  <block id="25fcbdcc7c9fb7d2e1db9e64ef06804c" category="list-text">執行快照前掛勾</block>
+  <block id="f098e888afa8ccb3f1ad3337c3b6eea1" category="list-text">快照後掛勾已執行</block>
+  <block id="59b50be8e9e2ed1b0e1bccae54c76036" category="list-text">執行備份前掛勾</block>
+  <block id="1f374d287bf615eef6eb9afd92b862f2" category="list-text">執行備份後掛勾</block>
+  <block id="e807d528474129e76f18c5ce17a2c3d6" category="admonition">上述順序範例僅適用於執行不使用現有快照的備份時。</block>
+  <block id="b74efcc6eafe1d8dec6ade34cfa13365" category="admonition">在正式作業環境中啟用執行攔截指令碼之前、請務必先進行測試。您可以使用'kubecl exec'命令來方便地測試指令碼。在正式作業環境中啟用執行掛勾之後、請測試所產生的快照和備份、以確保它們一致。您可以將應用程式複製到暫用命名空間、還原快照或備份、然後測試應用程式、藉此完成此作業。</block>
+  <block id="f99748fb4b1cf592516b60937743c52d" category="section-title">關於自訂執行掛勾的重要注意事項</block>
+  <block id="6b8e88c5f4231fbc6994f3a29dd893af" category="paragraph">規劃應用程式的執行掛勾時、請考量下列事項。</block>
+  <block id="c9333604c0c05d7727ea70ec5f1b806b" category="list-text">執行攔截必須使用指令碼來執行動作。許多執行掛勾可以參照相同的指令碼。</block>
+  <block id="cc0a52984aa9087cc5fca898c4dc1caa" category="list-text">Trident Protect 需要以可執行的 Shell 指令碼格式寫入執行攔截程式所使用的指令碼。</block>
+  <block id="6a7d60379bb9015c0bfe02adcc54d0b5" category="list-text">指令碼大小上限為96KB。</block>
+  <block id="d6eb1b65eb578d8eb99d367edc11bb03" category="list-text">Trident Protect 使用執行掛鉤設定和任何符合條件，來判斷哪些掛勾適用於快照，備份或還原作業。</block>
+  <block id="6b988caf78b1aa60f0402c611a1c8e2a" category="admonition">由於執行掛勾通常會減少或完全停用執行中應用程式的功能、因此您應該一律盡量縮短自訂執行掛勾執行所需的時間。如果您以相關的執行掛勾開始備份或快照作業、但隨後取消它、則如果備份或快照作業已經開始、仍允許掛勾執行。這表示備份後執行掛勾中使用的邏輯無法假設備份已完成。</block>
+  <block id="99dc882fc0f61d1db87631ed9f156913" category="section-title">執行攔截篩選器</block>
+  <block id="44db75fbdb91be494665aebf40107fcf" category="paragraph">當您新增或編輯應用程式的執行掛鉤時，您可以將篩選器新增至執行掛鉤，以管理掛鉤將符合的容器。篩選器對於在所有容器上使用相同容器映像的應用程式來說非常實用、但可能會將每個映像用於不同的用途（例如Elasticsearch）。篩選器可讓您建立執行攔截器在某些容器上執行的案例、但不一定所有容器都相同。如果您為單一執行掛勾建立多個篩選器、這些篩選器會與邏輯和運算子結合使用。每個執行掛機最多可有10個作用中篩選器。</block>
+  <block id="7caae75448dbc59fcadd621099e170b3" category="inline-link">規則運算式2（RE2）語法支援</block>
+  <block id="c8390f7fcf8913e63d64e8069f87aa58" category="paragraph">您新增至執行掛勾的每個篩選器都會使用規則運算式來比對叢集中的容器。當掛機符合容器時、掛機會在該容器上執行其相關的指令碼。篩選器的規則運算式使用規則運算式2（RE2）語法、不支援建立篩選器、將容器從相符項目清單中排除。如需 Trident Protect 支援執行攔截篩選器中規則運算式的語法資訊，請參閱<block ref="d4d0dd655d04b2dc5b031206e1febd50" category="inline-link-rx"></block>。</block>
+  <block id="4c004df391027b81952b788a3802e37c" category="admonition">如果您將命名空間篩選器新增至執行掛勾、而執行還原或複製作業之後執行、且還原或複製來源與目的地位於不同的命名空間、則命名空間篩選器只會套用至目的地命名空間。</block>
+  <block id="f1ec6389b6d19d3be02f29f4a7d29051" category="section-title">執行攔截範例</block>
+  <block id="0370124d48bfc5af2def19c48f433283" category="inline-link">NetApp Verda GitHub專案</block>
+  <block id="a59e4fa5cc01a3a4bdebbff4cec60b47" category="paragraph">請造訪<block ref="84d9961ef5a89731849bc2055780d0b6" category="inline-link-rx"></block> 下載熱門應用程式（例如 Apache Cassandra 和 Elasticsearch ）的實際執行連結。您也可以查看範例、瞭解如何建構您自己的自訂執行掛勾。</block>
+  <block id="b103709bb8bab06f6db02c661d88466a" category="section-title">建立執行掛鉤</block>
+  <block id="e39c63d5ded2742e4215d5e339fa729e" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="ce6abb389eaae6953714e27f1dfde579" prefix=" " category="inline-code"></block>。</block>
+  <block id="a1b64283bac1ca460b6b777a46121e7f" category="list-text">設定下列屬性以符合 Trident Protect 環境和叢集組態：</block>
+  <block id="500ef917ae8cc36e9c85a2c0bc7d9337" category="list-text">*SPEC.applicationRef* ：（ _required _ ）要執行執行攔截的應用程式 Kubernetes 名稱。</block>
+  <block id="5422fe7ebd8e2354557341f5b0c60905" category="list-text">*spec.Stage * ：（ _required _ ）一個字串，指出執行掛鉤應在動作期間執行的階段。可能值：</block>
+  <block id="fb55a965b77791b31ffd2bb548f71080" category="list-text">準備</block>
+  <block id="03d947a2158373c3b9d74325850cb8b9" category="list-text">貼文</block>
+  <block id="e60e3d87a1e5f522bbc8419b61b46a94" category="list-text">*spec.ACTION* ：（ _required _ ）字串，表示執行攔截將採取的行動，前提是指定的任何執行攔截篩選條件都已相符。可能值：</block>
+  <block id="3500ba09d0538297440ca620c9dd46bf" category="list-text">備份</block>
+  <block id="2bd339d85ee3b33e513359ce781b60cc" category="list-text">還原</block>
+  <block id="7388404ef116c3ff812bfd290b094d9e" category="list-text">容錯移轉</block>
+  <block id="216715348d2815376ef6d68d1ae8d3a1" category="list-text">*spec.enabled* ：（ _Optional_ ）表示此執行掛鉤是否已啟用或停用。如果未指定，則預設值為 true 。</block>
+  <block id="aa6776e9151e1848128d771057fdb5d1" category="list-text">*spec.hookSource* ：（ _required _ ）包含 base64 編碼 hook 指令碼的字串。</block>
+  <block id="c2f4f9c36d367244147c02191649b33e" category="list-text">*spec.timeout* ：（ _Optional_ ）一個數字，定義允許執行掛鉤執行的時間（以分鐘為單位）。最小值為 1 分鐘，如果未指定，預設值為 25 分鐘。</block>
+  <block id="327ca4bc755c7de7ac0d335364730679" category="list-text">*spec.arguments* ：（ _Optional_ ） YAML 引數清單，您可以為執行攔截器指定。</block>
+  <block id="bf30a4b48b4b2636f15eacfc7159af33" category="list-text">*spec.mmatchingCriteria ：（ _Optional_ ）選擇性的條件金鑰值配對清單，每個配對組成執行掛機篩選器。每個執行掛鉤最多可新增 10 個篩選器。</block>
+  <block id="9092d99fcac84905883e4e76cd55bfab" category="list-text">*spec.matchingCriteria.type* ：（ _Optional_ ）識別執行掛鉤篩選器類型的字串。可能值：</block>
+  <block id="820b7ec56ed75f6138f5ddc10aec4747" category="list-text">ContainerImage</block>
+  <block id="3d52068b047d2a094a1af32cb2e338d6" category="list-text">ContainerName</block>
+  <block id="8fd1f588fe68392265ea3a8149ce05a3" category="list-text">PodName</block>
+  <block id="d76694b319ab8227266d15f77f5f7aec" category="list-text">PodLabel</block>
+  <block id="d84562295e02e89c17de04ba750d4c35" category="list-text">NamespaceName</block>
+  <block id="011b50d44a6bb217bbe310071e727641" category="list-text">*spec.matchingCriteria.value* ：（ _Optional_ ）識別執行掛鉤篩選值的字串或規則運算式。</block>
+  <block id="5b34802949c91e91f2c85f8ee1c129bd" category="list-text">在您以正確的值填入 CR 檔案之後，請套用 CR ：</block>
+  <block id="de72143da28c8cafc0b906859f6e6d05" category="list-text">建立執行掛鉤，以環境資訊取代方括號中的值。例如：</block>
+  <block id="d37692493f4055c8b34b9de2897bb1a6" category="summary">使用 Trident Protect ，您可以使用 NetApp SnapMirror 技術的非同步複寫功能，將資料和應用程式變更從一個儲存後端複寫到另一個儲存後端，在同一個叢集或不同叢集之間複寫。</block>
+  <block id="73ff2f0e4c750901167edccad459407d" category="doc">使用 NetApp SnapMirror 複寫應用程式</block>
+  <block id="40322a2a338856f04751d8d3bdb62496" category="section-title">設定複寫關係</block>
+  <block id="f7c69ddccabddb0b74276d3c2a3086e0" category="paragraph">設定複寫關係涉及下列事項：</block>
+  <block id="a7b38e98cd0b780e4d7f39ca030851fe" category="list-text">選擇 Trident Protect 拍攝應用程式快照的頻率（包括應用程式的 Kubernetes 資源，以及每個應用程式磁碟區的磁碟區快照）</block>
+  <block id="cc37bc9830a1edb8e50e296af8ade03b" category="list-text">選擇複寫排程（包括 Kubernetes 資源及持續磁碟區資料）</block>
+  <block id="55960a396448d8f19fb182dfd2b04d90" category="list-text">設定拍攝快照的時間</block>
+  <block id="7fe804bb721f10861ae38239b332f774" category="inline-link-macro">AppVault 自訂資源</block>
+  <block id="38886c5d59d709a7506113ab8fa737eb" category="list-text">為來源叢集上的來源應用程式建立 AppVault 。視您的儲存供應商而定，請修改中的範例<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>以符合您的環境：</block>
+  <block id="bb557baccf285d1ab6b4cdc32daf5848" category="open-title">使用 CR 建立 AppVault</block>
+  <block id="32429298e62d70d6afc71defdbdd3c42" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="0992b18d0f3771479838d4ddbaa2b097" prefix=" " category="inline-code"></block>）。</block>
+  <block id="4b60a832776a25dfdf74d5dac3d3111f" category="list-text">* metadata.name*: （ _required ） AppVault 自訂資源的名稱。請記下您選擇的名稱，因為複寫關係所需的其他 CR 檔案會參照此值。</block>
+  <block id="2e65eb784535a1ecc4b75ea18e2863a6" category="list-text">* spec.providerConfig*: （ _required ）儲存使用指定供應商存取 AppVault 所需的組態。請為您的供應商選擇一個「鎖釦名稱」和任何其他必要的詳細資料。請記下您選擇的值，因為複寫關係所需的其他 CR 檔案會參照這些值。如需 AppVault CRS 與其他供應商的範例，請參閱<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>。</block>
+  <block id="655a22501c6f6d02821989a81036e65e" category="list-text">* spec.providerCredentials*: （ _required _ ）會儲存使用指定提供者存取 AppVault 所需之任何認證的參考資料。</block>
+  <block id="cb95e87ea13fe367aee43a64591dc23f" category="list-text">* spec.providerCredentials.valueFromSecret*: （ _required _ ）表示認證值應來自機密。</block>
+  <block id="553f77a87c1f7385701bd0df77669571" category="list-text">*key* ：（ _required _ ）要從中選擇的密碼的有效金鑰。</block>
+  <block id="cf3ae025f91646ac07aa5641d4e510cb" category="list-text">* 名稱 * ：（ _ 必要 _ ）包含此欄位值的機密名稱。必須位於相同的命名空間中。</block>
+  <block id="0e022225fc6e6c1b2028f3a32bcc9dbc" category="list-text">* spec.providerCredentials.secretAccessKey*: （ _required _ ）存取提供者所用的存取金鑰。* 名稱 * 應與 * spec.providerCredentials.valueFromSecret.name* 相符。</block>
+  <block id="3830f9aa0973251f5c2658ea2e742ee5" category="list-text">* spec.providerType*: （ _required _ ）決定提供備份的內容，例如 NetApp ONTAP S3 ，一般 S3 ， Google Cloud 或 Microsoft Azure 。可能值：</block>
+  <block id="ac68bbf921d953d1cfab916cb6120864" category="list-text">AWS</block>
+  <block id="03034eb1f294ef4f7a106ae02a31ae45" category="list-text">generic-S3</block>
+  <block id="a4d3001255c12ffd187d9548a2c800aa" category="list-text">ONTAP S3</block>
+  <block id="da8c660bc44b572ae5fc3157a93282cb" category="list-text">StorageGRID S3</block>
+  <block id="8af3a24bfad8f2e7a06abec1e5bc710e" category="list-text">在您以正確的值填入檔案之後<block ref="0992b18d0f3771479838d4ddbaa2b097" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="65b1402ebaf9b35766ab033225a55f41" category="open-title">使用 CLI 建立 AppVault</block>
+  <block id="d686d91628b89b1ba45ca8bf5274eece" category="list-text">建立 AppVault ，以環境資訊取代方括號中的值：</block>
+  <block id="c244d23f9be6389c5ac873426253b152" category="list-text">建立來源應用程式 CR ：</block>
+  <block id="93b7f025ad50fefb3f6b0c5ee86d6162" category="open-title">使用 CR 建立來源應用程式</block>
+  <block id="793bc477cba966a8d3771d018030c3c4" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="3e2c6ff026eba99761434b4f79aaa782" prefix=" " category="inline-code"></block>）。</block>
+  <block id="3bf6684ac69fda7ed549f87ecb72678d" category="list-text">* metadata.name*: （ _required ）應用程式自訂資源的名稱。請記下您選擇的名稱，因為複寫關係所需的其他 CR 檔案會參照此值。</block>
+  <block id="969353c1601d960362b65e2372b29251" category="list-text">* spec.includedNamespaces*: （ _required ）一組命名空間和相關標籤。使用命名空間名稱，並選擇性地使用標籤來縮小命名空間的範圍，以指定此處列出的命名空間中存在的資源。應用程式命名空間必須是此陣列的一部分。</block>
+  <block id="7a4e65ca72b4d8d16a9df08725a64df9" category="paragraph">* YAML* 範例：</block>
+  <block id="948be8a05d305f0b3dece0e8dcaf4546" category="list-text">在您以正確的值填入檔案之後<block ref="3e2c6ff026eba99761434b4f79aaa782" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="677aa747b5e08444532c7cc040384124" category="open-title">使用 CLI 建立來源應用程式</block>
+  <block id="feaddb5b204f8f8f1226cc6f02275f5c" category="list-text">建立來源應用程式。例如：</block>
+  <block id="2111432c46f82ea9d065a1168a7bca3d" category="list-text">您也可以選擇拍攝來源應用程式的快照。此快照是作為目的地叢集上應用程式的基礎。如果您略過此步驟，則需要等待下一個排定的快照執行，以便擁有最近的快照。</block>
+  <block id="84caf200e79d5962bc7f3516e9ad328c" category="open-title">使用 CR 拍攝快照</block>
+  <block id="929d5ad53cad5d51ead7578004e2d5e5" category="list-text">建立來源應用程式的複寫排程：</block>
+  <block id="57cc31c4785dfe52bb22cc8d375a3b67" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="8898becea7c9a79dd32acb9c34818b46" prefix=" " category="inline-code"></block>）。</block>
+  <block id="87918fdbe5607aeceec3ec53bc40a2f8" category="list-text">* metadata.name*: （ _required ）排程自訂資源的名稱。</block>
+  <block id="3e23380d121194d4ed43d5587e33eeba" category="list-text">*spec.AppVaultRef* ：（ _required _ ）此值必須符合來源應用程式的 AppVault metadata.name 欄位。</block>
+  <block id="a7ac547d97c63ad78926b420081cf36d" category="list-text">*spec.ApplicationRef* ：（ _required _ ）此值必須符合來源應用程式 CR 的 metadata.name 欄位。</block>
+  <block id="565c53b27f6972afc514c3431a7fb733" category="list-text">*spec.backupRetention * ：（ _required _ ）此欄位為必填欄位，且值必須設為 0 。</block>
+  <block id="e00228f2eaa851d908b74fd6e1cbb1ab" category="list-text">*spec.enabled* ：必須設置爲 true 。</block>
+  <block id="b8e08f9f53492c0cf7c4c918c8c27185" category="list-text">* spec.granularity*: 必須設定為<block ref="90589c47f06eb971d548591f23c285af" prefix=" " category="inline-code"></block>。</block>
+  <block id="8c33ed4b89c2cd001ffad0203fe3c3b6" category="list-text">*spec.recurrenceRule* ：以 UTC 時間和循環時間間隔定義開始日期。</block>
+  <block id="35ef995e5b9fe2ba99491ff849d63302" category="list-text">*spec.snapshotRetention * ：必須設定為 2 。</block>
+  <block id="7c6d1c687b69c90909ec8375ac84883e" category="list-text">在您以正確的值填入檔案之後<block ref="8898becea7c9a79dd32acb9c34818b46" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="3feb4a62c8b59cd52ae22845d363c901" category="open-title">使用 CLI 拍攝快照</block>
+  <block id="a1e2bc47f1a3bfef13f10398ea862ec3" category="list-text">在目的地叢集上建立與您在來源叢集上套用的 AppVault CR 相同的來源應用程式 AppVault CR ，並命名該應用程式（例如<block ref="3ad9e8b652d0a9a977e2534bf143ea29" prefix=" " category="inline-code"></block>）。</block>
+  <block id="04a53b4d2f7e20d9df207bfb6beb6ee7" category="list-text">套用 CR ：</block>
+  <block id="b90466d65b799b761b892272fec2c528" category="list-text">為目的地叢集上的目的地應用程式建立 AppVault 。視您的儲存供應商而定，請修改中的範例<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>以符合您的環境：</block>
+  <block id="d5ab09bc69c7800783bce2e14f2e456f" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="b851e4210e3875aa9242df636b0b3068" prefix=" " category="inline-code"></block>）。</block>
+  <block id="7fab67e3c762a0a044dd84f11a740dd7" category="list-text">* spec.providerConfig*: （ _required ）儲存使用指定供應商存取 AppVault 所需的組態。請為您的供應商選擇<block ref="070a97dcde31faecac1fc843e205039c" prefix=" " category="inline-code"></block>和任何其他必要詳細資料。請記下您選擇的值，因為複寫關係所需的其他 CR 檔案會參照這些值。如需 AppVault CRS 與其他供應商的範例，請參閱<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>。</block>
+  <block id="4758f7c104e1f75364dadc9f8310e51d" category="list-text">在您以正確的值填入檔案之後<block ref="b851e4210e3875aa9242df636b0b3068" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="852c44e158b3265857137f38ef65ac49" category="list-text">建立 AppMirrorRelationship CR 檔案：</block>
+  <block id="15e5c4ea8565e669f02393ab1d7b1021" category="open-title">使用 CR 建立 AppMirrorRelationship</block>
+  <block id="3ca407ea70946200511f8d2e1008f20f" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>）。</block>
+  <block id="52e868ab750f66344086c9bc5d6dadeb" category="list-text">* metadata.name:* （必要） AppMirrorRelationship 自訂資源的名稱。</block>
+  <block id="d9ee8f59f7e4a770213d4728b012fa38" category="list-text">* spec.destinationAppVaultRef*: （ _required _ ）此值必須符合目的地叢集上目的地應用程式的 AppVault 名稱。</block>
+  <block id="ad47c31cec730ddef75893f6207a8350" category="list-text">* spec.namespaceMapping*: （ _required _ ）目的地和來源命名空間必須符合各自應用程式 CR 中定義的應用程式命名空間。</block>
+  <block id="0d2f17f43053f85c97752c575bb2af3e" category="list-text">*spec.sourceAppVaultRef* ：（ _required _ ）此值必須符合來源應用程式的 AppVault 名稱。</block>
+  <block id="5c0044cad9c27e4f4742c4a031edd6eb" category="list-text">*spec.sourceApplicationName* ：（ _required _ ）此值必須符合您在來源應用程式 CR 中定義的來源應用程式名稱。</block>
+  <block id="be4ed18b3b9c2261b9f3966d0d80e6c4" category="list-text">*spec.storageClassName* ：（ _required _ ）選擇叢集上有效儲存類別的名稱。儲存類別必須與部署來源應用程式的來源叢集上所使用的儲存類別對等。</block>
+  <block id="e1e70c108ffb369c9c05ac65820562c3" category="list-text">在您以正確的值填入檔案之後<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="d4c94febe4f13411fa761de57ad6cce6" category="open-title">使用 CLI 建立 AppMirrorRelationship</block>
+  <block id="1d29e9d9da5d097b90cc18a976fa591c" category="list-text">建立並套用 AppMirrorRelationship 物件，以環境資訊取代方括號中的值。例如：</block>
+  <block id="86d47ead9019d8e9c93c863f7ab4e41b" category="list-text">（ _Optional_ ）檢查複寫關係的狀態和狀態：</block>
+  <block id="70cc2bec279e168711b67e789468c45c" category="section-title">容錯移轉至目的地叢集</block>
+  <block id="196c4df78e5add7c9590d6a1c18367ec" category="paragraph">使用 Trident Protect ，您可以將複寫的應用程式容錯移轉至目的地叢集。此程序會停止複寫關係、並在目的地叢集上使應用程式上線。如果來源叢集上的應用程式正常運作， Trident Protect 不會停止該應用程式。</block>
+  <block id="ffb2e8a8e2a97e36799531c053229941" category="list-text">開啟 AppMirrorRelationship CR 檔案（例如<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>），並將 * spec.desiredState* 的值變更為<block ref="2c42d7d277f63fcbe64b041b997ceaed" prefix=" " category="inline-code"></block>。</block>
+  <block id="2d258c624d61d2388efacfc246d2439e" category="list-text">儲存 CR 檔案。</block>
+  <block id="66ccf267a388b1a30a7530a93ea5ce18" category="list-text">（ _Optional_ ）在容錯移轉應用程式上建立所需的任何保護排程。</block>
+  <block id="ea7117a895b98283737d3855ef6a2adc" category="section-title">重新同步容錯移轉複寫關係</block>
+  <block id="c91dda18aff454993264381ffa25993f" category="paragraph">重新同步作業會重新建立複寫關係。執行重新同步作業後，原始來源應用程式即成為執行中的應用程式，而對目的地叢集上執行中的應用程式所做的任何變更都會被捨棄。</block>
+  <block id="86e073f24d64b270ed8fd6bac00280eb" category="paragraph">此程序會在重新建立複寫之前，停止目的地叢集上的應用程式。</block>
+  <block id="63a5fb6889ac843fec3c274399995a88" category="admonition">在容錯移轉期間寫入目的地應用程式的任何資料都會遺失。</block>
+  <block id="40b77bd147004d34167c59a33489e3ca" category="list-text">建立來源應用程式的快照。</block>
+  <block id="b0952495915865cc8c4cee9f26959545" category="list-text">打開 AppMirrorRelationship CR 文件（例如<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>），然後將 spec.desiredState 的值更改爲<block ref="072f9734fceb02f516b50d4174ac0f18" prefix=" " category="inline-code"></block>。</block>
+  <block id="c7e41946fafafcb541aaa5a67635b607" category="list-text">如果您在目的地叢集上建立任何保護排程來保護容錯移轉應用程式，請將其移除。任何仍會導致磁碟區快照失敗的排程。</block>
+  <block id="6e81bcb9e218ada350c173457300a0ed" category="section-title">反轉重新同步容錯移轉複寫關係</block>
+  <block id="b29e882c5e41f060c9261101cb1cab06" category="paragraph">當您反向重新同步容錯移轉複寫關係時，目的地應用程式會變成來源應用程式，來源會變成目的地。在容錯移轉期間對目的地應用程式所做的變更會保留下來。</block>
+  <block id="6916d76a20f4ca4fffa219680ae6e418" category="list-text">刪除原始目的地叢集上的 AppMirrorRelationship CR 。這會導致目的地成為來源。如果新的目的地叢集上還有任何保護排程，請將其移除。</block>
+  <block id="3c890586eb43d0d71cdcb47011358420" category="list-text">套用原先用來設定與相對叢集關係的 CR 檔案，以設定複寫關係。</block>
+  <block id="e4d13c88dbb2196550655288d4cf351a" category="list-text">確保每個叢集上的 AppVault CRS 均已就緒。</block>
+  <block id="8a427fa57d96e74516c008754320b521" category="list-text">在相對的叢集上設定複寫關係，設定反轉方向的值。</block>
+  <block id="792322eb4a0bf1a122100fc009041d9b" category="section-title">反轉應用程式複寫方向</block>
+  <block id="eb89cf8a1850f41e41a65f7b65ec9c87" category="paragraph">當您反轉複寫方向時， Trident Protect 會將應用程式移至目的地儲存後端，同時繼續複寫回原始來源儲存後端。Trident Protect 會停止來源應用程式，並在容錯移轉至目的地應用程式之前，將資料複寫到目的地。</block>
+  <block id="4625c1e6ccf2351ad9a08dcee33270c8" category="paragraph">在這種情況下、您要交換來源和目的地。</block>
+  <block id="06275f61faab68bc1c01a07a41aadfed" category="list-text">建立關機快照：</block>
+  <block id="4f902591d45de06985f0af6d869c8a04" category="open-title">使用 CR 建立關機快照</block>
+  <block id="1f6c30c2bcecec90eda54cd7038f326b" category="list-text">停用來源應用程式的保護原則排程。</block>
+  <block id="4a4cfa535eb9cd705b5999ffaa6a738b" category="list-text">建立 ShutdownSnapshot CR 檔案：</block>
+  <block id="92391ecdad41a6b33b04771b3e5e20bf" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="9bab8384d1fd26e8737f71771039462f" prefix=" " category="inline-code"></block>）。</block>
+  <block id="1b38935a45d4eaf71098501cbdc191df" category="list-text">* metadata.name*: （ _required ）自訂資源的名稱。</block>
+  <block id="54c1687e91064a6e4cdc35b9a2d411a8" category="list-text">*spec.ApplicationRef* ：（ _required _ ）此值必須符合來源應用程式 CR 檔案的 metadata.name 欄位。</block>
+  <block id="4390dd9bb73a0c56ac3c54b54b1fe51a" category="list-text">在您以正確的值填入檔案之後<block ref="9bab8384d1fd26e8737f71771039462f" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="f450395b52edc310f6e53fe1a9e24477" category="open-title">使用 CLI 建立關機快照</block>
+  <block id="01eb7f0adf446989c265a6179909de7b" category="list-text">建立關機快照，以環境資訊取代方括號中的值。例如：</block>
+  <block id="5c29a32288e71f1820e4af984e4616d6" category="list-text">快照完成後，取得快照的狀態：</block>
+  <block id="eae3a231fcdd07328a039c0bd1b3ebdf" category="list-text">使用下列命令尋找 * shutdownsnapshot .status.appArchivePath* 的值，並記錄檔案路徑的最後一部分（也稱為 basename ；這將是最後一個斜線之後的所有項目）：</block>
+  <block id="9facdd349a186c792ec6a26f5b938472" category="list-text">執行容錯移轉，從目的地叢集移轉至來源叢集，並進行下列變更：</block>
+  <block id="bdd0666b03fe73dd725c0376fdb435e0" category="admonition">在容錯移轉程序的步驟 2 中，將欄位包含在<block ref="60464bee8fcac84cb209df68a2b05fba" prefix=" " category="inline-code"></block> AppMirrorRelationship CR 檔案中，並將其值設為您在上述步驟 3 中記錄的基礎名稱。</block>
+  <block id="6813800aea854bfb29f3b2931dae3410" category="list-text">執行中的反向重新同步步驟<block ref="34fbd8efeee5eb11716e5f3f4c6db090" category="inline-xref-macro-rx"></block>。</block>
+  <block id="ab486212bb19e45c8e71532739574a22" category="list-text">在新的來源叢集上啟用保護排程。</block>
+  <block id="aea4fd534bd3152673956c6bbd7c115c" category="paragraph">由於反向複寫，因此會發生下列動作：</block>
+  <block id="a23cf6af7e31f808d57bb74c992226c6" category="list-text">原始來源應用程式的 Kubernetes 資源會擷取快照。</block>
+  <block id="08c383efd49395a644fa60036a0853a2" category="list-text">刪除應用程式的Kubernetes資源（保留PVCS和PVs）、即可順利停止原始來源應用程式的Pod。</block>
+  <block id="0053c8b169583fc7b29e0dfbe82d59fd" category="list-text">當 Pod 關機之後、應用程式的磁碟區快照就會被擷取和複寫。</block>
+  <block id="b1907879d61e1f061c433469dfb8ddcf" category="list-text">SnapMirror關係中斷、使目的地磁碟區準備好進行讀寫。</block>
+  <block id="b6c3873d17157e3e4a0b1ef02b3cef69" category="list-text">應用程式的 Kubernetes 資源會從關機前快照還原、並使用原始來源應用程式關機後複寫的 Volume 資料。</block>
+  <block id="3cecdf93ba8c40eb3b09b7a7f9985e1d" category="list-text">複寫會以相反方向重新建立。</block>
+  <block id="827d6f4840be3ba668aa3eaee7c11d8d" category="section-title">將應用程式容錯移轉至原始來源叢集</block>
+  <block id="fbe6471033a142db5e3165e4034c1157" category="paragraph">使用 Trident Protect ，您可以使用下列作業順序，在容錯移轉作業之後達成「容錯回復」。在此工作流程中，為了還原原始複寫方向， Trident Protect 會在還原複寫方向之前，將任何應用程式變更複寫回原始來源應用程式。</block>
+  <block id="3a045f0ae84563b460627f43bb272936" category="paragraph">此程序從已完成容錯移轉至目的地的關係開始、並涉及下列步驟：</block>
+  <block id="9cbd7771b861e31b5edb23d83de4758c" category="list-text">從容錯移轉狀態開始。</block>
+  <block id="9f8be3d8552ca406f8bc6e98f620deeb" category="list-text">反轉重新同步關係。</block>
+  <block id="ad04ac539c02d43abb5b3468d853b96d" category="list-text">反轉複寫。</block>
+  <block id="a98cf8721f50314020f780a1b99cc880" category="list-text">執行<block ref="3767bb9c312610e22029cc3e24b4717f" category="inline-xref-macro-rx"></block>步驟</block>
+  <block id="b776a375decd9bf6b9cc3c7744034e92" category="list-text">執行<block ref="34fbd8efeee5eb11716e5f3f4c6db090" category="inline-xref-macro-rx"></block>步驟</block>
+  <block id="39d2beed854377dcad2ea22fe9e58477" category="section-title">刪除複寫關係</block>
+  <block id="a6c87e2b66308cd117a39af0fdac9885" category="paragraph">您可以隨時刪除複寫關係。當您刪除應用程式複寫關係時，會產生兩個獨立的應用程式，兩者之間沒有任何關係。</block>
+  <block id="146012b834b7d1f68305ff2495a1beb7" category="list-text">刪除 AppMirrorRelationship CR ：</block>
+  <block id="c4407b1cc5192fe600872654a5ffe223" category="list-text">為 Kubernetes 原生工作流程新增 Trident 功能：</block>
+  <block id="7e7397a7b79323762c61941fc0e6b5f9" category="list-text">資料保護</block>
+  <block id="5866b98c049a53ea6dc7f50f9349f434" category="list-text">資料移轉</block>
+  <block id="645a84975202e30700b572b49a5ee29d" category="list-text">災難恢復</block>
+  <block id="11d5920d0c0b3a97e764f84dc92ef110" category="list-text">應用程式行動力</block>
+  <block id="f593e32b2a3ead4ac029c13126d3531d" category="inline-link-macro">深入瞭解 Trident Protect</block>
+  <block id="4f341cba22662b4f62e28f58e573db1f" category="paragraph"><block ref="d74b9942b9f31e879889873ba2e086e3" category="inline-link-macro-rx"></block>。</block>
+  <block id="487dc96e91d89134e7a216bab529a019" category="paragraph">從 24.10 版本開始、 Astra Trident 將改為 Trident （ NetApp Trident ）品牌。這項品牌重塑不會影響 Trident 的任何功能，支援的平台或互通性。</block>
+  <block id="cf3f16653945ea2a3c2a47b5dce1e6b2" category="list-text">* 保留叢集上的附加軟體 * ：此選項會移除 Amazon EKS 對任何設定的管理。它也會移除 Amazon EKS 通知您更新的功能、並在您啟動更新後自動更新 Amazon EKS 附加元件。不過、它會保留叢集上的附加軟體。此選項可讓附加元件成為自我管理的安裝、而非 Amazon EKS 附加元件。有了這個選項、附加元件就不會停機。保留<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 命令中的選項以保留附加元件。</block>
+  <block id="b84ba52748723df31fdf54485208c120" category="list-text">* 完全從叢集移除附加軟體 * ：我們建議您只有在叢集上沒有任何相關資源的情況下，才從叢集移除 Amazon EKS 附加元件。從命令中移除<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 選項<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> 以移除附加元件。</block>
+  <block id="a2d3ef10e2d8aae09270e11f8faea2d2" category="sidebar">進階資料管理與保護</block>
+  <block id="6274fe9ce01bdde4e27e80b7958fb714" category="sidebar">Trident Protect 提供進階資料保護功能</block>
+  <block id="1251ea693b8f0b6da19ce6991115faa0" category="sidebar">部署 Trident Protect</block>
+  <block id="6c3cb2816fa53d1d99c44a111d9f7206" category="sidebar">使用 Trident Protect 保護應用程式</block>
+  <block id="884400bd4c8f5f2b0070bef92b055594" category="sidebar">安裝 Trident Protect</block>
+  <block id="f284d92e4bd22a3c7a76bfe530ddd899" category="sidebar">管理 Trident Protect</block>
+  <block id="b9ef0ee6944eb101de3de64b82db00dd" category="sidebar">產生 Trident Protect 支援服務組合</block>
+  <block id="1ae067a03c56065918252f36c73024d1" category="sidebar">管理及保護應用程式</block>
+  <block id="793ba052e921b84a44dd053d68f45012" category="sidebar">使用 Trident Protect 管理執行掛鉤</block>
 </blocks>

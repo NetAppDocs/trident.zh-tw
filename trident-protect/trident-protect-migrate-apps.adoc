@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-migrate-apps.html 
+keywords: trident, protect, migrate, storage, restore, backup 
+summary: 您可以將備份或快照資料還原至不同的叢集或儲存類別 
+---
+= 移轉應用程式
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以將備份或快照資料還原至不同的叢集或儲存類別，在叢集或儲存類別之間移轉應用程式。
+
+
+NOTE: 當您移轉應用程式時，為應用程式設定的所有執行掛鉤都會隨應用程式一起移轉。如果存在還原後執行掛鉤，則會在還原作業中自動執行。
+
+
+
+== 備份與還原作業
+
+若要針對下列案例執行備份與還原作業，您可以自動化特定的備份與還原工作。
+
+
+
+=== 複製到同一個叢集
+
+若要將應用程式複製到同一個叢集，請建立快照或備份，然後將資料還原到同一個叢集。
+
+.步驟
+. 執行下列其中一項：
++
+.. link:trident-protect-protect-apps.html#create-an-on-demand-snapshot["建立快照"]。
+.. link:trident-protect-protect-apps.html#create-an-on-demand-backup["建立備份"]。
+
+
+. 在同一個叢集上，視您建立的是快照或備份而定，請執行下列其中一項：
++
+.. link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-a-different-namespace["從快照還原資料"]。
+.. link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["從備份還原資料"]。
+
+
+
+
+
+
+=== 複製到不同叢集
+
+若要將應用程式複製到不同的叢集（執行跨叢集複製），請建立快照或備份，並將資料還原到不同的叢集。請確定目的地叢集上已安裝 Trident Protect 。
+
+.步驟
+. 執行下列其中一項：
++
+.. link:trident-protect-protect-apps.html#create-an-on-demand-snapshot["建立快照"]。
+.. link:trident-protect-protect-apps.html#create-an-on-demand-backup["建立備份"]。
+
+
+. 請確定已在目的地叢集上設定包含備份或快照之物件儲存貯體的 AppVault CR 。
+. 在目的地叢集上，視您建立的是快照或備份而定，請執行下列其中一項：
++
+.. link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-a-different-namespace["從快照還原資料"]。
+.. link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["從備份還原資料"]。
+
+
+
+
+
+
+== 將應用程式從一個儲存類別移轉至另一個儲存類別
+
+您可以將快照還原至不同的目的地儲存類別，將應用程式從一個儲存類別移轉至不同的儲存類別。
+
+例如（從還原 CR 中排除機密）：
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  name: "${snapshotRestoreCRName}"
+spec:
+  appArchivePath: "${snapshotArchivePath}"
+  appVaultRef: "${appVaultCRName}"
+  namespaceMapping:
+    destination: "${destinationNamespace}"
+    source: "${sourceNamespace}"
+  storageClassMapping:
+    destination: "${destinationStorageClass}"
+    source: "${sourceStorageClass}"
+  resourceFilter:
+    resourceMatchers:
+      kind: Secret
+      version: v1
+    resourceSelectionCriteria: exclude
+----
+[role="tabbed-block"]
+====
+.使用 CR 還原快照
+--
+. 建立自訂資源（ CR ）檔案並命名為 `trident-protect-snapshot-restore-cr.yaml`。
+. 在您建立的檔案中，設定下列屬性：
++
+** * metadata.name*: （ _required ）此自訂資源的名稱；為您的環境選擇唯一且合理的名稱。
+** *spec.appArchivePath* ：在 AppVault 中儲存快照內容的路徑。您可以使用下列命令來尋找此路徑：
++
+[source, console]
+----
+kubectl get snapshots <my-snapshot-name> -n trident-protect -o jsonpath='{.status.appArchivePath}'
+----
+** *spec.appVaultRef* ：（ _required _ ）儲存快照內容的 AppVault 名稱。
+** *spec.namespaceMapping*: 將還原作業的來源命名空間對應至目的地命名空間。以環境中的資訊取代 `my-source-namespace`和 `my-destination-namespace`。
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  name: my-cr-name
+  namespace: trident-protect
+spec:
+  appArchivePath: my-snapshot-path
+  appVaultRef: appvault-name
+  namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
+----
+
+
+. 或者，如果您只需要選取要還原的應用程式特定資源，請新增篩選功能，以包含或排除標記有特定標籤的資源：
++
+** *resourceFilter.resourceSelectionCriteria ：（篩選所需）用於 `include or exclude`包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
+** * 要篩選的資源的 resourceMatchers.group*: （ _Optional_ ）群組。
+** *resourceMatchers.y* ：（ _Optional_ ）要篩選的資源種類。
+** *resourceMatchers.version* ：（ _Optional_ ）要篩選的資源版本。
+** * 要篩選之資源的 Kubernetes metadata.name 欄位中的 resourceMatchers.names*: （ _Optional_ ）名稱。
+** * 要篩選之資源的 Kubernetes metadata.name 欄位中的 resourceMatchers.namespaces*: （ _Optional_ ）命名空間。
+** 資源的 Kubernetes metadata.name 欄位中的 *resourceMatchers.labelSelectors * ：（ _Optional_ ） Label 選取器字串，如中所定義 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes文件"^]。例如 `"trident.netapp.io/os=linux"`：。
++
+例如：
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "include"
+    resourceMatchers:
+      group: my-resource-group
+      kind: my-resource-kind
+      version: my-resource-version
+      names: ["my-resource-names"]
+      namespaces: ["my-resource-namespaces"]
+      labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+. 在您以正確的值填入檔案之後 `trident-protect-snapshot-restore-cr.yaml` 、請套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-snapshot-restore-cr.yaml
+----
+
+
+--
+.使用 CLI 還原快照
+--
+. 將快照還原至不同的命名空間，以環境中的資訊取代方括號中的值。
++
+**  `snapshot`引數使用格式的命名空間和快照名稱 `<namespace>/<name>`。
+** 此 `namespace-mapping`引數使用以冒號分隔的命名空間，以格式將來源命名空間對應至正確的目的地命名空間 `source1:dest1,source2:dest2`。
++
+例如：
+
++
+[source, console]
+----
+tridentctl protect create snapshotrestore <my_restore_name> --snapshot <namespace/snapshot_to_restore> --namespace-mapping <source_to_destination_namespace_mapping>
+----
+
+
+
+
+--
+====

@@ -48,7 +48,7 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 ** 災難恢復
 ** 應用程式行動力
 +
-link:/trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Protect"]。
+link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Protect"]。
 
 
 

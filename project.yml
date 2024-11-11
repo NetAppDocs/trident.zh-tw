@@ -30,7 +30,7 @@ settings:
     url: "/trident-2204"
   - version-number: '22.01'
     url: "/trident-2201"
-  langs: zh-tw,us-en,de-de,es-es,fr-fr,it-it,pt-br,ja-jp,ko-kr,zh-cn
+  langs: zh-tw,us-en,ja-jp,ko-kr,zh-cn,de-de,es-es,fr-fr,it-it
 sidebar:
   entries:
   - title: Trident 文件

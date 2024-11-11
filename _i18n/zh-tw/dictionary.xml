@@ -4911,7 +4911,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="645a84975202e30700b572b49a5ee29d" category="list-text">災難恢復</block>
   <block id="11d5920d0c0b3a97e764f84dc92ef110" category="list-text">應用程式行動力</block>
   <block id="f593e32b2a3ead4ac029c13126d3531d" category="inline-link-macro">深入瞭解 Trident Protect</block>
-  <block id="4f341cba22662b4f62e28f58e573db1f" category="paragraph"><block ref="d74b9942b9f31e879889873ba2e086e3" category="inline-link-macro-rx"></block>。</block>
   <block id="487dc96e91d89134e7a216bab529a019" category="paragraph">從 24.10 版本開始、 Astra Trident 將改為 Trident （ NetApp Trident ）品牌。這項品牌重塑不會影響 Trident 的任何功能，支援的平台或互通性。</block>
   <block id="cf3f16653945ea2a3c2a47b5dce1e6b2" category="list-text">* 保留叢集上的附加軟體 * ：此選項會移除 Amazon EKS 對任何設定的管理。它也會移除 Amazon EKS 通知您更新的功能、並在您啟動更新後自動更新 Amazon EKS 附加元件。不過、它會保留叢集上的附加軟體。此選項可讓附加元件成為自我管理的安裝、而非 Amazon EKS 附加元件。有了這個選項、附加元件就不會停機。保留<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 命令中的選項以保留附加元件。</block>
   <block id="b84ba52748723df31fdf54485208c120" category="list-text">* 完全從叢集移除附加軟體 * ：我們建議您只有在叢集上沒有任何相關資源的情況下，才從叢集移除 Amazon EKS 附加元件。從命令中移除<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 選項<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> 以移除附加元件。</block>
@@ -4924,4 +4923,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="b9ef0ee6944eb101de3de64b82db00dd" category="sidebar">產生 Trident Protect 支援服務組合</block>
   <block id="1ae067a03c56065918252f36c73024d1" category="sidebar">管理及保護應用程式</block>
   <block id="793ba052e921b84a44dd053d68f45012" category="sidebar">使用 Trident Protect 管理執行掛鉤</block>
+  <block id="a4ac350fb585f51020f747525f3175d8" category="paragraph"><block ref="2c7a14b5507108d57a83e6eb9858f03a" category="inline-link-macro-rx"></block>。</block>
 </blocks>

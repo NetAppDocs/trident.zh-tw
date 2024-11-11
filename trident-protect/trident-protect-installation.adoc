@@ -24,7 +24,7 @@ summary: 如果您的環境符合需求，您可以依照下列步驟安裝 Trid
 +
 [source, console]
 ----
-helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart/index.yaml
+helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
 . 使用 Helm 安裝 Trident Protect 。以叢集名稱取代 `<name_of_cluster>`，該名稱將指派給叢集，用於識別此叢集的備份和快照：
 +
@@ -65,6 +65,7 @@ netapp/trident-autosupport:24.10.0
 netapp/exechook:24.10.0
 netapp/resourcebackup:24.10.0
 netapp/resourcerestore:24.10.0
+netapp/resourcedelete:24.10.0
 bitnami/kubectl:1.30.2
 kubebuilder/kube-rbac-proxy:v0.16.0
 ----
@@ -108,7 +109,7 @@ kubectl create secret docker-registry regcred --docker-username=<registry-userna
 +
 [source, console]
 ----
-helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart/index.yaml
+helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
 . 建立名稱包含下列 Trident Protect 設定的檔案 `protectValues.yaml`：
 +

@@ -124,7 +124,7 @@ curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/24.10.
 +
 [source, console]
 ----
-md ~/.bash/completions
+mkdir -p ~/.bash/completions
 ----
 . 將下載的指令碼移至 `~/.bash/completions`目錄：
 +
@@ -153,7 +153,7 @@ curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/24.10.
 +
 [source, console]
 ----
-md ~/.zsh/completions
+mkdir -p ~/.zsh/completions
 ----
 . 將下載的指令碼移至 `~/.zsh/completions`目錄：
 +

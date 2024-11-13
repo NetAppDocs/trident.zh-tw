@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/trident-aws-addon.html 
-keywords: Trident add-on, Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
-summary: 將 Trident EKS 附加元件新增至 Kubernetes 叢集。 
+keywords: Trident add-on, Astra Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
+summary: 將 Astra Trident EKS 附加元件新增至 Kubernetes 叢集。 
 ---
-= 在 EKS 叢集上設定 Trident EKS 附加元件
+= 在 EKS 叢集上設定 Astra Trident EKS 附加元件
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,13 +12,13 @@ summary: 將 Trident EKS 附加元件新增至 Kubernetes 叢集。
 
 
 [role="lead"]
-Trident 簡化了 Kubernetes 中適用於 NetApp ONTAP 儲存管理的 Amazon FSX 、讓開發人員和管理員能夠專注於應用程式部署。Trident EKS 附加元件包含最新的安全性修補程式、錯誤修正、並經過 AWS 驗證、可與 Amazon EKS 搭配使用。EKS 附加元件可讓您持續確保 Amazon EKS 叢集安全穩定、並減少安裝、設定及更新附加元件所需的工作量。
+Astra Trident 簡化了在 Kubernetes 進行 NetApp ONTAP 儲存管理的 Amazon FSX 、讓開發人員和管理員能夠專注於應用程式部署。Astra Trident EKS 附加元件包含最新的安全性修補程式、錯誤修正程式、並經過 AWS 驗證、可與 Amazon EKS 搭配使用。EKS 附加元件可讓您持續確保 Amazon EKS 叢集安全穩定、並減少安裝、設定及更新附加元件所需的工作量。
 
 
 
 == 先決條件
 
-在設定 AWS EKS 的 Trident 附加元件之前、請確定您具有下列項目：
+在設定 AWS EKS 的 Astra Trident 附加元件之前、請確定您具有下列項目：
 
 * 具有附加訂閱的 Amazon EKS 叢集帳戶
 * AWS 對 AWS 市場的權限：
@@ -42,15 +42,25 @@ image::../media/aws-eks-01.png[AWS EKS 01]
 +
 image::../media/aws-eks-02.png[AWS EKS 02]
 
-. 找到 *> Trident by NetApp * 、然後選取 Trident 附加元件的核取方塊。
+. 找到 *Astra NetApp Trident Trident 附加元件 * 並選取該核取方塊。
 . 選擇所需版本的附加元件。
 +
 image::../media/aws-eks-03.png[AWS EKS 03]
 
 . 選取 IAM 角色選項以從節點繼承。
-. 視需要設定任何選用設定、然後選取 * 下一步 * 。
 +
 image::../media/aws-eks-04.png[AWS EKS 04]
+
+. （可選）根據需要配置任何可選的配置設置，然後選擇 * 下一步 * 。
++
+遵循 *Add-on 組態架構 * ，並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應採用下列格式： `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`）。如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。
+
++
+
+NOTE: 當您設定選用參數 `cloudIdentity`時，請確保在使用 EKS 附加元件安裝 Trident 時指定 `AWS`為 `cloudProvider`。
+
++
+image::../media/aws-eks-06.png[AWS EKS 06]
 
 . 選擇* Create *（建立*）。
 . 確認附加元件的狀態為 _Active_ 。
@@ -61,13 +71,16 @@ image::../media/aws-eks-05.png[AWS EKS 05]
 
 
 
-== 使用 CLI 安裝 / 解除安裝 Trident EKS 附加元件
+== 使用 CLI 安裝 / 解除安裝 Astra Trident EKS 附加元件
 
-.使用 CLI 安裝 Trident EKS 附加元件：
-下列命令範例會安裝 Trident EKS 附加元件：
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.`
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.1`（含專用版本）
+.使用 CLI 安裝 Astra Trident EKS 附加元件：
+下列範例命令會安裝 Astra Trident EKS 附加元件：
+`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.6.1-eksbuild`
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.6.1-eksbuild.1`（含專用版本）
 
-.使用 CLI 解除安裝 Trident EKS 附加元件：
-下列命令會解除安裝 Trident EKS 附加元件：
+
+NOTE: 當您設定選用參數 `cloudIdentity`時，請確保在使用 EKS 附加元件安裝 Trident 時指定 `cloudProvider`。
+
+.使用 CLI 解除安裝 Astra Trident EKS 附加元件：
+下列命令會解除安裝 Astra Trident EKS 附加元件：
 `eksctl delete addon --cluster K8s-arm --name netapp_trident-operator`

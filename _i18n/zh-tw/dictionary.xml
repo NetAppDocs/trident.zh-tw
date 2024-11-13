@@ -3031,7 +3031,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="5bab8196b750f3260d005a4548bc5de0" category="list-text">選擇所需版本的附加元件。</block>
   <block id="92f63954b2feb520d9a85c6ac6087ad8" category="image-alt">AWS EKS 03</block>
   <block id="165c328c69599353c4797fde7429e5b5" category="list-text">選取 IAM 角色選項以從節點繼承。</block>
-  <block id="1ada0e4c6ad383de9c12b6e1e6d56327" category="list-text">視需要設定任何選用設定、然後選取 * 下一步 * 。</block>
   <block id="b64079b8570f34f88bca59be352b20e2" category="image-alt">AWS EKS 04</block>
   <block id="bf18811faac9b8e4fcaebab51afd1113" category="list-text">選擇* Create *（建立*）。</block>
   <block id="fa883f8fcd252ea2995457cd82515d03" category="list-text">確認附加元件的狀態為 _Active_ 。</block>
@@ -3249,7 +3248,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="77f6e3db9b70538186091595d9c8c9e8" category="list-text">EKS 附加元件</block>
   <block id="954c98092999a4d3abfbd0752ab71c71" category="paragraph"><block ref="88bff0cbce979a98aecf9182f290f239" prefix="" category="inline-code"></block><block ref="2b2461cc41b3726827b2cb5fcb624e2e" prefix=" " category="inline-code"></block></block>
   <block id="c630096ceb1c476f438ea2fc958bc665" category="open-title">EKS 叢集</block>
-  <block id="a483e3842dfe9b4c2af76a77cf2bb572" category="paragraph"><block ref="e695a6a298f39ac8b903c2a769db6ab4" prefix="" category="inline-code"></block><block ref="cd13c9a7fd0eef9fb0d553b5cac08792" prefix=" " category="inline-code"></block> （使用專用版本）</block>
   <block id="e477faed39be08642267684bb501d931" category="open-title">管理主控台</block>
   <block id="e8d532dbf6904e2793dbda6fd0d03818" category="list-text">開啟 Amazon EKS 主控台：<block ref="c4765fcd1a0f97cf67c0365ddc45d563" category="inline-link-rx"></block>。</block>
   <block id="8d1588a59bc508adad8a62ccaaa1c610" category="list-text">在左導覽窗格中、按一下 * 叢集 * 。</block>
@@ -3269,7 +3267,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="e907c98f301b06586956529abca9e22c" category="paragraph"><block ref="f9c32cfc7736c461770afa4dd4053bda" prefix="" category="inline-code"></block></block>
   <block id="41c9d4e34cce02a882f325b51fa9d2f4" category="list-text">檢查 FSxN Trident CSI 附加元件的目前版本。以叢集名稱取代<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> 。<block ref="7b5be2809a3021f978155d101cf059cf" prefix=" " category="inline-code"></block></block>
   <block id="52b5830420efb96c3a91beb52bac3b23" category="paragraph">* 輸出範例： *</block>
-  <block id="9d5aa26aaf32741e908c5366c21ca9a5" category="list-text">將附加元件更新至上一個步驟輸出中可用更新所傳回的版本。<block ref="00b585502b38c426d735887171ce6f84" prefix=" " category="inline-code"></block></block>
   <block id="b3f252777a69b110667756babe83a98f" category="inline-link-macro">附加元件</block>
   <block id="25626757a73152ece7fdadb90ede4b7c" category="inline-link-macro">Kubernetes 現場管理</block>
   <block id="751f793ade8de1ed590e0f90ac05d8e1" category="paragraph">如果您移除此<block ref="c23ab3adaec8ca15ff3ffd0971be6152" prefix=" " category="inline-code"></block> 選項、且任何 Amazon EKS 附加元件設定與您現有的設定發生衝突、則更新 Amazon EKS 附加元件會失敗；您會收到錯誤訊息、協助您解決衝突。在指定此選項之前、請確定 Amazon EKS 附加元件不會管理您需要管理的設定、因為這些設定會以此選項覆寫。如需此設定的其他選項的詳細資訊，請參閱 <block ref="aea621f0e078efb8367c5d5e894674cd" category="inline-link-macro-rx"></block>。如需 Amazon EKS Kubernetes 現場管理的詳細資訊、請參閱 <block ref="97bdcfd76d2ff3e4855f6b36ebad236e" category="inline-link-macro-rx"></block>。</block>
@@ -3279,7 +3276,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="f1b1f807d9e1301dcc6fd3e44d5de4bd" category="list-text">（可選）您可以展開 * 可選配置設置 * 並根據需要進行修改。</block>
   <block id="3dca1b912e3d43e2a746fbcde32a6018" category="list-text">按一下*儲存變更*。</block>
   <block id="5f06738a5749e735a4681f5c09e2bafc" category="paragraph">下列範例更新 EKS 附加元件：</block>
-  <block id="14aac489d4434a82a3f9f97e8fe91694" category="paragraph"><block ref="187beb49762f7fb831051ad42bd762fe" prefix="" category="inline-code"></block></block>
   <block id="d8c918c170a0768203b4c2a6218e22bf" category="paragraph">您有兩種移除 Amazon EKS 附加元件的選項：</block>
   <block id="577a7d77fb14f745abf0c5ee04b72879" category="admonition">如果附加元件有相關的 IAM 帳戶、則不會移除 IAM 帳戶。</block>
   <block id="ae7c26e7d90f669e27bf9a36527336ec" category="list-text">在左導覽窗格中、按一下 * 叢集 * 。</block>
@@ -4219,16 +4215,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="03f5e10eafb756dac410015b29a6d0e0" category="paragraph">Trident 支援使用驅動程式的非揮發性記憶體高速（ NVMe ）傳輸協定<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>、包括：</block>
   <block id="8102a8aaee21f7594331faa6a31ceeb6" category="list-text">匯入在 Trident 之外建立的 NVMe Volume 、以便 Trident 管理其生命週期</block>
   <block id="54211a2d289b1fa18afc99aab9e27892" category="paragraph">Trident 不支援：</block>
-  <block id="acb2e9160652c3e412ead9e870d11c9b" category="summary">將 Trident EKS 附加元件新增至 Kubernetes 叢集。</block>
-  <block id="a2aa5421f278a17c32520d5a0b59edb2" category="doc">在 EKS 叢集上設定 Trident EKS 附加元件</block>
-  <block id="eebdcab41822ad8bab30721a5175abf7" category="paragraph">Trident 簡化了 Kubernetes 中適用於 NetApp ONTAP 儲存管理的 Amazon FSX 、讓開發人員和管理員能夠專注於應用程式部署。Trident EKS 附加元件包含最新的安全性修補程式、錯誤修正、並經過 AWS 驗證、可與 Amazon EKS 搭配使用。EKS 附加元件可讓您持續確保 Amazon EKS 叢集安全穩定、並減少安裝、設定及更新附加元件所需的工作量。</block>
-  <block id="73a8d79444c307e1446b60eb6a9ba8f1" category="paragraph">在設定 AWS EKS 的 Trident 附加元件之前、請確定您具有下列項目：</block>
-  <block id="64dfb4418b5334c235f994aa8a69af55" category="list-text">找到 *&gt; Trident by NetApp * 、然後選取 Trident 附加元件的核取方塊。</block>
-  <block id="5c48b2cb013af0c5d292d6bc5659074c" category="section-title">使用 CLI 安裝 / 解除安裝 Trident EKS 附加元件</block>
-  <block id="6b88542b2a19cbfa3c0d79e98cae644a" category="paragraph-title">使用 CLI 安裝 Trident EKS 附加元件：</block>
-  <block id="90d7a23a1e71e89adfa366351c228b26" category="paragraph">下列命令範例會安裝 Trident EKS 附加元件：<block ref="b953d7904e30d543f476863b48e725fe" prefix=" " category="inline-code"></block><block ref="f8f93460dda1ad1de5db2f2f1c577532" prefix=" " category="inline-code"></block>（含專用版本）</block>
-  <block id="164dcdbca6562f0f9617b1d9c33a3e7f" category="paragraph-title">使用 CLI 解除安裝 Trident EKS 附加元件：</block>
-  <block id="a241de540e9d861e242ac606150f4f07" category="paragraph">下列命令會解除安裝 Trident EKS 附加元件：<block ref="09a3e9c644b219341aa6e2e8a8922e59" prefix=" " category="inline-code"></block></block>
   <block id="efd6bf14511b7506d1d5a1575d817027" category="cell">叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。</block>
   <block id="360cca3748dd6d8d09b1d6e0e8ff6175" category="cell">傳輸協定LIF的IP位址。*不適用NAS驅動程式*：建議您指定dataLIF ONTAP 。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 <block ref="b2c939cb81e81d99a25f4be74f517f2f" category="inline-xref-macro-rx"></block>。*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Trident 使用 ONTAP 選擇性 LUN 對應來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義dataLIF、就會產生警告。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。</block>
   <block id="900a97d43b0d89ff1f26477ad38cc3bc" category="cell">* 請勿指定 Amazon FSX for NetApp ONTAP 。 *提供的<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block>和<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block>不包含使用 Trident 擷取彙總使用量並加以限制所需的權限。</block>
@@ -4236,20 +4222,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="4f124386f4b1bb06c61bcf1c73aff529" category="cell">要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區或後端的其中一個qosPolicy或adaptiveQosPolicy。搭配 Trident 使用 QoS 原則群組需要 ONTAP 9 8 或更新版本。您應該使用非共用的 QoS 原則群組、並確保個別將原則群組套用至每個成員。共享 QoS 原則群組會強制執行所有工作負載總處理量的上限。</block>
   <block id="e5bbe1a57bb9d1fa8056d28e0a96a518" category="summary">使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 支援的區塊和檔案持續性磁碟區。</block>
   <block id="2ba63b35a8b311ad9ea0d309f5581560" category="paragraph">以下範例建立 AWS Secret Manager 密碼來儲存 Trident CSI 認證：</block>
-  <block id="1095f7331744c1accf45762c2da50a60" category="paragraph">Trident 簡化了 Kubernetes 中適用於 NetApp ONTAP 儲存管理的 Amazon FSX 、讓開發人員和管理員能夠專注於應用程式部署。</block>
-  <block id="bc04665b1c712547a7dcc87033ae7152" category="paragraph">您可以使用下列其中一種方法來安裝 Trident ：</block>
-  <block id="aa9c9ff1836c624104eb3a256a7b8b69" category="section-title">透過 helm 安裝 Trident</block>
-  <block id="b0e9da2f71a439472cddf0553ae43edc" category="section-title">透過 EKS 附加元件安裝 Trident</block>
-  <block id="03023c37f6d85929cf0151fe858d3183" category="paragraph">Trident EKS 附加元件包含最新的安全性修補程式、錯誤修正、並經過 AWS 驗證、可與 Amazon EKS 搭配使用。EKS 附加元件可讓您持續確保 Amazon EKS 叢集安全穩定、並減少安裝、設定及更新附加元件所需的工作量。</block>
-  <block id="16a9eb0d1ef7d37ab7459bc9a67a8102" category="section-title">啟用 AWS 的 Trident 附加元件</block>
-  <block id="09d1f48dea441d50b2e8ed6d864f3d22" category="paragraph">下列命令範例會安裝 Trident EKS 附加元件：</block>
-  <block id="9149c64ca750a0bdd666354b3bbb7170" category="list-text">在 AWS Marketplace EKS-addons 區段中、選取 * Trident by NetApp * 核取方塊。</block>
-  <block id="d162a9d1a15f37d8ad83086d7178d93a" category="list-text">安裝 Trident EKS 附加元件 "</block>
-  <block id="1d5144e260d8c4ece3c5d47a77d84c11" category="section-title">更新 Trident EKS 附加元件</block>
-  <block id="33a60a0cdf016b1736b4b0ea747bcb0f" category="list-text">按一下 * Trident by NetApp * 、然後按一下 * 編輯 * 。</block>
-  <block id="87d54c3153674640af4f36dd72f8953a" category="list-text">在 * Configure Trident by NetApp * 頁面上、執行下列步驟：</block>
-  <block id="ccab466451ff5a867710cce1b28c33a0" category="section-title">解除安裝 / 移除 Trident EKS 附加元件</block>
-  <block id="e75af04fb72882c1d735055059f1a557" category="list-text">單擊 *Add-ons* 選項卡，然後單擊 Trident by NetApp 。 *</block>
   <block id="a2e4c75efdd834198ec30de5256aa938" category="paragraph">您可以使用下列驅動程式、將 Trident 與 Amazon FSX for NetApp ONTAP 整合：</block>
   <block id="b67b129bb636d36f948ca02b68bfa9bc" category="cell">叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。如果您在欄位下方<block ref="ac68bbf921d953d1cfab916cb6120864" prefix=" " category="inline-code"></block>提供、則<block ref="d731d2fecb66f9c4a30253bd316a220f" prefix=" " category="inline-code"></block>不需要提供、<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>因為 Trident 會從 AWS 擷取 SVM<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> 資訊。因此、您必須在 SVM 下提供使用者的認證（例如： vsadmin ）、且使用者必須具有該<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> 角色。</block>
   <block id="1455ffc32822f8c1e93d86939e39177a" category="cell">使用ONTAP Isrest API的布林參數。* 技術預覽 * <block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block> 是以建議用於測試環境、而非正式作業工作負載的「技術預覽」形式提供。設為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>時、 Trident 將使用 ONTAP REST API 與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權<block ref="a9ba4dc88fa11d44cc7c0c918d174778" prefix=" " category="inline-code"></block> 。這是預先定義的和角色所滿足<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block><block ref="fdb6ba311fad29ec53069808f10ebef4" prefix=" " category="inline-code"></block> 的。</block>
@@ -4912,8 +4884,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="11d5920d0c0b3a97e764f84dc92ef110" category="list-text">應用程式行動力</block>
   <block id="f593e32b2a3ead4ac029c13126d3531d" category="inline-link-macro">深入瞭解 Trident Protect</block>
   <block id="487dc96e91d89134e7a216bab529a019" category="paragraph">從 24.10 版本開始、 Astra Trident 將改為 Trident （ NetApp Trident ）品牌。這項品牌重塑不會影響 Trident 的任何功能，支援的平台或互通性。</block>
-  <block id="cf3f16653945ea2a3c2a47b5dce1e6b2" category="list-text">* 保留叢集上的附加軟體 * ：此選項會移除 Amazon EKS 對任何設定的管理。它也會移除 Amazon EKS 通知您更新的功能、並在您啟動更新後自動更新 Amazon EKS 附加元件。不過、它會保留叢集上的附加軟體。此選項可讓附加元件成為自我管理的安裝、而非 Amazon EKS 附加元件。有了這個選項、附加元件就不會停機。保留<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 命令中的選項以保留附加元件。</block>
-  <block id="b84ba52748723df31fdf54485208c120" category="list-text">* 完全從叢集移除附加軟體 * ：我們建議您只有在叢集上沒有任何相關資源的情況下，才從叢集移除 Amazon EKS 附加元件。從命令中移除<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 選項<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> 以移除附加元件。</block>
   <block id="a2d3ef10e2d8aae09270e11f8faea2d2" category="sidebar">進階資料管理與保護</block>
   <block id="6274fe9ce01bdde4e27e80b7958fb714" category="sidebar">Trident Protect 提供進階資料保護功能</block>
   <block id="1251ea693b8f0b6da19ce6991115faa0" category="sidebar">部署 Trident Protect</block>
@@ -4924,4 +4894,44 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1ae067a03c56065918252f36c73024d1" category="sidebar">管理及保護應用程式</block>
   <block id="793ba052e921b84a44dd053d68f45012" category="sidebar">使用 Trident Protect 管理執行掛鉤</block>
   <block id="a4ac350fb585f51020f747525f3175d8" category="paragraph"><block ref="2c7a14b5507108d57a83e6eb9858f03a" category="inline-link-macro-rx"></block>。</block>
+  <block id="fd677451fcb2b9e12434f11dd81d463e" category="summary">將 Astra Trident EKS 附加元件新增至 Kubernetes 叢集。</block>
+  <block id="264f54d7bb69e0d02e466e1cb2cf3f28" category="doc">在 EKS 叢集上設定 Astra Trident EKS 附加元件</block>
+  <block id="fde605b45abe19dca0689ef0eaa6e384" category="paragraph">Astra Trident 簡化了在 Kubernetes 進行 NetApp ONTAP 儲存管理的 Amazon FSX 、讓開發人員和管理員能夠專注於應用程式部署。Astra Trident EKS 附加元件包含最新的安全性修補程式、錯誤修正程式、並經過 AWS 驗證、可與 Amazon EKS 搭配使用。EKS 附加元件可讓您持續確保 Amazon EKS 叢集安全穩定、並減少安裝、設定及更新附加元件所需的工作量。</block>
+  <block id="2f2c25cde4f655e64149cdd745b67001" category="paragraph">在設定 AWS EKS 的 Astra Trident 附加元件之前、請確定您具有下列項目：</block>
+  <block id="0b95c9980ec3cd04cdefd538573b1be4" category="list-text">找到 *Astra NetApp Trident Trident 附加元件 * 並選取該核取方塊。</block>
+  <block id="a4e2df789e9069728f679b749e49731e" category="list-text">（可選）根據需要配置任何可選的配置設置，然後選擇 * 下一步 * 。</block>
+  <block id="0981ca89b033fc9fc2d79b4a4f3cd7d4" category="paragraph">遵循 *Add-on 組態架構 * ，並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應採用下列格式：<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>）。如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。</block>
+  <block id="fceb57704a4212e759be2ffe9a3eb72f" category="admonition">當您設定選用參數<block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix=" " category="inline-code"></block>時，請確保在使用 EKS 附加元件安裝 Trident 時指定<block ref="4847e034bb0a55fcbc8a3380d6a3ab80" prefix=" " category="inline-code"></block>為<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block>。</block>
+  <block id="c5bc7ac802b8e0a400d724239314a7bf" category="image-alt">AWS EKS 06</block>
+  <block id="cec2926f3f12e3edd6577d4f1edd4e22" category="section-title">使用 CLI 安裝 / 解除安裝 Astra Trident EKS 附加元件</block>
+  <block id="64f82c86eee854db6eefc72dbf352f85" category="paragraph-title">使用 CLI 安裝 Astra Trident EKS 附加元件：</block>
+  <block id="d64cfa59e3953168a377893fca4265c8" category="paragraph">下列範例命令會安裝 Astra Trident EKS 附加元件：<block ref="d51915e8dc2e65bf59ac801eb01ea812" prefix=" " category="inline-code"></block><block ref="21c6b99e1b958da23b23c0373944c626" prefix=" " category="inline-code"></block>（含專用版本）</block>
+  <block id="aacf8a1c5f871dadd44e14addd9a995d" category="admonition">當您設定選用參數<block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix=" " category="inline-code"></block>時，請確保在使用 EKS 附加元件安裝 Trident 時指定<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block>。</block>
+  <block id="5fef1c4f3767262a0ef823aaa69e1703" category="paragraph-title">使用 CLI 解除安裝 Astra Trident EKS 附加元件：</block>
+  <block id="e1f272eb0b2aaba7b1cb689543f653e0" category="paragraph">下列命令會解除安裝 Astra Trident EKS 附加元件：<block ref="09a3e9c644b219341aa6e2e8a8922e59" prefix=" " category="inline-code"></block></block>
+  <block id="00a9bbaf4185978435bd4d6cb7aba6c4" category="summary">使用 Astra Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 備份的區塊和檔案持續性磁碟區。</block>
+  <block id="f1fe71442cd08e74d342114df7ee1551" category="doc">安裝Astra Trident</block>
+  <block id="61ac31e67ac41a505c5226920f11c69b" category="paragraph">Astra Trident 簡化了在 Kubernetes 進行 NetApp ONTAP 儲存管理的 Amazon FSX 、讓開發人員和管理員能夠專注於應用程式部署。</block>
+  <block id="d80675b866d3a3d3f54103565f996f91" category="paragraph">您可以使用下列其中一種方法來安裝 Astra Trident ：</block>
+  <block id="821a0be249c7e2b3f10ce8df4b75e1e0" category="section-title">透過 helm 安裝 Astra Trident</block>
+  <block id="53551aefdb0100694b4e814be4a899f7" category="list-text">下載 Astra Trident 安裝程式套件</block>
+  <block id="94f0eb48504ec4d55a96ca7989e2b26c" category="paragraph">Astra Trident安裝程式套件包含部署Trident操作員及安裝Astra Trident所需的一切。從 GitHub 的 Assets 區段下載並解壓縮 Astra Trident 安裝程式的最新版本。<block ref="b83fd8dbe61bcfc922e4844901de5b88" prefix=" " category="inline-code"></block><block ref="ced8cfb4a8ba9e0bbb7a8c14d53222ba" prefix=" " category="inline-code"></block><block ref="1600ccf6988d672a315af82be4e93709" prefix=" " category="inline-code"></block></block>
+  <block id="3fc26750f347130146b4c60fe1b7260b" category="paragraph">以下範例安裝 Astra Trident 並將旗標設定<block ref="e33bb4eb32023da4a8ea7a1ba6927067" prefix=" " category="inline-code"></block>為<block ref="e7b51407a2bfaa34b58afce0107e9a5f" prefix=" " category="inline-code"></block>、和<block ref="c5af480af77c330e04a1fce1f6c2b03a" prefix=" " category="inline-code"></block><block ref="c9d280b28993d1d105c3fbafb5868a15" prefix=" " category="inline-code"></block>：</block>
+  <block id="c198f49680a4c22b6d731cdd7d7b513a" category="paragraph">您可以使用<block ref="cd4140d3de30b520500459331d08d2bf" prefix=" " category="inline-code"></block>命令檢閱安裝詳細資料，例如名稱，命名空間，圖表，狀態，應用程式版本和修訂版編號。</block>
+  <block id="bc98cc711b3772fd9a044dd6fcbd1631" category="section-title">透過 EKS 附加元件安裝 Astra Trident</block>
+  <block id="0a77764215483fbccc22e1d77abfb50f" category="paragraph">Astra Trident EKS 附加元件包含最新的安全性修補程式、錯誤修正程式、並經過 AWS 驗證、可與 Amazon EKS 搭配使用。EKS 附加元件可讓您持續確保 Amazon EKS 叢集安全穩定、並減少安裝、設定及更新附加元件所需的工作量。</block>
+  <block id="7184de869a88c49faff4f6482457e5cb" category="section-title">啟用 AWS 的 Astra Trident 附加元件</block>
+  <block id="9ea02e0a94b03561cf2861dcac685125" category="paragraph">下列命令範例會安裝 Astra Trident EKS 附加元件：</block>
+  <block id="4f9bffbf1ddd667b6d18ee5fe3bc3389" category="paragraph"><block ref="3428bfd6b9aff85ad104616c57d9e301" prefix="" category="inline-code"></block><block ref="21c6b99e1b958da23b23c0373944c626" prefix=" " category="inline-code"></block> （使用專用版本）</block>
+  <block id="d6821a378e60f781e319890caff45c30" category="list-text">在 AWS Marketplace EKS-addons 區段中、選取 *Astra Trident by NetApp * 核取方塊。</block>
+  <block id="dbc0f27a2aa9fd3fbef77c25870f8248" category="list-text">安裝 Astra Trident EKS 附加元件 "</block>
+  <block id="ee502e3f68953ecace683d05b827a6ae" category="section-title">更新 Astra Trident EKS 附加元件</block>
+  <block id="d7cbf82bbbafb530fdf4ff891b9d305d" category="list-text">將附加元件更新至上一個步驟輸出中可用更新所傳回的版本。<block ref="7517f28d87e3e3f5f51c7054bcfb6847" prefix=" " category="inline-code"></block></block>
+  <block id="1b11ccfac36888509b0b9fb0f99a4bbb" category="list-text">按一下 *Astra Trident by NetApp * ，然後按一下 *Edit* 。</block>
+  <block id="351442864548fcc84173a68a66b38f2d" category="list-text">在 * 設定 Astra Trident by NetApp * 頁面上、執行下列步驟：</block>
+  <block id="844c1d7ef01df888c2eaad6c7c2913c1" category="paragraph"><block ref="1e4bc555b90c0333c8626cc7405bd1f8" prefix="" category="inline-code"></block></block>
+  <block id="8d995c3ade9702f8b3d41df18d276fc0" category="section-title">解除安裝 / 移除 Astra Trident EKS 附加元件</block>
+  <block id="d43d72969793ea80734b71e9c2406b2a" category="list-text">* 保留叢集上的附加軟體 * –此選項會移除 Amazon EKS 對任何設定的管理。它也會移除 Amazon EKS 通知您更新的功能、並在您啟動更新後自動更新 Amazon EKS 附加元件。不過、它會保留叢集上的附加軟體。此選項可讓附加元件成為自我管理的安裝、而非 Amazon EKS 附加元件。有了這個選項、附加元件就不會停機。保留<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 命令中的選項以保留附加元件。</block>
+  <block id="4c467d48a00d885ea22b1e685b747492" category="list-text">* 從叢集完全移除附加軟體 * –我們建議您只有在叢集上沒有任何相關資源的情況下、才從叢集移除 Amazon EKS 附加元件。從命令中移除<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 選項<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> 以移除附加元件。</block>
+  <block id="8019e0dcd97c1bda9a4283c660df9424" category="list-text">單擊 *Add-ons* 選項卡，然後單擊 *Astra Trident by NetApp * 。 *</block>
 </blocks>

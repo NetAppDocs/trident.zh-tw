@@ -68,25 +68,25 @@ link:https://www.netapp.com/cloud-services/cloud-volumes-ontap/["Cloud Volumes O
 link:https://bluexp.netapp.com/google-cloud-netapp-volumes?utm_source=GitHub&utm_campaign=Trident["Google Cloud NetApp Volumes"^] 是 Google Cloud 中的完全託管檔案儲存服務，可提供高效能的企業級檔案儲存。
 
 ====
+.Element軟體
+[%collapsible]
+====
 https://www.netapp.com/data-management/element-software/["元素"^] 儲存管理員可藉由保證效能、並簡化及簡化儲存設備佔用空間、來整合工作負載。
 
-[]
 ====
-
+.NetApp HCI
+[%collapsible]
 ====
 link:https://docs.netapp.com/us-en/hci/docs/concept_hci_product_overview.html["NetApp HCI"^] 將例行工作自動化、讓基礎架構管理員能夠專注於更重要的功能、進而簡化資料中心的管理與規模。
 
 Trident可直接針對底層NetApp HCI 的資訊儲存平台、為容器化應用程式配置及管理儲存設備。
 
-[]
 ====
-
+.NetApp ONTAP
+[%collapsible]
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["NetApp ONTAP"^] 是 NetApp 多重傳輸協定、統一化的儲存作業系統、可為任何應用程式提供進階的資料管理功能。
 
 支援所有Flash、混合式或全硬碟組態的系統、可提供多種不同的部署模式、包括工程設計硬體（英文版）、白箱（英文版）和僅雲端（英文版）ONTAP FAS AFF ONTAP Select Cloud Volumes ONTAP 。Trident 支援這些 ONTAP 部署模式。
-
-[]
-====
 
 ====

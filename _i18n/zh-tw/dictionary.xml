@@ -4454,7 +4454,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="9ee0b57319616120eef37546fa8e4c42" category="doc">安裝及設定 Trident Protect</block>
   <block id="dc48a335c2095fb6a79ee14ee62b4806" category="paragraph">如果您的環境符合 Trident Protect 的要求，您可以依照下列步驟在叢集上安裝 Trident Protect 。您可以從 NetApp 取得 Trident Protect ，或從您自己的私有登錄安裝。如果您的叢集無法存取網際網路，從私有登錄安裝會很有幫助。</block>
   <block id="1d5f2a4008fa2c223d0ebc6aea423256" category="open-title">安裝 Trident Protect from NetApp</block>
-  <block id="6802e29016a0674682497c848bf90236" category="list-text">使用 Helm 安裝 Trident Protect 。以叢集名稱取代<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>，該名稱將指派給叢集，用於識別此叢集的備份和快照：</block>
   <block id="b533d7fe842e47fbd62d24400867d3f2" category="list-text">您也可以凍結 VM 。如果您使用 KubeVirt 支援 SnapMirror ，則凍結虛擬機器可協助您有效管理：</block>
   <block id="e49b02afb984c32aa521917480fc4012" category="inline-link-macro">安裝 OpenShift 虛擬化</block>
   <block id="c096df753a5c7335177118895259c96a" category="admonition">您必須設定虛擬化，凍結功能才能正常運作。在此設定之後部署的 VM 包括凍結和取消凍結所需的二進位檔。若要深入瞭解設定虛擬化的相關<block ref="2e657c6eb92d8a54673acb8e93eb84d5" category="inline-link-macro-rx"></block>資訊，請參閱。</block>
@@ -4465,7 +4464,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="e0f6b701766eb28d805d7ba1e820f582" category="list-text">登入登錄：</block>
   <block id="814565bb5d7e7359fff967986fd4195a" category="list-text">建立用於私人登錄驗證的拉出密碼：</block>
   <block id="9fd6c1e403ca347a1528f0f6688f6a06" category="list-text">建立名稱包含下列 Trident Protect 設定的檔案<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block>：</block>
-  <block id="5d276dc92276b59621488d2545356081" category="list-text">使用 Helm 安裝 Trident Protect ：</block>
   <block id="86e8b34710172d33dcae839e1f4dd07e" category="summary">您可以建立應用程式 CR 和相關的 AppVault CR ，讓 Trident Protect 瞭解您想要管理的應用程式。</block>
   <block id="80b940e5c68d020c06f9dc2f188d2169" category="doc">定義管理應用程式</block>
   <block id="1e10d655f5307ce7f79aeee68a9e72f3" category="paragraph">您可以建立應用程式 CR 和相關的 AppVault CR ，以定義您想要使用 Trident Protect 管理的應用程式。</block>
@@ -4854,7 +4852,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="eae3a231fcdd07328a039c0bd1b3ebdf" category="list-text">使用下列命令尋找 * shutdownsnapshot .status.appArchivePath* 的值，並記錄檔案路徑的最後一部分（也稱為 basename ；這將是最後一個斜線之後的所有項目）：</block>
   <block id="9facdd349a186c792ec6a26f5b938472" category="list-text">執行容錯移轉，從目的地叢集移轉至來源叢集，並進行下列變更：</block>
   <block id="bdd0666b03fe73dd725c0376fdb435e0" category="admonition">在容錯移轉程序的步驟 2 中，將欄位包含在<block ref="60464bee8fcac84cb209df68a2b05fba" prefix=" " category="inline-code"></block> AppMirrorRelationship CR 檔案中，並將其值設為您在上述步驟 3 中記錄的基礎名稱。</block>
-  <block id="6813800aea854bfb29f3b2931dae3410" category="list-text">執行中的反向重新同步步驟<block ref="34fbd8efeee5eb11716e5f3f4c6db090" category="inline-xref-macro-rx"></block>。</block>
   <block id="ab486212bb19e45c8e71532739574a22" category="list-text">在新的來源叢集上啟用保護排程。</block>
   <block id="aea4fd534bd3152673956c6bbd7c115c" category="paragraph">由於反向複寫，因此會發生下列動作：</block>
   <block id="a23cf6af7e31f808d57bb74c992226c6" category="list-text">原始來源應用程式的 Kubernetes 資源會擷取快照。</block>
@@ -4867,10 +4864,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="fbe6471033a142db5e3165e4034c1157" category="paragraph">使用 Trident Protect ，您可以使用下列作業順序，在容錯移轉作業之後達成「容錯回復」。在此工作流程中，為了還原原始複寫方向， Trident Protect 會在還原複寫方向之前，將任何應用程式變更複寫回原始來源應用程式。</block>
   <block id="3a045f0ae84563b460627f43bb272936" category="paragraph">此程序從已完成容錯移轉至目的地的關係開始、並涉及下列步驟：</block>
   <block id="9cbd7771b861e31b5edb23d83de4758c" category="list-text">從容錯移轉狀態開始。</block>
-  <block id="9f8be3d8552ca406f8bc6e98f620deeb" category="list-text">反轉重新同步關係。</block>
-  <block id="ad04ac539c02d43abb5b3468d853b96d" category="list-text">反轉複寫。</block>
-  <block id="a98cf8721f50314020f780a1b99cc880" category="list-text">執行<block ref="3767bb9c312610e22029cc3e24b4717f" category="inline-xref-macro-rx"></block>步驟</block>
-  <block id="b776a375decd9bf6b9cc3c7744034e92" category="list-text">執行<block ref="34fbd8efeee5eb11716e5f3f4c6db090" category="inline-xref-macro-rx"></block>步驟</block>
   <block id="39d2beed854377dcad2ea22fe9e58477" category="section-title">刪除複寫關係</block>
   <block id="a6c87e2b66308cd117a39af0fdac9885" category="paragraph">您可以隨時刪除複寫關係。當您刪除應用程式複寫關係時，會產生兩個獨立的應用程式，兩者之間沒有任何關係。</block>
   <block id="146012b834b7d1f68305ff2495a1beb7" category="list-text">刪除 AppMirrorRelationship CR ：</block>
@@ -4933,4 +4926,26 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="8019e0dcd97c1bda9a4283c660df9424" category="list-text">單擊 *Add-ons* 選項卡，然後單擊 *Astra Trident by NetApp * 。 *</block>
   <block id="03f2a9d8b5b9f1a03bc58b91a939d84f" category="paragraph"><block ref="ad43edaec055586043c762c9475bde5c" category="inline-link-macro-rx"></block> 是 Google Cloud 中的完全託管檔案儲存服務，可提供高效能的企業級檔案儲存。</block>
   <block id="0ce84605b24873b2ee81987302d60089" category="paragraph"><block ref="bc468e9b0072cb6f1552f9bc0a3b6063" category="inline-link-rx"></block>是一種雲端原生檔案服務，可透過 NFS 提供 NAS 磁碟區，提供 All Flash 效能。此服務可讓任何工作負載（包括舊版應用程式）在GCP雲端上執行。它提供完整的託管服務、提供一致的高效能、即時複製、資料保護、以及安全存取Google Compute Engine（GCE）執行個體。</block>
+  <block id="afb432a9cb893dca3218bf5ed8f124b6" category="section-title">步驟 6 ：授予對 AppVault 物件的存取權</block>
+  <block id="518792e00e0ca0d711657c9051ae8b45" category="paragraph">若要執行資料管理工作，例如備份和快照，叢集管理員必須將 AppVault 物件的存取權授予個別使用者。</block>
+  <block id="3ce2b0dd65dc314e4d0ccf4ed02db5a7" category="list-text">建立並套用 AppVault 和加密組合 YAML 檔案，以授予使用者存取 AppVault 的權限。例如，下列 CR 將 AppVault 的存取權授予使用者<block ref="6ca05da537cc3daa1ec22134c0b69946" prefix=" " category="inline-code"></block>：</block>
+  <block id="f1c648202447b3667edef5439e1a8c5e" category="list-text">建立並套用角色 CR ，讓叢集管理員能夠授與對命名空間中特定資源的存取權。例如：</block>
+  <block id="2ebacf7e8f38b367350c5c91618a6e79" category="list-text">建立並套用 RoleBinding CR ，將權限繫結至使用者 eng-user 。例如：</block>
+  <block id="dc3d0a515ce0266cb00eb5cc06c4fe94" category="list-text">確認權限正確。</block>
+  <block id="b5c9b7c142e23b0f885d64628ec267ff" category="list-text">嘗試擷取所有命名空間的 AppVault 物件資訊：</block>
+  <block id="d0848afd8553c34945705222a97a4553" category="paragraph">您應該會看到類似下列的輸出：</block>
+  <block id="07337191562a62a775a853d9901903a6" category="list-text">測試以查看使用者是否能取得他們現在有權存取的 AppVault 資訊：</block>
+  <block id="e7165fc51f62031fcae1d793899febaa" category="paragraph">您已授予 AppVault 權限的使用者應該能夠使用授權的 AppVault 物件來執行應用程式資料管理作業，而且不應能夠存取指派命名空間以外的任何資源，或建立他們無法存取的新資源。</block>
+  <block id="a268a576db3133de464aad1cd81ab3e1" category="inline-link-macro">產生支援服務組合</block>
+  <block id="a10e94152d7706a1754c5224358811ad" category="admonition">根據預設， Trident Protect 會收集支援資訊，協助處理您可能開啟的任何 NetApp 支援案例，包括叢集和託管應用程式的記錄，度量和拓撲資訊。Trident Protect 會根據每日排程將這些支援套裝組合傳送至 NetApp 。您可以選擇在安裝 Trident Protect 時停用此支援套件集合。您可以隨時手動<block ref="dedfc5877c343d6cbe77701c7edd9bde" category="inline-link-macro-rx"></block>進行。</block>
+  <block id="76d9687f27080e6c2da9c8a0d64fbd42" category="list-text">安裝 Trident Protect 客戶需求日：</block>
+  <block id="a29c2442da7eaa2adc245c73a4fa8969" category="list-text">使用 Helm 以下列其中一個命令來安裝 Trident Protect 。以叢集名稱取代<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>，該名稱將指派給叢集，用於識別叢集的備份和快照：</block>
+  <block id="7eccc1ff44845b9328911013fd4f479d" category="list-text">正常安裝 Trident Protect ：</block>
+  <block id="567ddef6d1b44dd7de5bb03fcf15e432" category="list-text">安裝 Trident Protect 並停用排定的每日 Trident Protect AutoSupport 支援服務套件上傳：</block>
+  <block id="753f99fdafabdea1282917a0d7df52d4" category="list-text">執行中的反向重新同步步驟<block ref="07428cadd63a52910df8ba314efe2f56" category="inline-xref-macro-rx"></block>。</block>
+  <block id="fe411ea35c29677771dcaad52985fc08" category="list-text">反向重新同步複寫關係。</block>
+  <block id="eb10e971ec83f13f35beb8166ae8958b" category="admonition">請勿執行正常的重新同步作業，因為這會捨棄在容錯移轉程序期間寫入目的地叢集的資料。</block>
+  <block id="de5da2c7cfd6c7eda31703be01d3513e" category="list-text">反轉複寫方向。</block>
+  <block id="be41e0ea028981dcba35343dcbd34991" category="list-text">執行<block ref="07428cadd63a52910df8ba314efe2f56" category="inline-xref-macro-rx"></block>步驟。</block>
+  <block id="e3f67484570d0b1b5736841718c5ab22" category="list-text">執行<block ref="80fca82e419d46692dbbc4fbbcd0c990" category="inline-xref-macro-rx"></block>步驟。</block>
 </blocks>

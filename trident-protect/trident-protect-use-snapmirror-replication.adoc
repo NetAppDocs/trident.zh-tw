@@ -458,7 +458,7 @@ k get shutdownsnapshot -n my-app-namespace <shutdown_snapshot_name> -o jsonpath=
 
 NOTE: 在容錯移轉程序的步驟 2 中，將欄位包含在 `spec.promotedSnapshot` AppMirrorRelationship CR 檔案中，並將其值設為您在上述步驟 3 中記錄的基礎名稱。
 
-. 執行中的反向重新同步步驟<<Reverse resync a failed over replication>>。
+. 執行中的反向重新同步步驟<<反轉重新同步容錯移轉複寫關係>>。
 . 在新的來源叢集上啟用保護排程。
 
 
@@ -485,13 +485,17 @@ NOTE: 在容錯移轉程序的步驟 2 中，將欄位包含在 `spec.promotedSn
 此程序從已完成容錯移轉至目的地的關係開始、並涉及下列步驟：
 
 * 從容錯移轉狀態開始。
-* 反轉重新同步關係。
-* 反轉複寫。
+* 反向重新同步複寫關係。
++
+
+CAUTION: 請勿執行正常的重新同步作業，因為這會捨棄在容錯移轉程序期間寫入目的地叢集的資料。
+
+* 反轉複寫方向。
 
 
 .步驟
-. 執行<<Resync a failed over replication>>步驟
-. 執行<<Reverse resync a failed over replication>>步驟
+. 執行<<反轉重新同步容錯移轉複寫關係>>步驟。
+. 執行<<反轉應用程式複寫方向>>步驟。
 
 
 

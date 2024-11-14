@@ -16,6 +16,9 @@ summary: 如果您的環境符合需求，您可以依照下列步驟安裝 Trid
 [role="lead"]
 如果您的環境符合 Trident Protect 的要求，您可以依照下列步驟在叢集上安裝 Trident Protect 。您可以從 NetApp 取得 Trident Protect ，或從您自己的私有登錄安裝。如果您的叢集無法存取網際網路，從私有登錄安裝會很有幫助。
 
+
+NOTE: 根據預設， Trident Protect 會收集支援資訊，協助處理您可能開啟的任何 NetApp 支援案例，包括叢集和託管應用程式的記錄，度量和拓撲資訊。Trident Protect 會根據每日排程將這些支援套裝組合傳送至 NetApp 。您可以選擇在安裝 Trident Protect 時停用此支援套件集合。您可以隨時手動link:trident-protect-generate-support-bundle.html["產生支援服務組合"]進行。
+
 [role="tabbed-block"]
 ====
 .安裝 Trident Protect from NetApp
@@ -26,17 +29,28 @@ summary: 如果您的環境符合需求，您可以依照下列步驟安裝 Trid
 ----
 helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
-. 使用 Helm 安裝 Trident Protect 。以叢集名稱取代 `<name_of_cluster>`，該名稱將指派給叢集，用於識別此叢集的備份和快照：
+. 安裝 Trident Protect 客戶需求日：
 +
 [source, console]
 ----
 helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
 ----
+. 使用 Helm 以下列其中一個命令來安裝 Trident Protect 。以叢集名稱取代 `<name_of_cluster>`，該名稱將指派給叢集，用於識別叢集的備份和快照：
++
+** 正常安裝 Trident Protect ：
 +
 [source, console]
 ----
 helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect
 ----
+** 安裝 Trident Protect 並停用排定的每日 Trident Protect AutoSupport 支援服務套件上傳：
++
+[source, console]
+----
+helm install trident-protect netapp-trident-protect/trident-protect --set autoSupport.enabled=false --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect
+----
+
+
 . 您也可以凍結 VM 。如果您使用 KubeVirt 支援 SnapMirror ，則凍結虛擬機器可協助您有效管理：
 +
 [source, console]
@@ -132,17 +146,28 @@ webhooksCleanup:
   imagePullSecrets:
   - name: regcred
 ----
-. 使用 Helm 安裝 Trident Protect ：
+. 安裝 Trident Protect 客戶需求日：
 +
 [source, console]
 ----
 helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
 ----
+. 使用 Helm 以下列其中一個命令來安裝 Trident Protect 。以叢集名稱取代 `<name_of_cluster>`，該名稱將指派給叢集，用於識別叢集的備份和快照：
++
+** 正常安裝 Trident Protect ：
 +
 [source, console]
 ----
 helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
+** 安裝 Trident Protect 並停用排定的每日 Trident Protect AutoSupport 支援服務套件上傳：
++
+[source, console]
+----
+helm install trident-protect netapp-trident-protect/trident-protect --set autoSupport.enabled=false --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+----
+
+
 . 您也可以凍結 VM 。如果您使用 KubeVirt 支援 SnapMirror ，則凍結虛擬機器可協助您有效管理：
 +
 [source, console]

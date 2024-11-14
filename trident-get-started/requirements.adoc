@@ -70,7 +70,7 @@ WARNING: 在將安裝了 Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 �
 * Amazon FSX for NetApp ONTAP 產品
 * Azure NetApp Files
 * Cloud Volumes ONTAP
-* 適用於 GCP Cloud Volumes Service
+* Google Cloud NetApp Volumes
 * FAS/AFF/選取9.5或更新版本
 * NetApp All SAN Array ASA （ESAN）
 * NetApp HCI / Element軟體11或更新版本

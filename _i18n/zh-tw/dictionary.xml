@@ -1316,8 +1316,6 @@
   <block id="25f221cc63a7e1fa55b05c29420a72a2" category="paragraph"><block ref="2841e7defe3939e68d83d007d1ad666b" category="inline-link-rx"></block> 將例行工作自動化、讓基礎架構管理員能夠專注於更重要的功能、進而簡化資料中心的管理與規模。</block>
   <block id="be17f8b9c728a6cb61cad5a2609b3888" category="paragraph">Trident完全支援此功能。NetApp HCITrident可直接針對底層NetApp HCI 的資訊儲存平台、為容器化應用程式配置及管理儲存設備。</block>
   <block id="29e7ab00082418141d470583a19c28d3" category="paragraph"><block ref="2384314bcd106c8062815b2ed789c4ad" category="inline-link-rx"></block> 是採用NetApp技術的企業級Azure檔案共享服務。您可以在Azure原生環境中執行最嚴苛的檔案型工作負載、並享有NetApp所提供的效能與豐富資料管理功能。</block>
-  <block id="a3b5183ae6f5c3f1d6644448f795b5cb" category="inline-link">適用於Cloud Volumes Service Google Cloud的NetApp解決方案</block>
-  <block id="a1515efe69d0ac9d979af2bdfc068934" category="paragraph"><block ref="68704f3321dd8ca7029c03c29da7736a" category="inline-link-rx"></block> 是雲端原生檔案服務、可透過NFS和SMB提供NAS磁碟區的All Flash效能。此服務可讓任何工作負載（包括舊版應用程式）在GCP雲端上執行。它提供完整的託管服務、提供一致的高效能、即時複製、資料保護、以及安全存取Google Compute Engine（GCE）執行個體。</block>
   <block id="60aaf44d4b562252c04db7f98497e9aa" category="cell">連接埠</block>
   <block id="261addf78c7b2c961032b3dd08ba0b1f" category="cell">目的</block>
   <block id="7e6b20d014d1c659e4eaf20dc2dcd7eb" category="cell">8443.</block>
@@ -2975,7 +2973,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="5051760a43d66d77d01c7a8eb030e7e1" category="paragraph"><block ref="c3736e0f766925817ef4f34af9c72365" category="inline-link-macro-rx"></block> 是一項完全託管的 AWS 服務、可讓您啟動及執行 NetApp ONTAP 儲存作業系統所支援的檔案系統。</block>
   <block id="29ec7bd31b1a1379b78d9898d947d73d" category="paragraph"><block ref="c5e53d3a8d8d3c363071213b1e4da969" category="inline-link-rx"></block> 是採用NetApp技術的企業級Azure檔案共享服務。您可以在Azure原生環境中執行最嚴苛的檔案型工作負載、並享有NetApp所提供的效能與豐富資料管理功能。</block>
   <block id="047d03a544a1cc3e86aff90177fbd63a" category="paragraph"><block ref="003ebe68b90d9dc2aab9b61b702f9f9b" category="inline-link-macro-rx"></block> 是一款純軟體的儲存應用裝置、可在ONTAP 雲端上執行功能完善的資料管理軟體。</block>
-  <block id="3a944a74350e87f8e938623ecf80e572" category="paragraph"><block ref="c18d316df0f1fbd9a217b5ad21b18d50" category="inline-link-macro-rx"></block> 是雲端原生檔案服務、可透過NFS和SMB提供NAS磁碟區的All Flash效能。</block>
   <block id="7630fd61eebe4d79cfa82d81963940d7" category="paragraph"><block ref="eca39b018af81e7b5c8e71b5b4aa3790" category="inline-link-rx"></block> 儲存管理員可藉由保證效能、並簡化及簡化儲存設備佔用空間、來整合工作負載。</block>
   <block id="d2a67136c7c7e990d18b8e71635d0395" category="paragraph"><block ref="59c437b3f3e5b14b78b208acb3b663e2" category="inline-link-macro-rx"></block> 將例行工作自動化、讓基礎架構管理員能夠專注於更重要的功能、進而簡化資料中心的管理與規模。</block>
   <block id="7b02ea300aef2e0bff0d7f6111053284" category="example-title">NetApp ONTAP</block>
@@ -4934,4 +4931,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="d43d72969793ea80734b71e9c2406b2a" category="list-text">* 保留叢集上的附加軟體 * –此選項會移除 Amazon EKS 對任何設定的管理。它也會移除 Amazon EKS 通知您更新的功能、並在您啟動更新後自動更新 Amazon EKS 附加元件。不過、它會保留叢集上的附加軟體。此選項可讓附加元件成為自我管理的安裝、而非 Amazon EKS 附加元件。有了這個選項、附加元件就不會停機。保留<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 命令中的選項以保留附加元件。</block>
   <block id="4c467d48a00d885ea22b1e685b747492" category="list-text">* 從叢集完全移除附加軟體 * –我們建議您只有在叢集上沒有任何相關資源的情況下、才從叢集移除 Amazon EKS 附加元件。從命令中移除<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 選項<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> 以移除附加元件。</block>
   <block id="8019e0dcd97c1bda9a4283c660df9424" category="list-text">單擊 *Add-ons* 選項卡，然後單擊 *Astra Trident by NetApp * 。 *</block>
+  <block id="03f2a9d8b5b9f1a03bc58b91a939d84f" category="paragraph"><block ref="ad43edaec055586043c762c9475bde5c" category="inline-link-macro-rx"></block> 是 Google Cloud 中的完全託管檔案儲存服務，可提供高效能的企業級檔案儲存。</block>
+  <block id="0ce84605b24873b2ee81987302d60089" category="paragraph"><block ref="bc468e9b0072cb6f1552f9bc0a3b6063" category="inline-link-rx"></block>是一種雲端原生檔案服務，可透過 NFS 提供 NAS 磁碟區，提供 All Flash 效能。此服務可讓任何工作負載（包括舊版應用程式）在GCP雲端上執行。它提供完整的託管服務、提供一致的高效能、即時複製、資料保護、以及安全存取Google Compute Engine（GCE）執行個體。</block>
 </blocks>

@@ -63,6 +63,6 @@ https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] 是採
 
 
 
-== 適用於 Google Cloud Cloud Volumes Service
+== Google Cloud NetApp Volumes
 
-https://cloud.netapp.com/cloud-volumes-service-for-gcp?utm_source=GitHub&utm_campaign=Trident["適用於Cloud Volumes Service Google Cloud的NetApp解決方案"^] 是雲端原生檔案服務、可透過NFS和SMB提供NAS磁碟區的All Flash效能。此服務可讓任何工作負載（包括舊版應用程式）在GCP雲端上執行。它提供完整的託管服務、提供一致的高效能、即時複製、資料保護、以及安全存取Google Compute Engine（GCE）執行個體。
+https://cloud.netapp.com/cloud-volumes-service-for-gcp?utm_source=GitHub&utm_campaign=Trident["Google Cloud NetApp Volumes"^]是一種雲端原生檔案服務，可透過 NFS 提供 NAS 磁碟區，提供 All Flash 效能。此服務可讓任何工作負載（包括舊版應用程式）在GCP雲端上執行。它提供完整的託管服務、提供一致的高效能、即時複製、資料保護、以及安全存取Google Compute Engine（GCE）執行個體。

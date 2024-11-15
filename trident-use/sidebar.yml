@@ -4,6 +4,9 @@ title: 使用 Trident
 entries:
 - title: 準備工作節點
   url: "/trident-use/worker-node-prep.html"
+  entries:
+  - title: 光纖通道上的 SCSI （ FC ）
+    url: "/trident-use/fcp.html"
 - title: 設定及管理後端
   entries:
   - title: 總覽

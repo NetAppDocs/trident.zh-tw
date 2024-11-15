@@ -2834,7 +2834,6 @@
   <block id="e80aabfb35c98e66a71baf6a3c90a7df" category="paragraph">開啟 dataLIFS 以還原完整功能。</block>
   <block id="5afe86ac983ac04ac6d9268beb2bc024" category="section-title">刪除命名空間對應</block>
   <block id="9b0dbff182f270b33423b281f92bddc2" category="paragraph">新增<block ref="a564a902c12941efa27c1d2ea4a19f8e" prefix=" " category="inline-code"></block> 返回子系統。</block>
-  <block id="cedfb4d575651cbf026e87084c68731c" category="paragraph">Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。若要準備工作節點、您必須根據您選擇的驅動程式來安裝 NFS 、 iSCSI 或 NVMe / TCP 工具。</block>
   <block id="2994aa6a94d7af57a2fb9663129866a9" category="paragraph">如果您使用的是驅動程式組合、則應該安裝所有必要的驅動程式工具。最新版本的 RedHat CoreOS 預設會安裝這些工具。</block>
   <block id="bfd6781963e74cc6cfd1f864a28a5b5b" category="admonition">我們建議使用適用於 NVMe / TCP 的 ONTAP 9.12 或更新版本。</block>
   <block id="4771a9c521a7d39c2dcf6ee71d0ef032" category="section-title">NVMe / TCP 磁碟區</block>
@@ -3956,7 +3955,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="326a8f228f219b0e904c9d182f05edc0" category="list-text">使用後端選項時、全新的 ONTAP NAS 經濟型 NFS 磁碟區將使用每 qtree 匯出原則<block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix=" " category="inline-code"></block>。qtree 只會在發佈時對應至節點限制的匯出原則、以改善存取控制和安全性。當 Trident 從所有節點取消發佈磁碟區時、現有的 qtree 將切換至新的匯出原則模型、而不會影響作用中的工作負載。</block>
   <block id="62900e6f021ab726737e77fc086ef8d8" category="list-text">增加了對 Kubernetes 1.31 的支援。</block>
   <block id="99feca4f342726633c553b7037f4effd" category="section-title">實驗性增強功能</block>
-  <block id="b4da90c52a04dd004929d86ec62cc931" category="list-text">在 ONTAP SAN 驅動程式上新增光纖通道支援的技術預覽。</block>
   <block id="f47cb8e173cabaf3981c7356253eaf5f" category="list-text">* Kubernetes* ：</block>
   <block id="d17c6ce149a6479587ff459c15a1f857" category="inline-link-macro">問題 #839</block>
   <block id="0d72ada08f4f4a9200f5e98c300ac3f5" category="list-text">固定的 Rancher 接入 Webhook 可防止安裝 Trident Helm （<block ref="db779c46d1b4e6ce40c3816626258ba8" category="inline-link-macro-rx"></block>）。</block>
@@ -4948,4 +4946,35 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="de5da2c7cfd6c7eda31703be01d3513e" category="list-text">反轉複寫方向。</block>
   <block id="be41e0ea028981dcba35343dcbd34991" category="list-text">執行<block ref="07428cadd63a52910df8ba314efe2f56" category="inline-xref-macro-rx"></block>步驟。</block>
   <block id="e3f67484570d0b1b5736841718c5ab22" category="list-text">執行<block ref="80fca82e419d46692dbbc4fbbcd0c990" category="inline-xref-macro-rx"></block>步驟。</block>
+  <block id="d5b345f45f80f7f56440408591048e1a" category="inline-link-macro">Fibre Channel 支援</block>
+  <block id="f1c09cfcd8aa6e6314b92b3a724aca83" category="list-text">在 ONTAP SAN 驅動程式上新增光纖通道支援的技術預覽。請參閱 <block ref="9954ad164e99690ed1af0635a7949c36" category="inline-link-macro-rx"></block>。</block>
+  <block id="3ffb7f02782ced1dbec181c6524bea0b" category="doc">光纖通道（ FC ）支援</block>
+  <block id="51d8fa0a5eb3f269bad2a2a47a660a2d" category="paragraph">您現在可以搭配 Trident 使用光纖通道（ FC ）傳輸協定，在 ONTAP 系統上配置及管理儲存資源。</block>
+  <block id="5084aac4393e5aff5539dc0265ab2e37" category="paragraph">Fibre Channel 是企業儲存環境中廣泛採用的一種傳輸協定，因為它具有高效能，可靠性和擴充性。它為儲存裝置提供強大且有效率的通訊通道，可快速且安全地傳輸資料。透過光纖通道使用 SCSI ，您可以運用現有的 SCSI 儲存基礎架構，同時享有光纖通道的高效能和長距離功能。它可整合儲存資源，並建立可擴充且有效率的儲存區域網路（ SAN ），以低延遲處理大量資料。</block>
+  <block id="87ef5e348a9702ee84419ab313442e62" category="paragraph">使用 FC 功能搭配 Trident ，您可以執行下列動作： * 使用部署規格動態配置 PVC 。* 拍攝 Volume 快照，並從快照建立新的 Volume 。* 複製現有的 FC-PVC 。* 調整已部署磁碟區的大小。</block>
+  <block id="822b1839c387749c78601eebc94c8d7d" category="paragraph">設定 FC 所需的網路和節點設定。</block>
+  <block id="f508b22c8fc4486b19fee39d5ded3841" category="section-title">網路設定</block>
+  <block id="16fdd92def5a71313d6535c74ef67b81" category="inline-link-macro">網路介面顯示</block>
+  <block id="fc2e7b75efdee011ff06c37c7b71f6a6" category="list-text">取得目標介面的 WWPN 。如需詳細資訊、請參閱 <block ref="cc71fd7fb2f6e7e70f421fe2150fdc04" category="inline-link-macro-rx"></block> 。</block>
+  <block id="cc7e69899d736126df9787634ad41870" category="list-text">取得啟動器（主機）介面的 WWPN 。</block>
+  <block id="1089b965cabd19cfee7f3ef855fbd63d" category="paragraph">請參閱對應的主機作業系統公用程式。</block>
+  <block id="6f58745fc3a341adae0772d30d9e508c" category="list-text">使用主機和目標的 WWPN 在 FC 交換器上設定分區。</block>
+  <block id="54336aa51b161faac4d0ebb1b76b1536" category="paragraph">如需詳細資訊，請參閱重新輸入交換器廠商文件。</block>
+  <block id="299f2e1a529559eb06c9dfbe12ccdea9" category="paragraph">如需詳細資訊，請參閱下列 ONTAP 文件：</block>
+  <block id="d7281ba358054b30594dcd34819057a1" category="inline-link">Fibre Channel和FCoE分區總覽</block>
+  <block id="bce9f24194c15bbf6b5ad6cd1d8d1899" category="list-text"><block ref="bce9f24194c15bbf6b5ad6cd1d8d1899" category="inline-link-rx"></block></block>
+  <block id="9b9db0b6f6df6361aa97412feea7ae07" category="list-text"><block ref="1a83c479258a4b0e250085c944bae4de" category="inline-link-rx"></block></block>
+  <block id="a92a311c4eeb6cfdcc775cfca067ea8d" category="paragraph">Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。若要為 FC 準備工作節點，您必須安裝必要的工具。</block>
+  <block id="36b37761159ed00a729b4f6fab9a0f02" category="paragraph-title">安裝 FC 工具</block>
+  <block id="f0ad3dc6a6ba17b1e77a2a4af657f22a" category="paragraph">使用作業系統的命令來安裝FC工具。</block>
+  <block id="ef7c7fb7512d2686223cbef4d18a4687" category="section-title">建立後端組態</block>
+  <block id="9ca5edfbebc9d61a4e6f574ff097a540" category="paragraph">為驅動程式和<block ref="0f64d0456878c73cbec1ccea842a6f14" prefix=" " category="inline-code"></block> sanType 建立 Trident 後端<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>。</block>
+  <block id="6563093287f74a616e9d7ac49b4d6a44" category="paragraph">請參閱：</block>
+  <block id="c8a4ebb8f375440952f478262c6dc775" category="list-text"><block ref="c8a4ebb8f375440952f478262c6dc775" category="inline-link-macro-rx"></block></block>
+  <block id="4dff3394c7a642139ff55771ed74588c" category="list-text"><block ref="4dff3394c7a642139ff55771ed74588c" category="inline-link-macro-rx"></block></block>
+  <block id="db9cdbb22315c0c520742eed35564a6e" category="listing-title">FC 的後端組態範例</block>
+  <block id="2f8299f876158db323c08455b12b585a" category="paragraph">如需詳細資訊、請參閱：</block>
+  <block id="61379a8f62ab2974cb68f4754e439dfd" category="list-text"><block ref="61379a8f62ab2974cb68f4754e439dfd" category="inline-link-macro-rx"></block></block>
+  <block id="553ac32ac6bcab84d5384eda7468d415" category="paragraph">Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。若要準備工作節點，您必須根據您選擇的驅動程式來安裝 NFS ， iSCSI ， NVMe / TCP 或 FC 工具。</block>
+  <block id="07e8df1ea1cba20edddeb5a9da554efd" category="sidebar">光纖通道上的 SCSI （ FC ）</block>
 </blocks>

@@ -63,7 +63,7 @@ link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Pr
 
 ==== 實驗性增強功能
 
-* 在 ONTAP SAN 驅動程式上新增光纖通道支援的技術預覽。請參閱 link:../trident-use/fcp.html["Fibre Channel 支援"]。
+* 在 ONTAP SAN 驅動程式上新增光纖通道支援的技術預覽。請參閱 link:../trident-use/fcp.html["Fibre Channel 支援"^]。
 
 
 

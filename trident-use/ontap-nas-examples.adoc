@@ -69,7 +69,12 @@ summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP NAS 驅動程式
 | 密碼 | 連線至叢集/ SVM的密碼。用於認證型驗證 |  
 
 
-| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。設定後無法更新 | " Trident " 
+| 「toragePrefix」  a| 
+在SVM中配置新磁碟區時所使用的前置碼。設定後無法更新
+
+
+NOTE: 使用 ONTAP NAS 經濟型和 24 個以上字元的 storagePrefix 時， qtree 將不會內嵌儲存前置字元，不過它會位於磁碟區名稱中。
+| " Trident " 
 
 
 | 《Aggregate》  a| 

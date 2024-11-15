@@ -3217,7 +3217,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="bd97885496639b0f4498d4131198ac36" category="list-text">新增對Windows Server 2022節點的支援。</block>
   <block id="de547bcab0e20f54ec4d5e95ba44b0b1" category="list-text">Windows Server 2022</block>
   <block id="010e61d0b40eeb84b96a1321e8f0bab7" category="cell">ext4 、 ext3 、 xfs</block>
-  <block id="c9db4c3d8dc7c24ea723ab5fe1e45fdb" category="list-text">OpenShift 4.10 - 4.16</block>
   <block id="e422e290c66eca7f882976f830b781b4" category="list-text">增加了對 Kubernetes 1.30 的支援。</block>
   <block id="190dbae19c88b1e68bf03f7783c5d5d1" category="list-text"><block ref="190dbae19c88b1e68bf03f7783c5d5d1" category="inline-link-rx"></block></block>
   <block id="430c6bcb8516befc45fb8173b0ca4e1f" category="list-text"><block ref="430c6bcb8516befc45fb8173b0ca4e1f" category="inline-link-rx"></block></block>
@@ -4977,4 +4976,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="61379a8f62ab2974cb68f4754e439dfd" category="list-text"><block ref="61379a8f62ab2974cb68f4754e439dfd" category="inline-link-macro-rx"></block></block>
   <block id="553ac32ac6bcab84d5384eda7468d415" category="paragraph">Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。若要準備工作節點，您必須根據您選擇的驅動程式來安裝 NFS ， iSCSI ， NVMe / TCP 或 FC 工具。</block>
   <block id="07e8df1ea1cba20edddeb5a9da554efd" category="sidebar">光纖通道上的 SCSI （ FC ）</block>
+  <block id="766a0f35ad6c38b247125809df6efead" category="list-text">OpenShift 4.10 - 4.17</block>
+  <block id="64467ac9530ff26c4e6495117175346d" category="admonition">使用 ONTAP NAS 經濟型和 24 個以上字元的 storagePrefix 時， qtree 將不會內嵌儲存前置字元，不過它會位於磁碟區名稱中。</block>
 </blocks>

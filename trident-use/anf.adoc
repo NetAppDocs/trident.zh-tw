@@ -133,7 +133,7 @@ spec:
 使用下列環境變數設定 * 雲端供應商（ CP ） * 和 * 雲端身分識別（ CI ） * 旗標的值：
 
 `export CP="Azure"`
-`export CI="azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"`
+`export CI="'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'"`
 
 下列範例使用環境變數安裝 Trident 並將設定 `cloudProvider`為 Azure `$CP` 、並使用環境變數 `$CI`設定 `cloudIdentity`：
 

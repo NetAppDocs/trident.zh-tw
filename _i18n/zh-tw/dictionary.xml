@@ -4949,7 +4949,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="3ffb7f02782ced1dbec181c6524bea0b" category="doc">光纖通道（ FC ）支援</block>
   <block id="51d8fa0a5eb3f269bad2a2a47a660a2d" category="paragraph">您現在可以搭配 Trident 使用光纖通道（ FC ）傳輸協定，在 ONTAP 系統上配置及管理儲存資源。</block>
   <block id="5084aac4393e5aff5539dc0265ab2e37" category="paragraph">Fibre Channel 是企業儲存環境中廣泛採用的一種傳輸協定，因為它具有高效能，可靠性和擴充性。它為儲存裝置提供強大且有效率的通訊通道，可快速且安全地傳輸資料。透過光纖通道使用 SCSI ，您可以運用現有的 SCSI 儲存基礎架構，同時享有光纖通道的高效能和長距離功能。它可整合儲存資源，並建立可擴充且有效率的儲存區域網路（ SAN ），以低延遲處理大量資料。</block>
-  <block id="87ef5e348a9702ee84419ab313442e62" category="paragraph">使用 FC 功能搭配 Trident ，您可以執行下列動作： * 使用部署規格動態配置 PVC 。* 拍攝 Volume 快照，並從快照建立新的 Volume 。* 複製現有的 FC-PVC 。* 調整已部署磁碟區的大小。</block>
   <block id="822b1839c387749c78601eebc94c8d7d" category="paragraph">設定 FC 所需的網路和節點設定。</block>
   <block id="f508b22c8fc4486b19fee39d5ded3841" category="section-title">網路設定</block>
   <block id="16fdd92def5a71313d6535c74ef67b81" category="inline-link-macro">網路介面顯示</block>
@@ -4979,4 +4978,9 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="64467ac9530ff26c4e6495117175346d" category="admonition">使用 ONTAP NAS 經濟型和 24 個以上字元的 storagePrefix 時， qtree 將不會內嵌儲存前置字元，不過它會位於磁碟區名稱中。</block>
   <block id="0d28255dc96cb23d422741096c09ce8e" category="paragraph"><block ref="256d12880dee7515c7ed6253fd0a228a" prefix="" category="inline-code"></block><block ref="bd5ed83ae12ddcfe924a6af54a0be554" prefix=" " category="inline-code"></block></block>
   <block id="8643539c7696bee604cfc39337280ef3" category="list-text">在 ONTAP SAN 驅動程式上新增光纖通道支援的技術預覽。請參閱 <block ref="5aa030ef89b8f38b2fa353dc2fa17e8d" category="inline-link-macro-rx"></block>。</block>
+  <block id="1803781f7c004f51be9b62cbcd506ed2" category="paragraph">使用 FC 功能搭配 Trident ，您可以執行下列動作：</block>
+  <block id="7294f3b61be368d5929dcdabac5431cf" category="list-text">使用部署規格動態配置 PVC 。</block>
+  <block id="aedb73fd0ccffbcf4bb3a5bc721b9603" category="list-text">擷取 Volume 快照，並從快照建立新的 Volume 。</block>
+  <block id="aa2fd96b8dfdeb6aaaf2bb11da1413aa" category="list-text">複製現有的 FC-PVC 。</block>
+  <block id="de35bb06ba09c90d091b31450c61efd7" category="list-text">調整已部署磁碟區的大小。</block>
 </blocks>

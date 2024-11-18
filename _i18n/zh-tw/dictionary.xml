@@ -4414,8 +4414,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="d58e744bd40cf0f8373ee5b2c7d11387" category="open-title">下載適用於 Mac AMD64 CPU 的外掛程式</block>
   <block id="fd3e558ef6c1af851bddabf0eb1945d7" category="open-title">下載 Mac ARM64 CPU 的外掛程式</block>
   <block id="412a5def83fe5329b38679035cfea675" category="list-text">啟用二進位檔案的執行權限：</block>
-  <block id="9bd9e61654b5ae02837f94c50605b5e3" category="list-text">將外掛程式二進位檔複製到您選擇的路徑：</block>
-  <block id="42be0effe300120c50a16b27b8feac25" category="list-text">或者，若要以全域方式安裝二進位檔，請將外掛程式二進位檔複製到全域路徑。例如：<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block>或<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block>（您可能需要提升的 Privileges ）：</block>
   <block id="b23c395acc963a69b0a5f06a20bb4887" category="section-title">檢視 Trident CLI 外掛程式說明</block>
   <block id="305f79cb740685921820521a57e525e5" category="paragraph">您可以使用內建的外掛程式說明功能，取得外掛程式功能的詳細說明：</block>
   <block id="09b4818c610e8f967a9f5257455a3a2a" category="list-text">使用說明功能檢視使用指南：</block>
@@ -4983,4 +4981,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="aedb73fd0ccffbcf4bb3a5bc721b9603" category="list-text">擷取 Volume 快照，並從快照建立新的 Volume 。</block>
   <block id="aa2fd96b8dfdeb6aaaf2bb11da1413aa" category="list-text">複製現有的 FC-PVC 。</block>
   <block id="de35bb06ba09c90d091b31450c61efd7" category="list-text">調整已部署磁碟區的大小。</block>
+  <block id="15286900a0d0667ffc4d515aeec6a1d2" category="list-text">將外掛程式二進位檔複製到路徑變數中定義的位置。例如，<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block>或<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block>（您可能需要提升的 Privileges ）：</block>
+  <block id="b3062a04e26d499596575c6767c02c16" category="list-text">您也可以選擇將二進位檔案複製到主目錄中的某個位置。在這種情況下，您可能需要將位置新增至 PATH 變數：</block>
 </blocks>

@@ -75,17 +75,17 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 ----
 chmod +x tridentctl-protect
 ----
-. 將外掛程式二進位檔複製到您選擇的路徑：
-+
-[source, console]
-----
-cp ./tridentctl-protect ~/bin/
-----
-. 或者，若要以全域方式安裝二進位檔，請將外掛程式二進位檔複製到全域路徑。例如： `/usr/bin`或 `/usr/local/bin`（您可能需要提升的 Privileges ）：
+. 將外掛程式二進位檔複製到路徑變數中定義的位置。例如， `/usr/bin`或 `/usr/local/bin`（您可能需要提升的 Privileges ）：
 +
 [source, console]
 ----
 cp ./tridentctl-protect /usr/local/bin/
+----
+. 您也可以選擇將二進位檔案複製到主目錄中的某個位置。在這種情況下，您可能需要將位置新增至 PATH 變數：
++
+[source, console]
+----
+cp ./tridentctl-protect ~/bin/
 ----
 
 

@@ -33,7 +33,7 @@ helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-he
 +
 [source, console]
 ----
-helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
+helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0 --create-namespace --namespace trident-protect
 ----
 . 使用 Helm 以下列其中一個命令來安裝 Trident Protect 。以叢集名稱取代 `<name_of_cluster>`，該名稱將指派給叢集，用於識別叢集的備份和快照：
 +
@@ -150,7 +150,7 @@ webhooksCleanup:
 +
 [source, console]
 ----
-helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
+helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0 --create-namespace --namespace trident-protect
 ----
 . 使用 Helm 以下列其中一個命令來安裝 Trident Protect 。以叢集名稱取代 `<name_of_cluster>`，該名稱將指派給叢集，用於識別叢集的備份和快照：
 +

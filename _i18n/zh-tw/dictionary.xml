@@ -4661,7 +4661,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="6a07207e8441bfa8c4c36dc925112780" category="list-text">將備份還原至不同的命名空間，以環境中的資訊取代括弧中的值。此<block ref="65e11896cb6b19f7dcb2432e67c74725" prefix=" " category="inline-code"></block>引數使用以冒號分隔的命名空間，以格式將來源命名空間對應至正確的目的地命名空間<block ref="07c70c21dcae158a4b2f0d389a52981b" prefix=" " category="inline-code"></block>。例如：</block>
   <block id="0bfcabe961e72fea535a073143d53fad" category="section-title">從備份還原至原始命名空間</block>
   <block id="7260bc412b6c22c2589f01098c1f4430" category="paragraph">您可以隨時將備份還原至原始命名空間。</block>
-  <block id="ccad4e21e7ba2bf4cc861355c3bd79ad" category="admonition">將備份還原至具有現有資源的命名空間，並不會改變任何與備份中共用名稱的資源。若要還原備份中的所有資源，請刪除並重新建立目標命名空間，或將備份還原至新的命名空間。</block>
   <block id="34653be4af07bad31b9a3775f18b1b5f" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="59a09233aaa2a2c9e25fc46650bd6dee" prefix=" " category="inline-code"></block>。</block>
   <block id="349d4c53fe9d2e740d60f7ce8094c294" category="list-text">在您以正確的值填入檔案之後<block ref="59a09233aaa2a2c9e25fc46650bd6dee" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="11d13ce9542ccbfd1e47138c96b125a1" category="list-text">將備份還原至原始命名空間，以環境中的資訊取代括弧中的值。<block ref="402051f4be0cc3aad33bcf3ac3d6532b" prefix=" " category="inline-code"></block>引數使用的名稱空間和備份名稱格式為<block ref="7310980de32cd5ca687291f4b01b2e19" prefix=" " category="inline-code"></block>。例如：</block>
@@ -4983,4 +4982,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="de35bb06ba09c90d091b31450c61efd7" category="list-text">調整已部署磁碟區的大小。</block>
   <block id="15286900a0d0667ffc4d515aeec6a1d2" category="list-text">將外掛程式二進位檔複製到路徑變數中定義的位置。例如，<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block>或<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block>（您可能需要提升的 Privileges ）：</block>
   <block id="b3062a04e26d499596575c6767c02c16" category="list-text">您也可以選擇將二進位檔案複製到主目錄中的某個位置。在這種情況下，您可能需要將位置新增至 PATH 變數：</block>
+  <block id="cff063350a0daf1b0ee4c6c97eb2e2de" category="admonition">將備份還原至具有現有資源的不同命名空間，並不會改變任何與備份中共用名稱的資源。若要還原備份中的所有資源，請刪除並重新建立目標命名空間，或將備份還原至新的命名空間。</block>
 </blocks>

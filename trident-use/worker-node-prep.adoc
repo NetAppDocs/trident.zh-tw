@@ -35,7 +35,7 @@ NOTE: 我們建議使用適用於 NVMe / TCP 的 ONTAP 9.12 或更新版本。
 .SCSI over FC 工具
 * SCSI over Fibre Channel （ FC ）是 Trident 24.10 版本的技術預覽功能。 *
 
-link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-iscsi-tools["安裝iSCSI工具"]如果您使用 `ontap-san` sanType `fcp` （ SCSI over FC ）。
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-fc-tools["安裝 FC 工具"]如果您使用 `ontap-san` sanType `fcp` （ SCSI over FC ）。
 
 如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["設定 FC 擴大機、 FC-NVMe SAN 主機的方法"] 。
 
@@ -325,3 +325,77 @@ cat /etc/nvme/hostnqn
 ----
 
 WARNING: Trident 會修改此 `ctrl_device_tmo`值、確保 NVMe 在故障時不會放棄路徑。請勿變更此設定。
+
+
+
+== 安裝 FC 工具
+
+使用作業系統的命令來安裝FC工具。
+
+* 當使用執行 RHEL / RedHat CoreOS 搭配 FC PV 的工作節點時，請在 StorageClass 中指定 `discard` mountOption 以執行內嵌空間回收。請參閱 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["RedHat文件"^]。
+
+
+[role="tabbed-block"]
+====
+.RHEL 8以上
+--
+. 安裝下列系統套件：
++
+[listing]
+----
+sudo yum install -y lsscsi device-mapper-multipath
+----
+. 啟用多重路徑：
++
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
++
+
+NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipaths no"。
+
+. 確定 `multipathd`執行中：
++
+[listing]
+----
+sudo systemctl enable --now multipathd
+----
+
+
+--
+.Ubuntu
+--
+. 安裝下列系統套件：
++
+[listing]
+----
+sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
+----
+. 啟用多重路徑：
++
+[listing]
+----
+sudo tee /etc/multipath.conf <<-EOF
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
++
+
+NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipaths no"。
+
+. 確定 `multipath-tools`已啟用並正在執行：
++
+[listing]
+----
+sudo systemctl status multipath-tools
+----
+
+
+--
+====

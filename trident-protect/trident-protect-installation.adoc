@@ -23,6 +23,7 @@ NOTE: 根據預設， Trident Protect 會收集支援資訊，協助處理您可
 ====
 .安裝 Trident Protect from NetApp
 --
+.步驟
 . 新增Trident Helm儲存庫：
 +
 [source, console]
@@ -68,6 +69,7 @@ NOTE: 您必須設定虛擬化，凍結功能才能正常運作。在此設定�
 --
 如果 Kubernetes 叢集無法存取網際網路，您可以從私有映像登錄安裝 Trident Protect 。在這些範例中，請將方括號中的值取代為環境中的資訊：
 
+.步驟
 . 將下列影像拉到您的本機電腦，更新標記，然後將它們推送到您的私人登錄：
 +
 [source, console]

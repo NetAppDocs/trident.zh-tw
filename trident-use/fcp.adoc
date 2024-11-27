@@ -64,7 +64,7 @@ Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置�
 .安裝 FC 工具
 使用作業系統的命令來安裝FC工具。
 
-* 使用執行RHEL/RedHat CoreOS搭配iSCSI PV的工作節點時、請指定 `discard` StorageClass中的掛載選項、以執行即時空間回收。請參閱 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["RedHat文件"^]。
+* 當使用執行 RHEL / RedHat CoreOS 搭配 FC PV 的工作節點時，請在 StorageClass 中指定 `discard` mountOption 以執行內嵌空間回收。請參閱 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["RedHat文件"^]。
 
 
 [role="tabbed-block"]
@@ -75,13 +75,7 @@ Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置�
 +
 [listing]
 ----
-sudo yum install -y lsscsi iscsi-initiator-utils device-mapper-multipath
-----
-. 檢查iscsite-initier-utils版本是否為6.6.0.874-2.el7或更新版本：
-+
-[listing]
-----
-rpm -q iscsi-initiator-utils
+sudo yum install -y lsscsi device-mapper-multipath
 ----
 . 啟用多重路徑：
 +
@@ -93,17 +87,11 @@ sudo mpathconf --enable --with_multipathd y --find_multipaths n
 
 NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipaths no"。
 
-. 確保運行的是"iscsid"和"multipathd"：
+. 確定 `multipathd`執行中：
 +
 [listing]
 ----
-sudo systemctl enable --now iscsid multipathd
-----
-. 啟用並啟動「iSCSI」：
-+
-[listing]
-----
-sudo systemctl enable --now iscsi
+sudo systemctl enable --now multipathd
 ----
 
 
@@ -114,19 +102,7 @@ sudo systemctl enable --now iscsi
 +
 [listing]
 ----
-sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
-----
-. 檢查開放式iSCSI版本是否為2.0.874-5ubuntu2．10或更新版本（適用於雙聲網路）或2.0.874-7.1ubuntu6.1或更新版本（適用於焦點）：
-+
-[listing]
-----
-dpkg -l open-iscsi
-----
-. 將掃描設為手動：
-+
-[listing]
-----
-sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
 ----
 . 啟用多重路徑：
 +
@@ -145,18 +121,12 @@ sudo service multipath-tools restart
 
 NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipaths no"。
 
-. 確保已啟用並執行「open-iscsi」和「多路徑工具」：
+. 確定 `multipath-tools`已啟用並正在執行：
 +
 [listing]
 ----
 sudo systemctl status multipath-tools
-sudo systemctl enable --now open-iscsi.service
-sudo systemctl status open-iscsi
 ----
-+
-
-NOTE: 對於Ubuntu 18.04、您必須先使用「iscsiadmd」探索目標連接埠、然後再啟動「open-iscsi」、iSCSI精靈才能啟動。您也可以修改「iSCSI」服務、以自動啟動「iscsid」。
-
 
 
 --

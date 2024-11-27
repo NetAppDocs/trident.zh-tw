@@ -26,6 +26,7 @@ summary: 您可以使用 protecttctl 命令建立自訂資源，並與 Trident �
 ====
 .下載適用於 Linux AMD64 CPU 的外掛程式
 --
+.步驟
 . 下載 Trident Protect CLI 外掛程式：
 +
 [source, console]
@@ -37,6 +38,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 --
 .下載適用於 Linux ARM64 CPU 的外掛程式
 --
+.步驟
 . 下載 Trident Protect CLI 外掛程式：
 +
 [source, console]
@@ -48,6 +50,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 --
 .下載適用於 Mac AMD64 CPU 的外掛程式
 --
+.步驟
 . 下載 Trident Protect CLI 外掛程式：
 +
 [source, console]
@@ -59,6 +62,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 --
 .下載 Mac ARM64 CPU 的外掛程式
 --
+.步驟
 . 下載 Trident Protect CLI 外掛程式：
 +
 [source, console]
@@ -114,6 +118,7 @@ tridentctl protect help
 ====
 .啟用 Bash Shell 的自動完成功能
 --
+.步驟
 . 下載完成指令碼：
 +
 [source, console]
@@ -143,6 +148,7 @@ source ~/.bash/completions/tridentctl-completion.bash
 --
 .啟用 Z Shell 的自動完成功能
 --
+.步驟
 . 下載完成指令碼：
 +
 [source, console]

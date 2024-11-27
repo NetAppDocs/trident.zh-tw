@@ -20,6 +20,7 @@ Trident Protect 可讓系統管理員產生套件組合，其中包含 NetApp �
 ====
 .使用 CR 建立支援服務組合
 --
+.步驟
 . 建立自訂資源（ CR ）檔案並命名（例如 `trident-protect-support-bundle.yaml`）。
 . 設定下列屬性：
 +
@@ -65,6 +66,7 @@ kubectl apply -f trident-protect-support-bundle.yaml
 --
 .使用 CLI 建立支援服務包
 --
+.步驟
 . 建立支援服務組合，以環境資訊取代括號中的值。 `trigger-type`決定套件是立即建立，還是建立時間取決於排程，可以是 `Manual`或 `Scheduled`。預設設定為 `Manual`。
 +
 例如：

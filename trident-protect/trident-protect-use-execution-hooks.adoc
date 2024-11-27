@@ -97,6 +97,7 @@ NOTE: 如果您將命名空間篩選器新增至執行掛勾、而執行還原�
 ====
 .使用 CR
 --
+.步驟
 . 建立自訂資源（ CR ）檔案並命名為 `trident-protect-hook.yaml`。
 . 設定下列屬性以符合 Trident Protect 環境和叢集組態：
 +
@@ -183,6 +184,7 @@ kubectl apply -f trident-protect-hook.yaml
 --
 .使用CLI
 --
+.步驟
 . 建立執行掛鉤，以環境資訊取代方括號中的值。例如：
 +
 [source, console]

@@ -4279,7 +4279,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="39e92ae6d270535c1cad298373650560" category="list-text">Trident 無法防止目的地命名空間寫入共用磁碟區。您應該使用檔案鎖定或其他程序來防止覆寫共用Volume資料。</block>
   <block id="b709b82e3d76fa5433fd3117387424b7" category="paragraph-title">SCSI over FC 工具</block>
   <block id="538d9a372d40e637e45a51fde689ef1e" category="paragraph">* SCSI over Fibre Channel （ FC ）是 Trident 24.10 版本的技術預覽功能。 *</block>
-  <block id="71cde5377ffe15a11aa498d698ca098f" category="paragraph"><block ref="918981963bb555a1b3a006c12fd13637" category="inline-link-macro-rx"></block>如果您使用<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> sanType<block ref="0f64d0456878c73cbec1ccea842a6f14" prefix=" " category="inline-code"></block> （ SCSI over FC ）。</block>
   <block id="867cf4bbcb92ecc7017612aafa765813" category="inline-link-macro">設定 FC 擴大機、 FC-NVMe SAN 主機的方法</block>
   <block id="fb42223c0808d27492a06be4e773dc26" category="paragraph">如需詳細資訊、請參閱 <block ref="ee9d56c9130a1d3814c95b35eb7c82a4" category="inline-link-macro-rx"></block> 。</block>
   <block id="16649adc62ed952ba4dac811c548cbfb" category="paragraph">Trident 會嘗試自動偵測節點是否可以執行 iSCSI 或 NFS 服務。</block>
@@ -4983,4 +4982,8 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="15286900a0d0667ffc4d515aeec6a1d2" category="list-text">將外掛程式二進位檔複製到路徑變數中定義的位置。例如，<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block>或<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block>（您可能需要提升的 Privileges ）：</block>
   <block id="b3062a04e26d499596575c6767c02c16" category="list-text">您也可以選擇將二進位檔案複製到主目錄中的某個位置。在這種情況下，您可能需要將位置新增至 PATH 變數：</block>
   <block id="cff063350a0daf1b0ee4c6c97eb2e2de" category="admonition">將備份還原至具有現有資源的不同命名空間，並不會改變任何與備份中共用名稱的資源。若要還原備份中的所有資源，請刪除並重新建立目標命名空間，或將備份還原至新的命名空間。</block>
+  <block id="e8e7bb3124435135f9fc5dab713148e1" category="list-text">當使用執行 RHEL / RedHat CoreOS 搭配 FC PV 的工作節點時，請在 StorageClass 中指定<block ref="70f68bb2f748b85de6526bfe236ea1e9" prefix=" " category="inline-code"></block> mountOption 以執行內嵌空間回收。請參閱<block ref="cef8948c7b8e90d5be591e67d93555a7" category="inline-link-rx"></block>。</block>
+  <block id="0ac202e458490a734271522fcedf4876" category="list-text">確定<block ref="8732863da72605a20ed96b4eee87a5fb" prefix=" " category="inline-code"></block>執行中：</block>
+  <block id="69eeaf73fccab6d6abcba46bd6a3a3bf" category="list-text">確定<block ref="452b142235e718663e27bc4f162c14ca" prefix=" " category="inline-code"></block>已啟用並正在執行：</block>
+  <block id="00ea3f7016d7b9a4ad023b106cc1e6d3" category="paragraph"><block ref="7e7b7908484dc2cebc13ec93d8042bd0" category="inline-link-macro-rx"></block>如果您使用<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> sanType<block ref="0f64d0456878c73cbec1ccea842a6f14" prefix=" " category="inline-code"></block> （ SCSI over FC ）。</block>
 </blocks>

@@ -101,6 +101,7 @@ spec:
 ====
 .使用 CR 還原快照
 --
+.步驟
 . 建立自訂資源（ CR ）檔案並命名為 `trident-protect-snapshot-restore-cr.yaml`。
 . 在您建立的檔案中，設定下列屬性：
 +
@@ -167,6 +168,7 @@ kubectl apply -f trident-protect-snapshot-restore-cr.yaml
 --
 .使用 CLI 還原快照
 --
+.步驟
 . 將快照還原至不同的命名空間，以環境中的資訊取代方括號中的值。
 +
 **  `snapshot`引數使用格式的命名空間和快照名稱 `<namespace>/<name>`。

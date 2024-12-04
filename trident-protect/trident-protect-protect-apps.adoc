@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-protect-apps.html
 keywords: protect, snapshots, demand, configuration, cluster, appvault 
 summary: 使用自動保護原則或以臨機操作的方式、擷取快照與備份資料、以保護所有應用程式。 
 ---
-= 保護應用程式
+= 使用 Trident Protect 保護應用程式
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

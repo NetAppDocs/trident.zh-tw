@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-appvault-custom-resources.html
 keywords: trident. appvault, custom, protect, kubernetes 
 summary: Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVaults 是儲存貯體的宣告性 Kubernetes 工作流程表示。 
 ---
-= 使用 AppVault 物件來管理貯體
+= 使用 Trident Protect AppVault 物件來管理貯體
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

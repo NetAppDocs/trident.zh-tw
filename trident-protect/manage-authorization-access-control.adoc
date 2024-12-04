@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: manage, authentication, rbac 
 summary: Trident Protect 採用 Kubernetes 角色型存取控制（ RBAC ）模式。您可以使用 Trident Protect RBAC 功能來更精細地控制資源存取。 
 ---
-= 管理授權與存取控制
+= 管理 Trident 保護授權與存取控制
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/

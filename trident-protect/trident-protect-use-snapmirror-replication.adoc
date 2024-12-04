@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-use-snapmirror-replication.html
 keywords: trident, protect, netapp, snapmirror, data, asynchronous, replication, clusters 
 summary: 使用 Trident Protect ，您可以使用 NetApp SnapMirror 技術的非同步複寫功能，將資料和應用程式變更從一個儲存後端複寫到另一個儲存後端，在同一個叢集或不同叢集之間複寫。 
 ---
-= 使用 NetApp SnapMirror 複寫應用程式
+= 使用 NetApp SnapMirror 和 Trident Protect 複寫應用程式
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

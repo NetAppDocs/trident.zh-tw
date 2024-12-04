@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-manage-applications.html
 keywords: appvault, data protection, custom resource, namespace, application, cluster 
 summary: 您可以建立應用程式 CR 和相關的 AppVault CR ，讓 Trident Protect 瞭解您想要管理的應用程式。 
 ---
-= 定義管理應用程式
+= 使用 Trident Protect 定義管理應用程式
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-use-execution-hooks.html
 keywords: trident, protect, execution hooks 
 summary: 您可以使用 Trident Protect 為應用程式建立自訂執行掛鉤。您需要擁有擁有擁有者、管理員或成員權限、才能建立執行掛勾。 
 ---
-= 管理執行攔截器
+= 管理 Trident Protect 執行攔截器
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

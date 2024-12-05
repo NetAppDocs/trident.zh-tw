@@ -778,8 +778,6 @@
   <block id="923680056b0f0258907f498670b4ead1" category="section-title">Container映像和對應的Kubernetes版本</block>
   <block id="aa92c4c233bc01609d957e469736b699" category="cell">Container映像</block>
   <block id="a60c2f57df655a9ac5fcaa0750886195" category="summary">如果您剛開始使用Kubernetes、請依照指示安裝Kubernetes來試用。這些說明提供了一個裸機、單節點叢集、Trident可與該叢集整合以供示範之用。</block>
-  <block id="e8dadc588901af436e2c6036acf23973" category="inline-link-macro">NetApp試用</block>
-  <block id="8685ac2061f9dca7ab48f41e0871f7af" category="inline-link-macro">Kubeadm安裝指南</block>
   <block id="a67cf6b087ff88dbfacec8375928995c" category="cell">「Debug」</block>
   <block id="2bccac20e55391730a985f9819e1cc41" category="cell">「autosupportImage」</block>
   <block id="84448c234dfdfd2a7367341fd4b56a80" category="cell">遙測的容器影像AutoSupport</block>
@@ -2548,8 +2546,6 @@
   <block id="8f29ef239c0926132689374fc142a732" category="image-alt">使用適用的 CSI sidecar 執行 CSI Node 外掛程式的 Trident Node Pod 圖表。</block>
   <block id="58095fffdb6c13585af5e47e876f7afe" category="inline-link-macro">Kubernetes 概念與工具</block>
   <block id="1bc6462cd59612636c72620a6a67410b" category="admonition">如果這是您第一次使用 Kubernetes 、您應該熟悉 <block ref="41eecc10f74d492dbf2a2c207d5acb1b" category="inline-link-macro-rx"></block>。</block>
-  <block id="3ff64d30b8ccd0f89740b2ba54cf8bf3" category="paragraph">另一個選項是 <block ref="c7dbb75618a5e106a360075f923cb87f" category="inline-link-macro-rx"></block> 由Kubernetes提供。</block>
-  <block id="80f4cfbe493e12651c3514c9481ce1ee" category="admonition">請勿在正式作業環境中使用這些指示來建置 Kubernetes 叢集。請使用經銷商所提供的正式作業部署指南、以用於正式作業就緒的叢集。</block>
   <block id="2d15dd50ddfe5e28746975645a5652ca" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block> 準備工作節點</block>
   <block id="aba4bc9d3bde7d18b07c23d5c7d0f495" category="paragraph">Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。</block>
   <block id="f3b066024fd8e2699d194d41d5e46a5d" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block> 建立後端</block>
@@ -3579,8 +3575,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="b1779edf31deaecac634566a2a377f62" category="paragraph">Trident 是符合 Container Storage Interface （ CSI ）規範的動態儲存協調器<block ref="c4f47b2d4c7b6c009c3ed9bc1f952dce" category="inline-link-macro-rx"></block>、可與原生整合。Trident 會在叢集中的每個工作節點上、以單一控制器 Pod 加上節點 Pod 的形式執行。如 <block ref="9f6208219ae600271f6632db354451ed" category="inline-link-macro-rx"></block> 需詳細資訊、請參閱。</block>
   <block id="d613d80a6fcacbbceeb665fc5b0846f0" category="inline-link-macro">部署 Trident for Docker</block>
   <block id="5b6cbf8e3be454064a322ad7f9c47cc2" category="paragraph">Trident 也可直接整合 NetApp 儲存平台的 Docker 生態系統。NetApp Docker Volume 外掛程式（ nDVP ）支援從儲存平台到 Docker 主機的儲存資源配置與管理。如 <block ref="168e02b8c5756e29b56aa79aa4a1b715" category="inline-link-macro-rx"></block> 需詳細資訊、請參閱。</block>
-  <block id="3c22b34ac3f55b89b9b011bed80160de" category="section-title">參加 Trident 試用</block>
-  <block id="f8bae4faf187691bac6dbbda926fb426" category="paragraph">若要試用、請使用現成的實驗室映像、要求存取「輕鬆部署及複製容器化工作負載的持續儲存設備」<block ref="eb9c34df0ed196dd801ef85207c8bf2c" category="inline-link-macro-rx"></block>。此測試磁碟機提供一個沙箱環境、其中安裝並設定了三節點 Kubernetes 叢集和 Trident 。這是熟悉 Trident 並探索其功能的好方法。</block>
   <block id="ad82bf93e4b28ad012a8be09e30d3d59" category="paragraph">Trident可直接針對底層NetApp HCI 的資訊儲存平台、為容器化應用程式配置及管理儲存設備。</block>
   <block id="2c1264786e66608f1b91c735d79624ad" category="paragraph">支援所有Flash、混合式或全硬碟組態的系統、可提供多種不同的部署模式、包括工程設計硬體（英文版）、白箱（英文版）和僅雲端（英文版）ONTAP FAS AFF ONTAP Select Cloud Volumes ONTAP 。Trident 支援這些 ONTAP 部署模式。</block>
   <block id="10f0fa4079121b371145e16713fdbb44" category="section-title">Trident</block>
@@ -4992,4 +4986,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="0539043b2ec0bd1bfae64dc58173dec7" category="doc">使用 Trident Protect 還原應用程式</block>
   <block id="873e2eae9a82cbe9c291ade077f017d2" category="doc">管理 Trident Protect 執行攔截器</block>
   <block id="6f8f09e1a22390ac35a40283a4dc713f" category="doc">使用 NetApp SnapMirror 和 Trident Protect 複寫應用程式</block>
+  <block id="2fc23e09b483dc4495beb473646c0273" category="list-text"><block ref="2fc23e09b483dc4495beb473646c0273" category="inline-link-macro-rx"></block></block>
 </blocks>

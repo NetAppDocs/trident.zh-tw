@@ -17,6 +17,7 @@ summary: 後端定義 Trident 與儲存系統之間的關係。它告訴Trident�
 Trident 會自動從後端提供符合儲存類別所定義需求的儲存資源池。瞭解如何設定儲存系統的後端。
 
 * link:anf.html["設定Azure NetApp Files 一個靜態後端"^]
+* link:gcnv.html["設定 Google Cloud NetApp Volumes 後端"^]
 * link:gcp.html["設定Cloud Volumes Service 適用於Google Cloud Platform後端的功能"^]
 * link:element.html["設定NetApp HCI 一個不只是功能的SolidFire 後端"^]
 * link:ontap-nas.html["使用ONTAP 功能不一的Cloud Volumes ONTAP NAS驅動程式來設定後端"^]

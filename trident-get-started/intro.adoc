@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/intro.html 
-keywords: product overview, Trident, fsx, element, google cloud, cvs, architecture, test drive, node pod, controller pod, pods, csi, sidecar 
+keywords: product overview, Trident, fsx, element, google cloud, cvs, architecture, node pod, controller pod, pods, csi, sidecar 
 summary: Trident是NetApp所維護的完全支援的開放原始碼專案。其設計旨在協助您使用業界標準介面（例如 Container Storage Interface （ CSI ））來滿足容器化應用程式的持續需求。 
 ---
 = 瞭解 Trident
@@ -26,17 +26,6 @@ Trident 也可直接整合 NetApp 儲存平台的 Docker 生態系統。NetApp D
 
 
 NOTE: 如果這是您第一次使用 Kubernetes 、您應該熟悉 link:https://kubernetes.io/docs/home/["Kubernetes 概念與工具"^]。
-
-
-
-== 參加 Trident 試用
-
-若要試用、請使用現成的實驗室映像、要求存取「輕鬆部署及複製容器化工作負載的持續儲存設備」link:https://www.netapp.com/us/try-and-buy/test-drive/index.aspx["NetApp試用"^]。此測試磁碟機提供一個沙箱環境、其中安裝並設定了三節點 Kubernetes 叢集和 Trident 。這是熟悉 Trident 並探索其功能的好方法。
-
-另一個選項是 link:https://kubernetes.io/docs/setup/independent/install-kubeadm/["Kubeadm安裝指南"] 由Kubernetes提供。
-
-
-NOTE: 請勿在正式作業環境中使用這些指示來建置 Kubernetes 叢集。請使用經銷商所提供的正式作業部署指南、以用於正式作業就緒的叢集。
 
 
 

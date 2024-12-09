@@ -37,7 +37,7 @@ summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP SAN 驅動程式
 | 《馬納格門達利》 | 叢集或 SVM 管理 LIF 的 IP 位址。您可以指定完整網域名稱（FQDN）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如 `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。如需無縫 MetroCluster 之間的互通性<<mcc-best>>、請參閱。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
 
 
-| 「DataLIF」 | 傳輸協定LIF的IP位址。* 請勿指定 iSCSI 。 *Trident 使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^]來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義、就會產生警告 `dataLIF`。* MetroCluster 省略。 *請參閱<<mcc-best>>。 | 源自SVM 
+| 「DataLIF」 | 傳輸協定LIF的IP位址。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如 `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。* 請勿指定 iSCSI 。 *Trident 使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^]來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義、就會產生警告 `dataLIF`。* MetroCluster 省略。 *請參閱<<mcc-best>>。 | 源自SVM 
 
 
 | 《虛擬機器》 | 要使用的儲存虛擬機器

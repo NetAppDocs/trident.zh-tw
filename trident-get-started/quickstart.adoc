@@ -17,19 +17,19 @@ summary: 如果您剛開始使用Kubernetes、請依照指示安裝Kubernetes來
 
 NOTE: 若為 Docker link:../trident-docker/deploy-docker.html["Trident for Docker"]、請參閱。
 
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["一"]安裝 Trident
-[role="quick-margin-para"]
-Trident 提供多種安裝方法和模式、針對各種環境和組織進行最佳化。
-
-[role="quick-margin-para"]
-link:../trident-get-started/kubernetes-deploy.html["安裝Trident"]
-
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["二"] 準備工作節點
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["一"]準備工作節點
 [role="quick-margin-para"]
 Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。
 
 [role="quick-margin-para"]
 link:../trident-use/worker-node-prep.html["準備工作節點"]
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["二"]安裝 Trident
+[role="quick-margin-para"]
+Trident 提供多種安裝方法和模式、針對各種環境和組織進行最佳化。
+
+[role="quick-margin-para"]
+link:../trident-get-started/kubernetes-deploy.html["安裝Trident"]
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["三"] 建立後端
 [role="quick-margin-para"]

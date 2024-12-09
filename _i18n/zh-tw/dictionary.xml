@@ -2546,7 +2546,6 @@
   <block id="8f29ef239c0926132689374fc142a732" category="image-alt">使用適用的 CSI sidecar 執行 CSI Node 外掛程式的 Trident Node Pod 圖表。</block>
   <block id="58095fffdb6c13585af5e47e876f7afe" category="inline-link-macro">Kubernetes 概念與工具</block>
   <block id="1bc6462cd59612636c72620a6a67410b" category="admonition">如果這是您第一次使用 Kubernetes 、您應該熟悉 <block ref="41eecc10f74d492dbf2a2c207d5acb1b" category="inline-link-macro-rx"></block>。</block>
-  <block id="2d15dd50ddfe5e28746975645a5652ca" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block> 準備工作節點</block>
   <block id="aba4bc9d3bde7d18b07c23d5c7d0f495" category="paragraph">Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置的磁碟區。</block>
   <block id="f3b066024fd8e2699d194d41d5e46a5d" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block> 建立後端</block>
   <block id="2865195658f1488af43d46690ad5826e" category="inline-link-macro">設定後端</block>
@@ -3179,7 +3178,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="e0d3d678b5ec46031ee8c6afb7413c9e" category="inline-link-macro">問題 [#885</block>
   <block id="2d7e2b9397eede29137512c835ab6774" category="list-text">ONTAP 驅動程式現在接受低於 20MiB 的磁碟區大小（<block ref="91ddf20e925712134071a4cc83fc66a3" category="inline-link-macro-rx"></block>）。</block>
   <block id="62a3f40ae48e77863d3e5bdef59c1adb" category="list-text">修正 NFS v4.1 的磁碟區匯入失敗。</block>
-  <block id="ec3a1c549e57d9bf27115540489138c6" category="list-text">移除對 EOL Windows Server 2019 的支援。</block>
   <block id="6a89b6f002954f791e28c8dd2f2afcc8" category="section-title">24.02 的變更</block>
   <block id="4487bf4a5d2565e471a4ac1e0bba9af6" category="cell"><block ref="1f2a94e142bf020b1f7c6297ec12413f" prefix="" category="inline-code"></block></block>
   <block id="d9ecfcade7b244fc0100c0ff4359f5ea" category="cell">代表此後端所支援的區域和區域清單。如需詳細資訊、請 <block ref="a735758eec435cad1c5672b75bd657c0" category="inline-link-macro-rx"></block>參閱。</block>
@@ -3583,7 +3581,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="96a40ad4ad263d59437e326f22eaecdf" category="paragraph">您可以在幾個步驟內安裝 Trident 並開始管理儲存資源。開始使用之前，請查看<block ref="d5fb7f9fba906801b000d5533dc030cf" category="inline-link-macro-rx"></block>。</block>
   <block id="f1bcf1c509e84f327a99d5510a722dec" category="inline-link-macro">Trident for Docker</block>
   <block id="5b5dc0344ff29ee1aeb0845b87692cf1" category="admonition">若為 Docker <block ref="f7120b9f314af1c9d82deae8957b54f3" category="inline-link-macro-rx"></block>、請參閱。</block>
-  <block id="25a4d5c71106252760f466b745bc5216" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block>安裝 Trident</block>
   <block id="9877a7ec0ff327ca21c8022d61c25f88" category="paragraph">Trident 提供多種安裝方法和模式、針對各種環境和組織進行最佳化。</block>
   <block id="b8b9eab8c1ed7b79387652490f5724ec" category="inline-link-macro">安裝Trident</block>
   <block id="d94be11e75caa4db23a136d9b4cca4d9" category="paragraph"><block ref="d94be11e75caa4db23a136d9b4cca4d9" category="inline-link-macro-rx"></block></block>
@@ -4168,7 +4165,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="8dbaef294ecadfe828f5bab1ae097d46" category="summary">瞭解如何在 Trident 安裝中建立及使用 ONTAP SAN 驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。</block>
   <block id="55fd4fb7ce66d950d3136fb6613ab770" category="paragraph">瞭解如何在 Trident 安裝中建立及使用 ONTAP SAN 驅動程式。本節提供後端組態範例及將後端對應至 StorageClasses 的詳細資料。</block>
   <block id="2170b9a0633f8fdbc37ebf777c95d598" category="cell">叢集或 SVM 管理 LIF 的 IP 位址。您可以指定完整網域名稱（FQDN）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>。如需無縫 MetroCluster 之間的互通性<block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>、請參閱。</block>
-  <block id="5a7f0108ad39a3b583fbc8c04b71331f" category="cell">傳輸協定LIF的IP位址。* 請勿指定 iSCSI 。 *Trident 使用<block ref="2de2f329c45219df280af5a70ed7a17c" category="inline-link-macro-rx"></block>來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義、就會產生警告<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block>。* MetroCluster 省略。 *請參閱<block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>。</block>
   <block id="e81d7c283c204ab68b6d4090be2ce196" category="cell">使用CHAP驗證iSCSI以供ONTAP 支援不支援的SAN驅動程式使用[布林值]。設為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、讓 Trident 設定並使用雙向 CHAP 做為後端所指定 SVM 的預設驗證。如 <block ref="866e591dc2a03ecc454dad25a664ca86" category="inline-link-macro-rx"></block> 需詳細資訊、請參閱。</block>
   <block id="981e9ddbf0e0b6fa9ddcccd9e837ab4c" category="cell">如果使用率高於此百分比、則無法進行資源配置。如果您使用 Amazon FSX for NetApp ONTAP 後端、請勿指定<block ref="d57551b1efacf8a7be84b4d10c5a6e99" prefix=" " category="inline-code"></block>。提供的<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block>和<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block>不包含使用 Trident 擷取彙總使用量並加以限制所需的權限。</block>
   <block id="d9e189da382a5f98532cc5b6832e1ef8" category="cell">使用ONTAP Isrest API的布林參數。<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block>設為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>時、 Trident 會使用 ONTAP REST API 與後端通訊；設為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>時、 Trident 會使用 ONTAP ZAPI 呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權<block ref="a9ba4dc88fa11d44cc7c0c918d174778" prefix=" " category="inline-code"></block> 。這是預先定義的和角色所滿足<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block><block ref="fdb6ba311fad29ec53069808f10ebef4" prefix=" " category="inline-code"></block> 的。從 Trident 24.06 版本和 ONTAP 9 ． 15.1 或更新版本開始、<block ref="b673ee47a5f23fc2650c24742c76cf90" prefix=" " category="inline-code"></block>依預設會設定為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>；變更<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block>為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>使用 ONTAP ZAPI 呼叫。<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block> 完全符合 NVMe / TCP 的資格。</block>
@@ -4987,4 +4983,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="2fc23e09b483dc4495beb473646c0273" category="list-text"><block ref="2fc23e09b483dc4495beb473646c0273" category="inline-link-macro-rx"></block></block>
   <block id="e132245ad28668c6b32dee21fb8a3820" category="list-text">取得目標介面的 WWPN 。如需詳細資訊、請參閱<block ref="92fd8fd0370792cd397ea6fdc3c8edb0" category="inline-link-rx"></block> 。</block>
   <block id="5597ca99169fee10411d6b2ace3c56ea" category="paragraph"><block ref="bf121260f097199f29e6e1734da8ea69" prefix="" category="inline-code"></block></block>
+  <block id="ab17e5f89eede1d0e6d8d31cc646b837" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block>準備工作節點</block>
+  <block id="8f571d58ed95211be01ea993de3fee3e" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block>安裝 Trident</block>
+  <block id="0bd5a1e8269929431127f21fd594adfa" category="cell">傳輸協定LIF的IP位址。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>。* 請勿指定 iSCSI 。 *Trident 使用<block ref="2de2f329c45219df280af5a70ed7a17c" category="inline-link-macro-rx"></block>來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義、就會產生警告<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block>。* MetroCluster 省略。 *請參閱<block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>。</block>
 </blocks>

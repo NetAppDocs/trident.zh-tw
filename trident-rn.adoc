@@ -144,13 +144,6 @@ link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Pr
 
 
 
-=== 棄用
-
-* 移除對 EOL Windows Server 2019 的支援。
-
-
-
-
 == 24.02 的變更
 
 

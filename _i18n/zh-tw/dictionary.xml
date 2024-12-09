@@ -4452,8 +4452,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="58bd941b0268654136e17a3f6361fa75" category="section-title">建立 AppVault CR</block>
   <block id="f5ddee36f3439fbf6875de509925b804" category="inline-link-macro">AppVault 自訂資源。</block>
   <block id="2c2c79b6a4bc3f3b90fed9b96ab44d05" category="paragraph">您需要建立 AppVault CR ，以便在應用程式上執行資料保護作業時使用，而 AppVault CR 必須位於安裝 Trident Protect 的叢集上。AppVault CR 專屬於您的環境，如需 AppVault CRS 的範例，請參閱<block ref="7e7838343a821a01b97d2b866c568a54" category="inline-link-macro-rx"></block></block>
-  <block id="bb54028c613908a73e7575bf50ce2f8b" category="section-title">建立應用程式 CR</block>
-  <block id="650b7f6eb7d8e2a1b558878be64e787f" category="paragraph">您需要為每個想要使用 Trident Protect 管理的應用程式建立應用程式 CR 。您可以手動建立應用程式 CR ，或使用 Trident Protect CLI 建立 CR 來新增應用程式以進行管理。</block>
   <block id="7eb786201a1068df31c2a8d7805c50bf" category="open-title">使用 CR 新增應用程式</block>
   <block id="b4b10aa7102ef4de9ba1d5672445c895" category="list-text">建立目的地應用程式 CR 檔案：</block>
   <block id="0f14679ea6b53d676a4e19300d32937e" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="6e1c6964e1bb7e391ff353b09e122d80" prefix=" " category="inline-code"></block>）。</block>
@@ -4986,4 +4984,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="ab17e5f89eede1d0e6d8d31cc646b837" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block>準備工作節點</block>
   <block id="8f571d58ed95211be01ea993de3fee3e" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block>安裝 Trident</block>
   <block id="0bd5a1e8269929431127f21fd594adfa" category="cell">傳輸協定LIF的IP位址。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>。* 請勿指定 iSCSI 。 *Trident 使用<block ref="2de2f329c45219df280af5a70ed7a17c" category="inline-link-macro-rx"></block>來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義、就會產生警告<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block>。* MetroCluster 省略。 *請參閱<block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>。</block>
+  <block id="2fd92693952062fc00d949899370185d" category="section-title">定義應用程式</block>
+  <block id="da305154e58c2f6709cee1cca6b2d8c8" category="paragraph">您需要定義每個要使用 Trident Protect 管理的應用程式。您可以手動建立應用程式 CR 或使用 Trident Protect CLI 來定義應用程式以進行管理。</block>
+  <block id="964ba319e15e38c5b0f3ee2a3dd4a8f8" category="list-text">建立應用程式 CR 以符合您的環境之後，請套用 CR 。例如：</block>
 </blocks>

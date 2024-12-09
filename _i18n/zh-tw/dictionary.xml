@@ -3228,7 +3228,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="98c3c9acd444d11890d48438db3c165e" category="paragraph">您可以將 Kubernetes Pod 設定為以 AWS IAM 角色進行驗證、而非提供明確的 AWS 認證、以存取 AWS 資源。</block>
   <block id="3f566b5ded6e7ac8c26dd3c07a2ea056" category="admonition">若要使用 AWS IAM 角色進行驗證、您必須使用 EKS 部署 Kubernetes 叢集。</block>
   <block id="3a218e8961578d046aa713039445902b" category="section-title">建立 AWS Secret Manager 機密</block>
-  <block id="6a73f77169c507b4f8a8e33a9180355b" category="paragraph"><block ref="0d1bf1201bf9db7aed15db6de2873c7a" prefix="" category="inline-code"></block></block>
   <block id="3926fdac6344d565c95f560468946335" category="section-title">建立 IAM 原則</block>
   <block id="78edc229f8df1c5e0840f6469bc28454" category="paragraph">下列範例使用 AWS CLI 建立 IAM 原則：</block>
   <block id="96cc21e053acccb273475c8c6744b18e" category="paragraph"><block ref="21a8f9d92c42f5ae09a1d5ac91dbb3c5" prefix="" category="inline-code"></block></block>
@@ -4940,7 +4939,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="822b1839c387749c78601eebc94c8d7d" category="paragraph">設定 FC 所需的網路和節點設定。</block>
   <block id="f508b22c8fc4486b19fee39d5ded3841" category="section-title">網路設定</block>
   <block id="16fdd92def5a71313d6535c74ef67b81" category="inline-link-macro">網路介面顯示</block>
-  <block id="fc2e7b75efdee011ff06c37c7b71f6a6" category="list-text">取得目標介面的 WWPN 。如需詳細資訊、請參閱 <block ref="cc71fd7fb2f6e7e70f421fe2150fdc04" category="inline-link-macro-rx"></block> 。</block>
   <block id="cc7e69899d736126df9787634ad41870" category="list-text">取得啟動器（主機）介面的 WWPN 。</block>
   <block id="1089b965cabd19cfee7f3ef855fbd63d" category="paragraph">請參閱對應的主機作業系統公用程式。</block>
   <block id="6f58745fc3a341adae0772d30d9e508c" category="list-text">使用主機和目標的 WWPN 在 FC 交換器上設定分區。</block>
@@ -4987,4 +4985,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="873e2eae9a82cbe9c291ade077f017d2" category="doc">管理 Trident Protect 執行攔截器</block>
   <block id="6f8f09e1a22390ac35a40283a4dc713f" category="doc">使用 NetApp SnapMirror 和 Trident Protect 複寫應用程式</block>
   <block id="2fc23e09b483dc4495beb473646c0273" category="list-text"><block ref="2fc23e09b483dc4495beb473646c0273" category="inline-link-macro-rx"></block></block>
+  <block id="e132245ad28668c6b32dee21fb8a3820" category="list-text">取得目標介面的 WWPN 。如需詳細資訊、請參閱<block ref="92fd8fd0370792cd397ea6fdc3c8edb0" category="inline-link-rx"></block> 。</block>
+  <block id="5597ca99169fee10411d6b2ace3c56ea" category="paragraph"><block ref="bf121260f097199f29e6e1734da8ea69" prefix="" category="inline-code"></block></block>
 </blocks>

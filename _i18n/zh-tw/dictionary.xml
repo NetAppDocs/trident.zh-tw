@@ -4436,9 +4436,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="9ee0b57319616120eef37546fa8e4c42" category="doc">安裝及設定 Trident Protect</block>
   <block id="dc48a335c2095fb6a79ee14ee62b4806" category="paragraph">如果您的環境符合 Trident Protect 的要求，您可以依照下列步驟在叢集上安裝 Trident Protect 。您可以從 NetApp 取得 Trident Protect ，或從您自己的私有登錄安裝。如果您的叢集無法存取網際網路，從私有登錄安裝會很有幫助。</block>
   <block id="1d5f2a4008fa2c223d0ebc6aea423256" category="open-title">安裝 Trident Protect from NetApp</block>
-  <block id="b533d7fe842e47fbd62d24400867d3f2" category="list-text">您也可以凍結 VM 。如果您使用 KubeVirt 支援 SnapMirror ，則凍結虛擬機器可協助您有效管理：</block>
-  <block id="e49b02afb984c32aa521917480fc4012" category="inline-link-macro">安裝 OpenShift 虛擬化</block>
-  <block id="c096df753a5c7335177118895259c96a" category="admonition">您必須設定虛擬化，凍結功能才能正常運作。在此設定之後部署的 VM 包括凍結和取消凍結所需的二進位檔。若要深入瞭解設定虛擬化的相關<block ref="2e657c6eb92d8a54673acb8e93eb84d5" category="inline-link-macro-rx"></block>資訊，請參閱。</block>
   <block id="f1db582519ebcfcc20d90e41c0c5e9cc" category="open-title">從私有登錄安裝 Trident Protect</block>
   <block id="73dac5f92be0a06ecbcb1b8139b40593" category="paragraph">如果 Kubernetes 叢集無法存取網際網路，您可以從私有映像登錄安裝 Trident Protect 。在這些範例中，請將方括號中的值取代為環境中的資訊：</block>
   <block id="dfb8cfd789dde682f000a96e0aabb1f1" category="list-text">將下列影像拉到您的本機電腦，更新標記，然後將它們推送到您的私人登錄：</block>
@@ -4621,8 +4618,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1000954a94920c8ffd3752b548978ccf" category="list-text">*NVMe over TCP* ： Trident Protect 不支援 NetApp SnapMirror 複寫，用於使用 NVMe over TCP 傳輸協定的儲存後端。</block>
   <block id="57fe82c052fea1c269ca2b14e92e80d3" category="section-title">用於 SnapMirror 複寫的 Trident / ONTAP 組態</block>
   <block id="59292a70a610fc937685ef1c3a3b5cb1" category="paragraph">Trident Protect 要求您至少設定一個儲存後端，以支援來源叢集和目的地叢集的複寫。如果來源叢集和目的地叢集相同、則目的地應用程式應使用不同於來源應用程式的儲存後端、以獲得最佳恢復能力。</block>
-  <block id="3b3186bfde639bfb8d074bc442b4dd99" category="section-title">使用 KubeVirt 時的考量</block>
-  <block id="848b401dccd2553e826a5baf5064321a" category="paragraph">如果您打算使用<block ref="dfbafe671f5f5e6c95dde413429a5999" category="inline-link-rx"></block>虛擬機器進行 SnapMirror 複寫，則需要設定虛擬化，以便凍結和取消凍結 SVM 。設定虛擬化之後，您部署的 SVM 將包含凍結和取消凍結所需的工具。若要深入瞭解設定虛擬化的相關資訊，請<block ref="e91eeccdebb36ea585bcf119dba9a3b4" category="inline-link-rx"></block>參閱。</block>
   <block id="4b92c534580865d96f1efb9f86289249" category="summary">您可以使用 Trident Protect 從快照或備份還原應用程式。將應用程式還原至同一個叢集時、從現有的快照還原速度會更快。</block>
   <block id="ff29014f3961a30f52557df7142d1a65" category="doc">還原應用程式</block>
   <block id="f346d32ba5d9c332bf8577bf1bacda07" category="admonition">當您還原應用程式時，為應用程式設定的所有執行掛鉤都會隨應用程式一起還原。如果存在還原後執行掛鉤，則會在還原作業中自動執行。</block>
@@ -4987,4 +4982,48 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="2fd92693952062fc00d949899370185d" category="section-title">定義應用程式</block>
   <block id="da305154e58c2f6709cee1cca6b2d8c8" category="paragraph">您需要定義每個要使用 Trident Protect 管理的應用程式。您可以手動建立應用程式 CR 或使用 Trident Protect CLI 來定義應用程式以進行管理。</block>
   <block id="964ba319e15e38c5b0f3ee2a3dd4a8f8" category="list-text">建立應用程式 CR 以符合您的環境之後，請套用 CR 。例如：</block>
+  <block id="26ff92fc2410a19d125f3783f36a21f5" category="paragraph">當您保護在 KubeVirt VM 上執行的應用程式時， Trident Protect 24.10 和 24.10.1 及更新版本的行為會有所不同。對於這兩個版本，您可以在資料保護作業期間啟用或停用檔案系統凍結和解除凍結。</block>
+  <block id="39f898ec3965dde14aeec545419037ac" category="paragraph">對於所有 Trident Protect 版本，若要在 OpenShift 環境中啟用或停用自動凍結功能，您可能需要授予應用程式命名空間的權限。例如：</block>
+  <block id="4d2e55f1e0d6587dd3b63700ee1065af" category="paragraph-title">Trident Protect 24.10</block>
+  <block id="2d261bce9a1e151a31ff22788033f212" category="paragraph">Trident Protect 24.10 無法在資料保護作業期間，自動確保 KubeVirt VM 檔案系統的狀態一致。如果您想要使用 Trident Protect 24.10 來保護 KubeVirt VM 資料，則必須在資料保護作業之前，手動啟用檔案系統的凍結 / 取消凍結功能。如此可確保檔案系統處於一致的狀態。</block>
+  <block id="acb14ba5b70eb330a1d4de9c6b7a325d" category="inline-link-macro">設定虛擬化</block>
+  <block id="74c1cc067621b7ea2ccf9f91b4595bd8" category="paragraph">您可以將 Trident Protect 24.10 設定為在資料保護作業期間管理 VM 檔案系統的凍結和取消凍結<block ref="e0dd4c4b8aa16596df6c3f5cb36d3cdc" category="inline-link-macro-rx"></block>，然後使用下列命令：</block>
+  <block id="72768e0f0d0f990d0abd53363fda4696" category="paragraph-title">Trident Protect 24.10.1 及更新版本</block>
+  <block id="42a2550b14037192e0c3252e7666ec4d" category="paragraph">從 Trident Protect 24.10.1 開始， Trident Protect 會在資料保護作業期間，自動凍結和取消凍結 KubeVirt 檔案系統。您也可以使用下列命令停用此自動行為：</block>
+  <block id="cedf2576eebff15fc6b30d5a7109eb6b" category="doc">還原和容錯移轉作業期間的命名空間註釋和標籤</block>
+  <block id="131ff34387be167411ffda7d60b577e7" category="paragraph">在還原和容錯移轉作業期間，目的地命名空間中的標籤和註釋會與來源命名空間中的標籤和註釋相符。會新增來源命名空間中不存在的標籤或註釋，並覆寫已存在的任何標籤或註釋，以符合來源命名空間的值。只存在於目的地命名空間上的標籤或註釋會保持不變。</block>
+  <block id="20f40e0b9308901dac07ce8a8efb3350" category="inline-link">OpenShift 安全性內容限制文件</block>
+  <block id="0723b21821c458b89843cb5f68a4cfdc" category="admonition">如果您使用 RedHat OpenShift ，請務必注意 OpenShift 環境中命名空間註釋的關鍵作用。命名空間註釋可確保還原的 Pod 符合 OpenShift 安全性內容限制（ SCC ）所定義的適當權限和安全性組態，而且無需權限問題即可存取磁碟區。如需詳細資訊，請<block ref="8806a202f84108289eeb3181c071d58e" category="inline-link-rx"></block>參閱。</block>
+  <block id="6c83555d4261acb08ebbc5f24823dc7b" category="paragraph">您可以在執行還原或容錯移轉作業之前，先設定 Kubernetes 環境變數，以避免覆寫目的地命名空間中的特定註釋<block ref="1580ff61f204e9d56cd5324c7e9221ba" prefix=" " category="inline-code"></block>。例如：</block>
+  <block id="11a75e55f9a91a12e7d31886a76ff312" category="paragraph">如果您使用帶有標誌的 Helm 來安裝來源應用程式<block ref="cc1f5c1d16e33b8463c9ee27295cd5df" prefix=" " category="inline-code"></block>，則會對標籤機碼給予特殊處理<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>。在還原或容錯移轉程序期間， Trident Protect 會將此標籤複製到目的地命名空間，但如果來源的值符合來源命名空間，則會將值更新到目的地命名空間值。如果此值與來源命名空間不相符，則會將其複製到目的地命名空間，而不會有任何變更。</block>
+  <block id="1280c48f074ec68fd2281266662c9a3f" category="paragraph">以下範例提供來源和目的地命名空間，每個命名空間都有不同的註釋和標籤。您可以查看作業前後目的地命名空間的狀態，以及註釋和標籤在目的地命名空間中的組合或覆寫方式。</block>
+  <block id="2cfe257f724ed59a07ab01918c828fb5" category="section-title">還原或容錯移轉作業之前</block>
+  <block id="c972cd959174c84d137520d91c011446" category="paragraph">下表說明還原或容錯移轉作業之前的範例來源和目的地命名空間狀態：</block>
+  <block id="b3ba0fe968ce39dcfc6fe8cc0f1b02da" category="cell">命名空間</block>
+  <block id="933e469cb306a0ea9faabd3e4235d3be" category="cell">註釋</block>
+  <block id="86a2c974d76e381c7efd2206939722b7" category="cell">命名空間 nS-1 （來源）</block>
+  <block id="278dbe8403d8ebf0d4ec8f723ca24aa6" category="list-text">annotation.one / 機碼：「 updatedvalue 」</block>
+  <block id="7217e7166d38adddcd72b9b1c9359148" category="list-text">annotation.b2/key ：「 true 」</block>
+  <block id="a03c56a353af6ece3297a5fcad5250f2" category="list-text">環境 = 正式作業</block>
+  <block id="d1642f369aa9d43205cf91975f1359d4" category="list-text">Compliance = HIPAA</block>
+  <block id="fc10b995e3d1c13cbae652922eba0bb6" category="list-text">NAME=ns-1</block>
+  <block id="58e6b4eeb688a71c985d2593769d2fda" category="cell">命名空間 nS-2 （目的地）</block>
+  <block id="f0e6f2ec2d0d1aa7012e3b32889c034c" category="list-text">annotation.one / 機碼：「 true 」</block>
+  <block id="1e678090acf06eb2bf74c38dee9d3317" category="list-text">annotation.the/key ：「 FALSE 」</block>
+  <block id="ebbaf450aa5330e33917a8de9157e099" category="list-text">role = 資料庫</block>
+  <block id="46c40b68ab6fcc817f5134602b1985e3" category="section-title">還原作業之後</block>
+  <block id="15d6567aa33ad00e352de9164a741b8b" category="paragraph">下表說明還原或容錯移轉作業之後範例目的地命名空間的狀態。某些金鑰已新增，部分已覆寫，<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>標籤已更新以符合目的地命名空間：</block>
+  <block id="a8306d4d1af4239dba9a6bcfd799eba7" category="list-text">NAME=nS-2</block>
+  <block id="da1046077b664fa54e4894632960137d" category="paragraph">您可以使用自動保護原則或臨機操作方式，拍攝快照和備份，以保護由 Trident Protect 管理的所有應用程式。</block>
+  <block id="e27f117e119beccd01579e6a8d0151fb" category="inline-link-macro">深入瞭解如何使用 Trident Protect 設定檔案系統凍結</block>
+  <block id="9efebf2c277b6c382e759b6b916fd0dd" category="admonition">您可以將 Trident Protect 設定為在資料保護作業期間凍結和取消凍結檔案系統。<block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>。</block>
+  <block id="ac84b7596169ab3fb6c24e8a5c85c234" category="section-title">使用 KubeVirt VM 保護資料</block>
+  <block id="c14dcfe7b0231c7a77642ffab50a55eb" category="summary">您可以將 Trident Protect 升級至最新版本，以利用新功能或錯誤修正。</block>
+  <block id="91d6fa36b819133d3be4dc9c8bf2cf22" category="doc">升級 Trident Protect</block>
+  <block id="9a4ef497aa1e88e71b08a41b069a9cf4" category="paragraph">若要升級 Trident Protect ，請執行下列步驟。</block>
+  <block id="08583ac87350c1205f57ca5d8c629482" category="list-text">更新 Trident Helm 儲存庫：</block>
+  <block id="0f5b1b3a9bfb872579b78d2db623d3d8" category="list-text">升級 Trident Protect 客戶需求日：</block>
+  <block id="a16ec228f0e3336de76f224b11d860d9" category="list-text">升級 Trident Protect ：</block>
+  <block id="08810911e9a818361e28207072354bd4" category="list-text">如果適用，檔案系統會凍結。<block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>。</block>
+  <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">凍結的檔案系統會在適用的情況下解除凍結。</block>
 </blocks>

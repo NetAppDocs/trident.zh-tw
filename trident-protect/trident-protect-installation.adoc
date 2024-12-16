@@ -52,16 +52,6 @@ helm install trident-protect netapp-trident-protect/trident-protect --set autoSu
 ----
 
 
-. 您也可以凍結 VM 。如果您使用 KubeVirt 支援 SnapMirror ，則凍結虛擬機器可協助您有效管理：
-+
-[source, console]
-----
-kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
-----
-+
-
-NOTE: 您必須設定虛擬化，凍結功能才能正常運作。在此設定之後部署的 VM 包括凍結和取消凍結所需的二進位檔。若要深入瞭解設定虛擬化的相關link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["安裝 OpenShift 虛擬化"^]資訊，請參閱。
-
 
 
 --
@@ -169,16 +159,6 @@ helm install trident-protect netapp-trident-protect/trident-protect --set cluste
 helm install trident-protect netapp-trident-protect/trident-protect --set autoSupport.enabled=false --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
 
-
-. 您也可以凍結 VM 。如果您使用 KubeVirt 支援 SnapMirror ，則凍結虛擬機器可協助您有效管理：
-+
-[source, console]
-----
-kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
-----
-+
-
-NOTE: 您必須設定虛擬化，凍結功能才能正常運作。在此設定之後部署的 VM 包括凍結和取消凍結所需的二進位檔。若要深入瞭解設定虛擬化的相關link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["安裝 OpenShift 虛擬化"^]資訊，請參閱。
 
 
 

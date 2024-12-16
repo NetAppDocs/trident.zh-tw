@@ -18,6 +18,8 @@ entries:
     url: "/trident-protect/manage-authorization-access-control.html"
   - title: 產生 Trident Protect 支援服務組合
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
+  - title: 升級 Trident Protect
+    url: "/trident-protect/trident-protect-upgrade.html"
 - title: 管理及保護應用程式
   entries:
   - title: 使用 AppVault 物件來管理貯體

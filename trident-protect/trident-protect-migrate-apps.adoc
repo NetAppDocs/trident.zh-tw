@@ -132,12 +132,15 @@ spec:
 . 或者，如果您只需要選取要還原的應用程式特定資源，請新增篩選功能，以包含或排除標記有特定標籤的資源：
 +
 ** *resourceFilter.resourceSelectionCriteria ：（篩選所需）用於 `include or exclude`包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
-** * 要篩選的資源的 resourceMatchers.group*: （ _Optional_ ）群組。
-** *resourceMatchers.y* ：（ _Optional_ ）要篩選的資源種類。
-** *resourceMatchers.version* ：（ _Optional_ ）要篩選的資源版本。
-** * 要篩選之資源的 Kubernetes metadata.name 欄位中的 resourceMatchers.names*: （ _Optional_ ）名稱。
-** * 要篩選之資源的 Kubernetes metadata.name 欄位中的 resourceMatchers.namespaces*: （ _Optional_ ）命名空間。
-** 資源的 Kubernetes metadata.name 欄位中的 *resourceMatchers.labelSelectors * ：（ _Optional_ ） Label 選取器字串，如中所定義 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes文件"^]。例如 `"trident.netapp.io/os=linux"`：。
++
+*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會以 OR 運算的形式進行比對，而每個元素（群組，種類，版本）內的欄位會以 AND 運算的形式進行比對。
++
+**** *resourceMatchers[].group* ：（ _Optional_ ）要篩選的資源群組。
+**** *resourceMatchers[].cher* ：（ _Optional_ ）要篩選的資源種類。
+**** *resourceMatchers[].version* ：（ _Optional_ ）要篩選的資源版本。
+**** 要篩選之資源的 Kubernetes metadata.name 欄位中的 * resourceMatchers[].names* ：（ _Optional_ ）名稱。
+**** 要篩選之資源的 Kubernetes metadata.name 欄位中的 * resourceMatchers[].names* ：（ _Optional_ ）命名空間。
+**** 資源的 Kubernetes metadata.name 欄位中的 *resourceMatchers[].labelSelectors * ：（ _Optional_ ） Label 選取器字串，如中所定義 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes文件"^]。例如 `"trident.netapp.io/os=linux"`：。
 +
 例如：
 
@@ -148,13 +151,23 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
+
+
+
+
 
 
 . 在您以正確的值填入檔案之後 `trident-protect-snapshot-restore-cr.yaml` 、請套用 CR ：

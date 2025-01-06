@@ -4489,13 +4489,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="33dc1feba43183f93ade318576611f4a" category="list-text">*spec.namespaceMapping*: 將還原作業的來源命名空間對應至目的地命名空間。以環境中的資訊取代<block ref="a6f7f0a873c27a67ee3194949076866b" prefix=" " category="inline-code"></block>和<block ref="2cfb071d6be7d4cf9e297100f62858fe" prefix=" " category="inline-code"></block>。</block>
   <block id="12ed8140e585382bd7caee15c2ebb002" category="list-text">或者，如果您只需要選取要還原的應用程式特定資源，請新增篩選功能，以包含或排除標記有特定標籤的資源：</block>
   <block id="15212a55e2108abef019ef0de4a2d413" category="list-text">*resourceFilter.resourceSelectionCriteria ：（篩選所需）用於<block ref="0daf9ee05d33b85e4cfc7be473c64e9b" prefix=" " category="inline-code"></block>包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：</block>
-  <block id="1ca8ced6065c9f465611bb5ff24699bc" category="list-text">* 要篩選的資源的 resourceMatchers.group*: （ _Optional_ ）群組。</block>
-  <block id="1abc2ced311814dde4619aba0c0ae69d" category="list-text">*resourceMatchers.y* ：（ _Optional_ ）要篩選的資源種類。</block>
-  <block id="f2afaee5bf5a6e08b3f94e1fe23f9ddf" category="list-text">*resourceMatchers.version* ：（ _Optional_ ）要篩選的資源版本。</block>
-  <block id="cd7c33fdac590384c71373183085354e" category="list-text">* 要篩選之資源的 Kubernetes metadata.name 欄位中的 resourceMatchers.names*: （ _Optional_ ）名稱。</block>
-  <block id="bcf62d122b3627832ee25e9e69aa4701" category="list-text">* 要篩選之資源的 Kubernetes metadata.name 欄位中的 resourceMatchers.namespaces*: （ _Optional_ ）命名空間。</block>
   <block id="d9348d075dc7b3c91cff99d56dfc327b" category="inline-link">Kubernetes文件</block>
-  <block id="c436fdf7e5393ae3a8821f5bd3058215" category="list-text">資源的 Kubernetes metadata.name 欄位中的 *resourceMatchers.labelSelectors * ：（ _Optional_ ） Label 選取器字串，如中所定義<block ref="d4ce3da8407a7d8e148bb1287288e778" category="inline-link-rx"></block>。例如<block ref="6ea45baf659f1f35e51c8dc9005eac03" prefix=" " category="inline-code"></block>：。</block>
   <block id="bca1b1b2b1a229dc37dffa4f7012c02d" category="list-text">在您以正確的值填入檔案之後<block ref="fac6dff7f801a4983f4a536dbcbd40d7" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="ffe607ccb2c74bd77fcfcd7f0ff7691e" category="open-title">使用 CLI 還原快照</block>
   <block id="a77b4ff586cfbf08c54732a1ced52e4f" category="list-text">將快照還原至不同的命名空間，以環境中的資訊取代方括號中的值。</block>
@@ -4629,7 +4623,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="3f1db1c30ba33e5d04499f000ed77f97" category="list-text">*spec.appVaultRef* ：（ _required _ ）儲存備份內容的 AppVault 名稱。</block>
   <block id="3e209c1619d0c38cf60c13838ca4cf72" category="list-text">*spec.storageClassMapping* ：將還原作業的來源儲存類別對應至目的地儲存類別。以環境中的資訊取代<block ref="6d4164a2db4b8f123f2f4666f47d1304" prefix=" " category="inline-code"></block>和<block ref="cb3a1d54728d178b537383d31afb4b53" prefix=" " category="inline-code"></block>。</block>
   <block id="a5085953f7b15a312b4e12827abc66e5" category="list-text">（ _Optional_ ）如果您只需要選取應用程式的某些資源來還原，請新增篩選功能，以包含或排除標記有特定標籤的資源：</block>
-  <block id="792236c6092ad20b208a284b7be14046" category="list-text">*resourceFilter.resourceMatchers* ： resourceMatcher 物件陣列。</block>
   <block id="be16b6e14200639734fb9694e3c0f655" category="list-text">*resourceMatchers[].group* ：（ _Optional_ ）要篩選的資源群組。</block>
   <block id="2162d9f0c97d87c37f838ea27ecb393a" category="list-text">*resourceMatchers[].cher* ：（ _Optional_ ）要篩選的資源種類。</block>
   <block id="862dca1a77422225d13abda4b7bf539b" category="list-text">*resourceMatchers[].version* ：（ _Optional_ ）要篩選的資源版本。</block>
@@ -5026,4 +5019,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="a16ec228f0e3336de76f224b11d860d9" category="list-text">升級 Trident Protect ：</block>
   <block id="08810911e9a818361e28207072354bd4" category="list-text">如果適用，檔案系統會凍結。<block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>。</block>
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">凍結的檔案系統會在適用的情況下解除凍結。</block>
+  <block id="2d9c57bbe7c29718be24410f0c38688e" category="list-text">*resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會以 OR 運算的形式進行比對，而每個元素（群組，種類，版本）內的欄位會以 AND 運算的形式進行比對。</block>
 </blocks>

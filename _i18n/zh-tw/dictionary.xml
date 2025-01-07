@@ -5019,5 +5019,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="a16ec228f0e3336de76f224b11d860d9" category="list-text">升級 Trident Protect ：</block>
   <block id="08810911e9a818361e28207072354bd4" category="list-text">如果適用，檔案系統會凍結。<block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>。</block>
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">凍結的檔案系統會在適用的情況下解除凍結。</block>
-  <block id="2d9c57bbe7c29718be24410f0c38688e" category="list-text">*resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會以 OR 運算的形式進行比對，而每個元素（群組，種類，版本）內的欄位會以 AND 運算的形式進行比對。</block>
+  <block id="1eb6c79d30a4cb086ad406cb25fec350" category="list-text">*resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。</block>
 </blocks>

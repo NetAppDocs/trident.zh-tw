@@ -147,7 +147,7 @@ spec:
 +
 ** *resourceFilter.resourceSelectionCriteria ：（篩選所需）用於 `include or exclude`包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
 +
-*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會以 OR 運算的形式進行比對，而每個元素（群組，種類，版本）內的欄位會以 AND 運算的形式進行比對。
+*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
 +
 **** *resourceMatchers[].group* ：（ _Optional_ ）要篩選的資源群組。
 **** *resourceMatchers[].cher* ：（ _Optional_ ）要篩選的資源種類。
@@ -249,7 +249,7 @@ spec:
 +
 ** *resourceFilter.resourceSelectionCriteria ：（篩選所需）用於 `include or exclude`包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
 +
-*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會以 OR 運算的形式進行比對，而每個元素（群組，種類，版本）內的欄位會以 AND 運算的形式進行比對。
+*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
 +
 **** *resourceMatchers[].group* ：（ _Optional_ ）要篩選的資源群組。
 **** *resourceMatchers[].cher* ：（ _Optional_ ）要篩選的資源種類。
@@ -354,7 +354,7 @@ spec:
 +
 ** *resourceFilter.resourceSelectionCriteria ：（篩選所需）用於 `include or exclude`包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
 +
-*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會以 OR 運算的形式進行比對，而每個元素（群組，種類，版本）內的欄位會以 AND 運算的形式進行比對。
+*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
 +
 **** *resourceMatchers[].group* ：（ _Optional_ ）要篩選的資源群組。
 **** *resourceMatchers[].cher* ：（ _Optional_ ）要篩選的資源種類。
@@ -461,7 +461,7 @@ spec:
 +
 ** *resourceFilter.resourceSelectionCriteria ：（篩選所需）用於 `include or exclude`包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
 +
-*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會以 OR 運算的形式進行比對，而每個元素（群組，種類，版本）內的欄位會以 AND 運算的形式進行比對。
+*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
 +
 **** *resourceMatchers[].group* ：（ _Optional_ ）要篩選的資源群組。
 **** *resourceMatchers[].cher* ：（ _Optional_ ）要篩選的資源種類。

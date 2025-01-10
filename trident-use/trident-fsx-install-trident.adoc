@@ -97,8 +97,8 @@ Astra Trident EKS 附加元件包含最新的安全性修補程式、錯誤修�
 --
 下列命令範例會安裝 Astra Trident EKS 附加元件：
 
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.6.1-eksbuild`
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.6.1-eksbuild.1` （使用專用版本）
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild`
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild.1` （使用專用版本）
 
 --
 
@@ -110,9 +110,9 @@ NOTE: 當您設定選用參數 `cloudIdentity`時，請確保在使用 EKS 附�
 . 在左導覽窗格中、按一下 * 叢集 * 。
 . 按一下您要設定 NetApp Trident CSI 附加元件的叢集名稱。
 . 按一下 * 附加元件 * 、然後按一下 * 取得更多附加元件 * 。
-. 在 *S*SELECT 附加元件 * 頁面上、執行下列步驟：
+. 在 * 選取附加元件 * 頁面上，執行下列動作：
 +
-.. 在 AWS Marketplace EKS-addons 區段中、選取 *Astra Trident by NetApp * 核取方塊。
+.. 在 AWS Marketplace EKS-addons 區段中，選取 * NetApp Trident * 核取方塊。
 .. 單擊 * 下一步 * 。
 
 
@@ -121,10 +121,6 @@ NOTE: 當您設定選用參數 `cloudIdentity`時，請確保在使用 EKS 附�
 .. 選擇您要使用的 * 版本 * 。
 .. 對於 * 選取 IAM 角色 * 、請保留 * 未設定 * 。
 .. 展開 * 選用組態設定 * 、遵循 * 附加元件組態架構 * 、並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應採用下列格式： `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`）。如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。
-+
-
-NOTE: 當您設定選用參數 `cloudIdentity`時，請確保在使用 EKS 附加元件安裝 Trident 時指定 `cloudProvider`。
-
 
 
 . 選擇 * 下一步 * 。
@@ -146,16 +142,12 @@ add-on.json
 
    "clusterName": "<eks-cluster>",
    "addonName": "netapp_trident-operator",
-   "addonVersion": "v24.6.1-eksbuild.1",
+   "addonVersion": "v24.10.0-eksbuild.1",
    "serviceAccountRoleArn": "arn:aws:iam::123456:role/astratrident-role",
    "configurationValues": "{"cloudIdentity": "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'",
    "cloudProvider": "AWS"}"
 }
 ----
-+
-
-NOTE: 當您設定選用參數 `cloudIdentity`時，請確保在使用 EKS 附加元件安裝 Trident 時指定 `AWS`為 `cloudProvider`。
-
 . 安裝 Astra Trident EKS 附加元件 "
 +
 `aws eks create-addon --cli-input-json file://add-on.json`
@@ -182,10 +174,10 @@ NOTE: 當您設定選用參數 `cloudIdentity`時，請確保在使用 EKS 附�
 [listing]
 ----
 NAME                        VERSION             STATUS    ISSUES    IAMROLE    UPDATE AVAILABLE    CONFIGURATION VALUES
-netapp_trident-operator    v24.6.1-eksbuild.1    ACTIVE    0       {"cloudIdentity":"'eks.amazonaws.com/role-arn: arn:aws:iam::139763910815:role/AmazonEKS_FSXN_CSI_DriverRole'"}
+netapp_trident-operator    v24.10.0-eksbuild.1    ACTIVE    0       {"cloudIdentity":"'eks.amazonaws.com/role-arn: arn:aws:iam::139763910815:role/AmazonEKS_FSXN_CSI_DriverRole'"}
 ----
 * 將附加元件更新至上一個步驟輸出中可用更新所傳回的版本。
-`eksctl update addon --name netapp_trident-operator --version v24.6.1-eksbuild.1 --cluster my-cluster --force`
+`eksctl update addon --name netapp_trident-operator --version v24.10.0-eksbuild.1 --cluster my-cluster --force`
 +
 如果您移除此 `--force` 選項、且任何 Amazon EKS 附加元件設定與您現有的設定發生衝突、則更新 Amazon EKS 附加元件會失敗；您會收到錯誤訊息、協助您解決衝突。在指定此選項之前、請確定 Amazon EKS 附加元件不會管理您需要管理的設定、因為這些設定會以此選項覆寫。如需此設定的其他選項的詳細資訊，請參閱 link:https://eksctl.io/usage/addons/["附加元件"]。如需 Amazon EKS Kubernetes 現場管理的詳細資訊、請參閱 link:https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-field-management.html["Kubernetes 現場管理"]。
 
@@ -198,11 +190,11 @@ netapp_trident-operator    v24.6.1-eksbuild.1    ACTIVE    0       {"cloudIdenti
 . 在左導覽窗格中、按一下 * 叢集 * 。
 . 按一下您要更新 NetApp Trident CSI 附加元件的叢集名稱。
 . 按一下 * 附加元件 * 索引標籤。
-. 按一下 *Astra Trident by NetApp * ，然後按一下 *Edit* 。
-. 在 * 設定 Astra Trident by NetApp * 頁面上、執行下列步驟：
+. 按一下 * 「 NetApp Trident * 」，然後按一下 * 「編輯 * 」。
+. 在 * 設定選取的附加元件設定 * 頁面上，執行下列步驟：
 +
 .. 選擇您要使用的 * 版本 * 。
-.. （可選）您可以展開 * 可選配置設置 * 並根據需要進行修改。
+.. 展開 * 選用組態設定 * ，並視需要修改。
 .. 按一下*儲存變更*。
 
 
@@ -213,7 +205,7 @@ netapp_trident-operator    v24.6.1-eksbuild.1    ACTIVE    0       {"cloudIdenti
 --
 下列範例更新 EKS 附加元件：
 
-`aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.6.1-eksbuild.1 \
+`aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.10.0-eksbuild.1 \
     --service-account-role-arn arn:aws:iam::111122223333:role/role-name --configuration-values '{}' --resolve-conflicts --preserve`
 
 --

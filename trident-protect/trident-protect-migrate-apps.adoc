@@ -50,22 +50,15 @@ NOTE: 當您移轉應用程式時，為應用程式設定的所有執行掛鉤�
 
 === 複製到不同叢集
 
-若要將應用程式複製到不同的叢集（執行跨叢集複製），請建立快照或備份，並將資料還原到不同的叢集。請確定目的地叢集上已安裝 Trident Protect 。
+若要將應用程式複製到不同的叢集（執行跨叢集複製），請在來源叢集上建立備份，然後將備份還原到不同的叢集。請確定目的地叢集上已安裝 Trident Protect 。
+
+
+NOTE: 您可以使用在不同叢集之間複寫應用程式link:trident-protect-use-snapmirror-replication.html["SnapMirror 複寫"]。
 
 .步驟
-. 執行下列其中一項：
-+
-.. link:trident-protect-protect-apps.html#create-an-on-demand-snapshot["建立快照"]。
-.. link:trident-protect-protect-apps.html#create-an-on-demand-backup["建立備份"]。
-
-
-. 請確定已在目的地叢集上設定包含備份或快照之物件儲存貯體的 AppVault CR 。
-. 在目的地叢集上，視您建立的是快照或備份而定，請執行下列其中一項：
-+
-.. link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-a-different-namespace["從快照還原資料"]。
-.. link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["從備份還原資料"]。
-
-
+. link:trident-protect-protect-apps.html#create-an-on-demand-backup["建立備份"]。
+. 請確定已在目的地叢集上設定包含備份之物件儲存貯體的 AppVault CR 。
+. 在目的地叢集上link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["從備份還原資料"]，。
 
 
 

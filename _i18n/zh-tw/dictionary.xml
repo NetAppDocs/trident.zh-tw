@@ -4473,9 +4473,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1c7b9a68982aa2ad5f1d69eeb5bdf99e" category="inline-link-macro">從備份還原資料</block>
   <block id="e27031b9d0bffffcf2abd2136eed21f5" category="list-text"><block ref="71bc4096317f8eb78a9951851bc1165b" category="inline-link-macro-rx"></block>。</block>
   <block id="403ecb1db6fa0f1bb20e787bb5f5dacd" category="section-title">複製到不同叢集</block>
-  <block id="1fe732d5921038b3ec81023b7a5d8068" category="paragraph">若要將應用程式複製到不同的叢集（執行跨叢集複製），請建立快照或備份，並將資料還原到不同的叢集。請確定目的地叢集上已安裝 Trident Protect 。</block>
-  <block id="884bacf23a56346ab0468809c6cb7145" category="list-text">請確定已在目的地叢集上設定包含備份或快照之物件儲存貯體的 AppVault CR 。</block>
-  <block id="f5c64bf182766988d3561488bae5bf83" category="list-text">在目的地叢集上，視您建立的是快照或備份而定，請執行下列其中一項：</block>
   <block id="181aa092ab965b34bcee90e25056f876" category="section-title">將應用程式從一個儲存類別移轉至另一個儲存類別</block>
   <block id="97a1f17d0c2154050e8ba2ecfd07ecf4" category="paragraph">您可以將快照還原至不同的目的地儲存類別，將應用程式從一個儲存類別移轉至不同的儲存類別。</block>
   <block id="f1ad7bca566917ee78958caa78fab3f5" category="paragraph">例如（從還原 CR 中排除機密）：</block>
@@ -5017,4 +5014,10 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="f266533c568f7d6d2cb55d3ef8fa6b5b" category="list-text">在 * 設定選取的附加元件設定 * 頁面上，執行下列步驟：</block>
   <block id="effa92215c770083617150adc291c130" category="list-text">展開 * 選用組態設定 * ，並視需要修改。</block>
   <block id="c44618c9f0d840029b691a1dee65b927" category="paragraph"><block ref="7111ba434e6642bb1d25b7f45b940c41" prefix="" category="inline-code"></block></block>
+  <block id="fd8585ec0c8ba7001713251f9ab9c69e" category="paragraph">若要將應用程式複製到不同的叢集（執行跨叢集複製），請在來源叢集上建立備份，然後將備份還原到不同的叢集。請確定目的地叢集上已安裝 Trident Protect 。</block>
+  <block id="a1f41e52e9ddbd9f87ecd032c237b1c0" category="inline-link-macro">SnapMirror 複寫</block>
+  <block id="f6acb98f21e25882aaaa267339abcc92" category="admonition">您可以使用在不同叢集之間複寫應用程式<block ref="69314cba6d14bf88b8e850c978056766" category="inline-link-macro-rx"></block>。</block>
+  <block id="fe961357dbe4b6bf8b5503f4919ea35c" category="list-text">請確定已在目的地叢集上設定包含備份之物件儲存貯體的 AppVault CR 。</block>
+  <block id="baafbccab17d07f9ba18e7becb7c76d2" category="inline-link-macro">從備份還原資料</block>
+  <block id="878bbf0662ed19ef900e4e06bfad92d2" category="list-text">在目的地叢集上<block ref="11860f9f3ec51316f8ebc9805806b6cd" category="inline-link-macro-rx"></block>，。</block>
 </blocks>

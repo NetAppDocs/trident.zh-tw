@@ -145,7 +145,7 @@ spec:
 
 . （ _Optional_ ）如果您只需要選取應用程式的某些資源來還原，請新增篩選功能，以包含或排除標記有特定標籤的資源：
 +
-** *resourceFilter.resourceSelectionCriteria ：（篩選所需）用於 `include or exclude`包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
+** *resourceFilter.resourceSelectionCriteria* ：（篩選所需）使用 `Include`或包含或 `Exclude`排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
 +
 *** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
 +
@@ -163,7 +163,7 @@ spec:
 ----
 spec:
   resourceFilter:
-    resourceSelectionCriteria: "include"
+    resourceSelectionCriteria: "Include"
     resourceMatchers:
       - group: my-resource-group-1
         kind: my-resource-kind-1
@@ -247,7 +247,7 @@ spec:
 
 . （ _Optional_ ）如果您只需要選取應用程式的某些資源來還原，請新增篩選功能，以包含或排除標記有特定標籤的資源：
 +
-** *resourceFilter.resourceSelectionCriteria ：（篩選所需）用於 `include or exclude`包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
+** *resourceFilter.resourceSelectionCriteria* ：（篩選所需）使用 `Include`或包含或 `Exclude`排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
 +
 *** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
 +
@@ -265,7 +265,7 @@ spec:
 ----
 spec:
   resourceFilter:
-    resourceSelectionCriteria: "include"
+    resourceSelectionCriteria: "Include"
     resourceMatchers:
       - group: my-resource-group-1
         kind: my-resource-kind-1
@@ -352,7 +352,7 @@ spec:
 
 . （ _Optional_ ）如果您只需要選取應用程式的某些資源來還原，請新增篩選功能，以包含或排除標記有特定標籤的資源：
 +
-** *resourceFilter.resourceSelectionCriteria ：（篩選所需）用於 `include or exclude`包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
+** *resourceFilter.resourceSelectionCriteria* ：（篩選所需）使用 `Include`或包含或 `Exclude`排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
 +
 *** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
 +
@@ -370,7 +370,7 @@ spec:
 ----
 spec:
   resourceFilter:
-    resourceSelectionCriteria: "include"
+    resourceSelectionCriteria: "Include"
     resourceMatchers:
       - group: my-resource-group-1
         kind: my-resource-kind-1
@@ -459,7 +459,7 @@ spec:
 
 . （ _Optional_ ）如果您只需要選取應用程式的某些資源來還原，請新增篩選功能，以包含或排除標記有特定標籤的資源：
 +
-** *resourceFilter.resourceSelectionCriteria ：（篩選所需）用於 `include or exclude`包含或排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
+** *resourceFilter.resourceSelectionCriteria* ：（篩選所需）使用 `Include`或包含或 `Exclude`排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
 +
 *** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
 +
@@ -477,7 +477,7 @@ spec:
 ----
 spec:
   resourceFilter:
-    resourceSelectionCriteria: "include"
+    resourceSelectionCriteria: "Include"
     resourceMatchers:
       - group: my-resource-group-1
         kind: my-resource-kind-1

@@ -340,7 +340,7 @@ kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n my-app-n
 *** * spec.namespaceMapping*: （ _required _ ）目的地和來源命名空間必須符合各自應用程式 CR 中定義的應用程式命名空間。
 *** *spec.sourceAppVaultRef* ：（ _required _ ）此值必須符合來源應用程式的 AppVault 名稱。
 *** *spec.sourceApplicationName* ：（ _required _ ）此值必須符合您在來源應用程式 CR 中定義的來源應用程式名稱。
-*** *spec.storageClassName* ：（ _required _ ）選擇叢集上有效儲存類別的名稱。儲存類別必須與部署來源應用程式的來源叢集上所使用的儲存類別對等。
+*** *spec.storageClassName* ：（ _required _ ）選擇叢集上有效儲存類別的名稱。儲存類別必須連結至與來源環境對等的 ONTAP 儲存 VM 。
 *** *spec.recurrenceRule* ：以 UTC 時間和循環時間間隔定義開始日期。
 +
 YAML 範例：

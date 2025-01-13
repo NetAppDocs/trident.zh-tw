@@ -4773,7 +4773,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="ad47c31cec730ddef75893f6207a8350" category="list-text">* spec.namespaceMapping*: （ _required _ ）目的地和來源命名空間必須符合各自應用程式 CR 中定義的應用程式命名空間。</block>
   <block id="0d2f17f43053f85c97752c575bb2af3e" category="list-text">*spec.sourceAppVaultRef* ：（ _required _ ）此值必須符合來源應用程式的 AppVault 名稱。</block>
   <block id="5c0044cad9c27e4f4742c4a031edd6eb" category="list-text">*spec.sourceApplicationName* ：（ _required _ ）此值必須符合您在來源應用程式 CR 中定義的來源應用程式名稱。</block>
-  <block id="be4ed18b3b9c2261b9f3966d0d80e6c4" category="list-text">*spec.storageClassName* ：（ _required _ ）選擇叢集上有效儲存類別的名稱。儲存類別必須與部署來源應用程式的來源叢集上所使用的儲存類別對等。</block>
   <block id="e1e70c108ffb369c9c05ac65820562c3" category="list-text">在您以正確的值填入檔案之後<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="d4c94febe4f13411fa761de57ad6cce6" category="open-title">使用 CLI 建立 AppMirrorRelationship</block>
   <block id="1d29e9d9da5d097b90cc18a976fa591c" category="list-text">建立並套用 AppMirrorRelationship 物件，以環境資訊取代方括號中的值。例如：</block>
@@ -5021,4 +5020,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="baafbccab17d07f9ba18e7becb7c76d2" category="inline-link-macro">從備份還原資料</block>
   <block id="878bbf0662ed19ef900e4e06bfad92d2" category="list-text">在目的地叢集上<block ref="11860f9f3ec51316f8ebc9805806b6cd" category="inline-link-macro-rx"></block>，。</block>
   <block id="4a0207b6a74b63dcaaa4d58fe75ec431" category="list-text">*resourceFilter.resourceSelectionCriteria* ：（篩選所需）使用<block ref="f4d72a64acd8929c0cc9ed96a7a336cc" prefix=" " category="inline-code"></block>或包含或<block ref="843f2812f595e7ec7c5036e89fde02d6" prefix=" " category="inline-code"></block>排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：</block>
+  <block id="5e77ee724e7a9c6f34c1fd6a65b3f3b5" category="list-text">*spec.storageClassName* ：（ _required _ ）選擇叢集上有效儲存類別的名稱。儲存類別必須連結至與來源環境對等的 ONTAP 儲存 VM 。</block>
 </blocks>

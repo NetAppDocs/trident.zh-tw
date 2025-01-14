@@ -43,7 +43,7 @@ summary: 瞭解 Google Cloud NetApp Volume 的 NFS 和 NFS 後端組態選項、
 | 位置 | Trident 建立 GCNV Volume 的 Google Cloud 位置。建立跨區域 Kubernetes 叢集時、在中建立的磁碟區 `location` 可用於跨多個 Google Cloud 區域的節點上排程的工作負載。跨區域流量會產生額外成本。 |  
 
 
-| 「apiKey」 | 具有此角色的 Google Cloud 服務帳戶的 API 金鑰 `netappcloudvolumes.admin` 。其中包含Google Cloud服務帳戶私密金鑰檔案（逐字複製到後端組態檔）的JSON-格式內容。 `apiKey`必須包含下列金鑰的金鑰值配對： `type` `project_id`、、 `client_email`、 `client_id`、 `auth_uri` `token_uri` `auth_provider_x509_cert_url`、和 `client_x509_cert_url`。 |  
+| 「apiKey」 | 具有此角色的 Google Cloud 服務帳戶的 API 金鑰 `netapp.admin` 。其中包含Google Cloud服務帳戶私密金鑰檔案（逐字複製到後端組態檔）的JSON-格式內容。 `apiKey`必須包含下列金鑰的金鑰值配對： `type` `project_id`、、 `client_email`、 `client_id`、 `auth_uri` `token_uri` `auth_provider_x509_cert_url`、和 `client_x509_cert_url`。 |  
 
 
 | 「nfsMountOptions」 | 精細控制NFS掛載選項。 | "nfsves=3" 

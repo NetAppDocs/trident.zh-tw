@@ -4355,26 +4355,9 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="b0f47f6adf0e419b1f2eec1a0a995e8c" category="section-title">金鑰產生與 AppVault 定義範例</block>
   <block id="e1acb82bf1e9f5db4a12c5a7eb653d47" category="paragraph">定義 AppVault CR 時，您需要加入認證，才能存取供應商託管的資源。您產生認證金鑰的方式會因供應商而異。以下是數個提供者的命令列金鑰產生範例，接著是每個提供者的 AppVault 定義範例。</block>
   <block id="56ef2682280ac110060b881925a87b80" category="section-title">Google Cloud</block>
-  <block id="740ca32fc91467fd47fb71d2414cfef5" category="paragraph">金鑰產生範例：</block>
-  <block id="194398b8524e2cd4b7f246805e250ed0" category="paragraph">以下 AppVault 定義範例是以 CR 的形式提供，您可以使用及修改，或是以 Trident Protect CLI 命令的範例來為您產生 AppVault CR ：</block>
-  <block id="717b55966fdf152c0b975d5025c190c0" category="open-title">範例 AppVault CR</block>
-  <block id="970235f2b49975fd398ad1272198687b" category="open-title">使用 Trident Protect CLI 建立 AppVault CR 範例</block>
-  <block id="270fcb785810d0206945029bb05f4e97" category="section-title">Amazon S3</block>
-  <block id="cde0d86b75c5d9604be18e3bd522bf17" category="open-title">使用 CLI 建立 AppVault 範例</block>
   <block id="1668ca1bd914c1d847f23b491319ac91" category="section-title">Microsoft Azure</block>
-  <block id="017615c1142fadb040de32a937ba28a5" category="section-title">提供者類型和供應商組態的支援值</block>
-  <block id="f6583553f122a79fc1cb33273af12b71" category="paragraph"><block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block>AppVault CR 中的和<block ref="93fc18ae6fe8f42e5ec9235d62051855" prefix=" " category="inline-code"></block>金鑰需要特定值。下表列出金鑰支援的值<block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block>，以及每個值所需使用的相關<block ref="93fc18ae6fe8f42e5ec9235d62051855" prefix=" " category="inline-code"></block>金鑰<block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block>。</block>
-  <block id="465bce4ca7a51a41028b39e2638813e7" category="cell">支援<block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block>的值</block>
-  <block id="62047e0c7c39225e57ee4ea7021c2c03" category="cell"><block ref="93fc18ae6fe8f42e5ec9235d62051855" prefix=" " category="inline-code"></block>關聯金鑰</block>
-  <block id="4847e034bb0a55fcbc8a3380d6a3ab80" category="cell">AWS</block>
-  <block id="c0828e0381730befd1f7a025057c74fb" category="cell">s3</block>
-  <block id="3a580f142203677f1f0bc30898f63f53" category="cell">Azure</block>
   <block id="cf04a02e37b774fc311a48f605c3c597" category="cell">Azure</block>
-  <block id="c731f72e1d22a7c5e01a7cb789a8885e" category="cell">GCP</block>
   <block id="50f66ecbc45488ee5826941bfbc50411" category="cell">GCP</block>
-  <block id="7f93d53700ceda931b2ea8335eef2b68" category="cell">GenericS3</block>
-  <block id="e65506feb09d12651a37ac31d3023758" category="cell">OntapS3</block>
-  <block id="339a160f314b213eaa0ef1a17608793b" category="cell">StorageGridS3</block>
   <block id="4ac6e7a03fe8abedfa131f8cf6680984" category="section-title">使用 AppVault 瀏覽器檢視 AppVault 資訊</block>
   <block id="ce8f41081c98b9eea8be01b08936dbb0" category="paragraph">您可以使用 Trident Protect CLI 外掛程式來檢視已在叢集上建立的 AppVault 物件相關資訊。</block>
   <block id="485573baf8bfa9487485deb07780d89f" category="list-text">檢視 AppVault 物件的內容：</block>
@@ -5021,4 +5004,14 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="5e77ee724e7a9c6f34c1fd6a65b3f3b5" category="list-text">*spec.storageClassName* ：（ _required _ ）選擇叢集上有效儲存類別的名稱。儲存類別必須連結至與來源環境對等的 ONTAP 儲存 VM 。</block>
   <block id="b22804421b3e5bca94f2a9979721eb60" category="cell">具有此角色的 Google Cloud 服務帳戶的 API 金鑰<block ref="e50dbf86780cfad5e007e4a95a6aa71e" prefix=" " category="inline-code"></block> 。其中包含Google Cloud服務帳戶私密金鑰檔案（逐字複製到後端組態檔）的JSON-格式內容。<block ref="c9ff119073ea2567730fb42e3a4fe805" prefix=" " category="inline-code"></block>必須包含下列金鑰的金鑰值配對：<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block><block ref="b098ad43c65e68f3d8ce27a3c7e6f6e2" prefix=" " category="inline-code"></block>、、<block ref="a4a9fd77bfb3720e66b510bef7ffe71a" prefix=" " category="inline-code"></block>、<block ref="2bfe9d72a4aae8f06a31025b7536be80" prefix=" " category="inline-code"></block>、<block ref="478cc0e49bfbb9ded4ffc7ea662d3968" prefix=" " category="inline-code"></block><block ref="98b215082431c21156af94f3aa69f838" prefix=" " category="inline-code"></block><block ref="8201fe8e688f4f948a62370fd1b411d4" prefix=" " category="inline-code"></block>、和<block ref="61426bc7fdd11e59a5c98e7ee37e3dbb" prefix=" " category="inline-code"></block>。</block>
   <block id="d0e48e9528072c6ff90b82adeab94dea" category="list-text">具有 Volumes Admin （ NetApp Volume 管理）角色的 Google Cloud 服務帳戶 <block ref="04bf1a6a0250bc9d4cba09ee34106dfc" prefix="(" category="inline-code"></block>。請參閱 <block ref="4f506c30a158c85db714d53536a12770" category="inline-link-macro-rx"></block>。</block>
+  <block id="993632e3de5c928730b804a11727536f" category="section-title">關鍵創造範例</block>
+  <block id="92de772dd8341bb6222522a5591e1395" category="paragraph">您可以使用下列範例來建立每個雲端供應商認證的金鑰。</block>
+  <block id="a13eeeef5ff2b7fe85692890fb5d28b3" category="open-title">Amazon S3 （ AWS ）</block>
+  <block id="b2aa71ee04e531f0b6d1f084ba45f52f" category="open-title">一般S3</block>
+  <block id="1716834171e243de0f898a67621b6624" category="open-title">ONTAP S3</block>
+  <block id="79832d443dadeb6d3b0637941d6ac067" category="open-title">StorageGRID S3</block>
+  <block id="6b4d16571162a69eb03c99cb132a69ec" category="section-title">AppVault CR 範例</block>
+  <block id="d05c8b60cfd355fccac41017c33ca892" category="paragraph">您可以使用下列 CR 範例，為每個雲端供應商建立 AppVault 物件。</block>
+  <block id="59264d37bdf7f6cbf4f94ad00dacdce1" category="section-title">使用 Trident Protect CLI 建立 AppVault 範例</block>
+  <block id="4db09810b323e73b4041a65c99bb14f8" category="paragraph">您可以使用下列 CLI 命令範例，為每個供應商建立 AppVault CRS 。</block>
 </blocks>

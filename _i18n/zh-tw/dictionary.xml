@@ -4421,7 +4421,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="2dcd4437dbff8aff3bc16ac15a71b74d" category="list-text">建立 Trident Protect 系統命名空間：</block>
   <block id="e0f6b701766eb28d805d7ba1e820f582" category="list-text">登入登錄：</block>
   <block id="814565bb5d7e7359fff967986fd4195a" category="list-text">建立用於私人登錄驗證的拉出密碼：</block>
-  <block id="9fd6c1e403ca347a1528f0f6688f6a06" category="list-text">建立名稱包含下列 Trident Protect 設定的檔案<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block>：</block>
   <block id="86e8b34710172d33dcae839e1f4dd07e" category="summary">您可以建立應用程式 CR 和相關的 AppVault CR ，讓 Trident Protect 瞭解您想要管理的應用程式。</block>
   <block id="80b940e5c68d020c06f9dc2f188d2169" category="doc">定義管理應用程式</block>
   <block id="1e10d655f5307ce7f79aeee68a9e72f3" category="paragraph">您可以建立應用程式 CR 和相關的 AppVault CR ，以定義您想要使用 Trident Protect 管理的應用程式。</block>
@@ -5014,4 +5013,11 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="d05c8b60cfd355fccac41017c33ca892" category="paragraph">您可以使用下列 CR 範例，為每個雲端供應商建立 AppVault 物件。</block>
   <block id="59264d37bdf7f6cbf4f94ad00dacdce1" category="section-title">使用 Trident Protect CLI 建立 AppVault 範例</block>
   <block id="4db09810b323e73b4041a65c99bb14f8" category="paragraph">您可以使用下列 CLI 命令範例，為每個供應商建立 AppVault CRS 。</block>
+  <block id="c8dac6733f0c00d0b3b8b239841a0255" category="list-text">建立名為的檔案<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block>。請確定其中包含下列 Trident Protect 設定：</block>
+  <block id="d9802724acbde7ce7749f0884262496a" category="section-title">指定 Trident Protect 容器資源限制</block>
+  <block id="723ff7c28b60307db94ddb35dd6cc517" category="paragraph">安裝 Trident Protect 之後，您可以使用組態檔來指定 Trident Protect 容器的資源限制。設定資源限制可讓您控制 Trident Protect 作業消耗多少叢集資源。</block>
+  <block id="45d7099b61647936da59ccfbaa49ca5c" category="list-text">建立名為的檔案<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block>。</block>
+  <block id="9f83417f7d6c999c56b0dcc3b274be23" category="list-text">根據您的環境需求，在檔案中填入 Trident Protect 容器的資源限制選項。</block>
+  <block id="816f46c4a8435f7f0f1498054f254865" category="paragraph">以下範例組態檔顯示可用的設定，並包含每個資源限制的預設值：</block>
+  <block id="956fe3fe2ad4f9cb1b569d66b4ff1db5" category="list-text">套用檔案中的值<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block>：</block>
 </blocks>

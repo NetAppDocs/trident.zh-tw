@@ -182,6 +182,7 @@ tridentctl protect create vault Azure <vault-name> --account <account-name> --bu
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Application
 metadata:
@@ -240,6 +241,7 @@ YAML 範例：
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Schedule
 metadata:
@@ -348,6 +350,7 @@ YAML 範例：
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: AppMirrorRelationship
 metadata:
@@ -489,6 +492,7 @@ YAML 範例：
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: ShutdownSnapshot
 metadata:

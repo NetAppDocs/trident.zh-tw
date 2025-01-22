@@ -46,6 +46,7 @@ YAML 範例：
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Application
 metadata:

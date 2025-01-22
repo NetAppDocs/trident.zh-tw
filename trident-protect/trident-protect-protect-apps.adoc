@@ -43,6 +43,7 @@ NOTE: 您可以將 Trident Protect 設定為在資料保護作業期間凍結和
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Snapshot
 metadata:
@@ -112,6 +113,7 @@ tridentctl protect create snapshot <my_snapshot_name> --appvault <my_appvault_na
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Backup
 metadata:
@@ -186,6 +188,7 @@ tridentctl protect create backup <my_backup_name> --appvault <my-vault-name> --a
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Schedule
 metadata:

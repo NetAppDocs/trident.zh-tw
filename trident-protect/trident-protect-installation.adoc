@@ -236,6 +236,6 @@ jobResources:
 +
 [source, console]
 ----
-helm update trident-protect -n trident-protect -f <resourceLimits.yaml>
+helm upgrade trident-protect -n trident-protect -f <resourceLimits.yaml> --reuse-values
 ----
 

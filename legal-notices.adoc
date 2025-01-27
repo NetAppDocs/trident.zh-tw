@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: legal-notices.html 
-keywords:  
-summary:  
+keywords: copyrights, notice, trademarks, patents, privacy, open source 
+summary: 法律聲明提供版權聲明、商標、專利等存取權限。 
 ---
 = 法律聲明
 :allow-uri-read: 

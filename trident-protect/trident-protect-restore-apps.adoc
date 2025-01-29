@@ -102,7 +102,7 @@ kubectl set env -n trident-protect deploy/trident-protect-controller-manager RES
 
 == 從備份還原至不同的命名空間
 
-當您使用備份還原 CR 將備份還原至不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程式，但還原的應用程式不會自動受到 Trident Protect 的保護。為了保護還原的應用程式，您需要為還原的應用程式建立應用程式 CR ，以便受到 Trident Protect 保護。
+當您使用 BackupRestore CR 將備份還原至不同的命名空間時， Trident Protect 會將應用程式還原至新命名空間，並為還原的應用程式建立應用程式 CR 。若要保護還原的應用程式，請建立隨需備份或快照，或建立保護排程。
 
 
 NOTE: 將備份還原至具有現有資源的不同命名空間，並不會改變任何與備份中共用名稱的資源。若要還原備份中的所有資源，請刪除並重新建立目標命名空間，或將備份還原至新的命名空間。
@@ -314,7 +314,7 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 
 == 從快照還原至不同的命名空間
 
-您可以使用自訂資源（ CR ）檔案、將資料從快照還原至不同的命名空間或原始來源命名空間。當您使用 SnapshotRestore CR 將快照還原至不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程式，但還原的應用程式並不會受到 Trident Protect 的自動保護。為了保護還原的應用程式，您需要為還原的應用程式建立應用程式 CR ，以便受到 Trident Protect 保護。
+您可以使用自訂資源（ CR ）檔案、將資料從快照還原至不同的命名空間或原始來源命名空間。當您使用 SnapshotRestore CR 將快照還原至不同的命名空間時， Trident Protect 會在新命名空間中還原應用程式，並為還原的應用程式建立應用程式 CR 。若要保護還原的應用程式，請建立隨需備份或快照，或建立保護排程。
 
 [role="tabbed-block"]
 ====

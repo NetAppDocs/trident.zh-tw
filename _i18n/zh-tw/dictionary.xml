@@ -4379,7 +4379,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="b64b2077b896969e7810dbb0a2de2f1a" category="open-title">下載適用於 Linux ARM64 CPU 的外掛程式</block>
   <block id="d58e744bd40cf0f8373ee5b2c7d11387" category="open-title">下載適用於 Mac AMD64 CPU 的外掛程式</block>
   <block id="fd3e558ef6c1af851bddabf0eb1945d7" category="open-title">下載 Mac ARM64 CPU 的外掛程式</block>
-  <block id="412a5def83fe5329b38679035cfea675" category="list-text">啟用二進位檔案的執行權限：</block>
   <block id="b23c395acc963a69b0a5f06a20bb4887" category="section-title">檢視 Trident CLI 外掛程式說明</block>
   <block id="305f79cb740685921820521a57e525e5" category="paragraph">您可以使用內建的外掛程式說明功能，取得外掛程式功能的詳細說明：</block>
   <block id="09b4818c610e8f967a9f5257455a3a2a" category="list-text">使用說明功能檢視使用指南：</block>
@@ -4911,7 +4910,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="aa2fd96b8dfdeb6aaaf2bb11da1413aa" category="list-text">複製現有的 FC-PVC 。</block>
   <block id="de35bb06ba09c90d091b31450c61efd7" category="list-text">調整已部署磁碟區的大小。</block>
   <block id="15286900a0d0667ffc4d515aeec6a1d2" category="list-text">將外掛程式二進位檔複製到路徑變數中定義的位置。例如，<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block>或<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block>（您可能需要提升的 Privileges ）：</block>
-  <block id="b3062a04e26d499596575c6767c02c16" category="list-text">您也可以選擇將二進位檔案複製到主目錄中的某個位置。在這種情況下，您可能需要將位置新增至 PATH 變數：</block>
   <block id="cff063350a0daf1b0ee4c6c97eb2e2de" category="admonition">將備份還原至具有現有資源的不同命名空間，並不會改變任何與備份中共用名稱的資源。若要還原備份中的所有資源，請刪除並重新建立目標命名空間，或將備份還原至新的命名空間。</block>
   <block id="e8e7bb3124435135f9fc5dab713148e1" category="list-text">當使用執行 RHEL / RedHat CoreOS 搭配 FC PV 的工作節點時，請在 StorageClass 中指定<block ref="70f68bb2f748b85de6526bfe236ea1e9" prefix=" " category="inline-code"></block> mountOption 以執行內嵌空間回收。請參閱<block ref="cef8948c7b8e90d5be591e67d93555a7" category="inline-link-rx"></block>。</block>
   <block id="0ac202e458490a734271522fcedf4876" category="list-text">確定<block ref="8732863da72605a20ed96b4eee87a5fb" prefix=" " category="inline-code"></block>執行中：</block>
@@ -5020,4 +5018,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="0708d6413707329d6051a0456f0810ac" category="admonition">您可以使用<block ref="deb04333ae980bc0147681e476e1941c" prefix=" " category="inline-code"></block>來檢視此命令的詳細說明資訊。</block>
   <block id="b0e7049d5aeb967991b6b3a21db08de3" category="paragraph">當您使用 BackupRestore CR 將備份還原至不同的命名空間時， Trident Protect 會將應用程式還原至新命名空間，並為還原的應用程式建立應用程式 CR 。若要保護還原的應用程式，請建立隨需備份或快照，或建立保護排程。</block>
   <block id="4b405223d9feceac91c5ef8df77b1961" category="paragraph">您可以使用自訂資源（ CR ）檔案、將資料從快照還原至不同的命名空間或原始來源命名空間。當您使用 SnapshotRestore CR 將快照還原至不同的命名空間時， Trident Protect 會在新命名空間中還原應用程式，並為還原的應用程式建立應用程式 CR 。若要保護還原的應用程式，請建立隨需備份或快照，或建立保護排程。</block>
+  <block id="375efef64643c8aa6bb8e0ba2159a82a" category="list-text">啟用外掛程式二進位檔的執行權限：</block>
+  <block id="eefd51253afc93c1ad54658882a65dec" category="list-text">您也可以選擇將外掛程式二進位檔複製到主目錄中的某個位置。在這種情況下，建議您確保位置是 PATH 變數的一部分：</block>
+  <block id="75b0e724fe59ed9d6eda0fcd4679bfee" category="admonition">將外掛程式複製到 PATH 變數中的某個位置，可讓您輸入或<block ref="e89ec374c6edc886ea12d28524834e68" prefix=" " category="inline-code"></block>從任何位置使用外掛程式<block ref="d4845d5856667a10aee97f3404a35627" prefix=" " category="inline-code"></block>。</block>
 </blocks>

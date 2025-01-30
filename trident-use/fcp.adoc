@@ -179,6 +179,7 @@ metadata:
 provisioner: csi.trident.netapp.io
 parameters:
   backendType: "ontap-san"
-  storagePool: "aggr1"
+  storagePools: "ontap-san-backend:*"
+  fsType: "ext4"
 allowVolumeExpansion: True
 ----

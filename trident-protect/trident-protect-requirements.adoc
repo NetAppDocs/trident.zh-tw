@@ -18,7 +18,7 @@ summary: 首先，請確認您的營運環境，應用程式叢集，應用程�
 
 
 
-== Trident 保護 Kubernetes 相容性
+== Trident 保護 Kubernetes 叢集相容性
 
 Trident Protect 可與多種完全託管且自我管理的 Kubernetes 產品相容，包括：
 
@@ -30,6 +30,9 @@ Trident Protect 可與多種完全託管且自我管理的 Kubernetes 產品相�
 * VMware Tanzu產品組合
 * 上游Kubernetes
 
+
+
+NOTE: 請確定您安裝 Trident Protect 的叢集已設定執行中的快照控制器和相關的 CRD 。若要安裝快照控制器，請 https://docs.netapp.com/us-en/trident/trident-use/vol-snapshots.html#deploy-a-volume-snapshot-controller["這些指示"]參閱。
 
 
 

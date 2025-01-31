@@ -4537,7 +4537,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="77c9498d5c74a08af1c5918bd5fd8ee1" category="paragraph">未啟用 Snapshot 目錄時， Trident Protect 會選擇一般備份功能，在備份程序期間會暫時佔用容量集區中的空間。在這種情況下，請確保容量集區中有足夠的可用空間，以建立備份磁碟區大小的暫存磁碟區。</block>
   <block id="2efd4c8775ce47d6aa29183091d2a4e2" category="paragraph">應用程式已準備好使用 Trident Protect 進行備份與還原。每個 PVC 也可供其他應用程式用於備份和還原。</block>
   <block id="697f51e8965440d487236d46d469510d" category="summary">首先，請確認您的營運環境，應用程式叢集，應用程式和授權是否準備就緒。確保您的環境符合這些需求，以部署及操作 Trident Protect 。</block>
-  <block id="f52842953ff751bb11c3849b84337de2" category="section-title">Trident 保護 Kubernetes 相容性</block>
   <block id="c8f91050b5ec3e677d9c7e16e424f9bc" category="paragraph">Trident Protect 可與多種完全託管且自我管理的 Kubernetes 產品相容，包括：</block>
   <block id="480c9b5f979d1ce95ea2a58b09826d1b" category="list-text">Amazon Elastic Kubernetes Service （ EKS ）</block>
   <block id="974030a30a48754684d05541fd5e96c9" category="list-text">Google Kubernetes Engine（GKE）</block>
@@ -5021,4 +5020,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="375efef64643c8aa6bb8e0ba2159a82a" category="list-text">啟用外掛程式二進位檔的執行權限：</block>
   <block id="eefd51253afc93c1ad54658882a65dec" category="list-text">您也可以選擇將外掛程式二進位檔複製到主目錄中的某個位置。在這種情況下，建議您確保位置是 PATH 變數的一部分：</block>
   <block id="75b0e724fe59ed9d6eda0fcd4679bfee" category="admonition">將外掛程式複製到 PATH 變數中的某個位置，可讓您輸入或<block ref="e89ec374c6edc886ea12d28524834e68" prefix=" " category="inline-code"></block>從任何位置使用外掛程式<block ref="d4845d5856667a10aee97f3404a35627" prefix=" " category="inline-code"></block>。</block>
+  <block id="dc5b2d9ecd49d3e5ee37059e2d80512f" category="section-title">Trident 保護 Kubernetes 叢集相容性</block>
+  <block id="9ac0dd27d420b7b48ca72e463ae95e18" category="inline-link">這些指示</block>
+  <block id="664d28801abc192d5c7dfd7bfa758e98" category="admonition">請確定您安裝 Trident Protect 的叢集已設定執行中的快照控制器和相關的 CRD 。若要安裝快照控制器，請<block ref="5d66944a2971d1b9b5f332812a6e737b" category="inline-link-rx"></block>參閱。</block>
 </blocks>

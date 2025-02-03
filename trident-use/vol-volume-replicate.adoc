@@ -1,0 +1,318 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-volume-replicate.html 
+keywords: snapmirror update, volume replication, TridentMirrorRelationship, TridentActionMirrorUpdate 
+summary: Trident 支援在來源磁碟區和目的地磁碟區之間建立鏡射關係，以複寫磁碟區以進行災難恢復。 
+---
+= 使用 SnapMirror 複寫磁碟區
+:allow-uri-read: 
+
+
+[role="lead"]
+Trident 支援一個叢集上的來源磁碟區與對等叢集上的目的地磁碟區之間的鏡射關係，以便複寫資料以進行災難恢復。您可以使用命名的自訂資源定義（ CRD ）來執行下列作業：
+
+* 建立磁碟區之間的鏡射關係（ PVCS ）
+* 移除磁碟區之間的鏡射關係
+* 中斷鏡射關係
+* 在災難情況（容錯移轉）期間提升次要 Volume
+* 在計畫性容錯移轉或移轉期間、將應用程式從叢集無損移轉至叢集
+
+
+
+
+== 複寫先決條件
+
+在您開始之前、請確定符合下列先決條件：
+
+.叢集 ONTAP
+* * Trident * ： Trident 22.10 版或更新版本必須同時存在於使用 ONTAP 作為後端的來源叢集和目的地 Kubernetes 叢集上。
+* * 授權 * ：使用資料保護套件的 ONTAP SnapMirror 非同步授權必須同時在來源和目的地 ONTAP 叢集上啟用。如需詳細資訊、請參閱 https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-licensing-concept.html["SnapMirror授權概述ONTAP"^] 。
+
+
+.對等關係
+* * 叢集與 SVM* ：必須對 ONTAP 儲存設備的後端進行對等處理。如需詳細資訊、請參閱 https://docs.netapp.com/us-en/ontap-sm-classic/peering/index.html["叢集與SVM對等概觀"^] 。
++
+
+IMPORTANT: 確保兩個 ONTAP 叢集之間複寫關係中使用的 SVM 名稱是唯一的。
+
+* * Trident 和 SVM* ：對等的遠端 SVM 必須可用於目的地叢集上的 Trident 。
+
+
+.支援的驅動程式
+* ONTAP NAS 和 ONTAP SAN 驅動程式支援 Volume 複寫。
+
+
+
+
+== 建立鏡射 PVC
+
+請遵循下列步驟、並使用 CRD 範例在主要和次要磁碟區之間建立鏡射關係。
+
+.步驟
+. 在主 Kubernetes 叢集上執行下列步驟：
++
+.. 使用參數建立 StorageClass 物件 `trident.netapp.io/replication: true` 。
++
+.範例
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-nas
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  fsType: "nfs"
+  trident.netapp.io/replication: "true"
+----
+.. 使用先前建立的 StorageClass 建立 PVC 。
++
+.範例
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: csi-nas
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: csi-nas
+----
+.. 使用本機資訊建立 MirrorRelationship CR 。
++
+.範例
+[listing]
+----
+kind: TridentMirrorRelationship
+apiVersion: trident.netapp.io/v1
+metadata:
+  name: csi-nas
+spec:
+  state: promoted
+  volumeMappings:
+  - localPVCName: csi-nas
+----
++
+Trident 會擷取磁碟區的內部資訊和磁碟區目前的資料保護（ DP ）狀態，然後填入 MirrorRelationship 的狀態欄位。
+
+.. 取得 TridentMirrorRelationship CR 以取得 PVC 的內部名稱和 SVM 。
++
+[listing]
+----
+kubectl get tmr csi-nas
+----
++
+[listing]
+----
+kind: TridentMirrorRelationship
+apiVersion: trident.netapp.io/v1
+metadata:
+  name: csi-nas
+  generation: 1
+spec:
+  state: promoted
+  volumeMappings:
+  - localPVCName: csi-nas
+status:
+  conditions:
+  - state: promoted
+    localVolumeHandle: "datavserver:trident_pvc_3bedd23c_46a8_4384_b12b_3c38b313c1e1"
+    localPVCName: csi-nas
+    observedGeneration: 1
+----
+
+
+. 在次 Kubernetes 叢集上執行下列步驟：
++
+.. 使用 trident.netapp.io/replication: true 參數建立 StorageClass 。
++
+.範例
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-nas
+provisioner: csi.trident.netapp.io
+parameters:
+  trident.netapp.io/replication: true
+----
+.. 使用目的地和來源資訊建立 MirrorRelationship CR 。
++
+.範例
+[listing]
+----
+kind: TridentMirrorRelationship
+apiVersion: trident.netapp.io/v1
+metadata:
+  name: csi-nas
+spec:
+  state: established
+  volumeMappings:
+  - localPVCName: csi-nas
+    remoteVolumeHandle: "datavserver:trident_pvc_3bedd23c_46a8_4384_b12b_3c38b313c1e1"
+----
++
+Trident 將使用設定的關係原則名稱（或 ONTAP 的預設值）建立 SnapMirror 關係，並將其初始化。
+
+.. 使用先前建立的 StorageClass 建立 PVC 、作為次要（ SnapMirror 目的地）。
++
+.範例
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: csi-nas
+  annotations:
+    trident.netapp.io/mirrorRelationship: csi-nas
+spec:
+  accessModes:
+  - ReadWriteMany
+resources:
+  requests:
+    storage: 1Gi
+storageClassName: csi-nas
+----
++
+Trident 會檢查 TridentMirrorRelationship CRD ，如果關係不存在，則無法建立 Volume 。如果存在這種關係， Trident 將確保新的 FlexVol volume 放置在與 MirrorRelationship 中定義的遠端 SVM 對等的 SVM 上。
+
+
+
+
+
+
+
+== Volume 複寫狀態
+
+Trident Mirror Relationship （ TMR ）是一種 CRD 、代表 PVC 之間複寫關係的一端。目的地 TMR 具有狀態，可告知 Trident 所需的狀態。目的地 TMR 有下列狀態：
+
+* * 建立 * ：本機 PVC 是鏡射關係的目的地 Volume 、這是新的關係。
+* * 升級 * ：本機 PVC 為可讀寫且可掛載、目前無鏡射關係。
+* * 重新建立 * ：本機 PVC 是鏡射關係的目的地 Volume 、先前也屬於該鏡射關係。
++
+** 如果目的地磁碟區與來源磁碟區有任何關係、則必須使用重新建立的狀態、因為它會覆寫目的地磁碟區內容。
+** 如果磁碟區先前未與來源建立關係、則重新建立的狀態將會失敗。
+
+
+
+
+
+
+== 在非計畫性容錯移轉期間升級次要 PVC
+
+在次 Kubernetes 叢集上執行下列步驟：
+
+* 將 TridentMirrorRelationship 的 _spec.state_ 欄位更新為 `promoted`。
+
+
+
+
+== 在規劃的容錯移轉期間升級次要 PVC
+
+在計畫性容錯移轉（移轉）期間、請執行下列步驟來升級次要 PVC ：
+
+.步驟
+. 在主要 Kubernetes 叢集上、建立 PVC 的快照、並等待快照建立完成。
+. 在主要 Kubernetes 叢集上、建立 SnapshotInfo CR 以取得內部詳細資料。
++
+.範例
+[listing]
+----
+kind: SnapshotInfo
+apiVersion: trident.netapp.io/v1
+metadata:
+  name: csi-nas
+spec:
+  snapshot-name: csi-nas-snapshot
+----
+. 在次要 Kubernetes 叢集上、將 _TridentMirrorRelationationship _ CR 的 _spec.state_ 欄位更新為 _updated_ 、 _spec.promotedSnapshotHandle_ 更新為快照的內部名稱。
+. 在次要 Kubernetes 叢集上、確認要升級的 TridentMirrorRelationship 狀態（ STATUS.STATUS 欄位）。
+
+
+
+
+== 在容錯移轉後還原鏡射關係
+
+還原鏡射關係之前、請先選擇要設為新主要的一面。
+
+.步驟
+. 在次要 Kubernetes 叢集上、確保已更新 TridentMirrorRelationship 上 _spec.remoteVolumeHandle_ 欄位的值。
+. 在次 Kubernetes 叢集上、將 TridentMirrorRelationship 的 _spec.mirror 欄位更新為 `reestablished`。
+
+
+
+
+== 其他作業
+
+Trident 支援在主要和次要磁碟區上執行下列作業：
+
+
+
+=== 將主要 PVC 複製到新的次要 PVC
+
+請確定您已擁有主要 PVC 和次要 PVC 。
+
+.步驟
+. 從已建立的次要（目的地）叢集刪除 PersistentVolume Claim 和 TridentMirrorRelationship CRD 。
+. 從主（來源）叢集刪除 TridentMirrorRelationship CRD 。
+. 在主要（來源）叢集上建立新的 TridentMirrorRelationship CRD 、以用於您要建立的新次要（目的地） PVC 。
+
+
+
+
+=== 調整鏡射、主要或次要 PVC 的大小
+
+PVC 可以正常調整大小、如果資料量超過目前大小、 ONTAP 會自動擴充任何目的地 flevxols 。
+
+
+
+=== 從 PVC 移除複寫
+
+若要移除複寫、請在目前的次要磁碟區上執行下列其中一項作業：
+
+* 刪除次要 PVC 上的 MirrorRelationship 。這會中斷複寫關係。
+* 或者、將 spec.state 欄位更新為 _updated_ 。
+
+
+
+
+=== 刪除 PVC （先前已鏡射）
+
+Trident 會檢查複寫的 PVCS ，並在嘗試刪除磁碟區之前先釋放複寫關係。
+
+
+
+=== 刪除 TMR
+
+刪除鏡射關係一側的 TMR 會導致其餘 TMR 在 Trident 完成刪除之前轉換至 _升 遷狀態。如果選取要刪除的 TMR 已處於 _Promive_ 狀態，則沒有現有的鏡射關係， TMR 將會移除，而 Trident 會將本機 PVC 升級為 _ReadWrite_ 。此刪除作業會在 ONTAP 中針對本機磁碟區釋出 SnapMirror 中繼資料。如果此磁碟區在未來的鏡射關係中使用、則在建立新的鏡射關係時、它必須使用具有 _ 建立 _ 磁碟區複寫狀態的新 TMR 。
+
+
+
+== 當 ONTAP 連線時、請更新鏡射關係
+
+建立鏡射關係之後、可以隨時更新它們。您可以使用 `state: promoted` 或 `state: reestablished` 欄位來更新關聯。將目的地 Volume 升級為一般 ReadWrite Volume 時、您可以使用 _promotedSnapshotHandle_ 來指定特定快照、將目前的 Volume 還原至。
+
+
+
+== 當 ONTAP 離線時更新鏡射關係
+
+您可以使用 CRD 來執行 SnapMirror 更新，而無需 Trident 直接連線至 ONTAP 叢集。請參閱下列 TridentActionMirrorUpdate 範例格式：
+
+.範例
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentActionMirrorUpdate
+metadata:
+  name: update-mirror-b
+spec:
+  snapshotHandle: "pvc-1234/snapshot-1234"
+  tridentMirrorRelationshipName: mirror-b
+----
+`status.state` 反映 TridentActionMirrorUpdate CRD 的狀態。它可以取自 _sued_ 、 _in progress_ 或 _Failed_ 的值。

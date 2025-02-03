@@ -5023,4 +5023,164 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="dc5b2d9ecd49d3e5ee37059e2d80512f" category="section-title">Trident 保護 Kubernetes 叢集相容性</block>
   <block id="9ac0dd27d420b7b48ca72e463ae95e18" category="inline-link">這些指示</block>
   <block id="664d28801abc192d5c7dfd7bfa758e98" category="admonition">請確定您安裝 Trident Protect 的叢集已設定執行中的快照控制器和相關的 CRD 。若要安裝快照控制器，請<block ref="5d66944a2971d1b9b5f332812a6e737b" category="inline-link-rx"></block>參閱。</block>
+  <block id="9560d298aea880d389acf56a45410c4b" category="summary">您可以設定加密，以保護 Trident 和儲存後端之間的流量。</block>
+  <block id="c994f1e00d22f7d8d4e7b3e7f50f8002" category="doc">Kerberos 執行中加密</block>
+  <block id="c8ea4672c0efc6fee26c8648f609a829" category="paragraph">使用 Kerberos 在線上加密，您可以針對託管叢集與儲存後端之間的流量啟用加密，藉此改善資料存取安全性。</block>
+  <block id="420bac2406e93da0c7c791aca209017d" category="paragraph">Trident 支援 ONTAP 的 Kerberos 加密作為儲存後端：</block>
+  <block id="796f801ad41f96aeb2e1a1950ed629e4" category="list-text">* 內部部署 ONTAP * ： Trident 支援透過 NFSv3 和 NFSv4 連線進行 Kerberos 加密，從 Red Hat OpenShift 和上游 Kubernetes 叢集到內部部署 ONTAP 磁碟區。</block>
+  <block id="0a710c309a5f6dc65b056833a5208521" category="paragraph">您可以建立、刪除、調整大小、快照、複製、 唯讀複製及匯入使用 NFS 加密的磁碟區。</block>
+  <block id="2aff02c8ceb99a9445937af9d4d8f286" category="section-title">使用內部部署的 ONTAP 磁碟區來設定在線上 Kerberos 加密</block>
+  <block id="330282591e8caa9814eb88ec524b89cf" category="paragraph">您可以在託管叢集與內部部署 ONTAP 儲存後端之間的儲存流量上啟用 Kerberos 加密。</block>
+  <block id="daf34fb0fcb74d9bcf85abcebcc8e1f2" category="admonition">內部部署 ONTAP 儲存後端的 NFS 流量 Kerberos 加密僅支援使用<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>儲存驅動程式。</block>
+  <block id="0ff02d27ae5cac1a12c6c403fd55443c" category="list-text">請確定您可以存取<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 公用程式。</block>
+  <block id="bef890ed7cc869346d4b483cd3e3ab00" category="list-text">確保您具有 ONTAP 儲存後端的管理員存取權。</block>
+  <block id="160b05c1b85ce34d702a3568614baec1" category="list-text">確保您知道將從 ONTAP 儲存後端共用的磁碟區名稱。</block>
+  <block id="1a69d38f7b46901c58e85d024e87b034" category="inline-link">在資料LIF上啟用Kerberos</block>
+  <block id="d4a594e9e05807f063e76ba8e5520ce8" category="list-text">請確定您已準備好 ONTAP 儲存 VM 、以支援 NFS 磁碟區的 Kerberos 加密。請參閱<block ref="6585cfb6b510f588abb97add305c4508" category="inline-link-rx"></block> 以取得指示。</block>
+  <block id="9fe985de654739fa6f48edb0d49059b4" category="inline-link">NetApp NFSv4 增強與最佳實務指南</block>
+  <block id="9c6a0d551d50340cca48e6cfa4355566" category="list-text">請確定您使用 Kerberos 加密的任何 NFSv4 磁碟區都已正確設定。請參閱的 NetApp NFSv4 網域組態一節（第 13 頁）<block ref="fcbfe3012009d21ef9ba8407142f85b6" category="inline-link-rx"></block>。</block>
+  <block id="7c67bfc9153da2055f6d09209f9853c7" category="section-title">新增或修改 ONTAP 匯出原則</block>
+  <block id="3afa4a2a4546fcf1b9a361d1bff9763b" category="paragraph">您需要將規則新增至現有的 ONTAP 匯出原則、或建立新的匯出原則、以支援 ONTAP 儲存 VM 根磁碟區的 Kerberos 加密、以及與上游 Kubernetes 叢集共用的任何 ONTAP 磁碟區。您新增的匯出原則規則或您建立的新匯出原則需要支援下列存取通訊協定和存取權限：</block>
+  <block id="e21233a7f0d7fedb5883aea1dfed27cf" category="paragraph-title">存取傳輸協定</block>
+  <block id="e10f51f4d0eb1b58929237c03db4b832" category="paragraph">使用 NFS 、 NFSv3 和 NFSv4 存取通訊協定來設定匯出原則。</block>
+  <block id="baedff73fdfff23f65e8b80727cd3088" category="paragraph-title">存取詳細資料</block>
+  <block id="892969be437eb53b05f372cc0ae74d6c" category="paragraph">您可以根據對磁碟區的需求、設定 Kerberos 加密的三個不同版本之一：</block>
+  <block id="fda32d078836aa6e69a3497be5f9cdca" category="list-text">* Kerberos 5* - （驗證與加密）</block>
+  <block id="7d55fc39e32469f330297f866ec40e41" category="list-text">* Kerberos 5i* - （身分識別保護的驗證與加密）</block>
+  <block id="ec7a355c2dad88f01ddce6c662ff507f" category="list-text">* Kerberos 5p* - （身分識別與隱私保護的驗證與加密）</block>
+  <block id="43c969c43b32e3dd3bcf607fcbe4eb43" category="paragraph">使用適當的存取權限來設定 ONTAP 匯出原則規則。例如、如果叢集將使用 Kerberos 5i 和 Kerberos 5p 加密混合安裝 NFS 磁碟區、請使用下列存取設定：</block>
+  <block id="0370275db54735bcb50d5bfce36de4e6" category="cell">唯讀存取</block>
+  <block id="dbdb2754b99a3cb725e62ef04c72ee06" category="cell">讀取 / 寫入存取權</block>
+  <block id="a3a9521b6675631e988004e7b8ffe7b4" category="cell">超級使用者存取權</block>
+  <block id="15395d0642f86c5992abbca5e56e2b29" category="cell">UNIX</block>
+  <block id="00d23a76e43b46dae9ec7aa9dcbebb32" category="cell">已啟用</block>
+  <block id="f22873ba6efee4accc10bd5a3d3ca9eb" category="cell">Kerberos 5i</block>
+  <block id="a98fd9001be872cb9763c171625ee881" category="cell">Kerberos 5p</block>
+  <block id="9a83b6e7170a551799b737b273fde5e1" category="paragraph">請參閱下列文件、瞭解如何建立 ONTAP 匯出原則和匯出原則規則：</block>
+  <block id="bb53c6c29f127a298da7dd86bf00bb89" category="inline-link">建立匯出原則</block>
+  <block id="2065c7b470f4d228b592158785fc8c0b" category="list-text"><block ref="2065c7b470f4d228b592158785fc8c0b" category="inline-link-rx"></block></block>
+  <block id="8c47b652d31bca921bb367b0e3c5ec6d" category="inline-link">新增規則至匯出原則</block>
+  <block id="249db3ace916cc1363d388978a8b6c5e" category="list-text"><block ref="249db3ace916cc1363d388978a8b6c5e" category="inline-link-rx"></block></block>
+  <block id="c21c2b66c343dfe9db6298e59c2cc767" category="section-title">建立儲存後端</block>
+  <block id="449396632614b1e0731c51704890f8bd" category="paragraph">您可以建立內含 Kerberos 加密功能的 Trident 儲存後端組態。</block>
+  <block id="0848c0a5d21711a3f8967a344553c492" category="paragraph">當您建立設定 Kerberos 加密的儲存後端組態檔時、可以使用參數指定 Kerberos 加密的三個不同版本之一<block ref="21f59c061af833af5de20556ce76052d" prefix=" " category="inline-code"></block> ：</block>
+  <block id="619885da64e4ba4b0df04a00d78079b7" category="list-text"><block ref="47587c842cb0a2574a5a4c7c644b006d" prefix="" category="inline-code"></block> （驗證與加密）</block>
+  <block id="aa734ef649b1255faccfc198980bf49a" category="list-text"><block ref="600550ee922e257041b75142ddab2319" prefix="" category="inline-code"></block> （身分識別保護的驗證與加密）</block>
+  <block id="4197df0e0ac8f9480069ee1e0dc22543" category="list-text"><block ref="b148e7f5a01830ae530070588af5e9e6" prefix="" category="inline-code"></block> （身分識別與隱私保護的驗證與加密）</block>
+  <block id="c99e9f5ade1b20705438ad6882d112c2" category="paragraph">只指定一個 Kerberos 層級。如果您在參數清單中指定多個 Kerberos 加密層級、則只會使用第一個選項。</block>
+  <block id="926a7d5402fb3ed0da8fcd630e3a8f8c" category="list-text">在託管叢集上、使用下列範例建立儲存後端組態檔案。以您環境的資訊取代括弧 &lt;&gt; 中的值：</block>
+  <block id="2cd636101227e18554e5c5351bf5bbe3" category="list-text">使用您在上一個步驟中建立的組態檔來建立後端：</block>
+  <block id="3204b0a88f0c8e6cb89ef2653173ddf1" category="paragraph">您可以建立儲存類別、以使用 Kerberos 加密來配置磁碟區。</block>
+  <block id="03111bbdda72125f143e084557265c1c" category="paragraph">當您建立儲存類別物件時、可以使用下列參數、指定 Kerberos 加密的三個不同版本之一<block ref="e1d3d66c5926aa7fbc3186da8f9b476b" prefix=" " category="inline-code"></block> ：</block>
+  <block id="85eee746a5d30d5149d419a3dfd2fe4e" category="list-text"><block ref="ebd2fabd7ee9d78e670334fba38c5a6b" prefix="" category="inline-code"></block> （驗證與加密）</block>
+  <block id="24dac19871e9929a42267b538a60ebe5" category="list-text"><block ref="82f5845550ca9ab77ce797c16bd7bca1" prefix="" category="inline-code"></block> （身分識別保護的驗證與加密）</block>
+  <block id="c36d9d41da2e174bfa8b3338450fb45c" category="list-text"><block ref="7a1dedb8f6c22fd4833b45267ad3b01a" prefix="" category="inline-code"></block> （身分識別與隱私保護的驗證與加密）</block>
+  <block id="4a2e7c9ecf75ac18d4daec2783256280" category="paragraph">只指定一個 Kerberos 層級。如果您在參數清單中指定多個 Kerberos 加密層級、則只會使用第一個選項。如果您在儲存後端組態中指定的加密層級與您在儲存類別物件中指定的層級不同、則儲存類別物件會優先。</block>
+  <block id="0bae6577bb0c45b6f2d82896713df9f9" category="list-text">使用以下範例建立 StorageClass Kubernetes 物件：</block>
+  <block id="bd9c5e9bd5f130a6fbdbcaeb04656652" category="list-text">建立儲存類別：</block>
+  <block id="2472867b1c2b8a486fe64cfc08afeba5" category="list-text">確定已建立儲存類別：</block>
+  <block id="0a44f30bac4e15e0464a80627bef5882" category="section-title">配置 Volume</block>
+  <block id="37bd6ab74d66efd877ea77c0e69e593c" category="paragraph">建立儲存後端和儲存類別之後、您現在可以配置 Volume 。有關說明，請參閱<block ref="70405bfb2744633a336a6c9abdd1df6e" category="inline-link-rx"></block>。</block>
+  <block id="fe10ad21eb1ce607c403a8d609d5ab3e" category="section-title">使用 Azure NetApp Files 磁碟區設定在線上 Kerberos 加密</block>
+  <block id="cd21e25bc313d3805456542eac624499" category="paragraph">您可以在託管叢集與單一 Azure NetApp Files 儲存後端或 Azure NetApp Files 儲存後端的虛擬集區之間的儲存流量上啟用 Kerberos 加密。</block>
+  <block id="04379b5e9a5ec6b970752d2b8d0341c8" category="list-text">確保您已在託管的 Red Hat OpenShift 叢集上啟用 Trident 。</block>
+  <block id="6c32a3d0f1a665987b98dde5a0f96d7d" category="inline-link">本文檔 Azure NetApp Files</block>
+  <block id="aa63a31f222305a4ce10d8c1020ab1fd" category="list-text">請注意中的要求並遵循中的指示、以確保您已準備好 Azure NetApp Files 儲存後端進行 Kerberos 加密<block ref="54b351b1767d2d50eb8c87e19c20164c" category="inline-link-rx"></block>。</block>
+  <block id="4f07c8d51fef64025d4b746305177733" category="paragraph">您可以建立包含 Kerberos 加密功能的 Azure NetApp Files 儲存後端組態。</block>
+  <block id="5c6eaa8dd4c4134f6ad836e97ffdee13" category="paragraph">當您建立儲存後端組態檔案來設定 Kerberos 加密時、您可以加以定義、以便將其套用至下列兩種可能的層級之一：</block>
+  <block id="bc0557be41ea94e344d7ece1f311b7d4" category="list-text">使用欄位的 * 儲存後端層級 *<block ref="6a60a6d9955ef9fce24cf4e86efed7af" prefix=" " category="inline-code"></block></block>
+  <block id="e30ee9a2b9976217a5fe28b412fe04d6" category="list-text">使用欄位的 * 虛擬集區層級 *<block ref="533988f6253fcffab6270c1aafb50970" prefix=" " category="inline-code"></block></block>
+  <block id="64864cec765a0e5c421369098904873c" category="paragraph">當您在虛擬集區層級定義組態時、會使用儲存類別中的標籤來選取集區。</block>
+  <block id="082ccae8192fda90d271d92200b3a7dd" category="paragraph">在任一層級、您都可以指定 Kerberos 加密的三個不同版本之一：</block>
+  <block id="853434fc4aabccb1e3341f56ef2a9424" category="list-text"><block ref="9ce0da43b8420d1a89f0d00da04312a2" prefix="" category="inline-code"></block> （驗證與加密）</block>
+  <block id="44ea74e03aa9994870273996b8770ef6" category="list-text"><block ref="6bbaa5deea5e26abf8837d31bd265b6f" prefix="" category="inline-code"></block> （身分識別保護的驗證與加密）</block>
+  <block id="e22427c81cd5155061fad66ed3f13f52" category="list-text"><block ref="42b55bed7d0514cd2e2189a3edc9d87b" prefix="" category="inline-code"></block> （身分識別與隱私保護的驗證與加密）</block>
+  <block id="c51fc706f0eb21d747d3ff2e2bb6c38b" category="list-text">在託管叢集上、根據您需要定義儲存後端（儲存後端層級或虛擬集區層級）的位置、使用下列其中一個範例建立儲存後端組態檔案。以您環境的資訊取代括弧 &lt;&gt; 中的值：</block>
+  <block id="d51a5db438981d465f8fecc7ecbeb054" category="open-title">儲存後端層級範例</block>
+  <block id="83aab9b6ffc8c65b79350e009c49e5f4" category="open-title">虛擬集區層級範例</block>
+  <block id="1738a6ff1f0b418ce16cf74aabdceff1" category="section-title">從快照進行原位磁碟區還原</block>
+  <block id="f29961e077241efec95d259658aa48f1" category="paragraph">Trident 使用（ TASR ） CR 從快照提供快速的原位磁碟區還原<block ref="2aabb3b01d0d54317a9eeef910e001f6" prefix=" " category="inline-code"></block>。此 CR 是 Kubernetes 的必要行動、在作業完成後不會持續存在。</block>
+  <block id="0219777660eb822cd45c74808c60e5e6" category="paragraph">Trident 支持，<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block><block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block><block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>，，，，<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>，<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>上的快照恢復<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block><block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>和<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>驅動程式。</block>
+  <block id="e0bc0596a7d966cd8dab3ee0e924c9b5" category="paragraph">您必須擁有受約束的 PVC 和可用的 Volume 快照。</block>
+  <block id="d785d18f53979794a4ef9e08d186e3c4" category="list-text">確認 PVC 狀態為「已連結」。</block>
+  <block id="d0f2b7254060d8a37c98c1eb4289586d" category="list-text">驗證 Volume 快照是否已準備就緒可供使用。</block>
+  <block id="da6aadede1bc870c9042c660fdf93f25" category="list-text">建立 TASR CR 。本示例爲 PVC 和 Volume Snapshot 創建 CR<block ref="30520f4f96804df83914260b79f55962" prefix=" " category="inline-code"></block><block ref="06f2874897d3ec8426ec85e0ffda5544" prefix=" " category="inline-code"></block>。</block>
+  <block id="68fb76b60d3c1f9302a04ef3eb761c08" category="admonition">TASR CR 必須位於 PVC 與 VS 所在的命名空間中。</block>
+  <block id="0c9991859e53bf37c58a2fd1233eb478" category="list-text">套用 CR 以從快照還原。此示例從 Snapshot 恢復<block ref="30520f4f96804df83914260b79f55962" prefix=" " category="inline-code"></block>。</block>
+  <block id="5dfd751b8f6ed15f558be3e46812461b" category="paragraph">Trident 會從快照還原資料。您可以驗證快照還原狀態。</block>
+  <block id="91f853f4fc1dc83a1a2f28c65af59d28" category="list-text">在大多數情況下， Trident 不會在發生故障時自動重試作業。您需要再次執行此作業。</block>
+  <block id="c83b74c2020dd836f5b401ecda0da78c" category="list-text">不具備管理員存取權限的 Kubernetes 使用者可能必須獲得管理員的權限、才能在其應用程式命名空間中建立 TASR CR 。</block>
+  <block id="cff310c77e35cf2f693ebbb39c78e89f" category="summary">Trident 支援在來源磁碟區和目的地磁碟區之間建立鏡射關係，以複寫磁碟區以進行災難恢復。</block>
+  <block id="50e2eea9ba53d70147772db1c5d25f79" category="doc">使用 SnapMirror 複寫磁碟區</block>
+  <block id="4f29610afffeab1dca63a82a40791008" category="paragraph">Trident 支援一個叢集上的來源磁碟區與對等叢集上的目的地磁碟區之間的鏡射關係，以便複寫資料以進行災難恢復。您可以使用命名的自訂資源定義（ CRD ）來執行下列作業：</block>
+  <block id="a682d8ef86abcae6c5a1db6186c5f02b" category="list-text">建立磁碟區之間的鏡射關係（ PVCS ）</block>
+  <block id="31a8f98d3378661a5b8abf15438f0bca" category="list-text">移除磁碟區之間的鏡射關係</block>
+  <block id="a6349012892be516e5729d501a9649a7" category="list-text">中斷鏡射關係</block>
+  <block id="2597cb6d27f572bb6d7d2fd15f414795" category="list-text">在災難情況（容錯移轉）期間提升次要 Volume</block>
+  <block id="40f7c55be912a395aed2502927d3fcfa" category="list-text">在計畫性容錯移轉或移轉期間、將應用程式從叢集無損移轉至叢集</block>
+  <block id="d193cd9a2432eca22e5cf0d06dcee1e6" category="section-title">複寫先決條件</block>
+  <block id="55be807bf2be012ff44a04449cc5e8a8" category="paragraph">在您開始之前、請確定符合下列先決條件：</block>
+  <block id="3404cce75db90acf6a9d52860721a139" category="list-title">叢集 ONTAP</block>
+  <block id="fbcc2a3b7506e5e36eb6f61b69bb75da" category="list-text">* Trident * ： Trident 22.10 版或更新版本必須同時存在於使用 ONTAP 作為後端的來源叢集和目的地 Kubernetes 叢集上。</block>
+  <block id="5cc8ada79224d850ecd22fd22e550c47" category="list-title">對等關係</block>
+  <block id="02b05cdd8f0a8c426f307085cc1004f7" category="list-text">* 叢集與 SVM* ：必須對 ONTAP 儲存設備的後端進行對等處理。如需詳細資訊、請參閱<block ref="60333a598df416e49fbceb5a88dce370" category="inline-link-rx"></block> 。</block>
+  <block id="792f00dfd96560df18fe1c6b56861893" category="list-text">* Trident 和 SVM* ：對等的遠端 SVM 必須可用於目的地叢集上的 Trident 。</block>
+  <block id="0c5e1b5bc54261ccadd2a72af1047ded" category="list-title">支援的驅動程式</block>
+  <block id="57601c13c06c6ac6e23efaab44ced427" category="list-text">ONTAP NAS 和 ONTAP SAN 驅動程式支援 Volume 複寫。</block>
+  <block id="3ce5b83f8896ef0d2e356d3972ec8898" category="section-title">建立鏡射 PVC</block>
+  <block id="427a1ab7f39ee4f2dd7a0b7e35f572da" category="paragraph">請遵循下列步驟、並使用 CRD 範例在主要和次要磁碟區之間建立鏡射關係。</block>
+  <block id="4dc69f665f0d76c17a577a352dd15b25" category="list-text">在主 Kubernetes 叢集上執行下列步驟：</block>
+  <block id="cffc5263be00a76539edeeff72190d54" category="list-text">使用參數建立 StorageClass 物件<block ref="23041ca302bab724a5a0a4ee923c745d" prefix=" " category="inline-code"></block> 。</block>
+  <block id="f1fe26832c26eb686c85bd72da8a62f1" category="list-text">使用先前建立的 StorageClass 建立 PVC 。</block>
+  <block id="a306778c7affcc4dd2329c7f1e9a6389" category="list-text">使用本機資訊建立 MirrorRelationship CR 。</block>
+  <block id="12551ccb4392cf7715384812c34ff7dc" category="paragraph">Trident 會擷取磁碟區的內部資訊和磁碟區目前的資料保護（ DP ）狀態，然後填入 MirrorRelationship 的狀態欄位。</block>
+  <block id="7e36329a511f28054ceb0cb2aba7de3a" category="list-text">取得 TridentMirrorRelationship CR 以取得 PVC 的內部名稱和 SVM 。</block>
+  <block id="ce01c03f932076e82348fc5aaefacc7d" category="list-text">在次 Kubernetes 叢集上執行下列步驟：</block>
+  <block id="dbe7fac150e57be9bc0d8e046792f4c3" category="list-text">使用 trident.netapp.io/replication: true 參數建立 StorageClass 。</block>
+  <block id="01d68e0f9630c032dc8a33358e46e65b" category="list-text">使用目的地和來源資訊建立 MirrorRelationship CR 。</block>
+  <block id="b4dcd7f617380594be36d544e6823841" category="paragraph">Trident 將使用設定的關係原則名稱（或 ONTAP 的預設值）建立 SnapMirror 關係，並將其初始化。</block>
+  <block id="4ba5d2a91c95149a7ad924ebd0d9503d" category="list-text">使用先前建立的 StorageClass 建立 PVC 、作為次要（ SnapMirror 目的地）。</block>
+  <block id="14c271d9e62dcf6baaab0fde456f080f" category="paragraph">Trident 會檢查 TridentMirrorRelationship CRD ，如果關係不存在，則無法建立 Volume 。如果存在這種關係， Trident 將確保新的 FlexVol volume 放置在與 MirrorRelationship 中定義的遠端 SVM 對等的 SVM 上。</block>
+  <block id="e71d1a5cbaac30e63ed507e4b62c705f" category="section-title">Volume 複寫狀態</block>
+  <block id="d802b3b47bb3c6b52714c9817598fcb8" category="paragraph">Trident Mirror Relationship （ TMR ）是一種 CRD 、代表 PVC 之間複寫關係的一端。目的地 TMR 具有狀態，可告知 Trident 所需的狀態。目的地 TMR 有下列狀態：</block>
+  <block id="546afd3b22376f948ae8d790e441d7da" category="list-text">* 建立 * ：本機 PVC 是鏡射關係的目的地 Volume 、這是新的關係。</block>
+  <block id="724cfb5ec8bac42a80699bb79c4eccb9" category="list-text">* 升級 * ：本機 PVC 為可讀寫且可掛載、目前無鏡射關係。</block>
+  <block id="d323366aa32e60d08a0f93bda543af47" category="list-text">* 重新建立 * ：本機 PVC 是鏡射關係的目的地 Volume 、先前也屬於該鏡射關係。</block>
+  <block id="4c3cd5b62a43e82e03fffa6b238ed918" category="list-text">如果目的地磁碟區與來源磁碟區有任何關係、則必須使用重新建立的狀態、因為它會覆寫目的地磁碟區內容。</block>
+  <block id="b2e7dc07859cd924ca5706b299986e57" category="list-text">如果磁碟區先前未與來源建立關係、則重新建立的狀態將會失敗。</block>
+  <block id="93f9c6ccc7d85e709509db31891ae5eb" category="section-title">在非計畫性容錯移轉期間升級次要 PVC</block>
+  <block id="4a76c8d930ec18b5aedc26b5d8e5246f" category="paragraph">在次 Kubernetes 叢集上執行下列步驟：</block>
+  <block id="78ac02218b5a9367bdcb4881538477cc" category="list-text">將 TridentMirrorRelationship 的 _spec.state_ 欄位更新為<block ref="1fe57d6202c7cfbb0ee344b1e0a6fb37" prefix=" " category="inline-code"></block>。</block>
+  <block id="ffe4cfc202d643b50342b93a4a11a82f" category="section-title">在規劃的容錯移轉期間升級次要 PVC</block>
+  <block id="1d60b89a076d7f30b8efdef50e842f68" category="paragraph">在計畫性容錯移轉（移轉）期間、請執行下列步驟來升級次要 PVC ：</block>
+  <block id="3310d9a60c164accb7c262ab6e9fbc65" category="list-text">在主要 Kubernetes 叢集上、建立 PVC 的快照、並等待快照建立完成。</block>
+  <block id="8b17b79902950942165541a8ab704363" category="list-text">在主要 Kubernetes 叢集上、建立 SnapshotInfo CR 以取得內部詳細資料。</block>
+  <block id="678346d79faaa65b2da52e6d7ddce845" category="list-text">在次要 Kubernetes 叢集上、將 _TridentMirrorRelationationship _ CR 的 _spec.state_ 欄位更新為 _updated_ 、 _spec.promotedSnapshotHandle_ 更新為快照的內部名稱。</block>
+  <block id="7b007b14980acd66e9301e02a5670f47" category="list-text">在次要 Kubernetes 叢集上、確認要升級的 TridentMirrorRelationship 狀態（ STATUS.STATUS 欄位）。</block>
+  <block id="f69101c0107c4bbf8f0ccc9141beb68b" category="section-title">在容錯移轉後還原鏡射關係</block>
+  <block id="9a023cbe1d3be933d8edb6228f9901ce" category="paragraph">還原鏡射關係之前、請先選擇要設為新主要的一面。</block>
+  <block id="1c7011adbcc0afa258396aff4f10266b" category="list-text">在次要 Kubernetes 叢集上、確保已更新 TridentMirrorRelationship 上 _spec.remoteVolumeHandle_ 欄位的值。</block>
+  <block id="ffb25f01fda2538ae98bc0c4b4d465a6" category="list-text">在次 Kubernetes 叢集上、將 TridentMirrorRelationship 的 _spec.mirror 欄位更新為<block ref="036bbe13de7250844b100bc381b59214" prefix=" " category="inline-code"></block>。</block>
+  <block id="41a593c0bede63aac2726a18e4599087" category="section-title">其他作業</block>
+  <block id="567147b40ff26562a6dfcddbde29e62e" category="paragraph">Trident 支援在主要和次要磁碟區上執行下列作業：</block>
+  <block id="253093d00b66ff2357df5085c04b2758" category="section-title">將主要 PVC 複製到新的次要 PVC</block>
+  <block id="301dcece9e67241c29ebbbac8a94274e" category="paragraph">請確定您已擁有主要 PVC 和次要 PVC 。</block>
+  <block id="7f1c32cba6b98d1db7f3dfda1df76189" category="list-text">從已建立的次要（目的地）叢集刪除 PersistentVolume Claim 和 TridentMirrorRelationship CRD 。</block>
+  <block id="e655fd5342cff178f54ae5f5b2a3b7b6" category="list-text">從主（來源）叢集刪除 TridentMirrorRelationship CRD 。</block>
+  <block id="3eb69a135044d3f308d140dccb1dbe5e" category="list-text">在主要（來源）叢集上建立新的 TridentMirrorRelationship CRD 、以用於您要建立的新次要（目的地） PVC 。</block>
+  <block id="92c650dfb6284b5d24ed0e83a2338fa0" category="section-title">調整鏡射、主要或次要 PVC 的大小</block>
+  <block id="66990a43216d28b5b6818b021d397574" category="paragraph">PVC 可以正常調整大小、如果資料量超過目前大小、 ONTAP 會自動擴充任何目的地 flevxols 。</block>
+  <block id="4e2626fed5da19a4be8255f16a331609" category="section-title">從 PVC 移除複寫</block>
+  <block id="e1abf7fa65d845d34c33d593ed070453" category="paragraph">若要移除複寫、請在目前的次要磁碟區上執行下列其中一項作業：</block>
+  <block id="b3dd2c563dffb09f03c72bc16a72be62" category="list-text">刪除次要 PVC 上的 MirrorRelationship 。這會中斷複寫關係。</block>
+  <block id="413ab8e64d0d4ccb3f08ef2a8653a525" category="list-text">或者、將 spec.state 欄位更新為 _updated_ 。</block>
+  <block id="c00cff9971607d7a0409066a0ecc3bcd" category="section-title">刪除 PVC （先前已鏡射）</block>
+  <block id="e52ffc7f9894586bbf7c4260d92073c4" category="paragraph">Trident 會檢查複寫的 PVCS ，並在嘗試刪除磁碟區之前先釋放複寫關係。</block>
+  <block id="8ec9c60105332c1be8facc42b496e14b" category="section-title">刪除 TMR</block>
+  <block id="a956a14d229badbbde1032651b3586fd" category="paragraph">刪除鏡射關係一側的 TMR 會導致其餘 TMR 在 Trident 完成刪除之前轉換至 _升 遷狀態。如果選取要刪除的 TMR 已處於 _Promive_ 狀態，則沒有現有的鏡射關係， TMR 將會移除，而 Trident 會將本機 PVC 升級為 _ReadWrite_ 。此刪除作業會在 ONTAP 中針對本機磁碟區釋出 SnapMirror 中繼資料。如果此磁碟區在未來的鏡射關係中使用、則在建立新的鏡射關係時、它必須使用具有 _ 建立 _ 磁碟區複寫狀態的新 TMR 。</block>
+  <block id="d41660149eb8930ad76a1dfe3dc5f2e3" category="section-title">當 ONTAP 連線時、請更新鏡射關係</block>
+  <block id="7079164c5ba86439b0719782591106dd" category="paragraph">建立鏡射關係之後、可以隨時更新它們。您可以使用<block ref="abb3a949c6d70e3e5d92f4ad2bf143a3" prefix=" " category="inline-code"></block> 或<block ref="ff0b4e3d4dfe8f6074b6943947345d4d" prefix=" " category="inline-code"></block> 欄位來更新關聯。將目的地 Volume 升級為一般 ReadWrite Volume 時、您可以使用 _promotedSnapshotHandle_ 來指定特定快照、將目前的 Volume 還原至。</block>
+  <block id="4eecab048a7c90cfb92e0f04884686e8" category="section-title">當 ONTAP 離線時更新鏡射關係</block>
+  <block id="e782fcb9f3e7e8fa8b5ccdb3169c0e42" category="paragraph">您可以使用 CRD 來執行 SnapMirror 更新，而無需 Trident 直接連線至 ONTAP 叢集。請參閱下列 TridentActionMirrorUpdate 範例格式：</block>
+  <block id="bc08468157c4a9e3a30eed7ba64cc309" category="paragraph"><block ref="1f9dfae8a369525bce4996df40963532" prefix="" category="inline-code"></block> 反映 TridentActionMirrorUpdate CRD 的狀態。它可以取自 _sued_ 、 _in progress_ 或 _Failed_ 的值。</block>
 </blocks>

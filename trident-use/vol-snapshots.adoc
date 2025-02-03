@@ -242,6 +242,98 @@ NOTE: 當您還原快照複本時、會覆寫現有的 Volume 組態。建立快
 
 
 
+== 從快照進行原位磁碟區還原
+
+Trident 使用（ TASR ） CR 從快照提供快速的原位磁碟區還原 `TridentActionSnapshotRestore`。此 CR 是 Kubernetes 的必要行動、在作業完成後不會持續存在。
+
+Trident 支持， `ontap-san-economy` `ontap-nas` `azure-netapp-files`，，，， `ontap-nas-flexgroup`， `gcp-cvs`上的快照恢復 `ontap-san` `google-cloud-netapp-volumes`和 `solidfire-san`驅動程式。
+
+.開始之前
+您必須擁有受約束的 PVC 和可用的 Volume 快照。
+
+* 確認 PVC 狀態為「已連結」。
++
+[listing]
+----
+kubectl get pvc
+----
+* 驗證 Volume 快照是否已準備就緒可供使用。
++
+[listing]
+----
+kubectl get vs
+----
+
+
+.步驟
+. 建立 TASR CR 。本示例爲 PVC 和 Volume Snapshot 創建 CR `pvc1` `pvc1-snapshot`。
++
+
+NOTE: TASR CR 必須位於 PVC 與 VS 所在的命名空間中。
+
+
+
+[listing]
+----
+cat tasr-pvc1-snapshot.yaml
+
+apiVersion: trident.netapp.io/v1
+kind: TridentActionSnapshotRestore
+metadata:
+  name: trident-snap
+  namespace: trident
+spec:
+  pvcName: pvc1
+  volumeSnapshotName: pvc1-snapshot
+----
+. 套用 CR 以從快照還原。此示例從 Snapshot 恢復 `pvc1`。
++
+[listing]
+----
+kubectl create -f tasr-pvc1-snapshot.yaml
+
+tridentactionsnapshotrestore.trident.netapp.io/trident-snap created
+----
+
+
+.結果
+Trident 會從快照還原資料。您可以驗證快照還原狀態。
+
+[listing]
+----
+kubectl get tasr -o yaml
+
+apiVersion: trident.netapp.io/v1
+items:
+- apiVersion: trident.netapp.io/v1
+  kind: TridentActionSnapshotRestore
+  metadata:
+    creationTimestamp: "2023-04-14T00:20:33Z"
+    generation: 3
+    name: trident-snap
+    namespace: trident
+    resourceVersion: "3453847"
+    uid: <uid>
+  spec:
+    pvcName: pvc1
+    volumeSnapshotName: pvc1-snapshot
+  status:
+    startTime: "2023-04-14T00:20:34Z"
+    completionTime: "2023-04-14T00:20:37Z"
+    state: Succeeded
+kind: List
+metadata:
+  resourceVersion: ""
+----
+[NOTE]
+====
+* 在大多數情況下， Trident 不會在發生故障時自動重試作業。您需要再次執行此作業。
+* 不具備管理員存取權限的 Kubernetes 使用者可能必須獲得管理員的權限、才能在其應用程式命名空間中建立 TASR CR 。
+
+
+====
+
+
 == 刪除含有相關快照的 PV
 
 刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。移除磁碟區快照以刪除 Trident 磁碟區。

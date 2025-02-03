@@ -44,8 +44,9 @@ Rwo 、 ROX 、 rwx 、 RWOP
 若要在 Google Cloud 中善用雲端身分識別、您必須具備：
 
 * 使用 GKE 部署的 Kubernetes 叢集。
-* 在 GKE 叢集上設定的工作負載身分識別和 oidc-c發行 者。
-* 安裝的 Trident 、其中包含 `cloudProvider`指定 `"GCP"`及 `cloudIdentity`指定工作負載身分識別的。
+* 在節點集區上設定的 GKE 叢集和 GKE 中繼資料伺服器上設定的工作負載身分識別。
+* 具有 Google Cloud NetApp Volumes 管理員（角色 / NetApp 。管理）角色或自訂角色的 GCP 服務帳戶。
+* 安裝的 Trident 包含 cloudProvider ，可指定「 GCP 」和 cloudIdentity ，以指定新的 GCP 服務帳戶。以下是一個範例。
 +
 [role="tabbed-block"]
 ====

@@ -7,7 +7,7 @@ summary: 法律聲明提供版權聲明、商標、專利等存取權限。
 = 法律聲明
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

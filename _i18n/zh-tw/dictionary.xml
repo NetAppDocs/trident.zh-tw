@@ -3586,17 +3586,14 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="0fe713481395212a8eb358f4cb188c04" category="section-title">Trident 的重要資訊</block>
   <block id="8e7cb3d16dbeb8a9289495de8b479d1f" category="paragraph">* 您必須閱讀下列有關 Trident 的重要資訊。 *</block>
   <block id="04dc1d4246222d48d4348b40baef0aac" category="example-title">&lt;strong&gt; 的 Trident &lt;/strong&gt; 相關資訊</block>
-  <block id="09a48eb36bc4152ed8fe5c428d4ece05" category="list-text">Kubernetes 1.31 現在支援 Trident 。升級Kubernetes之前先升級Trident。</block>
   <block id="5e25fae885baef0275d27a764979b289" category="list-text">Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值<block ref="db729c5c8df447087e5a84b961df14f6" prefix=" " category="inline-code"></block>。</block>
   <block id="710f95d40d121f27f89b0faa6e178133" category="paragraph">Trident 支援多個容器引擎和協調器、包括：</block>
-  <block id="c3524924959417328a5c2d4797b71b8f" category="list-text">Kubernetes 1.25 - 1.31</block>
   <block id="76073f246cf758836f21035e15541803" category="list-text">Rancher Kubernetes Engine 2 （ RKE2 ） v1.28.5+rke2r1</block>
   <block id="e42907190e2666646d57ade5c061e6e2" category="paragraph">Trident 也與其他完全託管且自行管理的 Kubernetes 產品合作、包括 Google Kubernetes Engine （ GKE ）、 Amazon Elastic Kubernetes Services （ EKS ）、 Azure Kubernetes Service （ aks ）、 Mirantis Kubernetes Engine （ MKE ）和 VMware Tanzu Portfolio 。</block>
   <block id="4cb56edacf6f40b0077e559878cb88a1" category="paragraph">Trident 和 ONTAP 可作為的儲存供應商<block ref="98ab68800979b414641691275d2b9c15" category="inline-link-macro-rx"></block>。</block>
   <block id="029f0e10fd529e4a0fd06a03bd5b1eaf" category="admonition">在將安裝了 Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 或更新版本之前<block ref="1b428bb9b9fe27db6cd8932526864634" category="inline-link-macro-rx"></block>、請參閱。</block>
   <block id="90e5d592b7e0b2afb122e69c00372ddf" category="paragraph">若要使用 Trident 、您需要下列一或多個支援的後端：</block>
   <block id="6116c21c42b3138e811999de6433a0a6" category="paragraph">下表摘要說明此 Trident 版本的可用功能、以及其支援的 Kubernetes 版本。</block>
-  <block id="cb6fdbc23b7af9715334e1bb04d2c4ac" category="paragraph">1.25 - 1.31</block>
   <block id="29fce9ae0f476afd36cf3ebf4de1d2a8" category="paragraph">雖然 Trident 並未正式支援特定作業系統、但已知下列項目可以正常運作：</block>
   <block id="779639a0216e7a8fd164ee8a7266d8b8" category="paragraph">根據預設、 Trident 會在容器中執行、因此會在任何 Linux 工作者上執行。不過、這些工作者必須能夠使用標準的 NFS 用戶端或 iSCSI 啟動器來裝載 Trident 所提供的磁碟區、視您使用的後端而定。</block>
   <block id="ac65d911a6a42e3244db78a534db815a" category="paragraph">Trident 可能需要變更儲存系統、後端組態才能使用。</block>
@@ -3604,7 +3601,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="31ae62dfe6cb254d32d0f67deda8d9ad" category="paragraph">Trident 需要存取特定連接埠才能進行通訊。</block>
   <block id="2e442c7238666f1b73934ff5c2034b82" category="paragraph"><block ref="2e442c7238666f1b73934ff5c2034b82" category="inline-link-macro-rx"></block></block>
   <block id="ce8468ce4398f1403e56c8d07fbfbdff" category="paragraph">對於無線安裝、下列清單是安裝 Trident 所需的容器映像參考資料。使用<block ref="4ebf280824868255c952dc529072ecb9" prefix=" " category="inline-code"></block>命令來驗證所需的容器映像清單。</block>
-  <block id="ecfc1eb0b20cc5ae8492fc90fcbf996d" category="cell">v1.25.0 、 v1.26.0 、 v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0</block>
   <block id="84164a090d4c4deb277c3eaee7be8933" category="list-text">Docker 。 IO/NetApp/Trident ： 24.10.0</block>
   <block id="d32e454f258700e2a7e9bd38093759e7" category="list-text">Docker 。 IO/NetApp/Trident 自動支援： 24.10</block>
   <block id="2008e365da289d546b62489addab8fe9" category="list-text">registry ． k8s.io/SIG-storage / csi 置備程式： v5.1.0</block>
@@ -5183,4 +5179,8 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1d5144e260d8c4ece3c5d47a77d84c11" category="section-title">更新 Trident EKS 附加元件</block>
   <block id="ccab466451ff5a867710cce1b28c33a0" category="section-title">解除安裝 / 移除 Trident EKS 附加元件</block>
   <block id="e75af04fb72882c1d735055059f1a557" category="list-text">單擊 *Add-ons* 選項卡，然後單擊 Trident by NetApp 。 *</block>
+  <block id="71daa7e0f7c4240ad5aa4024c97bafae" category="list-text">Kubernetes 1.32 現在支援 Trident 。升級Kubernetes之前先升級Trident。</block>
+  <block id="58830b43d96c301076f2636c9bb946d5" category="list-text">Kubernetes 1.25 - 1.32</block>
+  <block id="2d95fd2a9f3bf1dcac56e3de82d288ad" category="paragraph">1.25 - 1.32</block>
+  <block id="2ec43b8882dfc130c999d1ebfae88d87" category="cell">v1.25.0 、 v1.26.0 、 v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0</block>
 </blocks>

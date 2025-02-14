@@ -5183,4 +5183,17 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="58830b43d96c301076f2636c9bb946d5" category="list-text">Kubernetes 1.25 - 1.32</block>
   <block id="2d95fd2a9f3bf1dcac56e3de82d288ad" category="paragraph">1.25 - 1.32</block>
   <block id="2ec43b8882dfc130c999d1ebfae88d87" category="cell">v1.25.0 、 v1.26.0 、 v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0</block>
+  <block id="d1548585dadda37a28905a23e22cf65d" category="section-title">從備份還原至不同的叢集</block>
+  <block id="7fa8874b1f645ca2af9d81b51985b8fb" category="paragraph">如果原始叢集發生問題，您可以將備份還原至不同的叢集。</block>
+  <block id="17e2d63e3b45ecbfe13bcc32fec929d0" category="paragraph">*開始之前*</block>
+  <block id="dd4ee610bd1d035c73bc0cbcd80e46da" category="paragraph">確保符合下列先決條件：</block>
+  <block id="1d6028c560c8f6dbee841737e60a3d9d" category="list-text">目的地叢集已安裝 Trident Protect 。</block>
+  <block id="b20f8883edb9068c67a2faeb3c083d38" category="list-text">目的地叢集可存取與儲存備份的來源叢集相同 AppVault 的儲存區路徑。</block>
+  <block id="0425d0358a4cba7a7cce5ddd727ab6a2" category="list-text">使用 Trident Protect CLI 外掛程式檢查目的地叢集上的 AppVault CR 可用度：</block>
+  <block id="1ff83a5266e9e025c2984e0c10dea90e" category="admonition">確保目的地叢集上存在用於應用程式還原的命名空間。</block>
+  <block id="8d433ae9a21c49e9e5433ebd408605c0" category="list-text">從目的地叢集檢視可用 AppVault 的備份內容：</block>
+  <block id="378e6f0ba7080535a4462b5311befb40" category="paragraph">執行此命令會顯示 AppVault 中的可用備份，包括其原始叢集，對應的應用程式名稱，時間戳記和歸檔路徑。</block>
+  <block id="053aba80de03f3fdf626d1c858342330" category="list-text">使用 AppVault 名稱和歸檔路徑將應用程式還原至目的地叢集：</block>
+  <block id="fceebbe32c1f7b24c54d6a4e8a0fa776" category="admonition">如果無法使用 BackupRestore CR ，您可以使用步驟 2 所述的命令來檢視備份內容。</block>
+  <block id="4ef55c1fec2de9218af40d16cbc021a4" category="list-text">使用下列命令還原應用程式，將方括號中的值取代為您環境中的資訊。命名空間對應引數使用以冒號分隔的命名空間，將來源命名空間對應到正確的目的地命名空間，格式為 source1:dest1 ， source2:dest2 。例如：</block>
 </blocks>

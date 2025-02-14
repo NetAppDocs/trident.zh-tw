@@ -312,6 +312,116 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 ====
 
 
+== 從備份還原至不同的叢集
+
+如果原始叢集發生問題，您可以將備份還原至不同的叢集。
+
+*開始之前*
+
+確保符合下列先決條件：
+
+* 目的地叢集已安裝 Trident Protect 。
+* 目的地叢集可存取與儲存備份的來源叢集相同 AppVault 的儲存區路徑。
+
+
+.步驟
+. 使用 Trident Protect CLI 外掛程式檢查目的地叢集上的 AppVault CR 可用度：
++
+[source, console]
+----
+tridentctl-protect get appvault --context <destination_cluster_name>
+----
++
+
+NOTE: 確保目的地叢集上存在用於應用程式還原的命名空間。
+
+. 從目的地叢集檢視可用 AppVault 的備份內容：
++
+[source, console]
+----
+tridentctl-protect get appvaultcontent <appvault_name> --show-resources backup --show-paths --context <destination_cluster_name>
+----
++
+執行此命令會顯示 AppVault 中的可用備份，包括其原始叢集，對應的應用程式名稱，時間戳記和歸檔路徑。
+
++
+* 輸出範例： *
+
++
+[listing]
+----
++-------------+-----------+--------+-----------------+--------------------------+-------------+
+|   CLUSTER   |    APP    |  TYPE  |      NAME       |        TIMESTAMP         |    PATH     |
++-------------+-----------+--------+-----------------+--------------------------+-------------+
+| production1 | wordpress | backup | wordpress-bkup-1| 2024-10-30 08:37:40 (UTC)| backuppath1 |
+| production1 | wordpress | backup | wordpress-bkup-2| 2024-10-30 08:37:40 (UTC)| backuppath2 |
++-------------+-----------+--------+-----------------+--------------------------+-------------+
+
+----
+. 使用 AppVault 名稱和歸檔路徑將應用程式還原至目的地叢集：
+
+
+[role="tabbed-block"]
+====
+.使用 CR
+--
+. 建立自訂資源（ CR ）檔案並命名為 `trident-protect-backup-restore-cr.yaml`。
+. 在您建立的檔案中，設定下列屬性：
++
+** * metadata.name*: （ _required ）此自訂資源的名稱；為您的環境選擇唯一且合理的名稱。
+** *spec.appVaultRef* ：（ _required _ ）儲存備份內容的 AppVault 名稱。
+** *spec.appArchivePath* ：儲存備份內容的 AppVault 內部路徑。您可以使用下列命令來尋找此路徑：
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
++
+
+NOTE: 如果無法使用 BackupRestore CR ，您可以使用步驟 2 所述的命令來檢視備份內容。
+
+** *spec.namespaceMapping*: 將還原作業的來源命名空間對應至目的地命名空間。以環境中的資訊取代 `my-source-namespace`和 `my-destination-namespace`。
++
+例如：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupRestore
+metadata:
+  name: my-cr-name
+  namespace: my-destination-namespace
+spec:
+  appVaultRef: appvault-name
+  appArchivePath: my-backup-path
+  namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
+----
+
+
+. 在您以正確的值填入檔案之後 `trident-protect-backup-restore-cr.yaml` 、請套用 CR ：
++
+[source, console]
+----
+kubectl apply -f trident-protect-backup-restore-cr.yaml
+----
+
+
+--
+.使用CLI
+--
+. 使用下列命令還原應用程式，將方括號中的值取代為您環境中的資訊。命名空間對應引數使用以冒號分隔的命名空間，將來源命名空間對應到正確的目的地命名空間，格式為 source1:dest1 ， source2:dest2 。例如：
++
+[source, console]
+----
+tridentctl-protect create backuprestore <restore_name> --namespace-mapping <source_to_destination_namespace_mapping> --appvault <appvault_name> --path <backup_path> -n <application_namespace> --context <destination_cluster_name>
+----
+
+
+--
+====
+
+
 == 從快照還原至不同的命名空間
 
 您可以使用自訂資源（ CR ）檔案、將資料從快照還原至不同的命名空間或原始來源命名空間。當您使用 SnapshotRestore CR 將快照還原至不同的命名空間時， Trident Protect 會在新命名空間中還原應用程式，並為還原的應用程式建立應用程式 CR 。若要保護還原的應用程式，請建立隨需備份或快照，或建立保護排程。

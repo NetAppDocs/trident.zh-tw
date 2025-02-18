@@ -26,7 +26,7 @@ Trident 提供下列 SAN 儲存驅動程式、可與 ONTAP 叢集進行通訊。
 
 
 | 「ONTAP-SAN」  a| 
-iSCSI
+iSCSI SCSI over FC （ Trident 24.10 的技術預覽）
  a| 
 區塊
  a| 
@@ -37,7 +37,7 @@ Rwo 、 ROX 、 rwx 、 RWOP
 
 
 | 「ONTAP-SAN」  a| 
-iSCSI
+iSCSI SCSI over FC （ Trident 24.10 的技術預覽）
  a| 
 檔案系統
  a| 

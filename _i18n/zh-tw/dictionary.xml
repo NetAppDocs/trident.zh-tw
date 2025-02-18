@@ -1889,7 +1889,6 @@
   <block id="dd341f866eaefb939dc86608773c909d" category="section-title">在安裝方法之間移動</block>
   <block id="84dfae02381a00cf11d01c571e3e3e0f" category="paragraph">您可以決定變更安裝方法。在執行此操作之前、請先考慮下列事項：</block>
   <block id="e77325ac6e155cf5d14c756f1d64333f" category="list-text">如果您有手動的操作員型部署、而且想要使用以Helm為基礎的Trident操作員部署、您應該先手動解除安裝操作員、然後再執行Helm安裝。如此一來、Helm就能部署具有所需標籤和註釋的Trident運算子。如果您不這麼做、則Helm型Trident營運者部署將會失敗、並顯示標籤驗證錯誤和註釋驗證錯誤。如果您有<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>根據部署、您可以使用以Helm為基礎的部署、而不會發生問題。</block>
-  <block id="0ffed9ae8c0b8e64c5dc8cba81c4fe34" category="list-text">FAS/AFF/選取9.5或更新版本</block>
   <block id="f36d25716a4b2c466ddcb8065bef3ae6" category="paragraph"><block ref="f36d25716a4b2c466ddcb8065bef3ae6" category="inline-link-macro-rx"></block></block>
   <block id="50823ee9226376c44bfb71c334ee2f3f" category="paragraph"><block ref="50823ee9226376c44bfb71c334ee2f3f" category="inline-link-macro-rx"></block></block>
   <block id="44e21d73aa8bd7200fceac6671723524" category="doc">手動部署Trident運算子（離線模式）</block>
@@ -5196,4 +5195,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="053aba80de03f3fdf626d1c858342330" category="list-text">使用 AppVault 名稱和歸檔路徑將應用程式還原至目的地叢集：</block>
   <block id="fceebbe32c1f7b24c54d6a4e8a0fa776" category="admonition">如果無法使用 BackupRestore CR ，您可以使用步驟 2 所述的命令來檢視備份內容。</block>
   <block id="4ef55c1fec2de9218af40d16cbc021a4" category="list-text">使用下列命令還原應用程式，將方括號中的值取代為您環境中的資訊。命名空間對應引數使用以冒號分隔的命名空間，將來源命名空間對應到正確的目的地命名空間，格式為 source1:dest1 ， source2:dest2 。例如：</block>
+  <block id="e0020bd4ebab101e8b128426eb7025bd" category="list-text">FAS / AFF / 選取</block>
+  <block id="fcabe507223b9ffe86d4048df99d8ee5" category="paragraph">iSCSI SCSI over FC （ Trident 24.10 的技術預覽）</block>
 </blocks>

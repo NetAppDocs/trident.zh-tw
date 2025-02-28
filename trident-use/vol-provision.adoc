@@ -199,7 +199,7 @@ kubectl exec -it task-pv-pod -- df -h /my/mount/path
 +
 [listing]
 ----
-kubectl delete pod task-pv-pod
+kubectl delete pod pv-pod
 ----
 
 

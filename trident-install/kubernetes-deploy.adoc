@@ -16,7 +16,7 @@ summary: '您可以使用 Trident 運算子（手動或使用 Helm ）或搭配�
 
 
 
-== Trident 24.10 的重要資訊
+== Trident 25.02 的重要資訊
 
 * 您必須閱讀下列有關 Trident 的重要資訊。 *
 

@@ -46,7 +46,7 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 | 「Debug」 | 啟用 Trident 的偵錯功能 | 「假」 
 
 
-| `enableForceDetach` | 僅限`ontap-san`、 `ontap-san-economy`和 `ontap-nas-economy`。與 Kubernetes Non-Graceful Node Shutdown （ NGNS ）一起運作、讓叢集管理員能夠在節點發生問題時、將已掛載磁碟區的工作負載安全移轉至新節點。 | 「假」 
+| `enableForceDetach` | `ontap-san` `ontap-san-economy` `ontap-nas`，，及 `ontap-nas-economy`僅限。與 Kubernetes Non-Graceful Node Shutdown （ NGNS ）一起運作、讓叢集管理員能夠在節點發生問題時、將已掛載磁碟區的工作負載安全移轉至新節點。 | 「假」 
 
 
 | `windows` | 設定為 `true` 可在Windows工作節點上安裝。 | 「假」 
@@ -68,7 +68,7 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 自動 | 「假」 
 
 
-| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:24.10"` 
+| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:25.02"` 
 
 
 | 「autosupportProxy」 | 用於傳送 AutoSupport 的 Proxy 位址 / 連接埠
@@ -81,7 +81,7 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 | `logFormat` | 要使用的 Trident 記錄格式 [text,json] | `"text"` 
 
 
-| 「TridentImage」 | 要安裝的 Trident 映像 | `"netapp/trident:24.10"` 
+| 「TridentImage」 | 要安裝的 Trident 映像 | `"netapp/trident:25.02"` 
 
 
 | 「影像登錄」 | 內部登錄的路徑、格式
@@ -116,6 +116,9 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 
 
 | `nodePrep` | 可讓 Trident 準備 Kubernetes 叢集的節點、以使用指定的資料儲存傳輸協定來管理磁碟區。* 目前 `iscsi`是唯一支援的值。 * |  
+
+
+| `enableAutoBackendConfig` | 啟用自動後端組態，可根據輸入參數順暢建立後端和儲存類別。 | 無預設值；選用 
 |===
 
 NOTE: 如需格式化 Pod 參數的詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["將Pod指派給節點"^]。
@@ -124,10 +127,10 @@ NOTE: 如需格式化 Pod 參數的詳細資訊、請參閱 link:https://kuberne
 
 === 強制分離的詳細資料
 
-「強制分離」僅適用於 `ontap-san`、 `ontap-san-economy`和 `onatp-nas-economy`。啟用強制分離之前、必須先在 Kubernetes 叢集上啟用非正常節點關機（ NGNS ）。如需詳細資訊、請 link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes ：非正常節點關機"^]參閱。
+強制分離僅適用於 `ontap-san`， `ontap-san-economy`， `onatp-nas`和 `onatp-nas-economy`。啟用強制分離之前、必須先在 Kubernetes 叢集上啟用非正常節點關機（ NGNS ）。根據預設， Kubernetes 1.28 及更高版本會啟用 NGNS 。如需詳細資訊、請 link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes ：非正常節點關機"^]參閱。
 
 
-NOTE: 使用驅動程式時 `ontap-nas-economy`、您需要將後端組態中的參數設定 `autoExportPolicy`為 `true`、以便 Trident 可以使用受管理的匯出原則套用的污染來限制從 Kubernetes 節點的存取。
+NOTE: 使用 `ontap-nas`或 `ontap-nas-economy`驅動程式時，您需要將後端組態中的參數設定 `autoExportPolicy`為 `true`，以便 Trident 可以使用受管理的匯出原則套用的污染來限制從 Kubernetes 節點的存取。
 
 
 WARNING: 由於 Trident 仰賴 Kubernetes NGNS 、因此在重新排程所有不可容忍的工作負載之前、請勿移除 `out-of-service`不良節點的污點。如果不考慮套用或移除污染、可能會危及後端資料保護。

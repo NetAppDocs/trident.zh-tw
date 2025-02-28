@@ -20,7 +20,7 @@ summary: 每個儲存驅動程式都有一組不同的選項、您可以在建�
 
 == 選購的選購配備ONTAP
 
-NFS和iSCSI的Volume建立選項包括：
+NFS ， iSCSI 和 FC 的 Volume Create 選項包括：
 
 [cols="2*"]
 |===
@@ -151,7 +151,7 @@ docker volume create -d netapp --name my_vol --opt snapshotPolicy=none --opt sna
 ----
 docker volume create -d netapp --name my_vol --opt snapshotPolicy=myPolicy --opt snapshotReserve=10
 ----
-* 使用快照原則建立磁碟區、並接受ONTAP的預設快照保留（通常為5%）：
+* 使用快照原則建立磁碟區，並接受 ONTAP 的預設快照保留（通常為 5% ）：
 +
 [listing]
 ----

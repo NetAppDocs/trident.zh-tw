@@ -42,7 +42,7 @@ WARNING: 這對區塊磁碟區特別重要、因為 Kubernetes 不會知道先�
 ** 如果儲存類別的回收原則為 `delete`、儲存磁碟區會在PV刪除時刪除。
 
 
-* 根據預設、 Trident 會管理 PVC 並重新命名後端上的 FlexVol 和 LUN 。您可以傳遞 `--no-manage`旗標來匯入未受管理的磁碟區。如果您使用 `--no-manage`、 Trident 在物件生命週期內不會在 PVC 或 PV 上執行任何其他作業。刪除 PV 時不會刪除儲存磁碟區、也會忽略其他操作、例如 Volume Clone 和 Volume resize 。
+* 根據預設， Trident 會管理 PVC 並重新命名後端上的 FlexVol volume 和 LUN 。您可以傳遞 `--no-manage`旗標來匯入未受管理的磁碟區。如果您使用 `--no-manage`、 Trident 在物件生命週期內不會在 PVC 或 PV 上執行任何其他作業。刪除 PV 時不會刪除儲存磁碟區、也會忽略其他操作、例如 Volume Clone 和 Volume resize 。
 +
 
 TIP: 如果您想要將Kubernetes用於容器化工作負載、但想要管理Kubernetes以外儲存磁碟區的生命週期、則此選項非常實用。
@@ -105,7 +105,7 @@ Trident 支援使用和 `ontap-nas-flexgroup`驅動程式進行 Volume 匯入 `o
 
 
 ====
-每個使用「ONTAP-NAS」驅動程式建立的Volume FlexVol 、都是ONTAP 一個在整個叢集上的功能。使用「ONTAP-NAS」驅動程式匯入FlexVols的運作方式相同。已存在於某個叢集上的一個功能、可以匯入為「ONTAP-NAS」的PVc。FlexVol ONTAP同樣地FlexGroup 、也可以將此數據匯入為「ONTAP-NAS-Flexgroup」PVCS。
+使用驅動程式建立的每個磁碟區都 `ontap-nas`是 ONTAP 叢集上的 FlexVol volume 。使用驅動程式匯入 FlexVol 磁碟區 `ontap-nas`的運作方式相同。ONTAP 叢集上已存在的 FlexVol Volume 可匯入為 `ontap-nas` PVC 。同樣地、 FlexGroup Vols 也可以匯入為 `ontap-nas-flexgroup` PVCS 。
 
 .ONTAP NAS 範例
 以下是託管 Volume 和非託管 Volume 匯入的範例。
@@ -151,7 +151,7 @@ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-ma
 
 Trident 支援使用和 `ontap-san-economy`驅動程式進行 Volume 匯入 `ontap-san`。
 
-Trident 可以匯入包含單一 LUN 的 ONTAP SAN FlexVols 。這與驅動程式一致 `ontap-san`、可為 FlexVol 中的每個 PVC 和 LUN 建立 FlexVol 。Trident 會匯入 FlexVol 、並將其與 PVC 定義相關聯。
+Trident 可以匯入包含單一 LUN 的 ONTAP SAN FlexVol 磁碟區。這與驅動程式一致 `ontap-san`，可為 FlexVol volume 中的每個 PVC 和 LUN 建立 FlexVol volume 。Trident 會匯入 FlexVol volume ，並將其與 PVC 定義相關聯。
 
 .ONTAP SAN 範例
 以下是託管 Volume 和非託管 Volume 匯入的範例。
@@ -160,9 +160,9 @@ Trident 可以匯入包含單一 LUN 的 ONTAP SAN FlexVols 。這與驅動程�
 ====
 .託管 Volume
 --
-對於託管卷， Trident 將 FlexVol 重命名爲格式，並將 FlexVol 中的 LUN `lun0` 重命名爲 `pvc-<uuid>`。
+對於託管卷， Trident 將 FlexVol volume 重命名爲格式，並將 FlexVol volume 中的 LUN `lun0` 重命名爲 `pvc-<uuid>`。
 
-下列範例會匯入 `ontap-san-managed` 上的顯示FlexVol `ontap_san_default` 後端：
+下列範例會匯入 `ontap-san-managed`後端上的 FlexVol volume `ontap_san_default` ：
 
 [listing]
 ----
@@ -262,4 +262,35 @@ tridentctl import volume azurenetappfiles_40517 importvol1 -f <path-to-pvc-file>
 +------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
 | pvc-0ee95d60-fd5c-448d-b505-b72901b3a4ab | 100 GiB | anf-storage   | file     | 1c01274f-d94b-44a3-98a3-04c953c9a51e | online | true    |
 +------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+----
+
+
+=== Google Cloud NetApp Volumes
+
+Trident 支援使用驅動程式進行 Volume 匯入 `google-cloud-netapp-volumes`。
+
+.Google Cloud NetApp Volumes 範例
+以下示例將使用 Volume `testvoleasiaeast1` 在後端導入一個 `google-cloud-netapp-volumes` Volume `backend-tbc-gcnv1` 。
+
+[listing]
+----
+tridentctl import volume backend-tbc-gcnv1 "testvoleasiaeast1" -f < path-to-pvc> -n trident
+
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS        | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
+| pvc-a69cda19-218c-4ca9-a941-aea05dd13dc0 |  10 GiB | gcnv-nfs-sc-identity | file     | 8c18cdf1-0770-4bc0-bcc5-c6295fe6d837 | online | true    |
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
+----
+下列範例會在兩個磁碟區位於同一個區域時匯入 `google-cloud-netapp-volumes` Volume ：
+
+[listing]
+----
+tridentctl import volume backend-tbc-gcnv1 "projects/123456789100/locations/asia-east1-a/volumes/testvoleasiaeast1" -f <path-to-pvc> -n trident
+
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS        | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
+| pvc-a69cda19-218c-4ca9-a941-aea05dd13dc0 |  10 GiB | gcnv-nfs-sc-identity | file     | 8c18cdf1-0770-4bc0-bcc5-c6295fe6d837 | online | true    |
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
 ----

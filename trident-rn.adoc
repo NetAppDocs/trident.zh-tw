@@ -19,7 +19,97 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 
 
-== 24.10 的新功能
+== 25.02 的新功能
+
+從 Trident 25.02 開始，「新增功能」摘要提供 Trident 和 Trident Protect 版本的增強功能，修正和過時功能的詳細資料。
+
+
+
+=== Trident
+
+
+
+==== 增強功能
+
+* * Kubernetes* ：
++
+** 新增對 iSCSI 的 ONTAP ASA R2 支援。
+** 新增在非正常節點關機案例中強制分離 ONTAP NAS 磁碟區的支援。新的 ONTAP NAS 磁碟區現在將使用由 Trident 管理的每個磁碟區匯出原則。提供升級路徑，讓現有的磁碟區在解除發佈時轉換至新的匯出原則模型，而不會影響作用中的工作負載。
+** 新增 cloneFromSnapshot 註釋。
+** 新增跨命名空間磁碟區複製支援。
+** 新增適用於 Amazon FSX for NetApp ONTAP 的 EKS 附加元件和 helm 型安裝的自動後端組態。
+** 增強的 iSCSI 自我修復掃描修正功能，可透過精確的主機，通道，目標和 LUN ID 來初始化重新掃描。
+** 增加了對 Kubernetes 1.32 的支援。
+
+
+* * OpenShift* ：
++
+** 新增對 ROSA 叢集上的 RHCOS 自動 iSCSI 節點準備的支援。
+** 新增 ONTAP 驅動程式的 Openshift 虛擬化支援。
+
+
+* 在 ONTAP SAN 驅動程式上新增光纖通道支援。
+* 新增 NVMe LUKS 支援。
+* 已切換至所有基礎映像的暫存映像。
+* 已新增 iSCSI 連線狀態探索和記錄功能，可在 iSCSI 工作階段應登入時進行，但不會（link:https://github.com/NetApp/trident/issues/961["問題 #961"]）。
+* 使用 googoogle 雲端 NetApp 磁碟區驅動程式新增對 SMB 磁碟區的支援。
+* 新增支援，允許 ONTAP 磁碟區在刪除時略過恢復佇列。
+* 新增支援以取代標籤，取代預設影像。
+* 新增映像拉取秘密旗標至 Tridentctl 安裝程式。
+
+
+
+
+==== 修正
+
+* * Kubernetes* ：
++
+** 修復自動匯出原則中遺失的節點 IP 位址（link:https://github.com/NetApp/trident/issues/965["問題 #965"]）。
+** 為節省 ONTAP NAS 成本，提早將自動匯出原則切換至每個 Volume 原則。
+** 固定後端組態認證，可支援所有可用的 AWS ARN 分割區（link:https://github.com/NetApp/trident/issues/913["問題 #913"]）。
+** 新增選項可在 Trident 運算子（）中停用自動組態設定器協調link:https://github.com/NetApp/trident/issues/924["問題 #924"]。
+** 增加安全性 CSI 調整容器的 Context （link:https://github.com/NetApp/trident/issues/976["問題 #976"]）。
+** 在 iSCSI 自我修復期間，移除間歇性不佳的非 CHAP 入口網站登出 (link:https://github.com/NetApp/trident/issues/961["問題 #961"]) 。
+
+
+
+
+
+
+=== Trident Protect
+
+NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化由 NetApp ONTAP 儲存系統和 NetApp Trident CSI 儲存資源配置程式所支援的狀態化 Kubernetes 應用程式的功能與可用度。
+
+
+
+==== 增強功能
+
+* 新增對 KubeVirt / OpenShift 虛擬化虛擬機器的備份與還原支援，可同時用於兩個 Volume 模式：檔案與 Volume emode ：區塊（原始裝置）儲存設備，並透過 AppMirrorRelationship 將其儲存複寫至現有的儲存複寫。
+* 新增在 Kubevirt 環境的應用程式層級控制凍結行為的功能。
+* 新增了設定 AutoSupport Proxy 連線的支援。
+* 新增定義資料移動器加密機密的功能（ Kopia / Restic ）。
+* 新增了手動執行掛鉤的功能。
+* 新增在 Trident Protect 安裝期間設定安全性內容限制（ SCC ）的功能。
+* 新增在 Trident Protect 安裝期間設定 nodeSelector 的支援。
+* 新增 AppVault 物件的 HTTP / HTTPS 外傳 Proxy 支援。
+* 延伸資源篩選器可啟用叢集範圍資源的排除。
+* 在 S3 AppVault 認證中新增對 AWS 工作階段權杖的支援。
+* 在快照前執行攔截之後新增資源集合支援。
+
+
+
+
+==== 修正
+
+* 改善暫存磁碟區的管理，以略過 ONTAP 磁碟區恢復佇列。
+* SCC 註釋現在會還原為原始值。
+* 支援平行作業，提升還原效率。
+* 強化支援大型應用程式的執行掛機逾時。
+
+
+
+
+== 24.10 的變更
 
 
 
@@ -63,7 +153,7 @@ link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Pr
 
 ==== 實驗性增強功能
 
-* 在 ONTAP SAN 驅動程式上新增光纖通道支援的技術預覽。請參閱 link:./trident-use/fcp.html["Fibre Channel 支援"]。
+* 在 ONTAP SAN 驅動程式上新增光纖通道支援的技術預覽。
 
 
 
@@ -112,7 +202,7 @@ link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Pr
 * 增加了 iSCSI 自我修復功能，可在使用過時的 igroup 時，以確切的 LUN ID 啟動 SCSI 掃描（link:https://github.com/NetApp/trident/issues/883["問題 #883"]）。
 * 新增對 Volume Clone 的支援、即使後端處於暫停模式、也能調整作業大小。
 * 新增功能、可讓使用者為 Trident 控制器設定記錄檔設定、以傳播至 Trident 節點 Pod 。
-* 在 Trident 中新增支援、預設使用 REST 、而非 ONTAP 9.15.1 版及更新版本的 ZAPI 。
+* 在 Trident 中新增支援，預設使用 REST ，而非 ONTAP 9.15.1 版及更新版本的 ONTAPI （ ZAPI ）。
 * 新增對 ONTAP 儲存設備後端上的自訂磁碟區名稱和中繼資料的支援、以供新的持續磁碟區使用。
 * 增強 `azure-netapp-files` （ anf ）驅動程式、可在 NFS 裝載選項設定為使用 NFS 版本 4.x 時、依預設自動啟用快照目錄
 * 新增對 NFS 磁碟區的 Bottlerocket 支援。
@@ -138,7 +228,7 @@ link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Pr
 * 修正 tridentctl 以忽略 Kubernetes （）的警告訊息link:https://github.com/NetApp/trident/issues/892["問題 #892"]。
 * 已將 Trident 控制器優先級更改 `SecurityContextConstraint`爲 `0`（link:https://github.com/NetApp/trident/issues/887["問題 #887"]）。
 * ONTAP 驅動程式現在接受低於 20MiB 的磁碟區大小（link:https://github.com/NetApp/trident/issues/885["問題 [#885"]）。
-* 固定式 Trident 可防止 ONTAP SAN 驅動程式在調整大小作業期間縮小 FlexVols 。
+* 固定式 Trident ，可在 ONTAP SAN 驅動程式調整大小的作業期間，防止 FlexVol 磁碟區縮小。
 * 修正 NFS v4.1 的磁碟區匯入失敗。
 
 
@@ -158,7 +248,7 @@ link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Pr
 
 * 新增支援、可從 EKS 主控台將 Trident 安裝為 EKS 叢集的附加元件。
 * 新增設定及停用 iSCSI 自我修復的功能（link:https://github.com/NetApp/trident/issues/864["問題 #864"]）。
-* 為 ONTAP 驅動程式新增了 FSX 特性設定、以啟用與 AWS IAM 和 SecretsManager 的整合、並讓 Trident 能夠刪除具有備份功能的 FSX 磁碟區（link:https://github.com/NetApp/trident/issues/453["問題 #453"]）。
+* 新增 Amazon FSX 特性至 ONTAP 驅動程式，以啟用與 AWS IAM 和 SecretsManager 的整合，並讓 Trident 能夠刪除具有備份功能的 FSX 磁碟區（link:https://github.com/NetApp/trident/issues/453["問題 #453"]）。
 
 
 
@@ -242,7 +332,7 @@ link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Pr
 
 ==== Trident
 
-* 修正 ONTAP ZAPI 要求、確保在節點暫存作業期間取得 LUN 屬性以識別和修正軌跡 iSCSI 裝置時、會查詢 LUN 序號。
+* 修正了 ONTAPI （ ZAPI ）要求，確保在節點暫存作業期間取得 LUN 屬性以識別和修正軌跡 iSCSI 裝置時，會查詢 LUN 序號。
 * 已修正儲存驅動程式碼（link:https://github.com/NetApp/trident/issues/816["問題 #816"^]）。
 * 使用 ONTAP 驅動程式搭配 use-rest = true 時、可調整固定配額大小。
 * 在 ONTAP SAN 經濟環境中建立固定 LUN 複製。
@@ -389,11 +479,11 @@ IMPORTANT: Kubernetes 1.27 現在支援 Trident 。請先升級Trident、再升�
 
 
 .Trident
-* 新增支援SMB Volume搭配Amazon FSX ONTAP for Sfor Sfor ONTAP - NAS儲存驅動程式。
+* 將 Amazon FSX for NetApp ONTAP 的 SMB Volume 支援新增至 ONTAP NAS 儲存驅動程式。
 * 新增使用SMB磁碟區時對NTFS權限的支援。
 * 新增對採用CVS服務層級之GCP磁碟區的儲存資源池支援。
 * 新增對使用ONTAP-NAS-Flexgroup儲存驅動程式建立FlexGroups時、FlexGroupAggregateList的選用使用支援。
-* 在管理多個FlexVols時、為ONTAP-NAS經濟型儲存驅動程式提升效能。
+* 在管理多個 FlexVol 磁碟區時，改善 ONTAP NAS 經濟型儲存驅動程式的效能
 * 已啟用所有ONTAP 的支援不支援NAS儲存驅動程式的資料LIF更新。
 * 更新Trident部署和示範設定命名慣例、以反映主機節點作業系統。
 

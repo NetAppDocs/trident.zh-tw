@@ -27,11 +27,18 @@ Trident 會根據您的版本提供三個層級的支援。請參閱 link:https:
 
 [cols="1, 1, 1, 1"]
 |===
+
+
 | 版本 | 完全支援 | 有限支援 | 自我支援 
 
 
  a| 
-link:https://docs.netapp.com/us-en/trident/index.html["24.10"^]
+link:https://docs.netapp.com/us-en/trident/index.html["25.02"^]
+| 2026 年 2 月 | 2027 年 2 月 | 2028 年 2 月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2410/index.html["24.10"^]
 | 2025 年 10 月 | 2026 年 10 月 | 2027 年 10 月 
 
 
@@ -47,12 +54,12 @@ link:https://docs.netapp.com/us-en/trident-2402/index.html["24.02"^]
 
  a| 
 link:https://docs.netapp.com/us-en/trident-2310/index.html["23.10"^]
-| 2024 年 10 月 | 2025 年 10 月 | 2026 年 10 月 
+| -- | 2025 年 10 月 | 2026 年 10 月 
 
 
  a| 
 link:https://docs.netapp.com/us-en/trident-2307/index.html["23.07"^]
-| 2024 年 7 月 | 2025 年 7 月 | 2026 年 7 月 
+| -- | 2025 年 7 月 | 2026 年 7 月 
 
 
  a| 
@@ -62,27 +69,22 @@ link:https://docs.netapp.com/us-en/trident-2304/index.html["23.04"^]
 
  a| 
 link:https://docs.netapp.com/us-en/trident-2301/index.html["23.01"^]
-| -- | 2025 年 1 月 | 2026 年 1 月 
+| -- | -- | 2026 年 1 月 
 
 
  a| 
 link:https://docs.netapp.com/us-en/trident-2210/index.html["22.10."^]
-| -- | 2024 年 10 月 | 2025 年 10 月 
+| -- | -- | 2025 年 10 月 
 
 
  a| 
 link:https://docs.netapp.com/us-en/trident-2207/index.html["22.07"^]
-| -- | 2024 年 7 月 | 2025 年 7 月 
+| -- | -- | 2025 年 7 月 
 
 
  a| 
 link:https://docs.netapp.com/us-en/trident-2204/index.html["22.04"^]
 | -- | -- | 2025 年 4 月 
-
-
- a| 
-link:https://docs.netapp.com/us-en/trident-2201/index.html["22.01"^]
-| -- | -- | 2025 年 1 月 
 |===
 
 

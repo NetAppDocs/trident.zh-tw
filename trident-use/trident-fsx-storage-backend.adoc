@@ -15,7 +15,7 @@ summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在
 
 == 整合SAN和NAS驅動程式ONTAP
 
-您可以使用儲存在 AWS Secret Manager 中的 SVM 認證（使用者名稱和密碼）來建立後端檔案、如以下範例所示：
+若要建立儲存後端，您需要以 JSON 或 YAML 格式建立組態檔案。檔案需要指定您想要的儲存類型（ NAS 或 SAN ），檔案系統和 SVM ，才能從中取得，以及如何驗證。以下範例說明如何定義 NAS 型儲存設備，以及如何使用 AWS 密碼將認證儲存至您要使用的 SVM ：
 
 [role="tabbed-block"]
 ====
@@ -27,6 +27,7 @@ apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
 metadata:
   name: backend-tbc-ontap-nas
+  namespace: trident
 spec:
   version: 1
   storageDriverName: ontap-nas
@@ -48,6 +49,7 @@ spec:
   "kind": "TridentBackendConfig",
   "metadata": {
     "name": "backend-tbc-ontap-nas"
+    "namespace": "trident"
   },
   "spec": {
     "version": 1,
@@ -68,10 +70,32 @@ spec:
 ----
 --
 ====
-如需建立後端的相關資訊、請參閱下列頁面：
+執行下列命令以建立及驗證 Trident 後端組態（ TBC ）：
 
-* link:ontap-nas.html["使用ONTAP NetApp NAS驅動程式設定後端"]
-* link:ontap-san.html["使用ONTAP SAN驅動程式設定後端"]
+* 從 yaml 檔案建立 Trident 後端組態（ TBC ），然後執行下列命令：
++
+[listing]
+----
+kubectl create -f backendconfig.yaml -n trident
+----
++
+[listing]
+----
+tridentbackendconfig.trident.netapp.io/backend-tbc-ontap-nas created
+----
+* 驗證已成功建立 Trident 後端組態（ TBC ）：
++
+[listing]
+----
+Kubectl get tbc -n trident
+----
++
+[listing]
+----
+NAME                         BACKEND NAME         BACKEND UUID                           PHASE   STATUS
+
+backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d916ac5e9   Bound   Success
+----
 
 
 
@@ -89,51 +113,23 @@ spec:
 
 如需驅動程式詳細資料、請參閱 link:../trident-use/ontap-nas.html["NAS 驅動程式"] 和 link:../trident-use/ontap-san.html["SAN 驅動程式"]。
 
-
-
-== 組態範例
-
-.搭配加密管理程式的 AWS FSX for ONTAP 組態
-[%collapsible]
-====
-[listing]
-----
-apiVersion: trident.netapp.io/v1
-kind: TridentBackendConfig
-metadata:
-  name: backend-tbc-ontap-nas
-spec:
-  version: 1
-  storageDriverName: ontap-nas
-  backendName: tbc-ontap-nas
-  svm: svm-name
-  aws:
-    fsxFilesystemID: fs-xxxxxxxxxx
-  managementLIF:
-  credentials:
-    name: "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name"
-    type: awsarn
-----
-====
-.SMB 磁碟區的儲存類別組態
-[%collapsible]
-====
-使用 `nasType`、 `node-stage-secret-name`和 `node-stage-secret-namespace`、您可以指定SMB磁碟區、並提供所需的Active Directory認證資料。使用支援SMB磁碟區 `ontap-nas` 僅限驅動程式。
+建立組態檔案後，請執行此命令，在 EKS 中建立：
 
 [listing]
 ----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: nas-smb-sc
-provisioner: csi.trident.netapp.io
-parameters:
-  backendType: "ontap-nas"
-  trident.netapp.io/nasType: "smb"
-  csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
-  csi.storage.k8s.io/node-stage-secret-namespace: "default"
+kubectl create -f configuration_file
 ----
-====
+若要驗證狀態，請執行此命令：
+
+[listing]
+----
+kubectl get tbc -n trident
+----
+[listing]
+----
+NAME                    BACKEND NAME            BACKEND UUID                           PHASE   STATUS
+backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87fa629   Bound   Success
+----
 
 
 == 後端進階組態和範例
@@ -157,7 +153,7 @@ parameters:
 | 《馬納格門達利》 | 叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。如果您在欄位下方 `aws`提供、則 `fsxFilesystemID`不需要提供、 `managementLIF`因為 Trident 會從 AWS 擷取 SVM `managementLIF` 資訊。因此、您必須在 SVM 下提供使用者的認證（例如： vsadmin ）、且使用者必須具有該 `vsadmin` 角色。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
 
 
-| 「DataLIF」 | 傳輸協定LIF的IP位址。*不適用NAS驅動程式*：建議您指定dataLIF ONTAP 。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 。*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Trident 使用 ONTAP 選擇性 LUN 對應來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義dataLIF、就會產生警告。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 |  
+| 「DataLIF」 | 傳輸協定LIF的IP位址。* ONTAP NAS 驅動程式 * ： NetApp 建議指定 dataLIF 。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 。*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Trident 使用 ONTAP 選擇性 LUN 對應來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義dataLIF、就會產生警告。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 |  
 
 
 | 「AutoExpportPolicy」 | 啟用自動匯出原則建立及更新[布 林值]。使用 `autoExportPolicy`和 `autoExportCIDRs`選項、 Trident 可以自動管理匯出原則。 | 「假」 
@@ -193,10 +189,10 @@ parameters:
 | 「限制Aggregateusage」 | * 請勿指定 Amazon FSX for NetApp ONTAP 。 *提供的 `fsxadmin`和 `vsadmin`不包含使用 Trident 擷取彙總使用量並加以限制所需的權限。 | 請勿使用。 
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN、以及的磁碟區大小上限 `qtreesPerFlexvol` 選項可自訂每FlexVol 個支援區的配額樹數上限。 | 「」（預設不強制執行） 
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 qtree 和 LUN 的最大磁碟區大小，而且此 `qtreesPerFlexvol`選項可讓您自訂每個 FlexVol volume 的最大 qtree 數量 | 「」（預設不強制執行） 
 
 
-| 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須為[50、200]。僅限SAN。 | "`100`" 
+| 《lunsPerFlexvol》 | 每個 FlexVol volume 的最大 LUN 數必須在 [50 ， 200] 範圍內。僅限 SAN 。 | "`100`" 
 
 
 | 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「method」：true｝不使用 `debugTraceFlags` 除非您正在疑難排解並需要詳細的記錄傾印。 | null 
@@ -208,14 +204,13 @@ parameters:
 | `nasType` | 設定NFS或SMB磁碟區建立。選項包括 `nfs`、 `smb`或null。*必須設定為 `smb` 對於SMB Volume。*設定為null、預設為NFS Volume。 | `nfs` 
 
 
-| "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] | `"200"` 
+| "qtreesPerFlexvol" | 每個 FlexVol volume 的最大 qtree 數必須在範圍 [50 ， 300] | `"200"` 
 
 
 | `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱、或是允許 Trident 建立 SMB 共用的名稱。ONTAP 後端的 Amazon FSX 需要此參數。 | `smb-share` 
 
 
-| 《useREST》 | 使用ONTAP Isrest API的布林參數。* 技術預覽 * 
-`useREST` 是以建議用於測試環境、而非正式作業工作負載的「技術預覽」形式提供。設為 `true`時、 Trident 將使用 ONTAP REST API 與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontap` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。 | 「假」 
+| 《useREST》 | 使用ONTAP Isrest API的布林參數。設為 `true`時、 Trident 將使用 ONTAP REST API 與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontap` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。 | 「假」 
 
 
 | `aws` | 您可以在 AWS FSX for ONTAP 的組態檔中指定下列項目：
@@ -274,7 +269,7 @@ parameters:
 | `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["使用Linux統一金鑰設定（LUKS）"]。僅限SAN。 | " 
 
 
-| 「分層政策」 | 要使用的分層原則	`none` | `snapshot-only` 適用於 ONTAP 9.5 之前的 SVM-DR 組態 
+| 「分層政策」 | 要使用的分層原則	`none` |  
 
 
 | 「unixPermissions」 | 新磁碟區的模式。*如果是SMB磁碟區、請保留空白。* | 「」 

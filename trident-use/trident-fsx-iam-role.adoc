@@ -23,17 +23,23 @@ NOTE: 若要使用 AWS IAM 角色進行驗證、您必須使用 EKS 部署 Kuber
 
 以下範例建立 AWS Secret Manager 密碼來儲存 Trident CSI 認證：
 
-`aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"username":"vsadmin","password":"<svmpassword>"}"`
-
+[listing]
+----
+aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials"\
+  --secret-string "{\"username\":\"vsadmin\",\"password\":\"<svmpassword>\"}"
+----
 
 
 == 建立 IAM 原則
 
 下列範例使用 AWS CLI 建立 IAM 原則：
 
-`aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document file://policy.json --description "This policy grants access to Trident CSI to FSxN and Secret manager"`
-
-* 政策 JSON 檔案 * ：
+[listing]
+----
+aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document file://policy.json
+  --description "This policy grants access to Trident CSI to FSxN and Secret manager"
+----
+* 政策 JSON 範例 * ：
 
 [listing]
 ----
@@ -58,7 +64,55 @@ policy.json:
         {
             "Action": "secretsmanager:GetSecretValue",
             "Effect": "Allow",
-            "Resource": "arn:aws:secretsmanager:<aws-region>:<aws-account-id>:secret:<aws-secret-manager-name>"
+            "Resource": "arn:aws:secretsmanager:<aws-region>:<aws-account-id>:secret:<aws-secret-manager-name>*"
+        }
+    ],
+    "Version": "2012-10-17"
+}
+----
+若要啟用 Amazon FSX 的自動後端組態，請在建立 IAM 原則時，將下列動作新增至 `policy.json`檔案：
+
+* `"fsx:CreateStorageVirtualMachine"`
+* `"fsx:DescribeStorageVirtualMachines"`
+* `"secretsmanager:CreateSecret"`
+* `"secretsmanager:DeleteSecret"`
+* `"secretsmanager:TagResource"`
+
+
+* 自動後端組態的原則 JSON 檔案範例 * ：
+
+[listing]
+----
+
+ policy.json:
+{
+    "Statement": [
+        {
+            "Action": [
+                "fsx:CreateStorageVirtualMachine",
+                "fsx:DescribeFileSystems",
+                "fsx:DescribeStorageVirtualMachines",
+                "fsx:DescribeVolumes",
+                "fsx:CreateVolume",
+                "fsx:RestoreVolumeFromSnapshot",
+                "fsx:DescribeStorageVirtualMachines",
+                "fsx:UntagResource",
+                "fsx:UpdateVolume",
+                "fsx:TagResource",
+                "fsx:DeleteVolume"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:CreateSecret",
+                "secretsmanager:DeleteSecret",
+                "secretsmanager:TagResource"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:secretsmanager:<aws-region>:<aws-account-id>:secret:*"
         }
     ],
     "Version": "2012-10-17"
@@ -66,8 +120,82 @@ policy.json:
 ----
 
 
-== 為服務帳戶建立和 IAM 角色
+=== 為服務帳戶建立 IAM 角色
 
+[role="tabbed-block"]
+====
+.AWS CLI
+--
+[listing]
+----
+aws iam create-role --role-name trident-controller \
+  --assume-role-policy-document file://trust-relationship.json
+----
+* 信任關係 .json 檔案： *
+
+[listing]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        { "Effect": "Allow",
+        "Principal": {
+            "Federated": "arn:aws:iam::<account_id>:oidc-provider/<oidc_provider>"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+            "StringEquals": {
+                "<oidc_provider>:aud": "sts.amazonaws.com",
+                "<oidc_provider>:sub": "system:serviceaccount:trident:trident-controller"
+            }
+        }
+    }
+   ]
+}
+----
+更新檔案中的下列值 `trust-relationship.json`：
+
+* * <account_id> * - 您的 AWS 帳戶 ID
+* * <oidc_provider> * - EKS 叢集的 OIDC 。您可以執行下列項目來取得 oidc_provider ：
+
+
+[listing]
+----
+aws eks describe-cluster --name my-cluster --query "cluster.identity.oidc.issuer"\
+  --output text | sed -e "s/^https:\/\///"
+----
+* 使用 IAM 原則附加 IAM 角色 * ：
+
+建立角色後，請使用以下命令將原則（在上述步驟中建立）附加至角色：
+
+[listing]
+----
+aws iam attach-role-policy --role-name my-role --policy-arn <IAM policy ARN>
+----
+* 驗證 OICD 提供者是否已關聯 * ：
+
+確認您的 OIDC 供應商與您的叢集相關聯。您可以使用下列命令來驗證：
+
+[listing]
+----
+aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
+----
+使用下列命令將 IAM OIDC 與叢集建立關聯：
+
+[listing]
+----
+eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
+----
+--
+.eksctl
+--
 以下範例為 EKS 中的服務帳戶建立 IAM 角色：
 
-`eksctl create iamserviceaccount --name trident-controller --namespace trident --cluster <my-cluster> --role-name <AmazonEKS_FSxN_CSI_DriverRole> --role-only --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonFSxNCSIDriverPolicy --approve`
+[listing]
+----
+eksctl create iamserviceaccount --name trident-controller --namespace trident \
+  --cluster <my-cluster> --role-name <AmazonEKS_FSxN_CSI_DriverRole> --role-only \
+  --attach-policy-arn <IAM-Policy ARN> --approve
+----
+--
+====

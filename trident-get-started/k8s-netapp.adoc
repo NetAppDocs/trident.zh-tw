@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/k8s-netapp.html 
-keywords: kubernetes, netapp storage, ontap, cloud volumes ontap, santricity, element software, netapp hci, anf, azure netapp files, cloud volumes service for google cloud, gcp, aws, fsx 
+keywords: kubernetes, netapp storage, ontap, cloud volumes ontap, santricity, element software, netapp hci, anf, azure netapp files, cloud volumes service for google cloud, gcp, aws, amazon fsx 
 summary: NetApp儲存產品組合可與Kubernetes叢集的許多不同層面整合、提供進階資料管理功能、強化Kubernetes部署的功能、功能、效能及可用度。 
 ---
 = Kubernetes 與 NetApp 產品整合

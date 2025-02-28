@@ -18,7 +18,7 @@ summary: 您可以啟用 Linux 統一金鑰設定（ LUKS ）來加密 Trident �
 
 .開始之前
 * 工作者節點必須安裝密碼設定2.1或更高版本（但低於3.0）。如需詳細資訊、請造訪 link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab：密碼設定"^]。
-* 基於效能考量、我們建議工作節點支援進階加密標準新增指令（AES-NI）。若要驗證AES-NI支援、請執行下列命令：
+* 基於效能理由， NetApp 建議工作節點支援進階加密標準新指令（ AES-NI ）。若要驗證AES-NI支援、請執行下列命令：
 +
 [listing]
 ----

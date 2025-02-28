@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-expansion.html 
 keywords: volumes, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion 
-summary: Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。尋找擴充iSCSI和NFS磁碟區所需組態的相關資訊。 
+summary: Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。尋找擴充 iSCSI ， FC 和 NFS 磁碟區所需組態的相關資訊。 
 ---
 = 展開Volume
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容
 
 
 [role="lead"]
-Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。尋找擴充iSCSI和NFS磁碟區所需組態的相關資訊。
+Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。瞭解擴充 iSCSI ， NFS 和 FC 磁碟區所需的組態資訊。
 
 
 
@@ -82,6 +82,160 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 === 步驟3：定義一個連接至PVc的Pod
 
 將 PV 附加至 Pod 、以便調整大小。調整iSCSI PV的大小有兩種情況：
+
+* 如果 PV 附加至 Pod 、 Trident 會在儲存後端擴充磁碟區、重新掃描裝置、並調整檔案系統的大小。
+* 當嘗試調整未附加 PV 的大小時、 Trident 會在儲存後端擴充磁碟區。在將永久虛擬磁碟綁定至Pod之後、Trident會重新掃描裝置並重新調整檔案系統的大小。然後、Kubernetes會在擴充作業成功完成後、更新PVc大小。
+
+
+在此範例中、會建立使用「shan -PVc」的Pod。
+
+[listing]
+----
+ kubectl get pod
+NAME         READY   STATUS    RESTARTS   AGE
+ubuntu-pod   1/1     Running   0          65s
+
+ kubectl describe pvc san-pvc
+Name:          san-pvc
+Namespace:     default
+StorageClass:  ontap-san
+Status:        Bound
+Volume:        pvc-8a814d62-bd58-4253-b0d1-82f2885db671
+Labels:        <none>
+Annotations:   pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+               volume.beta.kubernetes.io/storage-provisioner: csi.trident.netapp.io
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      1Gi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Mounted By:    ubuntu-pod
+----
+
+
+=== 步驟4：展開PV
+
+若要調整從1Gi建立至2Gi的PV大小、請編輯PVc定義、並將「sec.resumes.requests.storage」更新為2Gi。
+
+[listing]
+----
+kubectl edit pvc san-pvc
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    pv.kubernetes.io/bind-completed: "yes"
+    pv.kubernetes.io/bound-by-controller: "yes"
+    volume.beta.kubernetes.io/storage-provisioner: csi.trident.netapp.io
+  creationTimestamp: "2019-10-10T17:32:29Z"
+  finalizers:
+  - kubernetes.io/pvc-protection
+  name: san-pvc
+  namespace: default
+  resourceVersion: "16609"
+  selfLink: /api/v1/namespaces/default/persistentvolumeclaims/san-pvc
+  uid: 8a814d62-bd58-4253-b0d1-82f2885db671
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+ ...
+----
+
+
+=== 步驟5：驗證擴充
+
+您可以檢查 PVC 、 PV 和 Trident Volume 的大小、以驗證擴充是否正常運作：
+
+[listing]
+----
+kubectl get pvc san-pvc
+NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+san-pvc   Bound    pvc-8a814d62-bd58-4253-b0d1-82f2885db671   2Gi        RWO            ontap-san      11m
+kubectl get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM             STORAGECLASS   REASON   AGE
+pvc-8a814d62-bd58-4253-b0d1-82f2885db671   2Gi        RWO            Delete           Bound    default/san-pvc   ontap-san               12m
+tridentctl get volumes -n trident
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-8a814d62-bd58-4253-b0d1-82f2885db671 | 2.0 GiB | ontap-san     | block    | a9b7bfff-0505-4e31-b6c5-59f492e02d33 | online | true    |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+----
+
+
+== 展開FC Volume
+
+您可以使用 CSI 資源配置程式來擴充 FC 持續 Volume （ PV ）。
+
+
+NOTE: 驅動程式支援 FC Volume 擴充 `ontap-san`，需要 Kubernetes 1.16 及更新版本。
+
+
+
+=== 步驟1：設定StorageClass以支援Volume擴充
+
+編輯 StorageClass 定義以設定 `allowVolumeExpansion` 欄位至 `true`。
+
+[listing]
+----
+cat storageclass-ontapsan.yaml
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-san
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+allowVolumeExpansion: True
+----
+對於已存在的StorageClass、請編輯此類以包含「owalumVolume Expansion」參數。
+
+
+
+=== 步驟2：使用您建立的StorageClass建立一個永久虛擬儲存設備
+
+編輯 PVC 定義並更新 `spec.resources.requests.storage` 以反映新的所需大小、此大小必須大於原始大小。
+
+[listing]
+----
+cat pvc-ontapsan.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: san-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ontap-san
+----
+Trident 會建立持續 Volume （ PV ）、並將其與此持續 Volume Claim （ PVC ）相關聯。
+
+[listing]
+----
+kubectl get pvc
+NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+san-pvc   Bound    pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            ontap-san      8s
+
+kubectl get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM             STORAGECLASS   REASON   AGE
+pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete           Bound    default/san-pvc   ontap-san               10s
+----
+
+
+=== 步驟3：定義一個連接至PVc的Pod
+
+將 PV 附加至 Pod 、以便調整大小。調整 FC PV 的大小有兩種情況：
 
 * 如果 PV 附加至 Pod 、 Trident 會在儲存後端擴充磁碟區、重新掃描裝置、並調整檔案系統的大小。
 * 當嘗試調整未附加 PV 的大小時、 Trident 會在儲存後端擴充磁碟區。在將永久虛擬磁碟綁定至Pod之後、Trident會重新掃描裝置並重新調整檔案系統的大小。然後、Kubernetes會在擴充作業成功完成後、更新PVc大小。

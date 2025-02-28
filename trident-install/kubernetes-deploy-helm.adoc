@@ -16,7 +16,7 @@ summary: 您可以部署 Trident 運算子、並使用 Helm 安裝 Trident 。�
 
 
 
-== Trident 24.10 的重要資訊
+== Trident 25.02 的重要資訊
 
 * 您必須閱讀下列有關 Trident 的重要資訊。 *
 
@@ -56,7 +56,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2410.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2502.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -86,11 +86,11 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 在命令列上指定置換。
 
 |===
-例如，若要變更的預設值 `debug`，請執行下列命令，其中 `100.2410.0`是您要安裝的 Trident 版本：
+例如，若要變更的預設值 `debug`，請執行下列命令，其中 `100.2502.0`是您要安裝的 Trident 版本：
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2410.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -241,6 +241,13 @@ WARNING: 請勿移除 values.yaml 檔案的預設關聯性。當您想要提供�
 
 
 | `nodePrep` | 可讓 Trident 準備 Kubernetes 叢集的節點、以使用指定的資料儲存傳輸協定來管理磁碟區。* 目前 `iscsi`是唯一支援的值。 * |  
+
+
+| `ontapConfigurator`  a| 
+啟用或停用 Amazon FSX 的 Trident 後端和儲存類別的自動組態。使用以下參數和 `ontapConfigurator`啓用自動後端配置：
+`enabled`：設置爲 `true`啓用自動後端配置。
+`svms`：包含將爲其創建自動後端配置的文件系統 ID 列表。 `authType`：設定 SVM 驗證的驗證類型。對於 AWS ，目前支援以 arn 為基礎的驗證（「 awsarn 」）。- `fsxnID`：設定 AWS FSX 的檔案系統 ID 。範例：「 FS-0dfeaa884a68b1CAB 」。- `protocols` 指定自動後端組態支援的通訊協定清單： "NFS" ， "iSCSI" 或兩者。
+|  
 |===
 
 

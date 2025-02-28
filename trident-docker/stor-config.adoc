@@ -54,7 +54,7 @@ Volume大小的選擇性限制。預設： "" （未強制執行）
 
 |===
 
-TIP: 請勿將「儲存前置詞」（包括預設值）用於元素後端。缺省情況下，"Poolidfire－san "驅動程序將忽略此設置而不使用前綴。我們建議使用特定的TenantId進行Docker Volume對應、或是使用Docker版本、驅動程式資訊和原始名稱填入的屬性資料、以便在可能使用任何名稱標示的情況下使用。
+TIP: 請勿將（包括預設值）用於 `storagePrefix`元素後端。根據預設、 `solidfire-san`驅動程式會忽略此設定、而不使用前置碼。NetApp 建議您使用特定的 TenantId 來進行 Docker Volume 對應，或是使用包含 Docker 版本，驅動程式資訊和 Docker 原始名稱的屬性資料，以供任何名稱佔用。
 
 您可以使用預設選項、避免在每個建立的Volume上指定這些選項。「最小化」選項適用於所有控制器類型。如ONTAP 需如何設定預設Volume大小的範例、請參閱「功能區組態」一節。
 
@@ -90,9 +90,9 @@ IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。
 | 「DataLIF」  a| 
 傳輸協定LIF的IP位址。
 
-* ONTAP NAS 驅動程式 * ：建議您指定 `dataLIF`。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。
+* ONTAP NAS 驅動程序 * ： NetApp 建議指定 `dataLIF`。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。
 
-*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Trident 使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^]來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義、就會產生警告 `dataLIF`。
+* ONTAP SAN 驅動程式 * ：請勿指定 iSCSI 或 FC 。Trident 使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^]來探索建立多重路徑工作階段所需的 iSCSI 或 FC 生命負載。如果明確定義、就會產生警告 `dataLIF`。
  a| 
 `10.0.0.2`
 
@@ -169,7 +169,7 @@ Trident 會以 `netappdvp`建立及管理每個節點 `igroups`。
 
  a| 
 `sanType`
-| * 僅支援 `ontap-san`驅動程式。 *用於選擇 `iscsi` iSCSI 、 `nvme` NVMe / TCP 或 `fcp` SCSI over Fibre Channel （ FC ）。*'FCP （ SCSI over FC ）是 Trident 24.10 版本的技術預覽功能。 * | `iscsi` 如果空白 
+| * 僅支援 `ontap-san`驅動程式。 *用於選擇 `iscsi` iSCSI 、 `nvme` NVMe / TCP 或 `fcp` SCSI over Fibre Channel （ FC ）。 | `iscsi` 如果空白 
 
 
 | `limitVolumePoolSize` | * `ontap-san-economy` `ontap-san-economy` 僅支援和驅動程式。 *在 ONTAP ONTAP NAS 經濟型和 ONTAP SAN 經濟型驅動程式中限制 FlexVol 大小。  a| 
@@ -260,7 +260,7 @@ SAN 選項可選擇檔案系統類型、預設為 `ext4`
 
 
 | 「分層政策」  a| 
-要使用的分層原則、預設為 `none`； `snapshot-only` 適用於 ONTAP 9.5 之前的 SVM-DR 組態
+要使用的分層原則，預設為 `none`。
  a| 
 無
 
@@ -269,16 +269,16 @@ SAN 選項可選擇檔案系統類型、預設為 `ext4`
 
 === 擴充選項
 
-「ONTAP-NAS」和「ONTAP-SAN」驅動程式可為ONTAP FlexVol 每個Docker Volume建立一個支援功能。支援每個叢集節點最多1000個FlexVols、叢集最多12、000個FlexVols。ONTAP如果您的Docker Volume需求符合上述限制、則「ONTAP-NAS」驅動程式是首選的NAS解決方案、因為FlexVols提供的其他功能、例如Docker Volume精細快照和複製。
+ `ontap-nas`和 `ontap-san`驅動程式會為每個 Docker Volume 建立 ONTAP FlexVol 。ONTAP 每個叢集節點最多可支援 1000 個 FlexVols ，叢集最多 12 ， 000 個 FlexVol Volume 。如果您的 Docker Volume 需求符合這項限制，則 `ontap-nas`由於 FlexVols 提供的額外功能（例如 Docker Volume 精細快照和複製），因此驅動程式是首選的 NAS 解決方案。
 
 如果您需要的Docker磁碟區數量超過FlexVol 了《支援》的範圍、請選擇「ONTAP - NAS經濟」或「ONTAP - SAN經濟」驅動程式。
 
-「ONTAP-NAS經濟」驅動程式會在ONTAP 自動管理的FlexVols資源池中、將Docker磁碟區建立為還原樹狀結構。qtree的擴充能力大幅提升、每個叢集節點最多可達100、000個、每個叢集最多可達2、400、000個、而犧牲了部分功能。「ONTAP-NAS-節約」驅動程式不支援Docker Volume精細快照或複製。
+此 `ontap-nas-economy`驅動程式會在 ONTAP qtree 位於自動管理的 FlexVol Volume qtree 集區內時建立 Docker Volume 。 qtree 的擴充能力大得多，每個叢集節點最多 10 ， 000 個，每個叢集最多 40 ， 000 個，但會犧牲某些功能。此 `ontap-nas-economy`驅動程式不支援 Docker Volume 精細快照或複製。
 
 
 NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swarm不會協調多個節點之間的磁碟區建立。
 
-「ONTAP-san經濟」驅動程式會在ONTAP 自動管理的FlexVols共用集區內、將Docker Volume建立為還原LUN。如此FlexVol 一來、每個支援不只侷限於一個LUN、而且能為SAN工作負載提供更好的擴充性。根據儲存陣列的不同、ONTAP 每個叢集最多可支援16384個LUN。由於磁碟區是下方的LUN、因此此驅動程式支援Docker磁碟區精細快照和複製。
+此 `ontap-san-economy`驅動程式會在自動管理的 FlexVol 磁碟區的共用集區中，將 Docker 磁碟區建立為 ONTAP LUN 。如此一來，每個 FlexVol 並不限於只有一個 LUN ，而且能為 SAN 工作負載提供更好的擴充性。根據儲存陣列的不同、ONTAP 每個叢集最多可支援16384個LUN。由於磁碟區是下方的LUN、因此此驅動程式支援Docker磁碟區精細快照和複製。
 
 選擇 `ontap-nas-flexgroup`驅動程式來增加單一磁碟區的平行度、使其可擴充至數十億個檔案的 PB 範圍。FlexGroups的一些理想使用案例包括AI / ML / DL、Big Data和分析、軟體建置、串流、檔案儲存庫等。Trident 會在佈建 FlexGroup Volume 時、使用指派給 SVM 的所有集合體。支援Trident也有下列考量：FlexGroup
 
@@ -467,6 +467,24 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
   "username":"vsadmin",
   "password":"password",
   "sanType": "nvme",
+  "useREST": true
+}
+----
+====
+.SCSI over FC 範例，適用於 <code> ONTAP － </code> 驅動程式
+[%collapsible]
+====
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "ontap-san-backend",
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "sanType": "fcp",
+  "svm": "trident_svm",
+  "username":"vsadmin",
+  "password":"password",
   "useREST": true
 }
 ----

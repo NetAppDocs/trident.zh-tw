@@ -18,7 +18,7 @@ Trident 是 NetApp 所維護的完全支援的開放原始碼專案。其設計�
 
 == 什麼是 Trident ？
 
-NetApp Trident 可在所有熱門的 NetApp 儲存平台、公有雲或內部部署中、使用和管理儲存資源、包括 ONTAP （ AFF 、 FAS 、 Select 、 Cloud 、 Amazon FSX for NetApp ONTAP ）、 Element 軟體（ NetApp HCI 、 SolidFire ）、 Azure NetApp Files 服務和 Cloud Volumes Service on Google Cloud 。
+NetApp Trident 可在所有熱門的 NetApp 儲存平台，公有雲或內部部署中，使用和管理儲存資源，包括內部部署的 ONTAP 叢集（ AFF ， Cloud Volumes ONTAP 和 ASA ）， ONTAP Select ， FAS ， Element 軟體（ NetApp HCI ， SolidFire ）， Azure NetApp Files ， Amazon FSX for NetApp ONTAP 和 Cloud Volumes Service on Google Cloud 。
 
 Trident 是符合 Container Storage Interface （ CSI ）規範的動態儲存協調器link:https://kubernetes.io/["Kubernetes"^]、可與原生整合。Trident 會在叢集中的每個工作節點上、以單一控制器 Pod 加上節點 Pod 的形式執行。如 link:../trident-get-started/architecture.html["Trident 架構"] 需詳細資訊、請參閱。
 
@@ -76,6 +76,6 @@ Trident可直接針對底層NetApp HCI 的資訊儲存平台、為容器化應�
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["NetApp ONTAP"^] 是 NetApp 多重傳輸協定、統一化的儲存作業系統、可為任何應用程式提供進階的資料管理功能。
 
-支援所有Flash、混合式或全硬碟組態的系統、可提供多種不同的部署模式、包括工程設計硬體（英文版）、白箱（英文版）和僅雲端（英文版）ONTAP FAS AFF ONTAP Select Cloud Volumes ONTAP 。Trident 支援這些 ONTAP 部署模式。
+ONTAP 系統具有 All Flash ，混合式或全硬碟組態，並提供許多不同的部署模式：內部部署 FAS ， AFF 和 ASA 叢集， ONTAP Select 和 Cloud Volumes ONTAP 。Trident 支援這些 ONTAP 部署模式。
 
 ====

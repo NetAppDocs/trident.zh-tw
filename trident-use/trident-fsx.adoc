@@ -16,7 +16,7 @@ https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon
 
 您可以將 Amazon FSX for NetApp ONTAP 檔案系統與 Trident 整合、以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可配置由 ONTAP 備份的區塊和檔案持續磁碟區。
 
-檔案系統是Amazon FSX的主要資源、類似ONTAP 於內部部署的一個叢集。在每個SVM中、您可以建立一個或多個磁碟區、這些磁碟區是儲存檔案系統中檔案和資料夾的資料容器。有了Amazon FSX for NetApp ONTAP 的功能、Data ONTAP 即可在雲端以託管檔案系統的形式提供支援。新的檔案系統類型稱為* NetApp ONTAP Sing*。
+檔案系統是Amazon FSX的主要資源、類似ONTAP 於內部部署的一個叢集。在每個SVM中、您可以建立一個或多個磁碟區、這些磁碟區是儲存檔案系統中檔案和資料夾的資料容器。Amazon FSX for NetApp ONTAP 將以雲端託管檔案系統的形式提供。新的檔案系統類型稱為* NetApp ONTAP Sing*。
 
 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 支援的區塊和檔案持續性磁碟區。
 
@@ -71,6 +71,56 @@ WARNING: Trident 應以 SVM 使用者或具有相同角色之不同名稱的使�
 
 * link:ontap-nas-prep.html["ASNAS驗證ONTAP"]
 * link:ontap-san-prep.html["支援SAN驗證ONTAP"]
+
+
+
+
+== 已測試的 Amazon Machine 映像（ Amis ）
+
+EKS 叢集支援各種作業系統，但 AWS 已針對容器和 EKS 最佳化某些 Amazon Machine 映像（ Amis ）。下列 Amis 已通過 Trident 24.10 測試。
+
+|===
+
+
+| Ami | NAS | NAS 經濟效益 | SAN | SAN 經濟 
+
+
+| AL2023_x86_64_STANDARD | 是的 | 是的 | 是的 | 是的 
+
+
+| AL2_x86_64 | 是的 | 是的 | 是 ** | 是 ** 
+
+
+| BOTTLEROCKET_x86_64 | 是* | 是的 | 不適用 | 不適用 
+
+
+| AL2023_ARM_64_STANDARD | 是的 | 是的 | 是的 | 是的 
+
+
+| AL2_ARM_64 | 是的 | 是的 | 是 ** | 是 ** 
+
+
+| BOTTLEROCKET_ARM_64 | 是* | 是的 | 不適用 | 不適用 
+|===
+* * 必須在掛載選項中使用 "nolock" 。
+* ** 無法在不重新啟動節點的情況下刪除 PV
+
+
+
+NOTE: 如果此處未列出您想要的 AMI ，並不表示不支援，只是表示尚未測試。此清單可作為已知有效的 Amis 指南。
+
+* 使用 * 執行的測試：
+
+* EKS 版本： 1.30
+* 安裝方法： helm 和 AWS 附加元件
+* 對於 NAS ， NFSv3 和 NFSv4.1 都已經過測試。
+* 僅針對 SAN 進行 iSCSI 測試，非 NVMe 型。
+
+
+* 已執行的測試 * ：
+
+* 建立：儲存類別， PVC ， Pod
+* 刪除： Pod ， PVC （一般， qtree /LUN –經濟， NAS 搭配 AWS 備份）
 
 
 

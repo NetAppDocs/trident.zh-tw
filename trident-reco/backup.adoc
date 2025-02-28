@@ -28,10 +28,10 @@ Trident 使用 Kubernetes CRD 來儲存及管理其本身的狀態、並使用 K
 
 .步驟
 . 使用備份 Kubernetes 叢集 etcd  link:https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster["Kubernetes ：備份 etcd 叢集"^]。
-. 將備份產出工件放在 FlexVol 上。
+. 將備份產出工件放在 FlexVol volume 上
 +
 
-NOTE: 我們建議您保護 FlexVol 所在的 SVM 、並與另一個 SVM 建立 SnapMirror 關係。
+NOTE: NetApp 建議您保護 FlexVol 所在的 SVM ，並與另一個 SVM 建立 SnapMirror 關係。
 
 
 

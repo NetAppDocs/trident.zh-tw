@@ -86,7 +86,7 @@ Trident也提供 `cloneFromPVC` 和 `splitOnClone` 建立複本的附註。您�
 
 請考量以下幾點：
 
-* 我們建議您複製閒置的Volume。
+* NetApp 建議複製閒置磁碟區。
 * 一個PVc及其複本應位於相同的Kubernetes命名空間中、且具有相同的儲存類別。
 * 有了「ONTAP-NAS」和「ONTAP-SAN」驅動程式、可能需要將「trident.netapp.io/splitOnClone`」標註與「trident.netapp.io/cloneFromPVC`」一起設定。Trident將trident.netapp.io/splitOnClone`設為「true」、將複製的磁碟區從父磁碟區分割出來、因此將複製的磁碟區的生命週期與其父磁碟區完全分離、而犧牲部分儲存效率。如果不將「trident.netapp.io/splitOnClone`」設定為「假」、則會減少後端的空間使用量、而犧牲父磁碟區與複製磁碟區之間的相依性、使父磁碟區無法刪除、除非先刪除複本。分割實體複製是合理的做法、是將空的資料庫磁碟區複製到磁碟區及其實體複製環境、以大幅分散差異、而非ONTAP 受益於由NetApp提供的儲存效率。
 
@@ -334,7 +334,7 @@ NOTE: 這是您自己建立和管理的兩種物件類型之一。另一個是Ku
 
 == Trident 物件 `Volume`
 
-Volume是資源配置的基本單位、包含NFS共用和iSCSI LUN等後端端點。在Kubernetes中、這些內容直接對應到「PersistentVolumes」。建立磁碟區時、請確定它有一個儲存類別、決定該磁碟區可以配置的位置及大小。
+Volume 是資源配置的基本單位，包括 NFS 共用， iSCSI 和 FC LUN 等後端端點。在 Kubernetes 中、這些直接對應到 `PersistentVolumes`。建立磁碟區時、請確定它有一個儲存類別、決定該磁碟區可以配置的位置及大小。
 
 [NOTE]
 ====

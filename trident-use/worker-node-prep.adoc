@@ -30,11 +30,9 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#ins
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nvmetcp-volumes["安裝 NVMe 工具"] 如果您正在使用 `ontap-san` 適用於透過 TCP （ NVMe / TCP ）傳輸協定的非揮發性記憶體高速（ NVMe ）。
 
 
-NOTE: 我們建議使用適用於 NVMe / TCP 的 ONTAP 9.12 或更新版本。
+NOTE: NetApp 建議使用 ONTAP 9.12 或更新版本來處理 NVMe / TCP 。
 
 .SCSI over FC 工具
-* SCSI over Fibre Channel （ FC ）是 Trident 24.10 版本的技術預覽功能。 *
-
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-fc-tools["安裝 FC 工具"]如果您使用 `ontap-san` sanType `fcp` （ SCSI over FC ）。
 
 如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["設定 FC 擴大機、 FC-NVMe SAN 主機的方法"] 。
@@ -264,7 +262,7 @@ NOTE: 對於Ubuntu 18.04、您必須先使用「iscsiadmd」探索目標連接�
 
 [listing]
 ----
-helm install trident trident-operator-100.2410.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+helm install trident trident-operator-100.2502.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
 ----
 --
 .試用
@@ -328,7 +326,42 @@ WARNING: Trident 會修改此 `ctrl_device_tmo`值、確保 NVMe 在故障時不
 
 
 
-== 安裝 FC 工具
+== FC 磁碟區上的 SCSI
+
+您現在可以搭配 Trident 使用光纖通道（ FC ）傳輸協定，在 ONTAP 系統上配置及管理儲存資源。
+
+
+
+=== 先決條件
+
+設定 FC 所需的網路和節點設定。
+
+
+
+==== 網路設定
+
+. 取得目標介面的 WWPN 。如需詳細資訊、請參閱 https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["網路介面顯示"^] 。
+. 取得啟動器（主機）介面的 WWPN 。
++
+請參閱對應的主機作業系統公用程式。
+
+. 使用主機和目標的 WWPN 在 FC 交換器上設定分區。
++
+如需詳細資訊，請參閱重新輸入交換器廠商文件。
+
++
+如需詳細資訊，請參閱下列 ONTAP 文件：
+
++
+** https://docs.netapp.com/us-en/ontap/san-config/fibre-channel-fcoe-zoning-concept.html["Fibre Channel和FCoE分區總覽"^]
+** https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["設定 FC 擴大機、 FC-NVMe SAN 主機的方法"^]
+
+
+
+
+
+
+=== 安裝 FC 工具
 
 使用作業系統的命令來安裝FC工具。
 

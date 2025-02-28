@@ -98,7 +98,7 @@ Trident 安裝程式會建立 Kubernetes ClusterRole 、該程式可存取叢集
 
 === 我是否可以針對兩個獨立的 Kubernetes 叢集、共用兩個獨立 Trident 執行個體的相同 ONTAP 後端 SVM ？
 
-雖然不建議使用相同的後端 SVM 來執行兩個 Trident 執行個體。在安裝期間為每個執行個體指定唯一的磁碟區名稱、及 / 或在檔案中指定唯一的 `StoragePrefix`參數 `setup/backend.json`。這是為了確保FlexVol 兩個執行個體都不會使用相同的功能。
+雖然不建議使用相同的後端 SVM 來執行兩個 Trident 執行個體。在安裝期間為每個執行個體指定唯一的磁碟區名稱、及 / 或在檔案中指定唯一的 `StoragePrefix`參數 `setup/backend.json`。這是為了確保兩個執行個體不使用相同的 FlexVol volume 。
 
 
 
@@ -207,7 +207,7 @@ NetApp 支援將 Trident 從一個主要版本升級至下一個立即的主要�
 管理LIF為必填項目。資料LIF會有所不同：
 
 * 支援SAN：請勿指定iSCSI ONTAP 。Trident 使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^]來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義、就會產生警告 `dataLIF`。如 link:trident-use/ontap-san-examples.html["SAN組態選項與範例ONTAP"] 需詳細資訊、請參閱。
-* ONTAP NAS ：建議指定 `dataLIF`。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。如link:trident-use/ontap-nas-examples.html["列舉NAS組態選項與範例ONTAP"]需詳細資訊、請參閱
+* ONTAP NAS ： NetApp 建議指定 `dataLIF`。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。如link:trident-use/ontap-nas-examples.html["列舉NAS組態選項與範例ONTAP"]需詳細資訊、請參閱
 
 
 
@@ -286,7 +286,7 @@ Trident 將後端認證儲存為 Kubernetes Secrets 。
 
 === Trident 如何在 ONTAP 磁碟區上部署 qtree ？單一磁碟區可部署多少qtree？
 
-「ONTAP-NAS-節約」驅動程式可在同FlexVol 一個範圍內建立多達200個qtree（可設定為50到300個）、每個叢集節點可建立100、000個qtree、每個叢集可建立240萬個qtree。當您輸入經濟型驅動程式所提供的全新「PersistentVolume Claim」時、駕駛會查看FlexVol 是否已存在可為新Qtree提供服務的功能。如果FlexVol 不存在能夠服務Qtree的功能、FlexVol 就會建立新的功能。
+ `ontap-nas-economy`驅動程式在同一個 FlexVol volume 中最多建立 200 個 qtree （可設定在 50 到 300 之間），每個叢集節點建立 100,000 個 qtree ，每個叢集建立 2.4M 。當您輸入由經濟駕駛人服務的新 `PersistentVolumeClaim`項目時，駕駛會查看是否已有 FlexVol volume 可為新的 Qtree 提供服務。如果 FlexVol volume 不存在，無法為 Qtree 提供服務，則會建立新的 FlexVol volume 。
 
 
 
@@ -375,7 +375,7 @@ Make sure to remove the DP mode or put the volume online before importing the vo
 
 這可在「ONTAP-NAS」、「ONTAP-SAN」及「ONTAP-NAA-flexgroup」等驅動程式上使用。您也可以針對FlexVol 「ontap-san經濟」驅動程式指定「快照原則」、以利執行此作業。
 
-這也可在驅動程式上使用、但在 FlexVol 層級精細度上使用 `ontap-nas-economy`、而不是在 qtree 層級精細度上使用。若要啟用由 Trident 提供快照磁碟區的功能、請將後端參數選項設定為 ONTAP 後端 `snapshotPolicy`上定義的所需快照原則。Trident 不知道儲存控制器所拍攝的任何快照。
+這也可在驅動程式上使用，但在 FlexVol volume 層級精細度上使用 `ontap-nas-economy`，而不是在 qtree 層級精細度上使用。若要啟用由 Trident 提供快照磁碟區的功能、請將後端參數選項設定為 ONTAP 後端 `snapshotPolicy`上定義的所需快照原則。Trident 不知道儲存控制器所拍攝的任何快照。
 
 
 

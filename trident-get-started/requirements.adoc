@@ -41,7 +41,7 @@ summary: 安裝 Trident 之前、您應該先檢閱這些一般系統需求。�
 Trident 支援多個容器引擎和協調器、包括：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
-* Kubernetes 1.25 - 1.32
+* Kubernetes 1.26 - 1.32
 * OpenShift 4.10 - 4.17
 * Rancher Kubernetes Engine 2 （ RKE2 ） v1.28.5+rke2r1
 
@@ -49,7 +49,7 @@ Trident 支援多個容器引擎和協調器、包括：
 這些版本支援Trident運算子：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
-* Kubernetes 1.25 - 1.32
+* Kubernetes 1.26 - 1.32
 * OpenShift 4.10 - 4.17
 * Rancher Kubernetes Engine 2 （ RKE2 ） v1.28.5+rke2r1
 
@@ -59,7 +59,7 @@ Trident 也與其他完全託管且自行管理的 Kubernetes 產品合作、包
 Trident 和 ONTAP 可作為的儲存供應商link:https://kubevirt.io/["KubeVirt"]。
 
 
-WARNING: 在將安裝了 Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 或更新版本之前link:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-installation["升級 Helm 安裝"]、請參閱。
+WARNING: 在將安裝了 Trident 的 Kubernetes 叢集從 1.25 升級至 1.26 或更新版本之前link:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-installation["升級 Helm 安裝"]、請參閱。
 
 
 
@@ -71,9 +71,35 @@ WARNING: 在將安裝了 Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 �
 * Azure NetApp Files
 * Cloud Volumes ONTAP
 * Google Cloud NetApp Volumes
-* FAS / AFF / 選取
 * NetApp All SAN Array ASA （ESAN）
+* 執行 ONTAP 9.6 或更新版本的內部部署 FAS ， AFF 或 ASA 叢集
 * NetApp HCI / Element軟體11或更新版本
+
+
+
+
+== Trident 支援 KubeVirt 和 OpenShift 虛擬化
+
+.支援的儲存驅動程式：
+Trident 支援 KubeVirt 和 OpenShift 虛擬化的下列 ONTAP 驅動程式：
+
+* ONTAP-NAS
+* ONTAP NAS 經濟效益
+* ONTAP SAN （ iSCSI ， FCP ， NVMe over TCP ）
+* ONTAP SAN 經濟型（僅限 iSCSI ）
+
+
+.要考量的重點：
+* 將儲存類別更新為在 OpenShift 虛擬化環境中使用 `fsType`參數（例如： `fsType: "ext4"`）。如有需要，請將 Volume 模式設定為使用中的參數 `dataVolumeTemplates`明確封鎖 `volumeMode=Block`，以通知 CDI 建立區塊資料磁碟區。
+* 區塊儲存驅動程式的 _rwx 存取模式 _ ： ONTAP SAN （ iSCSI ， NVMe / TCP ， FC ）和 ONTAP SAN 經濟（ iSCSI ）驅動程式僅支援「 volumemode ：區塊」（原始裝置）。對於這些驅動程式，無法使用此參數，因為這些 `fstype`磁碟區是以原始裝置模式提供。
+* 對於需要 rwx 存取模式的即時移轉工作流程，支援下列組合：
++
+** NFS + `volumeMode=Filesystem`
+** iSCSI + `volumeMode=Block` （原始裝置）
+** NVMe / TCP + `volumeMode=Block` （原始裝置）
+** FC + `volumeMode=Block` （原始裝置）
+
+
 
 
 
@@ -88,56 +114,56 @@ WARNING: 在將安裝了 Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 �
 
 
 | Trident  a| 
-1.25 - 1.32
+1.26 - 1.32
  a| 
 否
 
 
 
 | Volume Snapshot  a| 
-1.25 - 1.32
+1.26 - 1.32
  a| 
 否
 
 
 
 | 來自Volume Snapshot的PVc  a| 
-1.25 - 1.32
+1.26 - 1.32
  a| 
 否
 
 
 
 | iSCSI PV調整大小  a| 
-1.25 - 1.32
+1.26 - 1.32
  a| 
 否
 
 
 
 | 資訊雙向CHAP ONTAP  a| 
-1.25 - 1.32
+1.26 - 1.32
  a| 
 否
 
 
 
 | 動態匯出原則  a| 
-1.25 - 1.32
+1.26 - 1.32
  a| 
 否
 
 
 
 | Trident運算子  a| 
-1.25 - 1.32
+1.26 - 1.32
  a| 
 否
 
 
 
 | csi拓撲  a| 
-1.25 - 1.32
+1.26 - 1.32
  a| 
 否
 
@@ -197,15 +223,15 @@ link:../trident-reference/ports.html["Trident 連接埠"]
 | Kubernetes 版本 | Container映像 
 
 
-| v1.25.0 、 v1.26.0 、 v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0  a| 
-* Docker 。 IO/NetApp/Trident ： 24.10.0
-* Docker 。 IO/NetApp/Trident 自動支援： 24.10
-* registry ． k8s.io/SIG-storage / csi 置備程式： v5.1.0
-* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.7.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.12.0.
-* 登錄 .k8s.IO/SIG-storage / csi 快照機： v8.1.0
-* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.12.0
-* Docker 。 IO/NetApp/Trident ： 24.10.0 （選用）
+| v1.26.0 、 v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0  a| 
+* Docker 。 IO/NetApp/Trident ： 25.02.0
+* Docker 。 IO/NetApp/Trident 自動支援： 25.02
+* registry ． k8s.io/SIG-storage / csi 置備程式： v5.2.0
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.8.0
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.0.
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v8.2.0
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.13.0
+* Docker 。 IO/NetApp/Trident ： 25.02.0 （選用）
 
 
 |===

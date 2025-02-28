@@ -49,7 +49,7 @@ summary: Kubernetes叢集通常由兩種類型的節點組成、每種節點負�
 | 「ONTAP-NAS」 | 是的 | 是的 | 是註腳：5[] | 是的 | 是註腳：1[] | 是的 | 是註腳：1[] 
 
 
-| 《ONTAP-NANAS經濟》 | 是註腳：3[] | 是註腳：3[] | 是註腳：5[] | 是的 | 是註腳：3[] | 是的 | 是註腳：3[] 
+| 《ONTAP-NANAS經濟》 | NO腳 註： 3[] | NO腳 註： 3[] | 是註腳：5[] | 是的 | NO腳 註： 3[] | 是的 | NO腳 註： 3[] 
 
 
 | 「ONTAP-NAA-flexgroup」 | 是註腳：1[] | 否 | 是註腳：5[] | 是的 | 是註腳：1[] | 是的 | 是註腳：1[] 
@@ -64,10 +64,10 @@ Trident 提供 2 個適用於 ONTAP 的 SAN 驅動程式、其功能如下所示
 | 「ONTAP-SAN」 | 是的 | 是的 | 是註腳：4[] | 是的 | 是註腳：1[] | 是的 | 是註腳：1[] 
 
 
-| 《ONTAP-san經濟》 | 是的 | 是的 | 是註腳：4[] | 是的 | 是註腳：3[] | 是的 | 是註腳：3[] 
+| 《ONTAP-san經濟》 | 是的 | 是的 | 是註腳：4[] | 是的 | NO腳 註： 3[] | 是的 | NO腳 註： 3[] 
 |===
 [verse]
-上述表格的註腳： Yes腳 註： 1[] ：非由 Trident 管理是腳註： 2[] ：由 Trident 管理，但非 PV 精細是註腳： 3[] ：非由 Trident 管理而非 PV 精細是註腳： 4[] ：支援原始區塊磁碟區是註腳： 5[] ：由 Trident 支援
+上表的註腳： Yesporte:1[] ：非由 Trident 管理 Yesporte:2[] ：由 Trident 管理，但非 PV 精細 NO腳 註 :3[] ：非由 Trident 管理，非 PV 精細腳註： 4[] ：支援原始區塊磁碟區 Yesport:5[] ：由 Trident 支援
 
 非PV精細的功能會套用至整個FlexVolume、而所有PV（即共享FlexVols中的qtree或LUN）都會共用一個共同排程。
 
@@ -247,7 +247,7 @@ Trident 將嘗試將使用的儲存傳輸協定與根據下列對照表所指定
 持續磁碟區除了兩個例外、都是Kubernetes中不可變的物件。建立後、即可修改回收原則和大小。不過、這並不會妨礙磁碟區的某些層面在 Kubernetes 之外進行修改。這可能是理想的做法、以便針對特定應用程式自訂磁碟區、確保容量不會意外耗用、或是單純地將磁碟區移至不同的儲存控制器。
 
 
-NOTE: Kubernetes樹狀目錄內建資源配置程式目前不支援NFS或iSCSI PV的磁碟區大小調整作業。Trident 支援同時擴充 NFS 和 iSCSI 磁碟區。
+NOTE: Kubernetes 樹內置備程式目前不支援 NFS ， iSCSI 或 FC PV 的 Volume resize 作業。Trident 支援擴充 NFS ， iSCSI 和 FC 磁碟區。
 
 PV的連線詳細資料無法在建立後修改。
 
@@ -277,7 +277,7 @@ Trident 也支援從磁碟區快照建立 PersistentVolumes 。若要達成此�
 
 === 展開Volume
 
-Trident 支援調整 NFS 和 iSCSI PV 的大小。這可讓使用者透過Kubernetes層直接調整磁碟區大小。所有主要的NetApp儲存平台皆可進行Volume擴充、包括ONTAP ：NetApp、SolidFire/NetApp HCI及Cloud Volumes Service 背後端點。若要稍後允許擴充、請在與該磁碟區相關的 StorageClass 中設定 `allowVolumeExpansion`為 `true`。每當需要調整「持續 Volume 」的大小時、請將「持續 Volume 」宣告中的註釋編輯 `spec.resources.requests.storage`為所需的 Volume 大小。Trident會自動調整儲存叢集上的磁碟區大小。
+Trident 支援調整 NFS ， iSCSI 和 FC PV 的大小。這可讓使用者透過Kubernetes層直接調整磁碟區大小。所有主要的NetApp儲存平台皆可進行Volume擴充、包括ONTAP ：NetApp、SolidFire/NetApp HCI及Cloud Volumes Service 背後端點。若要稍後允許擴充、請在與該磁碟區相關的 StorageClass 中設定 `allowVolumeExpansion`為 `true`。每當需要調整「持續 Volume 」的大小時、請將「持續 Volume 」宣告中的註釋編輯 `spec.resources.requests.storage`為所需的 Volume 大小。Trident會自動調整儲存叢集上的磁碟區大小。
 
 
 
@@ -292,12 +292,6 @@ Volume匯入功能可將現有的儲存磁碟區匯入Kubernetes環境。目前�
 執行上述命令時、 Trident 會在後端找到該 Volume 並讀取其大小。它會自動新增（並在必要時覆寫）已設定的 PVC Volume Size 。然後 Trident 建立新的 PV 、 Kubernetes 會將 PVC 與 PV 連結起來。
 
 如果部署的容器需要特定匯入的PVc、則會保持擱置狀態、直到PVC/PV配對透過Volume匯入程序繫結為止。在PVC/PV配對繫結之後、如果沒有其他問題、則應啟動容器。
-
-
-
-== 部署OpenShift服務
-
-OpenShift加值叢集服務可為叢集管理員和託管的應用程式提供重要功能。這些服務所使用的儲存設備可以使用節點本機資源進行資源配置、但這通常會限制服務的容量、效能、可恢復性及永續性。運用企業儲存陣列來提供這些服務的容量、可大幅改善服務品質、不過OpenShift和儲存管理員應該密切合作、以決定每個服務的最佳選項。Red Hat文件應充分運用、以判斷需求、並確保符合規模調整與效能需求。
 
 
 

@@ -280,9 +280,6 @@ Trident 提供動態管理 ONTAP 後端匯出原則的功能。這可讓儲存�
 NOTE: 使用動態匯出原則時、請勿使用網路位址轉譯（ NAT ）。使用 NAT 時、儲存控制器會看到前端 NAT 位址、而非實際 IP 主機位址、因此在匯出規則中找不到相符項目時、就會拒絕存取。
 
 
-NOTE: 在 Trident 24.10 中、 `ontap-nas`儲存驅動程式將繼續如舊版一樣運作； ONTAP NAS 驅動程式並未進行任何變更。只有儲存驅動程式才能 `ontap-nas-economy`在 Trident 24.10 中進行 Volume 型精細存取控制。
-
-
 
 ==== 範例
 
@@ -307,7 +304,7 @@ NOTE: 使用此功能時、您必須確保SVM中的根連接點具有先前建�
 
 以下是使用上述範例說明此功能的運作方式：
 
-* `autoExportPolicy`設定為 `true`。這表示 Trident 會為使用此後端為 SVM 佈建的每個 Volume 建立匯出原則 `svm1`、並使用位址區塊來處理規則的新增和刪除 `autoexportCIDRs`。在磁碟區附加至節點之前、該磁碟區會使用沒有規則的空匯出原則、以防止不必要的存取該磁碟區。當磁碟區發佈至節點 Trident 時、會建立一個匯出原則、其名稱與包含指定 CIDR 區塊內節點 IP 的基礎 qtree 相同。這些 IP 也會新增至父 FlexVol 所使用的匯出原則。
+* `autoExportPolicy`設定為 `true`。這表示 Trident 會為使用此後端為 SVM 佈建的每個 Volume 建立匯出原則 `svm1`、並使用位址區塊來處理規則的新增和刪除 `autoexportCIDRs`。在磁碟區附加至節點之前、該磁碟區會使用沒有規則的空匯出原則、以防止不必要的存取該磁碟區。當磁碟區發佈至節點 Trident 時、會建立一個匯出原則、其名稱與包含指定 CIDR 區塊內節點 IP 的基礎 qtree 相同。這些 IP 也會新增至父 FlexVol volume 所使用的匯出原則
 +
 ** 例如：
 +
@@ -369,7 +366,7 @@ NOTE: 刪除具有自動管理匯出原則的後端、將會刪除動態建立�
 只需稍加準備、您就可以使用來配置 SMB 磁碟區 `ontap-nas` 驅動程式：
 
 
-WARNING: 您必須在 SVM 上同時設定 NFS 和 SMB/CIFS 通訊協定、才能建立 `ontap-nas-economy` 適用於內部部署 ONTAP 的 SMB Volume 。若未設定上述任一種通訊協定、將導致 SMB 磁碟區建立失敗。
+WARNING: 您必須在 SVM 上同時設定 NFS 和 SMB/CIFS 通訊協定，才能為 ONTAP 內部部署叢集建立 `ontap-nas-economy` SMB Volume 。若未設定上述任一種通訊協定、將導致 SMB 磁碟區建立失敗。
 
 
 NOTE: `autoExportPolicy`不支援 SMB Volume 。

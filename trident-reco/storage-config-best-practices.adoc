@@ -68,7 +68,7 @@ vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
 
 「最大容量」值是ONTAP 指在整個叢集中所有節點上配置的總Volume、而非在個別ONTAP 的節點上配置的總Volume。因此ONTAP 、您可能會遇到一些情況、例如、某個叢集節點的資源配置量可能遠高於或低於其他節點。
 
-舉例ONTAP 來說、雙節點的「叢集」最多可裝載2000個FlexVolumes。將最大Volume數設為1250似乎非常合理。不過、如果只有 https://library.netapp.com/ecmdocs/ECMP1368859/html/GUID-3AC7685D-B150-4C1F-A408-5ECEB3FF0011.html["集合體"^] 從某個節點指派給SVM、或是從某個節點指派的集合體無法根據（例如、由於容量）進行資源配置、則另一個節點會成為所有Trident資源配置磁碟區的目標。這表示在達到「最大磁碟區」值之前、該節點可能會達到磁碟區限制、進而影響使用該節點的Trident和其他Volume作業。*您可以確保叢集中每個節點的集合體都指派給Trident使用的SVM、數量相等、藉此避免這種情況。*
+例如，雙節點 ONTAP 叢集最多可裝載 2000 個 FlexVol 磁碟區。將最大Volume數設為1250似乎非常合理。不過、如果只有 https://library.netapp.com/ecmdocs/ECMP1368859/html/GUID-3AC7685D-B150-4C1F-A408-5ECEB3FF0011.html["集合體"^]一個節點指派給 SVM 、或是無法針對一個節點指派的集合體進行資源配置（例如、由於容量）、則另一個節點會成為所有 Trident 資源配置 Volume 的目標。這表示在達到該值之前、可能會達到該節點的磁碟區限制 `max-volumes`、進而影響使用該節點的 Trident 和其他磁碟區作業。*您可以確保叢集中每個節點的集合體都指派給Trident使用的SVM、數量相等、藉此避免這種情況。*
 
 
 
@@ -159,13 +159,13 @@ storage:
 * 您應該為每個Volume套用原則群組、以便每個Volume都能獲得原則群組指定的整個處理量。不支援共用原則群組。
 
 
-如需 QoS 原則群組的詳細資訊、請參閱 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-980/TOC__qos.html["Sof 9.8 QoS命令ONTAP"^]。
+如需 QoS 原則群組的詳細資訊，請 https://docs.netapp.com/us-en/ontap/concepts/manual-pages.html["ONTAP 命令參照"^]參閱。
 
 
 
 === 限制Kubernetes叢集成員存取儲存資源
 
-限制存取Trident所建立的NFS磁碟區和iSCSI LUN、是Kubernetes部署安全態勢的重要元件。這樣做可防止非Kubernetes叢集一部分的主機存取磁碟區、並可能意外修改資料。
+限制對 Trident 所建立的 NFS 磁碟區， iSCSI LUN 和 FC LUN 的存取，是 Kubernetes 部署安全性態勢的重要元件。這樣做可防止非Kubernetes叢集一部分的主機存取磁碟區、並可能意外修改資料。
 
 請務必瞭解命名空間是Kubernetes中資源的邏輯邊界。假設相同命名空間中的資源可以共用、但重要的是、沒有跨命名空間功能。這表示即使PV是全域物件、但只有在同一個命名空間中的Pod才能存取它們。*確保命名空間在適當時用於提供分隔是非常重要的。*
 
@@ -289,7 +289,7 @@ CHAP驗證（驗證啟動器是否為預定的Volume使用者）僅支援帳戶�
 *《*》ONTAP
 
 * https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["NFS最佳實務與實作指南"^]
-* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["SAN管理指南"^] （適用於iSCSI）
+* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["SAN 管理"^]（適用於 iSCSI ）
 * http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-iscsi-rhel-cg/home.html["適用於RHEL的iSCSI Express組態"^]
 
 

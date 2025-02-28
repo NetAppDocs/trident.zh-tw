@@ -12,7 +12,7 @@ summary:
 
 
 [role="lead"]
-您現在可以將 Google Cloud NetApp Volumes 設定為 Trident 的後端。您可以使用 Google Cloud NetApp Volumes 後端來附加 NFS 磁碟區。
+您現在可以將 Google Cloud NetApp Volumes 設定為 Trident 的後端。您可以使用 Google Cloud NetApp Volumes 後端來附加 NFS 和 SMB 磁碟區。
 
 
 
@@ -27,12 +27,13 @@ Trident 提供 `google-cloud-netapp-volumes`與叢集通訊的驅動程式。支
 
 | `google-cloud-netapp-volumes`  a| 
 NFS
+中小企業
  a| 
 檔案系統
  a| 
 Rwo 、 ROX 、 rwx 、 RWOP
  a| 
-`nfs`
+`nfs`、 `smb`
 
 |===
 

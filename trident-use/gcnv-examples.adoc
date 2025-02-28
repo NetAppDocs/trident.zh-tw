@@ -12,7 +12,7 @@ summary: 瞭解 Google Cloud NetApp Volume 的 NFS 和 NFS 後端組態選項、
 
 
 [role="lead"]
-瞭解 Google Cloud NetApp Volumes 的 NFS 後端組態選項、並檢閱組態範例。
+瞭解 Google Cloud NetApp Volumes 的後端組態選項，並檢閱組態範例。
 
 
 
@@ -59,6 +59,9 @@ summary: 瞭解 Google Cloud NetApp Volume 的 NFS 和 NFS 後端組態選項、
 
 
 | 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例： `{"api":false, "method":true}`。除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用此功能。 | null 
+
+
+| `nasType` | 設定NFS或SMB磁碟區建立。選項包括 `nfs`、 `smb` 或null。NFS磁碟區的預設值設為null。 | `nfs` 
 
 
 | `supportedTopologies` | 代表此後端所支援的區域和區域清單。如需詳細資訊、請 link:../trident-use/csi-topology.html["使用「csi拓撲」"]參閱。例如：
@@ -165,6 +168,38 @@ spec:
     client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/myproject-prod%40my-gcnv-project.iam.gserviceaccount.com
   credentials:
     name: backend-tbc-gcnv-secret
+----
+====
+.SMB 磁碟區的組態
+[%collapsible]
+====
+[listing]
+----
+
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-gcnv1
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes
+  projectNumber: '123456789'
+  location: asia-east1
+  serviceLevel: flex
+  nasType: smb
+  apiKey:
+    type: service_account
+    project_id: cloud-native-data
+    client_email: trident-sample@cloud-native-data.iam.gserviceaccount.com
+    client_id: '123456789737813416734'
+    auth_uri: https://accounts.google.com/o/oauth2/auth
+    token_uri: https://oauth2.googleapis.com/token
+    auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+    client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/trident-sample%40cloud-native-data.iam.gserviceaccount.com
+  credentials:
+    name: backend-tbc-gcnv-secret
+
 ----
 ====
 .使用 StoragePools 篩選器進行組態
@@ -400,11 +435,7 @@ tridentctl logs
 
 
 
-== 更多範例
-
-
-
-=== 儲存類別定義範例
+== 儲存類別定義
 
 以下是上述後端的基本 `StorageClass` 定義。
 
@@ -454,6 +485,67 @@ parameters:
 
 ----
 如需儲存類別的詳細資訊、請 link:../trident-use/create-stor-class.html["建立儲存類別"^]參閱。
+
+
+
+=== SMB磁碟區的定義範例
+
+使用 `nasType`、 `node-stage-secret-name`和  `node-stage-secret-namespace`、您可以指定SMB磁碟區、並提供所需的Active Directory認證資料。
+
+.預設命名空間的基本組態
+[%collapsible]
+====
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-sc-smb
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  trident.netapp.io/nasType: "smb"
+  csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
+  csi.storage.k8s.io/node-stage-secret-namespace: "default"
+
+----
+====
+.每個命名空間使用不同的機密
+[%collapsible]
+====
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-sc-smb
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  trident.netapp.io/nasType: "smb"
+  csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
+  csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
+----
+====
+.每個磁碟區使用不同的機密
+[%collapsible]
+====
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-sc-smb
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  trident.netapp.io/nasType: "smb"
+  csi.storage.k8s.io/node-stage-secret-name: ${pvc.name}
+  csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
+----
+====
+
+NOTE: `nasType: smb` 支援SMB磁碟區的集區篩選器。 `nasType: nfs` 或 `nasType: null` NFS集區的篩選器。
 
 
 

@@ -98,7 +98,7 @@ metadata:
 type: Opaque
 stringData:
   username: cluster-admin
-  password: t@Ax@7q(>
+  password: password
 ----
 下表摘要說明每個儲存平台的機密必須包含的欄位：
 

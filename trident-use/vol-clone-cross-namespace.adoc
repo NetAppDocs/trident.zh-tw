@@ -1,0 +1,124 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-clone-cross-namespace.html 
+keywords: volref, volume reference, clone, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing, volumesnapshots 
+summary: 使用 Trident ，您可以使用同一個 K8s 叢集中不同命名空間的現有磁碟區或 Volume 快照來建立新的磁碟區。 
+---
+= 跨命名空間複製磁碟區
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 Trident ，您可以使用同一個 Kubernetes 叢集中不同命名空間中的現有磁碟區或磁碟區快照來建立新的磁碟區。
+
+
+
+== 先決條件
+
+在複製磁碟區之前，請確定來源和目的地後端的類型相同，而且具有相同的儲存類別。
+
+
+
+== 快速入門
+
+只需幾個步驟即可設定 NFS 磁碟區複製。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["一"]設定來源 PVC 來複製磁碟區
+[role="quick-margin-para"]
+來源命名空間擁有者授予存取來源PVc中資料的權限。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["二"] 授予在目的地命名空間中建立CR的權限
+[role="quick-margin-para"]
+叢集管理員授予目的地命名空間擁有者建立TridentVolume Reference CR的權限。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["三"] 在目的地命名空間中建立TridentVolume Reference
+[role="quick-margin-para"]
+目的地命名空間的擁有者會建立TridentVolume Reference CR來參照來源PVC。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["四"]在目的地命名空間中建立複製 PVC
+[role="quick-margin-para"]
+目的地命名空間的擁有者會建立 PVC ，從來源命名空間複製 PVC 。
+
+
+
+== 設定來源和目的地命名空間
+
+為了確保安全性，跨命名空間複製磁碟區需要來源命名空間擁有者，叢集管理員和目的地命名空間擁有者共同作業和採取行動。使用者角色會在每個步驟中指定。
+
+.步驟
+. * 來源命名空間擁有者： * (`pvc1`在來源命名空間中建立 PVC (`namespace1`），可授予與目的地命名空間共用的權限(`namespace2` `cloneToNamespace`。
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc1
+  namespace: namespace1
+  annotations:
+    trident.netapp.io/cloneToNamespace: namespace2
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: trident-csi
+  resources:
+    requests:
+      storage: 100Gi
+----
++
+Trident 會建立 PV 及其後端 NFS 儲存磁碟區。
+
++
+[NOTE]
+====
+** 您可以使用以逗號分隔的清單、將永久虛擬儲存設備共用至多個命名空間。例如 `trident.netapp.io/cloneToNamespace: namespace2,namespace3,namespace4`：。
+** 您可以使用共用所有命名空間 `*`。例如、 `trident.netapp.io/cloneToNamespace: *`
+** 您可以隨時更新 PVC 以納入 `cloneToNamespace`附註。
+
+
+====
+. * 叢集管理： * 建立自訂角色和 kubeconfig ，將權限授予目的地命名空間擁有者，以便在目的地命名空間中建立 TridentVolume Reference CR(`namespace2` ）。
+. *目的地命名空間擁有者：*在參照來源命名空間的目的地命名空間中建立TridentVolume Reference CR `pvc1`。
++
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentVolumeReference
+metadata:
+  name: my-first-tvr
+  namespace: namespace2
+spec:
+  pvcName: pvc1
+  pvcNamespace: namespace1
+----
+. * 目的地命名空間擁有者： * (`pvc2`在目的地命名空間中建立 PVC (`namespace2`）使用 `cloneFromPVC`或 `cloneFromSnapshot`和 `cloneFromNamespace`註釋來指定來源 PVC 。
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  annotations:
+    trident.netapp.io/cloneFromPVC: pvc1
+    trident.netapp.io/cloneFromNamespace: namespace1
+  name: pvc2
+  namespace: namespace2
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: trident-csi
+  resources:
+    requests:
+      storage: 100Gi
+----
++
+= 限制
+
++
+** 對於使用 ONTAP NAS 經濟型驅動程式配置的 PVC ，不支援唯讀複本。
+
+
+

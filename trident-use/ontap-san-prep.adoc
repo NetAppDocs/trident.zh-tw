@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-prep.html 
-keywords: trident backend, ontap san, ontap-san, ontap-san-economy 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy, asa r2 
 summary: 瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設定支援功能的後端。ONTAP 
 ---
 = 準備使用ONTAP 支援的SAN驅動程式來設定後端
@@ -14,11 +14,16 @@ summary: 瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設�
 [role="lead"]
 瞭解使用 ONTAP SAN 驅動程式設定 ONTAP 後端的需求和驗證選項。
 
+從 25.02 版開始， Trident 會自動偵測 ONTAP 9.16.1 或更新版本的 ASA R2 特性，並透過 iSCSI 傳輸協定在 ASA R2 上配置及使用儲存設備。
+
 
 
 == 需求
 
 對於所有 ONTAP 後端、 Trident 至少需要指派一個 Aggregate 給 SVM 。
+
+
+NOTE: Trident 需要將一或多個集合體指派給 SVM 。使用 ASA R2 時，此動作只能在模式中使用 ONTAP CLI `diag` 。
 
 請記住、您也可以執行多個驅動程式、並建立指向一個或多個驅動程式的儲存類別。例如、您可以設定使用「ONTAP-SAN」驅動程式的「SAN開發」類別、以及使用「ONTAP-SAN經濟」類別的「SAN預設」類別。
 
@@ -306,7 +311,7 @@ WARNING: 「useCHAP」參數是布林選項、只能設定一次。預設值設�
 您可以更新「backend.json」檔案中的CHAP參數、以更新CHAP認證。這需要更新CHAP機密、並使用「tridentctl update」命令來反映這些變更。
 
 
-WARNING: 更新後端的 CHAP 機密時、您必須使用 `tridentctl`來更新後端。請勿透過 ONTAP UI 更新儲存叢集上的認證、因為 Trident 將無法取得這些變更。
+WARNING: 更新後端的 CHAP 機密時、您必須使用 `tridentctl`來更新後端。請勿使用 ONTAP CLI 或 ONTAP 系統管理員更新儲存叢集上的認證，因為 Trident 將無法取得這些變更。
 
 [listing]
 ----

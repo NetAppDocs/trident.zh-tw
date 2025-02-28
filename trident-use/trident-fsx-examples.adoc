@@ -37,7 +37,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 《馬納格門達利》 | 叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
 
 
-| 「DataLIF」 | 傳輸協定LIF的IP位址。*不適用NAS驅動程式*：建議您指定dataLIF ONTAP 。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 。*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Trident 使用 ONTAP 選擇性 LUN 對應來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義dataLIF、就會產生警告。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 |  
+| 「DataLIF」 | 傳輸協定LIF的IP位址。* ONTAP NAS 驅動程式 * ： NetApp 建議指定 dataLIF 。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。可在初始設定之後變更。請參閱 。*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Trident 使用 ONTAP 選擇性 LUN 對應來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義dataLIF、就會產生警告。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 |  
 
 
 | 「AutoExpportPolicy」 | 啟用自動匯出原則建立及更新[布 林值]。使用 `autoExportPolicy`和 `autoExportCIDRs`選項、 Trident 可以自動管理匯出原則。 | 「假」 
@@ -73,7 +73,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 「限制Aggregateusage」 | * 請勿指定 Amazon FSX for NetApp ONTAP 。 *提供的 `fsxadmin`和 `vsadmin`不包含使用 Trident 擷取彙總使用量並加以限制所需的權限。 | 請勿使用。 
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理的qtree和LUN、以及的磁碟區大小上限 `qtreesPerFlexvol` 選項可自訂每FlexVol 個支援區的配額樹數上限。 | 「」（預設不強制執行） 
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 qtree 和 LUN 的最大磁碟區大小，而且此 `qtreesPerFlexvol`選項可讓您自訂每個 FlexVol volume 的最大 qtree 數量 | 「」（預設不強制執行） 
 
 
 | 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須為[50、200]。僅限SAN。 | `100` 
@@ -94,7 +94,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱、或是允許 Trident 建立 SMB 共用的名稱。ONTAP 後端的 Amazon FSX 需要此參數。 | `smb-share` 
 
 
-| 《useREST》 | 使用ONTAP Isrest API的布林參數。 `useREST`設為 `true`時、 Trident 會使用 ONTAP REST API 與後端通訊；設為 `false`時、 Trident 會使用 ONTAP ZAPI 呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontap` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Trident 24.06 版本和 ONTAP 9 ． 15.1 或更新版本開始、 `userREST`依預設會設定為 `true`；變更 `useREST`為 `false`使用 ONTAP ZAPI 呼叫。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
+| 《useREST》 | 使用ONTAP Isrest API的布林參數。 `useREST`設為 `true`時， Trident 會使用 ONTAP REST API 與後端通訊；設為 `false`時， Trident 會使用 ONTAPI （ ZAPI ）呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontap` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Trident 24.06 版本和 ONTAP 9.15.1 或更新版本開始， `userREST`依預設會設定為 `true`；變更 `useREST`為 `false`使用 ONTAPI （ ZAPI ）呼叫。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
 
 
 | `aws` | 您可以在 AWS FSX for ONTAP 的組態檔中指定下列項目：
@@ -166,7 +166,7 @@ NOTE: 如果將PVCS附加至一或多個Pod、您必須關閉所有對應的Pod�
 | `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["使用Linux統一金鑰設定（LUKS）"]。僅限SAN。 | " 
 
 
-| 「分層政策」 | 要使用的分層原則	`none` | `snapshot-only` 適用於 ONTAP 9.5 之前的 SVM-DR 組態 
+| 「分層政策」 | 要使用的分層原則	`none` |  
 
 
 | 「unixPermissions」 | 新磁碟區的模式。*如果是SMB磁碟區、請保留空白。* | 「」 

@@ -22,7 +22,21 @@ summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在
 
 === 設定 Kubernetes StorageClass 物件
 
-將 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^] Trident 識別為用於該類別的資源配置程式、會指示 Trident 如何資源配置 Volume 。例如：
+會 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^]將 Trident 識別為該類別所使用的資源配置程式、並指示 Trident 如何資源配置 Volume 。例如：
+
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  provisioningType: "thin"
+  snapshots: "true"
+----
+若要在 AWS Bottlerocket 上佈建 NFSv3 磁碟區，請將必要的新增 `mountOptions`至儲存類別：
 
 [listing]
 ----
@@ -36,6 +50,9 @@ parameters:
   media: "ssd"
   provisioningType: "thin"
   snapshots: "true"
+mountOptions:
+  - nfsvers=3
+  - nolock
 ----
 如需儲存類別如何與互動的詳細資訊 `PersistentVolumeClaim`、以及控制 Trident 配置磁碟區的參數、請參閱link:../trident-reference/objects.html["Kubernetes和Trident物件"]。
 
@@ -89,7 +106,7 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: basic-csi
+  storageClassName: ontap-gold
   capacity:
     storage: 10Gi
   accessModes:
@@ -103,7 +120,7 @@ spec:
 ====
 這些範例顯示基本的 PVC 組態選項。
 
-.可存取 RWO 的 PVC
+.可存取 RWX 的 PVC
 此範例顯示具有 rwx 存取權的基本 PVC 、與名稱為的 StorageClass 相關聯 `basic-csi`。
 
 [listing]
@@ -118,10 +135,10 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: basic-csi
+  storageClassName: ontap-gold
 ----
 .採用 NVMe / TCP 的 PVC
-此範例顯示 NVMe / TCP 的基本 PVC 、並提供與命名 StorageClass 相關的 rwo 存取 `protection-gold`。
+此範例顯示 NVMe / TCP 的基本 PVC ，並提供 rwx 存取，與名稱為的 StorageClass 相關聯 `protection-gold`。
 
 [listing]
 ----
@@ -132,7 +149,7 @@ metadata:
 name: pvc-san-nvme
 spec:
 accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
 resources:
   requests:
     storage: 300Mi

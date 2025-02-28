@@ -4,15 +4,6 @@
 
 當您保護在 KubeVirt VM 上執行的應用程式時， Trident Protect 24.10 和 24.10.1 及更新版本的行為會有所不同。對於這兩個版本，您可以在資料保護作業期間啟用或停用檔案系統凍結和解除凍結。
 
-[NOTE]
-====
-對於所有 Trident Protect 版本，若要在 OpenShift 環境中啟用或停用自動凍結功能，您可能需要授予應用程式命名空間的權限。例如：
-
-[source, console]
-----
-oc adm policy add-scc-to-user privileged -z default -n <application-namespace>
-----
-====
 .Trident Protect 24.10
 Trident Protect 24.10 無法在資料保護作業期間，自動確保 KubeVirt VM 檔案系統的狀態一致。如果您想要使用 Trident Protect 24.10 來保護 KubeVirt VM 資料，則必須在資料保護作業之前，手動啟用檔案系統的凍結 / 取消凍結功能。如此可確保檔案系統處於一致的狀態。
 

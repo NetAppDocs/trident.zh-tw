@@ -40,21 +40,36 @@ summary: 您可以建立應用程式 CR 和相關的 AppVault CR ，讓 Trident 
 +
 *** * metadata.name*: （ _required ）應用程式自訂資源的名稱。請注意您選擇的名稱，因為保護作業所需的其他 CR 檔案都會參照此值。
 *** * spec.includedNamespaces*: （ _required _ ）使用命名空間標籤或命名空間名稱來指定應用程式資源所在的命名空間。應用程式命名空間必須是此清單的一部分。
+*** * metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: （ _Optional_ ）此註釋僅適用於從虛擬機器定義的應用程式，例如 KubeVirt 環境，檔案系統會在快照之前凍結。指定此應用程式是否可以在快照期間寫入檔案系統。如果設為 true ，應用程式會忽略全域設定，並在快照期間寫入檔案系統。如果設置爲 false ，則應用程序將忽略全局設置，並在快照期間凍結文件系統。如果指定，但應用程式在應用程式定義中沒有虛擬機器，則會忽略附註。如果未指定，則應用程式會遵循link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全域 Trident 保護凍結設定"]。
++
+[NOTE]
+====
+如果您需要在建立應用程式之後套用此註釋，可以使用下列命令：
+
+[source, console]
+----
+kubectl annotate application -n <application CR namespace> <application CR name> protect.trident.netapp.io/skip-vm-freeze="true"
+----
+====
 +
 YAML 範例：
 
 +
 [source, yaml]
 ----
----
 apiVersion: protect.trident.netapp.io/v1
 kind: Application
 metadata:
-  name: maria
+  annotations:
+    protect.trident.netapp.io/skip-vm-freeze: "false"
+  name: my-app-name
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-    - namespace: my-app-namespace
+  - labelSelector: {}
+    namespace: namespace-1
+  - labelSelector: {}
+    namespace: namespace-2
 ----
 
 
@@ -72,12 +87,28 @@ kubectl apply -f maria-app.yaml
 .使用 CLI 新增應用程式
 --
 .步驟
-. 建立並套用應用程式定義，以環境資訊取代方括號中的值。您可以使用以逗號分隔的清單，將命名空間和資源包含在應用程式定義中，並附上下列範例所示的引數：
+. 使用下列其中一個範例建立及套用應用程式定義，以環境中的資訊取代方括號中的值。您可以在應用程式定義中加入命名空間和資源，使用以逗號分隔的清單，以及範例中所示的引數。
++
+您可以選擇在建立應用程式時使用註釋，以指定應用程式是否可以在快照期間寫入檔案系統。這僅適用於從虛擬機器定義的應用程式，例如 KubeVirt 環境，檔案系統會在快照之前凍結。如果您將註釋設為 `true`，應用程式會忽略全域設定，並在快照期間寫入檔案系統。如果將其設置爲 `false`，則應用程序將忽略全局設置，並在快照期間凍結文件系統。如果您使用附註，但應用程式在應用程式定義中沒有虛擬機器，則會忽略附註。如果您不使用註釋，應用程式會遵循link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全域 Trident 保護凍結設定"]。
+
++
+若要在使用 CLI 建立應用程式時指定評註，您可以使用此 `--annotation`旗標。
+
++
+** 建立應用程式，並使用通用設定來執行檔案系統凍結行為：
 +
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace>
 ----
+** 建立應用程式並設定檔案系統凍結行為的本機應用程式設定：
++
+[source, console]
+----
+tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
+----
+
+
 
 
 --

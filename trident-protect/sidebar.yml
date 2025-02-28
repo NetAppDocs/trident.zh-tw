@@ -12,6 +12,8 @@ entries:
     url: "/trident-protect/trident-protect-installation.html"
   - title: 安裝 Trident Protect CLI 外掛程式
     url: "/trident-protect/trident-protect-cli.html"
+  - title: 自訂 Trident Protect 安裝
+    url: "/trident-protect/trident-protect-customize-installation.html"
 - title: 管理 Trident Protect
   entries:
   - title: 管理授權與存取控制

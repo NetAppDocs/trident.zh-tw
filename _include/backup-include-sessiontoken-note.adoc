@@ -1,0 +1,10 @@
+= 
+:allow-uri-read: 
+
+
+.開始之前
+確保 AWS 工作階段權杖到期時間足以應付任何長期執行的 S3 備份作業。如果 Token 在備份作業期間過期，作業可能會失敗。
+
+* 如需檢查目前工作階段權杖到期時間的詳細資訊，請參閱 https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API 文件"^]。
+* 如需 AWS 資源認證的詳細資訊，請參閱 https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAM 文件"^]。
+

@@ -26,7 +26,7 @@ Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVault 物�
 
 === 資料移動器儲存庫密碼
 
-當您使用 CRS 或 Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以選擇性地指示 Trident Protect 使用 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如果您未指定密碼， Trident Protect 會同時使用 `password`這兩個密碼。
+當您使用 CRS 或 Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以選擇性地指示 Trident Protect 使用 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如果您未指定密碼， Trident Protect 會使用預設密碼。
 
 * 手動建立 AppVault CRS 時，您可以使用 * spec.properties.dataMoverPasswordSecretRef* 欄位來指定機密。
 * 使用 Trident Protect CLI 建立 AppVault 物件時，您可以使用 `--data-mover-password-secret-ref`引數來指定機密。

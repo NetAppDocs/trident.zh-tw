@@ -5331,7 +5331,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="7fc5875d06887df5109a87a0ada90eca" category="section-title">設定 AppVault 驗證和密碼</block>
   <block id="27d0259b1ba2ddf3e1540b7e284626ca" category="paragraph">在建立 AppVault 物件之前，您必須確保 AppVault 和您選擇的資料移動器可以向提供者和任何相關資源進行驗證。</block>
   <block id="8e2c4d33f50c044b257a84cd65ff1c79" category="section-title">資料移動器儲存庫密碼</block>
-  <block id="4cd15a28ae8649b5dc81e950978b86be" category="paragraph">當您使用 CRS 或 Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以選擇性地指示 Trident Protect 使用 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如果您未指定密碼， Trident Protect 會同時使用<block ref="5f4dcc3b5aa765d61d8327deb882cf99" prefix=" " category="inline-code"></block>這兩個密碼。</block>
   <block id="821c1dc7cb99d19026af83809b8224a2" category="list-text">手動建立 AppVault CRS 時，您可以使用 * spec.properties.dataMoverPasswordSecretRef* 欄位來指定機密。</block>
   <block id="12ae6793b05f84758a85b289757c4f34" category="list-text">使用 Trident Protect CLI 建立 AppVault 物件時，您可以使用<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>引數來指定機密。</block>
   <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">建立資料移動者儲存庫密碼機密</block>
@@ -5419,4 +5418,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="42e563c466d27e9d4943ef1acd3703b7" category="list-text">檢查執行攔截執行的狀態。您可以重複執行此命令，直到作業完成為止：</block>
   <block id="8430f2c56dfc9e79fcaf741392d54499" category="list-text">說明 exechooksrun 物件以查看最終詳細資料和狀態：</block>
   <block id="b343abb76f62f4eef4afa255e885eee4" category="paragraph">從 Trident 25.02 開始，「新增功能」摘要提供 Trident 和 Trident Protect 版本的增強功能，修正和過時功能的詳細資料。</block>
+  <block id="5674eb46caea5efcff5615daf30ab92d" category="paragraph">當您使用 CRS 或 Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以選擇性地指示 Trident Protect 使用 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如果您未指定密碼， Trident Protect 會使用預設密碼。</block>
 </blocks>

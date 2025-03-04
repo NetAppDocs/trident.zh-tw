@@ -69,7 +69,6 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 ** 固定後端組態認證，可支援所有可用的 AWS ARN 分割區（link:https://github.com/NetApp/trident/issues/913["問題 #913"]）。
 ** 新增選項可在 Trident 運算子（）中停用自動組態設定器協調link:https://github.com/NetApp/trident/issues/924["問題 #924"]。
 ** 增加安全性 CSI 調整容器的 Context （link:https://github.com/NetApp/trident/issues/976["問題 #976"]）。
-** 在 iSCSI 自我修復期間，移除間歇性不佳的非 CHAP 入口網站登出 (link:https://github.com/NetApp/trident/issues/961["問題 #961"]) 。
 
 
 

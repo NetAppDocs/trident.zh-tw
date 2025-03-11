@@ -28,7 +28,7 @@ Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVault 物�
 
 當您使用 CRS 或 Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以選擇性地指示 Trident Protect 使用 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如果您未指定密碼， Trident Protect 會使用預設密碼。
 
-* 手動建立 AppVault CRS 時，您可以使用 * spec.properties.dataMoverPasswordSecretRef* 欄位來指定機密。
+* 當手動建立 AppVault CRS 時，您可以使用 *spec.dataMoverPasswordSecretRef* 欄位來指定密碼。
 * 使用 Trident Protect CLI 建立 AppVault 物件時，您可以使用 `--data-mover-password-secret-ref`引數來指定機密。
 
 
@@ -37,6 +37,9 @@ Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVault 物�
 ==== 建立資料移動者儲存庫密碼機密
 
 請使用下列範例建立密碼機密。當您建立 AppVault 物件時，可以指示 Trident Protect 使用此密碼來驗證資料移動器儲存庫。
+
+
+NOTE: 視您使用的資料移動器而定，您只需要加入該資料移動器的對應密碼。例如，如果您使用 Restic ，而且不打算在未來使用 Kopia ，則在建立機密時，只能包含 Restic 密碼。
 
 [role="tabbed-block"]
 ====
@@ -47,21 +50,23 @@ Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVault 物�
 ---
 apiVersion: v1
 data:
-  KOPIA_PASSWORD: <plain-text-password>
-  RESTIC_PASSWORD: <plain-text-password>
+  KOPIA_PASSWORD: <base64-encoded-password>
+  RESTIC_PASSWORD: <base64-encoded-password>
 kind: Secret
 metadata:
   name: my-optional-data-mover-secret
+  namespace: trident-protect
 type: Opaque
 ----
 --
-.使用 Trident Protect CLI
+.使用CLI
 --
 [source, console]
 ----
 kubectl create secret generic my-optional-data-mover-secret \
 --from-literal=KOPIA_PASSWORD=<plain-text-password> \
---from-literal=RESTIC_PASSWORD=<plain-text-password>
+--from-literal=RESTIC_PASSWORD=<plain-text-password> \
+-n trident-protect
 ----
 --
 ====
@@ -88,7 +93,7 @@ kubectl create secret generic <secret-name> \
 ----
 kubectl create secret generic <secret-name> \
 --from-literal=accessKeyID=<objectstorage-accesskey> \
---from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret> \
+--from-literal=secretAccessKey=<amazon-s3-trident-protect-src-bucket-secret> \
 -n trident-protect
 ----
 --
@@ -117,7 +122,7 @@ kubectl create secret generic <secret-name> \
 ----
 kubectl create secret generic <secret-name> \
 --from-literal=accessKeyID=<objectstorage-accesskey> \
---from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret> \
+--from-literal=secretAccessKey=<ontap-s3-trident-protect-src-bucket-secret> \
 -n trident-protect
 ----
 --
@@ -127,7 +132,7 @@ kubectl create secret generic <secret-name> \
 ----
 kubectl create secret generic <secret-name> \
 --from-literal=accessKeyID=<objectstorage-accesskey> \
---from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret> \
+--from-literal=secretAccessKey=<storagegrid-s3-trident-protect-src-bucket-secret> \
 -n trident-protect
 ----
 --
@@ -164,8 +169,7 @@ metadata:
   name: gcp-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: GCP
   providerConfig:
     gcp:
@@ -189,8 +193,7 @@ metadata:
   name: amazon-s3-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: AWS
   providerConfig:
     s3:
@@ -222,8 +225,7 @@ metadata:
   name: azure-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: Azure
   providerConfig:
     azure:
@@ -246,8 +248,7 @@ metadata:
   name: generic-s3-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: GenericS3
   providerConfig:
     s3:
@@ -279,8 +280,7 @@ metadata:
   name: ontap-s3-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: OntapS3
   providerConfig:
     s3:
@@ -312,8 +312,7 @@ metadata:
   name: storagegrid-s3-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: StorageGridS3
   providerConfig:
     s3:
@@ -358,8 +357,10 @@ spec:
 tridentctl-protect create vault GCP <vault-name> \
 --bucket <mybucket> \
 --project <my-gcp-project> \
---secret <gcp-creds>/<credentials> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--secret <secret-name>/credentials \
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
+
 ----
 --
 .Amazon S3 （ AWS ）
@@ -370,7 +371,8 @@ tridentctl-protect create vault AWS <vault-name> \
 --bucket <bucket-name> \
 --secret  <secret-name>  \
 --endpoint <s3-endpoint> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
 ----
 --
 .Microsoft Azure
@@ -381,7 +383,8 @@ tridentctl-protect create vault Azure <vault-name> \
 --account <account-name> \
 --bucket <bucket-name> \
 --secret <secret-name> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
 ----
 --
 .一般S3
@@ -390,8 +393,10 @@ tridentctl-protect create vault Azure <vault-name> \
 ----
 tridentctl-protect create vault GenericS3 <vault-name> \
 --bucket <bucket-name> \
---secret  <secret-name>  --endpoint <s3-endpoint> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--secret  <secret-name>  \
+--endpoint <s3-endpoint> \
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
 ----
 --
 .ONTAP S3
@@ -402,7 +407,8 @@ tridentctl-protect create vault OntapS3 <vault-name> \
 --bucket <bucket-name> \
 --secret  <secret-name>  \
 --endpoint <s3-endpoint> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
 ----
 --
 .StorageGRID S3
@@ -413,7 +419,8 @@ tridentctl-protect create vault StorageGridS3 <vault-name> \
 --bucket <bucket-name> \
 --secret  <secret-name>  \
 --endpoint <s3-endpoint> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
 ----
 --
 ====
@@ -429,7 +436,8 @@ tridentctl-protect create vault StorageGridS3 <vault-name> \
 [source, console]
 ----
 tridentctl-protect get appvaultcontent gcp-vault \
---show-resources all
+--show-resources all \
+-n trident-protect
 ----
 +
 * 輸出範例 * ：
@@ -467,7 +475,7 @@ tridentctl-protect get appvaultcontent gcp-vault \
 NOTE: 刪除 AppVault 物件之前，請勿移除 `finalizers` AppVault CR 中的機碼。如果您這麼做，可能會導致 AppVault 貯體中的剩餘資料，以及叢集中的孤立資源。
 
 .開始之前
-確保您已刪除儲存在相關儲存庫中的所有快照和備份。
+請確定您已刪除要刪除的 AppVault 所使用的所有快照和備份 CRS 。
 
 [role="tabbed-block"]
 ====

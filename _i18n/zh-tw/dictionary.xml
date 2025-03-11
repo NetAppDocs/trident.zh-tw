@@ -4224,7 +4224,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="eb5dcb495342ee5285be31fb17267ccc" category="section-title">移除 AppVault</block>
   <block id="086d4622dbc50dc37c51fc80568681a2" category="paragraph">您可以隨時移除 AppVault 物件。</block>
   <block id="79f2a1cdb1287644a5d3176157cc43c4" category="admonition">刪除 AppVault 物件之前，請勿移除<block ref="276c63528ef3085f91fb1bc80a3febc0" prefix=" " category="inline-code"></block> AppVault CR 中的機碼。如果您這麼做，可能會導致 AppVault 貯體中的剩餘資料，以及叢集中的孤立資源。</block>
-  <block id="49e2b1aa2d6325460e3268f3fac8fd30" category="paragraph">確保您已刪除儲存在相關儲存庫中的所有快照和備份。</block>
   <block id="33850d305da8c5eb949c81e70e40a54d" category="open-title">使用 Kubernetes CLI 移除 AppVault</block>
   <block id="1921311333af338cd3327c59e3b9a4ab" category="list-text">移除 AppVault 物件，以要移除的 AppVault 物件名稱取代<block ref="c57e6773097b6f688f96a88c56c16d47" prefix=" " category="inline-code"></block>：</block>
   <block id="6c4ae71603666b23d3e05193118a3147" category="summary">您可以使用 protecttctl 命令建立自訂資源，並與 Trident 互動。</block>
@@ -5129,7 +5128,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="50da178eec9235ba0a85999374d51cba" category="list-text">新增選項可在 Trident 運算子（）中停用自動組態設定器協調<block ref="95579fcabb606a95f307c6ba89588c08" category="inline-link-macro-rx"></block>。</block>
   <block id="16aa6756a13a48723b3d2bc4bf50c104" category="inline-link-macro">問題 #976</block>
   <block id="60b04b91abae29736bd23b21579be5cb" category="list-text">增加安全性 CSI 調整容器的 Context （<block ref="a97be45bfcdf3eeaee81dc9917811f8f" category="inline-link-macro-rx"></block>）。</block>
-  <block id="eeda04a5133a10ebd4956c7d83dfd389" category="list-text">在 iSCSI 自我修復期間，移除間歇性不佳的非 CHAP 入口網站登出 (<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block>) 。</block>
   <block id="cb1f1e88b6db83dc715d1cb1d8733445" category="section-title">Trident Protect</block>
   <block id="b094c3f306a844e9e49992f69a84cfa4" category="paragraph">NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化由 NetApp ONTAP 儲存系統和 NetApp Trident CSI 儲存資源配置程式所支援的狀態化 Kubernetes 應用程式的功能與可用度。</block>
   <block id="38fc414fc29442833eb9eb53cc2e1d14" category="list-text">新增對 KubeVirt / OpenShift 虛擬化虛擬機器的備份與還原支援，可同時用於兩個 Volume 模式：檔案與 Volume emode ：區塊（原始裝置）儲存設備，並透過 AppMirrorRelationship 將其儲存複寫至現有的儲存複寫。</block>
@@ -5331,11 +5329,9 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="7fc5875d06887df5109a87a0ada90eca" category="section-title">設定 AppVault 驗證和密碼</block>
   <block id="27d0259b1ba2ddf3e1540b7e284626ca" category="paragraph">在建立 AppVault 物件之前，您必須確保 AppVault 和您選擇的資料移動器可以向提供者和任何相關資源進行驗證。</block>
   <block id="8e2c4d33f50c044b257a84cd65ff1c79" category="section-title">資料移動器儲存庫密碼</block>
-  <block id="821c1dc7cb99d19026af83809b8224a2" category="list-text">手動建立 AppVault CRS 時，您可以使用 * spec.properties.dataMoverPasswordSecretRef* 欄位來指定機密。</block>
   <block id="12ae6793b05f84758a85b289757c4f34" category="list-text">使用 Trident Protect CLI 建立 AppVault 物件時，您可以使用<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>引數來指定機密。</block>
   <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">建立資料移動者儲存庫密碼機密</block>
   <block id="fc114cb2ee6c7bff559d58e2a7454cab" category="paragraph">請使用下列範例建立密碼機密。當您建立 AppVault 物件時，可以指示 Trident Protect 使用此密碼來驗證資料移動器儲存庫。</block>
-  <block id="b041b65d4425445c68140c454aca2a99" category="open-title">使用 Trident Protect CLI</block>
   <block id="571768fad7edd9c4f57173c592c1f86c" category="section-title">適用於雲端供應商的 AppVault 主要世代範例</block>
   <block id="4d813fb6887e4d4533c00424efc22903" category="paragraph">定義 AppVault CR 時，您需要加入認證，才能存取供應商託管的資源。您產生認證金鑰的方式會因供應商而異。以下是多個提供者的命令列金鑰產生範例。您可以使用下列範例來建立每個雲端供應商認證的金鑰。</block>
   <block id="3e2db83ddd4087c64413cfd7c14100b6" category="section-title">AppVault 建立範例</block>
@@ -5419,4 +5415,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="8430f2c56dfc9e79fcaf741392d54499" category="list-text">說明 exechooksrun 物件以查看最終詳細資料和狀態：</block>
   <block id="b343abb76f62f4eef4afa255e885eee4" category="paragraph">從 Trident 25.02 開始，「新增功能」摘要提供 Trident 和 Trident Protect 版本的增強功能，修正和過時功能的詳細資料。</block>
   <block id="5674eb46caea5efcff5615daf30ab92d" category="paragraph">當您使用 CRS 或 Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以選擇性地指示 Trident Protect 使用 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如果您未指定密碼， Trident Protect 會使用預設密碼。</block>
+  <block id="3703eceb9535f8a68e38a00f0ed1092d" category="list-text">當手動建立 AppVault CRS 時，您可以使用 *spec.dataMoverPasswordSecretRef* 欄位來指定密碼。</block>
+  <block id="4fc9faf161c64ed80d0fb8ca9aa0882e" category="admonition">視您使用的資料移動器而定，您只需要加入該資料移動器的對應密碼。例如，如果您使用 Restic ，而且不打算在未來使用 Kopia ，則在建立機密時，只能包含 Restic 密碼。</block>
+  <block id="6a346946ba0777d650b6e41a4c30c7b6" category="paragraph">請確定您已刪除要刪除的 AppVault 所使用的所有快照和備份 CRS 。</block>
 </blocks>

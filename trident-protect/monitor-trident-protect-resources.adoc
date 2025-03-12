@@ -1,0 +1,214 @@
+---
+permalink: trident-protect/monitor-trident-protect-resources.html 
+sidebar: sidebar 
+keywords: manage, authentication, rbac 
+summary: 您可以使用 kube 狀態度量和 Prometheus 來監控 Trident Protect 資源的狀態。這會提供有關部署，節點和 Pod 的健全狀況資訊。 
+---
+= 監控 Trident Protect 資源
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用 kube-state 度量， Prometheus 和 Alertmanager 開放原始碼工具來監控受 Trident Protect 保護的資源健全狀況。
+
+kube-state 度量服務會從 Kubernetes API 通訊產生度量。搭配 Trident Protect 使用可提供環境中資源狀態的實用資訊。
+
+Prometheus 是一個工具組，可擷取由 kube 狀態度量所產生的資料，並將其呈現為這些物件的易讀資訊。kube 狀態指標和 Prometheus 共同提供一種方法，讓您使用 Trident Protect 監控所管理資源的健全狀況和狀態。
+
+AlertManager 是一項服務，可擷取 Prometheus 等工具所傳送的警示，並將其路由至您設定的目的地。
+
+[NOTE]
+====
+這些步驟所包含的組態和指南僅為範例，您需要自訂以符合您的環境。請參閱下列正式文件，以取得特定指示與支援：
+
+* https://github.com/kubernetes/kube-state-metrics/tree/main["Kube-state指標文件"^]
+* https://prometheus.io/docs/introduction/overview/["Prometheus 文件"^]
+* https://github.com/prometheus/alertmanager["AlertManager 文件"^]
+
+
+====
+
+
+== 步驟 1 ：安裝監控工具
+
+若要在 Trident Protect 中啟用資源監控，您必須安裝及設定 kube-st狀態 度量， Promethus 和 Alertmanager 。
+
+
+
+=== 安裝 kube 狀態度量
+
+您可以使用 Helm 來安裝 kube 狀態度量。
+
+.步驟
+. 新增 kube 狀態指標 Helm 圖表。例如：
++
+[source, console]
+----
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+----
+. 為 Helm 圖表建立組態檔（例如 `metrics-config.yaml`）。您可以自訂下列範例組態，以符合您的環境：
++
+.測量數據 -config.yaml ： Kube-state 度量 Helm 圖表組態
+[source, yaml]
+----
+---
+extraArgs:
+  # Collect only custom metrics
+  - --custom-resource-state-only=true
+
+customResourceState:
+  enabled: true
+  config:
+    kind: CustomResourceStateMetrics
+    spec:
+      resources:
+      - groupVersionKind:
+          group: astra.netapp.io
+          kind: "Backup"
+          version: "v1"
+        labelsFromPath:
+          backup_uid: [metadata, uid]
+          backup_name: [metadata, name]
+          creation_time: [metadata, creationTimestamp]
+        metrics:
+        - name: backup_info
+          help: "Exposes details about the Backup state"
+          each:
+            type: Info
+            info:
+              labelsFromPath:
+                appVaultReference: ["spec", "appVaultRef"]
+                appReference: ["spec", "applicationRef"]
+rbac:
+  extraRules:
+  - apiGroups: ["backups.protect.trident.netapp.io"]
+    resources: ["backups"]
+    verbs: ["list", "watch"]
+
+# Collect metrics from all namespaces
+namespaces: ""
+
+# Ensure that the metrics are collected by Prometheus
+prometheus:
+  monitor:
+    enabled: true
+----
+. 部署 Helm 圖表以安裝 kube 狀態度量。例如：
++
+[source, console]
+----
+helm install custom-resource -f metrics-config.yaml prometheus-community/kube-state-metrics --version 5.21.0
+----
+. 依照中的指示，設定 kube 狀態度量，以產生 Trident Protect 所使用之自訂資源的度量 https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/extend/customresourcestate-metrics.md#custom-resource-state-metrics["Kube-state 度量自訂資源文件"^]。
+
+
+
+
+=== 安裝Prometheus
+
+您可以依照中的指示來安裝 Prometheus https://prometheus.io/docs/prometheus/latest/installation/["Prometheus 文件"^] 。
+
+
+
+=== 安裝 AlertManager
+
+您可以依照中的指示安裝 AlertManager https://github.com/prometheus/alertmanager?tab=readme-ov-file#install["AlertManager 文件"^] 。
+
+
+
+== 步驟 2 ：設定監控工具以共同作業
+
+安裝監控工具之後，您需要將它們設定為一起運作。
+
+.步驟
+. 將 kube 狀態指標與 Prometheus 整合。編輯 Prometheus 配置文件(`prometheus.yml`）並添加 kube 狀態指標服務信息。例如：
++
+.Prometheus.yml ：與 Prometheus 整合的 Kube-state 度量服務
+[source, yaml]
+----
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: astra-connector
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+    scrape_configs:
+      - job_name: 'kube-state-metrics'
+        static_configs:
+          - targets: ['kube-state-metrics.astra-connector.svc:8080']
+----
+. 設定 Prometheus 將警示路由至 AlertManager 。編輯 Prometheus 配置文件(`prometheus.yml`）並添加以下部分：
++
+.Prometheus.yml ：傳送警示給 Alertmanager
+[source, yaml]
+----
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager.astra-connector.svc:9093
+----
+
+
+.結果
+現在， Prometheus 可以從 kube-state 度量收集度量，並可傳送警示給 Alertmanager 。您現在已準備好設定觸發警示的條件，以及應傳送警示的位置。
+
+
+
+== 步驟 3 ：設定警示和警示目的地
+
+設定工具以共同作業之後，您需要設定觸發警示的資訊類型，以及應傳送警示的位置。
+
+
+
+=== 警示範例：備份失敗
+
+以下範例定義當備份自訂資源的狀態設定為 5 秒或更長時間時觸發的關鍵警示 `Error`。您可以自訂此範例以符合您的環境，並將此 YAML 片段包含在組態檔案中 `prometheus.yml`：
+
+.rules.yml ：定義失敗備份的 Prometheus 警示
+[source, yaml]
+----
+rules.yml: |
+  groups:
+    - name: fail-backup
+        rules:
+          - alert: BackupFailed
+            expr: kube_customresource_backup_info{status="Error"}
+            for: 5s
+            labels:
+              severity: critical
+            annotations:
+              summary: "Backup failed"
+              description: "A backup has failed."
+----
+
+
+=== 設定 AlertManager 以傳送警示至其他頻道
+
+您可以將 AlertManager 設定為傳送通知給其他通道，例如電子郵件， PagerDuty ， Microsoft 團隊或其他通知服務，方法是在檔案中指定個別的組態 `alertmanager.yml`。
+
+以下範例將警示管理員設定為傳送通知至 Slack 頻道。若要根據您的環境自訂此範例，請將金鑰的值取代為 `api_url`您環境中使用的 Slack Webhook URL ：
+
+.alertmanager.yml ：傳送警示至 Slack 頻道
+[source, yaml]
+----
+data:
+  alertmanager.yml: |
+    global:
+      resolve_timeout: 5m
+    route:
+      receiver: 'slack-notifications'
+    receivers:
+      - name: 'slack-notifications'
+        slack_configs:
+          - api_url: '<your-slack-webhook-url>'
+            channel: '#failed-backups-channel'
+            send_resolved: false
+----

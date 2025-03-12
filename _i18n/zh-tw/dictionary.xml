@@ -5418,4 +5418,47 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="3703eceb9535f8a68e38a00f0ed1092d" category="list-text">當手動建立 AppVault CRS 時，您可以使用 *spec.dataMoverPasswordSecretRef* 欄位來指定密碼。</block>
   <block id="4fc9faf161c64ed80d0fb8ca9aa0882e" category="admonition">視您使用的資料移動器而定，您只需要加入該資料移動器的對應密碼。例如，如果您使用 Restic ，而且不打算在未來使用 Kopia ，則在建立機密時，只能包含 Restic 密碼。</block>
   <block id="6a346946ba0777d650b6e41a4c30c7b6" category="paragraph">請確定您已刪除要刪除的 AppVault 所使用的所有快照和備份 CRS 。</block>
+  <block id="b00fc94596cde685c68e0bedddb72ec6" category="summary">您可以使用 kube 狀態度量和 Prometheus 來監控 Trident Protect 資源的狀態。這會提供有關部署，節點和 Pod 的健全狀況資訊。</block>
+  <block id="9f496d568415fb10daa1a69c18a27d52" category="doc">監控 Trident Protect 資源</block>
+  <block id="c3815bcedc348a572c0e7310d70e426d" category="paragraph">您可以使用 kube-state 度量， Prometheus 和 Alertmanager 開放原始碼工具來監控受 Trident Protect 保護的資源健全狀況。</block>
+  <block id="57d16d79ebb62eb467b490200f5f3191" category="paragraph">kube-state 度量服務會從 Kubernetes API 通訊產生度量。搭配 Trident Protect 使用可提供環境中資源狀態的實用資訊。</block>
+  <block id="0e68741139605975f01bc532098ea92c" category="paragraph">Prometheus 是一個工具組，可擷取由 kube 狀態度量所產生的資料，並將其呈現為這些物件的易讀資訊。kube 狀態指標和 Prometheus 共同提供一種方法，讓您使用 Trident Protect 監控所管理資源的健全狀況和狀態。</block>
+  <block id="6d0450323deb4880d88d2da4155d7c76" category="paragraph">AlertManager 是一項服務，可擷取 Prometheus 等工具所傳送的警示，並將其路由至您設定的目的地。</block>
+  <block id="45501c075fe75338b712d61db6d82f54" category="paragraph">這些步驟所包含的組態和指南僅為範例，您需要自訂以符合您的環境。請參閱下列正式文件，以取得特定指示與支援：</block>
+  <block id="d9bdb1d7869cec3eaa75aaa48b414845" category="inline-link">Kube-state指標文件</block>
+  <block id="28b29a811fcff582b069060bb6104048" category="list-text"><block ref="28b29a811fcff582b069060bb6104048" category="inline-link-rx"></block></block>
+  <block id="695c33d174e4ad444d82403015632550" category="inline-link">Prometheus 文件</block>
+  <block id="94fa5821707b81f95ad49b7f10d2d4d6" category="list-text"><block ref="94fa5821707b81f95ad49b7f10d2d4d6" category="inline-link-rx"></block></block>
+  <block id="853d2b8407eda505e00a8014afdb0ddf" category="inline-link">AlertManager 文件</block>
+  <block id="e23d8cb1d9d009a1aa298e95526efcd3" category="list-text"><block ref="e23d8cb1d9d009a1aa298e95526efcd3" category="inline-link-rx"></block></block>
+  <block id="b246a1443f359b6da345c33e0b25f47a" category="section-title">步驟 1 ：安裝監控工具</block>
+  <block id="08d75478cbb19385a09620acc4f7a148" category="paragraph">若要在 Trident Protect 中啟用資源監控，您必須安裝及設定 kube-st狀態 度量， Promethus 和 Alertmanager 。</block>
+  <block id="2a2c51a8db12ee75c90da4a3fb0e1a0b" category="section-title">安裝 kube 狀態度量</block>
+  <block id="016aa0f0550f5a0506cb61b61568e043" category="paragraph">您可以使用 Helm 來安裝 kube 狀態度量。</block>
+  <block id="ea6a84ebff4515f07a0f260b7cce7b83" category="list-text">新增 kube 狀態指標 Helm 圖表。例如：</block>
+  <block id="d6cff887be77b3dc5c6f689b93bb9b32" category="list-text">為 Helm 圖表建立組態檔（例如<block ref="1da0bbdfeb5bb05830055a1515d9e2a9" prefix=" " category="inline-code"></block>）。您可以自訂下列範例組態，以符合您的環境：</block>
+  <block id="cf5cf09f9422112814f7fa967e303283" category="listing-title">測量數據 -config.yaml ： Kube-state 度量 Helm 圖表組態</block>
+  <block id="eca99dda7e2a747b75c232f5c3e314a0" category="list-text">部署 Helm 圖表以安裝 kube 狀態度量。例如：</block>
+  <block id="1b61aa1e4c2991758aa9c5bea0047156" category="inline-link">Kube-state 度量自訂資源文件</block>
+  <block id="6c21207c2c29ab5841100bb2ca67480f" category="list-text">依照中的指示，設定 kube 狀態度量，以產生 Trident Protect 所使用之自訂資源的度量<block ref="0c2d96c77ebc80eb4f9df846c2904f4c" category="inline-link-rx"></block>。</block>
+  <block id="88b8613d339947a37e41b1f514dcc42c" category="section-title">安裝Prometheus</block>
+  <block id="6cfabcb4c640f9570382e21ec242a3c0" category="paragraph">您可以依照中的指示來安裝 Prometheus<block ref="9c3dd7b31d363d10addc1dc55a338e01" category="inline-link-rx"></block> 。</block>
+  <block id="7d512717b3f318d83bbce6f09e891a6f" category="section-title">安裝 AlertManager</block>
+  <block id="ee3b7d497a79c10fe3b10cda25267876" category="paragraph">您可以依照中的指示安裝 AlertManager<block ref="34c399dcb7431f049905523dd168baa8" category="inline-link-rx"></block> 。</block>
+  <block id="9147f13af253be263e759a06097eea20" category="section-title">步驟 2 ：設定監控工具以共同作業</block>
+  <block id="73be38664a808318efe65c02c4ce747c" category="paragraph">安裝監控工具之後，您需要將它們設定為一起運作。</block>
+  <block id="f7c326ea0f47e0df6c4d60c67fc92de6" category="list-text">將 kube 狀態指標與 Prometheus 整合。編輯 Prometheus 配置文件<block ref="c3d29ac8b40407b824f83a7f7db6e6bb" prefix="(" category="inline-code"></block>）並添加 kube 狀態指標服務信息。例如：</block>
+  <block id="653d37cbed9ac789942fa035d0ae62cf" category="listing-title">Prometheus.yml ：與 Prometheus 整合的 Kube-state 度量服務</block>
+  <block id="3e7ba607c96ae11da56a66f77a490380" category="list-text">設定 Prometheus 將警示路由至 AlertManager 。編輯 Prometheus 配置文件<block ref="c3d29ac8b40407b824f83a7f7db6e6bb" prefix="(" category="inline-code"></block>）並添加以下部分：</block>
+  <block id="40e966a8a619ecdcdef18e581c1551d5" category="listing-title">Prometheus.yml ：傳送警示給 Alertmanager</block>
+  <block id="68f04b43068f22f98aaa6513240dd2b5" category="paragraph">現在， Prometheus 可以從 kube-state 度量收集度量，並可傳送警示給 Alertmanager 。您現在已準備好設定觸發警示的條件，以及應傳送警示的位置。</block>
+  <block id="a42cb9abdbaf69f90fba5592304008cd" category="section-title">步驟 3 ：設定警示和警示目的地</block>
+  <block id="1138a7ff5cea0f83ce07834c8e02315c" category="paragraph">設定工具以共同作業之後，您需要設定觸發警示的資訊類型，以及應傳送警示的位置。</block>
+  <block id="917045fa08d9c44ee88951e8cdb4023b" category="section-title">警示範例：備份失敗</block>
+  <block id="2e894935b55591ae58c162389bf0e25d" category="paragraph">以下範例定義當備份自訂資源的狀態設定為 5 秒或更長時間時觸發的關鍵警示<block ref="902b0d55fddef6f8d651fe1035b7d4bd" prefix=" " category="inline-code"></block>。您可以自訂此範例以符合您的環境，並將此 YAML 片段包含在組態檔案中<block ref="c3d29ac8b40407b824f83a7f7db6e6bb" prefix=" " category="inline-code"></block>：</block>
+  <block id="588eb18cd09fd92471ac447d156515e2" category="listing-title">rules.yml ：定義失敗備份的 Prometheus 警示</block>
+  <block id="e8665bc518bf7a6d63332be811e8f6cb" category="section-title">設定 AlertManager 以傳送警示至其他頻道</block>
+  <block id="502a9d29b17b7f6331b5a1d5325855ac" category="paragraph">您可以將 AlertManager 設定為傳送通知給其他通道，例如電子郵件， PagerDuty ， Microsoft 團隊或其他通知服務，方法是在檔案中指定個別的組態<block ref="3a4637925a72e08829320dd2ed20aa17" prefix=" " category="inline-code"></block>。</block>
+  <block id="c9272f0d68fac2055ba2d71be6c87b1b" category="paragraph">以下範例將警示管理員設定為傳送通知至 Slack 頻道。若要根據您的環境自訂此範例，請將金鑰的值取代為<block ref="aa8106611bcfe43fec48e6d1d371de52" prefix=" " category="inline-code"></block>您環境中使用的 Slack Webhook URL ：</block>
+  <block id="4b437b03cad5e359b0e810e6dc330afc" category="listing-title">alertmanager.yml ：傳送警示至 Slack 頻道</block>
 </blocks>

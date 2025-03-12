@@ -18,6 +18,8 @@ entries:
   entries:
   - title: 管理授權與存取控制
     url: "/trident-protect/manage-authorization-access-control.html"
+  - title: 監控 Trident Protect 資源
+    url: "/trident-protect/monitor-trident-protect-resources.html"
   - title: 產生 Trident Protect 支援服務組合
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
   - title: 升級 Trident Protect

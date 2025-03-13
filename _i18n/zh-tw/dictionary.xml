@@ -5462,4 +5462,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="c9272f0d68fac2055ba2d71be6c87b1b" category="paragraph">以下範例將警示管理員設定為傳送通知至 Slack 頻道。若要根據您的環境自訂此範例，請將金鑰的值取代為<block ref="aa8106611bcfe43fec48e6d1d371de52" prefix=" " category="inline-code"></block>您環境中使用的 Slack Webhook URL ：</block>
   <block id="4b437b03cad5e359b0e810e6dc330afc" category="listing-title">alertmanager.yml ：傳送警示至 Slack 頻道</block>
   <block id="792d490e884279c961aba837ccd9b67a" category="admonition">Trident Protect 會自動選取部分資源，因為這些資源與您選取的資源之間的關係。例如，如果您選取持續磁碟區宣告資源，而且該資源有相關聯的 Pod ，則 Trident Protect 也會還原相關聯的 Pod 。</block>
+  <block id="d110d36251c4dd04b7da5ef237ac6063" category="inline-link">Kopia 文件</block>
+  <block id="2cd3acbff016f03ffcfe72208e450647" category="admonition">當您使用 Kopia 做為資料移動器來還原備份時，您可以選擇性地在 CR 中指定註釋，或使用 CLI 來控制 Kopia 使用的大量儲存設備的行為。如需可設定選項的詳細資訊，請參閱<block ref="08f67cdc0555f043586a8a4182d9187b" category="inline-link-rx"></block>。使用<block ref="26d4326deff4a9a34c8bff3eaf4ad7fc" prefix=" " category="inline-code"></block>命令可取得更多關於使用 Trident Protect CLI 指定註釋的資訊。</block>
 </blocks>

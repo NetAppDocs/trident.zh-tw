@@ -5461,4 +5461,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="502a9d29b17b7f6331b5a1d5325855ac" category="paragraph">您可以將 AlertManager 設定為傳送通知給其他通道，例如電子郵件， PagerDuty ， Microsoft 團隊或其他通知服務，方法是在檔案中指定個別的組態<block ref="3a4637925a72e08829320dd2ed20aa17" prefix=" " category="inline-code"></block>。</block>
   <block id="c9272f0d68fac2055ba2d71be6c87b1b" category="paragraph">以下範例將警示管理員設定為傳送通知至 Slack 頻道。若要根據您的環境自訂此範例，請將金鑰的值取代為<block ref="aa8106611bcfe43fec48e6d1d371de52" prefix=" " category="inline-code"></block>您環境中使用的 Slack Webhook URL ：</block>
   <block id="4b437b03cad5e359b0e810e6dc330afc" category="listing-title">alertmanager.yml ：傳送警示至 Slack 頻道</block>
+  <block id="792d490e884279c961aba837ccd9b67a" category="admonition">Trident Protect 會自動選取部分資源，因為這些資源與您選取的資源之間的關係。例如，如果您選取持續磁碟區宣告資源，而且該資源有相關聯的 Pod ，則 Trident Protect 也會還原相關聯的 Pod 。</block>
 </blocks>

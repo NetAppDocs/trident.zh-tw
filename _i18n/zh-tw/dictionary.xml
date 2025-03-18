@@ -4225,7 +4225,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="086d4622dbc50dc37c51fc80568681a2" category="paragraph">您可以隨時移除 AppVault 物件。</block>
   <block id="79f2a1cdb1287644a5d3176157cc43c4" category="admonition">刪除 AppVault 物件之前，請勿移除<block ref="276c63528ef3085f91fb1bc80a3febc0" prefix=" " category="inline-code"></block> AppVault CR 中的機碼。如果您這麼做，可能會導致 AppVault 貯體中的剩餘資料，以及叢集中的孤立資源。</block>
   <block id="33850d305da8c5eb949c81e70e40a54d" category="open-title">使用 Kubernetes CLI 移除 AppVault</block>
-  <block id="1921311333af338cd3327c59e3b9a4ab" category="list-text">移除 AppVault 物件，以要移除的 AppVault 物件名稱取代<block ref="c57e6773097b6f688f96a88c56c16d47" prefix=" " category="inline-code"></block>：</block>
   <block id="6c4ae71603666b23d3e05193118a3147" category="summary">您可以使用 protecttctl 命令建立自訂資源，並與 Trident 互動。</block>
   <block id="40e0842217cf3fc8b760cbd68cc14a76" category="doc">安裝 Trident Protect CLI 外掛程式</block>
   <block id="bd0df34f0c12fe6faae3a05dde47f3a9" category="paragraph">您可以使用 Trident Protect 命令列外掛程式（ Trident 公用程式的延伸<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>）來建立自訂資源（ CRS ），並與 Trident 互動。</block>
@@ -5337,7 +5336,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="3e2db83ddd4087c64413cfd7c14100b6" category="section-title">AppVault 建立範例</block>
   <block id="80b938565b2e1ff14bd06e780149b085" category="paragraph">以下是每個提供者的 AppVault 定義範例。</block>
   <block id="dd180e899bea0f9a0eb538e256c19673" category="list-text">您可以選擇性地指定 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如需詳細資訊、請參閱 <block ref="7bf3b37360a9f432b37d8ac6c9f10cd4" category="inline-xref-macro-rx"></block> 。</block>
-  <block id="df714665058b96c7ac972b841e5d1c15" category="list-text">對於 S3 AppVault 物件，您可以選擇性地指定一個工作區權杖，如果您使用單一登入（ SSO ）進行驗證，這個功能就很有用。當您在中為提供者產生金鑰時<block ref="cd932e77bb3df9634d58b2fd34398b6f" category="inline-xref-macro-rx"></block>，就會建立此權杖。</block>
   <block id="2b7c7776f596f179d63bae82e841e9fe" category="list-text">對於 S3 AppVault 物件，您可以選擇使用金鑰來指定傳出 S3 流量的外傳 Proxy URL<block ref="ea739eb21b9424ad95fb5cd1b3ee7d1c" prefix=" " category="inline-code"></block> 。</block>
   <block id="99313bdb05c30c161eb80ae8dc89265f" category="list-text">對於 S3 AppVault 物件，您可以選擇使用引數，為輸出 S3 流量指定外傳 Proxy URL<block ref="c0b36cdbc2185c1fe6ee0b0c177312da" prefix=" " category="inline-code"></block> 。</block>
   <block id="aafdbe511f8dcfce152fe32eec4b84a8" category="section-title">檢視 AppVault 資訊</block>
@@ -5464,4 +5462,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="792d490e884279c961aba837ccd9b67a" category="admonition">Trident Protect 會自動選取部分資源，因為這些資源與您選取的資源之間的關係。例如，如果您選取持續磁碟區宣告資源，而且該資源有相關聯的 Pod ，則 Trident Protect 也會還原相關聯的 Pod 。</block>
   <block id="d110d36251c4dd04b7da5ef237ac6063" category="inline-link">Kopia 文件</block>
   <block id="2cd3acbff016f03ffcfe72208e450647" category="admonition">當您使用 Kopia 做為資料移動器來還原備份時，您可以選擇性地在 CR 中指定註釋，或使用 CLI 來控制 Kopia 使用的大量儲存設備的行為。如需可設定選項的詳細資訊，請參閱<block ref="08f67cdc0555f043586a8a4182d9187b" category="inline-link-rx"></block>。使用<block ref="26d4326deff4a9a34c8bff3eaf4ad7fc" prefix=" " category="inline-code"></block>命令可取得更多關於使用 Trident Protect CLI 指定註釋的資訊。</block>
+  <block id="7491b3d3a4aa89a2dd6445477c6b6e0a" category="list-text">對於 Amazon S3 （ AWS ） AppVault 物件，您可以選擇性地指定一個工作區權杖，如果您使用單一登入（ SSO ）進行驗證，這會很有用。當您在中為提供者產生金鑰時<block ref="cd932e77bb3df9634d58b2fd34398b6f" category="inline-xref-macro-rx"></block>，就會建立此權杖。</block>
+  <block id="620026f954fdad541c9d19554476345c" category="list-text">移除 AppVault 物件，以要移除的 AppVault 物件名稱取代<block ref="bf09cf3bd2a9288a0bdf3d1b89b770a1" prefix=" " category="inline-code"></block>：</block>
+  <block id="35d393329a969d87338f26cd6fe42238" category="list-text">使用 Helm 安裝 Trident Protect 。以叢集名稱取代<block ref="ecc79c99c4f86f0db5cc7f200415205f" prefix=" " category="inline-code"></block>，該名稱將指派給叢集，用於識別叢集的備份和快照：</block>
 </blocks>

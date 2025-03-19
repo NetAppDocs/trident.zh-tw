@@ -34,7 +34,7 @@ NOTE: 內部部署 ONTAP 儲存後端的 NFS 流量 Kerberos 加密僅支援使�
 * 請確定您可以存取 `tridentctl` 公用程式。
 * 確保您具有 ONTAP 儲存後端的管理員存取權。
 * 確保您知道將從 ONTAP 儲存後端共用的磁碟區名稱。
-* 請確定您已準備好 ONTAP 儲存 VM 、以支援 NFS 磁碟區的 Kerberos 加密。請參閱 https://docs.netapp.com/us-en/ontap/nfs-config/create-kerberos-config-task.html["在資料LIF上啟用Kerberos"^] 以取得指示。
+* 請確定您已準備好 ONTAP 儲存 VM 、以支援 NFS 磁碟區的 Kerberos 加密。請參閱 https://docs.netapp.com/us-en/ontap/nfs-config/create-kerberos-config-task.html["在 dataLIF 上啟用 Kerberos"^] 以取得指示。
 * 請確定您使用 Kerberos 加密的任何 NFSv4 磁碟區都已正確設定。請參閱的 NetApp NFSv4 網域組態一節（第 13 頁） https://www.netapp.com/media/16398-tr-3580.pdf["NetApp NFSv4 增強與最佳實務指南"^]。
 
 

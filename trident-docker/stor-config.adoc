@@ -90,7 +90,7 @@ IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。
 | 「DataLIF」  a| 
 傳輸協定LIF的IP位址。
 
-* ONTAP NAS 驅動程序 * ： NetApp 建議指定 `dataLIF`。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。
+* ONTAP NAS 驅動程序 * ： NetApp 建議指定 `dataLIF`。如果未提供， Trident 會從 SVM 擷取 dataLIFs 。您可以指定完整網域名稱（ FQDN ），以用於 NFS 裝載作業，讓您建立循環 DNS ，以便在多個 dataLIFs 之間進行負載平衡。
 
 * ONTAP SAN 驅動程式 * ：請勿指定 iSCSI 或 FC 。Trident 使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^]來探索建立多重路徑工作階段所需的 iSCSI 或 FC 生命負載。如果明確定義、就會產生警告 `dataLIF`。
  a| 

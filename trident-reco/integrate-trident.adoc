@@ -331,7 +331,7 @@ NOTE: 下表僅包含與記錄服務相關的儲存組態變數。您可以在�
 | "openshift_logging_storage _gin" | 設定為「NFS」、讓安裝程式為記錄服務建立NFS PV。 
 
 
-| "openshift_logging_storage主機" | NFS主機的主機名稱或IP位址。這應該設定為虛擬機器的資料LIF。 
+| "openshift_logging_storage主機" | NFS主機的主機名稱或IP位址。這應該設定為虛擬機器的 dataLIF 。 
 
 
 | "openshift_logging_storage、nfs_directory" | NFS匯出的掛載路徑。例如、如果磁碟區已連接為「/openshift_logging」、您就會將該路徑用於此變數。 
@@ -399,7 +399,7 @@ NOTE: 下表僅包含與度量服務相關的儲存組態相關變數。文件�
 | "openshift_imization_storage類型" | 設定為「NFS」、讓安裝程式為記錄服務建立NFS PV。 
 
 
-| "openshift_imization_storage主機" | NFS主機的主機名稱或IP位址。這應該設定為SVM的資料LIF。 
+| "openshift_imization_storage主機" | NFS主機的主機名稱或IP位址。這應該設定為 SVM 的 dataLIF 。 
 
 
 | "openshift_imization_storage、nfs_directory" | NFS匯出的掛載路徑。例如、如果磁碟區已連接為「/openshift_度量」、您就會使用該路徑來處理此變數。 

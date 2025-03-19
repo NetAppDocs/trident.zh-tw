@@ -492,7 +492,7 @@ IMPORTANT: Kubernetes 1.27 現在支援 Trident 。請先升級Trident、再升�
 === 棄用
 
 * Kubernetes：將支援的Kubernetes最低更新為1.21。
-* 在設定時、不應再指定資料生命期 `ontap-san` 或 `ontap-san-economy` 驅動程式：
+* 設定或 `ontap-san-economy`驅動程式時，不應再指定 DataLIFs `ontap-san` 。
 
 
 
@@ -518,7 +518,7 @@ IMPORTANT: Kubernetes 1.27 現在支援 Trident 。請先升級Trident、再升�
 
 * 已修正ONTAP 特定於使用建立的靜止後端的問題 `credentials` 在22.07.0升級期間、現場無法上線（..link:https://github.com/NetApp/trident/issues/759["問題#759"^]）。
 * 修正導致Docker Volume外掛程式無法在某些環境中啟動的問題（link:https://github.com/NetApp/trident/issues/548["問題#548"^] 和 link:https://github.com/NetApp/trident/issues/760["問題#760"^]）。
-* 修正ONTAP 了特定於SAN後端的SLE問題、以確保僅發佈屬於報告節點的資料生命期子集。
+* 修正 ONTAP SAN 後端的特定 SLM 問題，以確保僅發佈屬於報告節點的 datahLIFs 子集。
 * 修正連接磁碟區時發生不必要的iSCSI LUN掃描的效能問題。
 * 移除 Trident iSCSI 工作流程中的精細重試、以快速失敗並縮短外部重試時間間隔。
 * 修正當對應的多重路徑裝置已排清時、在排清iSCSI裝置時傳回錯誤的問題。
@@ -665,7 +665,7 @@ E系列驅動程式（自20.07起停用）已移除。
 
 * * Kubernetes：*增加大型叢集的節點登錄回退重試時間。
 * 已解決以下問題：azure-NetApp-Files驅動程式可能會被同名的多個資源混淆。
-* 如果使用方括弧指定SAN IPv6資料生命量、現在就能正常運作。ONTAP
+* ONTAP SAN IPv6 DataLIFs 現在可以在使用方括號指定的情況下運作。
 * 修正嘗試匯入已匯入磁碟區傳回EOF、使PVc處於擱置狀態的問題。（link:https://github.com/NetApp/trident/issues/489["GitHub問題#489"]）
 * 解決了在 SolidFire 磁碟區上建立超過 32 個快照時、 Trident 效能降低的問題。
 * 在建立SSL憑證時、以SHA-256取代SHA-1。

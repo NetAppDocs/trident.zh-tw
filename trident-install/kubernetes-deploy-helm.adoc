@@ -52,7 +52,7 @@ summary: 您可以部署 Trident 運算子、並使用 Helm 安裝 Trident 。�
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. 使用 `helm install`並指定部署名稱、如下例所示、其中 `100.2404.0`是您要安裝的 Trident 版本。
+. 使用 `helm install`並指定部署名稱、如下例所示、其中 `100.2502.0`是您要安裝的 Trident 版本。
 +
 [listing]
 ----

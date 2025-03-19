@@ -52,10 +52,14 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 | `windows` | 設定為 `true` 可在Windows工作節點上安裝。 | 「假」 
 
 
-| `cloudProvider` | 設定為 `"Azure"` 在 AKS 叢集上使用託管身分識別或雲端身分識別時。在 EKS 叢集上使用雲端身分識別時、請設定為「 AWS 」。 | `""` 
+| `cloudProvider`  a| 
+在 AKS 叢集上使用託管身分識別或雲端身分識別時、請設定為 `"Azure"`。在 EKS 叢集上使用雲端身分識別時設為 `"AWS"`。在 GKE 叢集上使用雲端身分識別時設為 `"GCP"`。
+| `""` 
 
 
-| `cloudIdentity` | 在 AKS 叢集上使用雲端身分識別時、請設定為工作負載身分識別（「 azure.Workload .idental/client-id ： XXXXXXXX-xxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxx 」）。在 EKS 叢集上使用雲端身分識別時、請設定為 AWS IAM 角色（「 eks.amazonaws.com/role-arn: arn:AWS:iam::123456 ：角色 Trident 角色」）。 | `""` 
+| `cloudIdentity`  a| 
+在 AKS 叢集上使用雲端身分識別時、請設定為工作負載身分識別（「 azure.Workload .idental/client-id ： XXXXXXXX-xxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxx 」）。在 EKS 叢集上使用雲端身分識別時、請設定為 AWS IAM 角色（「 eks.amazonaws.com/role-arn: arn:AWS:iam::123456 ：角色 Trident 角色」）。在 GKE 叢集上使用雲端身分識別時，請設定為雲端身分識別（「 iam.GKE 。 IO/GCP 服務帳戶： xxxx@mygcpproject.iam.gserviceaccount.com 」）。
+| `""` 
 
 
 | `IPv6` | 透過 IPv6 安裝 Trident | 錯 

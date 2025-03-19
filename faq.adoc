@@ -202,12 +202,12 @@ NetApp 支援將 Trident 從一個主要版本升級至下一個立即的主要�
 
 
 
-=== 我是否需要在ONTAP 一個後端定義檔案中定義管理和資料生命期？
+=== 我是否需要在 ONTAP 後端定義檔案中同時定義管理和 DataLIFs ？
 
-管理LIF為必填項目。資料LIF會有所不同：
+管理LIF為必填項目。DataLIF 會有所不同：
 
 * 支援SAN：請勿指定iSCSI ONTAP 。Trident 使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^]來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義、就會產生警告 `dataLIF`。如 link:trident-use/ontap-san-examples.html["SAN組態選項與範例ONTAP"] 需詳細資訊、請參閱。
-* ONTAP NAS ： NetApp 建議指定 `dataLIF`。如果未提供、 Trident 會從 SVM 擷取資料生命。您可以指定要用於NFS掛載作業的完整網域名稱（FQDN）、讓您建立循環配置資源DNS、以便在多個資料生命期之間達到負載平衡。如link:trident-use/ontap-nas-examples.html["列舉NAS組態選項與範例ONTAP"]需詳細資訊、請參閱
+* ONTAP NAS ： NetApp 建議指定 `dataLIF`。如果未提供， Trident 會從 SVM 擷取 dataLIFs 。您可以指定完整網域名稱（ FQDN ），以用於 NFS 裝載作業，讓您建立循環 DNS ，以便在多個 dataLIFs 之間進行負載平衡。如link:trident-use/ontap-nas-examples.html["列舉NAS組態選項與範例ONTAP"]需詳細資訊、請參閱
 
 
 
@@ -224,7 +224,7 @@ Trident 可從 20.04 版開始、動態建立及管理匯出原則。如此一�
 
 
 
-=== IPv6位址是否可用於管理和資料生命量？
+=== 管理與 DataLIFs 是否可以使用 IPv6 位址？
 
 Trident 支援定義下列項目的 IPv6 位址：
 
@@ -242,9 +242,9 @@ Trident 必須使用旗標（用於 `tridentctl`安裝）、（用於 Trident �
 
 
 
-=== 是否能在後端更新Data LIF？
+=== 是否能在後端更新 DataLIF ？
 
-您可以在上更新Data LIF `ontap-nas` 和 `ontap-nas-economy` 僅限。
+您只能在和 `ontap-nas-economy`上更新 DataLIF `ontap-nas` 。
 
 
 

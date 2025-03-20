@@ -30,7 +30,7 @@ summary: 在使用 Trident 操作員升級 Trident 之前、您應該先瞭解�
 
 
 
-TIP: 有關 Kubernetes 叢集上 Trident 架構的詳細資訊link:trident-concepts/intro.html#trident-architecture["Trident 架構"]、請參閱。
+TIP: 有關 Kubernetes 叢集上 Trident 架構的詳細資訊link:../trident-get-started/architecture.html["Trident 架構"^]、請參閱。
 
 
 

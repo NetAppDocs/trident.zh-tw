@@ -118,7 +118,7 @@ NOTE: 在 SVM 中更新 Aggregate 清單時、會透過輪詢 SVM 而無需重�
 | `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱；允許 Trident 建立 SMB 共用的名稱；或將參數保留空白以防止共用磁碟區。對於內部部署 ONTAP 、此參數為選用項目。Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。 | `smb-share` 
 
 
-| 《useREST》 | 使用ONTAP Isrest API的布林參數。 `useREST`設為 `true`時， Trident 會使用 ONTAP REST API 與後端通訊；設為 `false`時， Trident 會使用 ONTAPI （ ZAPI ）呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontap` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Trident 24.06 版本和 ONTAP 9.15.1 或更新版本開始， `useREST`依預設會設定為 `true`；變更 `useREST`為 `false`使用 ONTAPI （ ZAPI ）呼叫。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
+| 《useREST》 | 使用ONTAP Isrest API的布林參數。 `useREST`設為 `true`時， Trident 會使用 ONTAP REST API 與後端通訊；設為 `false`時， Trident 會使用 ONTAPI （ ZAPI ）呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontapi` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Trident 24.06 版本和 ONTAP 9.15.1 或更新版本開始， `useREST`依預設會設定為 `true`；變更 `useREST`為 `false`使用 ONTAPI （ ZAPI ）呼叫。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
 
 
 | `limitVolumePoolSize` | 在 ONTAP NAS 經濟型後端使用 qtree 時、可要求的 FlexVol 大小上限。 | ""（預設不強制執行） 
@@ -223,7 +223,7 @@ defaults:
 ----
 Total volume size = (PVC requested size) / (1 - (snapshotReserve percentage) / 100)
 ----
-對於snapshotReserve = 50%、而PVc要求= 5GiB、磁碟區總大小為2/0.5 = 10GiB、可用大小為5GiB、這是使用者在PVC要求中要求的大小。「volume show（Volume show）命令應顯示類似以下範例的結果：
+對於snapshotReserve = 50%、而PVc要求= 5GiB、磁碟區總大小為5/0.5 = 10GiB、可用大小為5GiB、這是使用者在PVC要求中要求的大小。 `volume show`命令應顯示類似於此範例的結果：
 
 image::../media/volume-show-nas.png[顯示Volume show命令的輸出。]
 

@@ -94,7 +94,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱、或是允許 Trident 建立 SMB 共用的名稱。ONTAP 後端的 Amazon FSX 需要此參數。 | `smb-share` 
 
 
-| 《useREST》 | 使用ONTAP Isrest API的布林參數。 `useREST`設為 `true`時， Trident 會使用 ONTAP REST API 與後端通訊；設為 `false`時， Trident 會使用 ONTAPI （ ZAPI ）呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontap` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Trident 24.06 版本和 ONTAP 9.15.1 或更新版本開始， `useREST`依預設會設定為 `true`；變更 `useREST`為 `false`使用 ONTAPI （ ZAPI ）呼叫。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
+| 《useREST》 | 使用ONTAP Isrest API的布林參數。 `useREST`設為 `true`時， Trident 會使用 ONTAP REST API 與後端通訊；設為 `false`時， Trident 會使用 ONTAPI （ ZAPI ）呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontapi` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Trident 24.06 版本和 ONTAP 9.15.1 或更新版本開始， `useREST`依預設會設定為 `true`；變更 `useREST`為 `false`使用 ONTAPI （ ZAPI ）呼叫。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
 
 
 | `aws` | 您可以在 AWS FSX for ONTAP 的組態檔中指定下列項目：

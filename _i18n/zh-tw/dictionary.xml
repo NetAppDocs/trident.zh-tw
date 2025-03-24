@@ -5103,7 +5103,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="60b04b91abae29736bd23b21579be5cb" category="list-text">增加安全性 CSI 調整容器的 Context （<block ref="a97be45bfcdf3eeaee81dc9917811f8f" category="inline-link-macro-rx"></block>）。</block>
   <block id="cb1f1e88b6db83dc715d1cb1d8733445" category="section-title">Trident Protect</block>
   <block id="b094c3f306a844e9e49992f69a84cfa4" category="paragraph">NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化由 NetApp ONTAP 儲存系統和 NetApp Trident CSI 儲存資源配置程式所支援的狀態化 Kubernetes 應用程式的功能與可用度。</block>
-  <block id="38fc414fc29442833eb9eb53cc2e1d14" category="list-text">新增對 KubeVirt / OpenShift 虛擬化虛擬機器的備份與還原支援，可同時用於兩個 Volume 模式：檔案與 Volume emode ：區塊（原始裝置）儲存設備，並透過 AppMirrorRelationship 將其儲存複寫至現有的儲存複寫。</block>
   <block id="7df125a00671c08a40e0225c8e7bfe51" category="list-text">新增在 Kubevirt 環境的應用程式層級控制凍結行為的功能。</block>
   <block id="bde8e1e3de96ead9884d920004bad3bf" category="list-text">新增了設定 AutoSupport Proxy 連線的支援。</block>
   <block id="3a3a7f688efad3284b8088de98d9c990" category="list-text">新增定義資料移動器加密機密的功能（ Kopia / Restic ）。</block>
@@ -5466,4 +5465,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="29faa5f5c2de3c7a4ab9c78562616cdd" category="admonition">如果您使用 RedHat OpenShift ，請務必注意 OpenShift 環境中命名空間註釋的關鍵作用。命名空間註釋可確保還原的 Pod 符合 OpenShift 安全性內容限制（ SCC ）所定義的適當權限和安全性組態，而且無需權限問題即可存取磁碟區。如需詳細資訊，請<block ref="9c33d4f1fa6e1f731baeaf3a5fe229cd" category="inline-link-rx"></block>參閱。</block>
   <block id="d858eab1cb0b74aa1e6d052d7c06bd76" category="list-text">OpenShift 4.10 - 4.18</block>
   <block id="42113cf11e30b764619d3a98db65262d" category="list-text">Rancher Kubernetes Engine 2 （ RKE2 ） v1.26.7+rke2r1 ， v1.28.5+rke2r1</block>
+  <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">新增對 KubeVirt / OpenShift 虛擬化 VM 的備份與還原支援，可同時用於兩個 Volume 模式：檔案與 Volume （ Volume ）：區塊（原始裝置）儲存設備。這項支援可與所有 Trident 驅動程式相容，並可在使用 NetApp SnapMirror with Trident Protect 複寫儲存設備時強化現有的保護功能。</block>
 </blocks>

@@ -83,7 +83,7 @@ NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化
 
 ==== 增強功能
 
-* 新增對 KubeVirt / OpenShift 虛擬化虛擬機器的備份與還原支援，可同時用於兩個 Volume 模式：檔案與 Volume emode ：區塊（原始裝置）儲存設備，並透過 AppMirrorRelationship 將其儲存複寫至現有的儲存複寫。
+* 新增對 KubeVirt / OpenShift 虛擬化 VM 的備份與還原支援，可同時用於兩個 Volume 模式：檔案與 Volume （ Volume ）：區塊（原始裝置）儲存設備。這項支援可與所有 Trident 驅動程式相容，並可在使用 NetApp SnapMirror with Trident Protect 複寫儲存設備時強化現有的保護功能。
 * 新增在 Kubevirt 環境的應用程式層級控制凍結行為的功能。
 * 新增了設定 AutoSupport Proxy 連線的支援。
 * 新增定義資料移動器加密機密的功能（ Kopia / Restic ）。

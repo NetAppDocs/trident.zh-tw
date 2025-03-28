@@ -39,7 +39,13 @@ summary: 您可以建立應用程式 CR 和相關的 AppVault CR ，讓 Trident 
 .. 設定下列屬性：
 +
 *** * metadata.name*: （ _required ）應用程式自訂資源的名稱。請注意您選擇的名稱，因為保護作業所需的其他 CR 檔案都會參照此值。
-*** * spec.includedNamespaces*: （ _required _ ）使用命名空間標籤或命名空間名稱來指定應用程式資源所在的命名空間。應用程式命名空間必須是此清單的一部分。
+*** * spec.includedNamespaces*: （ _required ）使用命名空間和標籤選取器來指定應用程式使用的命名空間和資源。應用程式命名空間必須是此清單的一部分。標籤選取器為選用項目，可用於篩選每個指定命名空間內的資源。
+*** * spec.includedClusterScopedResources*: （ _Optional_ ）使用此屬性來指定要包含在應用程式定義中的叢集範圍資源。此屬性可讓您根據這些資源的群組，版本，種類和標籤來選取這些資源。
++
+**** *groupVersionKind* ：（ _required _ ）指定叢集範圍資源的 API 群組，版本及種類。
+**** *labelSelector * ：（ _Optional_ ）根據叢集範圍的資源標籤來篩選資源。
+
+
 *** * metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: （ _Optional_ ）此註釋僅適用於從虛擬機器定義的應用程式，例如 KubeVirt 環境，檔案系統會在快照之前凍結。指定此應用程式是否可以在快照期間寫入檔案系統。如果設為 true ，應用程式會忽略全域設定，並在快照期間寫入檔案系統。如果設置爲 false ，則應用程序將忽略全局設置，並在快照期間凍結文件系統。如果指定，但應用程式在應用程式定義中沒有虛擬機器，則會忽略附註。如果未指定，則應用程式會遵循link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全域 Trident 保護凍結設定"]。
 +
 [NOTE]
@@ -66,10 +72,23 @@ metadata:
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-  - labelSelector: {}
-    namespace: namespace-1
-  - labelSelector: {}
-    namespace: namespace-2
+    - namespace: namespace-1
+      labelSelector:
+        matchLabels:
+          app: example-app
+    - namespace: namespace-2
+      labelSelector:
+        matchLabels:
+          app: another-example-app
+  includedClusterScopedResources:
+    - groupVersionKind:
+        group: rbac.authorization.k8s.io
+        kind: ClusterRole
+        version: v1
+      labelSelector:
+        matchLabels:
+          mylabel: test
+
 ----
 
 

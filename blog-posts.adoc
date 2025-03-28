@@ -1,0 +1,35 @@
+---
+sidebar: sidebar 
+permalink: blog-posts.html 
+keywords: Trident blogs, Trident protect blogs 
+summary: 您可以找到一些很棒的 NetApp Trident and Trident Protect 部落格。 
+---
+= Trident 和 Trident Protect 部落格
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以在這裡找到一些很棒的 NetApp Trident and Trident Protect 部落格：
+
+
+
+== Trident 部落格
+
+* 2025 年 3 月 5 日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Unlock-Seamless-iSCSI-Storage-Integration-A-Guide-to-FSxN-on-ROSA-Clusters-for/ba-p/459124["解除鎖定無縫 iSCSI 儲存整合： ROSA 叢集 for AWS 上的 FSxN 指南"^]
+* 2024 年 12 月 12 日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Introducing-Fibre-Channel-support-in-Trident/ba-p/457427["Trident 推出光纖通道支援"^]
+
+
+
+
+== Trident Protect 部落格
+
+* 2025 年 3 月 13 日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Crash-Consistent-Backup-and-Restore-Operations-for-OpenShift-Virtualization-VMs/ba-p/459417["適用於 OpenShift 虛擬化 VM 的毀損一致備份與還原作業"^]
+* 2025 年 3 月 11 日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Extending-GitOps-patterns-to-application-data-protection-with-NetApp-Trident/ba-p/459323["使用 NetApp Trident 將 GitOps 模式延伸至應用程式資料保護"^]
+* 2025 年 3 月 3 日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Trident-25-02-Elevating-the-Red-Hat-OpenShift-Experience-with-Exciting-New/ba-p/459055["Trident 25.02 ：以令人興奮的新功能提升 Red Hat OpenShift 體驗"^]
+* 2025 年 1 月 15 日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Introducing-Trident-protect-role-based-access-control/ba-p/457837["Trident Protect 以角色為基礎的存取控制"^]
+* 2024 年 11 月 11 日： https://community.netapp.com/t5/Tech-ONTAP-Blogs/Introducing-tridentctl-protect-the-powerful-CLI-for-Trident-protect/ba-p/456494["隆重推出 tridentctl Protect ：功能強大的 Trident Protect CLI"^]
+* 2024 年 11 月 11 日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Kubernetes-driven-data-management-The-new-era-with-Trident-protect/ba-p/456395["Kubernetes 導向的資料管理： Trident Protect 開創新紀元"^]
+

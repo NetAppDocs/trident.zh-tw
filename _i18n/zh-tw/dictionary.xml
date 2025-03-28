@@ -4263,7 +4263,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="b4b10aa7102ef4de9ba1d5672445c895" category="list-text">建立目的地應用程式 CR 檔案：</block>
   <block id="0f14679ea6b53d676a4e19300d32937e" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="6e1c6964e1bb7e391ff353b09e122d80" prefix=" " category="inline-code"></block>）。</block>
   <block id="3b96edf2a12486fc5d9dfaf7e692cdfc" category="list-text">* metadata.name*: （ _required ）應用程式自訂資源的名稱。請注意您選擇的名稱，因為保護作業所需的其他 CR 檔案都會參照此值。</block>
-  <block id="fcf820f08f5d5769772e80b226253850" category="list-text">* spec.includedNamespaces*: （ _required _ ）使用命名空間標籤或命名空間名稱來指定應用程式資源所在的命名空間。應用程式命名空間必須是此清單的一部分。</block>
   <block id="edb32c41feaaffb2d7ff10dac9d80312" category="open-title">使用 CLI 新增應用程式</block>
   <block id="0ef657dffb550796349fff7260ee7b1f" category="summary">您可以將備份或快照資料還原至不同的叢集或儲存類別</block>
   <block id="5d23a9c0c55a80ece74daa65c04f1d66" category="doc">移轉應用程式</block>
@@ -5468,4 +5467,29 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="fc1d748db1b5b488ce7af7d17ea15d55" category="inline-link-macro">軟體版本支援</block>
   <block id="ee19283e867cf4e5840d2811a74b89e5" category="list-text">內部部署 FAS ， AFF 或 ASA R2 叢集版本，受 NetApp 有限支援。請參閱。 <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block></block>
   <block id="8456fc955091af12a31da6fc68123005" category="list-text">您可以將 NVE 加密平放設定為<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block>建立啟用 NAE 的磁碟區。</block>
+  <block id="1906137ea73af1894fec1becb00e0aee" category="summary">您可以找到一些很棒的 NetApp Trident and Trident Protect 部落格。</block>
+  <block id="0db80d8cadbd011f12ade006191e47b0" category="doc">Trident 和 Trident Protect 部落格</block>
+  <block id="c5497cf98d8e6141ba38e1421502c2d4" category="paragraph">您可以在這裡找到一些很棒的 NetApp Trident and Trident Protect 部落格：</block>
+  <block id="897b6a6a21c73524107071aff80ed94e" category="inline-link-macro">解除鎖定無縫 iSCSI 儲存整合： ROSA 叢集 for AWS 上的 FSxN 指南</block>
+  <block id="7e03dec1558430aac74331cea427e6fa" category="list-text">2025 年 3 月 5 日：<block ref="c5953f971a0752feeb8ffbf7d9258789" category="inline-link-macro-rx"></block></block>
+  <block id="6dc79a8e11fda729083bb4e518de411f" category="inline-link-macro">Trident 推出光纖通道支援</block>
+  <block id="b81f0a113de47ddee93e4aea79f4231f" category="list-text">2024 年 12 月 12 日：<block ref="5c3a9e150bc491524071eb191093dabe" category="inline-link-macro-rx"></block></block>
+  <block id="767cfc132547de728a22c9fa992eabfc" category="section-title">Trident Protect 部落格</block>
+  <block id="a706b02fe1ef4870ecc8b588cbe37989" category="inline-link-macro">適用於 OpenShift 虛擬化 VM 的毀損一致備份與還原作業</block>
+  <block id="938cab8cf5785dfe0cd9ba76b4cae8f0" category="list-text">2025 年 3 月 13 日：<block ref="94b3904630a42c759a6ceb844d104a7a" category="inline-link-macro-rx"></block></block>
+  <block id="20e2f4e6733d3ac5dd3cfb83506a2882" category="inline-link-macro">使用 NetApp Trident 將 GitOps 模式延伸至應用程式資料保護</block>
+  <block id="ccd722b2b8950bc9aa2b92826dcc4664" category="list-text">2025 年 3 月 11 日：<block ref="751073ae4d07c4adc8a15e872b137421" category="inline-link-macro-rx"></block></block>
+  <block id="bc057a27d4d8047073d6f5fa802c9c2b" category="inline-link-macro">Trident 25.02 ：以令人興奮的新功能提升 Red Hat OpenShift 體驗</block>
+  <block id="fb68b473f5b70bc40e206ef882be4c63" category="list-text">2025 年 3 月 3 日：<block ref="ce0fc75766d0530b76aaabf87dc1b463" category="inline-link-macro-rx"></block></block>
+  <block id="62ca59fefb174e2cae471bd3ff034f37" category="inline-link-macro">Trident Protect 以角色為基礎的存取控制</block>
+  <block id="2471f7ea5ea7dad7f60b4ece1fab4a9f" category="list-text">2025 年 1 月 15 日：<block ref="685287f953e60833f62fba2c623c4cb9" category="inline-link-macro-rx"></block></block>
+  <block id="4a685524952a84cef8685a87bb60f47a" category="inline-link">隆重推出 tridentctl Protect ：功能強大的 Trident Protect CLI</block>
+  <block id="281486a8e7fd8f1c6bd6cf0c6bc7eba0" category="list-text">2024 年 11 月 11 日：<block ref="b1528afdd7be1e71d2c311686269cf66" category="inline-link-rx"></block></block>
+  <block id="c0d721f6d5aa4d159e2f9890fab5bbee" category="inline-link-macro">Kubernetes 導向的資料管理： Trident Protect 開創新紀元</block>
+  <block id="78ec91ade28d11ab9c3f53f543bba8d3" category="list-text">2024 年 11 月 11 日：<block ref="46b2057fd4479a7d4462fb82adc6f54b" category="inline-link-macro-rx"></block></block>
+  <block id="244fede3edf8f2ab57f281d777777961" category="list-text">* spec.includedNamespaces*: （ _required ）使用命名空間和標籤選取器來指定應用程式使用的命名空間和資源。應用程式命名空間必須是此清單的一部分。標籤選取器為選用項目，可用於篩選每個指定命名空間內的資源。</block>
+  <block id="cc8aa03bb88101c1901ab425b29a1901" category="list-text">* spec.includedClusterScopedResources*: （ _Optional_ ）使用此屬性來指定要包含在應用程式定義中的叢集範圍資源。此屬性可讓您根據這些資源的群組，版本，種類和標籤來選取這些資源。</block>
+  <block id="eba6898a839f426c3106a97f94614eb9" category="list-text">*groupVersionKind* ：（ _required _ ）指定叢集範圍資源的 API 群組，版本及種類。</block>
+  <block id="8d8a8010684a930aa7760c829cad4141" category="list-text">*labelSelector * ：（ _Optional_ ）根據叢集範圍的資源標籤來篩選資源。</block>
+  <block id="47edbb9e6d6e6e874eb40c274a0e2e0f" category="sidebar">部落格文章</block>
 </blocks>

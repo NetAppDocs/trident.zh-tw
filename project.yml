@@ -50,6 +50,8 @@ sidebar:
   - section: trident-docker
   - section: trident-reco
   - section: trident-protect
+  - title: 部落格文章
+    url: "/blog-posts.html"
   - title: 知識與支援
     entries:
     - title: 常見問題集

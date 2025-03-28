@@ -5492,4 +5492,8 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="8d8a8010684a930aa7760c829cad4141" category="list-text">*labelSelector * ：（ _Optional_ ）根據叢集範圍的資源標籤來篩選資源。</block>
   <block id="47edbb9e6d6e6e874eb40c274a0e2e0f" category="sidebar">部落格文章</block>
   <block id="4a5fadb6b0890cea5e8d53c37411aaf0" category="cell"><block ref="bc35d038baf172a19349f289d31fbf9d" prefix="" category="inline-code"></block></block>
+  <block id="022571ee546e1a953d857961a8cd0442" category="paragraph">建立 PersistentVolume Claim （ PVC ），使用設定的 Kubernetes StorageClass 要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。</block>
+  <block id="f79367bddbaecd3962f7c740a1b2178f" category="paragraph"><block ref="b1b93f46fc69df9fe663c091f4d6c2b4" category="inline-link-rx"></block>（ PVC ）是存取叢集上 PersistentVolume 的要求。</block>
+  <block id="79a251ee7369fdcdb0847d35254afcf8" category="paragraph">建立 PVC 之後，您可以將磁碟區裝入 Pod 。</block>
+  <block id="a305c8fb2137d8a4a767905590079e89" category="section-title">建立 PVC</block>
 </blocks>

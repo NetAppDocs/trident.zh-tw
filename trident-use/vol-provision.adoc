@@ -12,45 +12,70 @@ summary: 建立 PersistentVolume （ PV ）和 PersistentVolume Claim （ PVC �
 
 
 [role="lead"]
-建立 PersistentVolume （ PV ）和 PersistentVolume Claim （ PVC ）、使用設定的 Kubernetes StorageClass 來要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。
+建立 PersistentVolume Claim （ PVC ），使用設定的 Kubernetes StorageClass 要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。
 
 
 
 == 總覽
 
-答 link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["_PersistentVolumer_"^] （ PV ）是叢集管理員在 Kubernetes 叢集上配置的實體儲存資源。。 https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolume Claim"^] （ PVC ）是存取叢集上 PersistentVolume 的要求。
+ https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolume Claim"^]（ PVC ）是存取叢集上 PersistentVolume 的要求。
 
 可將 PVC 設定為要求儲存特定大小或存取模式。叢集管理員可以使用相關的 StorageClass 來控制超過 PersistentVolume 大小和存取模式的權限、例如效能或服務層級。
 
-建立 PV 和 PVC 之後、您可以將磁碟區裝入 Pod 。
+建立 PVC 之後，您可以將磁碟區裝入 Pod 。
+
+
+
+== 建立 PVC
+
+.步驟
+. 建立 PVC 。
++
+[listing]
+----
+kubectl create -f pvc.yaml
+----
+. 確認 PVC 狀態。
++
+[listing]
+----
+kubectl get pvc
+----
+
+
+[listing]
+----
+NAME        STATUS  VOLUME     CAPACITY   ACCESS MODES  STORAGECLASS AGE
+pvc-storage Bound   pv-name    1Gi        RWO                  5m
+----
+. 將磁碟區裝入 Pod 。
++
+[listing]
+----
+kubectl create -f pv-pod.yaml
+----
++
+
+NOTE: 您可以使用監控進度 `kubectl get pod --watch`。
+
+. 確認磁碟區已掛載到上 `/my/mount/path`。
++
+[listing]
+----
+kubectl exec -it task-pv-pod -- df -h /my/mount/path
+----
+. 您現在可以刪除 Pod 。Pod 應用程式將不再存在、但該磁碟區仍會保留。
++
+[listing]
+----
+kubectl delete pod pv-pod
+----
+
 
 
 
 === 範例資訊清單
 
-.PersistentVolume 範例資訊清單
-[%collapsible]
-====
-此範例資訊清單顯示與 StorageClass 相關的 10Gi 基本 PV `basic-csi`。
-
-[listing]
-----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-storage
-  labels:
-    type: local
-spec:
-  storageClassName: basic-csi
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/my/host/path"
-----
-====
 .PersistentVolume Claim 範例資訊清單
 [%collapsible]
 ====
@@ -78,7 +103,6 @@ spec:
 
 [listing]
 ----
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -106,9 +130,9 @@ metadata:
   name: pv-pod
 spec:
   volumes:
-    - name: pv-storage
+    - name: storage
       persistentVolumeClaim:
-       claimName: basic
+       claimName: pvc-storage
   containers:
     - name: pv-container
       image: nginx
@@ -117,90 +141,26 @@ spec:
           name: "http-server"
       volumeMounts:
         - mountPath: "/my/mount/path"
-          name: pv-storage
+          name: storage
 ----
 .基本 NVMe / TCP 組態
 [listing]
 ----
----
 apiVersion: v1
 kind: Pod
 metadata:
-  creationTimestamp: null
-  labels:
-    run: nginx
-  name: nginx
+  name: pod-nginx
 spec:
-  containers:
-    - image: nginx
-      name: nginx
-      resources: {}
-      volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: task-pv-storage
-  dnsPolicy: ClusterFirst
-  restartPolicy: Always
   volumes:
-    - name: task-pv-storage
+    - name: basic-pvc
       persistentVolumeClaim:
-      claimName: pvc-san-nvme
+        claimName: pvc-san-nvme
+  containers:
+    - name: task-pv-container
+      image: nginx
+      volumeMounts:
+        - mountPath: "/my/mount/path"
+          name: basic-pvc
 ----
 ====
-
-
-== 建立 PV 和 PVC
-
-.步驟
-. 建立 PV 。
-+
-[listing]
-----
-kubectl create -f pv.yaml
-----
-. 確認 PV 狀態。
-+
-[listing]
-----
-kubectl get pv
-NAME        CAPACITY  ACCESS MODES  RECLAIM POLICY  STATUS    CLAIM  STORAGECLASS  REASON  AGE
-pv-storage  4Gi       RWO           Retain          Available                              7s
-----
-. 建立 PVC 。
-+
-[listing]
-----
-kubectl create -f pvc.yaml
-----
-. 確認 PVC 狀態。
-+
-[listing]
-----
-kubectl get pvc
-NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
-pvc-storage Bound  pv-name 2Gi      RWO                       5m
-----
-. 將磁碟區裝入 Pod 。
-+
-[listing]
-----
-kubectl create -f pv-pod.yaml
-----
-+
-
-NOTE: 您可以使用監控進度 `kubectl get pod --watch`。
-
-. 確認磁碟區已掛載到上 `/my/mount/path`。
-+
-[listing]
-----
-kubectl exec -it task-pv-pod -- df -h /my/mount/path
-----
-. 您現在可以刪除 Pod 。Pod 應用程式將不再存在、但該磁碟區仍會保留。
-+
-[listing]
-----
-kubectl delete pod pv-pod
-----
-
-
 如需儲存類別如何與互動的詳細資訊 `PersistentVolumeClaim`、以及控制 Trident 配置磁碟區的參數、請參閱link:../trident-reference/objects.html["Kubernetes和Trident物件"]。

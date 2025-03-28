@@ -72,7 +72,7 @@ WARNING: 在將安裝了 Trident 的 Kubernetes 叢集從 1.25 升級至 1.26 �
 * Cloud Volumes ONTAP
 * Google Cloud NetApp Volumes
 * NetApp All SAN Array ASA （ESAN）
-* 執行 ONTAP 9.6 或更新版本的內部部署 FAS ， AFF 或 ASA 叢集
+* 內部部署 FAS ， AFF 或 ASA R2 叢集版本，受 NetApp 有限支援。請參閱。 link:https://mysupport.netapp.com/site/info/version-support["軟體版本支援"]
 * NetApp HCI / Element軟體11或更新版本
 
 

@@ -46,6 +46,10 @@ NOTE: 由 Trident 建立的磁碟區不會與任何 Volume 存取群組相關聯
 NetApp ONTAP 支援閒置資料加密、可在磁碟遭竊、退回或重新使用時、保護敏感資料。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["設定NetApp Volume Encryption總覽"^]。
 
 * 如果在後端上啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。
++
+** 您可以將 NVE 加密平放設定為 `""`建立啟用 NAE 的磁碟區。
+
+
 * 如果後端未啟用 NAE 、除非您在後端組態中將 NVE 加密旗標設為、否則在 Trident 中配置的任何 Volume 都將啟用 NVE `false` 。
 
 

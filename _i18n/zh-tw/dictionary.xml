@@ -5004,7 +5004,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="90de0fd1d09f4fc27d99667555a8a12f" category="paragraph">ONTAP 系統具有 All Flash ，混合式或全硬碟組態，並提供許多不同的部署模式：內部部署 FAS ， AFF 和 ASA 叢集， ONTAP Select 和 Cloud Volumes ONTAP 。Trident 支援這些 ONTAP 部署模式。</block>
   <block id="30712450d512dae0e7becb73c6a439fb" category="list-text">Kubernetes 1.26 - 1.32</block>
   <block id="bde4e01f8df98626e0dc1c36a8e06a5a" category="admonition">在將安裝了 Trident 的 Kubernetes 叢集從 1.25 升級至 1.26 或更新版本之前<block ref="1b428bb9b9fe27db6cd8932526864634" category="inline-link-macro-rx"></block>、請參閱。</block>
-  <block id="2322d8185ec207b8d8522a92de761c94" category="list-text">執行 ONTAP 9.6 或更新版本的內部部署 FAS ， AFF 或 ASA 叢集</block>
   <block id="4cd3b50237790ab53e31a7a9fbd28583" category="section-title">Trident 支援 KubeVirt 和 OpenShift 虛擬化</block>
   <block id="8f323a9e5c0c5162cc6e0d48e0cb1850" category="paragraph-title">支援的儲存驅動程式：</block>
   <block id="0c30a28f9129b866c1d3cdcfa8c2fe15" category="paragraph">Trident 支援 KubeVirt 和 OpenShift 虛擬化的下列 ONTAP 驅動程式：</block>
@@ -5466,4 +5465,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="d858eab1cb0b74aa1e6d052d7c06bd76" category="list-text">OpenShift 4.10 - 4.18</block>
   <block id="42113cf11e30b764619d3a98db65262d" category="list-text">Rancher Kubernetes Engine 2 （ RKE2 ） v1.26.7+rke2r1 ， v1.28.5+rke2r1</block>
   <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">新增對 KubeVirt / OpenShift 虛擬化 VM 的備份與還原支援，可同時用於兩個 Volume 模式：檔案與 Volume （ Volume ）：區塊（原始裝置）儲存設備。這項支援可與所有 Trident 驅動程式相容，並可在使用 NetApp SnapMirror with Trident Protect 複寫儲存設備時強化現有的保護功能。</block>
+  <block id="fc1d748db1b5b488ce7af7d17ea15d55" category="inline-link-macro">軟體版本支援</block>
+  <block id="ee19283e867cf4e5840d2811a74b89e5" category="list-text">內部部署 FAS ， AFF 或 ASA R2 叢集版本，受 NetApp 有限支援。請參閱。 <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block></block>
+  <block id="8456fc955091af12a31da6fc68123005" category="list-text">您可以將 NVE 加密平放設定為<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block>建立啟用 NAE 的磁碟區。</block>
 </blocks>

@@ -2427,18 +2427,13 @@
 中小企業</block>
   <block id="e8a058c8c47f6e4976a9fc5b5c00ec92" category="summary">建立 PersistentVolume （ PV ）和 PersistentVolume Claim （ PVC ）、使用設定的 Kubernetes StorageClass 來要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。</block>
   <block id="a3b7bd8edd528214a68ac3ceb5c9935c" category="doc">配置 Volume</block>
-  <block id="5ba2aa62f23a406454c266617a909b2c" category="inline-link-macro">_PersistentVolumer_</block>
   <block id="2d63b64b84c821bc810927f7ca7fa993" category="inline-link">_PersistentVolume Claim</block>
-  <block id="327ef40b7c425ffcbf26478a9722fffd" category="paragraph">答 <block ref="a78bebec6640822542673392ee125821" category="inline-link-macro-rx"></block> （ PV ）是叢集管理員在 Kubernetes 叢集上配置的實體儲存資源。。<block ref="b1b93f46fc69df9fe663c091f4d6c2b4" category="inline-link-rx"></block> （ PVC ）是存取叢集上 PersistentVolume 的要求。</block>
   <block id="d948cda211eadd3a86a406b43ee0d5fa" category="paragraph">可將 PVC 設定為要求儲存特定大小或存取模式。叢集管理員可以使用相關的 StorageClass 來控制超過 PersistentVolume 大小和存取模式的權限、例如效能或服務層級。</block>
-  <block id="62372f4a99505a189eb1b891ea0c1dc9" category="paragraph">建立 PV 和 PVC 之後、您可以將磁碟區裝入 Pod 。</block>
   <block id="35e98ba80f6254a33de7a37ab113316e" category="section-title">範例資訊清單</block>
   <block id="3c5f9191f489dbdd8d950bafc3dea6e0" category="example-title">PersistentVolume 範例資訊清單</block>
   <block id="a992ed82e7964281386cdd46c0c21da6" category="paragraph">此範例資訊清單顯示與 StorageClass 相關的 10Gi 基本 PV<block ref="1c62ceba602064183a6346b85fe26c96" prefix=" " category="inline-code"></block>。</block>
   <block id="cdeec5159e0548de993d76d7d1dcc992" category="paragraph">此範例顯示具有 rwo 存取權的基本 PVC 、與命名的 StorageClass 相關聯<block ref="1c62ceba602064183a6346b85fe26c96" prefix=" " category="inline-code"></block>。</block>
   <block id="bb970cb0639998faceb4ab3a67e3f1e3" category="section-title">建立 PV 和 PVC</block>
-  <block id="0305eb03fd924b3f68ccbf10aeced8a6" category="list-text">建立 PV 。</block>
-  <block id="b4acd617ac02334a1b983b6ff960a909" category="list-text">確認 PV 狀態。</block>
   <block id="e1f83bd8f580cc9a48311142d551b3cf" category="list-text">建立 PVC 。</block>
   <block id="150f6f248f009f461b84862124e2b499" category="list-text">確認 PVC 狀態。</block>
   <block id="6a308a8072d1cf8c73629852d7f0b1af" category="list-text">將磁碟區裝入 Pod 。</block>
@@ -4053,7 +4048,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="a2e4c75efdd834198ec30de5256aa938" category="paragraph">您可以使用下列驅動程式、將 Trident 與 Amazon FSX for NetApp ONTAP 整合：</block>
   <block id="b67b129bb636d36f948ca02b68bfa9bc" category="cell">叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。如果您在欄位下方<block ref="ac68bbf921d953d1cfab916cb6120864" prefix=" " category="inline-code"></block>提供、則<block ref="d731d2fecb66f9c4a30253bd316a220f" prefix=" " category="inline-code"></block>不需要提供、<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>因為 Trident 會從 AWS 擷取 SVM<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> 資訊。因此、您必須在 SVM 下提供使用者的認證（例如： vsadmin ）、且使用者必須具有該<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> 角色。</block>
   <block id="52934bc714f29a2f1d7b732705cd3bc3" category="list-text">Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2019的Windows工作節點。Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。</block>
-  <block id="30a9d8494a55cb7eaa673a6f5928c0d4" category="paragraph">設定 Kubernetes StorageClass 物件並建立儲存類別、以指示 Trident 如何配置磁碟區。建立 PersistentVolume （ PV ）和 PersistentVolume Claim （ PVC ）、使用設定的 Kubernetes StorageClass 來要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。</block>
   <block id="456166bed74a8ee84892a1778e8485a7" category="section-title">Trident 屬性</block>
   <block id="0a6a0f274bdb2256373050bb5155f62f" category="paragraph">您可以將 Amazon FSX for NetApp ONTAP 檔案系統與 Trident 整合、以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可配置由 ONTAP 備份的區塊和檔案持續磁碟區。</block>
   <block id="e22cd0725c5dbd58b894af3d4584607c" category="paragraph">使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 支援的區塊和檔案持續性磁碟區。</block>
@@ -5496,4 +5490,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="f79367bddbaecd3962f7c740a1b2178f" category="paragraph"><block ref="b1b93f46fc69df9fe663c091f4d6c2b4" category="inline-link-rx"></block>（ PVC ）是存取叢集上 PersistentVolume 的要求。</block>
   <block id="79a251ee7369fdcdb0847d35254afcf8" category="paragraph">建立 PVC 之後，您可以將磁碟區裝入 Pod 。</block>
   <block id="a305c8fb2137d8a4a767905590079e89" category="section-title">建立 PVC</block>
+  <block id="06034bca671a3028021f1a722aac7b41" category="paragraph">設定 Kubernetes StorageClass 物件並建立儲存類別、以指示 Trident 如何配置磁碟區。建立 PersistentVolume Claim （ PVC ），使用設定的 Kubernetes StorageClass 要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。</block>
+  <block id="5de805965faeb85a54098223ea3a3334" category="paragraph">建立 PVC 之後，您可以將磁碟區裝入 Pod 。</block>
 </blocks>

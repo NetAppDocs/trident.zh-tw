@@ -89,7 +89,7 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 
 
 | 「影像登錄」 | 內部登錄的路徑、格式
-`<registry FQDN>[:port][/subpath]` | `"k8s.gcr.io"`（ Kubernetes 1.19+ ）或 `"quay.io/k8scsi"` 
+`<registry FQDN>[:port][/subpath]` | `"registry.k8s.io"` 
 
 
 | 《kubeletDir | 主機上的kubelet目錄路徑 | `"/var/lib/kubelet"` 

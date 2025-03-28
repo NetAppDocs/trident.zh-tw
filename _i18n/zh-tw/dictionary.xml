@@ -3520,7 +3520,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="9e6197850998001239ecde260b512013" category="cell">用於解除安裝 Trident 的旗標</block>
   <block id="26ed500280b8c0e427f21574b44203cc" category="cell">要使用的 Trident 記錄格式 [text,json]</block>
   <block id="f443d16ba56df1480ca415fae25eaaef" category="cell">要安裝的 Trident 映像</block>
-  <block id="4662575c995271dba7c1693160e0aef1" category="cell"><block ref="fbf82dc80a2eba815f8437f402d17679" prefix="" category="inline-code"></block>（ Kubernetes 1.19+ ）或<block ref="28994d623a492f2e5b2eb3ffbcdd4dd0" prefix=" " category="inline-code"></block></block>
   <block id="26cb458bf42b8de61d4c66da519e7560" category="cell">要刪除以執行 Trident 完整移除的資源清單</block>
   <block id="2c82926c3266fa69b7a6b9b9bf2da929" category="cell"><block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix="" category="inline-code"></block></block>
   <block id="17290457cf887fb0694111a08adc91e7" category="cell">可讓 Trident 準備 Kubernetes 叢集的節點、以使用指定的資料儲存傳輸協定來管理磁碟區。* 目前<block ref="39eea648dab96b0ee6022dabb38bc420" prefix=" " category="inline-code"></block>是唯一支援的值。 *</block>
@@ -5492,4 +5491,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="eba6898a839f426c3106a97f94614eb9" category="list-text">*groupVersionKind* ：（ _required _ ）指定叢集範圍資源的 API 群組，版本及種類。</block>
   <block id="8d8a8010684a930aa7760c829cad4141" category="list-text">*labelSelector * ：（ _Optional_ ）根據叢集範圍的資源標籤來篩選資源。</block>
   <block id="47edbb9e6d6e6e874eb40c274a0e2e0f" category="sidebar">部落格文章</block>
+  <block id="4a5fadb6b0890cea5e8d53c37411aaf0" category="cell"><block ref="bc35d038baf172a19349f289d31fbf9d" prefix="" category="inline-code"></block></block>
 </blocks>

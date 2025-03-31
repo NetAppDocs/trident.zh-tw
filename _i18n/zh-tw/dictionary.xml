@@ -3159,40 +3159,27 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="77f6e3db9b70538186091595d9c8c9e8" category="list-text">EKS 附加元件</block>
   <block id="e477faed39be08642267684bb501d931" category="open-title">管理主控台</block>
   <block id="e8d532dbf6904e2793dbda6fd0d03818" category="list-text">開啟 Amazon EKS 主控台：<block ref="c4765fcd1a0f97cf67c0365ddc45d563" category="inline-link-rx"></block>。</block>
-  <block id="8d1588a59bc508adad8a62ccaaa1c610" category="list-text">在左導覽窗格中、按一下 * 叢集 * 。</block>
-  <block id="32d9b71b3fc3fad1385ba62a9bf6bf46" category="list-text">按一下您要設定 NetApp Trident CSI 附加元件的叢集名稱。</block>
-  <block id="91e45a55d3dd23153429aac3c45c53ae" category="list-text">按一下 * 附加元件 * 、然後按一下 * 取得更多附加元件 * 。</block>
-  <block id="5a378b18f7bf0c4cabc6c655cd2f535e" category="list-text">單擊 * 下一步 * 。</block>
   <block id="cacc1ddf612923b1c73b0a9a76659f42" category="list-text">在 * 設定選取的附加元件 * 設定頁面上、執行下列步驟：</block>
   <block id="149e81257342cd05b0256d010b0b4a37" category="list-text">選擇您要使用的 * 版本 * 。</block>
   <block id="1df543472a35a3acfd632037832987f6" category="list-text">對於 * 選取 IAM 角色 * 、請保留 * 未設定 * 。</block>
-  <block id="e873d41466e1383d951643c07a043d80" category="list-text">展開 * 選用組態設定 * 、遵循 * 附加元件組態架構 * 、並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應採用下列格式：<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>）。如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。</block>
   <block id="dfe4bfc5bd8b8d180411468fbdbb4033" category="list-text">選擇 * 下一步 * 。</block>
   <block id="fbadf292f84bef20d7678936dbe4c4ce" category="list-text">在 * 檢閱及新增 * 頁面上、選擇 * 建立 * 。</block>
   <block id="46bfc11fb8f185d278ea910b0052a317" category="paragraph">附加元件安裝完成後、您會看到已安裝的附加元件。</block>
   <block id="7820fdb5d8b3ebe0c69c86cf8bd2d0cf" category="open-title">AWS CLI</block>
   <block id="375fe5880d846c5b389735de8ae80b0a" category="list-text">建立<block ref="feef18acfb11dc53b7100577c6d640c4" prefix=" " category="inline-code"></block> 檔案：</block>
-  <block id="e907c98f301b06586956529abca9e22c" category="paragraph"><block ref="f9c32cfc7736c461770afa4dd4053bda" prefix="" category="inline-code"></block></block>
   <block id="41c9d4e34cce02a882f325b51fa9d2f4" category="list-text">檢查 FSxN Trident CSI 附加元件的目前版本。以叢集名稱取代<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> 。<block ref="7b5be2809a3021f978155d101cf059cf" prefix=" " category="inline-code"></block></block>
   <block id="52b5830420efb96c3a91beb52bac3b23" category="paragraph">* 輸出範例： *</block>
   <block id="b3f252777a69b110667756babe83a98f" category="inline-link-macro">附加元件</block>
   <block id="25626757a73152ece7fdadb90ede4b7c" category="inline-link-macro">Kubernetes 現場管理</block>
   <block id="751f793ade8de1ed590e0f90ac05d8e1" category="paragraph">如果您移除此<block ref="c23ab3adaec8ca15ff3ffd0971be6152" prefix=" " category="inline-code"></block> 選項、且任何 Amazon EKS 附加元件設定與您現有的設定發生衝突、則更新 Amazon EKS 附加元件會失敗；您會收到錯誤訊息、協助您解決衝突。在指定此選項之前、請確定 Amazon EKS 附加元件不會管理您需要管理的設定、因為這些設定會以此選項覆寫。如需此設定的其他選項的詳細資訊，請參閱 <block ref="aea621f0e078efb8367c5d5e894674cd" category="inline-link-macro-rx"></block>。如需 Amazon EKS Kubernetes 現場管理的詳細資訊、請參閱 <block ref="97bdcfd76d2ff3e4855f6b36ebad236e" category="inline-link-macro-rx"></block>。</block>
   <block id="b0c6845b636be8c810182f985c930fed" category="list-text">打開 Amazon EKS 控制檯<block ref="c4765fcd1a0f97cf67c0365ddc45d563" category="inline-link-rx"></block>。</block>
-  <block id="69bd32cd7d6c3b5f9de30250cec1b478" category="list-text">按一下您要更新 NetApp Trident CSI 附加元件的叢集名稱。</block>
-  <block id="a02487427219ab03773fe3c66fa96556" category="list-text">按一下 * 附加元件 * 索引標籤。</block>
-  <block id="3dca1b912e3d43e2a746fbcde32a6018" category="list-text">按一下*儲存變更*。</block>
   <block id="5f06738a5749e735a4681f5c09e2bafc" category="paragraph">下列範例更新 EKS 附加元件：</block>
   <block id="d8c918c170a0768203b4c2a6218e22bf" category="paragraph">您有兩種移除 Amazon EKS 附加元件的選項：</block>
   <block id="577a7d77fb14f745abf0c5ee04b72879" category="admonition">如果附加元件有相關的 IAM 帳戶、則不會移除 IAM 帳戶。</block>
-  <block id="ae7c26e7d90f669e27bf9a36527336ec" category="list-text">在左導覽窗格中、按一下 * 叢集 * 。</block>
-  <block id="99e7173540f126412137b25a0caaf2d1" category="list-text">按一下您要移除 NetApp Trident CSI 附加元件的叢集名稱。</block>
-  <block id="03b194a23dcb353466fbfb7acff64363" category="list-text">按一下「*移除*」。</block>
   <block id="c8e9b5ea2470965edac225c56a879d07" category="list-text">在 * 移除 NetApp_trident 操作員確認 * 對話方塊中、執行下列步驟：</block>
   <block id="10aba138eb518a0cc15662934a1f6e18" category="list-text">如果您想要 Amazon EKS 停止管理附加元件的設定、請選取 * 保留在叢集 * 上。如果您想要保留叢集上的附加軟體、以便自行管理附加元件的所有設定、請執行此動作。</block>
   <block id="ecca191ac54751ba8120816fbe45777e" category="list-text">輸入 *NetApp_trident － operer* 。</block>
   <block id="bb7c6bde1fc26965ada02923bac65350" category="paragraph">以叢集名稱取代<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> 、然後執行下列命令。</block>
-  <block id="3f0c01bb690234ddb3284c5ce5c26da2" category="paragraph"><block ref="c2f1a783b03bad400b0ebf4321b8a171" prefix="" category="inline-code"></block></block>
   <block id="23e0e5bfdd7b1fef2ab4d932aae742e5" category="doc">設定儲存後端</block>
   <block id="c3e86b30fe8148143701324ae1595af8" category="list-text"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block>：配置的每個 PV 都是其各自 Amazon FSX 中的 LUN （用於 NetApp ONTAP Volume ）。建議用於區塊儲存。</block>
   <block id="3878a0c92e55dbd3cdd9458330c2f1c3" category="list-text"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block>：配置的每個 PV 都是 NetApp ONTAP Volume 的完整 Amazon FSX 。建議用於 NFS 和 SMB 。</block>
@@ -4945,7 +4932,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="b70329a4cd0d7e433e8af087eebce89a" category="list-text">安裝的 Trident 包含 cloudProvider ，可指定「 GCP 」和 cloudIdentity ，以指定新的 GCP 服務帳戶。以下是一個範例。</block>
   <block id="73a8d79444c307e1446b60eb6a9ba8f1" category="paragraph">在設定 AWS EKS 的 Trident 附加元件之前、請確定您具有下列項目：</block>
   <block id="5c48b2cb013af0c5d292d6bc5659074c" category="section-title">使用 CLI 安裝 / 解除安裝 Trident EKS 附加元件</block>
-  <block id="a241de540e9d861e242ac606150f4f07" category="paragraph">下列命令會解除安裝 Trident EKS 附加元件：<block ref="09a3e9c644b219341aa6e2e8a8922e59" prefix=" " category="inline-code"></block></block>
   <block id="1095f7331744c1accf45762c2da50a60" category="paragraph">Trident 簡化了 Kubernetes 中適用於 NetApp ONTAP 儲存管理的 Amazon FSX 、讓開發人員和管理員能夠專注於應用程式部署。</block>
   <block id="aa9c9ff1836c624104eb3a256a7b8b69" category="section-title">透過 helm 安裝 Trident</block>
   <block id="b3dc88ff9246a994ccb2a892f1ad7486" category="list-text">下載 Trident 安裝程式套件</block>
@@ -5190,15 +5176,12 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="bc04665b1c712547a7dcc87033ae7152" category="paragraph">您可以使用下列其中一種方法來安裝 Trident ：</block>
   <block id="a01b2c45a64c7d0c2a2aa3ce418eaa04" category="inline-link-macro">啟用 CSI Volume 的快照功能</block>
   <block id="9adc02aa546c3838bddb73a67ebaa4e2" category="paragraph">如果您想要使用快照功能，請安裝 CSI Snapshot 控制器附加元件。如需詳細資訊、請參閱 <block ref="d2fce68a585fb4c517040885fb7393e9" category="inline-link-macro-rx"></block> 。</block>
-  <block id="6ba41cf97f4e906d09aa6843f1ed9454" category="paragraph">Trident 安裝程式套件包含部署 Trident 營運商和安裝 Trident 所需的一切。從 GitHub 的 Assets 區段下載並擷取最新版本的 Trident 安裝程式。<block ref="e8c87a263e5870f710a0a586ca803df2" prefix=" " category="inline-code"></block><block ref="b58dc755603e4aae34e32d22a572af73" prefix=" " category="inline-code"></block><block ref="1600ccf6988d672a315af82be4e93709" prefix=" " category="inline-code"></block></block>
   <block id="cae9d6c5ad1015a95a7e9dd5e473837a" category="list-text">從 25.02 版開始， Trident 支援自動後端組態。Trident 會在 Trident 安裝後無縫建立後端和儲存類別。要啓用自動後端配置，請<block ref="66203c461b36a2af573149f0aa6164ff" prefix=" " category="inline-code"></block>在安裝過程中添加<block ref="4c65cbb4d2559a68fba50cf196427b85" prefix=" " category="inline-code"></block>參數並指定<block ref="280fa711b12d488436b7cdcbfb2543fc" prefix=" " category="inline-code"></block>，<block ref="ac590318582c1d8275a50180aba8a35c" prefix=" " category="inline-code"></block>。</block>
   <block id="df5baf46554bffd06bf1e8e9ae5e6b52" category="paragraph">下列範例命令會安裝 Trident EKS 附加元件：</block>
   <block id="9149c64ca750a0bdd666354b3bbb7170" category="list-text">在 AWS Marketplace EKS-addons 區段中、選取 * Trident by NetApp * 核取方塊。</block>
   <block id="9c41f50f85f97003fc3d5010449c3a08" category="list-text">安裝 Trident EKS 附加元件。</block>
-  <block id="33a60a0cdf016b1736b4b0ea747bcb0f" category="list-text">按一下 * Trident by NetApp * 、然後按一下 * 編輯 * 。</block>
   <block id="87d54c3153674640af4f36dd72f8953a" category="list-text">在 * Configure Trident by NetApp * 頁面上、執行下列步驟：</block>
   <block id="7d91a8c58620fc2b878600d5ab834bda" category="list-text">* 從叢集完全移除附加軟體 * – NetApp 建議您只有在叢集上沒有任何相關資源的情況下，才從叢集移除 Amazon EKS 附加元件。從命令中移除<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> 選項<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> 以移除附加元件。</block>
-  <block id="8d86b9c4fd938269229a9ccc306de933" category="list-text">單擊 *Add-ons* 選項卡，然後單擊 Trident by NetApp 。 *</block>
   <block id="996d0bc5ff30cfbcef97caeaf2c6b353" category="paragraph">若要建立儲存後端，您需要以 JSON 或 YAML 格式建立組態檔案。檔案需要指定您想要的儲存類型（ NAS 或 SAN ），檔案系統和 SVM ，才能從中取得，以及如何驗證。以下範例說明如何定義 NAS 型儲存設備，以及如何使用 AWS 密碼將認證儲存至您要使用的 SVM ：</block>
   <block id="301909df91f724e7a48b15a1b5d05fa2" category="paragraph">執行下列命令以建立及驗證 Trident 後端組態（ TBC ）：</block>
   <block id="d072ff8aa34f8a629a86f50ed8e738e5" category="list-text">從 yaml 檔案建立 Trident 後端組態（ TBC ），然後執行下列命令：</block>
@@ -5492,4 +5475,18 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="06034bca671a3028021f1a722aac7b41" category="paragraph">設定 Kubernetes StorageClass 物件並建立儲存類別、以指示 Trident 如何配置磁碟區。建立 PersistentVolume Claim （ PVC ），使用設定的 Kubernetes StorageClass 要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。</block>
   <block id="5de805965faeb85a54098223ea3a3334" category="paragraph">建立 PVC 之後，您可以將磁碟區裝入 Pod 。</block>
   <block id="06489d7f99c3b214c8b9a539006a642c" category="list-text">登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.2.</block>
+  <block id="65fec8b0751214bea1821a56ae85cf6b" category="paragraph">Trident 安裝程式套件包含部署 Trident 營運商和安裝 Trident 所需的一切。從 GitHub 的 Assets 區段下載並擷取最新版本的 Trident 安裝程式。</block>
+  <block id="89fb75fa5ae260c326092b78970469ed" category="list-text">在左側導航窗格中，選擇 *Clusters* 。</block>
+  <block id="abdaa0762abc2037a71287c94bceae14" category="list-text">選取您要設定 NetApp Trident CSI 附加元件的叢集名稱。</block>
+  <block id="691da62871e09bf9c944f36b9de07889" category="list-text">選取 * 附加元件 * ，然後選取 * 取得更多附加元件 * 。</block>
+  <block id="e6cd86d61f4639c8a27006c6c29b3e9f" category="list-text">選擇*下一步*。</block>
+  <block id="156546d6235c5f4068fefc5cac8a5068" category="list-text">展開 * 選用組態設定 * ，遵循 * 附加元件組態架構 * ，並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應採用下列格式：<block ref="2830f9a9af39ef8725d6362f632214e1" prefix=" " category="inline-code"></block>）。如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。</block>
+  <block id="ce7f62393ec7cbcc106793e2c9ab41e8" category="list-text">選取您要更新 NetApp Trident CSI 附加元件的叢集名稱。</block>
+  <block id="f90a2b79ab21cae46f34d96bb4501334" category="list-text">選取 * 附加元件 * 索引標籤。</block>
+  <block id="38b15bc2ab2d3588a9a19b123eaec1b5" category="list-text">選取 * Trident by NetApp * ，然後選取 * 編輯 * 。</block>
+  <block id="302ef561e28f7d7cd13d1042cece78e1" category="list-text">選取*儲存變更*。</block>
+  <block id="b7cd6be51eaf277b357ed1c976d66d06" category="list-text">在左導覽窗格中，選取 * 叢集 * 。</block>
+  <block id="1ca28d22337393f531c7c8028230ed76" category="list-text">選取您要移除 NetApp Trident CSI 附加元件的叢集名稱。</block>
+  <block id="85f27397ddcaf9ec996f312d1d89ecf9" category="list-text">選擇 *Add-ons* 標籤，然後選擇 Trident by NetApp * 。 *</block>
+  <block id="6f99fa9b2e1f4893851a8aeb82d171f9" category="list-text">選擇*移除*。</block>
 </blocks>

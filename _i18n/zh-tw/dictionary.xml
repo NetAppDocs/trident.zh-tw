@@ -5017,7 +5017,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="78cd2bf2aaf1655ef471d7da97aa4ef9" category="list-text">Docker 。 IO/NetApp/Trident 自動支援： 25.02</block>
   <block id="b55333d21cb50b1d1d34c529c999482f" category="list-text">registry ． k8s.io/SIG-storage / csi 置備程式： v5.2.0</block>
   <block id="c9341ee9faa017471dec7dabe41bf3e4" category="list-text">登錄 .k8s.io/SIG-storage / csi 附加程式： v4.8.0</block>
-  <block id="8185908867d5a8954eddf078ff1f303e" category="list-text">登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.0.</block>
   <block id="f174408325f6885e97fc18e213950cb7" category="list-text">登錄 .k8s.IO/SIG-storage / csi 快照機： v8.2.0</block>
   <block id="7e8b00e8f801232796015a8859867e55" category="list-text">登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.13.0</block>
   <block id="7abdbff8f015a0a5e1ca6bcf8e7a955c" category="list-text">Docker 。 IO/NetApp/Trident ： 25.02.0 （選用）</block>
@@ -5492,4 +5491,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="a305c8fb2137d8a4a767905590079e89" category="section-title">建立 PVC</block>
   <block id="06034bca671a3028021f1a722aac7b41" category="paragraph">設定 Kubernetes StorageClass 物件並建立儲存類別、以指示 Trident 如何配置磁碟區。建立 PersistentVolume Claim （ PVC ），使用設定的 Kubernetes StorageClass 要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。</block>
   <block id="5de805965faeb85a54098223ea3a3334" category="paragraph">建立 PVC 之後，您可以將磁碟區裝入 Pod 。</block>
+  <block id="06489d7f99c3b214c8b9a539006a642c" category="list-text">登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.2.</block>
 </blocks>

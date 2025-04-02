@@ -24,7 +24,7 @@ summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在
 
 會 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^]將 Trident 識別為該類別所使用的資源配置程式、並指示 Trident 如何資源配置 Volume 。例如：
 
-[listing]
+[source, YAML]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -38,7 +38,7 @@ parameters:
 ----
 若要在 AWS Bottlerocket 上佈建 NFSv3 磁碟區，請將必要的新增 `mountOptions`至儲存類別：
 
-[listing]
+[source, YAML]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -63,21 +63,24 @@ mountOptions:
 .步驟
 . 這是 Kubernetes 物件、請使用 `kubectl` 在Kubernetes中建立。
 +
-[listing]
+[source, console]
 ----
 kubectl create -f storage-class-ontapnas.yaml
 ----
 . 現在您應該會在 Kubernetes 和 Trident 中同時看到 * base-csi* 儲存類別、而 Trident 應該已經在後端上探索到這些集區。
 +
-[listing]
+[source, console]
 ----
 kubectl get sc basic-csi
+----
+
+
+[listing]
+----
 NAME         PROVISIONER             AGE
 basic-csi    csi.trident.netapp.io   15h
 
 ----
-
-
 
 
 == 建立 PVC
@@ -97,7 +100,7 @@ basic-csi    csi.trident.netapp.io   15h
 ====
 此範例資訊清單顯示與 StorageClass 相關的 10Gi 基本 PV `basic-csi`。
 
-[listing]
+[source, YAML]
 ----
 apiVersion: v1
 kind: PersistentVolume
@@ -123,7 +126,7 @@ spec:
 .可存取 RWX 的 PVC
 此範例顯示具有 rwx 存取權的基本 PVC 、與名稱為的 StorageClass 相關聯 `basic-csi`。
 
-[listing]
+[source, YAML]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -140,9 +143,8 @@ spec:
 .採用 NVMe / TCP 的 PVC
 此範例顯示 NVMe / TCP 的基本 PVC ，並提供 rwx 存取，與名稱為的 StorageClass 相關聯 `protection-gold`。
 
-[listing]
+[source, YAML]
 ----
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -163,13 +165,13 @@ storageClassName: protection-gold
 .步驟
 . 建立 PVC 。
 +
-[listing]
+[source, console]
 ----
 kubectl create -f pvc.yaml
 ----
 . 確認 PVC 狀態。
 +
-[listing]
+[source, console]
 ----
 kubectl get pvc
 ----

@@ -37,7 +37,6 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 ** 新增在非正常節點關機案例中強制分離 ONTAP NAS 磁碟區的支援。新的 ONTAP NAS 磁碟區現在將使用由 Trident 管理的每個磁碟區匯出原則。提供升級路徑，讓現有的磁碟區在解除發佈時轉換至新的匯出原則模型，而不會影響作用中的工作負載。
 ** 新增 cloneFromSnapshot 註釋。
 ** 新增跨命名空間磁碟區複製支援。
-** 新增適用於 Amazon FSX for NetApp ONTAP 的 EKS 附加元件和 helm 型安裝的自動後端組態。
 ** 增強的 iSCSI 自我修復掃描修正功能，可透過精確的主機，通道，目標和 LUN ID 來初始化重新掃描。
 ** 增加了對 Kubernetes 1.32 的支援。
 

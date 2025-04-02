@@ -2996,12 +2996,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
 <block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block><block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block><block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block></block>
   <block id="81b346d529f22abdfcb669de82986dfd" category="cell"><block ref="d3ed68f7315b7e72b8d886b2278fcac3" prefix="" category="inline-code"></block></block>
   <block id="c5a638166e3b5bb902803f0060f0d2dd" category="inline-link-macro">建立 AWS Secrets Manager 密碼</block>
-  <block id="ecb727bacb156f2821a56c672a654482" category="cell">指定要儲存在 AWS Secret Manager 中的 FSX SVM 認證。
--<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>：機密的 Amazon 資源名稱（ ARN ）、其中包含 SVM 的認證。
--<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block>：設為<block ref="eb301fdabb7b8996ba898845d5546121" prefix=" " category="inline-code"></block>。
-請參閱 <block ref="e10af1024bf046058eef4c68dff3462a" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
   <block id="484067c59b1fa950e362a90fd416c89e" category="example-title">SMB 磁碟區的儲存類別組態</block>
-  <block id="b43572981f09778bfdb95bfdcb559846" category="example-title">搭配加密管理程式的 AWS FSX for ONTAP 組態</block>
   <block id="fa4eb54eedf6fea69ec183c4e2199a4d" category="paragraph">如需驅動程式詳細資料、請參閱 <block ref="4093b6d0ce8cf414637a02002d2b0376" category="inline-link-macro-rx"></block> 和 <block ref="276422a40a581e9842304216329765d5" category="inline-link-macro-rx"></block>。</block>
   <block id="506c2c0c7f5b70af3df68c45c46f45a7" category="paragraph">例如：</block>
   <block id="400e51795e42b1bfc94a14aeeeacc04a" category="paragraph">使用下列環境變數設定 * 雲端供應商 * 和 * 雲端 IDENTITY * 旗標的值：</block>
@@ -3152,7 +3147,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="f477db05998ad8420119de646e2ff290" category="doc">建立 IAM 角色和 AWS 密碼</block>
   <block id="98c3c9acd444d11890d48438db3c165e" category="paragraph">您可以將 Kubernetes Pod 設定為以 AWS IAM 角色進行驗證、而非提供明確的 AWS 認證、以存取 AWS 資源。</block>
   <block id="3f566b5ded6e7ac8c26dd3c07a2ea056" category="admonition">若要使用 AWS IAM 角色進行驗證、您必須使用 EKS 部署 Kubernetes 叢集。</block>
-  <block id="3a218e8961578d046aa713039445902b" category="section-title">建立 AWS Secret Manager 機密</block>
   <block id="3926fdac6344d565c95f560468946335" category="section-title">建立 IAM 原則</block>
   <block id="78edc229f8df1c5e0840f6469bc28454" category="paragraph">下列範例使用 AWS CLI 建立 IAM 原則：</block>
   <block id="1cabe4f570d3f442a5def398488077df" category="paragraph">以下範例為 EKS 中的服務帳戶建立 IAM 角色：</block>
@@ -3167,7 +3161,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="46bfc11fb8f185d278ea910b0052a317" category="paragraph">附加元件安裝完成後、您會看到已安裝的附加元件。</block>
   <block id="7820fdb5d8b3ebe0c69c86cf8bd2d0cf" category="open-title">AWS CLI</block>
   <block id="375fe5880d846c5b389735de8ae80b0a" category="list-text">建立<block ref="feef18acfb11dc53b7100577c6d640c4" prefix=" " category="inline-code"></block> 檔案：</block>
-  <block id="41c9d4e34cce02a882f325b51fa9d2f4" category="list-text">檢查 FSxN Trident CSI 附加元件的目前版本。以叢集名稱取代<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> 。<block ref="7b5be2809a3021f978155d101cf059cf" prefix=" " category="inline-code"></block></block>
   <block id="52b5830420efb96c3a91beb52bac3b23" category="paragraph">* 輸出範例： *</block>
   <block id="b3f252777a69b110667756babe83a98f" category="inline-link-macro">附加元件</block>
   <block id="25626757a73152ece7fdadb90ede4b7c" category="inline-link-macro">Kubernetes 現場管理</block>
@@ -4031,7 +4024,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="df2f5c3ad0d6cdf07a86704a8dfcef06" category="cell">您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱、或是允許 Trident 建立 SMB 共用的名稱。ONTAP 後端的 Amazon FSX 需要此參數。</block>
   <block id="4f124386f4b1bb06c61bcf1c73aff529" category="cell">要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區或後端的其中一個qosPolicy或adaptiveQosPolicy。搭配 Trident 使用 QoS 原則群組需要 ONTAP 9 8 或更新版本。您應該使用非共用的 QoS 原則群組、並確保個別將原則群組套用至每個成員。共享 QoS 原則群組會強制執行所有工作負載總處理量的上限。</block>
   <block id="e5bbe1a57bb9d1fa8056d28e0a96a518" category="summary">使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 支援的區塊和檔案持續性磁碟區。</block>
-  <block id="2ba63b35a8b311ad9ea0d309f5581560" category="paragraph">以下範例建立 AWS Secret Manager 密碼來儲存 Trident CSI 認證：</block>
   <block id="a2e4c75efdd834198ec30de5256aa938" category="paragraph">您可以使用下列驅動程式、將 Trident 與 Amazon FSX for NetApp ONTAP 整合：</block>
   <block id="b67b129bb636d36f948ca02b68bfa9bc" category="cell">叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。如果您在欄位下方<block ref="ac68bbf921d953d1cfab916cb6120864" prefix=" " category="inline-code"></block>提供、則<block ref="d731d2fecb66f9c4a30253bd316a220f" prefix=" " category="inline-code"></block>不需要提供、<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>因為 Trident 會從 AWS 擷取 SVM<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> 資訊。因此、您必須在 SVM 下提供使用者的認證（例如： vsadmin ）、且使用者必須具有該<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> 角色。</block>
   <block id="52934bc714f29a2f1d7b732705cd3bc3" category="list-text">Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2019的Windows工作節點。Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。</block>
@@ -4731,7 +4723,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">凍結的檔案系統會在適用的情況下解除凍結。</block>
   <block id="1eb6c79d30a4cb086ad406cb25fec350" category="list-text">*resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。</block>
   <block id="3a8f61f44f4f674928f31c4074b024b1" category="list-text">在 * 選取附加元件 * 頁面上，執行下列動作：</block>
-  <block id="85646ef7dba6a54cc509ac3c04e50a92" category="list-text">將附加元件更新至上一個步驟輸出中可用更新所傳回的版本。<block ref="c9de3122a6da67c7226cd55ea4383a86" prefix=" " category="inline-code"></block></block>
   <block id="effa92215c770083617150adc291c130" category="list-text">展開 * 選用組態設定 * ，並視需要修改。</block>
   <block id="fd8585ec0c8ba7001713251f9ab9c69e" category="paragraph">若要將應用程式複製到不同的叢集（執行跨叢集複製），請在來源叢集上建立備份，然後將備份還原到不同的叢集。請確定目的地叢集上已安裝 Trident Protect 。</block>
   <block id="a1f41e52e9ddbd9f87ecd032c237b1c0" category="inline-link-macro">SnapMirror 複寫</block>
@@ -5053,7 +5044,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="87959ecf0c52ae4baca9f7e962286ec1" category="list-text">新增在非正常節點關機案例中強制分離 ONTAP NAS 磁碟區的支援。新的 ONTAP NAS 磁碟區現在將使用由 Trident 管理的每個磁碟區匯出原則。提供升級路徑，讓現有的磁碟區在解除發佈時轉換至新的匯出原則模型，而不會影響作用中的工作負載。</block>
   <block id="09abe7a508b1461d2b42cd082e9680aa" category="list-text">新增 cloneFromSnapshot 註釋。</block>
   <block id="9746cecbe2eafd28277700bbaea79ccf" category="list-text">新增跨命名空間磁碟區複製支援。</block>
-  <block id="3a83ee05c49509f2a8401fa968c9e376" category="list-text">新增適用於 Amazon FSX for NetApp ONTAP 的 EKS 附加元件和 helm 型安裝的自動後端組態。</block>
   <block id="1cd9d07d7ac9faf3b1d1e464094fed79" category="list-text">增強的 iSCSI 自我修復掃描修正功能，可透過精確的主機，通道，目標和 LUN ID 來初始化重新掃描。</block>
   <block id="c2653fd16e9e4da4d4d738616dcb956a" category="list-text">增加了對 Kubernetes 1.32 的支援。</block>
   <block id="2e110255627afe2fff57458d9bb2205b" category="list-text">* OpenShift* ：</block>
@@ -5143,10 +5133,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1264c0dc5af1ae65d165b02064fb48da" category="list-text">請務必建立 IAM 角色和 AWS 密碼，讓 EKS Pod 能夠存取 AWS 資源。有關說明，請參閱<block ref="0243716974e666f2f8c61577b454990b" category="inline-link-macro-rx"></block>。</block>
   <block id="5125c17a3f7aca891b87dc6ad4b9aa93" category="list-text">在 EKS Kubernetes 叢集上，瀏覽至 * 附加元件 * 索引標籤。</block>
   <block id="07a5364a7a995818398d39d8d5f84d64" category="list-text">找到 * NetApp Trident * 並選取 Trident 附加元件的核取方塊，然後按一下 * 下一步 * 。</block>
-  <block id="94db6e26b467faa6132da2c9f0d6c90d" category="list-text">視需要設定任何選用組態設定，然後選取 * 下一步 * 。</block>
-  <block id="67b6ce4e5b9a6ae204cb38f962bd65f0" category="paragraph">遵循 *Add-on 組態架構 * ，並將 *Configuration Value* 一節上的組態值參數設定為您在上一個步驟（步驟 1 ）上建立的角色（值應為下列格式：<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>）。附註：如果您選取衝突解決方法的覆寫，則現有附加元件的一或多個設定可能會被 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。</block>
-  <block id="3f06175234514190c2a0c8c6fefa1831" category="list-text">從 25.02 版開始， Trident 支援自動後端組態。Trident 會在 Trident 安裝後無縫建立後端和儲存類別。若要啟用自動後端組態，請在安裝期間新增<block ref="4c65cbb4d2559a68fba50cf196427b85" prefix=" " category="inline-code"></block>參數並指定<block ref="280fa711b12d488436b7cdcbfb2543fc" prefix=" " category="inline-code"></block>，<block ref="ac590318582c1d8275a50180aba8a35c" prefix=" " category="inline-code"></block>和<block ref="66203c461b36a2af573149f0aa6164ff" prefix=" " category="inline-code"></block>附加元件組態架構<block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix=" " category="inline-code"></block>。</block>
-  <block id="e82bba86014db510d50d59daec274612" category="admonition">若要停用自動後端組態，請升級 Trident 版本，並將 *ontapConfigurable* 設定為 *FALSE* 。</block>
   <block id="7f3424d52d579a5a23fa5102f22de8bd" category="list-text">執行下列命令，確認叢集上已正確安裝 Trident ：</block>
   <block id="5b06ec175e810e88c7f4e485931d2ce9" category="list-text">繼續設定並設定儲存後端。如需相關資訊，請參閱 <block ref="a2c0b79bf795dfa2b95204a4216320db" category="inline-link-macro-rx"></block>。</block>
   <block id="2f3961a883aa613983c8f34a8add7695" category="paragraph-title">使用 CLI 安裝 NetApp Trident EKS 附加元件：</block>
@@ -5155,13 +5141,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="aa8e98bf63904518342c90bd49a9ea9c" category="paragraph">下列命令會解除安裝 Trident EKS 附加元件：</block>
   <block id="e462cafda39f4eb6d1800486fc401348" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 qtree 和 LUN 的最大磁碟區大小，而且此<block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix=" " category="inline-code"></block>選項可讓您自訂每個 FlexVol volume 的最大 qtree 數量</block>
   <block id="e992eb9afeef39efec8f68b68ffade1d" category="paragraph">* 政策 JSON 範例 * ：</block>
-  <block id="c50a016f9361722f5cfab889192cad24" category="paragraph">若要啟用 Amazon FSX 的自動後端組態，請在建立 IAM 原則時，將下列動作新增至<block ref="a8033703e7dc48426bf51c04af48fb6f" prefix=" " category="inline-code"></block>檔案：</block>
-  <block id="8db41584199580c998e63831c7b7a66d" category="list-text"><block ref="c44e6bd54412f490bf6df5970f7bcc23" prefix="" category="inline-code"></block></block>
-  <block id="7c4f7f9ab36d39d11aac68a44d2291b4" category="list-text"><block ref="44d3d293ba4c09cb494677ca72e9d253" prefix="" category="inline-code"></block></block>
-  <block id="44f03358bce3ade0ca83efc8d503d974" category="list-text"><block ref="daf94139665efa5f3436fd4db385434f" prefix="" category="inline-code"></block></block>
-  <block id="c11d8011a966dd817ade0b4ab6af4709" category="list-text"><block ref="d82a83afcfe6c1e0ebf13c98335cb386" prefix="" category="inline-code"></block></block>
-  <block id="ccf89fedab764316795139c848cd4f97" category="list-text"><block ref="f18dd80022fe0e186ec520758bcbf53d" prefix="" category="inline-code"></block></block>
-  <block id="284b7d90907525bafb2dcc4e9247a307" category="paragraph">* 自動後端組態的原則 JSON 檔案範例 * ：</block>
   <block id="086999d9ccd62fcd6326d7d10667c7b0" category="section-title">為服務帳戶建立 IAM 角色</block>
   <block id="54fe765490f6a1e88df34666a34bd7de" category="paragraph">* 信任關係 .json 檔案： *</block>
   <block id="383e53c41c71ed73661ac56b250f6ba3" category="paragraph">更新檔案中的下列值<block ref="d19984a25b3e536a13a6bc3036325ffd" prefix=" " category="inline-code"></block>：</block>
@@ -5171,12 +5150,10 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="069097b4881e6034a743e694f616726d" category="paragraph">建立角色後，請使用以下命令將原則（在上述步驟中建立）附加至角色：</block>
   <block id="02b550dde0cf971ab3461242774691c7" category="paragraph">* 驗證 OICD 提供者是否已關聯 * ：</block>
   <block id="25c5ea267b4be122e562399076209238" category="paragraph">確認您的 OIDC 供應商與您的叢集相關聯。您可以使用下列命令來驗證：</block>
-  <block id="9365ec377c7e2eb01781dd5834c46a2a" category="paragraph">使用下列命令將 IAM OIDC 與叢集建立關聯：</block>
   <block id="7c3f89bd6bb66984ef17d4765bf1f65a" category="open-title">eksctl</block>
   <block id="bc04665b1c712547a7dcc87033ae7152" category="paragraph">您可以使用下列其中一種方法來安裝 Trident ：</block>
   <block id="a01b2c45a64c7d0c2a2aa3ce418eaa04" category="inline-link-macro">啟用 CSI Volume 的快照功能</block>
   <block id="9adc02aa546c3838bddb73a67ebaa4e2" category="paragraph">如果您想要使用快照功能，請安裝 CSI Snapshot 控制器附加元件。如需詳細資訊、請參閱 <block ref="d2fce68a585fb4c517040885fb7393e9" category="inline-link-macro-rx"></block> 。</block>
-  <block id="cae9d6c5ad1015a95a7e9dd5e473837a" category="list-text">從 25.02 版開始， Trident 支援自動後端組態。Trident 會在 Trident 安裝後無縫建立後端和儲存類別。要啓用自動後端配置，請<block ref="66203c461b36a2af573149f0aa6164ff" prefix=" " category="inline-code"></block>在安裝過程中添加<block ref="4c65cbb4d2559a68fba50cf196427b85" prefix=" " category="inline-code"></block>參數並指定<block ref="280fa711b12d488436b7cdcbfb2543fc" prefix=" " category="inline-code"></block>，<block ref="ac590318582c1d8275a50180aba8a35c" prefix=" " category="inline-code"></block>。</block>
   <block id="df5baf46554bffd06bf1e8e9ae5e6b52" category="paragraph">下列範例命令會安裝 Trident EKS 附加元件：</block>
   <block id="9149c64ca750a0bdd666354b3bbb7170" category="list-text">在 AWS Marketplace EKS-addons 區段中、選取 * Trident by NetApp * 核取方塊。</block>
   <block id="9c41f50f85f97003fc3d5010449c3a08" category="list-text">安裝 Trident EKS 附加元件。</block>
@@ -5480,7 +5457,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="abdaa0762abc2037a71287c94bceae14" category="list-text">選取您要設定 NetApp Trident CSI 附加元件的叢集名稱。</block>
   <block id="691da62871e09bf9c944f36b9de07889" category="list-text">選取 * 附加元件 * ，然後選取 * 取得更多附加元件 * 。</block>
   <block id="e6cd86d61f4639c8a27006c6c29b3e9f" category="list-text">選擇*下一步*。</block>
-  <block id="156546d6235c5f4068fefc5cac8a5068" category="list-text">展開 * 選用組態設定 * ，遵循 * 附加元件組態架構 * ，並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應採用下列格式：<block ref="2830f9a9af39ef8725d6362f632214e1" prefix=" " category="inline-code"></block>）。如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。</block>
   <block id="ce7f62393ec7cbcc106793e2c9ab41e8" category="list-text">選取您要更新 NetApp Trident CSI 附加元件的叢集名稱。</block>
   <block id="f90a2b79ab21cae46f34d96bb4501334" category="list-text">選取 * 附加元件 * 索引標籤。</block>
   <block id="38b15bc2ab2d3588a9a19b123eaec1b5" category="list-text">選取 * Trident by NetApp * ，然後選取 * 編輯 * 。</block>
@@ -5489,4 +5465,19 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1ca28d22337393f531c7c8028230ed76" category="list-text">選取您要移除 NetApp Trident CSI 附加元件的叢集名稱。</block>
   <block id="85f27397ddcaf9ec996f312d1d89ecf9" category="list-text">選擇 *Add-ons* 標籤，然後選擇 Trident by NetApp * 。 *</block>
   <block id="6f99fa9b2e1f4893851a8aeb82d171f9" category="list-text">選擇*移除*。</block>
+  <block id="0373fc4984e2029ed2103965e981bac1" category="list-text">遵循 *Add-on 組態架構 * ，並將 *Configuration valus* 一節上的組態值參數設定為您在上一個步驟（步驟 1 ）中建立的角色。</block>
+  <block id="cfed3ac6859ccd53ba18df0d44c294fb" category="paragraph">值應採用以下格式<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>：。</block>
+  <block id="f8c91efdaebc08b292c83903943a18c8" category="admonition">如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。</block>
+  <block id="3b19f031abb1ee1e70a3d19640060ff8" category="cell">指定要儲存在 AWS Secrets Manager 中的 FSX SVM 認證。-<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>：機密的 Amazon 資源名稱（ ARN ）、其中包含 SVM 的認證。-<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block>：設為<block ref="eb301fdabb7b8996ba898845d5546121" prefix=" " category="inline-code"></block>。如需詳細資訊、請參閱 <block ref="e10af1024bf046058eef4c68dff3462a" category="inline-link-macro-rx"></block> 。</block>
+  <block id="f62b661d066f6d5a24622ec3438e051b" category="example-title">搭配 Secrets Manager 的 AWS FSX for ONTAP 組態</block>
+  <block id="88f9965484e8785ad82e1b99cdae3ab3" category="section-title">建立 AWS Secrets Manager 密碼</block>
+  <block id="646ed389b399156cbfb4923c9d8fbf95" category="paragraph">由於 Trident 將針對 FSX Vserver 發行 API ，以便為您管理儲存設備，因此需要認證才能這麼做。傳遞這些認證的安全方法是透過 AWS Secrets Manager 密碼。因此，如果您還沒有，就必須建立 AWS Secrets Manager 密碼，其中包含 vsadmin 帳戶的認證。</block>
+  <block id="360f6e9d45a33dadfdb2b47fa3a32110" category="paragraph">此範例建立 AWS Secrets Manager 密碼來儲存 Trident CSI 認證：</block>
+  <block id="1cb68d4d58173447ddb7517b51d352a9" category="paragraph">Trident 也需要 AWS 權限才能正確執行。因此，您需要建立一個原則，讓 Trident 擁有所需的權限。</block>
+  <block id="556751886154904b0a38315567ccb7ca" category="paragraph">建立原則之後，請在建立將指派給 Trident 將在下列情況下執行的服務帳戶的角色時使用：</block>
+  <block id="49512d524988e02360eaf4f4bb2ad8f3" category="paragraph">如果輸出為空，請使用下列命令將 IAM OIDC 與叢集建立關聯：</block>
+  <block id="0981ca89b033fc9fc2d79b4a4f3cd7d4" category="list-text">遵循 *Add-on 組態架構 * ，並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應採用下列格式：<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>）。如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。</block>
+  <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">取代<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block>前一步驟所建立角色的 ARN 。</block>
+  <block id="44308ffe82692c268b99d3caefca907e" category="list-text">檢查 FSxN Trident CSI 附加元件的目前版本。以叢集名稱取代<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block>。</block>
+  <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">將附加元件更新至上一個步驟輸出中可用更新所傳回的版本。</block>
 </blocks>

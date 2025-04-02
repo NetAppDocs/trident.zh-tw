@@ -110,10 +110,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 `""` 
 
 
-| `credentials` | 指定要儲存在 AWS Secret Manager 中的 FSX SVM 認證。
-- `name`：機密的 Amazon 資源名稱（ ARN ）、其中包含 SVM 的認證。
-- `type`：設為 `awsarn`。
-請參閱 link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["建立 AWS Secrets Manager 密碼"^] 以取得更多資訊。 |  
+| `credentials` | 指定要儲存在 AWS Secrets Manager 中的 FSX SVM 認證。- `name`：機密的 Amazon 資源名稱（ ARN ）、其中包含 SVM 的認證。- `type`：設為 `awsarn`。如需詳細資訊、請參閱 link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["建立 AWS Secrets Manager 密碼"^] 。 |  
 |===
 
 
@@ -121,7 +118,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 
 您可以在初始設定後變更 dataLIF ，方法是執行下列命令，以更新的 dataLIF 提供新的後端 JSON 檔案。
 
-[listing]
+[source, console]
 ----
 tridentctl update backend <backend-name> -f <path-to-backend-json-file-with-updated-dataLIF>
 ----
@@ -183,7 +180,7 @@ NOTE: 如果 PVCS 連接到一個或多個 Pod ，您必須關閉所有對應的
 ====
 使用 `nasType`、 `node-stage-secret-name`和 `node-stage-secret-namespace`、您可以指定SMB磁碟區、並提供所需的Active Directory認證資料。使用支援SMB磁碟區 `ontap-nas` 僅限驅動程式。
 
-[listing]
+[source, console]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -197,10 +194,10 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: "default"
 ----
 ====
-.搭配加密管理程式的 AWS FSX for ONTAP 組態
+.搭配 Secrets Manager 的 AWS FSX for ONTAP 組態
 [%collapsible]
 ====
-[listing]
+[source, console]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig

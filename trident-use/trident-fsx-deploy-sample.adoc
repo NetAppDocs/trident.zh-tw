@@ -17,7 +17,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 .步驟
 . 將磁碟區裝入 Pod 。
 +
-[listing]
+[source, console]
 ----
 kubectl create -f pv-pod.yaml
 ----
@@ -25,7 +25,7 @@ kubectl create -f pv-pod.yaml
 這些範例顯示將 PVC 附加至 Pod 的基本組態： * 基本組態 * ：
 
 +
-[listing]
+[source, console]
 ----
 kind: Pod
 apiVersion: v1
@@ -52,7 +52,7 @@ NOTE: 您可以使用監控進度 `kubectl get pod --watch`。
 
 . 確認磁碟區已掛載到上 `/my/mount/path`。
 +
-[listing]
+[source, console]
 ----
 kubectl exec -it pv-pod -- df -h /my/mount/path
 ----
@@ -65,7 +65,7 @@ Filesystem                                                        Size  Used  Av
 ----
 您現在可以刪除 Pod 。Pod 應用程式將不再存在、但該磁碟區仍會保留。
 
-[listing]
+[source, console]
 ----
 kubectl delete pod pv-pod
 ----

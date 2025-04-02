@@ -21,7 +21,7 @@ summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在
 ====
 .YAML
 --
-[listing]
+[source, YAML]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -42,7 +42,7 @@ spec:
 --
 .JSON
 --
-[listing]
+[source, JSON]
 ----
 {
   "apiVersion": "trident.netapp.io/v1",
@@ -74,7 +74,7 @@ spec:
 
 * 從 yaml 檔案建立 Trident 後端組態（ TBC ），然後執行下列命令：
 +
-[listing]
+[source, console]
 ----
 kubectl create -f backendconfig.yaml -n trident
 ----
@@ -85,7 +85,7 @@ tridentbackendconfig.trident.netapp.io/backend-tbc-ontap-nas created
 ----
 * 驗證已成功建立 Trident 後端組態（ TBC ）：
 +
-[listing]
+[source, console]
 ----
 Kubectl get tbc -n trident
 ----
@@ -115,13 +115,13 @@ backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d91
 
 建立組態檔案後，請執行此命令，在 EKS 中建立：
 
-[listing]
+[source, console]
 ----
 kubectl create -f configuration_file
 ----
 若要驗證狀態，請執行此命令：
 
-[listing]
+[source, console]
 ----
 kubectl get tbc -n trident
 ----
@@ -226,10 +226,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 `""` 
 
 
-| `credentials` | 指定要儲存在 AWS Secret Manager 中的 FSX SVM 認證。
-- `name`：機密的 Amazon 資源名稱（ ARN ）、其中包含 SVM 的認證。
-- `type`：設為 `awsarn`。
-請參閱 link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["建立 AWS Secrets Manager 密碼"^] 以取得更多資訊。 |  
+| `credentials` | 指定要儲存在 AWS Secrets Manager 中的 FSX SVM 認證。- `name`：機密的 Amazon 資源名稱（ ARN ）、其中包含 SVM 的認證。- `type`：設為 `awsarn`。如需詳細資訊、請參閱 link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["建立 AWS Secrets Manager 密碼"^] 。 |  
 |===
 
 
@@ -289,7 +286,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 * Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2019的Windows工作節點。Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。
 * 至少有一個 Trident 機密包含您的 Active Directory 認證。產生機密 `smbcreds`：
 +
-[listing]
+[source, console]
 ----
 kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
 ----
@@ -305,13 +302,13 @@ kubectl create secret generic smbcreds --from-literal username=user --from-liter
 
 .. 建立與指定SVM相關的SMB共用區：
 +
-[listing]
+[source, console]
 ----
 vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
 ----
 .. 確認共用區已建立：
 +
-[listing]
+[source, console]
 ----
 vserver cifs share show -share-name share_name
 ----

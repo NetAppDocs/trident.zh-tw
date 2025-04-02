@@ -65,24 +65,6 @@ NAME                NAMESPACE   REVISION    UPDATED                             
 
 trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT    deployed     trident-operator-100.2502.0    25.02.0
 ----
-+
-** 從 25.02 版開始， Trident 支援自動後端組態。Trident 會在 Trident 安裝後無縫建立後端和儲存類別。要啓用自動後端配置，請 `protocols`在安裝過程中添加 `ontapConfigurator`參數並指定 `authType`， `fsxnID`。
-+
-[source, console]
-----
-helm install trident trident-operator-100.2502.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI --namespace trident \
---set ontapConfigurator.enabled=true \
---set ontapConfigurator.svms[0].fsxnID="fs-0dfeaa884a68b1cab" \
---set ontapConfigurator.svms[0].protocols[0]=iscsi \
---set ontapConfigurator.svms[0].protocols[1]=nfs \
---set ontapConfigurator.svms[0].authType="awsarn"
-----
-+
-
-NOTE: 若要停用自動後端組態，請升級 Trident 版本，並將 *ontapConfigurable* 設定為 *FALSE* 。
-
-
-
 
 
 
@@ -139,7 +121,7 @@ eksctl create addon --name netapp_trident-operator --cluster <cluster_name> \
 +
 .. 選擇您要使用的 * 版本 * 。
 .. 對於 * 選取 IAM 角色 * 、請保留 * 未設定 * 。
-.. 展開 * 選用組態設定 * ，遵循 * 附加元件組態架構 * ，並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應採用下列格式： `'eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole'`）。如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。
+.. 遵循 *Add-on 組態架構 * ，並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應採用下列格式： `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`）。如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。
 
 
 . 選擇 * 下一步 * 。
@@ -154,52 +136,22 @@ eksctl create addon --name netapp_trident-operator --cluster <cluster_name> \
 --
 . 建立 `add-on.json` 檔案：
 +
-[source, json]
+[source, JSON]
 ----
 {
   "clusterName": "<eks-cluster>",
   "addonName": "netapp_trident-operator",
   "addonVersion": "v24.10.0-eksbuild.1",
-  "serviceAccountRoleArn": "<arn:aws:iam::123456:role/astratrident-role>",
+  "serviceAccountRoleArn": "<role ARN>",
   "configurationValues": {
-    "cloudIdentity": "'eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole'",
+    "cloudIdentity": "'cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
     "cloudProvider": "AWS"
   }
 }
 ----
 +
-** 從 25.02 版開始， Trident 支援自動後端組態。Trident 會在 Trident 安裝後無縫建立後端和儲存類別。要啓用自動後端配置，請 `protocols`在安裝過程中添加 `ontapConfigurator`參數並指定 `authType`， `fsxnID`。
-+
-[source, json]
-----
-{
-  "clusterName": "<eks-cluster>",
-  "addonName": "netapp_trident-operator",
-  "addonVersion": "v24.10.0-eksbuild.1",
-  "serviceAccountRoleArn": "arn:aws:iam::123456:role/astratrident-role",
-  "configurationValues": {
-    "cloudIdentity": "'eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole'",
-    "ontapConfigurator": {
-      "enabled": true,
-      "svms": [
-        {
-          "authType": "awsarn",
-          "fsxnID": "fs-0dfeaa884a68b1cab",
-          "protocols": [
-            "nfs",
-            "iscsi"
-          ]
-        }
-      ]
-    }
-  }
-}
-----
-+
 
-NOTE: 若要停用自動後端組態，請升級 Trident 版本，並將 *ontapConfigurable* 設定為 *FALSE* 。
-
-
+NOTE: 取代 `<role ARN>`前一步驟所建立角色的 ARN 。
 
 . 安裝 Trident EKS 附加元件。
 +
@@ -219,8 +171,12 @@ aws eks create-addon --cli-input-json file://add-on.json
 ====
 .eksctl
 --
-* 檢查 FSxN Trident CSI 附加元件的目前版本。以叢集名稱取代 `my-cluster` 。
-`eksctl get addon --name netapp_trident-operator --cluster my-cluster`
+* 檢查 FSxN Trident CSI 附加元件的目前版本。以叢集名稱取代 `my-cluster`。
++
+[source, console]
+----
+eksctl get addon --name netapp_trident-operator --cluster my-cluster
+----
 +
 * 輸出範例： *
 
@@ -232,11 +188,14 @@ NAME                        VERSION             STATUS    ISSUES    IAMROLE    U
 netapp_trident-operator    v24.10.0-eksbuild.1    ACTIVE    0       {"cloudIdentity":"'eks.amazonaws.com/role-arn: arn:aws:iam::139763910815:role/AmazonEKS_FSXN_CSI_DriverRole'"}
 ----
 * 將附加元件更新至上一個步驟輸出中可用更新所傳回的版本。
-`eksctl update addon --name netapp_trident-operator --version v24.10.0-eksbuild.1 --cluster my-cluster --force`
 +
+[source, console]
+----
+eksctl update addon --name netapp_trident-operator --version v24.10.0-eksbuild.1 --cluster my-cluster --force
+----
+
+
 如果您移除此 `--force` 選項、且任何 Amazon EKS 附加元件設定與您現有的設定發生衝突、則更新 Amazon EKS 附加元件會失敗；您會收到錯誤訊息、協助您解決衝突。在指定此選項之前、請確定 Amazon EKS 附加元件不會管理您需要管理的設定、因為這些設定會以此選項覆寫。如需此設定的其他選項的詳細資訊，請參閱 link:https://eksctl.io/usage/addons/["附加元件"]。如需 Amazon EKS Kubernetes 現場管理的詳細資訊、請參閱 link:https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-field-management.html["Kubernetes 現場管理"]。
-
-
 
 --
 .管理主控台
@@ -262,8 +221,8 @@ netapp_trident-operator    v24.10.0-eksbuild.1    ACTIVE    0       {"cloudIdent
 
 [source, console]
 ----
-aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.6.1-eksbuild.1 \
---service-account-role-arn arn:aws:iam::111122223333:role/role-name --configuration-values '{}' --resolve-conflicts --preserve
+aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.10.0-eksbuild.1 \
+    --service-account-role-arn <role-ARN> --configuration-values '{}' --resolve-conflicts --preserve
 ----
 --
 ====

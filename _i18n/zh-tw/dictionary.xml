@@ -5480,4 +5480,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">取代<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block>前一步驟所建立角色的 ARN 。</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">檢查 FSxN Trident CSI 附加元件的目前版本。以叢集名稱取代<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block>。</block>
   <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">將附加元件更新至上一個步驟輸出中可用更新所傳回的版本。</block>
+  <block id="0ca34892a0e67f37b07d196ec272007d" category="list-text">NetApp 不建議在所有 ONTAP 驅動程式中使用 FlexVol 自動擴充， ONTAP SAN 除外。作為因應措施， Trident 支援使用快照保留，並據此擴充 FlexVol 磁碟區。</block>
 </blocks>

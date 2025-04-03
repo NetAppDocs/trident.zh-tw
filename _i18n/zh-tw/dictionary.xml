@@ -4080,7 +4080,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="39e92ae6d270535c1cad298373650560" category="list-text">Trident 無法防止目的地命名空間寫入共用磁碟區。您應該使用檔案鎖定或其他程序來防止覆寫共用Volume資料。</block>
   <block id="b709b82e3d76fa5433fd3117387424b7" category="paragraph-title">SCSI over FC 工具</block>
   <block id="867cf4bbcb92ecc7017612aafa765813" category="inline-link-macro">設定 FC 擴大機、 FC-NVMe SAN 主機的方法</block>
-  <block id="fb42223c0808d27492a06be4e773dc26" category="paragraph">如需詳細資訊、請參閱 <block ref="ee9d56c9130a1d3814c95b35eb7c82a4" category="inline-link-macro-rx"></block> 。</block>
   <block id="16649adc62ed952ba4dac811c548cbfb" category="paragraph">Trident 會嘗試自動偵測節點是否可以執行 iSCSI 或 NFS 服務。</block>
   <block id="ff577472362d5ec5388791cc868e283e" category="paragraph">Trident 會為節點建立事件、以識別探索到的服務。若要檢閱這些事件、請執行：</block>
   <block id="e0dbb340725a054b795eaa2c5ce9925a" category="paragraph">Trident 會識別 Trident 節點 CR 上每個節點啟用的服務。若要檢視探索到的服務、請執行：</block>
@@ -5481,4 +5480,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">檢查 FSxN Trident CSI 附加元件的目前版本。以叢集名稱取代<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block>。</block>
   <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">將附加元件更新至上一個步驟輸出中可用更新所傳回的版本。</block>
   <block id="0ca34892a0e67f37b07d196ec272007d" category="list-text">NetApp 不建議在所有 ONTAP 驅動程式中使用 FlexVol 自動擴充， ONTAP SAN 除外。作為因應措施， Trident 支援使用快照保留，並據此擴充 FlexVol 磁碟區。</block>
+  <block id="67ed8fb72dc668ae9c7c1114df8f02ed" category="paragraph">請參閱<block ref="ee9d56c9130a1d3814c95b35eb7c82a4" category="inline-link-macro-rx"></block>如需設定 FC 和 FC-NVMe SAN 主機的詳細資訊，。</block>
+  <block id="1b9fede0aad66dda6d8b01b66280fff4" category="paragraph">* 要考慮的要點 * ： * OpenShift 和 KubeVirt 環境支援 SCSI over FC 。* Docker 不支援 SCSI over FC 。* iSCSI 自我修復不適用於 FC 上的 SCSI 。</block>
+  <block id="5e6c49c79d451ce5d17472c430c69454" category="admonition">確保<block ref="dd5ff67ba72768d33f75e645aa2b8e56" prefix=" " category="inline-code"></block>包含<block ref="2a81b35478c9ccb4f9392dcc40edb8e6" prefix=" " category="inline-code"></block>在<block ref="a4a918a45181164207929d52aec36aec" prefix=" " category="inline-code"></block>中。</block>
 </blocks>

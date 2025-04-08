@@ -15,6 +15,9 @@ summary: 請使用此處提供的指標來疑難排解您在安裝和使用 Trid
 請使用此處提供的指標來疑難排解您在安裝和使用 Trident 時可能遇到的問題。
 
 
+NOTE: 如需 Trident 的說明，請使用建立支援服務組合 `tridentctl logs -a -n trident`，並將其傳送至 NetApp 支援部門。
+
+
 
 == 一般疑難排解
 

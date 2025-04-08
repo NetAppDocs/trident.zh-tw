@@ -5483,4 +5483,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="67ed8fb72dc668ae9c7c1114df8f02ed" category="paragraph">請參閱<block ref="ee9d56c9130a1d3814c95b35eb7c82a4" category="inline-link-macro-rx"></block>如需設定 FC 和 FC-NVMe SAN 主機的詳細資訊，。</block>
   <block id="1b9fede0aad66dda6d8b01b66280fff4" category="paragraph">* 要考慮的要點 * ： * OpenShift 和 KubeVirt 環境支援 SCSI over FC 。* Docker 不支援 SCSI over FC 。* iSCSI 自我修復不適用於 FC 上的 SCSI 。</block>
   <block id="5e6c49c79d451ce5d17472c430c69454" category="admonition">確保<block ref="dd5ff67ba72768d33f75e645aa2b8e56" prefix=" " category="inline-code"></block>包含<block ref="2a81b35478c9ccb4f9392dcc40edb8e6" prefix=" " category="inline-code"></block>在<block ref="a4a918a45181164207929d52aec36aec" prefix=" " category="inline-code"></block>中。</block>
+  <block id="ce3d3f85c4d1d4dd7826863d9428b4e5" category="admonition">如需 Trident 的說明，請使用建立支援服務組合<block ref="1d41e2024c69110ad6054ffc785ca8e0" prefix=" " category="inline-code"></block>，並將其傳送至 NetApp 支援部門。</block>
 </blocks>

@@ -5417,7 +5417,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">新增對 KubeVirt / OpenShift 虛擬化 VM 的備份與還原支援，可同時用於兩個 Volume 模式：檔案與 Volume （ Volume ）：區塊（原始裝置）儲存設備。這項支援可與所有 Trident 驅動程式相容，並可在使用 NetApp SnapMirror with Trident Protect 複寫儲存設備時強化現有的保護功能。</block>
   <block id="fc1d748db1b5b488ce7af7d17ea15d55" category="inline-link-macro">軟體版本支援</block>
   <block id="ee19283e867cf4e5840d2811a74b89e5" category="list-text">內部部署 FAS ， AFF 或 ASA R2 叢集版本，受 NetApp 有限支援。請參閱。 <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block></block>
-  <block id="8456fc955091af12a31da6fc68123005" category="list-text">您可以將 NVE 加密平放設定為<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block>建立啟用 NAE 的磁碟區。</block>
   <block id="1906137ea73af1894fec1becb00e0aee" category="summary">您可以找到一些很棒的 NetApp Trident and Trident Protect 部落格。</block>
   <block id="0db80d8cadbd011f12ade006191e47b0" category="doc">Trident 和 Trident Protect 部落格</block>
   <block id="c5497cf98d8e6141ba38e1421502c2d4" category="paragraph">您可以在這裡找到一些很棒的 NetApp Trident and Trident Protect 部落格：</block>
@@ -5484,4 +5483,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1b9fede0aad66dda6d8b01b66280fff4" category="paragraph">* 要考慮的要點 * ： * OpenShift 和 KubeVirt 環境支援 SCSI over FC 。* Docker 不支援 SCSI over FC 。* iSCSI 自我修復不適用於 FC 上的 SCSI 。</block>
   <block id="5e6c49c79d451ce5d17472c430c69454" category="admonition">確保<block ref="dd5ff67ba72768d33f75e645aa2b8e56" prefix=" " category="inline-code"></block>包含<block ref="2a81b35478c9ccb4f9392dcc40edb8e6" prefix=" " category="inline-code"></block>在<block ref="a4a918a45181164207929d52aec36aec" prefix=" " category="inline-code"></block>中。</block>
   <block id="ce3d3f85c4d1d4dd7826863d9428b4e5" category="admonition">如需 Trident 的說明，請使用建立支援服務組合<block ref="1d41e2024c69110ad6054ffc785ca8e0" prefix=" " category="inline-code"></block>，並將其傳送至 NetApp 支援部門。</block>
+  <block id="8ef3114bf1395e8f04d7b3404982499e" category="list-text">您可以將 NVE 加密旗標設定為<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block>建立啟用 NAE 的磁碟區。</block>
 </blocks>

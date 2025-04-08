@@ -47,7 +47,7 @@ NetApp ONTAP 支援閒置資料加密、可在磁碟遭竊、退回或重新使�
 
 * 如果在後端上啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。
 +
-** 您可以將 NVE 加密平放設定為 `""`建立啟用 NAE 的磁碟區。
+** 您可以將 NVE 加密旗標設定為 `""`建立啟用 NAE 的磁碟區。
 
 
 * 如果後端未啟用 NAE 、除非您在後端組態中將 NVE 加密旗標設為、否則在 Trident 中配置的任何 Volume 都將啟用 NVE `false` 。

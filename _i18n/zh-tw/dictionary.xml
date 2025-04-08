@@ -3730,7 +3730,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="99dfe9c8c9bd791b7382d67a440c38be" category="admonition">由 Trident 建立的磁碟區不會與任何 Volume 存取群組相關聯。</block>
   <block id="9559c7656e8a28d235478856aa8e44ce" category="section-title">搭配 NVE 和 NAE 使用 Trident</block>
   <block id="4a8deb2ba46901e5599a8d9ca85ca254" category="list-text">如果在後端上啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。</block>
-  <block id="d5f759159257a070d8477e8942ab337a" category="list-text">如果後端未啟用 NAE 、除非您在後端組態中將 NVE 加密旗標設為、否則在 Trident 中配置的任何 Volume 都將啟用 NVE<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> 。</block>
   <block id="6fd5fcab13431f04cede0c124a46282a" category="paragraph">在啟用 NAE 的後端 Trident 中建立的磁碟區必須加密 NVE 或 NAE 。</block>
   <block id="18eea8a0000e827a336c57c06568e4d5" category="list-text">在啟用 NAE 的後端上、將 NVE 加密旗標設定為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>會建立啟用 NAE 的 Volume 。您無法透過將 NVE 加密旗標設定為來停用 NAE 加密<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>。</block>
   <block id="9feef6eaebf84b29639dd7c179735c8c" category="list-text">您可以在 Trident 中手動建立 NVE Volume 、方法是將 NVE 加密旗標明確設定為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>。</block>
@@ -5484,4 +5483,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="5e6c49c79d451ce5d17472c430c69454" category="admonition">確保<block ref="dd5ff67ba72768d33f75e645aa2b8e56" prefix=" " category="inline-code"></block>包含<block ref="2a81b35478c9ccb4f9392dcc40edb8e6" prefix=" " category="inline-code"></block>在<block ref="a4a918a45181164207929d52aec36aec" prefix=" " category="inline-code"></block>中。</block>
   <block id="ce3d3f85c4d1d4dd7826863d9428b4e5" category="admonition">如需 Trident 的說明，請使用建立支援服務組合<block ref="1d41e2024c69110ad6054ffc785ca8e0" prefix=" " category="inline-code"></block>，並將其傳送至 NetApp 支援部門。</block>
   <block id="8ef3114bf1395e8f04d7b3404982499e" category="list-text">您可以將 NVE 加密旗標設定為<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block>建立啟用 NAE 的磁碟區。</block>
+  <block id="351e2b20bd9ea864b69cd832f3a4a5df" category="list-text">如果後端未啟用 NAE ，則除非在後端組態中將 NVE 加密旗標設為（預設值），否則在 Trident 中配置的任何 Volume 都將啟用 NVE<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> 。</block>
 </blocks>

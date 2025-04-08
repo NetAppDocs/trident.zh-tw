@@ -5243,7 +5243,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="dd298b4e9bfcd54db2048c92819679ad" category="section-title">還原大型檔案的還原還原備份可能會失敗</block>
   <block id="beca1b1ae9141eb4cf9a371088911e0f" category="paragraph">從使用 Restic 建立的 Amazon S3 備份還原 30GB 或更大的檔案時，還原作業可能會失敗。因應措施是使用 Kopia 做為資料移動器來備份資料（ Kopia 是備份的預設資料移動器）。請參閱<block ref="1e108e5c10b0ba51ea4cfaf507765efb" category="inline-link-rx"></block> 以取得指示。</block>
   <block id="7fc5875d06887df5109a87a0ada90eca" category="section-title">設定 AppVault 驗證和密碼</block>
-  <block id="27d0259b1ba2ddf3e1540b7e284626ca" category="paragraph">在建立 AppVault 物件之前，您必須確保 AppVault 和您選擇的資料移動器可以向提供者和任何相關資源進行驗證。</block>
   <block id="8e2c4d33f50c044b257a84cd65ff1c79" category="section-title">資料移動器儲存庫密碼</block>
   <block id="12ae6793b05f84758a85b289757c4f34" category="list-text">使用 Trident Protect CLI 建立 AppVault 物件時，您可以使用<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>引數來指定機密。</block>
   <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">建立資料移動者儲存庫密碼機密</block>
@@ -5484,4 +5483,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="ce3d3f85c4d1d4dd7826863d9428b4e5" category="admonition">如需 Trident 的說明，請使用建立支援服務組合<block ref="1d41e2024c69110ad6054ffc785ca8e0" prefix=" " category="inline-code"></block>，並將其傳送至 NetApp 支援部門。</block>
   <block id="8ef3114bf1395e8f04d7b3404982499e" category="list-text">您可以將 NVE 加密旗標設定為<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block>建立啟用 NAE 的磁碟區。</block>
   <block id="351e2b20bd9ea864b69cd832f3a4a5df" category="list-text">如果後端未啟用 NAE ，則除非在後端組態中將 NVE 加密旗標設為（預設值），否則在 Trident 中配置的任何 Volume 都將啟用 NVE<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> 。</block>
+  <block id="39fb9551310e8e28d64d0e2b94913f7a" category="paragraph">在應用程式上執行資料保護作業時，您需要手動或使用命令列來建立 AppVault CR ，而 AppVault CR 必須位於安裝 Trident Protect 的叢集上。AppVault CR 專屬於您的環境，您可以在建立 AppVault CRS 時，參考本頁面上的範例。</block>
+  <block id="8b70987187655cedeb971520a2170b2d" category="paragraph">在建立 AppVault CR 之前，您必須確保 AppVault 和您選擇的資料移動器可以向提供者和任何相關資源進行驗證。</block>
 </blocks>

@@ -5485,4 +5485,13 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="351e2b20bd9ea864b69cd832f3a4a5df" category="list-text">如果後端未啟用 NAE ，則除非在後端組態中將 NVE 加密旗標設為（預設值），否則在 Trident 中配置的任何 Volume 都將啟用 NVE<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> 。</block>
   <block id="39fb9551310e8e28d64d0e2b94913f7a" category="paragraph">在應用程式上執行資料保護作業時，您需要手動或使用命令列來建立 AppVault CR ，而 AppVault CR 必須位於安裝 Trident Protect 的叢集上。AppVault CR 專屬於您的環境，您可以在建立 AppVault CRS 時，參考本頁面上的範例。</block>
   <block id="8b70987187655cedeb971520a2170b2d" category="paragraph">在建立 AppVault CR 之前，您必須確保 AppVault 和您選擇的資料移動器可以向提供者和任何相關資源進行驗證。</block>
+  <block id="329e129e6c733f5d2b0f685c631d5254" category="list-text">*metadata.annotations.protect.trident.netapp.io/full-backup-rule* ：（ _Optional_ ）此註釋用於指定備份是否應為非遞增備份。依預設，所有備份都是遞增備份。不過，如果此註釋設為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>，則備份將變成非遞增備份。如果未指定，則備份會遵循預設的遞增備份設定。最佳做法是定期執行完整備份，然後在完整備份之間執行遞增備份，以將與還原相關的風險降至最低。</block>
+  <block id="93b1107cde6ba041513cd9ccf7b4bae0" category="paragraph">您可以選擇性地使用<block ref="53f5240b338c91a0568f15e2562a35de" prefix=" " category="inline-code"></block>旗標來指定備份是否應為非遞增備份。依預設，所有備份都是遞增備份。使用此旗標時，備份會變成非遞增備份。最佳做法是定期執行完整備份，然後在完整備份之間執行遞增備份，以將與還原相關的風險降至最低。</block>
+  <block id="99cd57e28c97c0577c8e6d701de91b88" category="section-title">建立備份排程</block>
+  <block id="46773fe21c0cf6451e8de9f6a18da51f" category="paragraph">您可以排程非增量完整備份。依預設，所有備份都是遞增備份。定期執行完整備份，並在其間進行增量備份，有助於降低與還原相關的風險。</block>
+  <block id="2c26e9a03dd91b6eafe57094f8245ad8" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="cb18a3ae8903eb525dd256cfa3d4576e" prefix=" " category="inline-code"></block>。</block>
+  <block id="1770a13eba6600496a86d2f1cf357813" category="list-text">* metadata.annotations.protect.trident.netapp.io/full-backup-rule*: （ _Optional_ ）此註釋用於指定排程完整備份的規則。您可以將其設定為<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>持續完整備份，或根據您的需求自訂。例如，如果您選擇每日精細度，則可以指定應在星期一進行完整備份。</block>
+  <block id="9355f48a9876fcaefe0351294df4e05c" category="list-text">在您以正確的值填入檔案之後<block ref="cb18a3ae8903eb525dd256cfa3d4576e" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
+  <block id="1bd9850ddb901f0e741293ec737c5de6" category="list-text">建立備份排程，以環境資訊取代方括號中的值。例如：</block>
+  <block id="ab5807fb06fd654f730a4ed5a02bb950" category="paragraph">您可以將旗標設定<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block>為持續完整備份，或根據需求自訂旗標<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>。例如，如果您選擇每日精細度，則可以指定應在星期一進行完整備份。例如，使用<block ref="d416cce9d6bcb838c8958b9fbb84dffa" prefix=" " category="inline-code"></block>排程在週一和週四進行完整備份。</block>
 </blocks>

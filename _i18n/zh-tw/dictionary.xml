@@ -3142,7 +3142,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="b9a641d903e611a87a5e68ac7fdb0b84" category="list-text">Trident AutoSupport 無法收集或傳輸個人識別資訊（PII）或個人資訊。隨附<block ref="173a360b412944768c2ab13e6c8fd1c7" category="inline-link-rx"></block> 不適用於 Trident 容器映像本身的。您可以深入瞭解 NetApp 對資料安全與信任的承諾<block ref="d3cc55401bc8303e01c6b0c43ba0733f" category="inline-link-rx"></block>。</block>
   <block id="5ff83dbc70e496ea22b38ea61bb69f05" category="list-text">觀看上的示範 <block ref="c27441bbbe62adf51ae6ecec41fde8bd" category="inline-link-macro-rx"></block>。</block>
   <block id="533a7baf9026dddae6baef47ea605b08" category="doc">部署範例應用程式</block>
-  <block id="fae865e1123e24de7eca1790ec73dc32" category="paragraph">部署範例應用程式。</block>
   <block id="c09ee63e688125cf9517a66bb5a0a5a6" category="paragraph">這些範例顯示將 PVC 附加至 Pod 的基本組態： * 基本組態 * ：</block>
   <block id="f477db05998ad8420119de646e2ff290" category="doc">建立 IAM 角色和 AWS 密碼</block>
   <block id="98c3c9acd444d11890d48438db3c165e" category="paragraph">您可以將 Kubernetes Pod 設定為以 AWS IAM 角色進行驗證、而非提供明確的 AWS 認證、以存取 AWS 資源。</block>
@@ -5494,4 +5493,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="9355f48a9876fcaefe0351294df4e05c" category="list-text">在您以正確的值填入檔案之後<block ref="cb18a3ae8903eb525dd256cfa3d4576e" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="1bd9850ddb901f0e741293ec737c5de6" category="list-text">建立備份排程，以環境資訊取代方括號中的值。例如：</block>
   <block id="ab5807fb06fd654f730a4ed5a02bb950" category="paragraph">您可以將旗標設定<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block>為持續完整備份，或根據需求自訂旗標<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>。例如，如果您選擇每日精細度，則可以指定應在星期一進行完整備份。例如，使用<block ref="d416cce9d6bcb838c8958b9fbb84dffa" prefix=" " category="inline-code"></block>排程在週一和週四進行完整備份。</block>
+  <block id="a346cffc17b34fc56f3020d8b33d30c3" category="paragraph">建立儲存類別和 PVC 時，您可以將 PV 掛載到 Pod 。本節列出範例命令和組態，以將 PV 附加至 Pod 。</block>
 </blocks>

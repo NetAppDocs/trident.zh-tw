@@ -12,7 +12,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 
 
 [role="lead"]
-部署範例應用程式。
+建立儲存類別和 PVC 時，您可以將 PV 掛載到 Pod 。本節列出範例命令和組態，以將 PV 附加至 Pod 。
 
 .步驟
 . 將磁碟區裝入 Pod 。

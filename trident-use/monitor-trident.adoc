@@ -46,7 +46,7 @@ NOTE: 根據預設、Trident的指標會顯示在「/度量」端點的目標連
 
 若要使用Trident指標、您應該建立Prometheus ServiceMonitor、以監控「Trident - csi」服務、並在「metrics」連接埠上聆聽。ServiceMonitor範例如下所示：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -54,7 +54,7 @@ metadata:
   name: trident-sm
   namespace: monitoring
   labels:
-      release: prom-operator
+    release: prom-operator
 spec:
   jobLabel: trident
   selector:
@@ -62,10 +62,10 @@ spec:
       app: controller.csi.trident.netapp.io
   namespaceSelector:
     matchNames:
-    - trident
+      - trident
   endpoints:
-  - port: metrics
-    interval: 15s
+    - port: metrics
+      interval: 15s
 ----
 此 ServiceMonitor 定義會擷取服務傳回的度量 `trident-csi`、並特別尋找 `metrics`服務的端點。因此、 Prometheus 現在已設定為瞭解 Trident 的指標。
 
@@ -151,24 +151,23 @@ kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes * 100
 
 Trident 傳送的有效負載範例如下：
 
-[listing]
+[source, yaml]
 ----
 ---
 items:
-- backendUUID: ff3852e1-18a5-4df4-b2d3-f59f829627ed
-  protocol: file
-  config:
-    version: 1
-    storageDriverName: ontap-nas
-    debug: false
-    debugTraceFlags:
-    disableDelete: false
-    serialNumbers:
-    - nwkvzfanek_SN
-    limitVolumeSize: ''
-  state: online
-  online: true
-
+  - backendUUID: ff3852e1-18a5-4df4-b2d3-f59f829627ed
+    protocol: file
+    config:
+      version: 1
+      storageDriverName: ontap-nas
+      debug: false
+      debugTraceFlags: null
+      disableDelete: false
+      serialNumbers:
+        - nwkvzfanek_SN
+      limitVolumeSize: ""
+    state: online
+    online: true
 ----
 * 此資訊將傳送至NetApp的「不只是」端點。AutoSupport AutoSupport如果您使用私有登錄來儲存容器映像、可以使用「-image-registry」旗標。
 * 您也可以產生安裝Yaml檔案來設定Proxy URL。您可以使用「tridentctl install -generate-custom-yaml」來建立Yaml檔案、並在「trident部署.yaml」中新增「trident -autodupport」容器的「-proxy-URL」引數。

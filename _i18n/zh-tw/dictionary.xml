@@ -30,7 +30,6 @@
   <block id="925060a0c0a15f99ef1bee43f1660ea4" category="paragraph">如果使用率高於此百分比、則可選用、失敗的資源配置</block>
   <block id="2b45af5c768d7b2495ef631c991ecd78" category="cell">「nfsMountOptions」</block>
   <block id="876885770cf58d20ef5672cc5594e85d" category="inline-link">請參閱此處的NFS主機組態資訊</block>
-  <block id="0a19ca3d1db7e5bc24b58f73b91c3f49" category="paragraph">精細控制NFS掛載選項；預設為「-o nfsver=3」。*僅適用於「ONTAP-NAS」和「ONTAP-NAS-經濟」驅動程式*。<block ref="71f7a3f48cfd3876cffba401813b7db0" category="inline-link-rx"></block>。</block>
   <block id="3b890f58db76bb3003ada171cd18c4db" category="cell">「igroupName」</block>
   <block id="07f6b23cad3d6da54012935ff972affe" category="cell">"qtreesPerFlexvol"</block>
   <block id="3890063556e337d458019437f027030b" category="paragraph">您可以使用預設選項、避免在您建立的每個Volume上指定這些選項：</block>
@@ -49,11 +48,9 @@
   <block id="31aa018945eb62580d68d360cba8ba54" category="cell">「分層政策」</block>
   <block id="90adf331b7868c7af46ad6e035e93844" category="section-title">擴充選項</block>
   <block id="b8f30e4086b754ccaf7bd5d01d8df137" category="paragraph">如果您需要的Docker磁碟區數量超過FlexVol 了《支援》的範圍、請選擇「ONTAP - NAS經濟」或「ONTAP - SAN經濟」驅動程式。</block>
-  <block id="0c8b91c6c2ba9c892f3eea2cd9c86cd1" category="admonition">Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swarm不會協調多個節點之間的磁碟區建立。</block>
   <block id="9d83b6d2e2b099e63bf8e2fc8c870893" category="list-text">需要ONTAP 9.2版或更新版本。</block>
   <block id="e7c74973b26ad51b9db42a9c347a8cd4" category="list-text">截至本文撰寫時、FlexGroups僅支援NFS v3。</block>
   <block id="02a100b04add3b90fddef64499e825a2" category="list-text">建議啟用SVM的64位元NFSv3識別碼。</block>
-  <block id="b30b6b60171d85877ea91897bdd6faed" category="paragraph">若要在同一個環境中獲得進階功能和龐大規模、您可以執行多個Docker Volume外掛程式執行個體、其中一個使用「ONTAP-NAS」、另一個使用「ONTAP-NAS-經濟」。</block>
   <block id="0c0f6724044ed44fb85d2ce3193cb7c3" category="section-title">範例ONTAP ：功能組態檔</block>
   <block id="ffe54c343031d16e77db73e2d950e277" category="section-title">元件軟體組態</block>
   <block id="3afcd136a7bffa20fc39ba6581412cd2" category="paragraph">除了全域組態值之外、使用Element軟體（NetApp HCI / SolidFire）時、也可使用這些選項。</block>
@@ -65,7 +62,6 @@
   <block id="72deb2676231ab8e068ef60dd89edd4c" category="paragraph">要使用的SolidFireF租戶（如果找不到、請建立）</block>
   <block id="f016e2c01f2bafa45e6b537d49f0f9da" category="cell">《初始器IFACE》</block>
   <block id="d2672389886b173aef703433f7e4b89b" category="paragraph">將iSCSI流量限制為非預設介面時、請指定介面</block>
-  <block id="6522432847a0e6902318a976e5533f62" category="paragraph">「預設」</block>
   <block id="26194deaf50c44db6eb5983237bdaf25" category="cell">《類型》</block>
   <block id="ee1aea1de97320ad8e98436f68b01b4a" category="paragraph">QoS規格</block>
   <block id="5935dcd024929bc7086bb230802bf576" category="paragraph">請參閱以下範例</block>
@@ -97,7 +93,6 @@
   <block id="ec045173f4df65e5e8951c3ca9579945" category="cell">《Subnet》</block>
   <block id="0b8deda0ecc5080e8c0ed0b475e983ba" category="paragraph">委派給「icrosoft.Netapp/volumes`」的子網路名稱</block>
   <block id="18320b2a705a7bed37a6bc0af4aee093" category="paragraph">如果要求的磁碟區大小高於此值、則資源配置失敗</block>
-  <block id="7962423206a6704e20fa94085d19b517" category="paragraph">「」（預設不強制執行）</block>
   <block id="e5ac299cc3b14e1fac29518569ca9bb1" category="paragraph">新磁碟區的預設大小</block>
   <block id="a83f4a534ccef7ac1d209fb0015cd907" category="paragraph">此後端組態可進一步將磁碟區放置範圍縮小至單一子網路、並修改部分Volume資源配置預設值。</block>
   <block id="89bcbd8e4ba49b7310e9fa748e878c4b" category="inline-link-macro">部署的先決條件</block>
@@ -127,7 +122,6 @@
   <block id="03fe5b0d58270efa87041677cac72ad7" category="list-text">安裝及設定NetApp Docker Volume外掛程式：</block>
   <block id="f45f5a64dae951d3e37c9bd382201b06" category="list-text">下載並解壓縮應用程式：</block>
   <block id="b255d9e06a4ca8e9f5bc31c9198426ad" category="list-text">移至Bin路徑中的位置：</block>
-  <block id="9ad37c975c341297c49c69353516a727" category="paragraph">精靈啟動後、您可以使用Docker CLI介面來建立及管理磁碟區</block>
   <block id="e3dec3f86b9a3b1be209ab63855ce432" category="list-text">建立Volume：</block>
   <block id="5ff2e3e853922fdb84ef21b85ffdac2e" category="list-text">在啟動容器時配置Docker Volume：</block>
   <block id="8f6a91f5f21d0478e3fd89095fc28ab9" category="list-text">移除Docker Volume：</block>
@@ -146,7 +140,6 @@
   <block id="6021d91bdededf94b8ae37c30e820118" category="section-title">選購的選購配備ONTAP</block>
   <block id="d3a07c97b6050b305c7dda0aea1657be" category="paragraph">Volume的大小、預設為1 GiB。</block>
   <block id="69e8c7b4f73d39cea9948875813f7ddd" category="paragraph">精簡或完整配置磁碟區、預設為精簡。有效值為「NONE」（精簡配置）和「Volume」（完整配置）。</block>
-  <block id="91853d7e2338a1395280185fc93d4650" category="paragraph">這會將快照原則設定為所需的值。預設值為「無」、表示不會自動建立磁碟區的快照。除非您的儲存管理員加以修改、否則ONTAP 所有的各種系統都會有一個名為「預設」的原則、用來建立並保留六個每小時、每天兩個和每週兩個快照。快照中保留的資料可透過瀏覽至磁碟區任何目錄中的「.snapshot」目錄來還原。</block>
   <block id="b8a0fde33bd7662b7b9cb4158f04ef52" category="paragraph">這會將快照保留設定為所需的百分比。預設值為無值、表示ONTAP 如果您已選取snapshotPolicy、將選取snapshotReserve（通常為5%）、如果snapshotPolicy為無、則選取0%。您可以在組態檔中為所有ONTAP 的支援項目設定預設的snapshotReserve值、也可以將其用作所有ONTAP 不支援ONTAP-NAS-經濟功能的支援項目、作為所有支援項目的磁碟區建立選項。</block>
   <block id="cdaf246fba737b75127faa65456baa30" category="paragraph">設定要用於磁碟區的分層原則。這會決定資料在非作用中（冷）時是否移至雲端層。</block>
   <block id="1c46d85ab16f6b373409ad15260b1b0a" category="paragraph">下列其他選項適用於NFS * Only *：</block>
@@ -234,7 +227,6 @@
   <block id="c167efd138e06a8ee59885983c5ddf69" category="admonition">這是Docker用戶端的限制。用戶端會將單一字元名稱解譯為Windows路徑。<block ref="f082f49b923960d888c1d98a1e9f4fcb" category="inline-link-rx"></block>。</block>
   <block id="a7c3ff464b1ef4364de4df03d66bee5e" category="list-text">Docker swarm目前使用Volume名稱、而非Volume ID做為其唯一的Volume識別碼。</block>
   <block id="61ab6f5cff8de89cba95d9e3bbc4ff71" category="list-text">Volume要求會同時傳送至swarm叢集中的每個節點。</block>
-  <block id="69418caf7b92279073f695612c68de99" category="paragraph">其餘的驅動程式可能會受到競爭狀況等問題的影響、導致在單一要求中建立大量磁碟區、而不需要明確的「贏家」；例如、Element的功能可讓磁碟區擁有相同名稱但不同ID。</block>
   <block id="48cbf13b390ff021b130d5f372147af5" category="paragraph">NetApp已向Docker團隊提供意見回饋、但沒有任何未來追索的跡象。</block>
   <block id="29cff148f43bc689eb14447b333f6f83" category="section-title">如果配置的是某個功能區、則如果第二個功能區的一個或多個集合體與要配置的功能區相同、則不提供第二個功能區。FlexGroup ONTAP FlexGroup FlexGroup FlexGroup</block>
   <block id="8f327f2ceda84404290184a7454160ed" category="paragraph">當您想要同時使用多個儲存組態時、需要多個Trident執行個體。多個執行個體的關鍵是在主機上具現化Trident時、使用容器化外掛程式的「-alias」選項或「-volume驅動程式」選項、為它們指定不同的名稱。</block>
@@ -585,10 +577,7 @@
   <block id="3b16cea25bd4a9aaf5a9c3dcc13ea7eb" category="section-title">步驟3：展開PV</block>
   <block id="4a59ce1bc63fd7e6333968fb4bbd9d45" category="section-title">步驟4：驗證擴充</block>
   <block id="19ce3b2e7823907e5153f00fe04f64f7" category="doc">組態選項與範例</block>
-  <block id="237d7a1666794b0937adde704bb4795c" category="cell">驅動程式名稱+「_」+ dataLIF</block>
-  <block id="c560b8d02093547d93a87c72d8b16eaf" category="cell">「10.0.0.1」、「[2001:1234:abcd:::fefo]」</block>
   <block id="b5cbbe3dadaab4a036fdb38af67ee936" category="cell">套用到磁碟區的任意JSON-格式化標籤集</block>
-  <block id="1d76382e861d2df96647216b26d38948" category="cell">「」</block>
   <block id="cbdaf784161be9806a24fe78a8046c01" category="cell">「用戶端憑證」</block>
   <block id="a84cbedc106b973917ae925d04533f97" category="cell">用戶端憑證的Base64編碼值。用於憑證型驗證</block>
   <block id="8545e54eea74cf2579fbe1cb56b11862" category="cell">「clientPrivate Key」</block>
@@ -602,16 +591,13 @@
   <block id="e3f688f3aa653574b3253640aa98f47c" category="cell">在SVM中配置新磁碟區時所使用的前置碼。設定後無法更新</block>
   <block id="c9a303edbc714d051896c3a678e59a8a" category="cell">《lunsPerFlexvol》</block>
   <block id="79892588cbecd0b88729ea1a55b2a3a4" category="cell">每FlexVol 個LUN的最大LUN數量、範圍必須在[50、200]</block>
-  <block id="ae0784115c8f815d4a2ca170c59f3c99" category="cell">疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「方法」：true｝</block>
   <block id="a13306f726fdf72d2d992a7ebdc63b1b" category="cell">每FlexVol 個邊的最大qtree數、必須在範圍內[50、300]</block>
   <block id="f703d18584e163e18762e4dc13ad96a0" category="cell">《useREST》</block>
   <block id="193a49bcfb561fea878daa5efe72cad9" category="section-title">用於資源配置磁碟區的後端組態選項</block>
   <block id="26161d08a960162cd8633d0e23058aed" category="cell">LUN的空間分配</block>
-  <block id="3bce5b103341500856287f5347e19f28" category="cell">空間保留模式；「無」（精簡）或「Volume」（完整）</block>
   <block id="77f69e470b8766d2dc5df4b7f469ed72" category="cell">要使用的Snapshot原則</block>
   <block id="54b94bba5d336f4e3d5fd7e88544fad1" category="cell">要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy</block>
   <block id="952e3a12d35e717bf86a6000b0c08976" category="cell">《adaptiveQosPolicy》</block>
-  <block id="11f9fcd55c1d81cf352f86fe4cdfd444" category="cell">保留給快照「0」的磁碟區百分比</block>
   <block id="6f5c0c94b1a17baffd2c33facaa10db6" category="cell">建立複本時、從其父複本分割複本</block>
   <block id="c005e78d4bd808038335c32dd84cf7da" category="cell">unix權限</block>
   <block id="3e9a232d025270ed6767c385b8291871" category="cell">新磁碟區的模式</block>
@@ -691,8 +677,6 @@
   <block id="4055116469942da7f6ed83abcf57d0a4" category="list-text">提供給NetApp HCI / SolidFire叢集管理員或租戶使用者的認證、以管理磁碟區。</block>
   <block id="d5fa5f22855b065d96647dfb0c06d685" category="inline-link-macro">工作節點準備資訊</block>
   <block id="02017e70674a0c740b2b95fbb0cc2aa1" category="paragraph">無檔案系統。原始區塊裝置。</block>
-  <block id="2353a0a3a06283f07550efc7bad8a90e" category="cell">永遠是「solidfire-san」</block>
-  <block id="f4210b28f3cf7c1f7e6e328bb42c6060" category="cell">「S指_」+儲存設備（iSCSI）IP位址SolidFire</block>
   <block id="b07ca7de83de58a699966c9bc9003020" category="cell">儲存設備（iSCSI）IP位址和連接埠</block>
   <block id="749df53d02481e75dd919dddf42fbbef" category="cell">套用到磁碟區的任意JSON-格式化標籤集。</block>
   <block id="251f1fc42c38ca55f30e5e9d11dac168" category="cell">要使用的租戶名稱（如果找不到、請建立）</block>
@@ -700,7 +684,6 @@
   <block id="5ff567e0863a47346f44f87ed793f508" category="cell">《UseCHAP》</block>
   <block id="32738663b16444872e4e5721c7c37660" category="cell">《存取群組》</block>
   <block id="c4ca01925aae0c37398f0b30a4ce1273" category="cell">要使用的存取群組ID清單</block>
-  <block id="e64099a24f6ef8bbbdb23c2a803cd065" category="cell">尋找名為「Trident」的存取群組ID</block>
   <block id="3185240fb49cba19667fbdf639f3271e" category="paragraph">此範例顯示使用CHAP驗證的後端檔案、並建立具有特定QoS保證的三種Volume類型模型。您很可能會使用「IOPS」儲存類別參數來定義儲存類別、以使用每個類別。</block>
   <block id="4d0d37d727675761e4c0e324eb57ca2f" category="list-text"><block ref="4d0d37d727675761e4c0e324eb57ca2f" category="inline-link-macro-rx"></block></block>
   <block id="ab4ce1634362493e6de248d103136787" category="cell">《使用CHAP》</block>
@@ -724,7 +707,6 @@
   <block id="94912f7fb206038e8527957b44dfbf25" category="paragraph">這會重新啟動所有Trident Pod、可能需要數秒鐘的時間。您可以查看輸出「kubecll Get pod - n triident」中的「年齡」欄位來檢查。</block>
   <block id="79b91d0489c081de6794796638793787" category="list-text">與Helm一起安裝</block>
   <block id="d356d628089d439d75e3f85564372658" category="list-text">安裝試用版</block>
-  <block id="87248f7afe198418bdbedd919695631e" category="list-text">您也可以在後端定義中加入「debugTraceFlags」、以取得每個後端的偵錯記錄。例如、在Trident記錄中加入「debugTraceFlags：｛"API"：true、「method」：true、｝」以取得API呼叫和方法反向。現有的後端可設定「debugTraceFlags」、設定為「tridentctl後端更新」。</block>
   <block id="6cc37a0664d7f97f87d34eadef23dbad" category="list-text">使用RedHat CoreOS時、請確定已在工作節點上啟用「iscsid」、並預設為啟動。您可以使用OpenShift機器組態或修改點火模板來完成此作業。</block>
   <block id="7f0ecdfa510b31b01d331c2760643b83" category="list-text">如果將PV掛載到容器時發生問題、請確定已安裝並執行「rpcbind」。使用主機作業系統所需的套件管理程式、檢查「rpcbind」是否正在執行。您可以執行「stystemctl狀態rpcbind」或其等效項目、來檢查「rpcbind」服務的狀態。</block>
   <block id="78aeadc89feb4cf244398a7d35a0d656" category="list-text">如果Trident後端回報雖然曾經工作、但仍處於「失敗」狀態、則可能是因為變更與後端相關的SVM/admin認證資料所致。使用「tridentctl update backend」更新後端資訊、或是退回Trident pod、將可修正此問題。</block>
@@ -2043,11 +2025,9 @@
   <block id="87a522ecb9df14bf978f6f1da8a654a8" category="list-text">您無法藉由移除來撤銷對來源PVc的存取權<block ref="287f26e3328f9ac0f3f4da2cdaddd3e2" prefix=" " category="inline-code"></block> 或<block ref="11650d25d20af47978d85fd6e19c89aa" prefix=" " category="inline-code"></block> 註釋或刪除<block ref="d6995f631b22fb3f8e94aad1b40d1280" prefix=" " category="inline-code"></block> CR.若要撤銷存取權、您必須刪除從屬的PVc。</block>
   <block id="ae8df8316f5c485b7db4e7141e899701" category="cell">指定位址或從SVM衍生（若未指定）（不建議使用）</block>
   <block id="82530dd92610570d634788e7fac29c1b" category="cell">如果使用率高於此百分比、則無法進行資源配置。*不適用於Amazon FSX for ONTAP Sfor Sfor *</block>
-  <block id="5c8b39f8ec19acb1fddb0b5c021f090d" category="cell">疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「method」：true｝不使用<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block> 除非您正在疑難排解並需要詳細的記錄傾印。</block>
   <block id="0275de02c3bba722f4540469d23cc535" category="paragraph">此範例顯示<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> 使用IPv6位址。</block>
   <block id="0bd54df5242a2a2e9eca045fc695b41f" category="section-title">更新<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block> 初始組態之後</block>
   <block id="76b4586b7207f884c66397194b773e14" category="summary">深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範例。</block>
-  <block id="508e91a481a0d10be716ae1a501447d0" category="cell">「[「0.00.0.0/0」、「：/0」]」</block>
   <block id="b8c7e19ba614c29878588409008e29c6" category="cell">連線至叢集或SVM的使用者名稱。用於認證型驗證。例如、vsadmin。</block>
   <block id="9a2486a943ad2a4c99f2797d6984f3d0" category="cell">連線至叢集或SVM的密碼。用於認證型驗證。</block>
   <block id="6018b4c39d938c6589decae81b54c6f0" category="cell">指定SVM管理LIF時衍生。</block>
@@ -2058,7 +2038,6 @@
   <block id="a8fe789c9febc6b76736fb83c90df2b7" category="cell">要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區或後端的其中一個qosPolicy或adaptiveQosPolicy。不受ONTAP-NAS-經濟支援。</block>
   <block id="8336fb38c3b943161d5d6e73af8f4a12" category="cell">啟用LUKS加密。請參閱 <block ref="3646c7a69a11bdd94c010bf856bda313" category="inline-link-macro-rx"></block>。僅限SAN。</block>
   <block id="8ba802b52dc84f4e82bfbbf2e2d4a807" category="cell">新磁碟區的模式。*如果是SMB磁碟區、請保留空白。*</block>
-  <block id="ce627e1ba8a6bccff2793f66b44012fa" category="cell">「」</block>
   <block id="88b0b88c998957f004af42563d5e5b40" category="paragraph">使用<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block>、<block ref="e12fdd044232e643620eed06bf33c7af" prefix=" " category="inline-code"></block>和<block ref="1ad68a6a046942b7c1666aed825df70a" prefix=" " category="inline-code"></block>、您可以指定SMB磁碟區、並提供所需的Active Directory認證資料。使用支援SMB磁碟區<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 僅限驅動程式。</block>
   <block id="262309361fe5b6dcda3a2eae08a48c2d" category="section-title">選擇適當的工具</block>
   <block id="2cb4ed05fbad97efb755e294c572862d" category="paragraph-title">NFS工具</block>
@@ -2209,7 +2188,6 @@
   <block id="1ae6e291c93a6d5962af8004aecd9c4c" category="paragraph"><block ref="94f6d7e04a4d452035300f18b984988c" prefix="" category="inline-code"></block></block>
   <block id="af2bffb136dd0c22342ad9cb06187197" category="paragraph">空間保留模式；<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block> （精簡配置）或<block ref="210ab9e731c9c36c2c38db15c28a8d1c" prefix=" " category="inline-code"></block> （粗）</block>
   <block id="7f0d015762fc8e2b44f0ad1cd5429af5" category="paragraph">要使用的 Snapshot 原則、預設為<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block></block>
-  <block id="0b89124cc899d4e75924c83a9eaf86ce" category="paragraph">Snapshot 保留百分比、預設為「」接受 ONTAP 預設值</block>
   <block id="11663b17d5bcea48dbfb36b13965663b" category="paragraph"><block ref="d3d9446802a44259755d38e6d163e820" prefix="" category="inline-code"></block></block>
   <block id="871c12a80dbc519da4b71b3ea166cdc4" category="paragraph">建立複本時、將其父複本分割成預設值<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block></block>
   <block id="290cc6c07ae2ba0a638720a38f1356ed" category="paragraph">NAS 選項適用於已佈建的 NFS 磁碟區、預設為<block ref="f1c1592588411002af340cbaedd6fc33" prefix=" " category="inline-code"></block></block>
@@ -2236,7 +2214,6 @@
   <block id="56d1e7863190cbf5e7689e2821d0959e" category="cell"><block ref="47cb44be55a0dffa15dfc900a4c687be" prefix="" category="inline-code"></block></block>
   <block id="3bc2d9079510db6d0570883494bc5984" category="cell"><block ref="f899139df5e1059396431415e770c6dd" prefix="" category="inline-code"></block></block>
   <block id="06daeb0fdb584c4694891d290310e1ed" category="cell"><block ref="3644a684f98ea8fe223c713b77189a77" prefix="" category="inline-code"></block></block>
-  <block id="996a57df5a7c8752e8bc23b6af020be4" category="cell">如果<block ref="0a236e7685e50a59df980d0a30929d6c" prefix=" " category="inline-code"></block> 是<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>、<block ref="2954e92a9b4d0e998fe4893f8141649a" prefix=" " category="inline-code"></block> 「」</block>
   <block id="58c09f2c9581bc7c58c32116266b6d8f" category="cell">要使用的分層原則<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block></block>
   <block id="6792aad2d8c086a9d25f5ad8ec090f35" category="paragraph">在建立元素後端之前、您需要下列項目。</block>
   <block id="690b3c7311638da5eef87f5e07aa1258" category="section-title">管理磁碟區</block>
@@ -2860,7 +2837,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="fca9ec6d50035c840a58bdecab9e25b1" category="cell"><block ref="256acfe307251e7444859851d87d5735" prefix="" category="inline-code"></block></block>
   <block id="cb970ba92f64074cb0c13138a539851d" category="paragraph">您可以在中使用屬性 <block ref="289efe9665b12a9f791f1897f30c1a0b" category="inline-xref-macro-rx"></block> 定義時<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> 以自訂安裝。</block>
   <block id="0f63a7a4873a5bae5060bde9fd1009af" category="example-title">基本自訂組態</block>
-  <block id="75af726339d8dd9e0c82b2326b0c0486" category="paragraph">這是基本自訂安裝的範例。</block>
   <block id="a144d1a554ec741f701e87c26360c28e" category="example-title">節點選取器</block>
   <block id="de5aefa11fe3836b4b8d0769b09b21eb" category="example-title">Windows 工作者節點</block>
   <block id="766995a062c6503acd7ac4752fbb865d" category="inline-link-macro">23.10</block>
@@ -3395,7 +3371,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="e1232df03027aec38979e9ee0c9b350c" category="paragraph">選擇<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>驅動程式來增加單一磁碟區的平行度、使其可擴充至數十億個檔案的 PB 範圍。FlexGroups的一些理想使用案例包括AI / ML / DL、Big Data和分析、軟體建置、串流、檔案儲存庫等。Trident 會在佈建 FlexGroup Volume 時、使用指派給 SVM 的所有集合體。支援Trident也有下列考量：FlexGroup</block>
   <block id="90bce6b2a4ca618777f172f6d51e69f1" category="list-text">FlexGroup 磁碟區不支援複製。</block>
   <block id="971d29a2392e004ddd4263282b307e0c" category="inline-link">NetApp FlexGroup Volume 最佳實務做法與實作指南</block>
-  <block id="c78dec56d75d0606a3f38875c0e4b3de" category="paragraph">有關適用於 FlexGroups 的 FlexGroups 和工作負載的資訊、請參閱<block ref="fd26d63759e7985cecb8814cdedc189b" category="inline-link-rx"></block>。</block>
   <block id="1534742dd977c66a11d77eb23f10a5ab" category="section-title">Trident 的自訂 ONTAP 角色</block>
   <block id="c1781ac6bfd240f903c26ce4164a5d30" category="paragraph">您可以使用最低 Privileges 來建立 ONTAP 叢集角色、這樣就不需要使用 ONTAP 管理員角色來執行 Trident 中的作業。當您在 Trident 後端組態中包含使用者名稱時、 Trident 會使用您建立的 ONTAP 叢集角色來執行作業。</block>
   <block id="6f3cfcc010b2a22b26b8059d261fac87" category="inline-link-macro">Trident 自訂角色產生器</block>
@@ -3504,7 +3479,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="94b5491434477bb572567175dae8789b" category="paragraph">還原節點健全狀況並移除污染時、 Trident 將：</block>
   <block id="9b87d3b70754b676221dcbe27972c21e" category="list-text">如果節點處於某個狀態（已移除服務外污染、且節點處於<block ref="e7d31fc0602fb2ede144d18cdffd816b" prefix=" " category="inline-code"></block>狀態）、且所有過時的已發佈路徑均為乾淨、則<block ref="4304fb35c4cdfa886970499304f2aaba" prefix=" " category="inline-code"></block> Trident 會將節點重新接收為<block ref="123402c04dcfb6625f688f771a5fc05d" prefix=" " category="inline-code"></block>、並允許新的已發佈磁碟區至節點。</block>
   <block id="0b566d8eeef773fb0a1874a0340c1bf1" category="paragraph">此範例會安裝 Trident 搭配節點選取器。</block>
-  <block id="2e6e147bc4d2f120b44821f235071f81" category="paragraph">此範例會在 Windows 工作者節點上安裝 Trident 。</block>
   <block id="f9c98839799a3d0d53b9fe671548369b" category="paragraph">此範例會安裝 Trident 、以在 AKS 叢集上啟用託管身分識別。</block>
   <block id="134db50713debda2944acc2079f0cd32" category="paragraph">此範例會安裝 Trident 、以搭配使用於 AKS 叢集上的雲端身分識別。</block>
   <block id="338531cfbc43156671176c4844d84c2e" category="example-title">GKE 的雲端身分識別</block>
@@ -3830,7 +3804,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="fd898492f5f83a18091a5e6c78cf2276" category="list-text"><block ref="fd898492f5f83a18091a5e6c78cf2276" category="inline-link-rx"></block></block>
   <block id="7afa2d89ddb38b52ee6c828cd75c06c9" category="paragraph">Trident 使用後端組態（子網路、虛擬網路、服務層級和位置）、在所要求位置的可用容量集區上建立 Azure NetApp Files Volume 、並符合所要求的服務層級和子網路。</block>
   <block id="47696c1242682d2928198892a193df8f" category="admonition">Trident 不支援手動 QoS 容量集區。</block>
-  <block id="19c065ad1f0491e663ab7647ffe65d76" category="paragraph">如果您在建立 PVC 時收到「找不到容量集區」錯誤、您的應用程式註冊可能沒有相關的必要權限和資源（子網路、虛擬網路、容量集區）。如果啟用除錯功能、 Trident 會記錄建立後端時所探索到的 Azure 資源。確認使用的角色是否適當。</block>
   <block id="e9acc9c9f9c15bdc3abfff747835f188" category="paragraph">這是絕對最低的後端組態。使用此組態、 Trident 會探索您在設定位置中委派給 Azure NetApp Files 的所有 NetApp 帳戶、容量集區和子網路、並隨機將新磁碟區放在其中一個集區和子網路上。由於省略、因此<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block><block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix=" " category="inline-code"></block> 會套用預設值、而後端會為 NFS 磁碟區進行資源配置。</block>
   <block id="c23ef0ddbc293eb69087843f50a25be6" category="paragraph">此後端組態會將磁碟區放置在 Azure 的位置、並置於<block ref="6356111305f5daab178fa6051b7a8ae7" prefix=" " category="inline-code"></block>容量集區中<block ref="7057376a419b3334cc7b8b7a9f064abb" prefix=" " category="inline-code"></block>。Trident 會自動探索該位置中委派給 Azure NetApp Files 的所有子網路、並隨機在其中一個磁碟區上放置新的磁碟區。</block>
   <block id="fefaa3b6dca112cc6521c571cfc3803d" category="paragraph">Trident 可根據地區和可用性區域、為工作負載提供更多資源。<block ref="1f2a94e142bf020b1f7c6297ec12413f" prefix=" " category="inline-code"></block>此後端組態中的區塊用於提供每個後端的區域和區域清單。此處指定的區域和區域值必須符合每個 Kubernetes 叢集節點上標籤的區域和區域值。這些區域和區域代表可在儲存類別中提供的允許值清單。對於包含後端所提供區域和區域子集的儲存類別、 Trident 會在所述區域和區域中建立磁碟區。如需詳細資訊、請 <block ref="a735758eec435cad1c5672b75bd657c0" category="inline-link-macro-rx"></block>參閱。</block>
@@ -3864,7 +3837,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="5f39834a6f39c7539a5edeb4e8f3ea48" category="paragraph">Trident 不會刪除使用中的 Kubernetes 機密<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block>。Kubernetes使用者負責清除機密。刪除機密時必須小心。只有在後端未使用機密時、才應刪除這些機密。</block>
   <block id="63f9a789e1c077aab804a2a5c20f1419" category="list-text">儲存系統的認證資料已變更。若要更新認證、必須更新物件中使用的 Kubernetes Secret<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> 。Trident 會使用提供的最新認證、自動更新後端。執行下列命令以更新Kubernetes Secret：</block>
   <block id="4f3ff24da375936278cfeceb396c61dd" category="paragraph">若要從 Trident 刪除後端、請執行下列步驟：</block>
-  <block id="36359fa2ef30a9315474e240ec6e4ab7" category="admonition">如果 Trident 已從這個後端佈建磁碟區和快照、但該後端仍存在、則刪除後端將會阻止新磁碟區由其進行佈建。後端將繼續處於「刪除」狀態、而Trident將繼續管理這些磁碟區和快照、直到它們被刪除為止。</block>
   <block id="734b51d6b10d22bfb052a1b8e8a9bc56" category="summary">瞭解在 Trident 中管理後端的不同方法。</block>
   <block id="e0b4d05f7fb24e9606ae02b176974698" category="paragraph">在這兩種情況下、都會繼續出現後端、並在 Trident 排程磁碟區上運作。系統管理員有兩種選擇之一：</block>
   <block id="1abff208034794e09bab3e34ad393f6c" category="list-text">建立Kubernetes機密。機密包含 Trident 與儲存叢集 / 服務通訊所需的認證。</block>
@@ -3998,7 +3970,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="18eb1633594b2436e83e73071958b960" category="section-title">使用 formatOptions 的建議</block>
   <block id="d9ec468a8922eca17349404c59b7659c" category="paragraph">Trident 建議使用下列選項來加速格式化程序：</block>
   <block id="ee8d7eb9cc1e43184ed6a64abb3255f6" category="paragraph">*-E nobard ： *</block>
-  <block id="8ede6cbfdd7339e80ba78b9633231dda" category="list-text">保留、請勿嘗試在 mkfs 時間捨棄區塊（丟棄區塊一開始在固態裝置和稀疏 / 精簡配置儲存設備上很有用）。這會取代已過時的選項「 -K 」、而且適用於所有檔案系統（ xfs 、 ext3 和 ext4 ）。</block>
   <block id="f1e8c049fa2ad08b8d1a332e2d26163e" category="cell">要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy。搭配 Trident 使用 QoS 原則群組需要 ONTAP 9 8 或更新版本。您應該使用非共用的 QoS 原則群組、並確保個別將原則群組套用至每個成員。共享 QoS 原則群組會強制執行所有工作負載總處理量的上限。</block>
   <block id="c598aba0725ffc7663bf0f4db1a3238f" category="cell"><block ref="80fd16da9d17abac4374b362f2e409fe" prefix="" category="inline-code"></block></block>
   <block id="a5b88f2b14a5b0fa1aa2bbed9eb87602" category="cell">限制<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>後端建立新的 FlexVol 磁碟區以包含其 LUN 。只有預先存在的 FlexVols 可用於佈建新的 PV 。</block>
@@ -4069,7 +4040,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="a06ecac9b140cf61cd5d4a82c88c488a" category="list-text">* 叢集管理： * 建立<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block>參照後端快照的物件。這會在 Trident 中啟動快照工作流程。</block>
   <block id="d480294e263bd9916f014824428ddbca" category="list-text">請在中<block ref="39133e4ee9648ecb1a2dae934a22788a" prefix=" " category="inline-code"></block>指定<block ref="62c99546614b1610927a47ea682b6d63" prefix=" " category="inline-code"></block>。這是通話中外部快照機提供給 Trident 的唯一資訊<block ref="b4dfa9524f461a609ad4726f69b847e9" prefix=" " category="inline-code"></block>。</block>
   <block id="3e36f7927fcc85da94d36bcb51457a89" category="list-text">* 內部處理（不需採取任何行動）： * 外部快照機可辨識新建立的<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block>、並執行<block ref="b4dfa9524f461a609ad4726f69b847e9" prefix=" " category="inline-code"></block>通話。Trident 會建立<block ref="9a303ae09fee10afe60e5fd9e00e5e45" prefix=" " category="inline-code"></block>。</block>
-  <block id="0449eee9b787832d78c46a3e4020678d" category="paragraph">刪除具有相關快照的持續Volume時、對應的Trident Volume會更新為「刪除狀態」。移除磁碟區快照以刪除 Trident 磁碟區。</block>
   <block id="c179bf71b229cad4b31c8b19407ab978" category="summary">使用 Trident 、您可以在主要命名空間中建立磁碟區、並在一或多個次要命名空間中共用該磁碟區。</block>
   <block id="eeef56d54787b9aa6bd579f2e856b658" category="paragraph">TridentVolume Reference CR 可讓您安全地跨一或多個 Kubernetes 命名空間共用 ReadWriteMany （ rwx ） NFS 磁碟區。此Kubernetes原生解決方案具有下列優點：</block>
   <block id="00315912b48f10a3906def68b6887f6c" category="paragraph">Trident 會建立 PV 及其後端 NFS 儲存磁碟區。</block>
@@ -4838,7 +4808,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="da6aadede1bc870c9042c660fdf93f25" category="list-text">建立 TASR CR 。本示例爲 PVC 和 Volume Snapshot 創建 CR<block ref="30520f4f96804df83914260b79f55962" prefix=" " category="inline-code"></block><block ref="06f2874897d3ec8426ec85e0ffda5544" prefix=" " category="inline-code"></block>。</block>
   <block id="68fb76b60d3c1f9302a04ef3eb761c08" category="admonition">TASR CR 必須位於 PVC 與 VS 所在的命名空間中。</block>
   <block id="0c9991859e53bf37c58a2fd1233eb478" category="list-text">套用 CR 以從快照還原。此示例從 Snapshot 恢復<block ref="30520f4f96804df83914260b79f55962" prefix=" " category="inline-code"></block>。</block>
-  <block id="5dfd751b8f6ed15f558be3e46812461b" category="paragraph">Trident 會從快照還原資料。您可以驗證快照還原狀態。</block>
   <block id="91f853f4fc1dc83a1a2f28c65af59d28" category="list-text">在大多數情況下， Trident 不會在發生故障時自動重試作業。您需要再次執行此作業。</block>
   <block id="c83b74c2020dd836f5b401ecda0da78c" category="list-text">不具備管理員存取權限的 Kubernetes 使用者可能必須獲得管理員的權限、才能在其應用程式命名空間中建立 TASR CR 。</block>
   <block id="cff310c77e35cf2f693ebbb39c78e89f" category="summary">Trident 支援在來源磁碟區和目的地磁碟區之間建立鏡射關係，以複寫磁碟區以進行災難恢復。</block>
@@ -4914,7 +4883,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="4eecab048a7c90cfb92e0f04884686e8" category="section-title">當 ONTAP 離線時更新鏡射關係</block>
   <block id="e782fcb9f3e7e8fa8b5ccdb3169c0e42" category="paragraph">您可以使用 CRD 來執行 SnapMirror 更新，而無需 Trident 直接連線至 ONTAP 叢集。請參閱下列 TridentActionMirrorUpdate 範例格式：</block>
   <block id="bc08468157c4a9e3a30eed7ba64cc309" category="paragraph"><block ref="1f9dfae8a369525bce4996df40963532" prefix="" category="inline-code"></block> 反映 TridentActionMirrorUpdate CRD 的狀態。它可以取自 _sued_ 、 _in progress_ 或 _Failed_ 的值。</block>
-  <block id="84047e4e157c4540f79aedaede0a95f8" category="paragraph"><block ref="0f4a5d4e2b6742a467ace2ab6b64e704" prefix="" category="inline-code"></block><block ref="37e27d67480c8070fb88c6ed21f188a8" prefix=" " category="inline-code"></block></block>
   <block id="239be7c008105ac7fd4ca34940e848dd" category="list-text">在節點集區上設定的 GKE 叢集和 GKE 中繼資料伺服器上設定的工作負載身分識別。</block>
   <block id="cf1b0c32b7f8d889140a0a7a048bc29b" category="list-text">具有 Google Cloud NetApp Volumes 管理員（角色 / NetApp 。管理）角色或自訂角色的 GCP 服務帳戶。</block>
   <block id="b70329a4cd0d7e433e8af087eebce89a" category="list-text">安裝的 Trident 包含 cloudProvider ，可指定「 GCP 」和 cloudIdentity ，以指定新的 GCP 服務帳戶。以下是一個範例。</block>
@@ -4961,8 +4929,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="c024b0a80a0f117a251e956f7b09ac4e" category="cell">* 僅支援<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>驅動程式。 *用於選擇<block ref="39eea648dab96b0ee6022dabb38bc420" prefix=" " category="inline-code"></block> iSCSI 、<block ref="eac89e2640666fd1076a776e4b748fae" prefix=" " category="inline-code"></block> NVMe / TCP 或<block ref="0f64d0456878c73cbec1ccea842a6f14" prefix=" " category="inline-code"></block> SCSI over Fibre Channel （ FC ）。</block>
   <block id="36212bd37512e583deabaefb464f77f9" category="paragraph">要使用的分層原則，預設為<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>。</block>
   <block id="b52d90bca507da030b84d478b8b8f150" category="paragraph"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>和<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>驅動程式會為每個 Docker Volume 建立 ONTAP FlexVol 。ONTAP 每個叢集節點最多可支援 1000 個 FlexVols ，叢集最多 12 ， 000 個 FlexVol Volume 。如果您的 Docker Volume 需求符合這項限制，則<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>由於 FlexVols 提供的額外功能（例如 Docker Volume 精細快照和複製），因此驅動程式是首選的 NAS 解決方案。</block>
-  <block id="675948a057e2e0ba799feb33c421cecd" category="paragraph">此<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式會在 ONTAP qtree 位於自動管理的 FlexVol Volume qtree 集區內時建立 Docker Volume 。 qtree 的擴充能力大得多，每個叢集節點最多 10 ， 000 個，每個叢集最多 40 ， 000 個，但會犧牲某些功能。此<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式不支援 Docker Volume 精細快照或複製。</block>
-  <block id="b3a2b457504fbf42f8a8b8d0c7e6772a" category="paragraph">此<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>驅動程式會在自動管理的 FlexVol 磁碟區的共用集區中，將 Docker 磁碟區建立為 ONTAP LUN 。如此一來，每個 FlexVol 並不限於只有一個 LUN ，而且能為 SAN 工作負載提供更好的擴充性。根據儲存陣列的不同、ONTAP 每個叢集最多可支援16384個LUN。由於磁碟區是下方的LUN、因此此驅動程式支援Docker磁碟區精細快照和複製。</block>
   <block id="35bf5cbb6338abecc1fe5e2fddecc6fa" category="example-title">SCSI over FC 範例，適用於 &lt;code&gt; ONTAP － &lt;/code&gt; 驅動程式</block>
   <block id="58c4d5bb52050e96221a67cebc52a666" category="paragraph">NFS ， iSCSI 和 FC 的 Volume Create 選項包括：</block>
   <block id="72291962244c35e29a2e95cd6bd139bf" category="list-text">使用快照原則建立磁碟區，並接受 ONTAP 的預設快照保留（通常為 5% ）：</block>
@@ -4979,7 +4945,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1bbe28a8ef9b1c85d07b013af0628d36" category="list-text">ONTAP SAN 經濟型（僅限 iSCSI ）</block>
   <block id="db526afc657fdfec1ca176eb9d281f89" category="list-title">要考量的重點：</block>
   <block id="749d892e342a5e3346877c1b76b9d9ee" category="list-text">將儲存類別更新為在 OpenShift 虛擬化環境中使用<block ref="7cfbb6f07899c8071ff38e69dca190e2" prefix=" " category="inline-code"></block>參數（例如：<block ref="6db865adcb81b7cf881ff9839476f850" prefix=" " category="inline-code"></block>）。如有需要，請將 Volume 模式設定為使用中的參數<block ref="c6dda2fd1e6d70d582099348cfe6c847" prefix=" " category="inline-code"></block>明確封鎖<block ref="1467a571dd94848f616edc4a0c33b927" prefix=" " category="inline-code"></block>，以通知 CDI 建立區塊資料磁碟區。</block>
-  <block id="7ae4bd57d01aa77aae734e3b71b3a1be" category="list-text">區塊儲存驅動程式的 _rwx 存取模式 _ ： ONTAP SAN （ iSCSI ， NVMe / TCP ， FC ）和 ONTAP SAN 經濟（ iSCSI ）驅動程式僅支援「 volumemode ：區塊」（原始裝置）。對於這些驅動程式，無法使用此參數，因為這些<block ref="8da9b296683a7538d85fc38fcb987292" prefix=" " category="inline-code"></block>磁碟區是以原始裝置模式提供。</block>
   <block id="f97169869bcbff98d85a1b7ec1d7b5f8" category="list-text">對於需要 rwx 存取模式的即時移轉工作流程，支援下列組合：</block>
   <block id="d3701dd5a7c831a74d496a90c3a65f13" category="list-text">NFS +<block ref="7f5db5e0500761cacd6f89838e2ebdc5" prefix=" " category="inline-code"></block></block>
   <block id="42c7d371004c0674ae717618c4a08508" category="list-text">iSCSI +<block ref="1467a571dd94848f616edc4a0c33b927" prefix=" " category="inline-code"></block> （原始裝置）</block>
@@ -5100,7 +5065,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="3dba01512ea96ad84a108f0fc949477a" category="paragraph">您可以指定完整網域名稱（FQDN）。</block>
   <block id="fcc539559cb740199f02074f11b246c3" category="paragraph">如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>。</block>
   <block id="3b4dab2ec7635dde859482b32c23ab9f" category="paragraph">如需無縫 MetroCluster 之間的互通性<block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>、請參閱。</block>
-  <block id="996c4f21e4d55af70d595be203e4935d" category="admonition">如果您使用的是「 vsadmin 」認證，則必須是 SVM 的認<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>證；如果使用的是「 admin 」認證，則必須是叢集的認證<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>。</block>
   <block id="2c8c9fb51502e9a1b2d2539b4d21a27b" category="cell">傳輸協定LIF的IP位址。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>。* 請勿指定 iSCSI 。 *Trident 使用<block ref="2de2f329c45219df280af5a70ed7a17c" category="inline-link-macro-rx"></block>來探索建立多重路徑工作階段所需的 iSCSI 生命。如果明確定義、就會產生警告<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block>。* MetroCluster 省略。 *請參閱<block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>。</block>
   <block id="d9d5eb3e1685b0777734571c976f8936" category="paragraph">* 請勿指定 ASA R2* 。</block>
   <block id="d4dfda5be5dacb3c750decba30037a4b" category="cell">如果使用率高於此百分比、則無法進行資源配置。如果您使用 Amazon FSX for NetApp ONTAP 後端、請勿指定<block ref="d57551b1efacf8a7be84b4d10c5a6e99" prefix=" " category="inline-code"></block>。提供的<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block>和<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block>不包含使用 Trident 擷取彙總使用量並加以限制所需的權限。* 請勿指定 ASA R2* 。</block>
@@ -5185,7 +5149,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1566bc91a0bfa1dbeba46107fc54f756" category="cell">AL2023_ARM_64_STANDARD</block>
   <block id="e3b9c2e4d8176e1074a9511b580d6396" category="cell">AL2_ARM_64</block>
   <block id="a28322bc0e8a38770a1af7cc1d4a9ad9" category="cell">BOTTLEROCKET_ARM_64</block>
-  <block id="f734054a359cbdc172eb2d5e7b6c5d3b" category="list-text">* 必須在掛載選項中使用 "nolock" 。</block>
   <block id="b5056db6cc95f0ceeb72bf7925b7409d" category="list-text">** 無法在不重新啟動節點的情況下刪除 PV</block>
   <block id="18d12fdc9179515baab204055f5f25b5" category="admonition">如果此處未列出您想要的 AMI ，並不表示不支援，只是表示尚未測試。此清單可作為已知有效的 Amis 指南。</block>
   <block id="07e5351dce8b6c8e3f72745762bac773" category="paragraph">* 使用 * 執行的測試：</block>
@@ -5211,7 +5174,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="6844c666d46d26f14f45880c3b8cd2ec" category="list-text">您可以隨時更新 PVC 以納入<block ref="176dbae9b2594398063073fa2462e819" prefix=" " category="inline-code"></block>附註。</block>
   <block id="8e7677f5fca35d9d3480fac62441fe33" category="list-text">* 叢集管理： * 建立自訂角色和 kubeconfig ，將權限授予目的地命名空間擁有者，以便在目的地命名空間中建立 TridentVolume Reference CR<block ref="6fde1ba4470caca933058264dbfdea2e" prefix="(" category="inline-code"></block> ）。</block>
   <block id="b49d0358b75283a3c4f7a2e7229fc097" category="list-text">* 目的地命名空間擁有者： * <block ref="3f6857fc20ae2372499a71869ac3fe7e" prefix="(" category="inline-code"></block>在目的地命名空間中建立 PVC <block ref="6fde1ba4470caca933058264dbfdea2e" prefix="(" category="inline-code"></block>）使用<block ref="77167d63af133b47bca3bbacd580fa44" prefix=" " category="inline-code"></block>或<block ref="bfd2f3d7d043509924eaac702957a99d" prefix=" " category="inline-code"></block>和<block ref="2413b30c8869ee9ac5b416f44004a212" prefix=" " category="inline-code"></block>註釋來指定來源 PVC 。</block>
-  <block id="9161ef0a6d455c0461b9844f1404bd9a" category="paragraph">= 限制</block>
   <block id="188811e4b8b33253d84403cd9a1fcfa9" category="list-text">對於使用 ONTAP NAS 經濟型驅動程式配置的 PVC ，不支援唯讀複本。</block>
   <block id="18554a6310d1d501f5fdbbbc7a0cd7c6" category="summary">Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。尋找擴充 iSCSI ， FC 和 NFS 磁碟區所需組態的相關資訊。</block>
   <block id="bda53ac9cab805b0770875d4365918b2" category="paragraph">Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。瞭解擴充 iSCSI ， NFS 和 FC 磁碟區所需的組態資訊。</block>
@@ -5494,4 +5456,36 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1bd9850ddb901f0e741293ec737c5de6" category="list-text">建立備份排程，以環境資訊取代方括號中的值。例如：</block>
   <block id="ab5807fb06fd654f730a4ed5a02bb950" category="paragraph">您可以將旗標設定<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block>為持續完整備份，或根據需求自訂旗標<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>。例如，如果您選擇每日精細度，則可以指定應在星期一進行完整備份。例如，使用<block ref="d416cce9d6bcb838c8958b9fbb84dffa" prefix=" " category="inline-code"></block>排程在週一和週四進行完整備份。</block>
   <block id="a346cffc17b34fc56f3020d8b33d30c3" category="paragraph">建立儲存類別和 PVC 時，您可以將 PV 掛載到 Pod 。本節列出範例命令和組態，以將 PV 附加至 Pod 。</block>
+  <block id="f253a45a33bc62e467efd426699d9025" category="paragraph">精靈啟動後，您可以使用 Docker CLI 介面來建立和管理磁碟區。</block>
+  <block id="a0ba0b0d751124c646a352594c7e9d7b" category="paragraph">其餘的驅動程式可能會遇到競爭條件等問題，導致在沒有明確「贏家」的情況下，為單一要求建立大量磁碟區；例如， Element 具有允許磁碟區擁有相同名稱但不同 ID 的功能。</block>
+  <block id="8904f6454065d44212063d39eeae5f07" category="paragraph">精細控制 NFS 裝載選項；預設為「 -o nfsver=3 」。* 僅適用於<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>和<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式 * 。<block ref="71f7a3f48cfd3876cffba401813b7db0" category="inline-link-rx"></block>。</block>
+  <block id="6a3f2fe5a221ff5e914123b7d1d207ac" category="paragraph">Snapshot 保留百分比，預設為「」接受 ONTAP 預設值</block>
+  <block id="5c43de330169c269435e59a6b0ec6a2e" category="paragraph">此<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式會在自動管理的 FlexVol Volume 集區內，以 ONTAP qtree 的形式建立 Docker Volume 。qtree的擴充能力大幅提升、每個叢集節點最多可達100、000個、每個叢集最多可達2、400、000個、而犧牲了部分功能。此<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式不支援 Docker Volume 精細快照或複製。</block>
+  <block id="a21d144a1c4c6283532b218d06e428b5" category="admonition">Docker swarm 目前不支援此<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式，因為 Docker swarm 不會在多個節點之間協調磁碟區建立。</block>
+  <block id="a742d54fecc7e60d5a6c56568622bf9d" category="paragraph">此<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>驅動程式會在自動管理的 FlexVol 磁碟區的共用集區中，將 Docker 磁碟區建立為 ONTAP LUN 。如此FlexVol 一來、每個支援不只侷限於一個LUN、而且能為SAN工作負載提供更好的擴充性。根據儲存陣列的不同、ONTAP 每個叢集最多可支援16384個LUN。由於磁碟區是下方的LUN、因此此驅動程式支援Docker磁碟區精細快照和複製。</block>
+  <block id="8d848c284e4e3a777487dbfd26724083" category="paragraph">有關適用於 FlexGroups 的 FlexGroups 和工作負載的資訊，請參閱<block ref="fd26d63759e7985cecb8814cdedc189b" category="inline-link-rx"></block>。</block>
+  <block id="9e2ebdd267bef148382aa48682e06bc5" category="paragraph">若要在同一個環境中取得進階功能和大規模功能，您可以使用執行多個 Docker Volume 外掛程式執行個體，其中一個使用，另<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>一個使用<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>。</block>
+  <block id="86c8f953c394c19d7db6f6cf9882490e" category="paragraph"><block ref="6594f00105facbc68b3a919300221cc8" prefix="" category="inline-code"></block></block>
+  <block id="fc03ab18d43301d015d44d432ae97eee" category="paragraph"><block ref="576b5b6204cfa4837c36a45307295380" prefix="" category="inline-code"></block><block ref="6d1394abf99896b6835a3be55cc2adce" prefix=" " category="inline-code"></block></block>
+  <block id="ff0444fca20d2b690849631c3206bc5a" category="paragraph"><block ref="9e7d4cc1e0a49fb0aadd14f9a159a7ec" prefix="" category="inline-code"></block></block>
+  <block id="839d5cbe0fec88e102ab7dee46577ac7" category="paragraph">這會將快照原則設定為所需的值。預設值為<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>、表示不會自動為磁碟區建立任何快照。除非您的儲存管理員修改，否則所有 ONTAP 系統上都會有一個名為「預設」的原則，該原則會建立並保留六個小時，兩個每日快照和兩個每週快照。瀏覽到磁碟區任何目錄中的目錄、即可恢復快照中保留的資料<block ref="a15da8cecb1f1192c4d913b8ba676121" prefix=" " category="inline-code"></block>。</block>
+  <block id="c515dd3a067f21589c3e11d31e32462b" category="list-text">區塊儲存驅動程式的 _rwx 存取模式 _ ： ONTAP SAN （ iSCSI ， NVMe / TCP ， FC ）和 ONTAP SAN 經濟（ iSCSI ）驅動程式僅支援「 volumemode ：區塊」（原始裝置）。對於這些驅動程式，無法使用此參數，因為這些<block ref="8da9b296683a7538d85fc38fcb987292" prefix=" " category="inline-code"></block>磁碟區是以原始裝置模式提供。</block>
+  <block id="8c1fabda63909c966d5b02c908178af2" category="paragraph">此範例是在執行命令後建立，<block ref="6108feb94d9d09a19e33648dcce80003" prefix=" " category="inline-code"></block>代表基本的自訂安裝：</block>
+  <block id="a687cccb5ef434dd8df6734253a09535" category="paragraph">此範例是在執行命令後建立，<block ref="2241cac556b278d16d0bb5f94117277a" prefix=" " category="inline-code"></block>會在 Windows 工作節點上安裝 Trident 。</block>
+  <block id="de4b458ce26c7e2479c45bb915c621b5" category="paragraph">如果您在建立 PVC 時收到「找不到容量集區」錯誤，您的應用程式註冊可能沒有相關的必要權限和資源（子網路，虛擬網路，容量集區）。如果啟用除錯功能、 Trident 會記錄建立後端時所探索到的 Azure 資源。確認使用的角色是否適當。</block>
+  <block id="6f7026a013dd10088e6f2464a6e1768b" category="admonition">如果 Trident 已從這個後端佈建磁碟區和快照、但該後端仍存在、則刪除後端將會阻止新磁碟區由其進行佈建。後端將繼續存在於「刪除」狀態， Trident 將繼續管理這些磁碟區和快照，直到它們被刪除為止。</block>
+  <block id="1c52b877ebb92e642f84ee1628240247" category="cell">永遠為「 SolidFire - SAN 」</block>
+  <block id="31079062306e509fbecf7a2bd9485187" category="cell">「 SolidFire _ 」 + 儲存（ iSCSI ） IP 位址</block>
+  <block id="1ed25c6118740d8ddd80ea0ce520e808" category="cell">尋找名為「 Trident 」的存取群組 ID</block>
+  <block id="c72dc6713f14ba2541824417f46e1cd6" category="cell">疑難排解時要使用的偵錯旗標。例如、 ｛ "api" ： false 、 "method" ： true}</block>
+  <block id="cc1ae9a700356c7c519b4aee7dcbf53b" category="cell">"10.0.0.1 " ， "[2001:1234:abcd::fefe]</block>
+  <block id="1925cd490b13f25205214eccfe51fccd" category="admonition">如果您使用的是「 vsadmin 」認證，則必須是 SVM 的認<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>證；如果使用的是「 admin 」認證，則必須是叢集的認證<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>。</block>
+  <block id="788fe8d661645297ab41d7c9235dcbb8" category="list-text">保留、請勿嘗試在 mkfs 時間捨棄區塊（丟棄區塊一開始在固態裝置和稀疏 / 精簡配置儲存設備上很有用）。這會取代已過時的選項「 -K 」，而且適用於所有檔案系統（ xfs ， ext3 和 ext4 ）。</block>
+  <block id="470fa5f00d398bad1d1874a9b4d59d7b" category="cell">"["0.0.0/0" ， ":/0"]"</block>
+  <block id="1e8d899088cef4cd1758075ac2b63721" category="cell">為快照保留的磁碟區百分比「 0 」</block>
+  <block id="d8d01124b8b3fe614b475ad96fca4635" category="cell">如果<block ref="0a236e7685e50a59df980d0a30929d6c" prefix=" " category="inline-code"></block>是<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>，<block ref="2954e92a9b4d0e998fe4893f8141649a" prefix=" " category="inline-code"></block></block>
+  <block id="e04952b3b9a025e09aedd749dd2dc8f8" category="list-text">* 必須在掛載選項中使用 "nolock" 。</block>
+  <block id="5a71b77feca506fc8eba218b4e65048b" category="paragraph">Trident 會從快照還原資料。您可以驗證快照還原狀態：</block>
+  <block id="9d577c00c4cbb5d99e7a8a6589113669" category="paragraph">刪除含相關快照的持續 Volume 時，對應的 Trident Volume 會更新為「刪除狀態」。移除磁碟區快照以刪除 Trident 磁碟區。</block>
+  <block id="27e9bd9989c090489f69126b9910d7d8" category="list-text">您也可以在後端定義中加入、以取得每個後端的偵錯記錄<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block>。例如、在 Trident 記錄檔中包括<block ref="825a719baa5b5b7445c98535815fac39" prefix=" " category="inline-code"></block>以取得 API 呼叫和方法傳輸。現有的後端可以<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block>使用設定<block ref="ad782b779edfd8199198bed41b3e3b6b" prefix=" " category="inline-code"></block>。</block>
 </blocks>

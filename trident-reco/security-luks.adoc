@@ -38,28 +38,34 @@ grep "aes" /proc/cpuinfo
 .步驟
 . 在後端組態中定義LUKS加密屬性。如需ONTAP 有關支援不支援SAN的後端組態選項的詳細資訊、請參閱 link:../trident-use/ontap-san-examples.html["支援SAN組態選項ONTAP"]。
 +
-[listing]
+[source, json]
 ----
-"storage": [
+{
+  "storage": [
     {
-        "labels":{"luks": "true"},
-        "zone":"us_east_1a",
-        "defaults": {
-            "luksEncryption": "true"
-        }
+      "labels": {
+        "luks": "true"
+      },
+      "zone": "us_east_1a",
+      "defaults": {
+        "luksEncryption": "true"
+      }
     },
     {
-        "labels":{"luks": "false"},
-        "zone":"us_east_1a",
-        "defaults": {
-            "luksEncryption": "false"
-        }
-    },
-]
+      "labels": {
+        "luks": "false"
+      },
+      "zone": "us_east_1a",
+      "defaults": {
+        "luksEncryption": "false"
+      }
+    }
+  ]
+}
 ----
 . 使用 `parameters.selector` 使用LUKS加密定義儲存資源池。例如：
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -73,7 +79,7 @@ parameters:
 ----
 . 建立包含LUKS通關密碼的秘密。例如：
 +
-[listing]
+[source, yaml]
 ----
 kubectl -n trident create -f luks-pvc1.yaml
 apiVersion: v1
@@ -98,7 +104,7 @@ LUKS加密磁碟區無法利用ONTAP 重複資料刪除技術與壓縮技術。
 
 若要匯入 LUKS Volume 、您必須在後端將設 `luksEncryption`為(`true`。 `luksEncryption`選項告訴 Trident 卷是否符合 LUKS (`false`）(`true`或不符合 LUKS ），如下例所示。
 
-[listing]
+[source, yaml]
 ----
 version: 1
 storageDriverName: ontap-san
@@ -119,7 +125,7 @@ defaults:
 
 若要動態匯入 LUKS Volume 、請將註釋設 `trident.netapp.io/luksEncryption`為 `true`、並在 PVC 中包含啟用 LUKS 的儲存類別、如本範例所示。
 
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -155,7 +161,7 @@ WARNING: 請勿忘記密碼、除非您已驗證它不再被任何磁碟區、�
 .步驟
 . 新增 `node-publish-secret-name` 和 `node-publish-secret-namespace` StorageClass參數。例如：
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -190,7 +196,7 @@ GET http://127.0.0.1:8000/trident/v1/volume/<volumeID>/<snapshotID>
 ----
 . 更新磁碟區的LUKS機密、以指定新的和先前的密碼。確保  `previous-luke-passphrase-name` 和 `previous-luks-passphrase` 請與先前的通關密碼相符。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: v1
 kind: Secret
@@ -240,7 +246,7 @@ NOTE: 例如、如果傳回兩個複雜密碼 `luksPassphraseNames: ["B", "A"]`�
 . 啟用 `CSINodeExpandSecret` 功能閘道（beta 1.25 +）。請參閱 link:https://kubernetes.io/blog/2022/09/21/kubernetes-1-25-use-secrets-while-expanding-csi-volumes-on-node-alpha/["Kubernetes 1.25：使用Secrets進行節點導向的SCSI Volume擴充"^] 以取得詳細資料。
 . 新增 `node-expand-secret-name` 和 `node-expand-secret-namespace` StorageClass參數。例如：
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass

@@ -60,7 +60,7 @@ Trident 支援 link:https://learn.microsoft.com/en-us/azure/active-directory/man
 --
 若要使用 Trident 運算子安裝 Trident 、請編輯 `tridentorchestrator_cr.yaml`以設定為 `cloudProvider` `"Azure"`。例如：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -114,7 +114,7 @@ tridentctl install --cloud-provider="Azure" -n trident
 
 例如：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -125,7 +125,7 @@ spec:
   namespace: trident
   imagePullPolicy: IfNotPresent
   cloudProvider: "Azure"
-  *cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'*
+  cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx' # Edit
 ----
 --
 .掌舵

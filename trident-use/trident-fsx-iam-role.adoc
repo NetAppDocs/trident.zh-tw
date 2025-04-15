@@ -45,32 +45,32 @@ aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document 
 ----
 * 政策 JSON 範例 * ：
 
-[source, JSON]
+[source, json]
 ----
 {
-    "Statement": [
-        {
-            "Action": [
-                "fsx:DescribeFileSystems",
-                "fsx:DescribeVolumes",
-                "fsx:CreateVolume",
-                "fsx:RestoreVolumeFromSnapshot",
-                "fsx:DescribeStorageVirtualMachines",
-                "fsx:UntagResource",
-                "fsx:UpdateVolume",
-                "fsx:TagResource",
-                "fsx:DeleteVolume"
-            ],
-            "Effect": "Allow",
-            "Resource": "*"
-        },
-        {
-            "Action": "secretsmanager:GetSecretValue",
-            "Effect": "Allow",
-            "Resource": "arn:aws:secretsmanager:<aws-region>:<aws-account-id>:secret:<aws-secret-manager-name>*"
-        }
-    ],
-    "Version": "2012-10-17"
+  "Statement": [
+    {
+      "Action": [
+        "fsx:DescribeFileSystems",
+        "fsx:DescribeVolumes",
+        "fsx:CreateVolume",
+        "fsx:RestoreVolumeFromSnapshot",
+        "fsx:DescribeStorageVirtualMachines",
+        "fsx:UntagResource",
+        "fsx:UpdateVolume",
+        "fsx:TagResource",
+        "fsx:DeleteVolume"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Action": "secretsmanager:GetSecretValue",
+      "Effect": "Allow",
+      "Resource": "arn:aws:secretsmanager:<aws-region>:<aws-account-id>:secret:<aws-secret-manager-name>*"
+    }
+  ],
+  "Version": "2012-10-17"
 }
 ----
 
@@ -93,21 +93,22 @@ aws iam create-role --role-name AmazonEKS_FSxN_CSI_DriverRole \
 [source, JSON]
 ----
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        { "Effect": "Allow",
-        "Principal": {
-            "Federated": "arn:aws:iam::<account_id>:oidc-provider/<oidc_provider>"
-        },
-        "Action": "sts:AssumeRoleWithWebIdentity",
-        "Condition": {
-            "StringEquals": {
-                "<oidc_provider>:aud": "sts.amazonaws.com",
-                "<oidc_provider>:sub": "system:serviceaccount:trident:trident-controller"
-            }
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::<account_id>:oidc-provider/<oidc_provider>"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "<oidc_provider>:aud": "sts.amazonaws.com",
+          "<oidc_provider>:sub": "system:serviceaccount:trident:trident-controller"
         }
+      }
     }
-   ]
+  ]
 }
 ----
 更新檔案中的下列值 `trust-relationship.json`：

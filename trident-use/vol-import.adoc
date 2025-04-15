@@ -62,7 +62,7 @@ TIP: 如果您想要將Kubernetes用於容器化工作負載、但想要管理Ku
 以下是最低規格的範例：
 
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1

@@ -20,13 +20,13 @@ summary: '若要建立 Volume 、請使用標準命令、 `docker volume`並在�
 
 * 使用預設名稱建立具有驅動程式的磁碟區：
 +
-[listing]
+[source, console]
 ----
 docker volume create -d netapp --name firstVolume
 ----
 * 使用特定的 Trident 執行個體建立 Volume ：
 +
-[listing]
+[source, console]
 ----
 docker volume create -d ntap_bronze --name bronzeVolume
 ----
@@ -36,7 +36,7 @@ NOTE: 如果您未指定任何 link:volume-driver-options.html["選項"^]，將�
 
 * 覆寫預設的Volume大小。請參閱下列範例、以使用驅動程式建立20GiB磁碟區：
 +
-[listing]
+[source, console]
 ----
 docker volume create -d netapp --name my_vol --opt size=20G
 ----
@@ -52,7 +52,7 @@ TIP: Volume大小以包含整數值的字串表示、並提供選用單位（例
 
 * 移除Volume就像移除任何其他Docker Volume一樣：
 +
-[listing]
+[source, console]
 ----
 docker volume rm firstVolume
 ----
@@ -72,19 +72,19 @@ IMPORTANT: 使用「Poolidfire - san」驅動程式時、上述範例會刪除�
 
 * 檢查磁碟區以列舉快照：
 +
-[listing]
+[source, console]
 ----
 docker volume inspect <volume_name>
 ----
 * 從現有的Volume建立新的Volume。這將會產生新的快照：
 +
-[listing]
+[source, console]
 ----
 docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_volume>
 ----
 * 從磁碟區上現有的快照建立新磁碟區。這不會建立新的快照：
 +
-[listing]
+[source, console]
 ----
 docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_volume> -o fromSnapshot=<source_snap_name>
 ----
@@ -94,27 +94,27 @@ docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_v
 
 === 範例
 
-[listing]
+[source, console]
 ----
 docker volume inspect firstVolume
 
 [
-    {
-        "Driver": "ontap-nas",
-        "Labels": null,
-        "Mountpoint": "/var/lib/docker-volumes/ontap-nas/netappdvp_firstVolume",
-        "Name": "firstVolume",
-        "Options": {},
-        "Scope": "global",
-        "Status": {
-            "Snapshots": [
-                {
-                    "Created": "2017-02-10T19:05:00Z",
-                    "Name": "hourly.2017-02-10_1505"
-                }
-            ]
+  {
+    "Driver": "ontap-nas",
+    "Labels": null,
+    "Mountpoint": "/var/lib/docker-volumes/ontap-nas/netappdvp_firstVolume",
+    "Name": "firstVolume",
+    "Options": {},
+    "Scope": "global",
+    "Status": {
+      "Snapshots": [
+        {
+          "Created": "2017-02-10T19:05:00Z",
+          "Name": "hourly.2017-02-10_1505"
         }
+      ]
     }
+  }
 ]
 
 docker volume create -d ontap-nas --name clonedVolume -o from=firstVolume

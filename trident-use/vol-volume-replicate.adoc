@@ -54,7 +54,7 @@ IMPORTANT: 確保兩個 ONTAP 叢集之間複寫關係中使用的 SVM 名稱是
 .. 使用參數建立 StorageClass 物件 `trident.netapp.io/replication: true` 。
 +
 .範例
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -69,7 +69,7 @@ parameters:
 .. 使用先前建立的 StorageClass 建立 PVC 。
 +
 .範例
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -86,7 +86,7 @@ spec:
 .. 使用本機資訊建立 MirrorRelationship CR 。
 +
 .範例
-[listing]
+[source, yaml]
 ----
 kind: TridentMirrorRelationship
 apiVersion: trident.netapp.io/v1
@@ -107,7 +107,7 @@ Trident 會擷取磁碟區的內部資訊和磁碟區目前的資料保護（ DP
 kubectl get tmr csi-nas
 ----
 +
-[listing]
+[source, yaml]
 ----
 kind: TridentMirrorRelationship
 apiVersion: trident.netapp.io/v1
@@ -132,7 +132,7 @@ status:
 .. 使用 trident.netapp.io/replication: true 參數建立 StorageClass 。
 +
 .範例
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -145,7 +145,7 @@ parameters:
 .. 使用目的地和來源資訊建立 MirrorRelationship CR 。
 +
 .範例
-[listing]
+[source, yaml]
 ----
 kind: TridentMirrorRelationship
 apiVersion: trident.netapp.io/v1
@@ -163,7 +163,7 @@ Trident 將使用設定的關係原則名稱（或 ONTAP 的預設值）建立 S
 .. 使用先前建立的 StorageClass 建立 PVC 、作為次要（ SnapMirror 目的地）。
 +
 .範例
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -222,7 +222,7 @@ Trident Mirror Relationship （ TMR ）是一種 CRD 、代表 PVC 之間複寫�
 . 在主要 Kubernetes 叢集上、建立 SnapshotInfo CR 以取得內部詳細資料。
 +
 .範例
-[listing]
+[source, yaml]
 ----
 kind: SnapshotInfo
 apiVersion: trident.netapp.io/v1
@@ -305,7 +305,7 @@ Trident 會檢查複寫的 PVCS ，並在嘗試刪除磁碟區之前先釋放複
 您可以使用 CRD 來執行 SnapMirror 更新，而無需 Trident 直接連線至 ONTAP 叢集。請參閱下列 TridentActionMirrorUpdate 範例格式：
 
 .範例
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentActionMirrorUpdate

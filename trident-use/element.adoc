@@ -73,10 +73,10 @@ RWO 、 RWOP
 | 「分度」 |  | 永遠為1 
 
 
-| 「torageDriverName」 | 儲存驅動程式名稱 | 永遠是「solidfire-san」 
+| 「torageDriverName」 | 儲存驅動程式名稱 | 永遠為「 SolidFire - SAN 」 
 
 
-| 「後端名稱」 | 自訂名稱或儲存後端 | 「S指_」+儲存設備（iSCSI）IP位址SolidFire 
+| 「後端名稱」 | 自訂名稱或儲存後端 | 「 SolidFire _ 」 + 儲存（ iSCSI ） IP 位址 
 
 
 | 端點 | MVIP、適用於SolidFire 採用租戶認證的不含用戶身分證明的叢集 |  
@@ -85,28 +85,28 @@ RWO 、 RWOP
 | 《VIP》 | 儲存設備（iSCSI）IP位址和連接埠 |  
 
 
-| 《標籤》 | 套用到磁碟區的任意JSON-格式化標籤集。 | 「」 
+| 《標籤》 | 套用到磁碟區的任意JSON-格式化標籤集。 | " 
 
 
 | 《天王名稱》 | 要使用的租戶名稱（如果找不到、請建立） |  
 
 
-| 《初始器IFACE》 | 將iSCSI流量限制在特定的主機介面 | 「預設」 
+| 《初始器IFACE》 | 將iSCSI流量限制在特定的主機介面 | "預設" 
 
 
 | 《UseCHAP》 | 使用 CHAP 驗證 iSCSI 。Trident 使用 CHAP 。 | 是的 
 
 
-| 《存取群組》 | 要使用的存取群組ID清單 | 尋找名為「Trident」的存取群組ID 
+| 《存取群組》 | 要使用的存取群組ID清單 | 尋找名為「 Trident 」的存取群組 ID 
 
 
 | 《類型》 | QoS規格 |  
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗 | 「」（預設不強制執行） 
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗 | ""（預設不強制執行） 
 
 
-| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「方法」：true｝ | null 
+| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。例如、 ｛ "api" ： false 、 "method" ： true} | null 
 |===
 
 WARNING: 除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用「debugTraceFlags」。
@@ -117,35 +117,34 @@ WARNING: 除非您正在進行疑難排解並需要詳細的記錄傾印、否�
 
 此範例顯示使用CHAP驗證的後端檔案、並建立具有特定QoS保證的三種Volume類型模型。您很可能會使用「IOPS」儲存類別參數來定義儲存類別、以使用每個類別。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
 storageDriverName: solidfire-san
 Endpoint: https://<user>:<password>@<mvip>/json-rpc/8.0
-SVIP: "<svip>:3260"
-TenantName: "<tenant>"
+SVIP: <svip>:3260
+TenantName: <tenant>
 labels:
   k8scluster: dev1
   backend: dev1-element-cluster
 UseCHAP: true
 Types:
-- Type: Bronze
-  Qos:
-    minIOPS: 1000
-    maxIOPS: 2000
-    burstIOPS: 4000
-- Type: Silver
-  Qos:
-    minIOPS: 4000
-    maxIOPS: 6000
-    burstIOPS: 8000
-- Type: Gold
-  Qos:
-    minIOPS: 6000
-    maxIOPS: 8000
-    burstIOPS: 10000
-
+  - Type: Bronze
+    Qos:
+      minIOPS: 1000
+      maxIOPS: 2000
+      burstIOPS: 4000
+  - Type: Silver
+    Qos:
+      minIOPS: 4000
+      maxIOPS: 6000
+      burstIOPS: 8000
+  - Type: Gold
+    Qos:
+      minIOPS: 6000
+      maxIOPS: 8000
+      burstIOPS: 10000
 ----
 
 
@@ -157,63 +156,64 @@ Trident 會在資源配置時、將儲存池上的標籤複製到後端儲存 LU
 
 在下圖所示的範例後端定義檔中、會針對所有設定的儲存資源池設定特定的預設值 `type` 銀級。虛擬資源池是在中定義的 `storage` 區段。在此範例中、有些儲存資源池會自行設定類型、有些資源池則會覆寫上述預設值。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
 storageDriverName: solidfire-san
 Endpoint: https://<user>:<password>@<mvip>/json-rpc/8.0
-SVIP: "<svip>:3260"
-TenantName: "<tenant>"
+SVIP: <svip>:3260
+TenantName: <tenant>
 UseCHAP: true
 Types:
-- Type: Bronze
-  Qos:
-    minIOPS: 1000
-    maxIOPS: 2000
-    burstIOPS: 4000
-- Type: Silver
-  Qos:
-    minIOPS: 4000
-    maxIOPS: 6000
-    burstIOPS: 8000
-- Type: Gold
-  Qos:
-    minIOPS: 6000
-    maxIOPS: 8000
-    burstIOPS: 10000
+  - Type: Bronze
+    Qos:
+      minIOPS: 1000
+      maxIOPS: 2000
+      burstIOPS: 4000
+  - Type: Silver
+    Qos:
+      minIOPS: 4000
+      maxIOPS: 6000
+      burstIOPS: 8000
+  - Type: Gold
+    Qos:
+      minIOPS: 6000
+      maxIOPS: 8000
+      burstIOPS: 10000
 type: Silver
 labels:
   store: solidfire
   k8scluster: dev-1-cluster
 region: us-east-1
 storage:
-- labels:
-    performance: gold
-    cost: '4'
-  zone: us-east-1a
-  type: Gold
-- labels:
-    performance: silver
-    cost: '3'
-  zone: us-east-1b
-  type: Silver
-- labels:
-    performance: bronze
-    cost: '2'
-  zone: us-east-1c
-  type: Bronze
-- labels:
-    performance: silver
-    cost: '1'
-  zone: us-east-1d
+  - labels:
+      performance: gold
+      cost: "4"
+    zone: us-east-1a
+    type: Gold
+  - labels:
+      performance: silver
+      cost: "3"
+    zone: us-east-1b
+    type: Silver
+  - labels:
+      performance: bronze
+      cost: "2"
+    zone: us-east-1c
+    type: Bronze
+  - labels:
+      performance: silver
+      cost: "1"
+    zone: us-east-1d
+
 
 ----
 下列StorageClass定義是指上述虛擬資源池。使用 `parameters.selector` 欄位中、每個StorageClass會呼叫哪些虛擬資源池可用於裝載Volume。磁碟區將會在所選的虛擬資源池中定義各個層面。
 
 第一個 StorageClass (`solidfire-gold-four`）將映射到第一個虛擬池。這是唯一提供黃金級效能的集區 `Volume Type QoS`。Last StorageClass (`solidfire-silver`（最後一個 StorageClass ）調用任何提供銀牌性能的存儲池。Trident 會決定要選取哪個虛擬集區、並確保符合儲存需求。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -221,8 +221,9 @@ metadata:
   name: solidfire-gold-four
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=gold; cost=4"
-  fsType: "ext4"
+  selector: performance=gold; cost=4
+  fsType: ext4
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -230,8 +231,9 @@ metadata:
   name: solidfire-silver-three
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=silver; cost=3"
-  fsType: "ext4"
+  selector: performance=silver; cost=3
+  fsType: ext4
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -239,8 +241,9 @@ metadata:
   name: solidfire-bronze-two
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=bronze; cost=2"
-  fsType: "ext4"
+  selector: performance=bronze; cost=2
+  fsType: ext4
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -248,8 +251,9 @@ metadata:
   name: solidfire-silver-one
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=silver; cost=1"
-  fsType: "ext4"
+  selector: performance=silver; cost=1
+  fsType: ext4
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -257,8 +261,8 @@ metadata:
   name: solidfire-silver
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=silver"
-  fsType: "ext4"
+  selector: performance=silver
+  fsType: ext4
 ----
 
 

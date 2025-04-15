@@ -21,19 +21,19 @@ summary: 在搭配 Docker 使用 Trident 時、尋找已知問題的相關資訊
 .因應措施
 . 停用外掛程式。
 +
-[listing]
+[source, console]
 ----
 docker plugin disable -f netapp:latest
 ----
 . 移除外掛程式。
 +
-[listing]
+[source, console]
 ----
 docker plugin rm -f netapp:latest
 ----
 . 提供額外的「config」參數、重新安裝外掛程式。
 +
-[listing]
+[source, console]
 ----
 docker plugin install netapp/trident-plugin:20.10 --alias netapp --grant-all-permissions config=config.json
 ----
@@ -55,7 +55,7 @@ NOTE: 這是Docker用戶端的限制。用戶端會將單一字元名稱解譯�
 * Volume 外掛程式（包括 Trident ）必須在 swarm 叢集中的每個節點上分別執行。由於 ONTAP 的運作方式、以及和 `ontap-san`驅動程式的運作方式 `ontap-nas`、這些都是唯一能夠在這些限制範圍內運作的方法。
 
 
-其餘的驅動程式可能會受到競爭狀況等問題的影響、導致在單一要求中建立大量磁碟區、而不需要明確的「贏家」；例如、Element的功能可讓磁碟區擁有相同名稱但不同ID。
+其餘的驅動程式可能會遇到競爭條件等問題，導致在沒有明確「贏家」的情況下，為單一要求建立大量磁碟區；例如， Element 具有允許磁碟區擁有相同名稱但不同 ID 的功能。
 
 NetApp已向Docker團隊提供意見回饋、但沒有任何未來追索的跡象。
 

@@ -40,7 +40,7 @@ IMPORTANT: 在私有儲存庫中安裝 Trident 時、如果您使用 `--image-re
 
 產生這些檔案之後、您可以根據自己的需求加以修改、然後使用「-use自訂-yaml」來安裝自訂部署。
 
-[listing]
+[source, console]
 ----
 ./tridentctl install -n trident --use-custom-yaml
 ----

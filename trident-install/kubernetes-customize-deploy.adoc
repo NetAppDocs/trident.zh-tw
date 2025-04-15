@@ -164,11 +164,10 @@ NOTE: Trident 控制器將拒絕新的發佈 Volume 要求、直到 Trident 節�
 .基本自訂組態
 [%collapsible]
 ====
-這是基本自訂安裝的範例。
+此範例是在執行命令後建立， `cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml`代表基本的自訂安裝：
 
-[listing]
+[source, yaml]
 ----
-cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
 metadata:
@@ -185,7 +184,7 @@ spec:
 ====
 此範例會安裝 Trident 搭配節點選取器。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -203,11 +202,10 @@ spec:
 .Windows 工作者節點
 [%collapsible]
 ====
-此範例會在 Windows 工作者節點上安裝 Trident 。
+此範例是在執行命令後建立， `cat deploy/crds/tridentorchestrator_cr.yaml`會在 Windows 工作節點上安裝 Trident 。
 
-[listing]
+[source, yaml]
 ----
-cat deploy/crds/tridentorchestrator_cr.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
 metadata:
@@ -223,7 +221,7 @@ spec:
 ====
 此範例會安裝 Trident 、以在 AKS 叢集上啟用託管身分識別。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -240,7 +238,7 @@ spec:
 ====
 此範例會安裝 Trident 、以搭配使用於 AKS 叢集上的雲端身分識別。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -259,7 +257,7 @@ spec:
 ====
 此範例會安裝 Trident 、以搭配使用於 AKS 叢集上的雲端身分識別。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -277,7 +275,7 @@ spec:
 ====
 此範例會安裝 Trident 、以搭配 GKE 叢集上的雲端身分識別使用。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig

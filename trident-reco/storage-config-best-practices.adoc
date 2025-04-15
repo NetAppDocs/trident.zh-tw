@@ -136,7 +136,7 @@ IMPORTANT: 如果您的版本早於ONTAP 9.8、您應該將QoS原則群組指派
 
 [listing]
 ----
-  ---
+---
 version: 1
 storageDriverName: ontap-nas
 managementLIF: 0.0.0.0
@@ -147,14 +147,15 @@ password: pass
 defaults:
   qosPolicy: standard-pg
 storage:
-- labels:
-    performance: extreme
-  defaults:
-    adaptiveQosPolicy: extremely-adaptive-pg
-- labels:
-    performance: premium
-  defaults:
-    qosPolicy: premium-pg
+  - labels:
+      performance: extreme
+    defaults:
+      adaptiveQosPolicy: extremely-adaptive-pg
+  - labels:
+      performance: premium
+    defaults:
+      qosPolicy: premium-pg
+
 ----
 * 您應該為每個Volume套用原則群組、以便每個Volume都能獲得原則群組指定的整個處理量。不支援共用原則群組。
 

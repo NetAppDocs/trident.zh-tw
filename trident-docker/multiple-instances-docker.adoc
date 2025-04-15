@@ -20,13 +20,13 @@ summary: 當您想要同時使用多個儲存組態時、需要多個Trident執�
 
 . 啟動第一個指定別名和組態檔的執行個體。
 +
-[listing]
+[source, console]
 ----
 docker plugin install --grant-all-permissions --alias silver netapp/trident-plugin:21.07 config=silver.json
 ----
 . 啟動第二個執行個體、指定不同的別名和組態檔。
 +
-[listing]
+[source, console]
 ----
 docker plugin install --grant-all-permissions --alias gold netapp/trident-plugin:21.07 config=gold.json
 ----
@@ -35,7 +35,7 @@ docker plugin install --grant-all-permissions --alias gold netapp/trident-plugin
 例如、黃金Volume：
 
 +
-[listing]
+[source, console]
 ----
 docker volume create -d gold --name ntapGold
 ----
@@ -43,7 +43,7 @@ docker volume create -d gold --name ntapGold
 例如、對於銀級Volume：
 
 +
-[listing]
+[source, console]
 ----
 docker volume create -d silver --name ntapSilver
 ----
@@ -55,13 +55,13 @@ docker volume create -d silver --name ntapSilver
 
 . 使用自訂驅動程式ID以NFS組態啟動外掛程式：
 +
-[listing]
+[source, console]
 ----
 sudo trident --volume-driver=netapp-nas --config=/path/to/config-nfs.json
 ----
 . 使用自訂驅動程式ID以iSCSI組態啟動外掛程式：
 +
-[listing]
+[source, console]
 ----
 sudo trident --volume-driver=netapp-san --config=/path/to/config-iscsi.json
 ----
@@ -70,7 +70,7 @@ sudo trident --volume-driver=netapp-san --config=/path/to/config-iscsi.json
 例如、對於NFS：
 
 +
-[listing]
+[source, console]
 ----
 docker volume create -d netapp-nas --name my_nfs_vol
 ----
@@ -78,7 +78,7 @@ docker volume create -d netapp-nas --name my_nfs_vol
 例如、對於iSCSI：
 
 +
-[listing]
+[source, console]
 ----
 docker volume create -d netapp-san --name my_iscsi_vol
 ----

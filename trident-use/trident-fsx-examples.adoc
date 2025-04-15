@@ -31,10 +31,10 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 「torageDriverName」 | 儲存驅動程式名稱 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
 
 
-| 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱+「_」+ dataLIF 
+| 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱 + "_" + dataLIF 
 
 
-| 《馬納格門達利》 | 叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
+| 《馬納格門達利》 | 叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 | "10.0.0.1 " ， "[2001:1234:abcd::fefe] 
 
 
 | 「DataLIF」 | 傳輸協定LIF的IP位址。* ONTAP NAS 驅動程式 * ： NetApp 建議指定 dataLIF 。如果未提供， Trident 會從 SVM 擷取 dataLIFs 。您可以指定完整網域名稱（ FQDN ），以用於 NFS 裝載作業，讓您建立循環 DNS ，以便在多個 dataLIFs 之間進行負載平衡。可在初始設定之後變更。請參閱 。*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Trident 使用 ONTAP 選擇性 LUN 對應來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義dataLIF、就會產生警告。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 |  
@@ -43,7 +43,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 「AutoExpportPolicy」 | 啟用自動匯出原則建立及更新[布 林值]。使用 `autoExportPolicy`和 `autoExportCIDRs`選項、 Trident 可以自動管理匯出原則。 | 「假」 
 
 
-| 《AutoExpportCIDR》（自動匯出CTR） | 將 Kubernetes 節點 IP 篩選在啟用時的 CIDR 清單 `autoExportPolicy`。使用 `autoExportPolicy`和 `autoExportCIDRs`選項、 Trident 可以自動管理匯出原則。 | 「[「0.00.0.0/0」、「：/0」]」 
+| 《AutoExpportCIDR》（自動匯出CTR） | 將 Kubernetes 節點 IP 篩選在啟用時的 CIDR 清單 `autoExportPolicy`。使用 `autoExportPolicy`和 `autoExportCIDRs`選項、 Trident 可以自動管理匯出原則。 | "["0.0.0/0" ， ":/0"]" 
 
 
 | 《標籤》 | 套用到磁碟區的任意JSON-格式化標籤集 | " 
@@ -73,13 +73,15 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 「限制Aggregateusage」 | * 請勿指定 Amazon FSX for NetApp ONTAP 。 *提供的 `fsxadmin`和 `vsadmin`不包含使用 Trident 擷取彙總使用量並加以限制所需的權限。 | 請勿使用。 
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 qtree 和 LUN 的最大磁碟區大小，而且此 `qtreesPerFlexvol`選項可讓您自訂每個 FlexVol volume 的最大 qtree 數量 | 「」（預設不強制執行） 
+| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 qtree 和 LUN 的最大磁碟區大小，而且此 `qtreesPerFlexvol`選項可讓您自訂每個 FlexVol volume 的最大 qtree 數量 | ""（預設不強制執行） 
 
 
 | 《lunsPerFlexvol》 | 每FlexVol 個LUN的最大LUN數量、範圍必須為[50、200]。僅限SAN。 | `100` 
 
 
-| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。範例：｛"API"：假、「method」：true｝不使用 `debugTraceFlags` 除非您正在疑難排解並需要詳細的記錄傾印。 | null 
+| 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。例如、 ｛ "api" ： false 、 "method" ： true}
+
+請勿使用 `debugTraceFlags` 除非您正在疑難排解並需要詳細的記錄傾印。 | null 
 
 
 | 「nfsMountOptions」 | 以逗號分隔的NFS掛載選項清單。Kubernetes-Persistent Volume 的掛載選項通常是在儲存類別中指定、但如果儲存類別中未指定掛載選項、則 Trident 會回復為使用儲存後端組態檔案中指定的掛載選項。如果儲存類別或組態檔案中未指定任何掛載選項、 Trident 將不會在關聯的持續磁碟區上設定任何掛載選項。 | " 
@@ -139,19 +141,19 @@ NOTE: 如果 PVCS 連接到一個或多個 Pod ，您必須關閉所有對應的
 | "paceAllocate（配置）" | LUN的空間分配 | "真的" 
 
 
-| 《保護區》 | 空間保留模式；「無」（精簡）或「Volume」（完整） | 無 
+| 《保護區》 | 空間保留模式；「無」（精簡）或「 Volume 」（粗） | 無 
 
 
 | 「快照原則」 | 要使用的Snapshot原則 | 無 
 
 
-| 「qosPolicy」 | 要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區或後端的其中一個qosPolicy或adaptiveQosPolicy。搭配 Trident 使用 QoS 原則群組需要 ONTAP 9 8 或更新版本。您應該使用非共用的 QoS 原則群組、並確保個別將原則群組套用至每個成員。共享 QoS 原則群組會強制執行所有工作負載總處理量的上限。 | 「」 
+| 「qosPolicy」 | 要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區或後端的其中一個qosPolicy或adaptiveQosPolicy。搭配 Trident 使用 QoS 原則群組需要 ONTAP 9 8 或更新版本。您應該使用非共用的 QoS 原則群組、並確保個別將原則群組套用至每個成員。共享 QoS 原則群組會強制執行所有工作負載總處理量的上限。 | " 
 
 
-| 《adaptiveQosPolicy》 | 要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區或後端的其中一個qosPolicy或adaptiveQosPolicy。不受ONTAP-NAS-經濟支援。 | 「」 
+| 《adaptiveQosPolicy》 | 要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區或後端的其中一個qosPolicy或adaptiveQosPolicy。不受ONTAP-NAS-經濟支援。 | " 
 
 
-| 「快照保留區」 | 保留給快照「0」的磁碟區百分比 | 如果 `snapshotPolicy` 是 `none`、 `else` 「」 
+| 「快照保留區」 | 為快照保留的磁碟區百分比「 0 」 | 如果 `snapshotPolicy`是 `none`， `else` 
 
 
 | 「PlitOnClone」 | 建立複本時、從其父複本分割複本 | 「假」 
@@ -166,7 +168,7 @@ NOTE: 如果 PVCS 連接到一個或多個 Pod ，您必須關閉所有對應的
 | 「分層政策」 | 要使用的分層原則	`none` |  
 
 
-| 「unixPermissions」 | 新磁碟區的模式。*如果是SMB磁碟區、請保留空白。* | 「」 
+| 「unixPermissions」 | 新磁碟區的模式。*如果是SMB磁碟區、請保留空白。* | " 
 
 
 | 《生態樣式》 | 新磁碟區的安全樣式。NFS支援 `mixed` 和 `unix` 安全樣式：SMB支援 `mixed` 和 `ntfs` 安全樣式： | NFS預設為 `unix`。SMB預設為 `ntfs`。 
@@ -180,7 +182,7 @@ NOTE: 如果 PVCS 連接到一個或多個 Pod ，您必須關閉所有對應的
 ====
 使用 `nasType`、 `node-stage-secret-name`和 `node-stage-secret-namespace`、您可以指定SMB磁碟區、並提供所需的Active Directory認證資料。使用支援SMB磁碟區 `ontap-nas` 僅限驅動程式。
 
-[source, console]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -197,7 +199,7 @@ parameters:
 .搭配 Secrets Manager 的 AWS FSX for ONTAP 組態
 [%collapsible]
 ====
-[source, console]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig

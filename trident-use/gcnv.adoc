@@ -57,7 +57,7 @@ Rwo 、 ROX 、 rwx 、 RWOP
 
 例如：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator

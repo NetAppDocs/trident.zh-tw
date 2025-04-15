@@ -45,7 +45,7 @@ summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP SAN 驅動程式
 
 
 NOTE: 如果您使用的是「 vsadmin 」認證，則必須是 SVM 的認 `managementLIF`證；如果使用的是「 admin 」認證，則必須是叢集的認證 `managementLIF`。
-| 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
+| "10.0.0.1 " ， "[2001:1234:abcd::fefe] 
 
 
 | 「DataLIF」 | 傳輸協定LIF的IP位址。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如 `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。* 請勿指定 iSCSI 。 *Trident 使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["可選擇的LUN對應ONTAP"^]來探索建立多重路徑工作階段所需的 iSCSI 生命。如果明確定義、就會產生警告 `dataLIF`。* MetroCluster 省略。 *請參閱<<mcc-best>>。 | 源自SVM 
@@ -154,7 +154,7 @@ Trident 建議使用下列選項來加速格式化程序：
 
 *-E nobard ： *
 
-* 保留、請勿嘗試在 mkfs 時間捨棄區塊（丟棄區塊一開始在固態裝置和稀疏 / 精簡配置儲存設備上很有用）。這會取代已過時的選項「 -K 」、而且適用於所有檔案系統（ xfs 、 ext3 和 ext4 ）。
+* 保留、請勿嘗試在 mkfs 時間捨棄區塊（丟棄區塊一開始在固態裝置和稀疏 / 精簡配置儲存設備上很有用）。這會取代已過時的選項「 -K 」，而且適用於所有檔案系統（ xfs ， ext3 和 ext4 ）。
 
 
 
@@ -208,7 +208,7 @@ NVMe / TCP 不支援 LUKS 加密。 | 針對 ASA R2 將設為 `false`。
 
 以下是定義預設值的範例：
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -261,7 +261,7 @@ NOTE: 如果您在 NetApp ONTAP 上搭配 Trident 使用 Amazon FSX ， NetApp �
 ====
 這是使用的基本組態 `ontap-san` 驅動程式：
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -282,7 +282,7 @@ password: <password>
 
 若要無縫切換和切換，請使用並省略 `svm`參數來指定 SVM `managementLIF` 。例如：
 
-[listing]
+[source, yaml]
 ----
 version: 1
 storageDriverName: ontap-san
@@ -294,7 +294,7 @@ password: password
 .ONTAP SAN 經濟效益範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 version: 1
 storageDriverName: ontap-san-economy
@@ -309,7 +309,7 @@ password: <password>
 ====
 在此基本組態範例中 `clientCertificate`、 `clientPrivateKey`和 `trustedCACertificate` （選用、如果使用信任的CA）會填入 `backend.json` 並分別取得用戶端憑證、私密金鑰及信任CA憑證的基礎64編碼值。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -333,7 +333,7 @@ trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 這些範例使用建立後端 `useCHAP` 設定為 `true`。
 
 .ONTAP SAN CHAP 範例
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -352,7 +352,7 @@ username: vsadmin
 password: <password>
 ----
 .ONTAP SAN 經濟 CHAP 範例
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -373,7 +373,7 @@ password: <password>
 ====
 您必須在 ONTAP 後端上設定 NVMe 的 SVM 。這是適用於 NVMe / TCP 的基本後端組態。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -392,7 +392,7 @@ useREST: true
 ====
 您必須在 ONTAP 後端設定具有 FC 的 SVM 。這是 FC 的基本後端組態。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -409,7 +409,7 @@ useREST: true
 .名稱範本的後端組態範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -419,29 +419,32 @@ managementLIF: <ip address>
 svm: svm0
 username: <admin>
 password: <password>
-defaults: {
-    "nameTemplate": "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.volume.RequestName}}"
-},
-"labels": {"cluster": "ClusterA", "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"}
+defaults:
+  nameTemplate: "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.vo\
+    lume.RequestName}}"
+labels:
+  cluster: ClusterA
+  PVC: "{{.volume.Namespace}}_{{.volume.RequestName}}"
 ----
 ====
 .formatOptions ONTAP - SAN 經濟型驅動程式範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
+---
 version: 1
 storageDriverName: ontap-san-economy
-managementLIF: ''
+managementLIF: ""
 svm: svm1
-username: ''
+username: ""
 password: "!"
 storagePrefix: whelk_
 debugTraceFlags:
   method: true
   api: true
 defaults:
-  formatOptions: "-E nodiscard"
+  formatOptions: -E nodiscard
 ----
 ====
 
@@ -457,7 +460,7 @@ Trident 會在「意見」欄位中設定資源配置標籤。在 FlexVol volume
 .ONTAP SAN 範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -472,43 +475,44 @@ chapUsername: uh2aNCLSd6cNwxyz
 username: vsadmin
 password: <password>
 defaults:
-  spaceAllocation: 'false'
-  encryption: 'false'
+  spaceAllocation: "false"
+  encryption: "false"
   qosPolicy: standard
 labels:
   store: san_store
   kubernetes-cluster: prod-cluster-1
 region: us_east_1
 storage:
-- labels:
-    protection: gold
-    creditpoints: '40000'
-  zone: us_east_1a
-  defaults:
-    spaceAllocation: 'true'
-    encryption: 'true'
-    adaptiveQosPolicy: adaptive-extreme
-- labels:
-    protection: silver
-    creditpoints: '20000'
-  zone: us_east_1b
-  defaults:
-    spaceAllocation: 'false'
-    encryption: 'true'
-    qosPolicy: premium
-- labels:
-    protection: bronze
-    creditpoints: '5000'
-  zone: us_east_1c
-  defaults:
-    spaceAllocation: 'true'
-    encryption: 'false'
+  - labels:
+      protection: gold
+      creditpoints: "40000"
+    zone: us_east_1a
+    defaults:
+      spaceAllocation: "true"
+      encryption: "true"
+      adaptiveQosPolicy: adaptive-extreme
+  - labels:
+      protection: silver
+      creditpoints: "20000"
+    zone: us_east_1b
+    defaults:
+      spaceAllocation: "false"
+      encryption: "true"
+      qosPolicy: premium
+  - labels:
+      protection: bronze
+      creditpoints: "5000"
+    zone: us_east_1c
+    defaults:
+      spaceAllocation: "true"
+      encryption: "false"
+
 ----
 ====
 .ONTAP SAN 經濟效益範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -523,46 +527,47 @@ chapUsername: uh2aNCLSd6cNwxyz
 username: vsadmin
 password: <password>
 defaults:
-  spaceAllocation: 'false'
-  encryption: 'false'
+  spaceAllocation: "false"
+  encryption: "false"
 labels:
   store: san_economy_store
 region: us_east_1
 storage:
-- labels:
-    app: oracledb
-    cost: '30'
-  zone: us_east_1a
-  defaults:
-    spaceAllocation: 'true'
-    encryption: 'true'
-- labels:
-    app: postgresdb
-    cost: '20'
-  zone: us_east_1b
-  defaults:
-    spaceAllocation: 'false'
-    encryption: 'true'
-- labels:
-    app: mysqldb
-    cost: '10'
-  zone: us_east_1c
-  defaults:
-    spaceAllocation: 'true'
-    encryption: 'false'
-- labels:
-    department: legal
-    creditpoints: '5000'
-  zone: us_east_1c
-  defaults:
-    spaceAllocation: 'true'
-    encryption: 'false'
+  - labels:
+      app: oracledb
+      cost: "30"
+    zone: us_east_1a
+    defaults:
+      spaceAllocation: "true"
+      encryption: "true"
+  - labels:
+      app: postgresdb
+      cost: "20"
+    zone: us_east_1b
+    defaults:
+      spaceAllocation: "false"
+      encryption: "true"
+  - labels:
+      app: mysqldb
+      cost: "10"
+    zone: us_east_1c
+    defaults:
+      spaceAllocation: "true"
+      encryption: "false"
+  - labels:
+      department: legal
+      creditpoints: "5000"
+    zone: us_east_1c
+    defaults:
+      spaceAllocation: "true"
+      encryption: "false"
+
 ----
 ====
 .NVMe / TCP 範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -574,15 +579,16 @@ username: vsadmin
 password: <password>
 useREST: true
 defaults:
-  spaceAllocation: 'false'
-  encryption: 'true'
+  spaceAllocation: "false"
+  encryption: "true"
 storage:
-- labels:
-    app: testApp
-    cost: '20'
-  defaults:
-    spaceAllocation: 'false'
-    encryption: 'false'
+  - labels:
+      app: testApp
+      cost: "20"
+    defaults:
+      spaceAllocation: "false"
+      encryption: "false"
+
 ----
 ====
 
@@ -593,7 +599,7 @@ storage:
 
 * 。 `protection-gold` StorageClass 會對應至中的第一個虛擬集區 `ontap-san` 後端：這是唯一提供金級保護的集區。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -606,7 +612,7 @@ parameters:
 ----
 * 。 `protection-not-gold` StorageClass 會對應至中的第二個和第三個虛擬集區 `ontap-san` 後端：這是唯一提供金級以外保護層級的集區。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -619,7 +625,7 @@ parameters:
 ----
 * 。 `app-mysqldb` StorageClass 會對應至中的第三個虛擬集區 `ontap-san-economy` 後端：這是唯一為 mysqldb 類型應用程式提供儲存池組態的集區。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -632,7 +638,7 @@ parameters:
 ----
 * 。 `protection-silver-creditpoints-20k` StorageClass 會對應至中的第二個虛擬集區 `ontap-san` 後端：這是唯一提供銀級保護和 20000 個信用點數的資源池。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -645,7 +651,7 @@ parameters:
 ----
 * 。 `creditpoints-5k` StorageClass 會對應至中的第三個虛擬集區 `ontap-san` 中的後端和第四個虛擬集區 `ontap-san-economy` 後端：這是唯一擁有 5000 個信用點數的集區方案。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -658,7 +664,7 @@ parameters:
 ----
 * 。 `my-test-app-sc` StorageClass 會對應至 `testAPP` 中的虛擬集區 `ontap-san` 驅動程式搭配 `sanType: nvme`。這是唯一的集區服務項目 `testApp`。
 +
-[listing]
+[source, yaml]
 ----
 ---
 apiVersion: storage.k8s.io/v1

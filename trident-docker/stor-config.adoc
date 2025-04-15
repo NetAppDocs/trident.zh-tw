@@ -134,7 +134,7 @@ IP位址ONTAP ：您可以指定完整網域名稱（FQDN）。
 
 
 | 「nfsMountOptions」  a| 
-精細控制NFS掛載選項；預設為「-o nfsver=3」。*僅適用於「ONTAP-NAS」和「ONTAP-NAS-經濟」驅動程式*。 https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["請參閱此處的NFS主機組態資訊"^]。
+精細控制 NFS 裝載選項；預設為「 -o nfsver=3 」。* 僅適用於 `ontap-nas`和 `ontap-nas-economy`驅動程式 * 。 https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["請參閱此處的NFS主機組態資訊"^]。
  a| 
 `-o nfsvers=4`
 
@@ -198,7 +198,7 @@ Trident 會以 `netappdvp`建立及管理每個節點 `igroups`。
 
 
 | 「快照保留區」  a| 
-Snapshot 保留百分比、預設為「」接受 ONTAP 預設值
+Snapshot 保留百分比，預設為「」接受 ONTAP 預設值
  a| 
 `10`
 
@@ -273,12 +273,12 @@ SAN 選項可選擇檔案系統類型、預設為 `ext4`
 
 如果您需要的Docker磁碟區數量超過FlexVol 了《支援》的範圍、請選擇「ONTAP - NAS經濟」或「ONTAP - SAN經濟」驅動程式。
 
-此 `ontap-nas-economy`驅動程式會在 ONTAP qtree 位於自動管理的 FlexVol Volume qtree 集區內時建立 Docker Volume 。 qtree 的擴充能力大得多，每個叢集節點最多 10 ， 000 個，每個叢集最多 40 ， 000 個，但會犧牲某些功能。此 `ontap-nas-economy`驅動程式不支援 Docker Volume 精細快照或複製。
+此 `ontap-nas-economy`驅動程式會在自動管理的 FlexVol Volume 集區內，以 ONTAP qtree 的形式建立 Docker Volume 。qtree的擴充能力大幅提升、每個叢集節點最多可達100、000個、每個叢集最多可達2、400、000個、而犧牲了部分功能。此 `ontap-nas-economy`驅動程式不支援 Docker Volume 精細快照或複製。
 
 
-NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swarm不會協調多個節點之間的磁碟區建立。
+NOTE: Docker swarm 目前不支援此 `ontap-nas-economy`驅動程式，因為 Docker swarm 不會在多個節點之間協調磁碟區建立。
 
-此 `ontap-san-economy`驅動程式會在自動管理的 FlexVol 磁碟區的共用集區中，將 Docker 磁碟區建立為 ONTAP LUN 。如此一來，每個 FlexVol 並不限於只有一個 LUN ，而且能為 SAN 工作負載提供更好的擴充性。根據儲存陣列的不同、ONTAP 每個叢集最多可支援16384個LUN。由於磁碟區是下方的LUN、因此此驅動程式支援Docker磁碟區精細快照和複製。
+此 `ontap-san-economy`驅動程式會在自動管理的 FlexVol 磁碟區的共用集區中，將 Docker 磁碟區建立為 ONTAP LUN 。如此FlexVol 一來、每個支援不只侷限於一個LUN、而且能為SAN工作負載提供更好的擴充性。根據儲存陣列的不同、ONTAP 每個叢集最多可支援16384個LUN。由於磁碟區是下方的LUN、因此此驅動程式支援Docker磁碟區精細快照和複製。
 
 選擇 `ontap-nas-flexgroup`驅動程式來增加單一磁碟區的平行度、使其可擴充至數十億個檔案的 PB 範圍。FlexGroups的一些理想使用案例包括AI / ML / DL、Big Data和分析、軟體建置、串流、檔案儲存庫等。Trident 會在佈建 FlexGroup Volume 時、使用指派給 SVM 的所有集合體。支援Trident也有下列考量：FlexGroup
 
@@ -289,9 +289,9 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
 * FlexGroup 磁碟區不支援複製。
 
 
-有關適用於 FlexGroups 的 FlexGroups 和工作負載的資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["NetApp FlexGroup Volume 最佳實務做法與實作指南"^]。
+有關適用於 FlexGroups 的 FlexGroups 和工作負載的資訊，請參閱 https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["NetApp FlexGroup Volume 最佳實務做法與實作指南"^]。
 
-若要在同一個環境中獲得進階功能和龐大規模、您可以執行多個Docker Volume外掛程式執行個體、其中一個使用「ONTAP-NAS」、另一個使用「ONTAP-NAS-經濟」。
+若要在同一個環境中取得進階功能和大規模功能，您可以使用執行多個 Docker Volume 外掛程式執行個體，其中一個使用，另 `ontap-nas-economy`一個使用 `ontap-nas`。
 
 
 
@@ -307,16 +307,16 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
 --
 . 使用下列命令建立新角色：
 +
-`security login role create <role_name\> -cmddirname "command" -access all –vserver <svm_name\>`
+`security login role create <role_name\> -cmddirname "command" -access all -vserver <svm_name\>`
 
 . 為 Trident 使用者建立使用者名稱：
 +
-`security login create -username <user_name\> -application ontapi -authmethod password -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
-`security login create -username <user_name\> -application http -authmethod password -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+`security login create -username <user_name\> -application ontapi -authmethod password -role <name_of_role_in_step_1\> -vserver <svm_name\> -comment "user_description"`
+`security login create -username <user_name\> -application http -authmethod password -role <name_of_role_in_step_1\> -vserver <svm_name\> -comment "user_description"`
 
 . 將角色對應至使用者：
 +
-`security login modify username <user_name\> –vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
+`security login modify username <user_name\> -vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
 
 
 
@@ -360,103 +360,103 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
 .<code>ontap-nas</code> 驅動程式的 NFS 範例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1",
-    "defaults": {
-      "size": "10G",
-      "spaceReserve": "none",
-      "exportPolicy": "default"
-    }
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1",
+  "defaults": {
+    "size": "10G",
+    "spaceReserve": "none",
+    "exportPolicy": "default"
+  }
 }
 ----
 ====
 .<code>ontap-nas-flexgroup</code> 驅動程式的 NFS 範例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas-flexgroup",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "defaults": {
-      "size": "100G",
-      "spaceReserve": "none",
-      "exportPolicy": "default"
-    }
+  "version": 1,
+  "storageDriverName": "ontap-nas-flexgroup",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "defaults": {
+    "size": "100G",
+    "spaceReserve": "none",
+    "exportPolicy": "default"
+  }
 }
 ----
 ====
 .<code>ontap-nas-economy</code> 驅動程式的 NFS 範例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas-economy",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1"
+  "version": 1,
+  "storageDriverName": "ontap-nas-economy",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1"
 }
 ----
 ====
 .<code>ontap-san</code> 驅動程式的 iSCSI 範例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-san",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.3",
-    "svm": "svm_iscsi",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1",
-    "igroupName": "netappdvp"
+  "version": 1,
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.3",
+  "svm": "svm_iscsi",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1",
+  "igroupName": "netappdvp"
 }
 ----
 ====
 .<code>ontap-san-economy</code> 驅動程式的 NFS 範例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-san-economy",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.3",
-    "svm": "svm_iscsi_eco",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1",
-    "igroupName": "netappdvp"
+  "version": 1,
+  "storageDriverName": "ontap-san-economy",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.3",
+  "svm": "svm_iscsi_eco",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1",
+  "igroupName": "netappdvp"
 }
 ----
 ====
 .<code>ontap-san</code> 驅動程式的 NVMe / TCP 範例
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
   "version": 1,
@@ -464,8 +464,8 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
   "storageDriverName": "ontap-san",
   "managementLIF": "10.0.0.1",
   "svm": "svm_nvme",
-  "username":"vsadmin",
-  "password":"password",
+  "username": "vsadmin",
+  "password": "password",
   "sanType": "nvme",
   "useREST": true
 }
@@ -474,7 +474,7 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
 .SCSI over FC 範例，適用於 <code> ONTAP － </code> 驅動程式
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
   "version": 1,
@@ -483,8 +483,8 @@ NOTE: Docker swarm目前不支援「ONTAP-NAS-節約」驅動程式、因為swar
   "managementLIF": "10.0.0.1",
   "sanType": "fcp",
   "svm": "trident_svm",
-  "username":"vsadmin",
-  "password":"password",
+  "username": "vsadmin",
+  "password": "password",
   "useREST": true
 }
 ----
@@ -547,40 +547,40 @@ QoS規格
 
 === 元素軟體組態檔範例
 
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "solidfire-san",
-    "Endpoint": "https://admin:admin@192.168.160.3/json-rpc/8.0",
-    "SVIP": "10.0.0.7:3260",
-    "TenantName": "docker",
-    "InitiatorIFace": "default",
-    "Types": [
-        {
-            "Type": "Bronze",
-            "Qos": {
-                "minIOPS": 1000,
-                "maxIOPS": 2000,
-                "burstIOPS": 4000
-            }
-        },
-        {
-            "Type": "Silver",
-            "Qos": {
-                "minIOPS": 4000,
-                "maxIOPS": 6000,
-                "burstIOPS": 8000
-            }
-        },
-        {
-            "Type": "Gold",
-            "Qos": {
-                "minIOPS": 6000,
-                "maxIOPS": 8000,
-                "burstIOPS": 10000
-            }
-        }
-    ]
+  "version": 1,
+  "storageDriverName": "solidfire-san",
+  "Endpoint": "https://admin:admin@192.168.160.3/json-rpc/8.0",
+  "SVIP": "10.0.0.7:3260",
+  "TenantName": "docker",
+  "InitiatorIFace": "default",
+  "Types": [
+    {
+      "Type": "Bronze",
+      "Qos": {
+        "minIOPS": 1000,
+        "maxIOPS": 2000,
+        "burstIOPS": 4000
+      }
+    },
+    {
+      "Type": "Silver",
+      "Qos": {
+        "minIOPS": 4000,
+        "maxIOPS": 6000,
+        "burstIOPS": 8000
+      }
+    },
+    {
+      "Type": "Gold",
+      "Qos": {
+        "minIOPS": 6000,
+        "maxIOPS": 8000,
+        "burstIOPS": 10000
+      }
+    }
+  ]
 }
 ----

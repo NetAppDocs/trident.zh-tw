@@ -136,7 +136,7 @@ eksctl create addon --name netapp_trident-operator --cluster <cluster_name> \
 --
 . 建立 `add-on.json` 檔案：
 +
-[source, JSON]
+[source, json]
 ----
 {
   "clusterName": "<eks-cluster>",
@@ -144,7 +144,7 @@ eksctl create addon --name netapp_trident-operator --cluster <cluster_name> \
   "addonVersion": "v24.10.0-eksbuild.1",
   "serviceAccountRoleArn": "<role ARN>",
   "configurationValues": {
-    "cloudIdentity": "'cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
+    "cloudIdentity": "'cloudIdentity: eks.amazonaws.com/role-arn: <role ARN>'",
     "cloudProvider": "AWS"
   }
 }

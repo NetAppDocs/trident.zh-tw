@@ -33,7 +33,7 @@ WARNING: `TridentBackend`CRS 是由 Trident 自動建立。您*不應該*修改�
 
 請參閱下列範例、以瞭解「TridentBackendConfig」CR的格式：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -91,6 +91,9 @@ TIP: 使用建立的後端 `tridentctl`沒有關聯的 `TridentBackendConfig`物
 [listing]
 ----
 kubectl -n trident create -f backend-tbc-ontap-san-secret.yaml
+----
+[source, yaml]
+----
 apiVersion: v1
 kind: Secret
 metadata:
@@ -195,7 +198,7 @@ CHAP目標啟動器機密。如果useCHAP=true則需要。適用於「ONTAP-SAN�
 ----
 kubectl -n trident create -f backend-tbc-ontap-san.yaml
 ----
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -262,14 +265,14 @@ backend-tbc-ontap-san   ontap-san-backend   8d24fce7-6f60-4d4a-8ef6-bab2699e6ab8
 ----
 kubectl -n trident get tbc backend-tbc-ontap-san -o yaml
 ----
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
 metadata:
-  creationTimestamp: "2021-04-21T20:45:11Z"
+  creationTimestamp: 2021-04-21T20:45:11Z
   finalizers:
-  - trident.netapp.io
+    - trident.netapp.io
   generation: 1
   name: backend-tbc-ontap-san
   namespace: trident

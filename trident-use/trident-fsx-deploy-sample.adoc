@@ -25,7 +25,7 @@ kubectl create -f pv-pod.yaml
 這些範例顯示將 PVC 附加至 Pod 的基本組態： * 基本組態 * ：
 
 +
-[source, console]
+[source, yaml]
 ----
 kind: Pod
 apiVersion: v1

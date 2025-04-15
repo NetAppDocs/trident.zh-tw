@@ -32,7 +32,9 @@ NOTE: iSCSI磁碟區擴充支援「ontap－san」、「ONTAP－san經濟」、�
 [listing]
 ----
 cat storageclass-ontapsan.yaml
----
+----
+[source, yaml]
+----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -53,6 +55,9 @@ allowVolumeExpansion: True
 [listing]
 ----
 cat pvc-ontapsan.yaml
+----
+[source, yaml]
+----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -120,6 +125,9 @@ Mounted By:    ubuntu-pod
 [listing]
 ----
 kubectl edit pvc san-pvc
+----
+[source, yaml]
+----
 # Please edit the object below. Lines beginning with a '#' will be ignored,
 # and an empty file will abort the edit. If an error occurs while saving this file will be
 # reopened with the relevant failures.
@@ -145,7 +153,7 @@ spec:
   resources:
     requests:
       storage: 2Gi
- ...
+ # ...
 ----
 
 
@@ -186,7 +194,9 @@ NOTE: 驅動程式支援 FC Volume 擴充 `ontap-san`，需要 Kubernetes 1.16 �
 [listing]
 ----
 cat storageclass-ontapsan.yaml
----
+----
+[source, yaml]
+----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -207,6 +217,9 @@ allowVolumeExpansion: True
 [listing]
 ----
 cat pvc-ontapsan.yaml
+----
+[source, yaml]
+----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -274,6 +287,9 @@ Mounted By:    ubuntu-pod
 [listing]
 ----
 kubectl edit pvc san-pvc
+----
+[source, yaml]
+----
 # Please edit the object below. Lines beginning with a '#' will be ignored,
 # and an empty file will abort the edit. If an error occurs while saving this file will be
 # reopened with the relevant failures.
@@ -299,7 +315,7 @@ spec:
   resources:
     requests:
       storage: 2Gi
- ...
+ # ...
 ----
 
 
@@ -337,6 +353,9 @@ Trident 支援 NFS PV 的 Volume 擴充、部署於 `ontap-nas`、 `ontap-nas-ec
 [listing]
 ----
 cat storageclass-ontapnas.yaml
+----
+[source, yaml]
+----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -355,6 +374,9 @@ allowVolumeExpansion: true
 [listing]
 ----
 cat pvc-ontapnas.yaml
+----
+[source, yaml]
+----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -388,6 +410,9 @@ pvc-08f3d561-b199-11e9-8d9f-5254004dfdb7   20Mi       RWO            Delete     
 [listing]
 ----
 kubectl edit pvc ontapnas20mb
+----
+[source, yaml]
+----
 # Please edit the object below. Lines beginning with a '#' will be ignored,
 # and an empty file will abort the edit. If an error occurs while saving this file will be
 # reopened with the relevant failures.
@@ -413,7 +438,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-...
+# ...
 ----
 
 

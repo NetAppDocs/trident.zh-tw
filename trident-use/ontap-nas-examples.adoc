@@ -34,7 +34,7 @@ summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP NAS 驅動程式
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱 + "_" + dataLIF 
 
 
-| 《馬納格門達利》 | 叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如 `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。如需無縫 MetroCluster 之間的互通性<<mcc-best>>、請參閱。 | 「10.0.0.1」、「[2001:1234:abcd:::fefo]」 
+| 《馬納格門達利》 | 叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如 `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。如需無縫 MetroCluster 之間的互通性<<mcc-best>>、請參閱。 | "10.0.0.1 " ， "[2001:1234:abcd::fefe] 
 
 
 | 「DataLIF」 | 傳輸協定LIF的IP位址。NetApp 建議指定 `dataLIF`。如果未提供， Trident 會從 SVM 擷取 dataLIFs 。您可以指定完整網域名稱（ FQDN ），以用於 NFS 裝載作業，讓您建立循環 DNS ，以便在多個 dataLIFs 之間進行負載平衡。可在初始設定之後變更。請參閱 。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6 位址必須以方括弧定義，例如 `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`。* MetroCluster 省略。 *請參閱<<mcc-best>>。 | 指定位址或從SVM衍生（若未指定）（不建議使用） 
@@ -187,7 +187,7 @@ NOTE: 搭配 Trident 使用 QoS 原則群組需要 ONTAP 9 8 或更新版本。�
 
 以下是定義預設值的範例：
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -212,8 +212,7 @@ defaults:
   qosPolicy: premium
   exportPolicy: myk8scluster
   snapshotPolicy: default
-  snapshotReserve: '10'
-
+  snapshotReserve: "10"
 ----
 對於 `ontap-nas`和 `ontap-nas-flexgroups`、 Trident 現在使用新的計算方式、確保 FlexVol 的大小正確、並使用 snapshotReserve 百分比和 PVC 。當使用者要求使用 PVC 時、 Trident 會使用新計算來建立具有更多空間的原始 FlexVol 。此計算可確保使用者在永久虛擬磁碟中獲得所要求的可寫入空間、且空間不得小於所要求的空間。在v21.07之前、當使用者要求使用PVC（例如5GiB）、快照保留區達到50%時、他們只能獲得2.5GiB的可寫入空間。這是因為使用者所要求的是整個 Volume 、而且 `snapshotReserve`是其中的百分比。使用 Trident 21.07 時、使用者要求的是可寫入空間、而 Trident 則將該數量定義 `snapshotReserve`為整個 Volume 的百分比。這不適用於 `ontap-nas-economy`。請參閱下列範例以瞭解此功能的運作方式：
 
@@ -241,7 +240,7 @@ NOTE: 如果您在NetApp ONTAP 支援Trident的NetApp支援上使用Amazon FSX�
 .ONTAP NAS 經濟效益範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -256,7 +255,7 @@ password: password
 .ONTAP NAS FlexGroup 範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -275,7 +274,7 @@ password: password
 
 若要無縫切換和切換、請使用指定 SVM `managementLIF` 並省略 `dataLIF` 和 `svm` 參數。例如：
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -288,9 +287,8 @@ password: password
 .SMB Volume 範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
-
 ---
 version: 1
 backendName: ExampleBackend
@@ -310,7 +308,7 @@ password: password
 ====
 這是最小的後端組態範例。 `clientCertificate`、 `clientPrivateKey`和 `trustedCACertificate` （選用、如果使用信任的CA）會填入 `backend.json` 並分別取得用戶端憑證、私密金鑰及信任CA憑證的基礎64編碼值。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -330,7 +328,7 @@ storagePrefix: myPrefix_
 ====
 本範例說明如何指示 Trident 使用動態匯出原則來自動建立及管理匯出原則。和 `ontap-nas-flexgroup`驅動程式的運作方式相同 `ontap-nas-economy`。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -354,7 +352,7 @@ nfsMountOptions: nfsvers=4
 ====
 此範例顯示 `managementLIF` 使用IPv6位址。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -374,7 +372,7 @@ password: password
 ====
 。 `smbShare` 使用 SMB 磁碟區的 ONTAP 需要 FSX 參數。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -394,7 +392,7 @@ storagePrefix: myPrefix_
 .名稱範本的後端組態範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -404,10 +402,12 @@ managementLIF: <ip address>
 svm: svm0
 username: <admin>
 password: <password>
-defaults: {
-    "nameTemplate": "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.volume.RequestName}}"
-},
-"labels": {"cluster": "ClusterA", "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"}
+defaults:
+  nameTemplate: "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.vo\
+    lume.RequestName}}"
+labels:
+  cluster: ClusterA
+  PVC: "{{.volume.Namespace}}_{{.volume.RequestName}}"
 ----
 ====
 
@@ -423,7 +423,7 @@ Trident 會在「意見」欄位中設定資源配置標籤。註解是在 FlexV
 .ONTAP NAS 範例
 [%collapsible%open]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -435,60 +435,61 @@ password: <password>
 nfsMountOptions: nfsvers=4
 defaults:
   spaceReserve: none
-  encryption: 'false'
+  encryption: "false"
   qosPolicy: standard
 labels:
   store: nas_store
   k8scluster: prod-cluster-1
 region: us_east_1
 storage:
-- labels:
-    app: msoffice
-    cost: '100'
-  zone: us_east_1a
-  defaults:
-    spaceReserve: volume
-    encryption: 'true'
-    unixPermissions: '0755'
-    adaptiveQosPolicy: adaptive-premium
-- labels:
-    app: slack
-    cost: '75'
-  zone: us_east_1b
-  defaults:
-    spaceReserve: none
-    encryption: 'true'
-    unixPermissions: '0755'
-- labels:
-    department: legal
-    creditpoints: '5000'
-  zone: us_east_1b
-  defaults:
-    spaceReserve: none
-    encryption: 'true'
-    unixPermissions: '0755'
-- labels:
-    app: wordpress
-    cost: '50'
-  zone: us_east_1c
-  defaults:
-    spaceReserve: none
-    encryption: 'true'
-    unixPermissions: '0775'
-- labels:
-    app: mysqldb
-    cost: '25'
-  zone: us_east_1d
-  defaults:
-    spaceReserve: volume
-    encryption: 'false'
-    unixPermissions: '0775'
+  - labels:
+      app: msoffice
+      cost: "100"
+    zone: us_east_1a
+    defaults:
+      spaceReserve: volume
+      encryption: "true"
+      unixPermissions: "0755"
+      adaptiveQosPolicy: adaptive-premium
+  - labels:
+      app: slack
+      cost: "75"
+    zone: us_east_1b
+    defaults:
+      spaceReserve: none
+      encryption: "true"
+      unixPermissions: "0755"
+  - labels:
+      department: legal
+      creditpoints: "5000"
+    zone: us_east_1b
+    defaults:
+      spaceReserve: none
+      encryption: "true"
+      unixPermissions: "0755"
+  - labels:
+      app: wordpress
+      cost: "50"
+    zone: us_east_1c
+    defaults:
+      spaceReserve: none
+      encryption: "true"
+      unixPermissions: "0775"
+  - labels:
+      app: mysqldb
+      cost: "25"
+    zone: us_east_1d
+    defaults:
+      spaceReserve: volume
+      encryption: "false"
+      unixPermissions: "0775"
+
 ----
 ====
 .ONTAP NAS FlexGroup 範例
 [%collapsible%open]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -499,50 +500,51 @@ username: vsadmin
 password: <password>
 defaults:
   spaceReserve: none
-  encryption: 'false'
+  encryption: "false"
 labels:
   store: flexgroup_store
   k8scluster: prod-cluster-1
 region: us_east_1
 storage:
-- labels:
-    protection: gold
-    creditpoints: '50000'
-  zone: us_east_1a
-  defaults:
-    spaceReserve: volume
-    encryption: 'true'
-    unixPermissions: '0755'
-- labels:
-    protection: gold
-    creditpoints: '30000'
-  zone: us_east_1b
-  defaults:
-    spaceReserve: none
-    encryption: 'true'
-    unixPermissions: '0755'
-- labels:
-    protection: silver
-    creditpoints: '20000'
-  zone: us_east_1c
-  defaults:
-    spaceReserve: none
-    encryption: 'true'
-    unixPermissions: '0775'
-- labels:
-    protection: bronze
-    creditpoints: '10000'
-  zone: us_east_1d
-  defaults:
-    spaceReserve: volume
-    encryption: 'false'
-    unixPermissions: '0775'
+  - labels:
+      protection: gold
+      creditpoints: "50000"
+    zone: us_east_1a
+    defaults:
+      spaceReserve: volume
+      encryption: "true"
+      unixPermissions: "0755"
+  - labels:
+      protection: gold
+      creditpoints: "30000"
+    zone: us_east_1b
+    defaults:
+      spaceReserve: none
+      encryption: "true"
+      unixPermissions: "0755"
+  - labels:
+      protection: silver
+      creditpoints: "20000"
+    zone: us_east_1c
+    defaults:
+      spaceReserve: none
+      encryption: "true"
+      unixPermissions: "0775"
+  - labels:
+      protection: bronze
+      creditpoints: "10000"
+    zone: us_east_1d
+    defaults:
+      spaceReserve: volume
+      encryption: "false"
+      unixPermissions: "0775"
+
 ----
 ====
 .ONTAP NAS 經濟效益範例
 [%collapsible%open]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -553,43 +555,44 @@ username: vsadmin
 password: <password>
 defaults:
   spaceReserve: none
-  encryption: 'false'
+  encryption: "false"
 labels:
   store: nas_economy_store
 region: us_east_1
 storage:
-- labels:
-    department: finance
-    creditpoints: '6000'
-  zone: us_east_1a
-  defaults:
-    spaceReserve: volume
-    encryption: 'true'
-    unixPermissions: '0755'
-- labels:
-    protection: bronze
-    creditpoints: '5000'
-  zone: us_east_1b
-  defaults:
-    spaceReserve: none
-    encryption: 'true'
-    unixPermissions: '0755'
-- labels:
-    department: engineering
-    creditpoints: '3000'
-  zone: us_east_1c
-  defaults:
-    spaceReserve: none
-    encryption: 'true'
-    unixPermissions: '0775'
-- labels:
-    department: humanresource
-    creditpoints: '2000'
-  zone: us_east_1d
-  defaults:
-    spaceReserve: volume
-    encryption: 'false'
-    unixPermissions: '0775'
+  - labels:
+      department: finance
+      creditpoints: "6000"
+    zone: us_east_1a
+    defaults:
+      spaceReserve: volume
+      encryption: "true"
+      unixPermissions: "0755"
+  - labels:
+      protection: bronze
+      creditpoints: "5000"
+    zone: us_east_1b
+    defaults:
+      spaceReserve: none
+      encryption: "true"
+      unixPermissions: "0755"
+  - labels:
+      department: engineering
+      creditpoints: "3000"
+    zone: us_east_1c
+    defaults:
+      spaceReserve: none
+      encryption: "true"
+      unixPermissions: "0775"
+  - labels:
+      department: humanresource
+      creditpoints: "2000"
+    zone: us_east_1d
+    defaults:
+      spaceReserve: volume
+      encryption: "false"
+      unixPermissions: "0775"
+
 ----
 ====
 
@@ -600,7 +603,7 @@ storage:
 
 * 。 `protection-gold` StorageClass 會對應至中的第一個和第二個虛擬集區 `ontap-nas-flexgroup` 後端：這是唯一提供金級保護的資源池。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -613,7 +616,7 @@ parameters:
 ----
 * 。 `protection-not-gold` StorageClass 會對應至中的第三和第四個虛擬集區 `ontap-nas-flexgroup` 後端：這是唯一提供金級以外保護層級的資源池。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -626,7 +629,7 @@ parameters:
 ----
 * 。 `app-mysqldb` StorageClass 會對應至中的第四個虛擬集區 `ontap-nas` 後端：這是唯一為 mysqldb 類型應用程式提供儲存池組態的集區。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -639,7 +642,7 @@ parameters:
 ----
 * t `protection-silver-creditpoints-20k` StorageClass 會對應至中的第三個虛擬集區 `ontap-nas-flexgroup` 後端：這是唯一提供銀級保護和 20000 個信用點數的資源池。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -652,7 +655,7 @@ parameters:
 ----
 * 。 `creditpoints-5k` StorageClass 會對應至中的第三個虛擬集區 `ontap-nas` 後端和中的第二個虛擬集區 `ontap-nas-economy` 後端：這是唯一擁有 5000 個信用點數的集區方案。
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass

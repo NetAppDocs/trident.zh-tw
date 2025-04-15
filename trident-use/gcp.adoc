@@ -160,28 +160,27 @@ Trident 可以在link:https://cloud.google.com/architecture/partners/netapp-clou
 ====
 這是使用預設「標準」服務層級的預設CVS效能服務類型的最低後端組態。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
 storageDriverName: gcp-cvs
-projectNumber: '012345678901'
+projectNumber: "012345678901"
 apiRegion: us-west2
 apiKey:
   type: service_account
   project_id: my-gcp-project
-  private_key_id: "<id_value>"
+  private_key_id: <id_value>
   private_key: |
     -----BEGIN PRIVATE KEY-----
     <key_value>
     -----END PRIVATE KEY-----
   client_email: cloudvolumes-admin-sa@my-gcp-project.iam.gserviceaccount.com
-  client_id: '123456789012345678901'
+  client_id: "123456789012345678901"
   auth_uri: https://accounts.google.com/o/oauth2/auth
   token_uri: https://oauth2.googleapis.com/token
   auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
   client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40my-gcp-project.iam.gserviceaccount.com
-
 ----
 ====
 .範例2：服務層級組態
@@ -189,7 +188,7 @@ apiKey:
 ====
 本範例說明後端組態選項、包括服務層級和Volume預設值。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -219,7 +218,6 @@ defaults:
   snapshotReserve: '5'
   exportRule: 10.0.0.0/24,10.0.1.0/24,10.0.2.100
   size: 5Ti
-
 ----
 ====
 .範例3：虛擬資源池組態
@@ -229,7 +227,7 @@ defaults:
 
 此處會針對所有設定的虛擬資源池設定特定的預設值 `snapshotReserve` 5%和 `exportRule` 至0.00.0/0。虛擬資源池是在中定義的 `storage` 區段。每個個別虛擬集區都會定義自己的虛擬集區 `serviceLevel`和某些資源池會覆寫預設值。虛擬資源池標籤是用來區分資源池的依據 `performance` 和 `protection`。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -296,15 +294,16 @@ storage:
 .儲存類別範例
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
+---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: cvs-extreme-extra-protection
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=extreme; protection=extra"
+  selector: performance=extreme; protection=extra
 allowVolumeExpansion: true
 ---
 apiVersion: storage.k8s.io/v1
@@ -313,7 +312,7 @@ metadata:
   name: cvs-extreme-standard-protection
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=premium; protection=standard"
+  selector: performance=premium; protection=standard
 allowVolumeExpansion: true
 ---
 apiVersion: storage.k8s.io/v1
@@ -322,7 +321,7 @@ metadata:
   name: cvs-premium-extra-protection
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=premium; protection=extra"
+  selector: performance=premium; protection=extra
 allowVolumeExpansion: true
 ---
 apiVersion: storage.k8s.io/v1
@@ -331,7 +330,7 @@ metadata:
   name: cvs-premium
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=premium; protection=standard"
+  selector: performance=premium; protection=standard
 allowVolumeExpansion: true
 ---
 apiVersion: storage.k8s.io/v1
@@ -340,7 +339,7 @@ metadata:
   name: cvs-standard
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=standard"
+  selector: performance=standard
 allowVolumeExpansion: true
 ---
 apiVersion: storage.k8s.io/v1
@@ -349,8 +348,9 @@ metadata:
   name: cvs-extra-protection
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "protection=extra"
+  selector: protection=extra
 allowVolumeExpansion: true
+
 ----
 ====
 * 第一個StorageClass (`cvs-extreme-extra-protection`）對應至第一個虛擬資源池。這是唯一提供極致效能、快照保留率為10%的資源池。
@@ -368,7 +368,7 @@ allowVolumeExpansion: true
 ====
 這是使用的最低後端組態 `storageClass` 指定CVS服務類型和預設值 `standardsw` 服務層級：
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -398,7 +398,7 @@ serviceLevel: standardsw
 ====
 此範例後端組態使用 `storagePools` 以設定儲存資源池。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1

@@ -118,7 +118,7 @@ Kubernetes的「torageClass」物件是以名稱在「PeristentVolume Claims」�
 
 使用Trident的Kubernetes「torageClass」物件看起來像這樣：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -126,8 +126,7 @@ metadata:
   name: <Name>
 provisioner: csi.trident.netapp.io
 mountOptions: <Mount Options>
-parameters:
-  <Trident Parameters>
+parameters: <Trident Parameters>
 allowVolumeExpansion: true
 volumeBindingMode: Immediate
 ----
@@ -245,7 +244,7 @@ Kubernetes的「Volume SnapshotClass」物件類似於「儲存類別」。它�
 
 系統管理員應定義「Volume SnapshotClass」、以建立快照。建立具有下列定義的Volume Snapshot類別：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
@@ -452,7 +451,7 @@ Trident 去除會使用優先順序類別（ Kubernetes 中可用的最高優先
 
 以下是「資源配額」物件優先處理Trident的範例。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: <version>
 kind: ResourceQuota
@@ -462,10 +461,11 @@ metadata:
     app: node.csi.trident.netapp.io
 spec:
   scopeSelector:
-     matchExpressions:
-       - operator : In
-         scopeName: PriorityClass
-         values: ["system-node-critical"]
+    matchExpressions:
+      - operator: In
+        scopeName: PriorityClass
+        values:
+          - system-node-critical
 ----
 如需資源配額的詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/policy/resource-quotas/["Kubernetes：資源配額"^]。
 

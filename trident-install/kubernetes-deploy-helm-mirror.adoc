@@ -51,7 +51,7 @@ IMPORTANT: 在私有儲存庫中安裝 Trident 時、如果您使用 `imageRegis
 .步驟
 . 新增Trident Helm儲存庫：
 +
-[listing]
+[source, console]
 ----
 helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
 ----
@@ -61,14 +61,14 @@ helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident
 ====
 .一個登錄中的映像
 --
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 .不同登錄中的映像
 --
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:25.02.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:25.02 --set tridentImage=<your-registry>/trident:25.02.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
@@ -104,13 +104,13 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 |===
 例如，若要變更的預設值 `debug`，請執行下列命令，其中 `100.2502.0`是您要安裝的 Trident 版本：
 
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 若要新增 nodePrep 值、請執行下列命令：
 
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set nodePrep={iscsi}
 ----

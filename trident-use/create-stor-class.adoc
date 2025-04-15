@@ -20,7 +20,7 @@ summary: 您可以設計 Kubernetes StorageClass 檔案、並建立 StorageClass
 
 會 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^]將 Trident 識別為該類別所使用的資源配置程式、並指示 Trident 如何資源配置 Volume 。例如：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -50,13 +50,23 @@ kubectl create -f sample-input/storage-class-basic-csi.yaml
 ----
 . 現在您應該會在 Kubernetes 和 Trident 中同時看到 * base-csi* 儲存類別、而 Trident 應該已經在後端上探索到這些集區。
 +
-[listing]
+[source, console]
 ----
 kubectl get sc basic-csi
+----
+
+
+[listing]
+----
 NAME         PROVISIONER             AGE
 basic-csi    csi.trident.netapp.io   15h
-
+----
+[source, console]
+----
 ./tridentctl -n trident get storageclass basic-csi -o json
+----
+[source, json]
+----
 {
   "items": [
     {
@@ -81,8 +91,6 @@ basic-csi    csi.trident.netapp.io   15h
   ]
 }
 ----
-
-
 
 
 === 儲存類別範例

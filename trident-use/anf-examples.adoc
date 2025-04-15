@@ -106,7 +106,7 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 
 === 必要的權限與資源
 
-如果您在建立 PVC 時收到「找不到容量集區」錯誤、您的應用程式註冊可能沒有相關的必要權限和資源（子網路、虛擬網路、容量集區）。如果啟用除錯功能、 Trident 會記錄建立後端時所探索到的 Azure 資源。確認使用的角色是否適當。
+如果您在建立 PVC 時收到「找不到容量集區」錯誤，您的應用程式註冊可能沒有相關的必要權限和資源（子網路，虛擬網路，容量集區）。如果啟用除錯功能、 Trident 會記錄建立後端時所探索到的 Azure 資源。確認使用的角色是否適當。
 
 的值 `resourceGroups`、 `netappAccounts`、 `capacityPools`、 `virtualNetwork`和 `subnet` 可以使用簡短或完整名稱來指定。在大多數情況下、建議使用完整名稱、因為短名稱可以符合多個名稱相同的資源。
 
@@ -167,7 +167,7 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 
 當您剛開始使用 Azure NetApp Files 並試用時、這項組態是理想的選擇、但實際上您會想要為您所配置的磁碟區提供額外的範圍。
 
-[listing]
+[source, yaml]
 ----
 ---
 apiVersion: trident.netapp.io/v1
@@ -190,7 +190,7 @@ spec:
 ====
 此後端組態已不再如此 `subscriptionID`、 `tenantID`、 `clientID`和 `clientSecret`，使用託管身分識別時為選用功能。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -200,9 +200,12 @@ metadata:
 spec:
   version: 1
   storageDriverName: azure-netapp-files
-  capacityPools: ["ultra-pool"]
-  resourceGroups: ["aks-ami-eastus-rg"]
-  netappAccounts: ["smb-na"]
+  capacityPools:
+    - ultra-pool
+  resourceGroups:
+    - aks-ami-eastus-rg
+  netappAccounts:
+    - smb-na
   virtualNetwork: eastus-prod-vnet
   subnet: eastus-anf-subnet
 ----
@@ -212,7 +215,7 @@ spec:
 ====
 此後端組態已不再如此 `tenantID`、 `clientID`和 `clientSecret`（使用雲端身分識別時為選用功能）。
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -222,9 +225,12 @@ metadata:
 spec:
   version: 1
   storageDriverName: azure-netapp-files
-  capacityPools: ["ultra-pool"]
-  resourceGroups: ["aks-ami-eastus-rg"]
-  netappAccounts: ["smb-na"]
+  capacityPools:
+    - ultra-pool
+  resourceGroups:
+    - aks-ami-eastus-rg
+  netappAccounts:
+    - smb-na
   virtualNetwork: eastus-prod-vnet
   subnet: eastus-anf-subnet
   location: eastus
@@ -236,7 +242,7 @@ spec:
 ====
 此後端組態會將磁碟區放置在 Azure 的位置、並置於 `eastus`容量集區中 `Ultra`。Trident 會自動探索該位置中委派給 Azure NetApp Files 的所有子網路、並隨機在其中一個磁碟區上放置新的磁碟區。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -248,8 +254,8 @@ clientSecret: SECRET
 location: eastus
 serviceLevel: Ultra
 capacityPools:
-- application-group-1/account-1/ultra-1
-- application-group-1/account-1/ultra-2
+  - application-group-1/account-1/ultra-1
+  - application-group-1/account-1/ultra-2
 ----
 ====
 .進階組態
@@ -257,7 +263,7 @@ capacityPools:
 ====
 此後端組態可進一步將磁碟區放置範圍縮小至單一子網路、並修改部分Volume資源配置預設值。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -269,8 +275,8 @@ clientSecret: SECRET
 location: eastus
 serviceLevel: Ultra
 capacityPools:
-- application-group-1/account-1/ultra-1
-- application-group-1/account-1/ultra-2
+  - application-group-1/account-1/ultra-1
+  - application-group-1/account-1/ultra-2
 virtualNetwork: my-virtual-network
 subnet: my-subnet
 networkFeatures: Standard
@@ -278,9 +284,9 @@ nfsMountOptions: vers=3,proto=tcp,timeo=600
 limitVolumeSize: 500Gi
 defaults:
   exportRule: 10.0.0.0/24,10.0.1.0/24,10.0.2.100
-  snapshotDir: 'true'
+  snapshotDir: "true"
   size: 200Gi
-  unixPermissions: '0777'
+  unixPermissions: "0777"
 
 ----
 ====
@@ -289,7 +295,7 @@ defaults:
 ====
 此後端組態可在單一檔案中定義多個儲存集區。當您有多個容量集區支援不同的服務層級、而且想要在Kubernetes中建立代表這些層級的儲存類別時、這很有用。虛擬資源池標籤是用來區分資源池的依據 `performance`。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -300,30 +306,30 @@ clientID: dd043f63-bf8e-fake-8076-8de91e5713aa
 clientSecret: SECRET
 location: eastus
 resourceGroups:
-- application-group-1
+  - application-group-1
 networkFeatures: Basic
 nfsMountOptions: vers=3,proto=tcp,timeo=600
 labels:
   cloud: azure
 storage:
-- labels:
-    performance: gold
-  serviceLevel: Ultra
-  capacityPools:
-  - ultra-1
-  - ultra-2
-  networkFeatures: Standard
-- labels:
-    performance: silver
-  serviceLevel: Premium
-  capacityPools:
-  - premium-1
-- labels:
-    performance: bronze
-  serviceLevel: Standard
-  capacityPools:
-  - standard-1
-  - standard-2
+  - labels:
+      performance: gold
+    serviceLevel: Ultra
+    capacityPools:
+      - ultra-1
+      - ultra-2
+    networkFeatures: Standard
+  - labels:
+      performance: silver
+    serviceLevel: Premium
+    capacityPools:
+      - premium-1
+  - labels:
+      performance: bronze
+    serviceLevel: Standard
+    capacityPools:
+      - standard-1
+      - standard-2
 
 ----
 ====
@@ -332,7 +338,7 @@ storage:
 ====
 Trident 可根據地區和可用性區域、為工作負載提供更多資源。 `supportedTopologies`此後端組態中的區塊用於提供每個後端的區域和區域清單。此處指定的區域和區域值必須符合每個 Kubernetes 叢集節點上標籤的區域和區域值。這些區域和區域代表可在儲存類別中提供的允許值清單。對於包含後端所提供區域和區域子集的儲存類別、 Trident 會在所述區域和區域中建立磁碟區。如需詳細資訊、請 link:../trident-use/csi-topology.html["使用「csi拓撲」"]參閱。
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -344,13 +350,13 @@ clientSecret: SECRET
 location: eastus
 serviceLevel: Ultra
 capacityPools:
-- application-group-1/account-1/ultra-1
-- application-group-1/account-1/ultra-2
+  - application-group-1/account-1/ultra-1
+  - application-group-1/account-1/ultra-2
 supportedTopologies:
-- topology.kubernetes.io/region: eastus
-  topology.kubernetes.io/zone: eastus-1
-- topology.kubernetes.io/region: eastus
-  topology.kubernetes.io/zone: eastus-2
+  - topology.kubernetes.io/region: eastus
+    topology.kubernetes.io/zone: eastus-1
+  - topology.kubernetes.io/region: eastus
+    topology.kubernetes.io/zone: eastus-2
 ----
 ====
 
@@ -365,16 +371,18 @@ supportedTopologies:
 
 使用 `parameter.selector` 您可以為每個項目指定 `StorageClass` 用於裝載磁碟區的虛擬集區。該磁碟區會在所選的資源池中定義各個層面。
 
-[listing]
+[source, yaml]
 ----
+---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: gold
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=gold"
+  selector: performance=gold
 allowVolumeExpansion: true
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -382,8 +390,9 @@ metadata:
   name: silver
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=silver"
+  selector: performance=silver
 allowVolumeExpansion: true
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -391,7 +400,7 @@ metadata:
   name: bronze
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=bronze"
+  selector: performance=bronze
 allowVolumeExpansion: true
 ----
 
@@ -403,7 +412,7 @@ allowVolumeExpansion: true
 .預設命名空間的基本組態
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -415,13 +424,12 @@ parameters:
   trident.netapp.io/nasType: "smb"
   csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
   csi.storage.k8s.io/node-stage-secret-namespace: "default"
-
 ----
 ====
 .每個命名空間使用不同的機密
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -438,7 +446,7 @@ parameters:
 .每個磁碟區使用不同的機密
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass

@@ -21,7 +21,7 @@ summary: 您必須先在主機上安裝及設定必要的通訊協定先決條�
 * 確認您的部署符合所有的 link:../trident-get-started/requirements.html["需求"]。
 * 確認您安裝的Docker版本受支援。如果您的Docker版本過時、 https://docs.docker.com/engine/install/["安裝或更新"^]。
 +
-[listing]
+[source, console]
 ----
 docker --version
 ----
@@ -38,14 +38,14 @@ docker --version
 ====
 .RHEL 8以上
 --
-[listing]
+[source, console]
 ----
 sudo yum install -y nfs-utils
 ----
 --
 .Ubuntu
 --
-[listing]
+[source, console]
 ----
 sudo apt-get install -y nfs-common
 ----
@@ -66,25 +66,25 @@ WARNING: 安裝NFS工具之後、請重新啟動工作節點、以避免將磁�
 --
 . 安裝下列系統套件：
 +
-[listing]
+[source, console]
 ----
 sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
 ----
 . 檢查iscsite-initier-utils版本是否為6.6.0.874-2.el7或更新版本：
 +
-[listing]
+[source, console]
 ----
 rpm -q iscsi-initiator-utils
 ----
 . 將掃描設為手動：
 +
-[listing]
+[source, console]
 ----
 sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
 ----
 . 啟用多重路徑：
 +
-[listing]
+[source, console]
 ----
 sudo mpathconf --enable --with_multipathd y --find_multipaths n
 ----
@@ -94,13 +94,13 @@ NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipat
 
 . 確保運行的是"iscsid"和"multipathd"：
 +
-[listing]
+[source, console]
 ----
 sudo systemctl enable --now iscsid multipathd
 ----
 . 啟用並啟動「iSCSI」：
 +
-[listing]
+[source, console]
 ----
 sudo systemctl enable --now iscsi
 ----
@@ -111,25 +111,25 @@ sudo systemctl enable --now iscsi
 --
 . 安裝下列系統套件：
 +
-[listing]
+[source, console]
 ----
 sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
 ----
 . 檢查開放式iSCSI版本是否為2.0.874-5ubuntu2．10或更新版本（適用於雙聲網路）或2.0.874-7.1ubuntu6.1或更新版本（適用於焦點）：
 +
-[listing]
+[source, console]
 ----
 dpkg -l open-iscsi
 ----
 . 將掃描設為手動：
 +
-[listing]
+[source, console]
 ----
 sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
 ----
 . 啟用多重路徑：
 +
-[listing]
+[source, console]
 ----
 sudo tee /etc/multipath.conf <<-EOF
 defaults {
@@ -146,7 +146,7 @@ NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipat
 
 . 確保已啟用並執行「open-iscsi」和「多路徑工具」：
 +
-[listing]
+[source, console]
 ----
 sudo systemctl status multipath-tools
 sudo systemctl enable --now open-iscsi.service
@@ -173,7 +173,7 @@ sudo systemctl status open-iscsi
 ====
 .RHEL 9.
 --
-[listing]
+[source, console]
 ----
 sudo yum install nvme-cli
 sudo yum install linux-modules-extra-$(uname -r)
@@ -182,7 +182,7 @@ sudo modprobe nvme-tcp
 --
 .Ubuntu
 --
-[listing]
+[source, console]
 ----
 sudo apt install nvme-cli
 sudo apt -y install linux-modules-extra-$(uname -r)
@@ -205,13 +205,13 @@ sudo modprobe nvme-tcp
 --
 . 安裝下列系統套件：
 +
-[listing]
+[source, console]
 ----
 sudo yum install -y lsscsi device-mapper-multipath
 ----
 . 啟用多重路徑：
 +
-[listing]
+[source, console]
 ----
 sudo mpathconf --enable --with_multipathd y --find_multipaths n
 ----
@@ -221,7 +221,7 @@ NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipat
 
 . 確定 `multipathd`執行中：
 +
-[listing]
+[source, console]
 ----
 sudo systemctl enable --now multipathd
 ----
@@ -232,13 +232,13 @@ sudo systemctl enable --now multipathd
 --
 . 安裝下列系統套件：
 +
-[listing]
+[source, console]
 ----
 sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
 ----
 . 啟用多重路徑：
 +
-[listing]
+[source, console]
 ----
 sudo tee /etc/multipath.conf <<-EOF
 defaults {
@@ -255,7 +255,7 @@ NOTE: 確保在"default"（錯誤）下"etc/multipath.conf"包含"fappe_multipat
 
 . 確定 `multipath-tools`已啟用並正在執行：
 +
-[listing]
+[source, console]
 ----
 sudo systemctl status multipath-tools
 ----

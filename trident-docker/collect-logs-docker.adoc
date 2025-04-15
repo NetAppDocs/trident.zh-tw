@@ -21,9 +21,13 @@ summary: 您可以收集記錄以協助疑難排解。收集記錄的方法會�
 .步驟
 . 如果您使用建議的託管外掛程式方法（亦即使用命令）來執行 Trident `docker plugin` 、請依下列方式檢視：
 +
-[listing]
+[source, console]
 ----
 docker plugin ls
+----
++
+[listing]
+----
 ID                  NAME                DESCRIPTION                          ENABLED
 4fb97d2b956b        netapp:latest       nDVP - NetApp Docker Volume Plugin   false
 journalctl -u docker | grep 4fb97d2b956b
@@ -33,7 +37,7 @@ journalctl -u docker | grep 4fb97d2b956b
 
 . 若要啟用除錯記錄、請安裝已啟用除錯記錄的外掛程式：
 +
-[listing]
+[source, console]
 ----
 docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
 ----
@@ -41,10 +45,18 @@ docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
 或者、當外掛程式已安裝時、請啟用偵錯記錄功能：
 
 +
-[listing]
+[source, console]
 ----
 docker plugin disable <plugin>
+----
++
+[source, console]
+----
 docker plugin set <plugin> debug=true
+----
++
+[source, console]
+----
 docker plugin enable <plugin>
 ----
 . 如果您在主機上執行二進位檔本身、則主機的記錄檔中會有可用的記錄檔 `/var/log/netappdvp` 目錄。若要啟用偵錯記錄、請指定 `-debug` 當您執行外掛程式時。

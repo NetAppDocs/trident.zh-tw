@@ -66,7 +66,7 @@ Trident 儲存設備後端可根據可用性區域、選擇性地配置磁碟區
 ====
 .YAML
 --
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -77,28 +77,34 @@ svm: iscsi_svm
 username: admin
 password: password
 supportedTopologies:
-- topology.kubernetes.io/region: us-east1
-  topology.kubernetes.io/zone: us-east1-a
-- topology.kubernetes.io/region: us-east1
-  topology.kubernetes.io/zone: us-east1-b
+  - topology.kubernetes.io/region: us-east1
+    topology.kubernetes.io/zone: us-east1-a
+  - topology.kubernetes.io/region: us-east1
+    topology.kubernetes.io/zone: us-east1-b
 ----
 --
 .JSON
 --
-[listing]
+[source, json]
 ----
 {
- "version": 1,
- "storageDriverName": "ontap-san",
- "backendName": "san-backend-us-east1",
- "managementLIF": "192.168.27.5",
- "svm": "iscsi_svm",
- "username": "admin",
- "password": "password",
- "supportedTopologies": [
-{"topology.kubernetes.io/region": "us-east1", "topology.kubernetes.io/zone": "us-east1-a"},
-{"topology.kubernetes.io/region": "us-east1", "topology.kubernetes.io/zone": "us-east1-b"}
-]
+  "version": 1,
+  "storageDriverName": "ontap-san",
+  "backendName": "san-backend-us-east1",
+  "managementLIF": "192.168.27.5",
+  "svm": "iscsi_svm",
+  "username": "admin",
+  "password": "password",
+  "supportedTopologies": [
+    {
+      "topology.kubernetes.io/region": "us-east1",
+      "topology.kubernetes.io/zone": "us-east1-a"
+    },
+    {
+      "topology.kubernetes.io/region": "us-east1",
+      "topology.kubernetes.io/zone": "us-east1-b"
+    }
+  ]
 }
 ----
 --
@@ -108,7 +114,7 @@ NOTE: `supportedTopologies`用於提供每個後端的區域和區域清單。�
 
 您也可以定義每個儲存資源池的「支援拓撲」。請參閱下列範例：
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -119,21 +125,22 @@ svm: nfs_svm
 username: admin
 password: password
 supportedTopologies:
-- topology.kubernetes.io/region: us-central1
-  topology.kubernetes.io/zone: us-central1-a
-- topology.kubernetes.io/region: us-central1
-  topology.kubernetes.io/zone: us-central1-b
-storage:
-- labels:
-    workload: production
-  supportedTopologies:
   - topology.kubernetes.io/region: us-central1
     topology.kubernetes.io/zone: us-central1-a
-- labels:
-    workload: dev
-  supportedTopologies:
   - topology.kubernetes.io/region: us-central1
     topology.kubernetes.io/zone: us-central1-b
+storage:
+  - labels:
+      workload: production
+    supportedTopologies:
+      - topology.kubernetes.io/region: us-central1
+        topology.kubernetes.io/zone: us-central1-a
+  - labels:
+      workload: dev
+    supportedTopologies:
+      - topology.kubernetes.io/region: us-central1
+        topology.kubernetes.io/zone: us-central1-b
+
 ----
 在此範例中、「REGion」和「Zone」標籤代表儲存資源池的位置。「topology、Kubernetes.io/region」和「topology、Kubernetes.io/Zone」決定儲存資源池的使用來源。
 
@@ -145,25 +152,25 @@ storage:
 
 請參閱下列範例：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
-metadata:
+metadata: null
 name: netapp-san-us-east1
 provisioner: csi.trident.netapp.io
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
-- matchLabelExpressions:
-- key: topology.kubernetes.io/zone
-  values:
-  - us-east1-a
-  - us-east1-b
-- key: topology.kubernetes.io/region
-  values:
-  - us-east1
+  - matchLabelExpressions: null
+  - key: topology.kubernetes.io/zone
+    values:
+      - us-east1-a
+      - us-east1-b
+  - key: topology.kubernetes.io/region
+    values:
+      - us-east1
 parameters:
-  fsType: "ext4"
+  fsType: ext4
 ----
 在上面提供的 StorageClass 定義中 `volumeBindingMode`，設置爲 `WaitForFirstConsumer`。在Pod中引用此StorageClass所要求的PVCS之前、系統不會對其採取行動。此外、還 `allowedTopologies`提供要使用的區域和區域。StorageClass 會 `netapp-san-us-east1`在上述定義的後端建立 PVC `san-backend-us-east1` 。
 
@@ -175,14 +182,14 @@ parameters:
 
 請參閱以下「sPEC」範例：
 
-[listing]
+[source, yaml]
 ----
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
-metadata:
+metadata: null
 name: pvc-san
-spec:
+spec: null
 accessModes:
   - ReadWriteOnce
 resources:
@@ -219,7 +226,7 @@ Events:
 ----
 若要Trident建立磁碟區並將其連結至PVc、請在Pod中使用PVc。請參閱下列範例：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: v1
 kind: Pod

@@ -51,7 +51,7 @@ Trident 需要 SVM 範圍 / 叢集範圍管理員的認證、才能與 ONTAP 後
 ====
 .YAML
 --
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -66,7 +66,7 @@ password: password
 --
 .JSON
 --
-[listing]
+[source, json]
 ----
 {
   "version": 1,
@@ -174,6 +174,9 @@ tridentctl update backend NasBackend -f cert-backend-updated.json -n trident
 [listing]
 ----
 cat cert-backend-updated.json
+----
+[source, json]
+----
 {
 "version": 1,
 "storageDriverName": "ontap-nas",
@@ -185,7 +188,9 @@ cat cert-backend-updated.json
 "password": "password",
 "storagePrefix": "myPrefix_"
 }
-
+----
+[listing]
+----
 #Update backend with tridentctl
 tridentctl update backend NasBackend -f cert-backend-updated.json -n trident
 +------------+----------------+--------------------------------------+--------+---------+
@@ -285,7 +290,7 @@ NOTE: 使用動態匯出原則時、請勿使用網路位址轉譯（ NAT ）。
 
 必須使用兩種組態選項。以下是後端定義範例：
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -296,8 +301,9 @@ svm: svm1
 username: vsadmin
 password: password
 autoExportCIDRs:
-- 192.168.0.0/24
+  - 192.168.0.0/24
 autoExportPolicy: true
+
 ----
 
 NOTE: 使用此功能時、您必須確保SVM中的根連接點具有先前建立的匯出原則、並具有允許節點CIDR區塊（例如預設匯出原則）的匯出規則。請務必遵循 NetApp 建議的最佳實務做法、將 SVM 專用於 Trident 。

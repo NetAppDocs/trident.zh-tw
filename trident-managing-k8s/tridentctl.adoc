@@ -260,14 +260,14 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 [listing]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "<redacted>",
-    "svm": "nas-svm",
-    "backendName": "customBackend",
-    "username": "<redacted>",
-    "password": "<redacted>",
-    "userState": "suspended",
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "<redacted>",
+  "svm": "nas-svm",
+  "backendName": "customBackend",
+  "username": "<redacted>",
+  "password": "<redacted>",
+  "userState": "suspended"
 }
 
 ----
@@ -276,7 +276,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 --
 您可以在使用命令套用 tbc 之後編輯它 `kubectl edit <tbc-name> -n <namespace>` 。下列範例會使用選項更新後端狀態以暫停 `userState: suspended` ：
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -288,7 +288,7 @@ spec:
   storageDriverName: ontap-nas
   managementLIF: <redacted>
   svm: nas-svm
-userState: suspended
+  userState: suspended
   credentials:
     name: backend-tbc-ontap-nas-secret
 ----

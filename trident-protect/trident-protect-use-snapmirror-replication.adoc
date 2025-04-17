@@ -110,7 +110,7 @@ NOTE: 您可以將 Trident Protect 設定為在資料保護作業期間凍結和
 
 
 .步驟
-. 為來源叢集上的來源應用程式建立 AppVault 。視您的儲存供應商而定，請修改中的範例link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源"]以符合您的環境：
+. 在來源叢集上，為來源應用程式建立 AppVault 。視您的儲存供應商而定，請修改中的範例link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源"]以符合您的環境：
 +
 [role="tabbed-block"]
 ====
@@ -165,7 +165,7 @@ tridentctl-protect create vault Azure <vault-name> --account <account-name> --bu
 
 --
 ====
-. 建立來源應用程式 CR ：
+. 在來源叢集上，建立來源應用程式 CR ：
 +
 [role="tabbed-block"]
 ====
@@ -216,11 +216,13 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-. 您也可以選擇拍攝來源應用程式的快照。此快照是作為目的地叢集上應用程式的基礎。如果您略過此步驟，則需要等待下一個排定的快照執行，以便擁有最近的快照。
+
+
+. 或者，在來源叢集上，拍攝來源應用程式的關機快照。此快照是作為目的地叢集上應用程式的基礎。如果您略過此步驟，則需要等待下一個排定的快照執行，以便擁有最近的快照。
 +
 [role="tabbed-block"]
 ====
-.使用 CR 拍攝快照
+.使用 CR 執行關機快照
 --
 .. 建立來源應用程式的複寫排程：
 +
@@ -271,7 +273,7 @@ kubectl apply -f trident-protect-schedule.yaml -n my-app-namespace
 
 
 --
-.使用 CLI 拍攝快照
+.使用 CLI 執行關機快照
 --
 .. 建立快照，以您環境的資訊取代方括號中的值。例如：
 +
@@ -283,14 +285,14 @@ tridentctl-protect create snapshot <my_snapshot_name> --appvault <my_appvault_na
 
 --
 ====
-. 在目的地叢集上建立與您在來源叢集上套用的 AppVault CR 相同的來源應用程式 AppVault CR ，並命名該應用程式（例如 `trident-protect-appvault-primary-destination.yaml`）。
+. 在目的地叢集上，建立與您在來源叢集上套用的 AppVault CR 相同的來源應用程式 AppVault CR ，並命名該應用程式（例如 `trident-protect-appvault-primary-destination.yaml`）。
 . 套用 CR ：
 +
 [source, console]
 ----
 kubectl apply -f trident-protect-appvault-primary-destination.yaml -n my-app-namespace
 ----
-. 為目的地叢集上的目的地應用程式建立 AppVault 。視您的儲存供應商而定，請修改中的範例link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源"]以符合您的環境：
+. 為目的地叢集上的目的地應用程式建立目的地 AppVault CR 。視您的儲存供應商而定，請修改中的範例link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源"]以符合您的環境：
 +
 .. 建立自訂資源（ CR ）檔案並命名（例如 `trident-protect-appvault-secondary-destination.yaml`）。
 .. 設定下列屬性：
@@ -328,7 +330,7 @@ kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n my-app-n
 ----
 
 
-. 建立 AppMirrorRelationship CR 檔案：
+. 在目的地叢集上，建立 AppMirrorRelationship CR 檔案：
 +
 [role="tabbed-block"]
 ====
@@ -393,7 +395,7 @@ tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> -
 
 --
 ====
-. （ _Optional_ ）檢查複寫關係的狀態和狀態：
+. （ _Optional_ ）在目的地叢集上，檢查複寫關係的狀態和狀態：
 +
 [source, console]
 ----
@@ -408,7 +410,7 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 使用 Trident Protect ，您可以將複寫的應用程式容錯移轉至目的地叢集。此程序會停止複寫關係、並在目的地叢集上使應用程式上線。如果來源叢集上的應用程式正常運作， Trident Protect 不會停止該應用程式。
 
 .步驟
-. 開啟 AppMirrorRelationship CR 檔案（例如 `trident-protect-relationship.yaml`），並將 * spec.desiredState* 的值變更為 `Promoted`。
+. 在目標叢集上，編輯 AppMirrorRelationship CR 檔案（例如 `trident-protect-relationship.yaml`），並將 * spec.desiredState* 的值變更為 `Promoted`。
 . 儲存 CR 檔案。
 . 套用 CR ：
 +
@@ -437,8 +439,8 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 IMPORTANT: 在容錯移轉期間寫入目的地應用程式的任何資料都會遺失。
 
 .步驟
-. 建立來源應用程式的快照。
-. 打開 AppMirrorRelationship CR 文件（例如 `trident-protect-relationship.yaml`），然後將 spec.desiredState 的值更改爲 `Established`。
+. 選用：在來源叢集上，建立來源應用程式的快照。如此可確保擷取來源叢集的最新變更。
+. 在目標叢集上，編輯 AppMirrorRelationship CR 檔案（例如 `trident-protect-relationship.yaml`），並將 spec.desiredState 的值變更為 `Established`。
 . 儲存 CR 檔案。
 . 套用 CR ：
 +
@@ -456,9 +458,9 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 當您反向重新同步容錯移轉複寫關係時，目的地應用程式會變成來源應用程式，來源會變成目的地。在容錯移轉期間對目的地應用程式所做的變更會保留下來。
 
 .步驟
-. 刪除原始目的地叢集上的 AppMirrorRelationship CR 。這會導致目的地成為來源。如果新的目的地叢集上還有任何保護排程，請將其移除。
+. 在原始目的地叢集上，刪除 AppMirrorRelationship CR 。這會導致目的地成為來源。如果新的目的地叢集上還有任何保護排程，請將其移除。
 . 套用原先用來設定與相對叢集關係的 CR 檔案，以設定複寫關係。
-. 確保每個叢集上的 AppVault CRS 均已就緒。
+. 請確定新目的地（原始來源叢集）已同時使用 AppVault CRS 進行設定。
 . 在相對的叢集上設定複寫關係，設定反轉方向的值。
 
 
@@ -471,7 +473,7 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 在這種情況下、您要交換來源和目的地。
 
 .步驟
-. 建立關機快照：
+. 在來源叢集上，建立關機快照：
 +
 [role="tabbed-block"]
 ====
@@ -527,19 +529,19 @@ tridentctl-protect create shutdownsnapshot <my_shutdown_snapshot> --appvault <my
 
 --
 ====
-. 快照完成後，取得快照的狀態：
+. 在來源叢集上，關機快照完成後，取得關機快照的狀態：
 +
 [source, console]
 ----
 kubectl get shutdownsnapshot -n my-app-namespace <shutdown_snapshot_name> -o yaml
 ----
-. 使用下列命令尋找 * shutdownsnapshot .status.appArchivePath* 的值，並記錄檔案路徑的最後一部分（也稱為 basename ；這將是最後一個斜線之後的所有項目）：
+. 在來源叢集上，使用下列命令尋找 * shutdownsnapshot .status.appArchivePath* 的值，並記錄檔案路徑的最後一部分（也稱為 basename ；這將是最後一條斜線之後的所有項目）：
 +
 [source, console]
 ----
 k get shutdownsnapshot -n my-app-namespace <shutdown_snapshot_name> -o jsonpath='{.status.appArchivePath}'
 ----
-. 執行容錯移轉，從目的地叢集移轉至來源叢集，並進行下列變更：
+. 執行容錯移轉，從新的目的地叢集移轉至新的來源叢集，並進行下列變更：
 +
 
 NOTE: 在容錯移轉程序的步驟 2 中，將欄位包含在 `spec.promotedSnapshot` AppMirrorRelationship CR 檔案中，並將其值設為您在上述步驟 3 中記錄的基礎名稱。
@@ -591,7 +593,7 @@ CAUTION: 請勿執行正常的重新同步作業，因為這會捨棄在容錯�
 您可以隨時刪除複寫關係。當您刪除應用程式複寫關係時，會產生兩個獨立的應用程式，兩者之間沒有任何關係。
 
 .步驟
-. 刪除 AppMirrorRelationship CR ：
+. 在目前的目標叢集上，刪除 AppMirrorRelationship CR ：
 +
 [source, console]
 ----

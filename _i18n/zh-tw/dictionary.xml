@@ -4459,7 +4459,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="cc37bc9830a1edb8e50e296af8ade03b" category="list-text">選擇複寫排程（包括 Kubernetes 資源及持續磁碟區資料）</block>
   <block id="55960a396448d8f19fb182dfd2b04d90" category="list-text">設定拍攝快照的時間</block>
   <block id="7fe804bb721f10861ae38239b332f774" category="inline-link-macro">AppVault 自訂資源</block>
-  <block id="38886c5d59d709a7506113ab8fa737eb" category="list-text">為來源叢集上的來源應用程式建立 AppVault 。視您的儲存供應商而定，請修改中的範例<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>以符合您的環境：</block>
   <block id="bb557baccf285d1ab6b4cdc32daf5848" category="open-title">使用 CR 建立 AppVault</block>
   <block id="32429298e62d70d6afc71defdbdd3c42" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="0992b18d0f3771479838d4ddbaa2b097" prefix=" " category="inline-code"></block>）。</block>
   <block id="4b60a832776a25dfdf74d5dac3d3111f" category="list-text">* metadata.name*: （ _required ） AppVault 自訂資源的名稱。請記下您選擇的名稱，因為複寫關係所需的其他 CR 檔案會參照此值。</block>
@@ -4477,7 +4476,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="8af3a24bfad8f2e7a06abec1e5bc710e" category="list-text">在您以正確的值填入檔案之後<block ref="0992b18d0f3771479838d4ddbaa2b097" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="65b1402ebaf9b35766ab033225a55f41" category="open-title">使用 CLI 建立 AppVault</block>
   <block id="d686d91628b89b1ba45ca8bf5274eece" category="list-text">建立 AppVault ，以環境資訊取代方括號中的值：</block>
-  <block id="c244d23f9be6389c5ac873426253b152" category="list-text">建立來源應用程式 CR ：</block>
   <block id="93b7f025ad50fefb3f6b0c5ee86d6162" category="open-title">使用 CR 建立來源應用程式</block>
   <block id="793bc477cba966a8d3771d018030c3c4" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="3e2c6ff026eba99761434b4f79aaa782" prefix=" " category="inline-code"></block>）。</block>
   <block id="3bf6684ac69fda7ed549f87ecb72678d" category="list-text">* metadata.name*: （ _required ）應用程式自訂資源的名稱。請記下您選擇的名稱，因為複寫關係所需的其他 CR 檔案會參照此值。</block>
@@ -4486,8 +4484,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="948be8a05d305f0b3dece0e8dcaf4546" category="list-text">在您以正確的值填入檔案之後<block ref="3e2c6ff026eba99761434b4f79aaa782" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="677aa747b5e08444532c7cc040384124" category="open-title">使用 CLI 建立來源應用程式</block>
   <block id="feaddb5b204f8f8f1226cc6f02275f5c" category="list-text">建立來源應用程式。例如：</block>
-  <block id="2111432c46f82ea9d065a1168a7bca3d" category="list-text">您也可以選擇拍攝來源應用程式的快照。此快照是作為目的地叢集上應用程式的基礎。如果您略過此步驟，則需要等待下一個排定的快照執行，以便擁有最近的快照。</block>
-  <block id="84caf200e79d5962bc7f3516e9ad328c" category="open-title">使用 CR 拍攝快照</block>
   <block id="929d5ad53cad5d51ead7578004e2d5e5" category="list-text">建立來源應用程式的複寫排程：</block>
   <block id="57cc31c4785dfe52bb22cc8d375a3b67" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="8898becea7c9a79dd32acb9c34818b46" prefix=" " category="inline-code"></block>）。</block>
   <block id="87918fdbe5607aeceec3ec53bc40a2f8" category="list-text">* metadata.name*: （ _required ）排程自訂資源的名稱。</block>
@@ -4499,14 +4495,10 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="8c33ed4b89c2cd001ffad0203fe3c3b6" category="list-text">*spec.recurrenceRule* ：以 UTC 時間和循環時間間隔定義開始日期。</block>
   <block id="35ef995e5b9fe2ba99491ff849d63302" category="list-text">*spec.snapshotRetention * ：必須設定為 2 。</block>
   <block id="7c6d1c687b69c90909ec8375ac84883e" category="list-text">在您以正確的值填入檔案之後<block ref="8898becea7c9a79dd32acb9c34818b46" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
-  <block id="3feb4a62c8b59cd52ae22845d363c901" category="open-title">使用 CLI 拍攝快照</block>
-  <block id="a1e2bc47f1a3bfef13f10398ea862ec3" category="list-text">在目的地叢集上建立與您在來源叢集上套用的 AppVault CR 相同的來源應用程式 AppVault CR ，並命名該應用程式（例如<block ref="3ad9e8b652d0a9a977e2534bf143ea29" prefix=" " category="inline-code"></block>）。</block>
   <block id="04a53b4d2f7e20d9df207bfb6beb6ee7" category="list-text">套用 CR ：</block>
-  <block id="b90466d65b799b761b892272fec2c528" category="list-text">為目的地叢集上的目的地應用程式建立 AppVault 。視您的儲存供應商而定，請修改中的範例<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>以符合您的環境：</block>
   <block id="d5ab09bc69c7800783bce2e14f2e456f" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="b851e4210e3875aa9242df636b0b3068" prefix=" " category="inline-code"></block>）。</block>
   <block id="7fab67e3c762a0a044dd84f11a740dd7" category="list-text">* spec.providerConfig*: （ _required ）儲存使用指定供應商存取 AppVault 所需的組態。請為您的供應商選擇<block ref="070a97dcde31faecac1fc843e205039c" prefix=" " category="inline-code"></block>和任何其他必要詳細資料。請記下您選擇的值，因為複寫關係所需的其他 CR 檔案會參照這些值。如需 AppVault CRS 與其他供應商的範例，請參閱<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>。</block>
   <block id="4758f7c104e1f75364dadc9f8310e51d" category="list-text">在您以正確的值填入檔案之後<block ref="b851e4210e3875aa9242df636b0b3068" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
-  <block id="852c44e158b3265857137f38ef65ac49" category="list-text">建立 AppMirrorRelationship CR 檔案：</block>
   <block id="15e5c4ea8565e669f02393ab1d7b1021" category="open-title">使用 CR 建立 AppMirrorRelationship</block>
   <block id="3ca407ea70946200511f8d2e1008f20f" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>）。</block>
   <block id="52e868ab750f66344086c9bc5d6dadeb" category="list-text">* metadata.name:* （必要） AppMirrorRelationship 自訂資源的名稱。</block>
@@ -4520,26 +4512,20 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="86d47ead9019d8e9c93c863f7ab4e41b" category="list-text">（ _Optional_ ）檢查複寫關係的狀態和狀態：</block>
   <block id="70cc2bec279e168711b67e789468c45c" category="section-title">容錯移轉至目的地叢集</block>
   <block id="196c4df78e5add7c9590d6a1c18367ec" category="paragraph">使用 Trident Protect ，您可以將複寫的應用程式容錯移轉至目的地叢集。此程序會停止複寫關係、並在目的地叢集上使應用程式上線。如果來源叢集上的應用程式正常運作， Trident Protect 不會停止該應用程式。</block>
-  <block id="ffb2e8a8e2a97e36799531c053229941" category="list-text">開啟 AppMirrorRelationship CR 檔案（例如<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>），並將 * spec.desiredState* 的值變更為<block ref="2c42d7d277f63fcbe64b041b997ceaed" prefix=" " category="inline-code"></block>。</block>
   <block id="2d258c624d61d2388efacfc246d2439e" category="list-text">儲存 CR 檔案。</block>
   <block id="66ccf267a388b1a30a7530a93ea5ce18" category="list-text">（ _Optional_ ）在容錯移轉應用程式上建立所需的任何保護排程。</block>
   <block id="ea7117a895b98283737d3855ef6a2adc" category="section-title">重新同步容錯移轉複寫關係</block>
   <block id="c91dda18aff454993264381ffa25993f" category="paragraph">重新同步作業會重新建立複寫關係。執行重新同步作業後，原始來源應用程式即成為執行中的應用程式，而對目的地叢集上執行中的應用程式所做的任何變更都會被捨棄。</block>
   <block id="86e073f24d64b270ed8fd6bac00280eb" category="paragraph">此程序會在重新建立複寫之前，停止目的地叢集上的應用程式。</block>
   <block id="63a5fb6889ac843fec3c274399995a88" category="admonition">在容錯移轉期間寫入目的地應用程式的任何資料都會遺失。</block>
-  <block id="40b77bd147004d34167c59a33489e3ca" category="list-text">建立來源應用程式的快照。</block>
-  <block id="b0952495915865cc8c4cee9f26959545" category="list-text">打開 AppMirrorRelationship CR 文件（例如<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>），然後將 spec.desiredState 的值更改爲<block ref="072f9734fceb02f516b50d4174ac0f18" prefix=" " category="inline-code"></block>。</block>
   <block id="c7e41946fafafcb541aaa5a67635b607" category="list-text">如果您在目的地叢集上建立任何保護排程來保護容錯移轉應用程式，請將其移除。任何仍會導致磁碟區快照失敗的排程。</block>
   <block id="6e81bcb9e218ada350c173457300a0ed" category="section-title">反轉重新同步容錯移轉複寫關係</block>
   <block id="b29e882c5e41f060c9261101cb1cab06" category="paragraph">當您反向重新同步容錯移轉複寫關係時，目的地應用程式會變成來源應用程式，來源會變成目的地。在容錯移轉期間對目的地應用程式所做的變更會保留下來。</block>
-  <block id="6916d76a20f4ca4fffa219680ae6e418" category="list-text">刪除原始目的地叢集上的 AppMirrorRelationship CR 。這會導致目的地成為來源。如果新的目的地叢集上還有任何保護排程，請將其移除。</block>
   <block id="3c890586eb43d0d71cdcb47011358420" category="list-text">套用原先用來設定與相對叢集關係的 CR 檔案，以設定複寫關係。</block>
-  <block id="e4d13c88dbb2196550655288d4cf351a" category="list-text">確保每個叢集上的 AppVault CRS 均已就緒。</block>
   <block id="8a427fa57d96e74516c008754320b521" category="list-text">在相對的叢集上設定複寫關係，設定反轉方向的值。</block>
   <block id="792322eb4a0bf1a122100fc009041d9b" category="section-title">反轉應用程式複寫方向</block>
   <block id="eb89cf8a1850f41e41a65f7b65ec9c87" category="paragraph">當您反轉複寫方向時， Trident Protect 會將應用程式移至目的地儲存後端，同時繼續複寫回原始來源儲存後端。Trident Protect 會停止來源應用程式，並在容錯移轉至目的地應用程式之前，將資料複寫到目的地。</block>
   <block id="4625c1e6ccf2351ad9a08dcee33270c8" category="paragraph">在這種情況下、您要交換來源和目的地。</block>
-  <block id="06275f61faab68bc1c01a07a41aadfed" category="list-text">建立關機快照：</block>
   <block id="4f902591d45de06985f0af6d869c8a04" category="open-title">使用 CR 建立關機快照</block>
   <block id="1f6c30c2bcecec90eda54cd7038f326b" category="list-text">停用來源應用程式的保護原則排程。</block>
   <block id="4a4cfa535eb9cd705b5999ffaa6a738b" category="list-text">建立 ShutdownSnapshot CR 檔案：</block>
@@ -4549,9 +4535,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="4390dd9bb73a0c56ac3c54b54b1fe51a" category="list-text">在您以正確的值填入檔案之後<block ref="9bab8384d1fd26e8737f71771039462f" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="f450395b52edc310f6e53fe1a9e24477" category="open-title">使用 CLI 建立關機快照</block>
   <block id="01eb7f0adf446989c265a6179909de7b" category="list-text">建立關機快照，以環境資訊取代方括號中的值。例如：</block>
-  <block id="5c29a32288e71f1820e4af984e4616d6" category="list-text">快照完成後，取得快照的狀態：</block>
-  <block id="eae3a231fcdd07328a039c0bd1b3ebdf" category="list-text">使用下列命令尋找 * shutdownsnapshot .status.appArchivePath* 的值，並記錄檔案路徑的最後一部分（也稱為 basename ；這將是最後一個斜線之後的所有項目）：</block>
-  <block id="9facdd349a186c792ec6a26f5b938472" category="list-text">執行容錯移轉，從目的地叢集移轉至來源叢集，並進行下列變更：</block>
   <block id="bdd0666b03fe73dd725c0376fdb435e0" category="admonition">在容錯移轉程序的步驟 2 中，將欄位包含在<block ref="60464bee8fcac84cb209df68a2b05fba" prefix=" " category="inline-code"></block> AppMirrorRelationship CR 檔案中，並將其值設為您在上述步驟 3 中記錄的基礎名稱。</block>
   <block id="ab486212bb19e45c8e71532739574a22" category="list-text">在新的來源叢集上啟用保護排程。</block>
   <block id="aea4fd534bd3152673956c6bbd7c115c" category="paragraph">由於反向複寫，因此會發生下列動作：</block>
@@ -4567,7 +4550,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="9cbd7771b861e31b5edb23d83de4758c" category="list-text">從容錯移轉狀態開始。</block>
   <block id="39d2beed854377dcad2ea22fe9e58477" category="section-title">刪除複寫關係</block>
   <block id="a6c87e2b66308cd117a39af0fdac9885" category="paragraph">您可以隨時刪除複寫關係。當您刪除應用程式複寫關係時，會產生兩個獨立的應用程式，兩者之間沒有任何關係。</block>
-  <block id="146012b834b7d1f68305ff2495a1beb7" category="list-text">刪除 AppMirrorRelationship CR ：</block>
   <block id="c4407b1cc5192fe600872654a5ffe223" category="list-text">為 Kubernetes 原生工作流程新增 Trident 功能：</block>
   <block id="7e7397a7b79323762c61941fc0e6b5f9" category="list-text">資料保護</block>
   <block id="5866b98c049a53ea6dc7f50f9349f434" category="list-text">資料移轉</block>
@@ -5488,4 +5470,23 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="5a71b77feca506fc8eba218b4e65048b" category="paragraph">Trident 會從快照還原資料。您可以驗證快照還原狀態：</block>
   <block id="9d577c00c4cbb5d99e7a8a6589113669" category="paragraph">刪除含相關快照的持續 Volume 時，對應的 Trident Volume 會更新為「刪除狀態」。移除磁碟區快照以刪除 Trident 磁碟區。</block>
   <block id="27e9bd9989c090489f69126b9910d7d8" category="list-text">您也可以在後端定義中加入、以取得每個後端的偵錯記錄<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block>。例如、在 Trident 記錄檔中包括<block ref="825a719baa5b5b7445c98535815fac39" prefix=" " category="inline-code"></block>以取得 API 呼叫和方法傳輸。現有的後端可以<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block>使用設定<block ref="ad782b779edfd8199198bed41b3e3b6b" prefix=" " category="inline-code"></block>。</block>
+  <block id="1e8493e925b9f37d24c0573c08c6643a" category="list-text">在來源叢集上，為來源應用程式建立 AppVault 。視您的儲存供應商而定，請修改中的範例<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>以符合您的環境：</block>
+  <block id="a42a308559809e0fc20b13ea51d5d3d4" category="list-text">在來源叢集上，建立來源應用程式 CR ：</block>
+  <block id="75ffc8eca312c20c922ba2b9df1fde04" category="list-text">或者，在來源叢集上，拍攝來源應用程式的關機快照。此快照是作為目的地叢集上應用程式的基礎。如果您略過此步驟，則需要等待下一個排定的快照執行，以便擁有最近的快照。</block>
+  <block id="663f822dd7baf35b6905a0333070ed81" category="open-title">使用 CR 執行關機快照</block>
+  <block id="15b08a67c1cea1e1d7463ca2d0c98610" category="open-title">使用 CLI 執行關機快照</block>
+  <block id="85d88f09b637997959adc6d50a42d56f" category="list-text">在目的地叢集上，建立與您在來源叢集上套用的 AppVault CR 相同的來源應用程式 AppVault CR ，並命名該應用程式（例如<block ref="3ad9e8b652d0a9a977e2534bf143ea29" prefix=" " category="inline-code"></block>）。</block>
+  <block id="8af8219e9797756f7e348dd40e365632" category="list-text">為目的地叢集上的目的地應用程式建立目的地 AppVault CR 。視您的儲存供應商而定，請修改中的範例<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>以符合您的環境：</block>
+  <block id="f454fc9c64d31c07a352c043fe184940" category="list-text">在目的地叢集上，建立 AppMirrorRelationship CR 檔案：</block>
+  <block id="3d9dc864aeb5b914422a6a665c53ceeb" category="list-text">（ _Optional_ ）在目的地叢集上，檢查複寫關係的狀態和狀態：</block>
+  <block id="fe07abfd92e0d0809a7eb71ce3f79b4b" category="list-text">在目標叢集上，編輯 AppMirrorRelationship CR 檔案（例如<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>），並將 * spec.desiredState* 的值變更為<block ref="2c42d7d277f63fcbe64b041b997ceaed" prefix=" " category="inline-code"></block>。</block>
+  <block id="2ebd442ba9080ba8f10b660fd69bb379" category="list-text">選用：在來源叢集上，建立來源應用程式的快照。如此可確保擷取來源叢集的最新變更。</block>
+  <block id="4d77fef9f6bd1f87593e41a1d32a7ea4" category="list-text">在目標叢集上，編輯 AppMirrorRelationship CR 檔案（例如<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>），並將 spec.desiredState 的值變更為<block ref="072f9734fceb02f516b50d4174ac0f18" prefix=" " category="inline-code"></block>。</block>
+  <block id="cd7eea117bba074d0250983f81bb10e4" category="list-text">在原始目的地叢集上，刪除 AppMirrorRelationship CR 。這會導致目的地成為來源。如果新的目的地叢集上還有任何保護排程，請將其移除。</block>
+  <block id="5ca8234bb17898bdaa8421e9bab83a0b" category="list-text">請確定新目的地（原始來源叢集）已同時使用 AppVault CRS 進行設定。</block>
+  <block id="e319bd320145e358af8fd5dbada2d800" category="list-text">在來源叢集上，建立關機快照：</block>
+  <block id="47d8460d4aa2253d733ecb9b355e4319" category="list-text">在來源叢集上，關機快照完成後，取得關機快照的狀態：</block>
+  <block id="00e7f88da8b7690738f8546262d2fe54" category="list-text">在來源叢集上，使用下列命令尋找 * shutdownsnapshot .status.appArchivePath* 的值，並記錄檔案路徑的最後一部分（也稱為 basename ；這將是最後一條斜線之後的所有項目）：</block>
+  <block id="579f2feb3d9edaa336d3ccb69c3fb855" category="list-text">執行容錯移轉，從新的目的地叢集移轉至新的來源叢集，並進行下列變更：</block>
+  <block id="23b4dec181e41ab3962cf73b28ffe58c" category="list-text">在目前的目標叢集上，刪除 AppMirrorRelationship CR ：</block>
 </blocks>

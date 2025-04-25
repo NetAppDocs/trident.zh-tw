@@ -5079,7 +5079,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="7f3424d52d579a5a23fa5102f22de8bd" category="list-text">執行下列命令，確認叢集上已正確安裝 Trident ：</block>
   <block id="5b06ec175e810e88c7f4e485931d2ce9" category="list-text">繼續設定並設定儲存後端。如需相關資訊，請參閱 <block ref="a2c0b79bf795dfa2b95204a4216320db" category="inline-link-macro-rx"></block>。</block>
   <block id="2f3961a883aa613983c8f34a8add7695" category="paragraph-title">使用 CLI 安裝 NetApp Trident EKS 附加元件：</block>
-  <block id="644621687ac454ba95f592158d1338e7" category="paragraph">下列範例命令會安裝 Trident EKS 附加元件：<block ref="7e9a9ed0bc982ca0ebe942eb94c1c6df" prefix=" " category="inline-code"></block>（含專用版本）</block>
   <block id="fa1234b3e3fcccb885405485ab5cbefb" category="paragraph-title">使用 CLI 解除安裝 NetApp Trident EKS 附加元件：</block>
   <block id="aa8e98bf63904518342c90bd49a9ea9c" category="paragraph">下列命令會解除安裝 Trident EKS 附加元件：</block>
   <block id="e462cafda39f4eb6d1800486fc401348" category="cell">如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 qtree 和 LUN 的最大磁碟區大小，而且此<block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix=" " category="inline-code"></block>選項可讓您自訂每個 FlexVol volume 的最大 qtree 數量</block>
@@ -5404,8 +5403,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1ca28d22337393f531c7c8028230ed76" category="list-text">選取您要移除 NetApp Trident CSI 附加元件的叢集名稱。</block>
   <block id="85f27397ddcaf9ec996f312d1d89ecf9" category="list-text">選擇 *Add-ons* 標籤，然後選擇 Trident by NetApp * 。 *</block>
   <block id="6f99fa9b2e1f4893851a8aeb82d171f9" category="list-text">選擇*移除*。</block>
-  <block id="0373fc4984e2029ed2103965e981bac1" category="list-text">遵循 *Add-on 組態架構 * ，並將 *Configuration valus* 一節上的組態值參數設定為您在上一個步驟（步驟 1 ）中建立的角色。</block>
-  <block id="cfed3ac6859ccd53ba18df0d44c294fb" category="paragraph">值應採用以下格式<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>：。</block>
   <block id="f8c91efdaebc08b292c83903943a18c8" category="admonition">如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。</block>
   <block id="3b19f031abb1ee1e70a3d19640060ff8" category="cell">指定要儲存在 AWS Secrets Manager 中的 FSX SVM 認證。-<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>：機密的 Amazon 資源名稱（ ARN ）、其中包含 SVM 的認證。-<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block>：設為<block ref="eb301fdabb7b8996ba898845d5546121" prefix=" " category="inline-code"></block>。如需詳細資訊、請參閱 <block ref="e10af1024bf046058eef4c68dff3462a" category="inline-link-macro-rx"></block> 。</block>
   <block id="f62b661d066f6d5a24622ec3438e051b" category="example-title">搭配 Secrets Manager 的 AWS FSX for ONTAP 組態</block>
@@ -5415,7 +5412,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="1cb68d4d58173447ddb7517b51d352a9" category="paragraph">Trident 也需要 AWS 權限才能正確執行。因此，您需要建立一個原則，讓 Trident 擁有所需的權限。</block>
   <block id="556751886154904b0a38315567ccb7ca" category="paragraph">建立原則之後，請在建立將指派給 Trident 將在下列情況下執行的服務帳戶的角色時使用：</block>
   <block id="49512d524988e02360eaf4f4bb2ad8f3" category="paragraph">如果輸出為空，請使用下列命令將 IAM OIDC 與叢集建立關聯：</block>
-  <block id="0981ca89b033fc9fc2d79b4a4f3cd7d4" category="list-text">遵循 *Add-on 組態架構 * ，並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應採用下列格式：<block ref="ee1eb31b5aebe5472fc52cb0ae20b077" prefix=" " category="inline-code"></block>）。如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。</block>
   <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">取代<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block>前一步驟所建立角色的 ARN 。</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">檢查 FSxN Trident CSI 附加元件的目前版本。以叢集名稱取代<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block>。</block>
   <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">將附加元件更新至上一個步驟輸出中可用更新所傳回的版本。</block>
@@ -5489,4 +5485,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="00e7f88da8b7690738f8546262d2fe54" category="list-text">在來源叢集上，使用下列命令尋找 * shutdownsnapshot .status.appArchivePath* 的值，並記錄檔案路徑的最後一部分（也稱為 basename ；這將是最後一條斜線之後的所有項目）：</block>
   <block id="579f2feb3d9edaa336d3ccb69c3fb855" category="list-text">執行容錯移轉，從新的目的地叢集移轉至新的來源叢集，並進行下列變更：</block>
   <block id="23b4dec181e41ab3962cf73b28ffe58c" category="list-text">在目前的目標叢集上，刪除 AppMirrorRelationship CR ：</block>
+  <block id="90abe2b6c39f51adea4c5aabff2df094" category="list-text">遵循 *Add-on 組態架構 * ，並將 *Configuration valus* 一節上的組態值參數設定為您在上一個步驟（步驟 1 ）中建立的角色。值應採用下列格式：</block>
+  <block id="be88c7e0502cadac6eccdbb309610a77" category="paragraph">下列範例命令會安裝 Trident EKS 附加元件：<block ref="a5b33d95c2beda5bdc154ff0b946fffe" prefix=" " category="inline-code"></block>（含專用版本）</block>
+  <block id="23773f4cc30b766e1a2846ff0e0ec8ba" category="list-text">遵循 * 附加元件組態架構 * ，並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應為下列格式：</block>
 </blocks>

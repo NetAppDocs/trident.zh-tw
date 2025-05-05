@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/vol-clone-cross-namespace.html 
-keywords: volref, volume reference, clone, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing, volumesnapshots 
+keywords: volref, volume reference, clone, pvc, pv, namespace, cvna, cross-namespace, sharing, volumesnapshots 
 summary: 使用 Trident ，您可以使用同一個 K8s 叢集中不同命名空間的現有磁碟區或 Volume 快照來建立新的磁碟區。 
 ---
 = 跨命名空間複製磁碟區
@@ -24,7 +24,7 @@ summary: 使用 Trident ，您可以使用同一個 K8s 叢集中不同命名空
 
 == 快速入門
 
-只需幾個步驟即可設定 NFS 磁碟區複製。
+只需幾個步驟即可設定磁碟區複製。
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["一"]設定來源 PVC 來複製磁碟區
 [role="quick-margin-para"]
@@ -69,7 +69,7 @@ spec:
       storage: 100Gi
 ----
 +
-Trident 會建立 PV 及其後端 NFS 儲存磁碟區。
+Trident 會建立 PV 及其後端儲存磁碟區。
 
 +
 [NOTE]

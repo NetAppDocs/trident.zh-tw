@@ -5424,15 +5424,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="351e2b20bd9ea864b69cd832f3a4a5df" category="list-text">如果後端未啟用 NAE ，則除非在後端組態中將 NVE 加密旗標設為（預設值），否則在 Trident 中配置的任何 Volume 都將啟用 NVE<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> 。</block>
   <block id="39fb9551310e8e28d64d0e2b94913f7a" category="paragraph">在應用程式上執行資料保護作業時，您需要手動或使用命令列來建立 AppVault CR ，而 AppVault CR 必須位於安裝 Trident Protect 的叢集上。AppVault CR 專屬於您的環境，您可以在建立 AppVault CRS 時，參考本頁面上的範例。</block>
   <block id="8b70987187655cedeb971520a2170b2d" category="paragraph">在建立 AppVault CR 之前，您必須確保 AppVault 和您選擇的資料移動器可以向提供者和任何相關資源進行驗證。</block>
-  <block id="329e129e6c733f5d2b0f685c631d5254" category="list-text">*metadata.annotations.protect.trident.netapp.io/full-backup-rule* ：（ _Optional_ ）此註釋用於指定備份是否應為非遞增備份。依預設，所有備份都是遞增備份。不過，如果此註釋設為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>，則備份將變成非遞增備份。如果未指定，則備份會遵循預設的遞增備份設定。最佳做法是定期執行完整備份，然後在完整備份之間執行遞增備份，以將與還原相關的風險降至最低。</block>
-  <block id="93b1107cde6ba041513cd9ccf7b4bae0" category="paragraph">您可以選擇性地使用<block ref="53f5240b338c91a0568f15e2562a35de" prefix=" " category="inline-code"></block>旗標來指定備份是否應為非遞增備份。依預設，所有備份都是遞增備份。使用此旗標時，備份會變成非遞增備份。最佳做法是定期執行完整備份，然後在完整備份之間執行遞增備份，以將與還原相關的風險降至最低。</block>
-  <block id="99cd57e28c97c0577c8e6d701de91b88" category="section-title">建立備份排程</block>
-  <block id="46773fe21c0cf6451e8de9f6a18da51f" category="paragraph">您可以排程非增量完整備份。依預設，所有備份都是遞增備份。定期執行完整備份，並在其間進行增量備份，有助於降低與還原相關的風險。</block>
-  <block id="2c26e9a03dd91b6eafe57094f8245ad8" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="cb18a3ae8903eb525dd256cfa3d4576e" prefix=" " category="inline-code"></block>。</block>
-  <block id="1770a13eba6600496a86d2f1cf357813" category="list-text">* metadata.annotations.protect.trident.netapp.io/full-backup-rule*: （ _Optional_ ）此註釋用於指定排程完整備份的規則。您可以將其設定為<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>持續完整備份，或根據您的需求自訂。例如，如果您選擇每日精細度，則可以指定應在星期一進行完整備份。</block>
-  <block id="9355f48a9876fcaefe0351294df4e05c" category="list-text">在您以正確的值填入檔案之後<block ref="cb18a3ae8903eb525dd256cfa3d4576e" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
-  <block id="1bd9850ddb901f0e741293ec737c5de6" category="list-text">建立備份排程，以環境資訊取代方括號中的值。例如：</block>
-  <block id="ab5807fb06fd654f730a4ed5a02bb950" category="paragraph">您可以將旗標設定<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block>為持續完整備份，或根據需求自訂旗標<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>。例如，如果您選擇每日精細度，則可以指定應在星期一進行完整備份。例如，使用<block ref="d416cce9d6bcb838c8958b9fbb84dffa" prefix=" " category="inline-code"></block>排程在週一和週四進行完整備份。</block>
   <block id="a346cffc17b34fc56f3020d8b33d30c3" category="paragraph">建立儲存類別和 PVC 時，您可以將 PV 掛載到 Pod 。本節列出範例命令和組態，以將 PV 附加至 Pod 。</block>
   <block id="f253a45a33bc62e467efd426699d9025" category="paragraph">精靈啟動後，您可以使用 Docker CLI 介面來建立和管理磁碟區。</block>
   <block id="a0ba0b0d751124c646a352594c7e9d7b" category="paragraph">其餘的驅動程式可能會遇到競爭條件等問題，導致在沒有明確「贏家」的情況下，為單一要求建立大量磁碟區；例如， Element 具有允許磁碟區擁有相同名稱但不同 ID 的功能。</block>
@@ -5488,4 +5479,36 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="90abe2b6c39f51adea4c5aabff2df094" category="list-text">遵循 *Add-on 組態架構 * ，並將 *Configuration valus* 一節上的組態值參數設定為您在上一個步驟（步驟 1 ）中建立的角色。值應採用下列格式：</block>
   <block id="be88c7e0502cadac6eccdbb309610a77" category="paragraph">下列範例命令會安裝 Trident EKS 附加元件：<block ref="a5b33d95c2beda5bdc154ff0b946fffe" prefix=" " category="inline-code"></block>（含專用版本）</block>
   <block id="23773f4cc30b766e1a2846ff0e0ec8ba" category="list-text">遵循 * 附加元件組態架構 * ，並將 * 組態值 * 區段上的組態值參數設定為您在上一個步驟中建立的角色參數（值應為下列格式：</block>
+  <block id="6935ea1d99a0c26f0e4cddb80f444849" category="summary">如果您使用 Red Hat OpenShift ，則可以使用運算子來安裝 Trident 。</block>
+  <block id="c282cc9924716a0ecdcc1864c8821950" category="doc">從 Trident 社群營運商切換至 OpenShift 認證營運商</block>
+  <block id="92da9bfce4b6635fcf5d3f3725accbbc" category="paragraph">若要從 NetApp 社群 Trident 營運商切換至 Red Hat OpenShift 認證 Trident 營運商，您必須先解除安裝社群營運商，然後使用 OperatorHub 安裝認證營運商。</block>
+  <block id="cec1c482e499b4748371d5e19359dacd" category="inline-link-macro">準備好您的環境以進行 Trident 安裝</block>
+  <block id="32bc521a76f74eeb913f8006ab760ef5" category="paragraph">開始安裝之前<block ref="77baaa0182ec347ebf1b91f8f0f5fa8c" category="inline-link-macro-rx"></block>，。</block>
+  <block id="82c3da1e712e572f424c3b7bf7dafcaf" category="section-title">解除安裝 NetApp Trident 社群營運者</block>
+  <block id="ae76609b28371ddbc9f46be837040994" category="list-text">使用 OpenShift 主控台瀏覽至 OperatorHub 。</block>
+  <block id="349838fb1d851d3e2014b9fe39203275" category="image-alt">安裝</block>
+  <block id="2d8d10c295f87a1f17d2f37a4df9688d" category="list-text">尋找 NetApp Trident 社群業者。</block>
+  <block id="e1b3a07c6ba67335c1564ff539f1f885" category="admonition">請勿選取 * 刪除此運算子的所有運算元執行個體 * 。</block>
+  <block id="615da270425b5ecb4fe6ddeed9358880" category="list-text">按一下*解除安裝*。</block>
+  <block id="c7afcce8432c7e249a80e803d2a81180" category="section-title">安裝 OpenShift 認證操作員</block>
+  <block id="6eaf33f9c2387a07f89fc20e19acffaa" category="list-text">瀏覽至 Red Hat OperatorHub 。</block>
+  <block id="cccebca328e4674a8888d5dc22f61e0d" category="list-text">搜尋並選擇 NetApp Trident 運算子。</block>
+  <block id="9872de8cf3e5ac67cae81e5c17eaa5cc" category="list-text">依照畫面上的指示安裝操作人員。</block>
+  <block id="52b8ffce119fe77b28034f2fdd35eb5f" category="section-title">驗證</block>
+  <block id="ba8b537f098a607b7119fc78961300eb" category="list-text">檢查主控台的 OperatorHub ，確保已成功安裝新的認證營運者。</block>
+  <block id="838483eae18a7bca44c25a90dc7f55c3" category="doc">使用 OpenShift OperatorHub 安裝 Trident</block>
+  <block id="d569da5fb14cad502f71e232cdfcb4e4" category="paragraph">如果您使用 Red Hat OpenShift ，則可以使用 Red Hat 認證的營運者來安裝 NetApp Trident 。請使用此程序，從 Red Hat OpenShift Container Platform 安裝 Trident 。</block>
+  <block id="516a493e6df274ac5512ffaab7234ebf" category="section-title">尋找並安裝 Trident 營運商</block>
+  <block id="7a200e69eab0d67b215ea6e3c6081797" category="list-text">瀏覽至 OpenShift OperatorHub 並搜尋 NetApp Trident 。</block>
+  <block id="f19e5d93360a2cdbfe64b6c513e8d263" category="list-text">按一下「*安裝*」。</block>
+  <block id="86499c179913093d38f20a089bb4967f" category="list-text">選擇所需的選項，然後按一下 * 安裝 * 。</block>
+  <block id="301a8f7d2ea6785da5f183d668f629b2" category="list-text">安裝完成後，即可在已安裝的操作員清單中看到操作員。</block>
+  <block id="daf49607bdd50d5294748814ce67ed21" category="list-text">建立類似於操作員套件安裝的 Torc 。</block>
+  <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">解除安裝 Trident 運算子</block>
+  <block id="9838ab5306db947832d94d1cd49a486a" category="list-text">從已安裝操作員清單中選取 Trident 操作員。</block>
+  <block id="b5a7424a278ddd01fa4e381b58d1e00d" category="list-text">如果您要從運算子刪除所有的運算元執行個體，請選取此選項。</block>
+  <block id="28ed84868f638999e59e306d6b87b07c" category="admonition">如果未選中 * 刪除此運算符的所有操作數實例 * 複選框，則不會卸載 Trident 。</block>
+  <block id="0e9e7400617f4a815b5ec92f2030b580" category="sidebar">使用 OpenShift 認證營運商進行安裝</block>
+  <block id="93e4eff1c01241084bfc9427074bacea" category="sidebar">使用 OpenShift OperatorHub 安裝 Trident</block>
+  <block id="c9e3d6c8fc80db4773cf69e205f2b571" category="sidebar">從 Trident 社群營運商切換至 OpenShift 認證營運商</block>
 </blocks>

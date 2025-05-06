@@ -15,7 +15,7 @@ summary: 如果您使用 Red Hat OpenShift ，則可以使用運算子來安裝 
 如果您使用 Red Hat OpenShift ，則可以使用 Red Hat 認證的營運者來安裝 NetApp Trident 。請使用此程序，從 Red Hat OpenShift Container Platform 安裝 Trident 。
 
 .開始之前
-開始安裝之前link:../trident-get-started/requirements.html/["準備好您的環境以進行 Trident 安裝"]，。
+開始安裝之前link:../trident-get-started/requirements.html["準備好您的環境以進行 Trident 安裝"]，。
 
 
 

@@ -15,7 +15,7 @@ summary: 如果您使用 Red Hat OpenShift ，則可以使用運算子來安裝 
 若要從 NetApp 社群 Trident 營運商切換至 Red Hat OpenShift 認證 Trident 營運商，您必須先解除安裝社群營運商，然後使用 OperatorHub 安裝認證營運商。
 
 .開始之前
-開始安裝之前link:../trident-get-started/requirements.html/["準備好您的環境以進行 Trident 安裝"]，。
+開始安裝之前link:../trident-get-started/requirements.html["準備好您的環境以進行 Trident 安裝"]，。
 
 
 

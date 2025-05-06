@@ -5482,7 +5482,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="c282cc9924716a0ecdcc1864c8821950" category="doc">從 Trident 社群營運商切換至 OpenShift 認證營運商</block>
   <block id="92da9bfce4b6635fcf5d3f3725accbbc" category="paragraph">若要從 NetApp 社群 Trident 營運商切換至 Red Hat OpenShift 認證 Trident 營運商，您必須先解除安裝社群營運商，然後使用 OperatorHub 安裝認證營運商。</block>
   <block id="cec1c482e499b4748371d5e19359dacd" category="inline-link-macro">準備好您的環境以進行 Trident 安裝</block>
-  <block id="32bc521a76f74eeb913f8006ab760ef5" category="paragraph">開始安裝之前<block ref="77baaa0182ec347ebf1b91f8f0f5fa8c" category="inline-link-macro-rx"></block>，。</block>
   <block id="82c3da1e712e572f424c3b7bf7dafcaf" category="section-title">解除安裝 NetApp Trident 社群營運者</block>
   <block id="ae76609b28371ddbc9f46be837040994" category="list-text">使用 OpenShift 主控台瀏覽至 OperatorHub 。</block>
   <block id="349838fb1d851d3e2014b9fe39203275" category="image-alt">安裝</block>
@@ -5512,4 +5511,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="c9e3d6c8fc80db4773cf69e205f2b571" category="sidebar">從 Trident 社群營運商切換至 OpenShift 認證營運商</block>
   <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">只需幾個步驟即可設定磁碟區複製。</block>
   <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Trident 會建立 PV 及其後端儲存磁碟區。</block>
+  <block id="9f965f02f635b760a84c43d43aba854f" category="paragraph">開始安裝之前<block ref="a24ee29cd883cbf52de58a68b0fed1a7" category="inline-link-macro-rx"></block>，。</block>
 </blocks>

@@ -19,7 +19,27 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 
 
-== 25.02 的新功能
+== 25.02.1 的新功能
+
+
+
+=== Trident
+
+
+
+==== 修正
+
+* * Kubernetes* ：
++
+** 解決了 Trident 運算符中使用非默認映像註冊表時 sidecar 映像名稱和版本錯誤填充的問題（link:https://github.com/NetApp/trident/issues/983["問題 #983"]）。
+** 解決了在 ONTAP 容錯移轉恢復期間多重路徑工作階段無法恢復的問題（link:https://github.com/NetApp/trident/issues/961["問題 #961"]）。
+
+
+
+
+
+
+== 25.02 的變更
 
 從 Trident 25.02 開始，「新增功能」摘要提供 Trident 和 Trident Protect 版本的增強功能，修正和過時功能的詳細資料。
 
@@ -103,6 +123,28 @@ NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化
 * SCC 註釋現在會還原為原始值。
 * 支援平行作業，提升還原效率。
 * 強化支援大型應用程式的執行掛機逾時。
+
+
+
+
+== 24.10.1 的變更
+
+
+
+=== 增強功能
+
+* * Kubernetes* ：增加了對 Kubernetes 1.32 的支援。
+* 已新增 iSCSI 連線狀態探索和記錄功能，可在 iSCSI 工作階段應登入時進行，但不會（link:https://github.com/NetApp/trident/issues/961["問題 #961"]）。
+
+
+
+
+=== 修正
+
+* 修復自動匯出原則中遺失的節點 IP 位址（link:https://github.com/NetApp/trident/issues/965["問題 #965"]）。
+* 為節省 ONTAP NAS 成本，提早將自動匯出原則切換至每個 Volume 原則。
+* 已更新 Trident 和 Trident ASUP 相依性，以解決 CVE-2024-45337 和 CVE-2024-45310 的問題。
+* 在 iSCSI 自我修復期間，移除間歇性不佳的非 CHAP 入口網站登出 (link:https://github.com/NetApp/trident/issues/961["問題 #961"]) 。
 
 
 

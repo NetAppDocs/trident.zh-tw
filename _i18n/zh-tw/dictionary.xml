@@ -4983,7 +4983,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="cd2793aaeed5e7f0429f516ecf5eb130" category="list-text"><block ref="8a4b824281db82475bec9857f32bde41" category="inline-link-rx"></block>（適用於 iSCSI ）</block>
   <block id="23db1fababbb1ae99bf5bf19e6f6f47b" category="list-text">NetApp 建議複製閒置磁碟區。</block>
   <block id="3ca0a694ceba360e6f67566a611b37fb" category="paragraph">Volume 是資源配置的基本單位，包括 NFS 共用， iSCSI 和 FC LUN 等後端端點。在 Kubernetes 中、這些直接對應到<block ref="3f91308865b7567ae097573f6d0519e9" prefix=" " category="inline-code"></block>。建立磁碟區時、請確定它有一個儲存類別、決定該磁碟區可以配置的位置及大小。</block>
-  <block id="5a8746628add05005005c4b1b98f52a6" category="section-title">25.02 的新功能</block>
   <block id="f732fd09d1f97b63aaad6d5a80382f0c" category="list-text">新增對 iSCSI 的 ONTAP ASA R2 支援。</block>
   <block id="87959ecf0c52ae4baca9f7e962286ec1" category="list-text">新增在非正常節點關機案例中強制分離 ONTAP NAS 磁碟區的支援。新的 ONTAP NAS 磁碟區現在將使用由 Trident 管理的每個磁碟區匯出原則。提供升級路徑，讓現有的磁碟區在解除發佈時轉換至新的匯出原則模型，而不會影響作用中的工作負載。</block>
   <block id="09abe7a508b1461d2b42cd082e9680aa" category="list-text">新增 cloneFromSnapshot 註釋。</block>
@@ -5512,4 +5511,13 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">只需幾個步驟即可設定磁碟區複製。</block>
   <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Trident 會建立 PV 及其後端儲存磁碟區。</block>
   <block id="9f965f02f635b760a84c43d43aba854f" category="paragraph">開始安裝之前<block ref="a24ee29cd883cbf52de58a68b0fed1a7" category="inline-link-macro-rx"></block>，。</block>
+  <block id="c9611d3f195e70e59294887ffd815bd1" category="section-title">25.02.1 的新功能</block>
+  <block id="d72c3d84865c2955b89cbf6e0ec00ada" category="inline-link-macro">問題 #983</block>
+  <block id="ac76c3fcac41a10bd5f709108875e6c6" category="list-text">解決了 Trident 運算符中使用非默認映像註冊表時 sidecar 映像名稱和版本錯誤填充的問題（<block ref="524f95fe3800e5d3ef82e615d679c539" category="inline-link-macro-rx"></block>）。</block>
+  <block id="7bc2d7846b2e95d3f64a4d4f4b53cc3c" category="list-text">解決了在 ONTAP 容錯移轉恢復期間多重路徑工作階段無法恢復的問題（<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block>）。</block>
+  <block id="212dff1a74c955a52357c5a67478720d" category="section-title">25.02 的變更</block>
+  <block id="ef5363598e9b6f09c42a4f11b7798e31" category="section-title">24.10.1 的變更</block>
+  <block id="fe28e2a5f749261aca15de7b9e5841d0" category="list-text">* Kubernetes* ：增加了對 Kubernetes 1.32 的支援。</block>
+  <block id="3da21bcb163e7e142caada3e22ac014f" category="list-text">已更新 Trident 和 Trident ASUP 相依性，以解決 CVE-2024-45337 和 CVE-2024-45310 的問題。</block>
+  <block id="eeda04a5133a10ebd4956c7d83dfd389" category="list-text">在 iSCSI 自我修復期間，移除間歇性不佳的非 CHAP 入口網站登出 (<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block>) 。</block>
 </blocks>

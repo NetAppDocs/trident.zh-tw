@@ -319,7 +319,7 @@ CAUTION: 從Red Hat OpenShift版本3.9起、官方文件建議您不要使用NFS
 根據部署方法設定 Ansible 變數非常重要、如此才能確保基礎服務使用正確的儲存設備。讓我們來看看每種部署方法的選項。
 
 
-NOTE: 下表僅包含與記錄服務相關的儲存組態變數。您可以在中找到其他選項 link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["RedHat OpenShift記錄文件"^] 應根據您的部署情況來審查、設定及使用。
+NOTE: 下表僅包含與記錄服務相關的儲存組態變數。您可以找到其他選項、這些選項link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Red Hat OpenShift 記錄文件"^]應根據您的部署進行檢閱、設定及使用。
 
 下表中的變數會使用提供的詳細資料、產生Ansible教戰手冊、為記錄服務建立PV和PVc。這種方法的彈性遠低於OpenShift安裝後使用元件安裝方針、不過如果您有現有的磁碟區可用、這是一個選項。
 
@@ -378,7 +378,7 @@ NOTE: 下表僅包含與記錄服務相關的儲存組態變數。您可以在�
 
 如果您將記錄部署為初始OpenShift安裝程序的一部分、則只需遵循標準部署程序即可。Ansible會設定及部署所需的服務和OpenShift物件、以便在可執行的完成後立即提供服務。
 
-不過、如果您在初始安裝之後進行部署、Ansible將需要使用元件方針。不同版本的OpenShift可能會稍微改變此程序、因此請務必閱讀並遵循 link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["RedHat OpenShift Container Platform 3.11文件"^] 適用於您的版本。
+不過、如果您在初始安裝之後進行部署、Ansible將需要使用元件方針。此程序可能會隨著 OpenShift 的不同版本而稍有變更、因此請務必閱讀並遵循link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["Red Hat OpenShift Container Platform 3.11 文件"^]您的版本。
 
 
 
@@ -434,4 +434,4 @@ NOTE: 下表僅包含與度量服務相關的儲存組態相關變數。文件�
 
 在您的主機/庫存檔案中定義適當的可Ansible變數後、使用Ansible部署服務。如果您是在OpenShift安裝時間進行部署、則會自動建立及使用PV。如果您是使用元件教戰手冊進行部署、則在安裝 OpenShift 之後、 Ansible 會建立所需的任何 PVCS 、並在 Trident 為其提供儲存設備之後、部署服務。
 
-上述變數及部署程序可能會隨OpenShift的每個版本而變更。請務必檢閱並遵循 link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["RedHat的OpenShift部署指南"^] 以供您的環境使用。
+上述變數及部署程序可能會隨OpenShift的每個版本而變更。請務必檢閱並遵循link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Red Hat 的 OpenShift 部署指南"^]您的版本、以便針對您的環境進行設定。

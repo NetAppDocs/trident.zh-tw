@@ -81,7 +81,7 @@ WARNING: 在將安裝了 Trident 的 Kubernetes 叢集從 1.25 升級至 1.26 �
 == Trident 支援 KubeVirt 和 OpenShift 虛擬化
 
 .支援的儲存驅動程式：
-Trident 支援 KubeVirt 和 OpenShift 虛擬化的下列 ONTAP 驅動程式：
+Trident 支援下列適用於 KubeVirt 和 OpenShift 虛擬化的 ONTAP 驅動程式：
 
 * ONTAP-NAS
 * ONTAP NAS 經濟效益
@@ -174,7 +174,7 @@ Trident 支援 KubeVirt 和 OpenShift 虛擬化的下列 ONTAP 驅動程式：
 
 雖然 Trident 並未正式支援特定作業系統、但已知下列項目可以正常運作：
 
-* 受 OpenShift Container Platform （ AMD64 和 ARM64 ）支援的 RedHat CoreOS （ RHCOS ）版本
+* OpenShift Container Platform （ AMD64 和 ARM64 ）支援的 Red Hat Enterprise Linux CoreOS （ RHCOS ）版本
 * RHEL 8+ （ AMD64 和 ARM64 ）
 +
 

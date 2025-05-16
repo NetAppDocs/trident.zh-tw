@@ -5422,7 +5422,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="8c1fabda63909c966d5b02c908178af2" category="paragraph">此範例是在執行命令後建立，<block ref="6108feb94d9d09a19e33648dcce80003" prefix=" " category="inline-code"></block>代表基本的自訂安裝：</block>
   <block id="a687cccb5ef434dd8df6734253a09535" category="paragraph">此範例是在執行命令後建立，<block ref="2241cac556b278d16d0bb5f94117277a" prefix=" " category="inline-code"></block>會在 Windows 工作節點上安裝 Trident 。</block>
   <block id="de4b458ce26c7e2479c45bb915c621b5" category="paragraph">如果您在建立 PVC 時收到「找不到容量集區」錯誤，您的應用程式註冊可能沒有相關的必要權限和資源（子網路，虛擬網路，容量集區）。如果啟用除錯功能、 Trident 會記錄建立後端時所探索到的 Azure 資源。確認使用的角色是否適當。</block>
-  <block id="6f7026a013dd10088e6f2464a6e1768b" category="admonition">如果 Trident 已從這個後端佈建磁碟區和快照、但該後端仍存在、則刪除後端將會阻止新磁碟區由其進行佈建。後端將繼續存在於「刪除」狀態， Trident 將繼續管理這些磁碟區和快照，直到它們被刪除為止。</block>
   <block id="1c52b877ebb92e642f84ee1628240247" category="cell">永遠為「 SolidFire - SAN 」</block>
   <block id="31079062306e509fbecf7a2bd9485187" category="cell">「 SolidFire _ 」 + 儲存（ iSCSI ） IP 位址</block>
   <block id="1ed25c6118740d8ddd80ea0ce520e808" category="cell">尋找名為「 Trident 」的存取群組 ID</block>
@@ -5521,4 +5520,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="ce557c2f93da665463decf7b19e61b7b" category="list-text">當使用搭配 iSCSI PV 執行 RHEL/Red Hat Enterprise Linux CoreOS （ RHCOS ）的工作節點時，請在 StorageClass 中指定<block ref="70f68bb2f748b85de6526bfe236ea1e9" prefix=" " category="inline-code"></block> mountOption 以執行內嵌空間回收。請參閱<block ref="65c95aeda8cb0b26307f9839dd3fefbf" category="inline-link-rx"></block>。</block>
   <block id="3992b498f2510c20f4dc0df9804e6038" category="list-text">使用 Red Hat Enterprise Linux CoreOS （ RHCOS ）時，請確保<block ref="3fe4dc8de876aca2c78fa0cd9c6d0b65" prefix=" " category="inline-code"></block>已在工作節點上啟用，並依預設啟動。您可以使用OpenShift機器組態或修改點火模板來完成此作業。</block>
   <block id="aaa0c40b2c8011bdffe750a1ba36c398" category="paragraph">使用<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block>、<block ref="e12fdd044232e643620eed06bf33c7af" prefix=" " category="inline-code"></block>和<block ref="1ad68a6a046942b7c1666aed825df70a" prefix=" " category="inline-code"></block>，您可以指定 SMB 磁碟區並提供所需的 Active Directory 認證。任何具有任何 / 無權限的 Active Directory 使用者 / 密碼都可用於節點階段密碼。</block>
+  <block id="1e0e0f35966b4297310419e9023a837b" category="admonition">如果 Trident 已從這個後端佈建磁碟區和快照、但該後端仍存在、則刪除後端將會阻止新磁碟區由其進行佈建。後端將繼續存在於「刪除」狀態。</block>
 </blocks>

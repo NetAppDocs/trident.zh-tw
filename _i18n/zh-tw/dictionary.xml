@@ -2421,7 +2421,6 @@
   <block id="9d384cd22f1c9bc6a23136fe35d2a51c" category="paragraph">將 PV 附加至 Pod 、以便調整大小。調整iSCSI PV的大小有兩種情況：</block>
   <block id="a22a8450047f7b7aea2c76b348f6ba43" category="summary">您可以檢視現有的儲存類別、設定預設的儲存類別、識別儲存類別後端、以及刪除儲存類別。</block>
   <block id="e372af4ebeb99af557aa13609f47f47c" category="admonition">叢集中一次只應有一個預設儲存類別。Kubernetes在技術上並不妨礙您擁有多個儲存類別、但它的行為方式就如同完全沒有預設的儲存類別一樣。</block>
-  <block id="ab12af74f48620acb3eaeb14535b6d02" category="paragraph">支援Volume Snapshot<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>、<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>、<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>、<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>、<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>、<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>和<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> 驅動程式：</block>
   <block id="c1ec7161e63fe862aeb30466f8f3f3b8" category="paragraph">您必須擁有外部快照控制器和自訂資源定義（ CRD ）、才能使用快照。這是Kubernetes Orchestrator的責任（例如：Kubeadm、GKE、OpenShift）。</block>
   <block id="d0838c5cbd45cca11f4f53eb773d017d" category="paragraph">如果您的Kubernetes發佈版本未包含快照控制器和CRD、請參閱 <block ref="048c22f74eff12037af96b48becdf135" category="inline-xref-macro-rx"></block>。</block>
   <block id="c4f5303a406f47eb87bf815d986165ee" category="section-title">建立磁碟區快照</block>
@@ -5284,20 +5283,12 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="ee3b7d497a79c10fe3b10cda25267876" category="paragraph">您可以依照中的指示安裝 AlertManager<block ref="34c399dcb7431f049905523dd168baa8" category="inline-link-rx"></block> 。</block>
   <block id="9147f13af253be263e759a06097eea20" category="section-title">步驟 2 ：設定監控工具以共同作業</block>
   <block id="73be38664a808318efe65c02c4ce747c" category="paragraph">安裝監控工具之後，您需要將它們設定為一起運作。</block>
-  <block id="f7c326ea0f47e0df6c4d60c67fc92de6" category="list-text">將 kube 狀態指標與 Prometheus 整合。編輯 Prometheus 配置文件<block ref="c3d29ac8b40407b824f83a7f7db6e6bb" prefix="(" category="inline-code"></block>）並添加 kube 狀態指標服務信息。例如：</block>
-  <block id="653d37cbed9ac789942fa035d0ae62cf" category="listing-title">Prometheus.yml ：與 Prometheus 整合的 Kube-state 度量服務</block>
-  <block id="3e7ba607c96ae11da56a66f77a490380" category="list-text">設定 Prometheus 將警示路由至 AlertManager 。編輯 Prometheus 配置文件<block ref="c3d29ac8b40407b824f83a7f7db6e6bb" prefix="(" category="inline-code"></block>）並添加以下部分：</block>
-  <block id="40e966a8a619ecdcdef18e581c1551d5" category="listing-title">Prometheus.yml ：傳送警示給 Alertmanager</block>
   <block id="68f04b43068f22f98aaa6513240dd2b5" category="paragraph">現在， Prometheus 可以從 kube-state 度量收集度量，並可傳送警示給 Alertmanager 。您現在已準備好設定觸發警示的條件，以及應傳送警示的位置。</block>
   <block id="a42cb9abdbaf69f90fba5592304008cd" category="section-title">步驟 3 ：設定警示和警示目的地</block>
   <block id="1138a7ff5cea0f83ce07834c8e02315c" category="paragraph">設定工具以共同作業之後，您需要設定觸發警示的資訊類型，以及應傳送警示的位置。</block>
   <block id="917045fa08d9c44ee88951e8cdb4023b" category="section-title">警示範例：備份失敗</block>
-  <block id="2e894935b55591ae58c162389bf0e25d" category="paragraph">以下範例定義當備份自訂資源的狀態設定為 5 秒或更長時間時觸發的關鍵警示<block ref="902b0d55fddef6f8d651fe1035b7d4bd" prefix=" " category="inline-code"></block>。您可以自訂此範例以符合您的環境，並將此 YAML 片段包含在組態檔案中<block ref="c3d29ac8b40407b824f83a7f7db6e6bb" prefix=" " category="inline-code"></block>：</block>
-  <block id="588eb18cd09fd92471ac447d156515e2" category="listing-title">rules.yml ：定義失敗備份的 Prometheus 警示</block>
   <block id="e8665bc518bf7a6d63332be811e8f6cb" category="section-title">設定 AlertManager 以傳送警示至其他頻道</block>
-  <block id="502a9d29b17b7f6331b5a1d5325855ac" category="paragraph">您可以將 AlertManager 設定為傳送通知給其他通道，例如電子郵件， PagerDuty ， Microsoft 團隊或其他通知服務，方法是在檔案中指定個別的組態<block ref="3a4637925a72e08829320dd2ed20aa17" prefix=" " category="inline-code"></block>。</block>
   <block id="c9272f0d68fac2055ba2d71be6c87b1b" category="paragraph">以下範例將警示管理員設定為傳送通知至 Slack 頻道。若要根據您的環境自訂此範例，請將金鑰的值取代為<block ref="aa8106611bcfe43fec48e6d1d371de52" prefix=" " category="inline-code"></block>您環境中使用的 Slack Webhook URL ：</block>
-  <block id="4b437b03cad5e359b0e810e6dc330afc" category="listing-title">alertmanager.yml ：傳送警示至 Slack 頻道</block>
   <block id="792d490e884279c961aba837ccd9b67a" category="admonition">Trident Protect 會自動選取部分資源，因為這些資源與您選取的資源之間的關係。例如，如果您選取持續磁碟區宣告資源，而且該資源有相關聯的 Pod ，則 Trident Protect 也會還原相關聯的 Pod 。</block>
   <block id="d110d36251c4dd04b7da5ef237ac6063" category="inline-link">Kopia 文件</block>
   <block id="2cd3acbff016f03ffcfe72208e450647" category="admonition">當您使用 Kopia 做為資料移動器來還原備份時，您可以選擇性地在 CR 中指定註釋，或使用 CLI 來控制 Kopia 使用的大量儲存設備的行為。如需可設定選項的詳細資訊，請參閱<block ref="08f67cdc0555f043586a8a4182d9187b" category="inline-link-rx"></block>。使用<block ref="26d4326deff4a9a34c8bff3eaf4ad7fc" prefix=" " category="inline-code"></block>命令可取得更多關於使用 Trident Protect CLI 指定註釋的資訊。</block>
@@ -5521,4 +5512,13 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="3992b498f2510c20f4dc0df9804e6038" category="list-text">使用 Red Hat Enterprise Linux CoreOS （ RHCOS ）時，請確保<block ref="3fe4dc8de876aca2c78fa0cd9c6d0b65" prefix=" " category="inline-code"></block>已在工作節點上啟用，並依預設啟動。您可以使用OpenShift機器組態或修改點火模板來完成此作業。</block>
   <block id="aaa0c40b2c8011bdffe750a1ba36c398" category="paragraph">使用<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block>、<block ref="e12fdd044232e643620eed06bf33c7af" prefix=" " category="inline-code"></block>和<block ref="1ad68a6a046942b7c1666aed825df70a" prefix=" " category="inline-code"></block>，您可以指定 SMB 磁碟區並提供所需的 Active Directory 認證。任何具有任何 / 無權限的 Active Directory 使用者 / 密碼都可用於節點階段密碼。</block>
   <block id="1e0e0f35966b4297310419e9023a837b" category="admonition">如果 Trident 已從這個後端佈建磁碟區和快照、但該後端仍存在、則刪除後端將會阻止新磁碟區由其進行佈建。後端將繼續存在於「刪除」狀態。</block>
+  <block id="e441c0f153e5f2e8328aa8c2e9badf45" category="list-text">將 kube 狀態指標與 Prometheus 整合。編輯 Prometheus 配置文件<block ref="aacdd9a7e2029a243488dbd0c49c5bbb" prefix="(" category="inline-code"></block>）並添加 kube 狀態指標服務信息。例如：</block>
+  <block id="ce813b4c1248ec7e0f14b08f1a037497" category="listing-title">prometheus.yaml：kube-state-metrics 服務與 Prometheus 的集成</block>
+  <block id="934a401d15e7226d8cb60e2a12f28611" category="list-text">設定 Prometheus 將警示路由至 AlertManager 。編輯 Prometheus 配置文件<block ref="aacdd9a7e2029a243488dbd0c49c5bbb" prefix="(" category="inline-code"></block>）並添加以下部分：</block>
+  <block id="2a88bf2582239d12cc0700d3c6857519" category="listing-title">prometheus.yaml：向 Alertmanager 發送警報</block>
+  <block id="ae9aa1ddb34419c7b7b7f49feba7fb45" category="paragraph">以下範例定義當備份自訂資源的狀態設定為 5 秒或更長時間時觸發的關鍵警示<block ref="902b0d55fddef6f8d651fe1035b7d4bd" prefix=" " category="inline-code"></block>。您可以自訂此範例以符合您的環境，並將此 YAML 片段包含在組態檔案中<block ref="aacdd9a7e2029a243488dbd0c49c5bbb" prefix=" " category="inline-code"></block>：</block>
+  <block id="62c242d2e7dfd83a58d8ccf60227d68f" category="listing-title">rules.yaml：定義失敗備份的 Prometheus 警報</block>
+  <block id="70694773feb2b23c45e7ff7a6a3c3c8b" category="paragraph">您可以將 AlertManager 設定為傳送通知給其他通道，例如電子郵件， PagerDuty ， Microsoft 團隊或其他通知服務，方法是在檔案中指定個別的組態<block ref="9001eaececb0884cbeb80659e81340ad" prefix=" " category="inline-code"></block>。</block>
+  <block id="965357e3c90ccf3fba01174c6508d562" category="listing-title">alertmanager.yaml：向 Slack 頻道發送警報</block>
+  <block id="fb72ca78c839cefc52d39ebcecaf6827" category="paragraph">卷快照支援<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> ， <block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> ， <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ， <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> ， <block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> ， <block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> ， <block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> ， 和<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>司機。</block>
 </blocks>

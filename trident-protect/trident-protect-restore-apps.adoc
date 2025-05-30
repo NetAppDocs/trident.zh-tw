@@ -506,6 +506,10 @@ kubectl get snapshots <SNAPHOT_NAME> -n my-app-namespace -o jsonpath='{.status.a
 ** *spec.namespaceMapping*: 將還原作業的來源命名空間對應至目的地命名空間。以環境中的資訊取代 `my-source-namespace`和 `my-destination-namespace`。
 ** *spec.storageClassMapping* ：將還原作業的來源儲存類別對應至目的地儲存類別。以環境中的資訊取代 `destinationStorageClass`和 `sourceStorageClass`。
 +
+
+NOTE: 這 `storageClassMapping`屬性僅在原始屬性和新屬性都有效時 `StorageClass`使用相同的儲存後端。如果您嘗試恢復到 `StorageClass`如果使用不同的儲存後端，則復原操作將會失敗。
+
++
 [source, yaml]
 ----
 ---

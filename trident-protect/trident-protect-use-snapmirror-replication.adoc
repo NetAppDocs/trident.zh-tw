@@ -216,8 +216,6 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-
-
 . 或者，在來源叢集上，拍攝來源應用程式的關機快照。此快照是作為目的地叢集上應用程式的基礎。如果您略過此步驟，則需要等待下一個排定的快照執行，以便擁有最近的快照。
 +
 [role="tabbed-block"]

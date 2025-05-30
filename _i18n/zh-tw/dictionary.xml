@@ -5360,7 +5360,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="a305c8fb2137d8a4a767905590079e89" category="section-title">建立 PVC</block>
   <block id="06034bca671a3028021f1a722aac7b41" category="paragraph">設定 Kubernetes StorageClass 物件並建立儲存類別、以指示 Trident 如何配置磁碟區。建立 PersistentVolume Claim （ PVC ），使用設定的 Kubernetes StorageClass 要求存取 PV 。然後、您可以將 PV 掛載至 Pod 。</block>
   <block id="5de805965faeb85a54098223ea3a3334" category="paragraph">建立 PVC 之後，您可以將磁碟區裝入 Pod 。</block>
-  <block id="06489d7f99c3b214c8b9a539006a642c" category="list-text">登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.2.</block>
   <block id="65fec8b0751214bea1821a56ae85cf6b" category="paragraph">Trident 安裝程式套件包含部署 Trident 營運商和安裝 Trident 所需的一切。從 GitHub 的 Assets 區段下載並擷取最新版本的 Trident 安裝程式。</block>
   <block id="89fb75fa5ae260c326092b78970469ed" category="list-text">在左側導航窗格中，選擇 *Clusters* 。</block>
   <block id="abdaa0762abc2037a71287c94bceae14" category="list-text">選取您要設定 NetApp Trident CSI 附加元件的叢集名稱。</block>
@@ -5522,4 +5521,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="965357e3c90ccf3fba01174c6508d562" category="listing-title">alertmanager.yaml：向 Slack 頻道發送警報</block>
   <block id="fb72ca78c839cefc52d39ebcecaf6827" category="paragraph">卷快照支援<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> ， <block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> ， <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ， <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> ， <block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> ， <block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> ， <block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> ， 和<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>司機。</block>
   <block id="173f808fc086ccd7ca8b43512be2cd48" category="admonition">這<block ref="e28ab870e47892fbd81eca8fc84c45ac" prefix=" " category="inline-code"></block>屬性僅在原始屬性和新屬性都有效時<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>使用相同的儲存後端。如果您嘗試恢復到<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>如果使用不同的儲存後端，則復原操作將會失敗。</block>
+  <block id="a42f76d82e8a868d79d9c1663c081ae0" category="list-text">登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.1.</block>
 </blocks>

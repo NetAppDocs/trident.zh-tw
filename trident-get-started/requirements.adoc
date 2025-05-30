@@ -228,7 +228,7 @@ link:../trident-reference/ports.html["Trident 連接埠"]
 * Docker 。 IO/NetApp/Trident 自動支援： 25.02
 * registry ． k8s.io/SIG-storage / csi 置備程式： v5.2.0
 * 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.8.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.2.
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.1.
 * 登錄 .k8s.IO/SIG-storage / csi 快照機： v8.2.0
 * 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.13.0
 * Docker 。 IO/NetApp/Trident ： 25.02.0 （選用）

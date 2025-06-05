@@ -5166,7 +5166,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="beca1b1ae9141eb4cf9a371088911e0f" category="paragraph">從使用 Restic 建立的 Amazon S3 備份還原 30GB 或更大的檔案時，還原作業可能會失敗。因應措施是使用 Kopia 做為資料移動器來備份資料（ Kopia 是備份的預設資料移動器）。請參閱<block ref="1e108e5c10b0ba51ea4cfaf507765efb" category="inline-link-rx"></block> 以取得指示。</block>
   <block id="7fc5875d06887df5109a87a0ada90eca" category="section-title">設定 AppVault 驗證和密碼</block>
   <block id="8e2c4d33f50c044b257a84cd65ff1c79" category="section-title">資料移動器儲存庫密碼</block>
-  <block id="12ae6793b05f84758a85b289757c4f34" category="list-text">使用 Trident Protect CLI 建立 AppVault 物件時，您可以使用<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>引數來指定機密。</block>
   <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">建立資料移動者儲存庫密碼機密</block>
   <block id="fc114cb2ee6c7bff559d58e2a7454cab" category="paragraph">請使用下列範例建立密碼機密。當您建立 AppVault 物件時，可以指示 Trident Protect 使用此密碼來驗證資料移動器儲存庫。</block>
   <block id="571768fad7edd9c4f57173c592c1f86c" category="section-title">適用於雲端供應商的 AppVault 主要世代範例</block>
@@ -5251,7 +5250,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="8430f2c56dfc9e79fcaf741392d54499" category="list-text">說明 exechooksrun 物件以查看最終詳細資料和狀態：</block>
   <block id="b343abb76f62f4eef4afa255e885eee4" category="paragraph">從 Trident 25.02 開始，「新增功能」摘要提供 Trident 和 Trident Protect 版本的增強功能，修正和過時功能的詳細資料。</block>
   <block id="5674eb46caea5efcff5615daf30ab92d" category="paragraph">當您使用 CRS 或 Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以選擇性地指示 Trident Protect 使用 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如果您未指定密碼， Trident Protect 會使用預設密碼。</block>
-  <block id="3703eceb9535f8a68e38a00f0ed1092d" category="list-text">當手動建立 AppVault CRS 時，您可以使用 *spec.dataMoverPasswordSecretRef* 欄位來指定密碼。</block>
   <block id="4fc9faf161c64ed80d0fb8ca9aa0882e" category="admonition">視您使用的資料移動器而定，您只需要加入該資料移動器的對應密碼。例如，如果您使用 Restic ，而且不打算在未來使用 Kopia ，則在建立機密時，只能包含 Restic 密碼。</block>
   <block id="6a346946ba0777d650b6e41a4c30c7b6" category="paragraph">請確定您已刪除要刪除的 AppVault 所使用的所有快照和備份 CRS 。</block>
   <block id="b00fc94596cde685c68e0bedddb72ec6" category="summary">您可以使用 kube 狀態度量和 Prometheus 來監控 Trident Protect 資源的狀態。這會提供有關部署，節點和 Pod 的健全狀況資訊。</block>
@@ -5522,4 +5520,10 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="fb72ca78c839cefc52d39ebcecaf6827" category="paragraph">卷快照支援<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> ， <block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> ， <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ， <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> ， <block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> ， <block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> ， <block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> ， 和<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>司機。</block>
   <block id="173f808fc086ccd7ca8b43512be2cd48" category="admonition">這<block ref="e28ab870e47892fbd81eca8fc84c45ac" prefix=" " category="inline-code"></block>屬性僅在原始屬性和新屬性都有效時<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>使用相同的儲存後端。如果您嘗試恢復到<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>如果使用不同的儲存後端，則復原操作將會失敗。</block>
   <block id="a42f76d82e8a868d79d9c1663c081ae0" category="list-text">登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.1.</block>
+  <block id="02c19b7bc038d2af238bbd729bc3d9c4" category="list-text">手動建立 AppVault CR 時，使用 *spec.dataMoverPasswordSecretRef* 欄位指定金鑰。</block>
+  <block id="0a636ed0406fe1d7ddf9db59b32011b3" category="list-text">使用 Trident Protect CLI 建立 AppVault 物件時，使用<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>參數來指定秘密。</block>
+  <block id="d2a7dc5804ec844f3f7bfb903e97693f" category="section-title">S3 相容於儲存 IAM 權限</block>
+  <block id="48f73146a4944adc8ee8fb44ba954d59" category="paragraph">當您存取與 S3 相容的儲存空間（例如 Amazon S3、Generic S3）時， <block ref="3d0b4c23d9ed62ec7d7cd16273ca2521" category="inline-link-rx"></block> ， 或者<block ref="3a31dfad8c316380b9a5542d694c5833" category="inline-link-rx"></block>使用 Trident 保護時，您需要確保您提供的使用者憑證具有存取儲存桶所需的權限。以下是一個策略範例，該策略授予使用 Trident 保護存取所需的最低權限。您可以將此策略套用至管理與 S3 相容的儲存桶策略的使用者。</block>
+  <block id="d9b7f314625fb7dcf35c741afe65b676" category="inline-link">Amazon S3 文檔</block>
+  <block id="51ef32359424209f7163e58a5b1ab92e" category="paragraph">有關 Amazon S3 策略的更多信息，請參閱<block ref="61017e44ea21b481e69f04f8ac510768" category="inline-link-rx"></block> 。</block>
 </blocks>

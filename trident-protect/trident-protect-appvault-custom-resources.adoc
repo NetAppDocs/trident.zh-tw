@@ -30,8 +30,8 @@ Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVault 物�
 
 當您使用 CRS 或 Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以選擇性地指示 Trident Protect 使用 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如果您未指定密碼， Trident Protect 會使用預設密碼。
 
-* 當手動建立 AppVault CRS 時，您可以使用 *spec.dataMoverPasswordSecretRef* 欄位來指定密碼。
-* 使用 Trident Protect CLI 建立 AppVault 物件時，您可以使用 `--data-mover-password-secret-ref`引數來指定機密。
+* 手動建立 AppVault CR 時，使用 *spec.dataMoverPasswordSecretRef* 欄位指定金鑰。
+* 使用 Trident Protect CLI 建立 AppVault 物件時，使用 `--data-mover-password-secret-ref`參數來指定秘密。
 
 
 
@@ -72,6 +72,32 @@ kubectl create secret generic my-optional-data-mover-secret \
 ----
 --
 ====
+
+
+=== S3 相容於儲存 IAM 權限
+
+當您存取與 S3 相容的儲存空間（例如 Amazon S3、Generic S3）時，  https://docs.netapp.com/us-en/storagegrid/s3/index.html["StorageGRID S3"^] ， 或者 https://docs.netapp.com/us-en/ontap/s3-config/["ONTAP S3"^]使用 Trident 保護時，您需要確保您提供的使用者憑證具有存取儲存桶所需的權限。以下是一個策略範例，該策略授予使用 Trident 保護存取所需的最低權限。您可以將此策略套用至管理與 S3 相容的儲存桶策略的使用者。
+
+[source, json]
+----
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:DeleteObject"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+----
+有關 Amazon S3 策略的更多信息，請參閱 https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html["Amazon S3 文檔"^] 。
+
 
 
 === 適用於雲端供應商的 AppVault 主要世代範例

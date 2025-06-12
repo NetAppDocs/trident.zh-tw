@@ -3917,7 +3917,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="04475efebba67943de12a2269d2e0a7b" category="paragraph">本範例說明如何指示 Trident 使用動態匯出原則來自動建立及管理匯出原則。和<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>驅動程式的運作方式相同<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>。</block>
   <block id="917b750655d8fd1d6c961e661535fa99" category="paragraph">Trident 會在「意見」欄位中設定資源配置標籤。註解是在 FlexVol for 或 FlexGroup for<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 上設定<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>。Trident 會在資源配置時、將虛擬集區上的所有標籤複製到儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。</block>
   <block id="fb66862ac33cf61ecc10382c3a42dee3" category="paragraph">Trident 會決定要選取哪個虛擬集區、並確保符合儲存需求。</block>
-  <block id="05a22e6a579b05ed202716e4f439d475" category="list-text">對於所有 ONTAP 後端、 Trident 至少需要指派一個 Aggregate 給 SVM 。</block>
   <block id="3791349e449ca2bc9a8b7b7ed4c843de" category="list-text">Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。如 <block ref="688177e6b45c5d27a545463079c58d82" category="inline-xref-macro-rx"></block> 需詳細資訊、請參閱。</block>
   <block id="bef1bdf06ff1fb19147e51880974a6c5" category="paragraph">Trident 提供兩種驗證 ONTAP 後端的模式。</block>
   <block id="c3ac6347a688cffd729947263e3387fb" category="list-text">憑證型：此模式需要在後端安裝憑證、 Trident 才能與 ONTAP 叢集通訊。在此處、後端定義必須包含用戶端憑證、金鑰及信任的CA憑證（建議使用）的Base64編碼值。</block>
@@ -5045,8 +5044,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="aecb281656d93e34b85fc03341498ff2" category="paragraph">您必須在 ONTAP 後端設定具有 FC 的 SVM 。這是 FC 的基本後端組態。</block>
   <block id="d502f4db20ef2dbccab335781e870976" category="example-title">formatOptions ONTAP - SAN 經濟型驅動程式範例</block>
   <block id="54ed52257df13a4cb85caecc569dfeff" category="paragraph">Trident 會在「意見」欄位中設定資源配置標籤。在 FlexVol volume Trident 上設定的註解會將虛擬集區上的所有標籤複製到資源配置時的儲存磁碟區。為了方便起見、儲存管理員可以針對每個虛擬資源池定義標籤、並依標籤將磁碟區分組。</block>
-  <block id="4e18c1645b4b67b418a76a6692256f62" category="paragraph">從 25.02 版開始， Trident 會自動偵測 ONTAP 9.16.1 或更新版本的 ASA R2 特性，並透過 iSCSI 傳輸協定在 ASA R2 上配置及使用儲存設備。</block>
-  <block id="4e759832f9d60e8c80e9d392f33b28c9" category="admonition">Trident 需要將一或多個集合體指派給 SVM 。使用 ASA R2 時，此動作只能在模式中使用 ONTAP CLI<block ref="776e6c3d14fd9df9fc13e130d598c448" prefix=" " category="inline-code"></block> 。</block>
   <block id="684e3a49585228dba75783996b7b6fe7" category="admonition">更新後端的 CHAP 機密時、您必須使用<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>來更新後端。請勿使用 ONTAP CLI 或 ONTAP 系統管理員更新儲存叢集上的認證，因為 Trident 將無法取得這些變更。</block>
   <block id="1f04e6944e16311a300b742aa0cfb55c" category="paragraph">iSCSI SCSI over FC</block>
   <block id="acb2e9160652c3e412ead9e870d11c9b" category="summary">將 Trident EKS 附加元件新增至 Kubernetes 叢集。</block>
@@ -5526,4 +5523,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="48f73146a4944adc8ee8fb44ba954d59" category="paragraph">當您存取與 S3 相容的儲存空間（例如 Amazon S3、Generic S3）時， <block ref="3d0b4c23d9ed62ec7d7cd16273ca2521" category="inline-link-rx"></block> ， 或者<block ref="3a31dfad8c316380b9a5542d694c5833" category="inline-link-rx"></block>使用 Trident 保護時，您需要確保您提供的使用者憑證具有存取儲存桶所需的權限。以下是一個策略範例，該策略授予使用 Trident 保護存取所需的最低權限。您可以將此策略套用至管理與 S3 相容的儲存桶策略的使用者。</block>
   <block id="d9b7f314625fb7dcf35c741afe65b676" category="inline-link">Amazon S3 文檔</block>
   <block id="51ef32359424209f7163e58a5b1ab92e" category="paragraph">有關 Amazon S3 策略的更多信息，請參閱<block ref="61017e44ea21b481e69f04f8ac510768" category="inline-link-rx"></block> 。</block>
+  <block id="46d663191f16f782a681e5f6702a09d4" category="list-text">對於所有 ONTAP 後端，Trident 要求至少將一個聚合分配給 SVM。</block>
+  <block id="46e450e4589332ce4a9f5ac86fea49f4" category="inline-link-macro">SVM 管理員使用 CLI 建立儲存單元失敗，並顯示錯誤“沒有可用於儲存服務的候選聚合”</block>
+  <block id="aa20618193df98acd225cc1003a906ff" category="paragraph">請參閱此知識庫文章，以了解如何在 ASA r2 系統中將聚合指派給 SVM： <block ref="537835ac1ae737799b9c1a1bff131746" category="inline-link-macro-rx"></block> 。</block>
 </blocks>

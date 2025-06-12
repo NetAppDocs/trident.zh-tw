@@ -18,7 +18,7 @@ summary: 瞭解使用 ONTAP NAS 驅動程式設定 ONTAP 後端的需求、驗�
 
 == 需求
 
-* 對於所有 ONTAP 後端、 Trident 至少需要指派一個 Aggregate 給 SVM 。
+* 對於所有 ONTAP 後端，Trident 要求至少將一個聚合分配給 SVM。
 * 您可以執行多個驅動程式、並建立指向其中一個或另一個的儲存類別。例如、您可以設定使用的Gold類別 `ontap-nas` 驅動程式和銅級、使用 `ontap-nas-economy` 一、
 * 您所有的Kubernetes工作節點都必須安裝適當的NFS工具。請參閱 link:worker-node-prep.html["請按這裡"] 以取得更多詳細資料。
 * Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。如 <<準備配置SMB磁碟區>> 需詳細資訊、請參閱。

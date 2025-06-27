@@ -94,6 +94,51 @@ spec:
 
 
 
+. （可選）新增包含或排除標有特定標籤的資源的過濾：
++
+** *resourceFilter.resourceSelectionCriteria* ：（篩選所需）使用 `Include`或包含或 `Exclude`排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
++
+*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
++
+**** *resourceMatchers[].group* ：（ _Optional_ ）要篩選的資源群組。
+**** *resourceMatchers[].cher* ：（ _Optional_ ）要篩選的資源種類。
+**** *resourceMatchers[].version* ：（ _Optional_ ）要篩選的資源版本。
+**** 要篩選之資源的 Kubernetes metadata.name 欄位中的 * resourceMatchers[].names* ：（ _Optional_ ）名稱。
+**** 要篩選之資源的 Kubernetes metadata.name 欄位中的 * resourceMatchers[].names* ：（ _Optional_ ）命名空間。
+**** 資源的 Kubernetes metadata.name 欄位中的 *resourceMatchers[].labelSelectors * ：（ _Optional_ ） Label 選取器字串，如中所定義 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Kubernetes文件"^]。例如 `"trident.netapp.io/os=linux"`：。
++
+
+NOTE: 當兩者 `resourceFilter`和 `labelSelector`被使用，  `resourceFilter`首先運行，然後 `labelSelector`應用於結果資源。
+
++
+例如：
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "Include"
+    resourceMatchers:
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+
+
+
+
 . 建立應用程式 CR 以符合您的環境之後，請套用 CR 。例如：
 +
 [source, console]
@@ -125,6 +170,14 @@ tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespa
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
+----
++
+您可以使用 `--resource-filter-include`和 `--resource-filter-exclude`用於包含或排除資源的標誌 `resourceSelectionCriteria`例如群組、類型、版本、標籤、名稱和命名空間，如下例所示：
+
++
+[source, console]
+----
+tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --resource-filter-include "group=my-resource-group,kind=my-resource-kind,version=my-resource-version,names=my-resource-names,namespaces=my-resource-namespaces,labelSelectors=trident.netapp.io/os=linux"
 ----
 
 

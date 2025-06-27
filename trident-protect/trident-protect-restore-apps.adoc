@@ -16,9 +16,13 @@ summary: 您可以使用 Trident Protect 從快照或備份還原應用程式。
 [role="lead"]
 您可以使用 Trident Protect 從快照或備份還原應用程式。將應用程式還原至同一個叢集時、從現有的快照還原速度會更快。
 
+[NOTE]
+====
+* 當您還原應用程式時，為應用程式設定的所有執行掛鉤都會隨應用程式一起還原。如果存在還原後執行掛鉤，則會在還原作業中自動執行。
+* 對於 qtree 卷，支援從備份還原到其他命名空間或原始命名空間。但是，對於 qtree 卷，不支援從快照還原到其他命名空間或原始命名空間。
 
-NOTE: 當您還原應用程式時，為應用程式設定的所有執行掛鉤都會隨應用程式一起還原。如果存在還原後執行掛鉤，則會在還原作業中自動執行。
 
+====
 
 
 == 還原和容錯移轉作業期間的命名空間註釋和標籤
@@ -97,6 +101,22 @@ kubectl set env -n trident-protect deploy/trident-protect-controller-manager RES
 * role = 資料庫
 
 
+|===
+
+
+== 支持的註釋
+
+本節列出了系統中支援配置各種行為的註解。如果使用者未明確設定註解，系統將使用預設值。
+
+[cols="1,1,3,1"]
+|===
+| 註釋 | 類型 | 說明 | 預設值 
+
+
+| protected.trident.netapp.io/data-mover-timeout-sec | 字串 | 允許資料移動設備操作停止的最長時間（以秒為單位）。 | 300 
+
+
+| protected.trident.netapp.io/kopia-content-cache-size-limit-mb | 整數 | Kopia 內容快取的最大大小限制（以兆位元組為單位）。 | 1000 
 |===
 
 

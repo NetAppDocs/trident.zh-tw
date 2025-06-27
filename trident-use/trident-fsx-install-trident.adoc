@@ -33,8 +33,8 @@ Trident 安裝程式套件包含部署 Trident 營運商和安裝 Trident 所需
 +
 [source, console]
 ----
-wget https://github.com/NetApp/trident/releases/download/v25.02.0/trident-installer-25.02.0.tar.gz
-tar -xf trident-installer-25.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v25.06.0/trident-installer-25.06.0.tar.gz
+tar -xf trident-installer-25.06.0.tar.gz
 cd trident-installer
 ----
 . 使用下列環境變數設定 * 雲端供應商 * 和 * 雲端 IDENTITY * 旗標的值：
@@ -44,7 +44,7 @@ cd trident-installer
 +
 [source, console]
 ----
-helm install trident trident-operator-100.2502.0.tgz \
+helm install trident trident-operator-100.2506.0.tgz \
 --set cloudProvider="AWS" \
 --set cloudIdentity="'eks.amazonaws.com/role-arn: arn:aws:iam::<accountID>:role/<AmazonEKS_FSxN_CSI_DriverRole>'" \
 --namespace trident \
@@ -63,7 +63,7 @@ helm list -n trident
 ----
 NAME                NAMESPACE   REVISION    UPDATED                                 STATUS       CHART                          APP VERSION
 
-trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT    deployed     trident-operator-100.2502.0    25.02.0
+trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT    deployed     trident-operator-100.2506.0    25.06.0
 ----
 
 

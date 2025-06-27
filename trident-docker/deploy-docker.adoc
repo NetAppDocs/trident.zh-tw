@@ -151,8 +151,8 @@ curl -fsSL https://get.docker.com/ | sh
 +
 [source, console]
 ----
-wget https://github.com/NetApp/trident/releases/download/v25.02.0/trident-installer-25.02.0.tar.gz
-tar zxf trident-installer-25.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v25.06.0/trident-installer-25.06.0.tar.gz
+tar zxf trident-installer-25.06.0.tar.gz
 ----
 .. 移至Bin路徑中的位置：
 +

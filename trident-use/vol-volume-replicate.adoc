@@ -9,7 +9,7 @@ summary: Trident 支援在來源磁碟區和目的地磁碟區之間建立鏡射
 
 
 [role="lead"]
-Trident 支援一個叢集上的來源磁碟區與對等叢集上的目的地磁碟區之間的鏡射關係，以便複寫資料以進行災難恢復。您可以使用命名的自訂資源定義（ CRD ）來執行下列作業：
+Trident 支援一個叢集上的來源磁碟區與對等叢集上的目的地磁碟區之間的鏡射關係，以便複寫資料以進行災難恢復。  您可以使用名為 Trident 鏡像關係 (TMR) 的命名空間自訂資源定義 (CRD) 來執行下列操作：
 
 * 建立磁碟區之間的鏡射關係（ PVCS ）
 * 移除磁碟區之間的鏡射關係
@@ -27,6 +27,13 @@ Trident 支援一個叢集上的來源磁碟區與對等叢集上的目的地磁
 .叢集 ONTAP
 * * Trident * ： Trident 22.10 版或更新版本必須同時存在於使用 ONTAP 作為後端的來源叢集和目的地 Kubernetes 叢集上。
 * * 授權 * ：使用資料保護套件的 ONTAP SnapMirror 非同步授權必須同時在來源和目的地 ONTAP 叢集上啟用。如需詳細資訊、請參閱 https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-licensing-concept.html["SnapMirror授權概述ONTAP"^] 。
++
+從 ONTAP 9.10.1 開始、所有授權都會以 NetApp 授權檔案（ NLF ）的形式交付、這是一個可啟用多項功能的單一檔案。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/system-admin/manage-licenses-concept.html#licenses-included-with-ontap-one["ONTAP One 隨附授權"^] 。
+
++
+
+NOTE: 僅支援 SnapMirror 非同步保護。
+
 
 
 .對等關係
@@ -39,8 +46,10 @@ IMPORTANT: 確保兩個 ONTAP 叢集之間複寫關係中使用的 SVM 名稱是
 
 
 .支援的驅動程式
-* ONTAP NAS 和 ONTAP SAN 驅動程式支援 Volume 複寫。
+NetApp Trident 支援使用 NetApp SnapMirror 技術進行磁碟區複製，使用由下列驅動程式支援的儲存類別：**  `ontap-nas` ：NFS**  `ontap-san` ：iSCSI**  `ontap-san` ： FC **  `ontap-san` ：NVMe/TCP（要求最低 ONTAP 版本 9.15.1）
 
+
+NOTE: ASA r2 系統不支援使用 SnapMirror 進行磁碟區複製。有關 ASA r2 系統的信息，請參閱link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["瞭解 ASA R2 儲存系統"^] 。
 
 
 

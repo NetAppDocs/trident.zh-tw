@@ -25,7 +25,7 @@ summary: 安裝 Trident 之前、您應該先檢閱這些一般系統需求。�
 ====
 []
 =====
-* Kubernetes 1.32 現在支援 Trident 。升級Kubernetes之前先升級Trident。
+* Kubernetes 1.33 現在支援 Trident 。升級Kubernetes之前先升級Trident。
 * Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值 `find_multipaths: no`。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
@@ -41,7 +41,7 @@ summary: 安裝 Trident 之前、您應該先檢閱這些一般系統需求。�
 Trident 支援多個容器引擎和協調器、包括：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
-* Kubernetes 1.26 - 1.32
+* Kubernetes 1.27 - 1.33
 * OpenShift 4.10 - 4.18
 * Rancher Kubernetes Engine 2 （ RKE2 ） v1.26.7+rke2r1 ， v1.28.5+rke2r1
 
@@ -49,7 +49,7 @@ Trident 支援多個容器引擎和協調器、包括：
 這些版本支援Trident運算子：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
-* Kubernetes 1.26 - 1.32
+* Kubernetes 1.27 - 1.33
 * OpenShift 4.10 - 4.18
 * Rancher Kubernetes Engine 2 （ RKE2 ） v1.26.7+rke2r1 ， v1.28.5+rke2r1
 
@@ -72,7 +72,7 @@ WARNING: 在將安裝了 Trident 的 Kubernetes 叢集從 1.25 升級至 1.26 �
 * Cloud Volumes ONTAP
 * Google Cloud NetApp Volumes
 * NetApp All SAN Array ASA （ESAN）
-* 內部部署 FAS ， AFF 或 ASA R2 叢集版本，受 NetApp 有限支援。請參閱。 link:https://mysupport.netapp.com/site/info/version-support["軟體版本支援"]
+* NetApp 有限支援下的本機 FAS、AFF 或 ASA r2（iSCSI 和 NVMe/TCP）叢集版本。請參閱。 link:https://mysupport.netapp.com/site/info/version-support["軟體版本支援"]
 * NetApp HCI / Element軟體11或更新版本
 
 
@@ -108,62 +108,64 @@ Trident 支援下列適用於 KubeVirt 和 OpenShift 虛擬化的 ONTAP 驅動�
 
 下表摘要說明此 Trident 版本的可用功能、以及其支援的 Kubernetes 版本。
 
+<<check for 25.06>>
+
 [cols="3"]
 |===
 | 功能 | Kubernetes版本 | 需要功能閘道？ 
 
 
 | Trident  a| 
-1.26 - 1.32
+1.27 - 1.33
  a| 
 否
 
 
 
 | Volume Snapshot  a| 
-1.26 - 1.32
+1.27 - 1.33
  a| 
 否
 
 
 
 | 來自Volume Snapshot的PVc  a| 
-1.26 - 1.32
+1.27 - 1.33
  a| 
 否
 
 
 
 | iSCSI PV調整大小  a| 
-1.26 - 1.32
+1.27 - 1.33
  a| 
 否
 
 
 
 | 資訊雙向CHAP ONTAP  a| 
-1.26 - 1.32
+1.27 - 1.33
  a| 
 否
 
 
 
 | 動態匯出原則  a| 
-1.26 - 1.32
+1.27 - 1.33
  a| 
 否
 
 
 
 | Trident運算子  a| 
-1.26 - 1.32
+1.27 - 1.33
  a| 
 否
 
 
 
 | csi拓撲  a| 
-1.26 - 1.32
+1.27 - 1.33
  a| 
 否
 
@@ -218,20 +220,22 @@ link:../trident-reference/ports.html["Trident 連接埠"]
 
 對於無線安裝、下列清單是安裝 Trident 所需的容器映像參考資料。使用 `tridentctl images`命令來驗證所需的容器映像清單。
 
+<<check for 25.06>>
+
 [cols="2"]
 |===
 | Kubernetes 版本 | Container映像 
 
 
-| v1.26.0 、 v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0  a| 
-* Docker 。 IO/NetApp/Trident ： 25.02.0
-* Docker 。 IO/NetApp/Trident 自動支援： 25.02
+| v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0 、 v1.33.0  a| 
+* Docker 。 IO/NetApp/Trident ： 25.06.0
+* Docker 。 IO/NetApp/Trident 自動支援： 25.06
 * registry ． k8s.io/SIG-storage / csi 置備程式： v5.2.0
-* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.8.0
-* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.1.
-* 登錄 .k8s.IO/SIG-storage / csi 快照機： v8.2.0
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.8.1
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.2.
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v8.2.1
 * 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.13.0
-* Docker 。 IO/NetApp/Trident ： 25.02.0 （選用）
+* Docker 。 IO/NetApp/Trident ： 25.06.0 （選用）
 
 
 |===

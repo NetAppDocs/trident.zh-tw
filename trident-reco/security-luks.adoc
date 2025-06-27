@@ -16,6 +16,9 @@ summary: 您可以啟用 Linux 統一金鑰設定（ LUKS ）來加密 Trident �
 
 在 Trident 中， LUKS 加密的磁碟區使用 AES-XTS-plain64 cypher 和模式link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^]，如所建議。
 
+
+NOTE: ASA r2 系統不支援 LUKS 加密。有關 ASA r2 系統的信息，請參閱link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["瞭解 ASA R2 儲存系統"^] 。
+
 .開始之前
 * 工作者節點必須安裝密碼設定2.1或更高版本（但低於3.0）。如需詳細資訊、請造訪 link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab：密碼設定"^]。
 * 基於效能理由， NetApp 建議工作節點支援進階加密標準新指令（ AES-NI ）。若要驗證AES-NI支援、請執行下列命令：

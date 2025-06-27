@@ -14,6 +14,13 @@ summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP SAN 驅動程式
 [role="lead"]
 瞭解如何在 Trident 安裝中建立及使用 ONTAP SAN 驅動程式。本節提供後端組態範例及將後端對應至 StorageClasses 的詳細資料。
 
+link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2 系統"^]與其他 ONTAP 系統（ASA、AFF 和 FAS）在儲存層實作方面有所不同。這些差異會影響某些參數的使用，具體如下。link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["詳細了解 ASA r2 系統與其他 ONTAP 系統之間的差異"^]。
+
+
+NOTE: 只有 `ontap-san` ASA r2 系統支援驅動程式（附有 iSCSI 和 NVMe/TCP 協定）。
+
+在 Trident 後端設定中，您無需指定係統是 ASA r2。當您選擇 `ontap-san`作為 `storageDriverName` Trident 會自動偵測 ASA r2 或傳統 ONTAP 系統。某些後端設定參數不適用於 ASA r2 系統，如下表所示。
+
 
 
 == 後端組態選項
@@ -56,7 +63,7 @@ NOTE: 如果您使用的是「 vsadmin 」認證，則必須是 SVM 的認 `mana
 * MetroCluster 請省略。 * 請參閱 <<mcc-best>>。 | 如果指定SVM "managementLIF"則衍生 
 
 
-| 《使用CHAP》 | 使用CHAP驗證iSCSI以供ONTAP 支援不支援的SAN驅動程式使用[布林值]。設為 `true`、讓 Trident 設定並使用雙向 CHAP 做為後端所指定 SVM 的預設驗證。如 link:ontap-san-prep.html["準備使用ONTAP 支援的SAN驅動程式來設定後端"] 需詳細資訊、請參閱。 | 「假」 
+| 《使用CHAP》 | 使用CHAP驗證iSCSI以供ONTAP 支援不支援的SAN驅動程式使用[布林值]。設為 `true`、讓 Trident 設定並使用雙向 CHAP 做為後端所指定 SVM 的預設驗證。如 link:ontap-san-prep.html["準備使用ONTAP 支援的SAN驅動程式來設定後端"] 需詳細資訊、請參閱。*不支援 FCP 或 NVMe/TCP。 * | 「假」 
 
 
 | 《chapInitiator機密》 | CHAP啟動器密碼。如果是"useCHAP=true"、則為必要項目 | " 
@@ -101,13 +108,13 @@ NOTE: 如果您使用的是「 vsadmin 」認證，則必須是 SVM 的認 `mana
 
 NOTE: 在 SVM 中更新 Aggregate 時、它會透過輪詢 SVM 而無需重新啟動 Trident 控制器、在 Trident 中自動更新。當您在 Trident 中設定特定的 Aggregate 以配置 Volume 時、如果將 Aggregate 重新命名或移出 SVM 、則在輪詢 SVM Aggregate 時、後端將會移至 Trident 中的失敗狀態。您必須將 Aggregate 變更為 SVM 上的 Aggregate 、或是將其全部移除、才能使後端重新上線。
 
-* 請勿指定 ASA R2* 。
+*不要指定 ASA r2 系統*。
  a| 
 "
 
 
 
-| 「限制Aggregateusage」 | 如果使用率高於此百分比、則無法進行資源配置。如果您使用 Amazon FSX for NetApp ONTAP 後端、請勿指定 `limitAggregateUsage`。提供的 `fsxadmin`和 `vsadmin`不包含使用 Trident 擷取彙總使用量並加以限制所需的權限。* 請勿指定 ASA R2* 。 | ""（預設不強制執行） 
+| 「限制Aggregateusage」 | 如果使用率高於此百分比、則無法進行資源配置。如果您使用 Amazon FSX for NetApp ONTAP 後端、請勿指定 `limitAggregateUsage`。提供的 `fsxadmin`和 `vsadmin`不包含使用 Trident 擷取彙總使用量並加以限制所需的權限。*不要指定 ASA r2 系統*。 | ""（預設不強制執行） 
 
 
 | 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 LUN 的最大磁碟區大小。 | "" （預設不會強制執行） 
@@ -125,7 +132,7 @@ NOTE: 在 SVM 中更新 Aggregate 時、它會透過輪詢 SVM 而無需重新�
 `useREST`設為 `true`時， Trident 會使用 ONTAP REST API 與後端通訊；設為 `false`時， Trident 會使用 ONTAPI （ ZAPI ）呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontapi` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Trident 24.06 版本和 ONTAP 9.15.1 或更新版本開始，
 `useREST`依預設會設定為 `true`；變更
 `useREST`為 `false`使用 ONTAPI （ ZAPI ）呼叫。
-`useREST` 完全符合 NVMe / TCP 的資格。* 如有指定，請務必針對 ASA R2* 將其設為 `true`。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
+`useREST` 完全符合 NVMe / TCP 的資格。*如果指定，則始終設定為 `true`適用於 ASA r2 系統*。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
 
 
  a| 
@@ -136,7 +143,7 @@ NOTE: 在 SVM 中更新 Aggregate 時、它會透過輪詢 SVM 而無需重新�
 | `formatOptions`  a| 
 用於 `formatOptions`指定命令的命令列引數、每當格式化磁碟區時都會套用這些引數 `mkfs`。這可讓您根據偏好設定來格式化 Volume 。請務必指定與 mkfs 命令選項類似的格式選項、但不包括裝置路徑。範例：「 -E nobard 」
 
-* `ontap-san` `ontap-san-economy` 僅支援和驅動程式。 *
+*支援 `ontap-san`和 `ontap-san-economy`帶有 iSCSI 協定的驅動程式。 **此外，在使用 iSCSI 和 NVMe/TCP 協定時，支援 ASA r2 系統。 *
  a| 
 
 
@@ -168,13 +175,13 @@ Trident 建議使用下列選項來加速格式化程序：
 | 參數 | 說明 | 預設 
 
 
-| "paceAllocate（配置）" | LUN的空間分配 | "true" * 如果指定，則將 ASA R2* 的設置爲 `true`。 
+| "paceAllocate（配置）" | LUN的空間分配 | "true" *如果指定，則設定為 `true`適用於 ASA r2 系統*。 
 
 
-| 《保護區》 | 空間保留模式；「無」（精簡）或「 Volume （大量）」（粗）。* 針對 ASA R2* 設為 `none`。 | " 無 " 
+| 《保護區》 | 空間保留模式；「無」（精簡）或「 Volume （大量）」（粗）。*設定為 `none`適用於 ASA r2* 系統。 | " 無 " 
 
 
-| 「快照原則」 | 要使用的 Snapshot 原則。* 針對 ASA R2* 設為 `none`。 | " 無 " 
+| 「快照原則」 | 要使用的 Snapshot 原則。*設定為 `none`適用於 ASA r2 系統*。 | " 無 " 
 
 
 | 「qosPolicy」 | 要指派給所建立磁碟區的QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy。搭配 Trident 使用 QoS 原則群組需要 ONTAP 9 8 或更新版本。您應該使用非共用的 QoS 原則群組、並確保個別將原則群組套用至每個成員。共享 QoS 原則群組會強制執行所有工作負載總處理量的上限。 | " 
@@ -183,21 +190,21 @@ Trident 建議使用下列選項來加速格式化程序：
 | 《adaptiveQosPolicy》 | 要指派給所建立磁碟區的調適性QoS原則群組。選擇每個儲存集區/後端的其中一個qosPolicy或adaptiveQosPolicy | " 
 
 
-| 「快照保留區」 | 保留給快照的磁碟區百分比。* 請勿指定 ASA R2* 。 | 「 0 」如果 `snapshotPolicy` 為「無」、否則為「」 
+| 「快照保留區」 | 保留給快照的磁碟區百分比。*不要為 ASA r2 系統指定*。 | 「 0 」如果 `snapshotPolicy` 為「無」、否則為「」 
 
 
 | 「PlitOnClone」 | 建立複本時、從其父複本分割複本 | "假" 
 
 
-| 加密 | 在新磁碟區上啟用 NetApp Volume Encryption （ NVE ）；預設為 `false`。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。如需更多資訊、請參閱link:../trident-reco/security-reco.html["Trident 如何與 NVE 和 NAE 搭配運作"]：。 | "false" * 如果指定，請針對 ASA R2* 將其設為 `true`。 
+| 加密 | 在新磁碟區上啟用 NetApp Volume Encryption （ NVE ）；預設為 `false`。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。如需更多資訊、請參閱link:../trident-reco/security-reco.html["Trident 如何與 NVE 和 NAE 搭配運作"]：。 | “false” *如果指定，則設定為 `true`適用於 ASA r2 系統*。 
 
 
 | `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-luks.html["使用Linux統一金鑰設定（LUKS）"]。
 
-NVMe / TCP 不支援 LUKS 加密。 | 針對 ASA R2 將設為 `false`。 
+NVMe / TCP 不支援 LUKS 加密。 | "" *設定為 `false`適用於 ASA r2 系統*。 
 
 
-| 「分層政策」 | 分層原則以使用「無」 * 請勿指定用於 ASA R2* 。 |  
+| 「分層政策」 | 分層策略使用「無」 *不要為 ASA r2 系統指定*。 |  
 
 
 | `nameTemplate` | 建立自訂磁碟區名稱的範本。 | " 

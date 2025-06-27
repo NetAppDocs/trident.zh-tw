@@ -264,7 +264,7 @@ Kubernetes「Volume Snapshot」物件是建立磁碟區快照的要求。就像�
 當磁碟區快照要求出現時、Trident會自動管理後端磁碟區的快照建立、並建立獨特的「Volume SnapshotContent」物件來公開快照。您可以從現有的PVCS建立快照、並在建立新的PVCS時、將快照作為DataSource使用。
 
 
-NOTE: Volume Snapshot的生命週期與來源PVCs無關：即使刪除來源PVCs、快照仍會持續存在。刪除具有相關快照的永久虛擬磁碟時、Trident會將此永久虛擬磁碟的備份磁碟區標示為*刪除*狀態、但不會將其完全移除。刪除所有相關的快照時、即會移除該磁碟區。
+NOTE: VolumeSnapshot 的生命週期與來源 PVC 無關：即使來源 PVC 被刪除，快照仍然存在。刪除具有相關快照的永久虛擬磁碟時、Trident會將此永久虛擬磁碟的備份磁碟區標示為*刪除*狀態、但不會將其完全移除。刪除所有相關的快照時、即會移除該磁碟區。
 
 
 
@@ -278,6 +278,48 @@ Kubernetes「Volume SnapshotContent」物件代表從已配置的磁碟區擷取
 
 
 NOTE: 一般而言、您不需要管理 `VolumeSnapshotContent`物件。例外情況是您想要link:../trident-use/vol-snapshots.html#import-a-volume-snapshot["匯入 Volume 快照"]在 Trident 之外建立。
+
+
+
+== Kubernetes `VolumeGroupSnapshotClass` 物件
+
+Kubernetes `VolumeGroupSnapshotClass` 物件類似於 `VolumeSnapshotClass`。它們有助於定義多種儲存類別，並被磁碟區組快照引用，以將快照與所需的快照類別關聯。每個磁碟區組快照都與單一磁碟區組快照類別相關聯。
+
+一個 `VolumeGroupSnapshotClass`應由管理員定義，以便建立快照群組。卷冊組快照類別使用以下定義建立：
+
+[source, yaml]
+----
+apiVersion: groupsnapshot.storage.k8s.io/v1beta1
+kind: VolumeGroupSnapshotClass
+metadata:
+  name: csi-group-snap-class
+  annotations:
+    kubernetes.io/description: "Trident group snapshot class"
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+----
+由 Trident 處理。 `deletionPolicy`指定必須刪除群組快照時要採取的動作。當 `deletionPolicy`設定為 `Delete` ，刪除快照時，磁碟區組快照物件以及儲存叢集上的底層快照也將被刪除。或者、將其設定為 `Retain`表示 `VolumeGroupSnapshotContent`保留實體快照。
+
+
+
+== Kubernetes `VolumeGroupSnapshot` 物件
+
+Kubernetes  `VolumeGroupSnapshot`物件是建立多個磁碟區快照的請求。正如 PVC 代表使用者對磁碟區的請求一樣，磁碟區組快照是使用者為現有 PVC 建立快照的請求。
+
+當磁碟區組快照請求到達時，Trident 會自動管理後端磁碟區的群組快照的創建，並透過建立唯一的 `VolumeGroupSnapshotContent`目的。您可以從現有的PVCS建立快照、並在建立新的PVCS時、將快照作為DataSource使用。
+
+
+NOTE: VolumeGroupSnapshot 的生命週期與來源 PVC 無關：即使來源 PVC 被刪除，快照仍然有效。刪除具有相關快照的永久虛擬磁碟時、Trident會將此永久虛擬磁碟的備份磁碟區標示為*刪除*狀態、但不會將其完全移除。當所有關聯的快照都被刪除時，磁碟區組快照也會被移除。
+
+
+
+== Kubernetes `VolumeGroupSnapshotContent` 物件
+
+Kubernetes  `VolumeGroupSnapshotContent`物件表示從已配置的磁碟區中取得的群組快照。它類似於 `PersistentVolume`、表示儲存叢集上的已佈建快照。與和 `PersistentVolume`物件類似 `PersistentVolumeClaim`、建立快照時、 `VolumeSnapshotContent`物件會維護對物件的一對一對應 `VolumeSnapshot`、而物件已要求建立快照。
+
+這 `VolumeGroupSnapshotContent`物件包含識別快照群組的詳細信息，例如 `volumeGroupSnapshotHandle`以及儲存系統上現有的各個volumeSnapshotHandles。
+
+當快照請求到達時，Trident 會在後端建立磁碟區組快照。建立卷宗組快照後，Trident 會配置一個 `VolumeGroupSnapshotContent`對象，從而將快照公開給 Kubernetes API。
 
 
 

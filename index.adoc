@@ -2,9 +2,9 @@
 layout: landing-page 
 sidebar: sidebar 
 permalink: index.html 
-summary: Trident 是由 NetApp 維護的開放原始碼儲存資源配置程式與協調程式。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。** 請閱讀版本說明、以取得升級至 Trident 25.02.** 的重要資訊 
+summary: Trident 是由 NetApp 維護的開放原始碼儲存資源配置程式與協調程式。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。** 請閱讀版本說明、以取得升級至 Trident 25.06.** 的重要資訊 
 ---
-= Trident 25.02 文件
+= Trident 25.06 文件
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

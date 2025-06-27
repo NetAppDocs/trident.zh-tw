@@ -31,17 +31,11 @@ summary: 如果您的環境符合需求，您可以依照下列步驟安裝 Trid
 ----
 helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
-. 安裝 Trident Protect 客戶需求日：
-+
-[source, console]
-----
-helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2502.0 --create-namespace --namespace trident-protect
-----
 . 使用 Helm 安裝 Trident Protect 。以叢集名稱取代 `<name-of-cluster>`，該名稱將指派給叢集，用於識別叢集的備份和快照：
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2502.0 --create-namespace --namespace trident-protect
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2506.0 --create-namespace --namespace trident-protect
 ----
 
 
@@ -55,14 +49,14 @@ helm install trident-protect netapp-trident-protect/trident-protect --set cluste
 +
 [source, console]
 ----
-netapp/controller:25.02.0
-netapp/restic:25.02.0
-netapp/kopia:25.02.0
-netapp/trident-autosupport:25.02.0
-netapp/exechook:25.02.0
-netapp/resourcebackup:25.02.0
-netapp/resourcerestore:25.02.0
-netapp/resourcedelete:25.02.0
+netapp/controller:25.06.0
+netapp/restic:25.06.0
+netapp/kopia:25.06.0
+netapp/trident-autosupport:25.06.0
+netapp/exechook:25.06.0
+netapp/resourcebackup:25.06.0
+netapp/resourcerestore:25.06.0
+netapp/resourcedelete:25.06.0
 bitnami/kubectl:1.30.2
 kubebuilder/kube-rbac-proxy:v0.16.0
 ----
@@ -72,17 +66,17 @@ kubebuilder/kube-rbac-proxy:v0.16.0
 +
 [source, console]
 ----
-docker pull netapp/controller:25.02.0
+docker pull netapp/controller:25.06.0
 ----
 +
 [source, console]
 ----
-docker tag netapp/controller:25.02.0 <private-registry-url>/controller:25.02.0
+docker tag netapp/controller:25.06.0 <private-registry-url>/controller:25.06.0
 ----
 +
 [source, console]
 ----
-docker push <private-registry-url>/controller:25.02.0
+docker push <private-registry-url>/controller:25.06.0
 ----
 . 建立 Trident Protect 系統命名空間：
 +
@@ -130,17 +124,11 @@ webhooksCleanup:
   imagePullSecrets:
     - name: regcred
 ----
-. 安裝 Trident Protect 客戶需求日：
-+
-[source, console]
-----
-helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2502.0 --create-namespace --namespace trident-protect
-----
 . 使用 Helm 安裝 Trident Protect 。以叢集名稱取代 `<name_of_cluster>`，該名稱將指派給叢集，用於識別叢集的備份和快照：
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2502.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2506.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
 
 

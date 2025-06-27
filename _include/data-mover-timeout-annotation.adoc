@@ -1,0 +1,34 @@
+= 資料移動器逾時註釋
+:allow-uri-read: 
+
+
+
+
+== 資料移動器逾時註釋
+
+在備份和復原作業期間，您可以使用註釋 `protect.trident.netapp.io/data-mover-timeout-sec`配置資料移動操作的逾時時間。此註解指定資料移動器在逾時前等待特定操作完成的最長時間（以秒為單位）。這在網路問題或其他因素可能導致資料移動操作停滯的情況下尤其有用。它有助於檢測和處理停滯的操作，而不是為整個過程設定通用逾時。例如，如果由於網路問題導致磁碟區資料復原沒有進展，則該操作將根據指定的時長逾時。
+
+您可以在 YAML 檔案中使用此註釋，如下所示：
+
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupRestore
+metadata:
+  name: bkp-restore-kopia
+  namespace: trident-protect
+  annotations: # Optional annotations to configure data movement timeout
+    protect.trident.netapp.io/data-mover-timeout-sec: "2"
+spec:
+  appVaultRef: appvault-name
+  appArchivePath: my-backup-path
+  namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
+  storageClassMapping:
+    destination: "${destinationStorageClass}"
+    source: "${sourceStorageClass}"
+----
+在此範例中，註解失敗 `BackupRestore`如果恢復操作在 2 秒內沒有進展，則停止操作。
+
+
+NOTE: 如果註釋值小於或等於0，則操作將立即失敗。

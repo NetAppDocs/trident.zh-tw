@@ -264,7 +264,7 @@ NOTE: 對於Ubuntu 18.04、您必須先使用「iscsiadmd」探索目標連接�
 
 [listing]
 ----
-helm install trident trident-operator-100.2502.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+helm install trident trident-operator-100.2506.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
 ----
 --
 .試用

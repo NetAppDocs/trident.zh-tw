@@ -21,6 +21,10 @@ summary: 如果您要從試用版升級至完整版產品，則可能需要移�
 .步驟
 . 移除 Trident Protect CR 檔案：
 +
+
+NOTE: 25.06 及更高版本不需要此步驟。
+
++
 [source, console]
 ----
 helm uninstall -n trident-protect trident-protect-crds

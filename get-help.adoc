@@ -33,7 +33,12 @@ Trident 會根據您的版本提供三個層級的支援。請參閱 link:https:
 
 
  a| 
-link:https://docs.netapp.com/us-en/trident/index.html["25.02"^]
+link:https://docs.netapp.com/us-en/trident/index.html["25.06"^]
+| 2026 年 6 月 | 2027 年 6 月 | 2028 年 6 月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2502/index.html["25.02"^]
 | 2026 年 2 月 | 2027 年 2 月 | 2028 年 2 月 
 
 
@@ -80,11 +85,6 @@ link:https://docs.netapp.com/us-en/trident-2210/index.html["22.10."^]
  a| 
 link:https://docs.netapp.com/us-en/trident-2207/index.html["22.07"^]
 | -- | -- | 2025 年 7 月 
-
-
- a| 
-link:https://docs.netapp.com/us-en/trident-2204/index.html["22.04"^]
-| -- | -- | 2025 年 4 月 
 |===
 
 

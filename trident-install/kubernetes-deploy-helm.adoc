@@ -16,7 +16,7 @@ summary: 您可以部署 Trident 運算子、並使用 Helm 安裝 Trident 。�
 
 
 
-== Trident 25.02 的重要資訊
+== Trident 25.06 的重要資訊
 
 * 您必須閱讀下列有關 Trident 的重要資訊。 *
 
@@ -25,7 +25,7 @@ summary: 您可以部署 Trident 運算子、並使用 Helm 安裝 Trident 。�
 ====
 []
 =====
-* Kubernetes 1.32 現在支援 Trident 。升級Kubernetes之前先升級Trident。
+* Kubernetes 1.33 現在支援 Trident 。升級Kubernetes之前先升級Trident。
 * Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值 `find_multipaths: no`。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
@@ -52,11 +52,11 @@ summary: 您可以部署 Trident 運算子、並使用 Helm 安裝 Trident 。�
 ----
 helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
 ----
-. 使用 `helm install`並指定部署名稱、如下例所示、其中 `100.2502.0`是您要安裝的 Trident 版本。
+. 使用 `helm install`並指定部署名稱、如下例所示、其中 `100.2506.0`是您要安裝的 Trident 版本。
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2502.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2506.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -86,11 +86,11 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 在命令列上指定置換。
 
 |===
-例如，若要變更的預設值 `debug`，請執行下列命令，其中 `100.2502.0`是您要安裝的 Trident 版本：
+例如，若要變更的預設值 `debug`，請執行下列命令，其中 `100.2506.0`是您要安裝的 Trident 版本：
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2506.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 

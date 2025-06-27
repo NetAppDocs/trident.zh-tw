@@ -72,7 +72,7 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 自動 | 「假」 
 
 
-| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:25.02"` 
+| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:25.06"` 
 
 
 | 「autosupportProxy」 | 用於傳送 AutoSupport 的 Proxy 位址 / 連接埠
@@ -85,7 +85,7 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 | `logFormat` | 要使用的 Trident 記錄格式 [text,json] | `"text"` 
 
 
-| 「TridentImage」 | 要安裝的 Trident 映像 | `"netapp/trident:25.02"` 
+| 「TridentImage」 | 要安裝的 Trident 映像 | `"netapp/trident:25.06"` 
 
 
 | 「影像登錄」 | 內部登錄的路徑、格式

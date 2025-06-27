@@ -49,12 +49,9 @@ Trident Protect 支援下列儲存設備後端：
 
 確保您的儲存後端符合下列需求：
 
-* 確保連接至叢集的 NetApp 儲存設備使用 Astra Trident 24.02 或更新版本（建議使用 Trident 24.10 ）。
-+
-** 如果 Astra Trident 早於 24.06.1 版，且您計畫使用 NetApp SnapMirror 災難恢復功能，則需要手動啟用 Astra 控制項資源配置程式。
+* 確保連接到叢集的 NetApp 儲存裝置使用 Trident 24.02 或更新版本（建議使用 Trident 24.10）。
 
 
-* 確保您擁有最新的 Astra 控制備份程式（預設為 Astra Trident 24.06.1 ）。
 * 確保您擁有 NetApp ONTAP 儲存後端。
 * 請確定您已設定物件儲存貯體以儲存備份。
 * 建立您計畫用於應用程式或應用程式資料管理作業的任何應用程式命名空間。Trident Protect 不會為您建立這些命名空間；如果您在自訂資源中指定不存在的命名空間，則作業將會失敗。
@@ -90,6 +87,9 @@ NOTE: 您可以將 Trident 後端組態選項設定為，為 `true`新的磁碟�
 
 當您保護在 KubeVirt VM 上執行的應用程式時， Trident Protect 24.10 和 24.10.1 及更新版本的行為會有所不同。對於這兩個版本，您可以在資料保護作業期間啟用或停用檔案系統凍結和解除凍結。
 
+
+NOTE: 在恢復操作期間，任何 `VirtualMachineSnapshots`為虛擬機器 (VM) 所建立的資料不會被復原。
+
 .Trident Protect 24.10
 Trident Protect 24.10 無法在資料保護作業期間，自動確保 KubeVirt VM 檔案系統的狀態一致。如果您想要使用 Trident Protect 24.10 來保護 KubeVirt VM 資料，則必須在資料保護作業之前，手動啟用檔案系統的凍結 / 取消凍結功能。如此可確保檔案系統處於一致的狀態。
 
@@ -124,13 +124,22 @@ NetApp SnapMirror 複寫可與 Trident Protect 搭配使用，適用於下列 ON
 
 如果您打算使用 SnapMirror 複寫，請確保 ONTAP 叢集符合下列需求：
 
-* * Astra 控制備份程式或 Trident * ： Astra 控制備份程式或 Trident 必須同時存在於使用 ONTAP 作為後端的來源叢集和目的地 Kubernetes 叢集上。Trident Protect 使用下列驅動程式所支援的儲存類別，以 NetApp SnapMirror 技術支援複寫：
+* *NetApp Trident*：NetApp Trident 必須存在於使用 ONTAP 作為後端的來源 Kubernetes 叢集和目標 Kubernetes 叢集上。Trident Protect 使用下列驅動程式所支援的儲存類別，以 NetApp SnapMirror 技術支援複寫：
 +
-** 「ONTAP-NAS」
-** 「ONTAP-SAN」
+** `ontap-nas` ：NFS
+** `ontap-san` ：iSCSI
+** `ontap-san` ：足球俱樂部
+** `ontap-san` ：NVMe/TCP（要求最低 ONTAP 版本 9.15.1）
 
 
 * * 授權 * ：使用資料保護套件的 ONTAP SnapMirror 非同步授權必須同時在來源和目的地 ONTAP 叢集上啟用。如需詳細資訊、請參閱 https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-licensing-concept.html["SnapMirror授權概述ONTAP"^] 。
++
+從 ONTAP 9.10.1 開始、所有授權都會以 NetApp 授權檔案（ NLF ）的形式交付、這是一個可啟用多項功能的單一檔案。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/system-admin/manage-licenses-concept.html#licenses-included-with-ontap-one["ONTAP One 隨附授權"^] 。
+
++
+
+NOTE: 僅支援 SnapMirror 非同步保護。
+
 
 
 
@@ -144,9 +153,8 @@ NetApp SnapMirror 複寫可與 Trident Protect 搭配使用，適用於下列 ON
 
 NOTE: 確保兩個 ONTAP 叢集之間複寫關係中使用的 SVM 名稱是唯一的。
 
-* *Astra 控制資源配置程式或 Trident 和 SVM* ：對等的遠端 SVM 必須可用於目的地叢集上的 Astra 控制資源配置程式或 Trident 。
+* *NetApp Trident 與 SVM*：對等遠端 SVM 必須可供目標叢集上的 NetApp Trident 使用。
 * * 託管後端 * ：您需要在 Trident Protect 中新增及管理 ONTAP 儲存後端，才能建立複寫關係。
-* *NVMe over TCP* ： Trident Protect 不支援 NetApp SnapMirror 複寫，用於使用 NVMe over TCP 傳輸協定的儲存後端。
 
 
 

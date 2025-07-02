@@ -18,7 +18,7 @@ summary: 您可以找到一些很棒的 NetApp Trident and Trident Protect 部�
 
 == Trident 部落格
 
-* 2925年5月9日： link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Automatic-Trident-backend-configuration-for-FSx-for-ONTAP-with-the-Amazon-EKS/ba-p/460586["使用 Amazon EKS 外掛程式自動為 FSx for ONTAP 設定 Trident 後端"^]
+* 2025年5月9日： link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Automatic-Trident-backend-configuration-for-FSx-for-ONTAP-with-the-Amazon-EKS/ba-p/460586["使用 Amazon EKS 外掛程式自動為 FSx for ONTAP 設定 Trident 後端"^]
 * 2025年4月15日： link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/NetApp-Trident-with-Google-Cloud-NetApp-Volumes-for-SMB-Protocol/ba-p/460118["NetApp Trident 與 Google Cloud NetApp Volumes 的 SMB 協議"^]
 * 2025年4月14日： link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Unlocking-the-power-of-NetApp-ASA-r2-systems-for-Kubernetes-block-storage/ba-p/460113["釋放 NetApp ASA r2 系統對 Kubernetes 區塊儲存的強大功能"^]
 * 2025 年 3 月 5 日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Unlock-Seamless-iSCSI-Storage-Integration-A-Guide-to-FSxN-on-ROSA-Clusters-for/ba-p/459124["解除鎖定無縫 iSCSI 儲存整合： ROSA 叢集 for AWS 上的 FSxN 指南"^]

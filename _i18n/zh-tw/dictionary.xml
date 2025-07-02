@@ -5447,7 +5447,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="c49aaf233c16f1193a8d683c17866eea" category="admonition">如果註釋值小於或等於0，則操作將立即失敗。</block>
   <block id="5ac5b84505fffb8149e9d0cb84ddedbe" category="admonition">在恢復操作期間，任何<block ref="890b633d48ac6398f14ae722463da08b" prefix=" " category="inline-code"></block>為虛擬機器 (VM) 所建立的資料不會被復原。</block>
   <block id="4d1a32c0e466ff9011c60655b98dbf71" category="inline-link-macro">使用 Amazon EKS 外掛程式自動為 FSx for ONTAP 設定 Trident 後端</block>
-  <block id="751ccca2e7c6e085455cc5d721ff8b39" category="list-text">2925年5月9日： <block ref="86b6d8d044348a051fe7477baf34debb" category="inline-link-macro-rx"></block></block>
   <block id="607ed18429282657fb3f6b377df32f8c" category="inline-link-macro">NetApp Trident 與 Google Cloud NetApp Volumes 的 SMB 協議</block>
   <block id="9455e2bd0c8a4dfe041579b6feac6833" category="list-text">2025年4月15日： <block ref="1d74efb61b1c97b9032a1222a24185b1" category="inline-link-macro-rx"></block></block>
   <block id="ee031d295c711ed3119e4ca1bf2829b1" category="inline-link-macro">釋放 NetApp ASA r2 系統對 Kubernetes 區塊儲存的強大功能</block>
@@ -5564,10 +5563,7 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="d8789e2b2a964b430285afd098847d7e" category="section-title">25.06 的新功能</block>
   <block id="08f1535b065719df5968364b00b95026" category="paragraph">新功能摘要提供了有關 Trident 和 Trident 保護版本的增強、修復和棄用的詳細資訊。</block>
   <block id="b73e3aa94514d51e32ca4c9fa306ce1e" category="inline-link-macro">使用磁碟區組快照</block>
-  <block id="80ac93976d2619f3f309ef5bc482d2c7" category="list-text">增加了對 CSI 卷組快照的支持<block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block>適用於 ONTAP-SAN iSCSI 驅動程式的磁碟區組快照 Kubernetes API。請參閱。 <block ref="fd476c7303c38c20a34c94b791c3665b" category="inline-link-macro-rx"></block></block>
-  <block id="f4d7441ee86cf8ef89cc31b8d13be595" category="list-text">除了 iSCSI 之外，還增加了對 NVMe/TCP 的 ONTAP ASA r2 的支援。請參閱。 <block ref="a13549ce70a240751f16cafbcac6ef24" category="inline-link-macro-rx"></block></block>
   <block id="d5bb517310bc551b239857e32401ac1f" category="inline-link-macro">啟用安全 SMB</block>
-  <block id="54c4f7fee9982c2ea03f1e81bbea3182" category="list-text">為 ONTAP-NAS 和 ONTAP-NAS-Economy 磁碟區新增了安全的 SMB 支援。 ActiveDirectory 使用者和群組現在可以與 SMB 磁碟區一起使用，以增強安全性。請參閱。 <block ref="85df2556237eff5f1420974cc8e4c414" category="inline-link-macro-rx"></block></block>
   <block id="6bcdf917188bd0a976b410952a796d4b" category="list-text">增強 Trident 節點並發性，以提高 iSCSI 磁碟區節點作業的可擴充性。</block>
   <block id="03384ffa27aceef186890eaae584f3c4" category="list-text">額外<block ref="b5073479eb6368548b299ea4d08aa8b7" prefix=" " category="inline-code"></block>打開 LUKS 磁碟區時允許丟棄/TRIM 命令以回收空間。</block>
   <block id="f216940dceac21552e55089b0f450059" category="list-text">格式化 LUKS 加密磁碟區時的效能增強。</block>
@@ -5731,4 +5727,8 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="7f38f183170855059fc5861d18334928" category="list-text">*** 不支援 Trident 25.02 版的 NFSv3，但支援 24.10 版。 NFSv4.1和 25.02 版皆可相容。</block>
   <block id="e5d0cb04635aeb2a6f06f54da8303683" category="admonition">如果此處未列出您想要的 AMI ，並不表示不支援，只是表示尚未測試。此清單可作為已知可運行的 AMI 的指南。</block>
   <block id="e30e4df15168b6dd1eefaa4f4590a961" category="list-text">EKS 版本： 1.31</block>
+  <block id="324844cd8fa64fd82920fe6f11dc588d" category="list-text">2025年5月9日： <block ref="86b6d8d044348a051fe7477baf34debb" category="inline-link-macro-rx"></block></block>
+  <block id="cbe74dc7c890979d924675df2fa27a35" category="list-text">增加了對 CSI 卷組快照的支持<block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block>適用於 ONTAP-SAN iSCSI 驅動程式的磁碟區組快照 Kubernetes API。請參閱。 <block ref="b136941d5c2c98d5e9ff86fd07e97048" category="inline-link-macro-rx"></block></block>
+  <block id="5e93028f6e11493fcce0c15271413cc3" category="list-text">除了 iSCSI 之外，還增加了對 NVMe/TCP 的 ONTAP ASA r2 的支援。請參閱。 <block ref="0ffed2115293f61a0df2b3c8f01851e1" category="inline-link-macro-rx"></block></block>
+  <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">為 ONTAP-NAS 和 ONTAP-NAS-Economy 磁碟區新增了安全的 SMB 支援。 ActiveDirectory 使用者和群組現在可以與 SMB 磁碟區一起使用，以增強安全性。請參閱。 <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block></block>
 </blocks>

@@ -8,7 +8,7 @@ summary: 您可以找到一些很棒的 NetApp Trident and Trident Protect 部�
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

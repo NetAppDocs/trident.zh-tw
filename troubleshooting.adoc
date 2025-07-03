@@ -8,7 +8,7 @@ summary: 請使用此處提供的指標來疑難排解您在安裝和使用 Trid
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

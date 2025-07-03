@@ -8,7 +8,7 @@ summary: NetApp以多種方式支援Trident。全年無休提供廣泛的免費�
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

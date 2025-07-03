@@ -5527,7 +5527,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="0ae48837f8ebc5da6e90828852d02027" category="admonition">25.06 及更高版本不需要此步驟。</block>
   <block id="ed98e5c2a168d1606df0370fe371df28" category="paragraph">從版本 24.10 升級時，升級期間執行的快照可能會失敗。此失敗不會阻止將來建立快照（無論是手動快照還是計劃快照）。如果升級期間快照失敗，您可以手動建立新快照以確保應用程式受到保護。</block>
   <block id="756accba0f305693c47126f932bd7ac6" category="paragraph">為避免潛在的故障，您可以在升級前停用所有快照計劃，然後在升級後重新啟用。但是，這會導致升級期間遺失所有計劃的快照。</block>
-  <block id="814a37dc29d2671dd3cdbf3982ee4a85" category="admonition">如果您從 25.06 之前的版本升級，則需要執行此步驟，因為 CRD 現在包含在 Trident Protect Helm 圖表中。</block>
   <block id="8e903b2b577c535f6f70248f34e61228" category="list-text">運行此命令將 CRD 的管理從<block ref="23901a54edbcff97a89483ac3112545c" prefix=" " category="inline-code"></block>到<block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block> ：</block>
   <block id="da4df818678014568aed9623276fd9f5" category="list-text">運行此命令刪除<block ref="23901a54edbcff97a89483ac3112545c" prefix=" " category="inline-code"></block>圖表：</block>
   <block id="aeea10a9d4e3d29e20b749a201f0ae46" category="admonition">不要卸載<block ref="23901a54edbcff97a89483ac3112545c" prefix=" " category="inline-code"></block>圖表使用 Helm，因為這可能會刪除您的 CRD 和任何相關資料。</block>
@@ -5589,7 +5588,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="9bfdfc993711fd8c92649ae6040af106" category="list-text">修正了使用 ONTAP REST API 時克隆分割操作同步完成的問題。</block>
   <block id="d7061136425214e6ed7ba38910be5772" category="section-title">棄用：</block>
   <block id="eb0a31990fe8d3afbb4177136e0a9c3b" category="list-text">*Kubernetes*：將最低支援的 Kubernetes 更新至 v1.27。</block>
-  <block id="9b6a034e6854c5f27feb3ac185829f8d" category="section-title">三叉戟保護</block>
   <block id="df6370ee6ad8bc05b4c28dc223a119ea" category="list-text">改善了復原時間，提供了更頻繁的完整備份的選項。</block>
   <block id="6d133839389fad9d044a57e7cd98852e" category="list-text">透過 Group-Version-Kind (GVK) 過濾提高了應用程式定義和選擇性恢復的粒度。</block>
   <block id="d22659d02ebeb222423ac210fcf66e17" category="list-text">將 AppMirrorRelationship (AMR) 與 NetApp SnapMirror 結合使用時可實現高效的重新同步和反向複製，以避免完整的 PVC 複製。</block>
@@ -5731,4 +5729,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="5e93028f6e11493fcce0c15271413cc3" category="list-text">除了 iSCSI 之外，還增加了對 NVMe/TCP 的 ONTAP ASA r2 的支援。請參閱。 <block ref="0ffed2115293f61a0df2b3c8f01851e1" category="inline-link-macro-rx"></block></block>
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">為 ONTAP-NAS 和 ONTAP-NAS-Economy 磁碟區新增了安全的 SMB 支援。 ActiveDirectory 使用者和群組現在可以與 SMB 磁碟區一起使用，以增強安全性。請參閱。 <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block></block>
   <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">增加了對使用 SnapMirror 對 NVMe 後端進行磁碟區複製的支援。請參閱。 <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block></block>
+  <block id="afce633f05d99c109d2b0429ee891495" category="admonition">如果您從 25.06 之前的版本升級，則需要執行此步驟，因為 CRD 現在包含在 Trident Protect Helm 圖表中。</block>
 </blocks>

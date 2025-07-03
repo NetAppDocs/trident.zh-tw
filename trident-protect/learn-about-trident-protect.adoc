@@ -7,7 +7,7 @@ summary: Trident Protect 可讓您使用 Trident 來保護應用程式和應用�
 = 瞭解 Trident Protect
 :allow-uri-read: 
 :icons: font
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

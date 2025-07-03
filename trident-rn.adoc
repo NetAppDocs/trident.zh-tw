@@ -8,7 +8,7 @@ summary: NetApp持續改善及強化其產品與服務。以下是最新版 Trid
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]
@@ -91,7 +91,7 @@ NOTE: 此功能尚處於實驗階段，目前支援使用 ONTAP-SAN 驅動程式
 
 
 
-=== 三叉戟保護
+=== Trident Protect
 
 NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化由 NetApp ONTAP 儲存系統和 NetApp Trident CSI 儲存資源配置程式所支援的狀態化 Kubernetes 應用程式的功能與可用度。
 

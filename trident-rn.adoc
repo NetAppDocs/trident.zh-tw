@@ -42,7 +42,7 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 ** 增強了對失​​敗但部分格式化的 LUKS 設備的 LUKS 清理。
 ** 增強了 Trident 節點冪等性，用於 NVMe 卷的連接和分離。
 ** 額外 `internalID`欄位到 ONTAP-SAN-Economy 驅動程式的 Trident 磁碟區配置。
-** 增加了對使用 SnapMirror 對 NVMe 後端進行磁碟區複製的支援。請參閱。 link:../trident-use/vol-volume-replicate.html["使用 SnapMirror 複寫磁碟區"^]
+** 增加了對使用 SnapMirror 對 NVMe 後端進行磁碟區複製的支援。請參閱。 link:https://docs.netapp.com/us-en/trident/trident-use/vol-volume-replicate.html["使用 SnapMirror 複寫磁碟區"^]
 
 
 

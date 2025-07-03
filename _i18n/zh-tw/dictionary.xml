@@ -5570,7 +5570,6 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="aca9eafb022610d731f3f94197f227fd" category="list-text">增強了對失​​敗但部分格式化的 LUKS 設備的 LUKS 清理。</block>
   <block id="fdba6fb56d2b6fb4d3d2af782f7f8e33" category="list-text">增強了 Trident 節點冪等性，用於 NVMe 卷的連接和分離。</block>
   <block id="ab129514c6ec5bf9326f9283a0c4b73d" category="list-text">額外<block ref="93e2011fcb40991e51f3f8427fdcfb82" prefix=" " category="inline-code"></block>欄位到 ONTAP-SAN-Economy 驅動程式的 Trident 磁碟區配置。</block>
-  <block id="ba26d8e397328f11256ee207903c8de7" category="list-text">增加了對使用 SnapMirror 對 NVMe 後端進行磁碟區複製的支援。請參閱。 <block ref="5f7d1407f1097c01ae271299992a9584" category="inline-link-macro-rx"></block></block>
   <block id="78eb403f568b0e64b07699199ebc4992" category="admonition">不適用於生產環境。</block>
   <block id="3dd4403c2b5ea69ecfbe030e29eee853" category="list-text">[技術預覽] 透過以下方式啟用並發 Trident 控制器操作<block ref="663f61c1cf47f8a531c8d769e8bf59f4" prefix=" " category="inline-code"></block>功能標誌。這允許控制器操作並行運行，從而提高繁忙或大型環境中的效能。</block>
   <block id="8a54b5275af086a6a2bb3983856d3f56" category="admonition">此功能尚處於實驗階段，目前支援使用 ONTAP-SAN 驅動程式（iSCSI 和 FCP 協定）的有限平行工作流程。</block>
@@ -5731,4 +5730,5 @@ NVMe / TCP 不支援 LUKS 加密。</block>
   <block id="cbe74dc7c890979d924675df2fa27a35" category="list-text">增加了對 CSI 卷組快照的支持<block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block>適用於 ONTAP-SAN iSCSI 驅動程式的磁碟區組快照 Kubernetes API。請參閱。 <block ref="b136941d5c2c98d5e9ff86fd07e97048" category="inline-link-macro-rx"></block></block>
   <block id="5e93028f6e11493fcce0c15271413cc3" category="list-text">除了 iSCSI 之外，還增加了對 NVMe/TCP 的 ONTAP ASA r2 的支援。請參閱。 <block ref="0ffed2115293f61a0df2b3c8f01851e1" category="inline-link-macro-rx"></block></block>
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">為 ONTAP-NAS 和 ONTAP-NAS-Economy 磁碟區新增了安全的 SMB 支援。 ActiveDirectory 使用者和群組現在可以與 SMB 磁碟區一起使用，以增強安全性。請參閱。 <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block></block>
+  <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">增加了對使用 SnapMirror 對 NVMe 後端進行磁碟區複製的支援。請參閱。 <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block></block>
 </blocks>

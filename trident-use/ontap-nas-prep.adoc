@@ -60,8 +60,8 @@ storageDriverName: ontap-nas
 managementLIF: 10.0.0.1
 dataLIF: 10.0.0.2
 svm: svm_nfs
-username: vsadmin
-password: password
+credentials:
+  name: secret-backend-creds
 ----
 --
 .JSON
@@ -75,8 +75,9 @@ password: password
   "managementLIF": "10.0.0.1",
   "dataLIF": "10.0.0.2",
   "svm": "svm_nfs",
-  "username": "vsadmin",
-  "password": "password"
+  "credentials": {
+        "name": "secret-backend-creds"
+    }
 }
 ----
 --

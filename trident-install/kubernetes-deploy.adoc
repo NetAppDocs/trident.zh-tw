@@ -46,6 +46,7 @@ summary: '您可以使用 Trident 運算子（手動或使用 Helm ）或搭配�
 * Linux主機 `kubectl` （或 `oc`（如果您使用OpenShift）已安裝並設定為管理您要使用的Kubernetes叢集。
 * 。 `KUBECONFIG` 環境變數設定為指向Kubernetes叢集組態。
 * 如果您使用Kubernetes搭配Docker Enterprise、 https://docs.docker.com/ee/ucp/user-access/cli/["請依照他們的步驟啟用CLI存取"^]。
+* 叢集必須支援特殊權限的工作負載。
 
 
 
@@ -214,7 +215,6 @@ link:kubernetes-deploy-tridentctl.html["標準或離線安裝"]
 
 在 VMware Tanzu Portfolio 產品上安裝 Trident 時：
 
-* 叢集必須支援特殊權限的工作負載。
 * 「-kubelet-dir」旗標應設定為kubelet目錄的位置。依預設、這是「/var/vcap/data/kubelet」。
 +
 使用「-kubelet-dir」指定kubelet位置、已知適用於Trident運算子、Helm及「tridentctl」部署。

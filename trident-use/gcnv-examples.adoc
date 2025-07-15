@@ -55,6 +55,9 @@ summary: 瞭解 Google Cloud NetApp Volume 的 NFS 和 NFS 後端組態選項、
 | 《服務層級》 | 儲存池及其磁碟區的服務層級。這些值包括 `flex`、 `standard`、 `premium`或 `extreme`。 |  
 
 
+| 《標籤》 | 套用到磁碟區的任意JSON-格式化標籤集 | " 
+
+
 | 網路 | 用於 GCNV Volume 的 Google Cloud 網路。 |  
 
 

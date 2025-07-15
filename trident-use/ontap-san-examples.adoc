@@ -199,9 +199,7 @@ Trident 建議使用下列選項來加速格式化程序：
 | 加密 | 在新磁碟區上啟用 NetApp Volume Encryption （ NVE ）；預設為 `false`。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。如需更多資訊、請參閱link:../trident-reco/security-reco.html["Trident 如何與 NVE 和 NAE 搭配運作"]：。 | “false” *如果指定，則設定為 `true`適用於 ASA r2 系統*。 
 
 
-| `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-luks.html["使用Linux統一金鑰設定（LUKS）"]。
-
-NVMe / TCP 不支援 LUKS 加密。 | "" *設定為 `false`適用於 ASA r2 系統*。 
+| `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-luks.html["使用Linux統一金鑰設定（LUKS）"]。 | "" *設定為 `false`適用於 ASA r2 系統*。 
 
 
 | 「分層政策」 | 分層策略使用「無」 *不要為 ASA r2 系統指定*。 |  

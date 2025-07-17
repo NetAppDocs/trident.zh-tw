@@ -34,6 +34,10 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 * * Kubernetes* ：
 +
 ** 增加了對 CSI 卷組快照的支持 `v1beta1`適用於 ONTAP-SAN iSCSI 驅動程式的磁碟區組快照 Kubernetes API。請參閱。 link:https://docs.netapp.com/us-en/trident/trident-use/vol-group-snapshots.html["使用磁碟區組快照"^]
++
+
+NOTE: VolumeGroupSnapshot 是 Kubernetes 中的一個 Beta 功能，包含 Beta 版 API。 VolumeGroupSnapshot所需的最低版本為 Kubernetes 1.32。
+
 ** 除了 iSCSI 之外，還增加了對 NVMe/TCP 的 ONTAP ASA r2 的支援。請參閱。 link:link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["SAN組態選項與範例ONTAP"^]
 ** 為 ONTAP-NAS 和 ONTAP-NAS-Economy 磁碟區新增了安全的 SMB 支援。 ActiveDirectory 使用者和群組現在可以與 SMB 磁碟區一起使用，以增強安全性。請參閱。 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-prep.html#enable-secure-smb["啟用安全 SMB"^]
 ** 增強 Trident 節點並發性，以提高 iSCSI 磁碟區節點作業的可擴充性。

@@ -3695,7 +3695,6 @@
   <block id="55067c9b7862cdb9b724bac1e11f114e" category="cell">在 OpenShift 上、權限容器會在（「超級貴賓 Container 」）網域中執行<block ref="4c6c95436260ecf7ab3cf7558410a157" prefix=" " category="inline-code"></block>、而非權限容器則會在網域中執行<block ref="ce0991860b118fa3ab777cbb62c7caa5" prefix=" " category="inline-code"></block>。在上<block ref="34c54dce528ae11502f7c2908c0e4a21" prefix=" " category="inline-code"></block>、安裝後<block ref="c42c2c095fe432fac047b16b37a0c05c" prefix=" " category="inline-code"></block>、所有容器都會在網域中執行<block ref="4c6c95436260ecf7ab3cf7558410a157" prefix=" " category="inline-code"></block>、這會有效停用 SELinux 。因此、 Trident 不會新增<block ref="0221dccbaacc71551feb621f4ebfae36" prefix=" " category="inline-code"></block>至容器。</block>
   <block id="1b1944fe544c06f29c78d07fcfbf4683" category="summary">深入瞭解 Trident 所通訊的連接埠。</block>
   <block id="190c8d0a8c0f9d99e2a5cee87981451c" category="paragraph">深入瞭解 Trident 用於通訊的連接埠。</block>
-  <block id="70c1e788718f27a0aaebe8d5f2d29f4f" category="paragraph">Trident 透過下列連接埠進行通訊：</block>
   <block id="cf99312afccffdb3b97f892cb91990a0" category="summary">如果您偏好與 Trident 的 REST API 互動、可以直接使用 REST 端點。</block>
   <block id="5eee484e5d1a379b56272cbb68f0b4a6" category="doc">Trident REST API</block>
   <block id="01244d6a0ae311e8f26e37eff3b90b3a" category="paragraph">雖然是與 Trident REST API 互動最簡單的方法、但<block ref="8321852d17a287399cb52ef30f4b21eb" category="inline-link-macro-rx"></block>您可以視需要直接使用其餘端點。</block>
@@ -5460,7 +5459,6 @@
   <block id="7b64f90c10ba527f2f6b6f1e6fb0c9fe" category="list-text">Kubernetes 1.33 現在支援 Trident 。升級Kubernetes之前先升級Trident。</block>
   <block id="f39d8c359b3284c30097b65ae4e0dccf" category="list-text">Kubernetes 1.27 - 1.33</block>
   <block id="d84962dc87f0a0b8de6c8bcc166c1868" category="list-text">NetApp 有限支援下的本機 FAS、AFF 或 ASA r2（iSCSI 和 NVMe/TCP）叢集版本。請參閱。 <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block></block>
-  <block id="7fd491fc924e37e18dfff84e51b4174f" category="paragraph"><block ref="cad7374655e88af90db66aa882800d31" category="inline-xref-macro-rx"></block></block>
   <block id="9f7ace1a0a4d64a8dfa14012ff8f7e8c" category="paragraph">1.27 - 1.33</block>
   <block id="006871bfbb54929c1e2b37d3ce36b37f" category="cell">v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0 、 v1.33.0</block>
   <block id="3e711dbc16f3de48b46eca5b86572321" category="list-text">Docker 。 IO/NetApp/Trident ： 25.06.0</block>
@@ -5475,7 +5473,6 @@
   <block id="d7ccfdca42aadc41314f5df3ed2e4cbf" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> 並指定部署和映像登錄位置的名稱。您 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有 CSI 映像都必須位於同一個登錄中。在範例中<block ref="5c9befb508998ce21883733ce6ab129f" prefix=" " category="inline-code"></block>、是您要安裝的 Trident 版本。</block>
   <block id="9632d6ad86670e70a32c6b93e85ad9f4" category="paragraph">例如，若要變更的預設值<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block>，請執行下列命令，其中<block ref="5c9befb508998ce21883733ce6ab129f" prefix=" " category="inline-code"></block>是您要安裝的 Trident 版本：</block>
   <block id="b34ad03c5088f36033c20b21d9aae4c2" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block>並指定部署名稱、如下例所示、其中<block ref="5c9befb508998ce21883733ce6ab129f" prefix=" " category="inline-code"></block>是您要安裝的 Trident 版本。</block>
-  <block id="afae3127cfc01ae0c8de038b447062f9" category="section-title">Trident 25.05 的重要資訊</block>
   <block id="287d9354cd0e889ca3c170f1a20060ce" category="paragraph">在<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>中，更新<block ref="ff1ea91c85a440ad216d6d8dafdb2b4a" prefix=" " category="inline-code"></block> 以反映映像登錄的位置。您 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有 CSI 映像都必須位於同一個登錄中。例如：</block>
   <block id="3ce13997cacbb7668e6636ffb21ba04a" category="list-text"><block ref="a5ad704b64900183c3e85fea9edad0f0" prefix="" category="inline-code"></block> 如果您的映像全部位於一個登錄中。</block>
   <block id="b6e3b64ea99d65462c313d10936507a1" category="list-text"><block ref="f5f5dab4b39c35c32ac8846470b513ad" prefix="" category="inline-code"></block> 如果您的 Trident 映像位於與 CSI 映像不同的登錄中。</block>
@@ -5729,4 +5726,5 @@
   <block id="afce633f05d99c109d2b0429ee891495" category="admonition">如果您從 25.06 之前的版本升級，則需要執行此步驟，因為 CRD 現在包含在 Trident Protect Helm 圖表中。</block>
   <block id="78ba3dee1dfae1136825fa94b594e8b0" category="paragraph"><block ref="b370fec489f67cf82a40d70295a9ea9a" category="inline-xref-macro-rx"></block></block>
   <block id="b71ccf1062cee8c376a7eb37e3c42603" category="cell">啟用LUKS加密。請參閱 <block ref="569f9f91cdcc19909b8acbf6f423daf7" category="inline-link-macro-rx"></block>。</block>
+  <block id="af4e755c6284fa61e563c93320e97aaa" category="paragraph">Trident使用下列連接埠在 Kubernetes 內部進行通訊：</block>
 </blocks>

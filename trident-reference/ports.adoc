@@ -18,7 +18,7 @@ summary: 深入瞭解 Trident 所通訊的連接埠。
 
 == Trident 連接埠
 
-Trident 透過下列連接埠進行通訊：
+Trident使用下列連接埠在 Kubernetes 內部進行通訊：
 
 [cols="2,4"]
 |===

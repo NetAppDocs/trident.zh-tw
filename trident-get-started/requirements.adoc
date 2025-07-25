@@ -42,7 +42,7 @@ Trident 支援多個容器引擎和協調器、包括：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
 * Kubernetes 1.27 - 1.33
-* OpenShift 4.10 - 4.18
+* OpenShift 4.14 - 4.18
 * Rancher Kubernetes Engine 2 （ RKE2 ） v1.26.7+rke2r1 ， v1.28.5+rke2r1
 
 
@@ -50,7 +50,7 @@ Trident 支援多個容器引擎和協調器、包括：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
 * Kubernetes 1.27 - 1.33
-* OpenShift 4.10 - 4.18
+* OpenShift 4.14 - 4.18
 * Rancher Kubernetes Engine 2 （ RKE2 ） v1.26.7+rke2r1 ， v1.28.5+rke2r1
 
 

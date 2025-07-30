@@ -241,13 +241,6 @@ WARNING: 請勿移除 values.yaml 檔案的預設關聯性。當您想要提供�
 
 
 | `nodePrep` | 可讓 Trident 準備 Kubernetes 叢集的節點、以使用指定的資料儲存傳輸協定來管理磁碟區。* 目前 `iscsi`是唯一支援的值。 * |  
-
-
-| `ontapConfigurator`  a| 
-啟用或停用 Amazon FSX 的 Trident 後端和儲存類別的自動組態。使用以下參數和 `ontapConfigurator`啓用自動後端配置：
-`enabled`：設置爲 `true`啓用自動後端配置。
-`svms`：包含將爲其創建自動後端配置的文件系統 ID 列表。 `authType`：設定 SVM 驗證的驗證類型。對於 AWS ，目前支援以 arn 為基礎的驗證（「 awsarn 」）。- `fsxnID`：設定 AWS FSX 的檔案系統 ID 。範例：「 FS-0dfeaa884a68b1CAB 」。- `protocols` 指定自動後端組態支援的通訊協定清單： "NFS" ， "iSCSI" 或兩者。
-|  
 |===
 
 

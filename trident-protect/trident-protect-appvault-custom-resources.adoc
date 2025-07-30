@@ -16,19 +16,22 @@ summary: Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVa
 [role="lead"]
 Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVault 物件是儲存貯體的宣告性 Kubernetes 工作流程表示。AppVault CR 包含用於保護作業（例如備份，快照，還原作業和 SnapMirror 複寫）的儲存庫所需的組態。只有管理員可以建立 AppVaults 。
 
-在應用程式上執行資料保護作業時，您需要手動或使用命令列來建立 AppVault CR ，而 AppVault CR 必須位於安裝 Trident Protect 的叢集上。AppVault CR 專屬於您的環境，您可以在建立 AppVault CRS 時，參考本頁面上的範例。
+在應用程式上執行資料保護操作時，您需要手動或從命令列建立 AppVault CR。 AppVaultCR 特定於您的環境，您可以使用本頁上的範例作為建立 AppVault CR 的指南。
+
+
+NOTE: 確保 AppVault CR 位於安裝了Trident Protect 的叢集上。如果 AppVault CR 不存在或您無法訪問，命令列將顯示錯誤。
 
 
 
 == 設定 AppVault 驗證和密碼
 
-在建立 AppVault CR 之前，您必須確保 AppVault 和您選擇的資料移動器可以向提供者和任何相關資源進行驗證。
+在建立 AppVault CR 之前，請確保您選擇的 AppVault 和資料移動器可以向提供者和任何相關資源進行驗證。
 
 
 
 === 資料移動器儲存庫密碼
 
-當您使用 CRS 或 Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以選擇性地指示 Trident Protect 使用 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如果您未指定密碼， Trident Protect 會使用預設密碼。
+使用 CR 或Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以指定 Kubernetes 金鑰，並使用自訂密碼進行 Restic 和 Kopia 加密。如果您未指定金鑰， Trident Protect 將使用預設密碼。
 
 * 手動建立 AppVault CR 時，使用 *spec.dataMoverPasswordSecretRef* 欄位指定金鑰。
 * 使用 Trident Protect CLI 建立 AppVault 物件時，使用 `--data-mover-password-secret-ref`參數來指定秘密。
@@ -40,9 +43,13 @@ Trident Protect 的貯體自訂資源（ CR ）稱為 AppVault 。AppVault 物�
 
 請使用下列範例建立密碼機密。當您建立 AppVault 物件時，可以指示 Trident Protect 使用此密碼來驗證資料移動器儲存庫。
 
+[NOTE]
+====
+* 視您使用的資料移動器而定，您只需要加入該資料移動器的對應密碼。例如，如果您使用 Restic ，而且不打算在未來使用 Kopia ，則在建立機密時，只能包含 Restic 密碼。
+* 請將密碼保存在安全的地方。您將需要它來還原同一叢集或其他叢集上的資料。如果集群或 `trident-protect`命名空間被刪除後，沒有密碼您將無法還原備份或快照。
 
-NOTE: 視您使用的資料移動器而定，您只需要加入該資料移動器的對應密碼。例如，如果您使用 Restic ，而且不打算在未來使用 Kopia ，則在建立機密時，只能包含 Restic 密碼。
 
+====
 [role="tabbed-block"]
 ====
 .使用 CR

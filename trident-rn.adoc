@@ -268,7 +268,7 @@ NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化
 * 將 Azure NetApp Files 最小磁碟區大小減至 50 GiB 。Azure 預計將於 11 月推出全新的最小尺寸。
 * 新增 `denyNewVolumePools`組態參數、將 ONTAP NAS 經濟型和 ONTAP SAN 經濟型驅動程式限制在現有的 FlexVol 集區。
 * 新增偵測功能、可在所有 ONTAP 驅動程式中新增、移除或重新命名 SVM 的集合體。
-* 新增 18MiB 額外負荷至 LUKS LUN 、以確保報告的 PVC 大小可供使用。
+* 在 LUKS LUN 中添加了 18 MiB 開銷，以確保報告的 PVC 大小可用。
 * 改善的 ONTAP SAN 和 ONTAP SAN 經濟型節點階段和非階段錯誤處理、可在發生故障階段後進行取消階段移除裝置。
 * 新增自訂角色產生器、可讓客戶在 ONTAP 中為 Trident 建立極簡角色。
 * 新增其他記錄以進行疑難排解 `lsscsi`（link:https://github.com/NetApp/trident/issues/792["問題 #792"]）。
@@ -374,7 +374,7 @@ link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Pr
 * 修正因過時交易而導致的 Trident 安裝失敗。
 * 修正 tridentctl 以忽略 Kubernetes （）的警告訊息link:https://github.com/NetApp/trident/issues/892["問題 #892"]。
 * 已將 Trident 控制器優先級更改 `SecurityContextConstraint`爲 `0`（link:https://github.com/NetApp/trident/issues/887["問題 #887"]）。
-* ONTAP 驅動程式現在接受低於 20MiB 的磁碟區大小（link:https://github.com/NetApp/trident/issues/885["問題 [#885"]）。
+* ONTAP驅動程式現在接受低於 20 MiB 的磁碟區大小（ link:https://github.com/NetApp/trident/issues/885["問題 [#885"] ）。
 * 固定式 Trident ，可在 ONTAP SAN 驅動程式調整大小的作業期間，防止 FlexVol 磁碟區縮小。
 * 修正 NFS v4.1 的磁碟區匯入失敗。
 

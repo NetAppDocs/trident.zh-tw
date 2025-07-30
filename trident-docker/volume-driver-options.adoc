@@ -109,13 +109,13 @@ Volume的大小、預設為1 GiB。
 
 請參閱下列範例：
 
-* 建立10GiB Volume：
+* 建立一個 10 GiB 卷：
 +
 [listing]
 ----
 docker volume create -d netapp --name demo -o size=10G -o encryption=true
 ----
-* 使用快照建立100GiB磁碟區：
+* 建立一個帶有快照的 100 GiB 磁碟區：
 +
 [listing]
 ----
@@ -129,7 +129,7 @@ docker volume create -d netapp --name demo -o unixPermissions=4755
 ----
 
 
-最小Volume大小為20MiB。
+最小磁碟區大小為 20 MiB。
 
 如果未指定快照保留、且快照原則為 `none`、則 Trident 會使用 0% 的快照保留。
 
@@ -175,7 +175,7 @@ docker volume create -d netapp --name my_vol --opt snapshotPolicy=myPolicy
 
 
 | 《大小》  a| 
-磁碟區大小、預設為1GiB或組態項目... 「預設值」：｛"Size"："5G"｝。
+卷的大小，預設為 1 GiB 或配置條目...“defaults”：{“size”：“5G”}。
 
 
 
@@ -222,13 +222,13 @@ docker volume create -d netapp --name my_vol --opt snapshotPolicy=myPolicy
 ----
 在上述組態中、我們有三種原則定義：銅級、銀級和金級。這些名稱為任意名稱。
 
-* 建立10GiB Gold Volume：
+* 創建 10 GiB 黃金卷：
 +
 [listing]
 ----
 docker volume create -d solidfire --name sfGold -o type=Gold -o size=10G
 ----
-* 建立100GiB銅級磁碟區：
+* 創建 100 GiB 青銅卷：
 +
 [listing]
 ----

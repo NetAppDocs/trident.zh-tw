@@ -285,7 +285,7 @@ NOTE: Docker swarm 目前不支援此 `ontap-nas-economy`驅動程式，因為 D
 * 需要ONTAP 9.2版或更新版本。
 * 截至本文撰寫時、FlexGroups僅支援NFS v3。
 * 建議啟用SVM的64位元NFSv3識別碼。
-* 建議的 FlexGroup 成員 / 磁碟區大小下限為 100GiB 。
+* 建議的最小FlexGroup成員/磁碟區大小為 100 GiB。
 * FlexGroup 磁碟區不支援複製。
 
 

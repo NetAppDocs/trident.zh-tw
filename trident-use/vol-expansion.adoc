@@ -389,7 +389,7 @@ spec:
       storage: 20Mi
   storageClassName: ontapnas
 ----
-Trident 應為此 PVC 建立 20MiB NFS PV ：
+Trident應該為該 PVC 建立一個 20 MiB 的 NFS PV：
 
 [listing]
 ----
@@ -405,7 +405,7 @@ pvc-08f3d561-b199-11e9-8d9f-5254004dfdb7   20Mi       RWO            Delete     
 
 === 步驟3：展開PV
 
-若要將新建立的20MiB PV調整至1GiB、請編輯該PVC並設定組合 `spec.resources.requests.storage` 至 1GiB ：
+若要將新建立的 20 MiB PV 調整為 1 GiB，請編輯 PVC 並設定 `spec.resources.requests.storage`至 1 GiB：
 
 [listing]
 ----

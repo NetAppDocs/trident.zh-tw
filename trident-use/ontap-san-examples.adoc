@@ -246,7 +246,7 @@ NOTE: 對於使用驅動程式建立的所有磁碟區 `ontap-san`、 Trident �
 ----
 Total volume size = [(PVC requested size) / (1 - (snapshotReserve percentage) / 100)] * 1.1
 ----
-1.1 是額外 10% 的 Trident 新增至 FlexVol 、以容納 LUN 中繼資料。若 `snapshotReserve` = 5% 、且 PVC 要求 = 5GiB 、則總 Volume 大小為 5.79GiB 、可用大小為 5.5GiB 。 `volume show`命令應顯示類似於此範例的結果：
+1.1 是Trident為容納 LUN 元資料而額外添加到FlexVol 的10%。對於 `snapshotReserve` = 5%，PVC 請求 = 5 GiB，則總磁碟區大小為 5.79 GiB，可用大小為 5.5 GiB。  `volume show`命令應顯示與此範例類似的結果：
 
 image::../media/vol-show-san.png[顯示Volume show命令的輸出。]
 

@@ -82,29 +82,28 @@ EKS 叢集支援各種作業系統，但 AWS 已針對容器和 EKS 最佳化某
 |===
 
 
-| Ami | NAS | NAS 經濟效益 | SAN | SAN 經濟 
+| Ami | NAS | NAS 經濟效益 | iSCSI | iSCSI經濟型 
 
 
-| AL2023_x86_64_STANDARD | 是的 | 是的 | 是* | 是* 
+| AL2023_x86_64_STANDARD | 是的 | 是的 | 是的 | 是的 
 
 
-| AL2_x86_64 | 是的 | 是的 | 是 ** | 是 ** 
+| AL2_x86_64 | 是的 | 是的 | 是* | 是* 
 
 
-| BOTTLEROCKET_x86_64 | 是的*** | 是的 | 不適用 | 不適用 
+| BOTTLEROCKET_x86_64 | 是 ** | 是的 | 不適用 | 不適用 
 
 
-| AL2023_ARM_64_STANDARD | 是的 | 是的 | 是* | 是* 
+| AL2023_ARM_64_STANDARD | 是的 | 是的 | 是的 | 是的 
 
 
-| AL2_ARM_64 | 是的 | 是的 | 是 ** | 是 ** 
+| AL2_ARM_64 | 是的 | 是的 | 是* | 是* 
 
 
-| BOTTLEROCKET_ARM_64 | 是的*** | 是的 | 不適用 | 不適用 
+| BOTTLEROCKET_ARM_64 | 是 ** | 是的 | 不適用 | 不適用 
 |===
-* * 僅支援帶有 iSCSI 的 nodePrep。
-* ** 無法在不重新啟動節點的情況下刪除 PV
-* *** 不支援 Trident 25.02 版的 NFSv3，但支援 24.10 版。 NFSv4.1和 25.02 版皆可相容。
+* * 如果不重新啟動節點，則無法刪除 PV
+* ** 不適用於Trident版本 25.02 的 NFSv3。
 
 
 
@@ -112,8 +111,8 @@ NOTE: 如果此處未列出您想要的 AMI ，並不表示不支援，只是表
 
 * 使用 * 執行的測試：
 
-* EKS 版本： 1.31
-* 安裝方法： helm 和 AWS 附加元件
+* EKS版本：1.32
+* 安裝方法：Helm 25.06 和 AWS 附加元件 25.06
 * 對於 NAS ， NFSv3 和 NFSv4.1 都已經過測試。
 * 僅針對 SAN 進行 iSCSI 測試，非 NVMe 型。
 

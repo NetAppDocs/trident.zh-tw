@@ -5005,8 +5005,6 @@
   <block id="af2fcef81914e3ce8b2cbe1ab832c879" category="cell">Ami</block>
   <block id="c07ee5debf5f3a3fef16c1ee5e8e4942" category="cell">NAS</block>
   <block id="12b1f0215cde9ea0ca4aac0c3ade3a96" category="cell">NAS 經濟效益</block>
-  <block id="62a0282d39568be094470486eaf70c4f" category="cell">SAN</block>
-  <block id="8bb9a7fe88283df4df4c9131b10d6601" category="cell">SAN 經濟</block>
   <block id="b2f628a87c3b04816210b608f76d5fa0" category="cell">AL2023_x86_64_STANDARD</block>
   <block id="c1dfeb2129506a6914b9c6c3c0cdb647" category="cell">AL2_x86_64</block>
   <block id="9cfc5bb3d7caf552b74c3e5295bb5f11" category="cell">是 **</block>
@@ -5016,9 +5014,7 @@
   <block id="1566bc91a0bfa1dbeba46107fc54f756" category="cell">AL2023_ARM_64_STANDARD</block>
   <block id="e3b9c2e4d8176e1074a9511b580d6396" category="cell">AL2_ARM_64</block>
   <block id="a28322bc0e8a38770a1af7cc1d4a9ad9" category="cell">BOTTLEROCKET_ARM_64</block>
-  <block id="b5056db6cc95f0ceeb72bf7925b7409d" category="list-text">** 無法在不重新啟動節點的情況下刪除 PV</block>
   <block id="07e5351dce8b6c8e3f72745762bac773" category="paragraph">* 使用 * 執行的測試：</block>
-  <block id="502ca2b9844982f6255585372ccd8f3e" category="list-text">安裝方法： helm 和 AWS 附加元件</block>
   <block id="583a5d19bce672251a82cb390b576d1a" category="list-text">對於 NAS ， NFSv3 和 NFSv4.1 都已經過測試。</block>
   <block id="8dba245dcac3bf8acf6067e0d62d01cb" category="list-text">僅針對 SAN 進行 iSCSI 測試，非 NVMe 型。</block>
   <block id="6eee4bc92cc38369e7271225ec488e82" category="paragraph">* 已執行的測試 * ：</block>
@@ -5330,7 +5326,6 @@
   <block id="579f2feb3d9edaa336d3ccb69c3fb855" category="list-text">執行容錯移轉，從新的目的地叢集移轉至新的來源叢集，並進行下列變更：</block>
   <block id="23b4dec181e41ab3962cf73b28ffe58c" category="list-text">在目前的目標叢集上，刪除 AppMirrorRelationship CR ：</block>
   <block id="90abe2b6c39f51adea4c5aabff2df094" category="list-text">遵循 *Add-on 組態架構 * ，並將 *Configuration valus* 一節上的組態值參數設定為您在上一個步驟（步驟 1 ）中建立的角色。值應採用下列格式：</block>
-  <block id="be88c7e0502cadac6eccdbb309610a77" category="paragraph">下列範例命令會安裝 Trident EKS 附加元件：<block ref="a5b33d95c2beda5bdc154ff0b946fffe" prefix=" " category="inline-code"></block>（含專用版本）</block>
   <block id="6935ea1d99a0c26f0e4cddb80f444849" category="summary">如果您使用 Red Hat OpenShift ，則可以使用運算子來安裝 Trident 。</block>
   <block id="c282cc9924716a0ecdcc1864c8821950" category="doc">從 Trident 社群營運商切換至 OpenShift 認證營運商</block>
   <block id="92da9bfce4b6635fcf5d3f3725accbbc" category="paragraph">若要從 NetApp 社群 Trident 營運商切換至 Red Hat OpenShift 認證 Trident 營運商，您必須先解除安裝社群營運商，然後使用 OperatorHub 安裝認證營運商。</block>
@@ -5684,11 +5679,7 @@
   <block id="08ec33a477c6b216472cd10065483760" category="paragraph">*對於 IRSA 驗證，請使用以下格式*：</block>
   <block id="895c408250687425783cbd96dd25276d" category="paragraph">*2.安裝 Trident EKS 外掛程式。 *</block>
   <block id="3cec1ada82beb8b8e724d5114558490c" category="paragraph">EKS 叢集支援各種作業系統，但 AWS 已針對容器和 EKS 最佳化某些 Amazon Machine 映像（ Amis ）。以下 AMI 已通過 NetApp Trident 25.02 測試。</block>
-  <block id="173a8cacadf475f14befd10f39624033" category="cell">是的***</block>
-  <block id="2e08317d3e70fb5ff3eda62f9abdd760" category="list-text">* 僅支援帶有 iSCSI 的 nodePrep。</block>
-  <block id="7f38f183170855059fc5861d18334928" category="list-text">*** 不支援 Trident 25.02 版的 NFSv3，但支援 24.10 版。 NFSv4.1和 25.02 版皆可相容。</block>
   <block id="e5d0cb04635aeb2a6f06f54da8303683" category="admonition">如果此處未列出您想要的 AMI ，並不表示不支援，只是表示尚未測試。此清單可作為已知可運行的 AMI 的指南。</block>
-  <block id="e30e4df15168b6dd1eefaa4f4590a961" category="list-text">EKS 版本： 1.31</block>
   <block id="324844cd8fa64fd82920fe6f11dc588d" category="list-text">2025年5月9日： <block ref="86b6d8d044348a051fe7477baf34debb" category="inline-link-macro-rx"></block></block>
   <block id="cbe74dc7c890979d924675df2fa27a35" category="list-text">增加了對 CSI 卷組快照的支持<block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block>適用於 ONTAP-SAN iSCSI 驅動程式的磁碟區組快照 Kubernetes API。請參閱。 <block ref="b136941d5c2c98d5e9ff86fd07e97048" category="inline-link-macro-rx"></block></block>
   <block id="5e93028f6e11493fcce0c15271413cc3" category="list-text">除了 iSCSI 之外，還增加了對 NVMe/TCP 的 ONTAP ASA r2 的支援。請參閱。 <block ref="0ffed2115293f61a0df2b3c8f01851e1" category="inline-link-macro-rx"></block></block>
@@ -5769,4 +5760,10 @@
   <block id="1850a20880f300b00b10477bfcbd6087" category="list-text">請將密碼保存在安全的地方。您將需要它來還原同一叢集或其他叢集上的資料。如果集群或<block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block>命名空間被刪除後，沒有密碼您將無法還原備份或快照。</block>
   <block id="1847ffdf7c6d0f8b1bbe8c2bb725a3ce" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.27.x - 1.33.x</block>
   <block id="3e9612318eccb033e5737a43e626163d" category="admonition">雖然Trident在 Rancher Kubernetes Engine 2 (RKE2) 版本 1.27.x - 1.33.x 上受支持，但Trident目前僅在 RKE2 v1.28.5+rke2r1 上獲得認證。</block>
+  <block id="9509f036573c9b78acc044938588f7c4" category="paragraph">以下範例指令安裝Trident EKS 附加元件：<block ref="f235325f054788c50b512241d68cb329" prefix=" " category="inline-code"></block> （附專用版本）</block>
+  <block id="cedb5a7bb4fc5e3e014ce0b58a3d5095" category="cell">iSCSI經濟型</block>
+  <block id="27a75f24043645e5e4d2b91bad951706" category="list-text">* 如果不重新啟動節點，則無法刪除 PV</block>
+  <block id="029fec6571d8c4d36438994c07941953" category="list-text">** 不適用於Trident版本 25.02 的 NFSv3。</block>
+  <block id="87e881298a8d8cc2b3ffd068da55a0c1" category="list-text">EKS版本：1.32</block>
+  <block id="38ec877f215b7bc2eb836f279c3374c5" category="list-text">安裝方法：Helm 25.06 和 AWS 附加元件 25.06</block>
 </blocks>

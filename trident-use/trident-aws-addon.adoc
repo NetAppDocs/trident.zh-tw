@@ -58,7 +58,8 @@ image::../media/aws-eks-04.png[AWS EKS 04]
 ----
 {
 
-  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'"
+  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
+  "cloudProvider": "AWS"
 
 }
 ----
@@ -95,8 +96,8 @@ kubectl get pods -n trident
 == 使用 CLI 安裝 / 解除安裝 Trident EKS 附加元件
 
 .使用 CLI 安裝 NetApp Trident EKS 附加元件：
-下列範例命令會安裝 Trident EKS 附加元件：
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.02.1-eksbuild.1`（含專用版本）
+以下範例指令安裝Trident EKS 附加元件：
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.6.0-eksbuild.1` （附專用版本）
 
 .使用 CLI 解除安裝 NetApp Trident EKS 附加元件：
 下列命令會解除安裝 Trident EKS 附加元件：

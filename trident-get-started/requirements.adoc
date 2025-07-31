@@ -43,7 +43,7 @@ Trident 支援多個容器引擎和協調器、包括：
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
 * Kubernetes 1.27 - 1.33
 * OpenShift 4.14 - 4.18
-* Rancher Kubernetes Engine 2 （ RKE2 ） v1.26.7+rke2r1 ， v1.28.5+rke2r1
+* Rancher Kubernetes Engine 2（RKE2）v1.27.x - 1.33.x
 
 
 這些版本支援Trident運算子：
@@ -51,8 +51,11 @@ Trident 支援多個容器引擎和協調器、包括：
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
 * Kubernetes 1.27 - 1.33
 * OpenShift 4.14 - 4.18
-* Rancher Kubernetes Engine 2 （ RKE2 ） v1.26.7+rke2r1 ， v1.28.5+rke2r1
+* Rancher Kubernetes Engine 2（RKE2）v1.27.x - 1.33.x
 
+
+
+NOTE: 雖然Trident在 Rancher Kubernetes Engine 2 (RKE2) 版本 1.27.x - 1.33.x 上受支持，但Trident目前僅在 RKE2 v1.28.5+rke2r1 上獲得認證。
 
 Trident 也與其他完全託管且自行管理的 Kubernetes 產品合作、包括 Google Kubernetes Engine （ GKE ）、 Amazon Elastic Kubernetes Services （ EKS ）、 Azure Kubernetes Service （ aks ）、 Mirantis Kubernetes Engine （ MKE ）和 VMware Tanzu Portfolio 。
 

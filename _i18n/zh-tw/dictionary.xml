@@ -5766,4 +5766,6 @@
   <block id="029fec6571d8c4d36438994c07941953" category="list-text">** 不適用於Trident版本 25.02 的 NFSv3。</block>
   <block id="87e881298a8d8cc2b3ffd068da55a0c1" category="list-text">EKS版本：1.32</block>
   <block id="38ec877f215b7bc2eb836f279c3374c5" category="list-text">安裝方法：Helm 25.06 和 AWS 附加元件 25.06</block>
+  <block id="c3e68f27270590269a730de11050dc96" category="section-title">Trident SAN/iSCSI 和 EBS-CSI 驅動程式的平行使用</block>
+  <block id="70d0aebbccb04b9b3251d782b1c0cfbf" category="paragraph">如果你打算使用<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>驅動程式（例如 iSCSI），節點上所需的多路徑設定可能與 Amazon Elastic Block Store (EBS) CSI 驅動程式衝突。為了確保多路徑工作時不會影響同一節點上的 EBS 磁碟，您必須在多路徑設定中排除 EBS。以下是一個<block ref="9ac80d53ede05256c28cf9e043eb423c" prefix=" " category="inline-code"></block>包含所需Trident設定並將 EBS 磁碟排除在多路徑之外的檔案：</block>
 </blocks>

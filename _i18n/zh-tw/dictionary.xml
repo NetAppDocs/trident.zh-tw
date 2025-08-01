@@ -5348,8 +5348,6 @@
   <block id="f19e5d93360a2cdbfe64b6c513e8d263" category="list-text">按一下「*安裝*」。</block>
   <block id="86499c179913093d38f20a089bb4967f" category="list-text">選擇所需的選項，然後按一下 * 安裝 * 。</block>
   <block id="301a8f7d2ea6785da5f183d668f629b2" category="list-text">安裝完成後，即可在已安裝的操作員清單中看到操作員。</block>
-  <block id="daf49607bdd50d5294748814ce67ed21" category="list-text">建立類似於操作員套件安裝的 Torc 。</block>
-  <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">解除安裝 Trident 運算子</block>
   <block id="9838ab5306db947832d94d1cd49a486a" category="list-text">從已安裝操作員清單中選取 Trident 操作員。</block>
   <block id="b5a7424a278ddd01fa4e381b58d1e00d" category="list-text">如果您要從運算子刪除所有的運算元執行個體，請選取此選項。</block>
   <block id="28ed84868f638999e59e306d6b87b07c" category="admonition">如果未選中 * 刪除此運算符的所有操作數實例 * 複選框，則不會卸載 Trident 。</block>
@@ -5771,4 +5769,5 @@
   <block id="99be75de31964ff7afed59629c2827c9" category="list-text">數位<block ref="415d01607bfb64fa0b7efaf0fe064e86" prefix=" " category="inline-code"></block></block>
   <block id="f0fbfac7ddb67830c39dcddb2e0101aa" category="list-text">底線<block ref="b14a7b8059d9c055954c92674ce60032" prefix=" " category="inline-code"></block></block>
   <block id="c76231732eebaec2e2411ed7cfd30e2c" category="list-text">連字符<block ref="336d5ebc5436534e61d16e63ddfca327" prefix=" " category="inline-code"></block></block>
+  <block id="3304691bb80d9d42f8bae0707e46c701" category="paragraph">== 卸載Trident操作符</block>
 </blocks>

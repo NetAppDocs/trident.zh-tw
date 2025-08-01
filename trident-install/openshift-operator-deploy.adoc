@@ -40,12 +40,10 @@ image::../media/openshift-operator-03.png[安裝]
 +
 image::../media/openshift-operator-04.png[已安裝]
 
-. 建立類似於操作員套件安裝的 Torc 。
++
+== 卸載Trident操作符
 
 
-
-
-== 解除安裝 Trident 運算子
 
 .步驟
 . 從已安裝操作員清單中選取 Trident 操作員。

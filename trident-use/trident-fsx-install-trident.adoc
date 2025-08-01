@@ -30,7 +30,7 @@ Trident 簡化了 Kubernetes 中適用於 NetApp ONTAP 儲存管理的 Amazon FS
 ====
 .Pod 身份
 --
-. 新增 NetApp Trident repo helm 設定：
+. 新增Trident Helm儲存庫：
 +
 [source, console]
 ----
@@ -62,7 +62,7 @@ trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT
 --
 .服務帳戶協會 (IRSA)
 --
-. 新增 NetApp Trident repo helm 設定：
+. 新增Trident Helm儲存庫：
 +
 [source, console]
 ----

@@ -5664,7 +5664,6 @@
   <block id="37d9be75a57d7c290f4624befaf41cba" category="open-title">服務帳戶關聯 (IRSA) 的 IAM 角色</block>
   <block id="58b24f910cf7a97cc3ea8486155b2ee3" category="paragraph">*使用 AWS CLI*：</block>
   <block id="4411692a55eac3faa65c355f682424c8" category="paragraph">*如果您使用 eksctl*，請使用下列範例為 EKS 中的服務帳戶建立 IAM 角色：</block>
-  <block id="170c4b43aa699fd86dc97df5f091ff90" category="list-text">新增 NetApp Trident repo helm 設定：</block>
   <block id="de756da101866f0bf66d3cfdb32b337b" category="list-text">使用下列範例安裝 Trident：</block>
   <block id="3840ce271260ab4b489b1664491a7ae0" category="open-title">服務帳戶協會 (IRSA)</block>
   <block id="682fae06c762bb51c348b65f07930993" category="list-text">設定「雲端提供者」和「雲端身分」的值：</block>
@@ -5768,4 +5767,5 @@
   <block id="38ec877f215b7bc2eb836f279c3374c5" category="list-text">安裝方法：Helm 25.06 和 AWS 附加元件 25.06</block>
   <block id="c3e68f27270590269a730de11050dc96" category="section-title">Trident SAN/iSCSI 和 EBS-CSI 驅動程式的平行使用</block>
   <block id="70d0aebbccb04b9b3251d782b1c0cfbf" category="paragraph">如果你打算使用<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>驅動程式（例如 iSCSI），節點上所需的多路徑設定可能與 Amazon Elastic Block Store (EBS) CSI 驅動程式衝突。為了確保多路徑工作時不會影響同一節點上的 EBS 磁碟，您必須在多路徑設定中排除 EBS。以下是一個<block ref="9ac80d53ede05256c28cf9e043eb423c" prefix=" " category="inline-code"></block>包含所需Trident設定並將 EBS 磁碟排除在多路徑之外的檔案：</block>
+  <block id="54cae3576f4c4ef43a60a75276a7afdb" category="paragraph">使用Trident<block ref="30e4ebd32bc870aef019efda0672389c" category="inline-link-macro-rx"></block>您可以一步驟部署Trident操作員並安裝Trident 。</block>
 </blocks>

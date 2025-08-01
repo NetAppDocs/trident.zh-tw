@@ -38,7 +38,7 @@ summary: 您可以部署 Trident 運算子、並使用 Helm 安裝 Trident 。�
 
 == 部署 Trident 操作員、並使用 Helm 安裝 Trident
 
-使用Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["掌舵表"^] 您可以部署Trident運算子、並在單一步驟中安裝Trident。
+使用Tridentlink:https://netapp.github.io/trident-helm-chart["掌舵表"^]您可以一步驟部署Trident操作員並安裝Trident 。
 
 檢閱 link:../trident-get-started/kubernetes-deploy.html["安裝總覽"] 為了確保您符合安裝先決條件、並為您的環境選擇正確的安裝選項。
 
@@ -53,7 +53,7 @@ IMPORTANT: 在私有儲存庫中安裝 Trident 時、如果您使用 `imageRegis
 +
 [source, console]
 ----
-helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
+helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
 . 使用 `helm install` 並指定部署和映像登錄位置的名稱。您 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有 CSI 映像都必須位於同一個登錄中。在範例中 `100.2506.0`、是您要安裝的 Trident 版本。
 +

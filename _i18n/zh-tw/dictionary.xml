@@ -4153,7 +4153,6 @@
   <block id="edb32c41feaaffb2d7ff10dac9d80312" category="open-title">使用 CLI 新增應用程式</block>
   <block id="0ef657dffb550796349fff7260ee7b1f" category="summary">您可以將備份或快照資料還原至不同的叢集或儲存類別</block>
   <block id="5d23a9c0c55a80ece74daa65c04f1d66" category="doc">移轉應用程式</block>
-  <block id="f0947115fd72dc8926d993b03e13a329" category="paragraph">您可以將備份或快照資料還原至不同的叢集或儲存類別，在叢集或儲存類別之間移轉應用程式。</block>
   <block id="85ff05ce333a3cc83e4b1bece0b1a885" category="admonition">當您移轉應用程式時，為應用程式設定的所有執行掛鉤都會隨應用程式一起移轉。如果存在還原後執行掛鉤，則會在還原作業中自動執行。</block>
   <block id="dea2f94d534ebdd522c0137cd11f63bf" category="section-title">備份與還原作業</block>
   <block id="b21f1727ed04fb70c8e47cb11cdfb2bb" category="paragraph">若要針對下列案例執行備份與還原作業，您可以自動化特定的備份與還原工作。</block>
@@ -4171,7 +4170,6 @@
   <block id="e27031b9d0bffffcf2abd2136eed21f5" category="list-text"><block ref="71bc4096317f8eb78a9951851bc1165b" category="inline-link-macro-rx"></block>。</block>
   <block id="403ecb1db6fa0f1bb20e787bb5f5dacd" category="section-title">複製到不同叢集</block>
   <block id="181aa092ab965b34bcee90e25056f876" category="section-title">將應用程式從一個儲存類別移轉至另一個儲存類別</block>
-  <block id="97a1f17d0c2154050e8ba2ecfd07ecf4" category="paragraph">您可以將快照還原至不同的目的地儲存類別，將應用程式從一個儲存類別移轉至不同的儲存類別。</block>
   <block id="f1ad7bca566917ee78958caa78fab3f5" category="paragraph">例如（從還原 CR 中排除機密）：</block>
   <block id="daf2d2aebeca09dea5ece5c9c1513383" category="open-title">使用 CR 還原快照</block>
   <block id="a35b06511e032bee46bbed064afa12dc" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="fac6dff7f801a4983f4a536dbcbd40d7" prefix=" " category="inline-code"></block>。</block>
@@ -4299,7 +4297,6 @@
   <block id="0334c5d881452d9144d4edf93d44ff85" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="aa3356b96c40153ef83fe9854ede7a70" prefix=" " category="inline-code"></block>。</block>
   <block id="8ebefb3e84a05b2e3bf54824870d776d" category="list-text">*spec.appArchivePath* ：儲存備份內容的 AppVault 內部路徑。您可以使用下列命令來尋找此路徑：</block>
   <block id="3f1db1c30ba33e5d04499f000ed77f97" category="list-text">*spec.appVaultRef* ：（ _required _ ）儲存備份內容的 AppVault 名稱。</block>
-  <block id="3e209c1619d0c38cf60c13838ca4cf72" category="list-text">*spec.storageClassMapping* ：將還原作業的來源儲存類別對應至目的地儲存類別。以環境中的資訊取代<block ref="6d4164a2db4b8f123f2f4666f47d1304" prefix=" " category="inline-code"></block>和<block ref="cb3a1d54728d178b537383d31afb4b53" prefix=" " category="inline-code"></block>。</block>
   <block id="a5085953f7b15a312b4e12827abc66e5" category="list-text">（ _Optional_ ）如果您只需要選取應用程式的某些資源來還原，請新增篩選功能，以包含或排除標記有特定標籤的資源：</block>
   <block id="be16b6e14200639734fb9694e3c0f655" category="list-text">*resourceMatchers[].group* ：（ _Optional_ ）要篩選的資源群組。</block>
   <block id="2162d9f0c97d87c37f838ea27ecb393a" category="list-text">*resourceMatchers[].cher* ：（ _Optional_ ）要篩選的資源種類。</block>
@@ -5186,7 +5183,6 @@
   <block id="c9272f0d68fac2055ba2d71be6c87b1b" category="paragraph">以下範例將警示管理員設定為傳送通知至 Slack 頻道。若要根據您的環境自訂此範例，請將金鑰的值取代為<block ref="aa8106611bcfe43fec48e6d1d371de52" prefix=" " category="inline-code"></block>您環境中使用的 Slack Webhook URL ：</block>
   <block id="792d490e884279c961aba837ccd9b67a" category="admonition">Trident Protect 會自動選取部分資源，因為這些資源與您選取的資源之間的關係。例如，如果您選取持續磁碟區宣告資源，而且該資源有相關聯的 Pod ，則 Trident Protect 也會還原相關聯的 Pod 。</block>
   <block id="d110d36251c4dd04b7da5ef237ac6063" category="inline-link">Kopia 文件</block>
-  <block id="2cd3acbff016f03ffcfe72208e450647" category="admonition">當您使用 Kopia 做為資料移動器來還原備份時，您可以選擇性地在 CR 中指定註釋，或使用 CLI 來控制 Kopia 使用的大量儲存設備的行為。如需可設定選項的詳細資訊，請參閱<block ref="08f67cdc0555f043586a8a4182d9187b" category="inline-link-rx"></block>。使用<block ref="26d4326deff4a9a34c8bff3eaf4ad7fc" prefix=" " category="inline-code"></block>命令可取得更多關於使用 Trident Protect CLI 指定註釋的資訊。</block>
   <block id="7491b3d3a4aa89a2dd6445477c6b6e0a" category="list-text">對於 Amazon S3 （ AWS ） AppVault 物件，您可以選擇性地指定一個工作區權杖，如果您使用單一登入（ SSO ）進行驗證，這會很有用。當您在中為提供者產生金鑰時<block ref="cd932e77bb3df9634d58b2fd34398b6f" category="inline-xref-macro-rx"></block>，就會建立此權杖。</block>
   <block id="620026f954fdad541c9d19554476345c" category="list-text">移除 AppVault 物件，以要移除的 AppVault 物件名稱取代<block ref="bf09cf3bd2a9288a0bdf3d1b89b770a1" prefix=" " category="inline-code"></block>：</block>
   <block id="35d393329a969d87338f26cd6fe42238" category="list-text">使用 Helm 安裝 Trident Protect 。以叢集名稱取代<block ref="ecc79c99c4f86f0db5cc7f200415205f" prefix=" " category="inline-code"></block>，該名稱將指派給叢集，用於識別叢集的備份和快照：</block>
@@ -5394,7 +5390,6 @@
   <block id="70694773feb2b23c45e7ff7a6a3c3c8b" category="paragraph">您可以將 AlertManager 設定為傳送通知給其他通道，例如電子郵件， PagerDuty ， Microsoft 團隊或其他通知服務，方法是在檔案中指定個別的組態<block ref="9001eaececb0884cbeb80659e81340ad" prefix=" " category="inline-code"></block>。</block>
   <block id="965357e3c90ccf3fba01174c6508d562" category="listing-title">alertmanager.yaml：向 Slack 頻道發送警報</block>
   <block id="fb72ca78c839cefc52d39ebcecaf6827" category="paragraph">卷快照支援<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> ， <block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> ， <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ， <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> ， <block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> ， <block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block> ， <block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> ， 和<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>司機。</block>
-  <block id="173f808fc086ccd7ca8b43512be2cd48" category="admonition">這<block ref="e28ab870e47892fbd81eca8fc84c45ac" prefix=" " category="inline-code"></block>屬性僅在原始屬性和新屬性都有效時<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>使用相同的儲存後端。如果您嘗試恢復到<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>如果使用不同的儲存後端，則復原操作將會失敗。</block>
   <block id="02c19b7bc038d2af238bbd729bc3d9c4" category="list-text">手動建立 AppVault CR 時，使用 *spec.dataMoverPasswordSecretRef* 欄位指定金鑰。</block>
   <block id="0a636ed0406fe1d7ddf9db59b32011b3" category="list-text">使用 Trident Protect CLI 建立 AppVault 物件時，使用<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>參數來指定秘密。</block>
   <block id="d2a7dc5804ec844f3f7bfb903e97693f" category="section-title">S3 相容於儲存 IAM 權限</block>
@@ -5770,4 +5765,17 @@
   <block id="f0fbfac7ddb67830c39dcddb2e0101aa" category="list-text">底線<block ref="b14a7b8059d9c055954c92674ce60032" prefix=" " category="inline-code"></block></block>
   <block id="c76231732eebaec2e2411ed7cfd30e2c" category="list-text">連字符<block ref="336d5ebc5436534e61d16e63ddfca327" prefix=" " category="inline-code"></block></block>
   <block id="3304691bb80d9d42f8bae0707e46c701" category="paragraph">== 卸載Trident操作符</block>
+  <block id="e2cc5e54cd44b8315b1324dec48b3d79" category="paragraph">您可以透過還原備份資料在叢集之間或不同的儲存類別之間遷移您的應用程式。</block>
+  <block id="259898c4a16b145b9fb12c18949c2e58" category="paragraph">您可以透過將備份還原到目標儲存類，將應用程式從一個儲存類別遷移到另一個儲存類別。</block>
+  <block id="b34476802a6b2dff98e6f97e309970b2" category="inline-link-macro">使用進階Trident保護恢復設定</block>
+  <block id="22d9eb2f3982698c6f5c93edae216a51" category="list-text">您可以使用進階設定來自訂恢復操作。要了解更多信息，請參閱<block ref="80b4b5e2c832cc4fcff1f69711f1c808" category="inline-link-macro-rx"></block>。</block>
+  <block id="3efe6f70bb45e527ed991c55df7d621d" category="admonition">當您使用 Kopia 作為資料移動器還原備份時，您可以選擇在 CR 中指定註解或使用 CLI 來控制 Kopia 使用的暫存的行為。請參閱<block ref="08f67cdc0555f043586a8a4182d9187b" category="inline-link-rx"></block>有關您可以配置的選項的詳細資訊。使用<block ref="26d4326deff4a9a34c8bff3eaf4ad7fc" prefix=" " category="inline-code"></block>命令以取得有關使用Trident Protect CLI 指定註解的更多資訊。</block>
+  <block id="15910dd29963e5df5f2b5879472bcc00" category="admonition">SnapshotRestore 支持<block ref="b57d666629acffb30cc697faadc136b5" prefix=" " category="inline-code"></block>屬性，但僅當來源和目標儲存類別使用相同的儲存後端。如果您嘗試恢復到<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>如果使用不同的儲存後端，則復原操作將會失敗。</block>
+  <block id="4c2451a6dd1d1ce7a84476069f101573" category="summary">您可以使用註解、命名空間設定和儲存選項自訂Trident保護復原作業。</block>
+  <block id="3fbccf21ba46fe754417d45e7396e0e4" category="paragraph">您可以使用進階設定（例如註解、命名空間設定和儲存選項）自訂復原操作，以滿足您的特定要求。</block>
+  <block id="52391deb129507aac52d6fb22aaf137c" category="section-title">支援的字段</block>
+  <block id="c87f7398b288400e3d2c984a3d997d7b" category="paragraph">本節介紹可用於恢復操作的其他欄位。</block>
+  <block id="11162de38772a3876602bb4d9d213f43" category="section-title">儲存類別映射</block>
+  <block id="b48c8c7ca3eb5e63afdfe6bbd74a35c9" category="paragraph">這<block ref="b57d666629acffb30cc697faadc136b5" prefix=" " category="inline-code"></block>屬性定義從來源應用程式中的現有儲存類別到目標叢集上的新儲存類別的對應。您可以在具有不同儲存類別的叢集之間移轉應用程式時或變更 BackupRestore 作業的儲存後端時使用此功能。</block>
+  <block id="27f5153068cecd37b6fa4a136586658d" category="sidebar">使用進階設定</block>
 </blocks>

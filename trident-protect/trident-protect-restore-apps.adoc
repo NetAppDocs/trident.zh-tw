@@ -20,104 +20,10 @@ summary: 您可以使用 Trident Protect 從快照或備份還原應用程式。
 ====
 * 當您還原應用程式時，為應用程式設定的所有執行掛鉤都會隨應用程式一起還原。如果存在還原後執行掛鉤，則會在還原作業中自動執行。
 * 對於 qtree 卷，支援從備份還原到其他命名空間或原始命名空間。但是，對於 qtree 卷，不支援從快照還原到其他命名空間或原始命名空間。
+* 您可以使用進階設定來自訂恢復操作。要了解更多信息，請參閱link:../trident-protect/trident-protect-restore-settings.html["使用進階Trident保護恢復設定"]。
 
 
 ====
-
-
-== 還原和容錯移轉作業期間的命名空間註釋和標籤
-
-在還原和容錯移轉作業期間，目的地命名空間中的標籤和註釋會與來源命名空間中的標籤和註釋相符。會新增來源命名空間中不存在的標籤或註釋，並覆寫已存在的任何標籤或註釋，以符合來源命名空間的值。只存在於目的地命名空間上的標籤或註釋會保持不變。
-
-
-NOTE: 如果您使用 Red Hat OpenShift ，請務必注意 OpenShift 環境中命名空間註釋的關鍵作用。命名空間註釋可確保還原的 Pod 符合 OpenShift 安全性內容限制（ SCC ）所定義的適當權限和安全性組態，而且無需權限問題即可存取磁碟區。如需詳細資訊，請 https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/authentication_and_authorization/managing-pod-security-policies["OpenShift 安全性內容限制文件"^]參閱。
-
-您可以在執行還原或容錯移轉作業之前，先設定 Kubernetes 環境變數，以避免覆寫目的地命名空間中的特定註釋 `RESTORE_SKIP_NAMESPACE_ANNOTATIONS`。例如：
-
-[source, console]
-----
-kubectl set env -n trident-protect deploy/trident-protect-controller-manager RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
-----
-如果您使用帶有標誌的 Helm 來安裝來源應用程式 `--create-namespace`，則會對標籤機碼給予特殊處理 `name`。在還原或容錯移轉程序期間， Trident Protect 會將此標籤複製到目的地命名空間，但如果來源的值符合來源命名空間，則會將值更新到目的地命名空間值。如果此值與來源命名空間不相符，則會將其複製到目的地命名空間，而不會有任何變更。
-
-
-
-=== 範例
-
-以下範例提供來源和目的地命名空間，每個命名空間都有不同的註釋和標籤。您可以查看作業前後目的地命名空間的狀態，以及註釋和標籤在目的地命名空間中的組合或覆寫方式。
-
-
-
-==== 還原或容錯移轉作業之前
-
-下表說明還原或容錯移轉作業之前的範例來源和目的地命名空間狀態：
-
-[cols="1,2a,2a"]
-|===
-| 命名空間 | 註釋 | 標籤 
-
-
-| 命名空間 nS-1 （來源）  a| 
-* annotation.one / 機碼：「 updatedvalue 」
-* annotation.b2/key ：「 true 」
-
- a| 
-* 環境 = 正式作業
-* Compliance = HIPAA
-* NAME=ns-1
-
-
-
-
-| 命名空間 nS-2 （目的地）  a| 
-* annotation.one / 機碼：「 true 」
-* annotation.the/key ：「 FALSE 」
-
- a| 
-* role = 資料庫
-
-
-|===
-
-
-==== 還原作業之後
-
-下表說明還原或容錯移轉作業之後範例目的地命名空間的狀態。某些金鑰已新增，部分已覆寫， `name`標籤已更新以符合目的地命名空間：
-
-[cols="1,2a,2a"]
-|===
-| 命名空間 | 註釋 | 標籤 
-
-
-| 命名空間 nS-2 （目的地）  a| 
-* annotation.one / 機碼：「 updatedvalue 」
-* annotation.b2/key ：「 true 」
-* annotation.the/key ：「 FALSE 」
-
- a| 
-* NAME=nS-2
-* Compliance = HIPAA
-* 環境 = 正式作業
-* role = 資料庫
-
-
-|===
-
-
-== 支持的註釋
-
-本節列出了系統中支援配置各種行為的註解。如果使用者未明確設定註解，系統將使用預設值。
-
-[cols="1,1,3,1"]
-|===
-| 註釋 | 類型 | 說明 | 預設值 
-
-
-| protected.trident.netapp.io/data-mover-timeout-sec | 字串 | 允許資料移動設備操作停止的最長時間（以秒為單位）。 | 300 
-
-
-| protected.trident.netapp.io/kopia-content-cache-size-limit-mb | 整數 | Kopia 內容快取的最大大小限制（以兆位元組為單位）。 | 1000 
-|===
 
 
 == 從備份還原至不同的命名空間
@@ -135,7 +41,7 @@ NOTE: 將備份還原至具有現有資源的不同命名空間，並不會改�
 
 
 
-NOTE: 當您使用 Kopia 做為資料移動器來還原備份時，您可以選擇性地在 CR 中指定註釋，或使用 CLI 來控制 Kopia 使用的大量儲存設備的行為。如需可設定選項的詳細資訊，請參閱 https://kopia.io/docs/getting-started/["Kopia 文件"^]。使用 `tridentctl-protect create --help`命令可取得更多關於使用 Trident Protect CLI 指定註釋的資訊。
+NOTE: 當您使用 Kopia 作為資料移動器還原備份時，您可以選擇在 CR 中指定註解或使用 CLI 來控制 Kopia 使用的暫存的行為。請參閱 https://kopia.io/docs/getting-started/["Kopia 文件"^]有關您可以配置的選項的詳細資訊。使用 `tridentctl-protect create --help`命令以取得有關使用Trident Protect CLI 指定註解的更多資訊。
 
 [role="tabbed-block"]
 ====
@@ -154,7 +60,6 @@ kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appA
 ----
 ** *spec.appVaultRef* ：（ _required _ ）儲存備份內容的 AppVault 名稱。
 ** *spec.namespaceMapping*: 將還原作業的來源命名空間對應至目的地命名空間。以環境中的資訊取代 `my-source-namespace`和 `my-destination-namespace`。
-** *spec.storageClassMapping* ：將還原作業的來源儲存類別對應至目的地儲存類別。以環境中的資訊取代 `destinationStorageClass`和 `sourceStorageClass`。
 +
 [source, yaml]
 ----
@@ -164,15 +69,10 @@ kind: BackupRestore
 metadata:
   name: my-cr-name
   namespace: my-destination-namespace
-  annotations: # Optional annotations for Kopia data mover
-    protect.trident.netapp.io/kopia-content-cache-size-limit-mb: 1000
 spec:
   appArchivePath: my-backup-path
   appVaultRef: appvault-name
   namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
-  storageClassMapping:
-    destination: "${destinationStorageClass}"
-    source: "${sourceStorageClass}"
 ----
 
 
@@ -260,7 +160,7 @@ tridentctl-protect create backuprestore <my_restore_name> \
 
 
 
-NOTE: 當您使用 Kopia 做為資料移動器來還原備份時，您可以選擇性地在 CR 中指定註釋，或使用 CLI 來控制 Kopia 使用的大量儲存設備的行為。如需可設定選項的詳細資訊，請參閱 https://kopia.io/docs/getting-started/["Kopia 文件"^]。使用 `tridentctl-protect create --help`命令可取得更多關於使用 Trident Protect CLI 指定註釋的資訊。
+NOTE: 當您使用 Kopia 作為資料移動器還原備份時，您可以選擇在 CR 中指定註解或使用 CLI 來控制 Kopia 使用的暫存的行為。請參閱 https://kopia.io/docs/getting-started/["Kopia 文件"^]有關您可以配置的選項的詳細資訊。使用 `tridentctl-protect create --help`命令以取得有關使用Trident Protect CLI 指定註解的更多資訊。
 
 [role="tabbed-block"]
 ====
@@ -290,8 +190,6 @@ kind: BackupInplaceRestore
 metadata:
   name: my-cr-name
   namespace: my-app-namespace
-  annotations: # Optional annotations for Kopia data mover
-    protect.trident.netapp.io/kopia-content-cache-size-limit-mb: 1000
 spec:
   appArchivePath: my-backup-path
   appVaultRef: appvault-name
@@ -374,7 +272,7 @@ tridentctl-protect create backupinplacerestore <my_restore_name> \
 如果原始叢集發生問題，您可以將備份還原至不同的叢集。
 
 
-NOTE: 當您使用 Kopia 做為資料移動器來還原備份時，您可以選擇性地在 CR 中指定註釋，或使用 CLI 來控制 Kopia 使用的大量儲存設備的行為。如需可設定選項的詳細資訊，請參閱 https://kopia.io/docs/getting-started/["Kopia 文件"^]。使用 `tridentctl-protect create --help`命令可取得更多關於使用 Trident Protect CLI 指定註釋的資訊。
+NOTE: 當您使用 Kopia 作為資料移動器還原備份時，您可以選擇在 CR 中指定註解或使用 CLI 來控制 Kopia 使用的暫存的行為。請參閱 https://kopia.io/docs/getting-started/["Kopia 文件"^]有關您可以配置的選項的詳細資訊。使用 `tridentctl-protect create --help`命令以取得有關使用Trident Protect CLI 指定註解的更多資訊。
 
 .開始之前
 確保符合下列先決條件：
@@ -459,8 +357,6 @@ kind: BackupRestore
 metadata:
   name: my-cr-name
   namespace: my-destination-namespace
-  annotations: # Optional annotations for Kopia data mover
-    protect.trident.netapp.io/kopia-content-cache-size-limit-mb: 1000
 spec:
   appVaultRef: appvault-name
   appArchivePath: my-backup-path
@@ -500,6 +396,9 @@ tridentctl-protect create backuprestore <restore_name> \
 
 您可以使用自訂資源（ CR ）檔案、將資料從快照還原至不同的命名空間或原始來源命名空間。當您使用 SnapshotRestore CR 將快照還原至不同的命名空間時， Trident Protect 會在新命名空間中還原應用程式，並為還原的應用程式建立應用程式 CR 。若要保護還原的應用程式，請建立隨需備份或快照，或建立保護排程。
 
+
+NOTE: SnapshotRestore 支持 `spec.storageClassMapping`屬性，但僅當來源和目標儲存類別使用相同的儲存後端。如果您嘗試恢復到 `StorageClass`如果使用不同的儲存後端，則復原操作將會失敗。
+
 .開始之前
 確保 AWS 工作階段權杖到期時間足以執行任何長時間執行的 S3 還原作業。如果 Token 在還原作業期間過期，作業可能會失敗。
 
@@ -524,11 +423,6 @@ tridentctl-protect create backuprestore <restore_name> \
 kubectl get snapshots <SNAPHOT_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
 ** *spec.namespaceMapping*: 將還原作業的來源命名空間對應至目的地命名空間。以環境中的資訊取代 `my-source-namespace`和 `my-destination-namespace`。
-** *spec.storageClassMapping* ：將還原作業的來源儲存類別對應至目的地儲存類別。以環境中的資訊取代 `destinationStorageClass`和 `sourceStorageClass`。
-+
-
-NOTE: 這 `storageClassMapping`屬性僅在原始屬性和新屬性都有效時 `StorageClass`使用相同的儲存後端。如果您嘗試恢復到 `StorageClass`如果使用不同的儲存後端，則復原操作將會失敗。
-
 +
 [source, yaml]
 ----
@@ -542,9 +436,6 @@ spec:
   appVaultRef: appvault-name
   appArchivePath: my-snapshot-path
   namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
-  storageClassMapping:
-    destination: "${destinationStorageClass}"
-    source: "${sourceStorageClass}"
 ----
 
 

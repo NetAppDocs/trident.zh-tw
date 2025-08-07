@@ -1,0 +1,135 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-restore-settings.html 
+keywords: trident, protect, restore, data, backup 
+summary: 您可以使用註解、命名空間設定和儲存選項自訂Trident保護復原作業。 
+---
+= 使用進階Trident保護恢復設定
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用進階設定（例如註解、命名空間設定和儲存選項）自訂復原操作，以滿足您的特定要求。
+
+
+
+== 還原和容錯移轉作業期間的命名空間註釋和標籤
+
+在還原和容錯移轉作業期間，目的地命名空間中的標籤和註釋會與來源命名空間中的標籤和註釋相符。會新增來源命名空間中不存在的標籤或註釋，並覆寫已存在的任何標籤或註釋，以符合來源命名空間的值。只存在於目的地命名空間上的標籤或註釋會保持不變。
+
+
+NOTE: 如果您使用 Red Hat OpenShift ，請務必注意 OpenShift 環境中命名空間註釋的關鍵作用。命名空間註釋可確保還原的 Pod 符合 OpenShift 安全性內容限制（ SCC ）所定義的適當權限和安全性組態，而且無需權限問題即可存取磁碟區。如需詳細資訊，請 https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/authentication_and_authorization/managing-pod-security-policies["OpenShift 安全性內容限制文件"^]參閱。
+
+您可以在執行還原或容錯移轉作業之前，先設定 Kubernetes 環境變數，以避免覆寫目的地命名空間中的特定註釋 `RESTORE_SKIP_NAMESPACE_ANNOTATIONS`。例如：
+
+[source, console]
+----
+kubectl set env -n trident-protect deploy/trident-protect-controller-manager RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
+----
+如果您使用帶有標誌的 Helm 來安裝來源應用程式 `--create-namespace`，則會對標籤機碼給予特殊處理 `name`。在還原或容錯移轉程序期間， Trident Protect 會將此標籤複製到目的地命名空間，但如果來源的值符合來源命名空間，則會將值更新到目的地命名空間值。如果此值與來源命名空間不相符，則會將其複製到目的地命名空間，而不會有任何變更。
+
+
+
+=== 範例
+
+以下範例提供來源和目的地命名空間，每個命名空間都有不同的註釋和標籤。您可以查看作業前後目的地命名空間的狀態，以及註釋和標籤在目的地命名空間中的組合或覆寫方式。
+
+
+
+==== 還原或容錯移轉作業之前
+
+下表說明還原或容錯移轉作業之前的範例來源和目的地命名空間狀態：
+
+[cols="1,2a,2a"]
+|===
+| 命名空間 | 註釋 | 標籤 
+
+
+| 命名空間 nS-1 （來源）  a| 
+* annotation.one / 機碼：「 updatedvalue 」
+* annotation.b2/key ：「 true 」
+
+ a| 
+* 環境 = 正式作業
+* Compliance = HIPAA
+* NAME=ns-1
+
+
+
+
+| 命名空間 nS-2 （目的地）  a| 
+* annotation.one / 機碼：「 true 」
+* annotation.the/key ：「 FALSE 」
+
+ a| 
+* role = 資料庫
+
+
+|===
+
+
+==== 還原作業之後
+
+下表說明還原或容錯移轉作業之後範例目的地命名空間的狀態。某些金鑰已新增，部分已覆寫， `name`標籤已更新以符合目的地命名空間：
+
+[cols="1,2a,2a"]
+|===
+| 命名空間 | 註釋 | 標籤 
+
+
+| 命名空間 nS-2 （目的地）  a| 
+* annotation.one / 機碼：「 updatedvalue 」
+* annotation.b2/key ：「 true 」
+* annotation.the/key ：「 FALSE 」
+
+ a| 
+* NAME=nS-2
+* Compliance = HIPAA
+* 環境 = 正式作業
+* role = 資料庫
+
+
+|===
+
+
+== 支援的字段
+
+本節介紹可用於恢復操作的其他欄位。
+
+
+
+=== 儲存類別映射
+
+這 `spec.storageClassMapping`屬性定義從來源應用程式中的現有儲存類別到目標叢集上的新儲存類別的對應。您可以在具有不同儲存類別的叢集之間移轉應用程式時或變更 BackupRestore 作業的儲存後端時使用此功能。
+
+*範例：*
+
+[source, yaml]
+----
+storageClassMapping:
+  - destination: "destinationStorageClass1"
+    source: "sourceStorageClass1"
+  - destination: "destinationStorageClass2"
+    source: "sourceStorageClass2"
+----
+
+
+== 支持的註釋
+
+本節列出了系統中支援配置各種行為的註解。如果使用者未明確設定註解，系統將使用預設值。
+
+[cols="1,1,3,1"]
+|===
+| 註釋 | 類型 | 說明 | 預設值 
+
+
+| protected.trident.netapp.io/data-mover-timeout-sec | 字串 | 允許資料移動設備操作停止的最長時間（以秒為單位）。 | 300 
+
+
+| protected.trident.netapp.io/kopia-content-cache-size-limit-mb | 整數 | Kopia 內容快取的最大大小限制（以兆位元組為單位）。 | 1000 
+|===

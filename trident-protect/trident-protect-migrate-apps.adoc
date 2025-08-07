@@ -14,7 +14,7 @@ summary: 您可以將備份或快照資料還原至不同的叢集或儲存類�
 
 
 [role="lead"]
-您可以將備份或快照資料還原至不同的叢集或儲存類別，在叢集或儲存類別之間移轉應用程式。
+您可以透過還原備份資料在叢集之間或不同的儲存類別之間遷移您的應用程式。
 
 
 NOTE: 當您移轉應用程式時，為應用程式設定的所有執行掛鉤都會隨應用程式一起移轉。如果存在還原後執行掛鉤，則會在還原作業中自動執行。
@@ -65,7 +65,7 @@ NOTE: 您可以使用在不同叢集之間複寫應用程式link:trident-protect
 
 == 將應用程式從一個儲存類別移轉至另一個儲存類別
 
-您可以將快照還原至不同的目的地儲存類別，將應用程式從一個儲存類別移轉至不同的儲存類別。
+您可以透過將備份還原到目標儲存類，將應用程式從一個儲存類別遷移到另一個儲存類別。
 
 例如（從還原 CR 中排除機密）：
 
@@ -79,11 +79,11 @@ spec:
   appArchivePath: "${snapshotArchivePath}"
   appVaultRef: "${appVaultCRName}"
   namespaceMapping:
-    destination: "${destinationNamespace}"
-    source: "${sourceNamespace}"
+    - destination: "${destinationNamespace}"
+      source: "${sourceNamespace}"
   storageClassMapping:
-    destination: "${destinationStorageClass}"
-    source: "${sourceStorageClass}"
+    - destination: "${destinationStorageClass}"
+      source: "${sourceStorageClass}"
   resourceFilter:
     resourceMatchers:
       kind: Secret

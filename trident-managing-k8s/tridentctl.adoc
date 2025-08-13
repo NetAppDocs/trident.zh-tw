@@ -148,24 +148,24 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 `tridentctl install [flags]`
 
-旗標:: `--autosupport-image string`： AutoSupport 遙測的容器影像（預設為「 NetApp / Trident AutoSupport ： <current-version> 」）。
-`--autosupport-proxy string`：用於發送 AutoSupport 遙測的代理的地址 / 端口。
-`--enable-node-prep`：嘗試在節點上安裝所需的軟件包。
-`--generate-custom-yaml`：生成 YAML 文件而無需安裝任何內容。
-`-h` `--help`：安裝說明。
-`--http-request-timeout`：覆寫 Trident 控制器 REST API 的 HTTP 要求逾時（預設值為 1m30s ）。
-`--image-registry string`：內部映像登錄的位址 / 連接埠。
-`--k8s-timeout duration`：所有 Kubernetes 作業的逾時時間（預設為 30 個月）。
-`--kubelet-dir string`： kubelet 內部狀態的主機位置（預設為「 /var/lib/kubelet 」）。
-`--log-format string`： Trident 記錄格式（ text 、 json ）（預設「 text 」（文字））。
-`--node-prep`：可讓 Trident 準備 Kubernetes 叢集的節點、以使用指定的資料儲存傳輸協定來管理磁碟區。* 目前 `iscsi`是唯一支援的值。 *
-`--pv string`： Trident 使用的舊版 PV 名稱、請確定不存在（預設為「 Trident 」）。
-`--pvc string`： Trident 使用的傳統 PVC 名稱、請確定不存在（預設的「 Trident 」）。
-`--silence-autosupport`：不要自動將 AutoSupport 套裝軟體傳送至 NetApp （預設為 true ）。
-`--silent`：在安裝過程中禁用大多數輸出。
-`--trident-image string`：要安裝的 Trident 映像。
-`--use-custom-yaml`：使用安裝目錄中存在的任何現有 YAML 文件。
-`--use-ipv6`：使用 IPv6 進行 Trident 通訊。
+旗標:: `--autosupport-image string`：自動支援遙測的容器映像（預設為「netapp/trident autosupport:<current-version>」）。
+`--autosupport-proxy string` ：用於發送自動支援遙測的代理程式的位址/連接埠。
+`--enable-node-prep` ：嘗試在節點上安裝所需的軟體包。
+`--generate-custom-yaml` ：無需安裝任何東西即可產生 YAML 檔案。
+`-h` ， `--help` ：安裝幫助。
+`--http-request-timeout` ：覆蓋Trident控制器的 REST API 的 HTTP 請求逾時（預設為 1 分 30 秒）。
+`--image-registry string` ：內部影像註冊表的位址/連接埠。
+`--k8s-timeout duration` ：所有 Kubernetes 操作的逾時時間（預設為 3m0s）。
+`--kubelet-dir string` ：kubelet 內部狀態的主機位置（預設為「/var/lib/kubelet」）。
+`--log-format string` ： Trident日誌格式（文字、json）（預設「文字」）。
+`--node-prep` ：使Trident能夠準備 Kubernetes 叢集的節點，以使用指定的資料儲存協定管理磁碟區。 *現在， `iscsi`是唯一支援的值。從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06.1。 *
+`--pv string` ： Trident使用的舊版 PV 的名稱，確保其不存在（預設為「trident」）。
+`--pvc string` ： Trident使用的舊式 PVC 的名稱，確保其不存在（預設為「trident」）。
+`--silence-autosupport` ：不要自動將自動支援包傳送到NetApp （預設為 true）。
+`--silent` ：安裝期間停用大部分輸出。
+`--trident-image string` ：要安裝的Trident映像。
+`--use-custom-yaml` ：使用安裝目錄中存在的任何現有 YAML 檔案。
+`--use-ipv6` ：使用 IPv6 進行 Trident 的通訊。
 
 
 

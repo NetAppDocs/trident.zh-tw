@@ -5340,9 +5340,6 @@
   <block id="d569da5fb14cad502f71e232cdfcb4e4" category="paragraph">如果您使用 Red Hat OpenShift ，則可以使用 Red Hat 認證的營運者來安裝 NetApp Trident 。請使用此程序，從 Red Hat OpenShift Container Platform 安裝 Trident 。</block>
   <block id="516a493e6df274ac5512ffaab7234ebf" category="section-title">尋找並安裝 Trident 營運商</block>
   <block id="7a200e69eab0d67b215ea6e3c6081797" category="list-text">瀏覽至 OpenShift OperatorHub 並搜尋 NetApp Trident 。</block>
-  <block id="f19e5d93360a2cdbfe64b6c513e8d263" category="list-text">按一下「*安裝*」。</block>
-  <block id="86499c179913093d38f20a089bb4967f" category="list-text">選擇所需的選項，然後按一下 * 安裝 * 。</block>
-  <block id="301a8f7d2ea6785da5f183d668f629b2" category="list-text">安裝完成後，即可在已安裝的操作員清單中看到操作員。</block>
   <block id="9838ab5306db947832d94d1cd49a486a" category="list-text">從已安裝操作員清單中選取 Trident 操作員。</block>
   <block id="b5a7424a278ddd01fa4e381b58d1e00d" category="list-text">如果您要從運算子刪除所有的運算元執行個體，請選取此選項。</block>
   <block id="28ed84868f638999e59e306d6b87b07c" category="admonition">如果未選中 * 刪除此運算符的所有操作數實例 * 複選框，則不會卸載 Trident 。</block>
@@ -5674,7 +5671,6 @@
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">為 ONTAP-NAS 和 ONTAP-NAS-Economy 磁碟區新增了安全的 SMB 支援。 ActiveDirectory 使用者和群組現在可以與 SMB 磁碟區一起使用，以增強安全性。請參閱。 <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block></block>
   <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">增加了對使用 SnapMirror 對 NVMe 後端進行磁碟區複製的支援。請參閱。 <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block></block>
   <block id="afce633f05d99c109d2b0429ee891495" category="admonition">如果您從 25.06 之前的版本升級，則需要執行此步驟，因為 CRD 現在包含在 Trident Protect Helm 圖表中。</block>
-  <block id="78ba3dee1dfae1136825fa94b594e8b0" category="paragraph"><block ref="b370fec489f67cf82a40d70295a9ea9a" category="inline-xref-macro-rx"></block></block>
   <block id="b71ccf1062cee8c376a7eb37e3c42603" category="cell">啟用LUKS加密。請參閱 <block ref="569f9f91cdcc19909b8acbf6f423daf7" category="inline-link-macro-rx"></block>。</block>
   <block id="af4e755c6284fa61e563c93320e97aaa" category="paragraph">Trident使用下列連接埠在 Kubernetes 內部進行通訊：</block>
   <block id="ef46cb32ba76d79fbc7bfb7586fff578" category="list-text">確保您已升級至最新版本<block ref="452b142235e718663e27bc4f162c14ca" prefix=" " category="inline-code"></block> 。</block>
@@ -5760,7 +5756,6 @@
   <block id="99be75de31964ff7afed59629c2827c9" category="list-text">數位<block ref="415d01607bfb64fa0b7efaf0fe064e86" prefix=" " category="inline-code"></block></block>
   <block id="f0fbfac7ddb67830c39dcddb2e0101aa" category="list-text">底線<block ref="b14a7b8059d9c055954c92674ce60032" prefix=" " category="inline-code"></block></block>
   <block id="c76231732eebaec2e2411ed7cfd30e2c" category="list-text">連字符<block ref="336d5ebc5436534e61d16e63ddfca327" prefix=" " category="inline-code"></block></block>
-  <block id="3304691bb80d9d42f8bae0707e46c701" category="paragraph">== 卸載Trident操作符</block>
   <block id="e2cc5e54cd44b8315b1324dec48b3d79" category="paragraph">您可以透過還原備份資料在叢集之間或不同的儲存類別之間遷移您的應用程式。</block>
   <block id="259898c4a16b145b9fb12c18949c2e58" category="paragraph">您可以透過將備份還原到目標儲存類，將應用程式從一個儲存類別遷移到另一個儲存類別。</block>
   <block id="b34476802a6b2dff98e6f97e309970b2" category="inline-link-macro">使用進階Trident保護恢復設定</block>
@@ -5786,4 +5781,16 @@
   <block id="4f8bdbf86c4afec9c1de4e403735e1df" category="list-text">*OpenShift*：修正了 OCP 4.19 中 iSCSI 節點準備失敗的問題。</block>
   <block id="4437218698cd37b58221a09f0b779bab" category="list-text">增加了使用SolidFire後端克隆卷時的超時時間（<block ref="ff387119bc332768d9a3831513d005d5" category="inline-link-macro-rx"></block> ）。</block>
   <block id="3dca4d7450a120a0a20749c485d209b2" category="section-title">25.06 中的變化</block>
+  <block id="70fec01f1a76dbea74bd12ad8fb20151" category="list-text">點選* NetApp Trident* 開啟安裝設定。</block>
+  <block id="1ad8c45e73d79fb1d5606c962d0f3cda" category="list-text">選擇所需的選項，然後按一下「*安裝*」以開啟操作員配置。</block>
+  <block id="3bcd8afe0d2e66ac8ee08b64d8ab5aa9" category="admonition">請確保選擇最新的 Operator 版本。</block>
+  <block id="e1834934410991eaa116cd9cffd2e554" category="list-text">保留所有參數，然後按一下“*安裝*”。</block>
+  <block id="a1e30a9991b9e8abb01ef39a2da53ae9" category="paragraph">安裝完成後，Operator 將顯示在已安裝的 Operator 清單中並可供使用。</block>
+  <block id="8b29df4adf6fbbaec0828beed4564d1b" category="list-text">按一下「查看操作員」以查看操作員的詳細資料。</block>
+  <block id="7c7ed74fe0c2134a4029358fd7840eaa" category="list-text">在 * Trident Orchestrator* 下，按一下 *建立實例*。</block>
+  <block id="7b61a3bcc8bbd41470bf0de7fcfd839e" category="list-text">按一下「YAML 檢視」並將以下內容貼上到表單中：</block>
+  <block id="9152cfa618e086866a5af7caaed0d2bd" category="list-text">Red Hat Enterprise Linux CoreOS (RHCOS) 未啟用和設定 iSCSI。</block>
+  <block id="5df2f935f2bc3df2c6378f665b3d6659" category="list-text">您可以新增<block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix=" " category="inline-code"></block>在所有 OpenShift 工作節點上配置和啟用 iSCSI 和 Multipath 服務的參數。</block>
+  <block id="f61306bfa8c6de676059739358d4479f" category="list-text">按一下「建立」； Trident Orchestrator 將會完全安裝。</block>
+  <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">卸載Trident操作員</block>
 </blocks>

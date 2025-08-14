@@ -5793,4 +5793,5 @@
   <block id="5df2f935f2bc3df2c6378f665b3d6659" category="list-text">您可以新增<block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix=" " category="inline-code"></block>在所有 OpenShift 工作節點上配置和啟用 iSCSI 和 Multipath 服務的參數。</block>
   <block id="f61306bfa8c6de676059739358d4479f" category="list-text">按一下「建立」； Trident Orchestrator 將會完全安裝。</block>
   <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">卸載Trident操作員</block>
+  <block id="b94d4c5305d8d32a875a24a5b1501274" category="admonition">對於使用SolidFire的客戶，請不要升級到 25.06.1，因為取消發布捲時有已知問題。  25.06.2 即將發布以解決此問題。</block>
 </blocks>

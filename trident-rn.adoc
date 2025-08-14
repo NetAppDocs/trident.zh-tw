@@ -28,6 +28,9 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 === Trident
 
 
+IMPORTANT: 對於使用SolidFire的客戶，請不要升級到 25.06.1，因為取消發布捲時有已知問題。  25.06.2 即將發布以解決此問題。
+
+
 
 ==== 修正
 

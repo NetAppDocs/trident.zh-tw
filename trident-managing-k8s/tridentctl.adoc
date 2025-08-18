@@ -251,9 +251,9 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 請依照下列步驟使用檔案更新 `userState` `backend.json` ：
 
 . 編輯 `backend.json` 檔案、 `userState` 將欄位的值設為「已待定」。
-. 使用命令和更新檔案的路徑來更新後端 `tridentctl backend update` `backend.json` 。
+. 使用 `tridentctl update backend`命令和更新的路徑 `backend.json`文件。
 +
-* 範例 * ： `tridentctl backend update -f /<path to backend JSON file>/backend.json`
+*例子*： `tridentctl update backend  -f /<path to backend JSON file>/backend.json -n trident`
 
 
 

@@ -3022,8 +3022,6 @@
   <block id="c26fe677a830587ef1c141567a86c86a" category="paragraph">*範例：*</block>
   <block id="4c8c9b9d93d68dc932195b1aa0583910" category="paragraph">請依照下列步驟使用檔案更新<block ref="aa531c83e844d5d66725984798da11b8" prefix=" " category="inline-code"></block><block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> ：</block>
   <block id="13cf048f75b63ff6bd6513e6ceb81fe0" category="list-text">編輯<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> 檔案、<block ref="aa531c83e844d5d66725984798da11b8" prefix=" " category="inline-code"></block> 將欄位的值設為「已待定」。</block>
-  <block id="90457d836d77c63b0e475cddbb6f1d4c" category="list-text">使用命令和更新檔案的路徑來更新後端<block ref="ad782b779edfd8199198bed41b3e3b6b" prefix=" " category="inline-code"></block><block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> 。</block>
-  <block id="a7c9f5fb8c3dd89cd4acee279df59630" category="paragraph">* 範例 * ：<block ref="cc34ac0a771977b41f88a8dac4a25a01" prefix=" " category="inline-code"></block></block>
   <block id="a0c475f6592b0a660cc2db104d607b3f" category="paragraph">您可以在使用命令套用 tbc 之後編輯它<block ref="cdf774783c0eec7f2639a3c0d70d29ff" prefix=" " category="inline-code"></block> 。下列範例會使用選項更新後端狀態以暫停<block ref="c7d1d8826ecea15bd2786371bbe65f70" prefix=" " category="inline-code"></block> ：</block>
   <block id="68fed7a5dad5dbe38e73f242591f9cdc" category="inline-link-macro">問題 #341</block>
   <block id="79695bf027de5b53252ad567db19afc0" category="list-text">** 重要 ** ：此<block ref="e083f2ed1275af0ce4336a068ebee72a" prefix=" " category="inline-code"></block> 參數現在限制了 ONTAP 經濟驅動程式中的 qtree /LUN 大小。使用新 <block ref="c8f83e727d4a4255a6485c24776e86bb" prefix=" " category="inline-code"></block> 參數來控制這些驅動程式中的 FlexVol 大小。（<block ref="43e193e4ec566def2b1890b13e291e7f" category="inline-link-macro-rx"></block>）。</block>
@@ -5794,4 +5792,6 @@
   <block id="f61306bfa8c6de676059739358d4479f" category="list-text">按一下「建立」； Trident Orchestrator 將會完全安裝。</block>
   <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">卸載Trident操作員</block>
   <block id="b94d4c5305d8d32a875a24a5b1501274" category="admonition">對於使用SolidFire的客戶，請不要升級到 25.06.1，因為取消發布捲時有已知問題。  25.06.2 即將發布以解決此問題。</block>
+  <block id="4011c398b0ff3b95197b4f4713f3216e" category="list-text">使用<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>命令和更新的路徑<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>文件。</block>
+  <block id="f05848de69e82db6963b7b9c5322a67f" category="paragraph">*例子*：<block ref="7aa76d5ff854a67029ba30d1a11e1e53" prefix=" " category="inline-code"></block></block>
 </blocks>

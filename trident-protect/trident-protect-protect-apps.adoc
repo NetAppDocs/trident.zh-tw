@@ -125,16 +125,6 @@ NOTE: 如果叢集範圍的資源在應用程式定義中明確參照，或是�
 ** *spec.snapshotRef*：（可選）：用作備份來源的快照的名稱。如果未提供，將會建立並備份暫存快照。
 ** *metadata.annotations.protect.trident.netapp.io/full-backup*：（可選）此註解用於指定備份是否應該是非增量的。依預設，所有備份都是遞增備份。不過，如果此註釋設為 `true`，則備份將變成非遞增備份。如果未指定，則備份會遵循預設的遞增備份設定。最佳做法是定期執行完整備份，然後在完整備份之間執行遞增備份，以將與還原相關的風險降至最低。
 +
-[NOTE]
-====
-如果您需要在建立應用程式之後套用此註釋，可以使用下列命令：
-
-[source, console]
-----
-kubectl annotate backup -n <backup CR namespace> <backup CR name> protect.trident.netapp.io/full-backup="true"
-----
-====
-+
 YAML 範例：
 
 +

@@ -4124,7 +4124,6 @@
   <block id="e836d7c4f6371da7534f60641286999b" category="list-text">否（預設）</block>
   <block id="fa3e867f8599e4541ced8b0ced5b2cf1" category="list-text">*spec.daWindowStart* ：（ _Optional_ ） RFC 3339 格式的日期字串，指定支援套件中所包含資料的視窗應開始的日期與時間。如果未指定，則預設為 24 小時前。您可以指定的最早時間是 7 天前。</block>
   <block id="139f344cca23a89c521bc7cc6c7100b8" category="paragraph">YAML 範例：</block>
-  <block id="1f5c923d658756149d27388a30350ece" category="list-text">在您以正確的值填入檔案之後<block ref="f242db754742ad72c7a0a3fa93d314df" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="b69675775a82aaa1e3307ebbe6a45fc0" category="open-title">使用 CLI 建立支援服務包</block>
   <block id="2294988013d14e5c254422b8164d83ad" category="list-text">建立支援服務組合，以環境資訊取代括號中的值。<block ref="769627afa23a2b90f925b1091e474dc5" prefix=" " category="inline-code"></block>決定套件是立即建立，還是建立時間取決於排程，可以是<block ref="e1ba155a9f2e8c3be94020eef32a0301" prefix=" " category="inline-code"></block>或<block ref="2b7dabba0077abe3732e0418b048a56b" prefix=" " category="inline-code"></block>。預設設定為<block ref="e1ba155a9f2e8c3be94020eef32a0301" prefix=" " category="inline-code"></block>。</block>
   <block id="4351048276414d4fad273a0c7ad9f491" category="summary">如果您的環境符合需求，您可以依照下列步驟安裝 Trident Protect 。</block>
@@ -5794,4 +5793,11 @@
   <block id="b94d4c5305d8d32a875a24a5b1501274" category="admonition">對於使用SolidFire的客戶，請不要升級到 25.06.1，因為取消發布捲時有已知問題。  25.06.2 即將發布以解決此問題。</block>
   <block id="4011c398b0ff3b95197b4f4713f3216e" category="list-text">使用<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>命令和更新的路徑<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>文件。</block>
   <block id="f05848de69e82db6963b7b9c5322a67f" category="paragraph">*例子*：<block ref="7aa76d5ff854a67029ba30d1a11e1e53" prefix=" " category="inline-code"></block></block>
+  <block id="0884919e7c7d4a1981b4419350c63124" category="paragraph">Trident Protect 使管理員能夠產生包含對NetApp支援有用的信息的捆綁包，包括有關所管理的叢集和應用程式的日誌、指標和拓撲資訊。如果您已連接到互聯網，則可以使用自訂資源 (CR) 檔案將支援包上傳至NetApp支援網站 (NSS)。</block>
+  <block id="b8331cd182c8a703fc1ad6851d01da14" category="list-text">填充後<block ref="699c503b46d4ca3ec78905dff3704cac" prefix=" " category="inline-code"></block>具有正確值的文件，應用 CR：</block>
+  <block id="a2a6b0573b13313f05c747e88489eec6" category="section-title">監視和檢索支援包</block>
+  <block id="4ff0609d2c162c23c5b740871050dda7" category="paragraph">使用任一方法建立支援包後，您可以監視其產生進度並將其檢索到本機系統。</block>
+  <block id="8aadefe9cc0cc86a02267b80b207f617" category="list-text">等待<block ref="f9826424ec573cdc9bb51c0f5cb897b0" prefix=" " category="inline-code"></block>到達<block ref="07ca5050e697392c9ed47e6453f1453f" prefix=" " category="inline-code"></block>狀態。您可以使用以下命令監控產生進度：</block>
+  <block id="3bea11acf8836689dcfed98dab0d1b2e" category="list-text">將支援包檢索到您的本機系統。從已完成的AutoSupport套件中取得複製指令：</block>
+  <block id="ada844bd6c6a80bfce3dc4e9178eef4a" category="paragraph">找到<block ref="768c4e4d1692df1d92007f61dbeb0a6a" prefix=" " category="inline-code"></block>從輸出執行命令並運行它，用您喜歡的本機目錄取代目標參數。</block>
 </blocks>

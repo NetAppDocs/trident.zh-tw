@@ -128,11 +128,18 @@ NOTE: 在 SVM 中更新 Aggregate 時、它會透過輪詢 SVM 而無需重新�
 除非您正在進行疑難排解並需要詳細的記錄傾印、否則請勿使用。 | `null` 
 
 
-| 《useREST》 | 使用ONTAP Isrest API的布林參數。
-`useREST`設為 `true`時， Trident 會使用 ONTAP REST API 與後端通訊；設為 `false`時， Trident 會使用 ONTAPI （ ZAPI ）呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontapi` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Trident 24.06 版本和 ONTAP 9.15.1 或更新版本開始，
-`useREST`依預設會設定為 `true`；變更
-`useREST`為 `false`使用 ONTAPI （ ZAPI ）呼叫。
-`useREST` 完全符合 NVMe / TCP 的資格。*如果指定，則始終設定為 `true`適用於 ASA r2 系統*。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
+| 《useREST》  a| 
+使用ONTAP REST API 的布林參數。
+
+ `useREST`當設定為 `true`， Trident使用ONTAP REST API 與後端通訊；當設定為 `false`， Trident使用 ONTAPI（ZAPI）呼叫與後端進行通訊。此功能需要ONTAP 9.11.1 及更高版本。此外，使用的ONTAP登入角色必須具有訪問 `ontapi`應用。這是透過預定義的 `vsadmin`和 `cluster-admin`角色。從Trident 24.06 版本和ONTAP 9.15.1 或更高版本開始， `useREST`設定為 `true`預設；改變 `useREST`到 `false`使用 ONTAPI (ZAPI) 呼叫。
+
+`useREST`完全符合 NVMe/TCP 的要求。
+
+
+NOTE: NVMe 僅支援ONTAP REST API，不支援 ONTAPI (ZAPI)。
+
+*如果指定，則始終設定為 `true`適用於ASA r2 系統*。
+| `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
 
 
  a| 

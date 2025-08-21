@@ -23,13 +23,13 @@ summary: 瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設�
 
 NOTE: link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2 系統"^]與其他 ONTAP 系統（ASA、AFF 和 FAS）在儲存層實作方面有所不同。在 ASA r2 系統中，使用儲存可用區而不是聚合。請參閱link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["這"^]有關如何在 ASA r2 系統中將聚合指派給 SVM 的知識庫文章。
 
-[]
-====
 請記住、您也可以執行多個驅動程式、並建立指向一個或多個驅動程式的儲存類別。例如、您可以設定使用「ONTAP-SAN」驅動程式的「SAN開發」類別、以及使用「ONTAP-SAN經濟」類別的「SAN預設」類別。
 
 您所有的Kubernetes工作節點都必須安裝適當的iSCSI工具。請參閱 link:worker-node-prep.html["準備工作節點"] 以取得詳細資料。
 
-== 對 ONTAP 後端進行驗證
+
+
+== 驗證 ONTAP 後端
 
 Trident 提供兩種驗證 ONTAP 後端的模式。
 
@@ -42,14 +42,16 @@ Trident 提供兩種驗證 ONTAP 後端的模式。
 
 WARNING: 如果您嘗試同時提供*認證與認證*、後端建立將會失敗、並在組態檔中提供多種驗證方法。
 
-=== 啟用基於憑證的身份驗證
+
+
+=== 啟用認證型驗證
 
 Trident 需要 SVM 範圍 / 叢集範圍管理員的認證、才能與 ONTAP 後端通訊。建議您使用標準的預先定義角色、例如 `admin`或 `vsadmin`。如此可確保與未來 ONTAP 版本的前移相容性、這些版本可能會公開未來 Trident 版本所使用的功能 API 。自訂安全登入角色可建立並搭配 Trident 使用、但不建議使用。
 
 後端定義範例如下所示：
 
 [role="tabbed-block"]
-=====
+====
 .YAML
 --
 [source, yaml]
@@ -80,8 +82,10 @@ password: password
 
 ----
 --
-=====
+====
 請記住、後端定義是唯一以純文字儲存認證的位置。建立後端之後、使用者名稱/密碼會以Base64編碼、並儲存為Kubernetes機密。建立或更新後端是唯一需要具備認證知識的步驟。因此、這是一項純管理員操作、由Kubernetes /儲存管理員執行。
+
+
 
 === 啟用基於憑證的身份驗證
 
@@ -162,7 +166,9 @@ tridentctl create backend -f cert-backend.json -n trident
 ----
 
 
-=== 更新身份驗證方法或輪換憑證
+
+
+=== 更新驗證方法或旋轉認證資料
 
 您可以更新現有的後端、以使用不同的驗證方法或旋轉其認證資料。這兩種方法都可行：使用使用者名稱/密碼的後端可更新以使用憑證；使用憑證的後端可更新為使用者名稱/密碼。若要這麼做、您必須移除現有的驗證方法、然後新增驗證方法。然後使用更新的backend.json檔案、其中包含執行「tridentctl後端更新」所需的參數。
 
@@ -193,6 +199,8 @@ NOTE: 當您旋轉密碼時、儲存管理員必須先更新ONTAP 使用者的�
 
 更新後端不會中斷對已建立之磁碟區的存取、也不會影響之後建立的磁碟區連線。成功的後端更新表示 Trident 可以與 ONTAP 後端通訊、並處理未來的 Volume 作業。
 
+
+
 === 為 Trident 建立自訂 ONTAP 角色
 
 您可以使用最低 Privileges 來建立 ONTAP 叢集角色、這樣就不需要使用 ONTAP 管理員角色來執行 Trident 中的作業。當您在 Trident 後端組態中包含使用者名稱時、 Trident 會使用您建立的 ONTAP 叢集角色來執行作業。
@@ -200,7 +208,7 @@ NOTE: 當您旋轉密碼時、儲存管理員必須先更新ONTAP 使用者的�
 如需建立 Trident 自訂角色的詳細資訊、請參閱link:https://github.com/NetApp/trident/tree/master/contrib/ontap/trident_role["Trident 自訂角色產生器"]。
 
 [role="tabbed-block"]
-=====
+====
 .使用 ONTAP CLI
 --
 . 使用下列命令建立新角色：
@@ -243,11 +251,13 @@ NOTE: 當您旋轉密碼時、儲存管理員必須先更新ONTAP 使用者的�
 
 
 --
-=====
+====
 如需詳細資訊、請參閱下列頁面：
 
 * link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/FAQ__Custom_roles_for_administration_of_ONTAP["用於管理 ONTAP 的自訂角色"^]或link:https://docs.netapp.com/us-en/ontap/authentication/define-custom-roles-task.html["定義自訂角色"^]
 * link:https://docs.netapp.com/us-en/ontap-automation/rest/rbac_roles_users.html#rest-api["與角色和使用者合作"^]
+
+
 
 
 == 使用雙向 CHAP 驗證連接
@@ -275,7 +285,9 @@ WARNING: 「useCHAP」參數是布林選項、只能設定一次。預設值設�
 
 除了"useCHAP=true"之外、"chapInitiator Secret（chapInitiator機密）、"chaptarketatorSecret（chaptarketusername"）、"chaptarketusername"（chaptargetuseamuse"）和"chapusername"（chamus在建立後端後端之後、可以執行「tridentctl update」來變更機密。
 
-=== 運作原理
+
+
+=== 工作原理
 
 儲存管理員會將設定 `useCHAP`為 true 、指示 Trident 在儲存後端上設定 CHAP 。這包括下列項目：
 
@@ -289,6 +301,8 @@ WARNING: 「useCHAP」參數是布林選項、只能設定一次。預設值設�
 
 
 建立後端之後、 Trident 會建立對應的 `tridentbackend` CRD 、並將 CHAP 機密和使用者名稱儲存為 Kubernetes 機密。Trident 在此後端建立的所有 PV 都會透過 CHAP 掛載及附加。
+
+
 
 === 輪換憑證並更新後端
 
@@ -323,5 +337,3 @@ cat backend-san.json
 +----------------+----------------+--------------------------------------+--------+---------+
 ----
 現有連線不會受到影響；如果 Trident 在 SVM 上更新認證、則這些連線將繼續保持作用中狀態。新的連線使用更新的認證資料、而現有的連線會繼續保持作用中。中斷舊PV的連線並重新連線、將會使用更新的認證資料。
-
-====

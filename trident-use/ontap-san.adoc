@@ -140,3 +140,6 @@ Trident 不支援：
 * 裝置對應工具（ DM ）多重路徑
 * LUKS 加密
 
+
+
+NOTE: NVMe 僅支援ONTAP REST API，不支援 ONTAPI (ZAPI)。

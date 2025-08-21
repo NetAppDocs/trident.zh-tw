@@ -138,9 +138,6 @@ NOTE: 在 SVM 中更新 Aggregate 時、它會透過輪詢 SVM 而無需重新�
 
 NOTE: NVMe 僅支援ONTAP REST API，不支援 ONTAPI (ZAPI)。
 
-
-NOTE: NVMe 僅支援ONTAP REST API，不支援 ONTAPI (ZAPI)。
-
 *如果指定，則始終設定為 `true`適用於ASA r2 系統*。
 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
 

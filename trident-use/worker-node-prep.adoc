@@ -160,6 +160,12 @@ sudo yum install -y lsscsi iscsi-initiator-utils device-mapper-multipath
 ----
 rpm -q iscsi-initiator-utils
 ----
+. 將掃描設為手動：
++
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
 . 啟用多重路徑：
 +
 [listing]

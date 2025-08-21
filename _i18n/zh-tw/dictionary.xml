@@ -5800,4 +5800,6 @@
   <block id="42f93278b0d15c8d0f6613813bf586d5" category="section-title">使用雙向 CHAP 驗證連接</block>
   <block id="9ffdb95250e26c7a6b468126ac7c75b0" category="section-title">工作原理</block>
   <block id="81f2df0265026a1a04bda5484798a10d" category="section-title">輪換憑證並更新後端</block>
+  <block id="4bdb23ea513714e3ddde2986c05c669f" category="inline-link-macro">增強資料一致性：使用Trident在 OpenShift 虛擬化中使用磁碟區組快照</block>
+  <block id="299fb00578f305c7fc8cabf601fd1c80" category="list-text">2025年8月19日：<block ref="e5b6bdace6eea699ef0d8738f7d6c354" category="inline-link-macro-rx"></block></block>
 </blocks>

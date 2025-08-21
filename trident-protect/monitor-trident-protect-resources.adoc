@@ -49,6 +49,12 @@ AlertManager 是一項服務，可擷取 Prometheus 等工具所傳送的警示�
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 ----
+. 將 Prometheus ServiceMonitor CRD 應用到叢集：
++
+[source, console]
+----
+kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+----
 . 為 Helm 圖表建立組態檔（例如 `metrics-config.yaml`）。您可以自訂下列範例組態，以符合您的環境：
 +
 .測量數據 -config.yaml ： Kube-state 度量 Helm 圖表組態

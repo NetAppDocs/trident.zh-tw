@@ -5702,7 +5702,6 @@
   <block id="afd55df73a814282b1a34c79040d709a" category="inline-link-macro">Trident 25.01：透過新功能和增強功能增強 Kubernetes 儲存體驗</block>
   <block id="13c401b1f27132099b945b95025ca748" category="list-text">2024年11月26日： <block ref="4a1bf3162dde1793089483cf7682fb86" category="inline-link-macro-rx"></block></block>
   <block id="0d5eeacaefc73b7986c8f85945c72129" category="inline-link-macro">NetApp Trident與Google Cloud NetApp Volumes</block>
-  <block id="76227bcfad23cc6957b8b7e9357c9269" category="list-text">2024年11月11日： <block ref="8701d0c1e4315119a2dc9de106eb2681" category="inline-link-macro-rx"></block></block>
   <block id="02104a16ef3fcf06a78872f4f5aea5d2" category="inline-link-macro">使用Trident在 AWS 上將Amazon FSx for NetApp ONTAP與 Red Hat OpenShift 服務 (ROSA) 結合使用</block>
   <block id="e2218d0205cdf02ed15039a9eb215920" category="list-text">2024年10月29日： <block ref="ecf88162cd631914aa447c7edeaa2e6e" category="inline-link-macro-rx"></block></block>
   <block id="e7eb7f68cb5a04d95a6152e9d6ab37ec" category="inline-link-macro">使用 ROSA 上的 OpenShift 虛擬化和Amazon FSx for NetApp ONTAP即時遷移虛擬機</block>
@@ -5802,4 +5801,7 @@
   <block id="81f2df0265026a1a04bda5484798a10d" category="section-title">輪換憑證並更新後端</block>
   <block id="4bdb23ea513714e3ddde2986c05c669f" category="inline-link-macro">增強資料一致性：使用Trident在 OpenShift 虛擬化中使用磁碟區組快照</block>
   <block id="299fb00578f305c7fc8cabf601fd1c80" category="list-text">2025年8月19日：<block ref="e5b6bdace6eea699ef0d8738f7d6c354" category="inline-link-macro-rx"></block></block>
+  <block id="a21cecd213989d401167ec6cfba8d998" category="list-text">2024年11月11日： <block ref="daed3e0cfbeb06368e36167c5fc4f468" category="inline-link-macro-rx"></block></block>
+  <block id="dcae39a3bdbd6a2685507ccc14623d62" category="list-text">將 Prometheus ServiceMonitor CRD 應用到叢集：</block>
+  <block id="e95fc483374f2aa2997fb27e7235f723" category="list-text">確保您的本地環境正在運作<block ref="f9adf231483d5dde9cfc10a610b748d3" prefix=" " category="inline-code"></block>命令。如果網路限制阻止訪問，請從目標叢集上的 pod 內執行Trident Protect CLI。</block>
 </blocks>

@@ -279,6 +279,7 @@ NOTE: 當您使用 Kopia 作為資料移動器還原備份時，您可以選擇�
 
 * 目的地叢集已安裝 Trident Protect 。
 * 目的地叢集可存取與儲存備份的來源叢集相同 AppVault 的儲存區路徑。
+* 確保您的本地環境正在運作 `tridentctl-protect get appvaultcontent`命令。如果網路限制阻止訪問，請從目標叢集上的 pod 內執行Trident Protect CLI。
 * 確保 AWS 工作階段權杖到期時間足以執行任何長時間執行的還原作業。如果 Token 在還原作業期間過期，作業可能會失敗。
 +
 ** 如需檢查目前工作階段權杖到期時間的詳細資訊，請參閱 https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API 文件"^]。

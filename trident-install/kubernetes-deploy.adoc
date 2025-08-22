@@ -206,7 +206,8 @@ link:kubernetes-deploy-tridentctl.html["標準或離線安裝"]
 
 * 請務必使用相同的方法來安裝和解除安裝 Trident 。如果您已與一起部署 `tridentctl`、則應該使用適當的二進位版本 `tridentctl`來解除安裝 Trident 。同樣地、如果您是與運算子一起部署、則應編輯 `TridentOrchestrator` CR 並設定 `spec.uninstall=true`為解除安裝 Trident 。
 * 如果您想要移除並改用以營運者為基礎的部署 `tridentctl`來部署 Trident 、則應先編輯 `TridentOrchestrator`並設定 `spec.uninstall=true`為解除安裝 Trident 。然後刪除 `TridentOrchestrator`和操作員部署。然後您可以使用安裝 `tridentctl`。
-* 如果您有手動的操作員型部署、而且想要使用以Helm為基礎的Trident操作員部署、您應該先手動解除安裝操作員、然後再執行Helm安裝。如此一來、Helm就能部署具有所需標籤和註釋的Trident運算子。如果您不這麼做、則Helm型Trident營運者部署將會失敗、並顯示標籤驗證錯誤和註釋驗證錯誤。如果您有 `tridentctl`根據部署、您可以使用以Helm為基礎的部署、而不會發生問題。
+* 如果您有一個基於手動操作員的部署，並且想要使用基於 Helm 的Trident操作員部署，則應先手動卸載操作員，然後執行 Helm 安裝。這使得 Helm 能夠使用所需的標籤和註解來部署Trident運算子。如果不這樣做，基於 Helm 的Trident操作員部署將因標籤驗證錯誤和註解驗證錯誤而失敗。
+* 如果你有一個 `tridentctl`基於部署，無需卸載Trident即可進行基於 Helm 或基於 Operator 的部署。
 
 
 

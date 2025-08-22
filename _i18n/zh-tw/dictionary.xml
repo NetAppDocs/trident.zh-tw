@@ -1816,7 +1816,6 @@
   <block id="9e244fc5020d1137289c0c34c2944ac4" category="paragraph"><block ref="9e244fc5020d1137289c0c34c2944ac4" category="inline-link-macro-rx"></block></block>
   <block id="dd341f866eaefb939dc86608773c909d" category="section-title">在安裝方法之間移動</block>
   <block id="84dfae02381a00cf11d01c571e3e3e0f" category="paragraph">您可以決定變更安裝方法。在執行此操作之前、請先考慮下列事項：</block>
-  <block id="e77325ac6e155cf5d14c756f1d64333f" category="list-text">如果您有手動的操作員型部署、而且想要使用以Helm為基礎的Trident操作員部署、您應該先手動解除安裝操作員、然後再執行Helm安裝。如此一來、Helm就能部署具有所需標籤和註釋的Trident運算子。如果您不這麼做、則Helm型Trident營運者部署將會失敗、並顯示標籤驗證錯誤和註釋驗證錯誤。如果您有<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>根據部署、您可以使用以Helm為基礎的部署、而不會發生問題。</block>
   <block id="f36d25716a4b2c466ddcb8065bef3ae6" category="paragraph"><block ref="f36d25716a4b2c466ddcb8065bef3ae6" category="inline-link-macro-rx"></block></block>
   <block id="50823ee9226376c44bfb71c334ee2f3f" category="paragraph"><block ref="50823ee9226376c44bfb71c334ee2f3f" category="inline-link-macro-rx"></block></block>
   <block id="44e21d73aa8bd7200fceac6671723524" category="doc">手動部署Trident運算子（離線模式）</block>
@@ -5806,4 +5805,6 @@
   <block id="710d51eba716c95765550f52a1c4fd61" category="cell"><block ref="4aff31f193e6ea4df2a1c4f841bad5d6" prefix="" category="inline-code"></block></block>
   <block id="68087b4c898b9466dc989d8086e173dc" category="cell">覆寫大多數 Kubernetes API 操作的預設 180 秒逾時（如果非零，則以秒為單位）。</block>
   <block id="bd3dd99c8eae44e2ae2bfc8f00dc3db0" category="cell"><block ref="045117b0e0a11a242b9765e79cbf113f" prefix="" category="inline-code"></block></block>
+  <block id="44a97f581d6467983edc4e5900722f32" category="list-text">如果您有一個基於手動操作員的部署，並且想要使用基於 Helm 的Trident操作員部署，則應先手動卸載操作員，然後執行 Helm 安裝。這使得 Helm 能夠使用所需的標籤和註解來部署Trident運算子。如果不這樣做，基於 Helm 的Trident操作員部署將因標籤驗證錯誤和註解驗證錯誤而失敗。</block>
+  <block id="96fa331785e435bbddfc7f404fa5ce84" category="list-text">如果你有一個<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>基於部署，無需卸載Trident即可進行基於 Helm 或基於 Operator 的部署。</block>
 </blocks>

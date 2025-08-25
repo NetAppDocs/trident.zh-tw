@@ -2668,7 +2668,6 @@
   <block id="f3f30d479f6e3b393d917a3b2f88c770" category="cell"><block ref="89801e9e98979062e84647433a8ed3e9" prefix="" category="inline-code"></block></block>
   <block id="fbbd7b4b14060c4fdb02f92c4c08e702" category="cell">設定為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> 可在Windows工作節點上安裝。</block>
   <block id="077e99fe42ced522b462656cffffe09c" category="cell"><block ref="d5276bb17ae062102e883a18454c2f1b" prefix="" category="inline-code"></block></block>
-  <block id="4448b73eac083e33b7142f0e5790fac5" category="cell">Kubernetes作業逾時</block>
   <block id="42cf123e93ecc5c0297652edbc547fc0" category="cell"><block ref="2fac1659431903a30e063d49b3effb9d" prefix="" category="inline-code"></block></block>
   <block id="4a213b7c3b997ffb0794b25909381d16" category="cell">請勿將 AutoSupport 套裝組合傳送至 NetApp
 自動</block>
@@ -5807,4 +5806,7 @@
   <block id="bd3dd99c8eae44e2ae2bfc8f00dc3db0" category="cell"><block ref="045117b0e0a11a242b9765e79cbf113f" prefix="" category="inline-code"></block></block>
   <block id="44a97f581d6467983edc4e5900722f32" category="list-text">如果您有一個基於手動操作員的部署，並且想要使用基於 Helm 的Trident操作員部署，則應先手動卸載操作員，然後執行 Helm 安裝。這使得 Helm 能夠使用所需的標籤和註解來部署Trident運算子。如果不這樣做，基於 Helm 的Trident操作員部署將因標籤驗證錯誤和註解驗證錯誤而失敗。</block>
   <block id="96fa331785e435bbddfc7f404fa5ce84" category="list-text">如果你有一個<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>基於部署，無需卸載Trident即可進行基於 Helm 或基於 Operator 的部署。</block>
+  <block id="ebc465247274e830568c785a604321aa" category="paragraph">Kubernetes 操作逾時。</block>
+  <block id="487b75b94dd20a59c7005f9de6a6c4a0" category="admonition">這<block ref="d5276bb17ae062102e883a18454c2f1b" prefix=" " category="inline-code"></block>參數僅適用於Trident安裝。</block>
+  <block id="0784343c721b59e3c2426a1b76297982" category="admonition">這<block ref="b958a6de9ca123713491252f2ab02f59" prefix=" " category="inline-code"></block>參數僅適用於Trident安裝。</block>
 </blocks>

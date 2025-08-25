@@ -202,7 +202,12 @@ WARNING: 請勿移除 values.yaml 檔案的預設關聯性。當您想要提供�
 | `tridentIPv6` | 允許 Trident 在 IPv6 叢集中運作。 | 「假」 
 
 
-| `tridentK8sTimeout` | 覆寫大多數 Kubernetes API 操作的預設 180 秒逾時（如果非零，則以秒為單位）。 | `180` 
+| `tridentK8sTimeout`  a| 
+覆寫大多數 Kubernetes API 操作的預設 180 秒逾時（如果非零，則以秒為單位）。
+
+
+NOTE: 這 `tridentK8sTimeout`參數僅適用於Trident安裝。
+| `180` 
 
 
 | `tridentHttpRequestTimeout` | 以取代 HTTP 要求的預設 90 秒逾時 `0s` 是超時的無限持續時間。不允許使用負值。 | `"90s"` 

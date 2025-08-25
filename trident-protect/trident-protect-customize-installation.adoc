@@ -134,32 +134,69 @@ helm upgrade trident-protect netapp-trident-protect/trident-protect -f sccconfig
 
 
 
-== 設定 Trident Protect 的 NetApp AutoSupport 連線
+== 設定其他Trident保護 Helm Chart 設定
 
-您可以設定連線的 Proxy ，變更 Trident Protect 連線至 NetApp 支援的方式，以上傳支援套件。您可以根據需要將 Proxy 設定為使用安全連線或不安全連線。
+您可以自訂AutoSupport設定和命名空間過濾以滿足您的特定要求。下表描述了可用的配置參數：
+
+|===
+| 參數 | 類型 | 說明 
+
+
+| 自動支援代理 | 字串 | 為NetApp AutoSupport連線配置代理 URL。使用此功能透過代理伺服器路由支援包上傳。例子： `http://my.proxy.url` 。 
+
+
+| 自動支援.不安全 | 布林值 | 設定為時跳過AutoSupport代理連線的 TLS 驗證 `true`。僅用於不安全的代理連線。  (預設: `false` ) 
+
+
+| 自動支援已啟用 | 布林值 | 啟用或停用每日Trident保護AutoSupport捆綁包上傳。當設定為 `false`，計劃的每日上傳已停用，但您仍然可以手動產生支援包。  (預設: `true` ) 
+
+
+| 恢復跳過命名空間註釋 | 字串 | 若要從備份和復原作業中排除的命名空間註解的逗號分隔清單。允許您根據註釋過濾命名空間。 
+
+
+| restoreSkipNamespaceLabels | 字串 | 若要從備份和復原作業中排除的命名空間標籤的逗號分隔清單。允許您根據標籤過濾命名空間。 
+|===
+您可以使用 YAML 設定檔或命令列標誌來設定這些選項：
 
 [role="tabbed-block"]
 ====
-.設定安全 Proxy 連線
+.使用 YAML 文件
 --
 .步驟
-. 設定安全的 Proxy 連線以上傳 Trident Protect 支援服務包：
+. 建立設定檔並命名 `values.yaml`。
+. 在您建立的文件中，新增您想要自訂的設定選項。
 +
 [source, console]
 ----
-helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect --set autoSupport.proxy=http://my.proxy.url --reuse-values
+autoSupport:
+  enabled: false
+  proxy: http://my.proxy.url
+  insecure: true
+restoreSkipNamespaceAnnotations: "annotation1,annotation2"
+restoreSkipNamespaceLabels: "label1,label2"
+----
+. 填充後 `values.yaml`具有正確值的文件，應用設定檔：
++
+[source, console]
+----
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect -f values.yaml --reuse-values
 ----
 
 
 --
-.設定不安全的 Proxy 連線
+.使用 CLI 標誌
 --
 .步驟
-. 設定不安全的 Proxy 連線，以進行 Trident Protect 支援服務套件上傳，以略過 TLS 驗證：
+. 使用以下命令 `--set`標誌來指定單一參數：
 +
 [source, console]
 ----
-helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect --set autoSupport.proxy=http://my.proxy.url --set autoSupport.insecure=true --reuse-values
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect \
+  --set autoSupport.enabled=false \
+  --set autoSupport.proxy=http://my.proxy.url \
+  --set restoreSkipNamespaceAnnotations="annotation1,annotation2" \
+  --set restoreSkipNamespaceLabels="label1,label2" \
+  --reuse-values
 ----
 
 
@@ -191,36 +228,4 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 +
 這會將預設限制取代為您在檔案中指定的限制 `nodeSelectorConfig.yaml`。
 
-
-
-
-
-== 停用每日 Trident Protect AutoSupport 套件上傳
-
-您也可以停用排定的每日 Trident Protect AutoSupport 支援服務套件上傳。
-
-
-NOTE: 根據預設， Trident Protect 會收集支援資訊，協助處理您可能開啟的任何 NetApp 支援案例，包括叢集和託管應用程式的記錄，度量和拓撲資訊。Trident Protect 會根據每日排程將這些支援套裝組合傳送至 NetApp 。您可以隨時手動link:trident-protect-generate-support-bundle.html["產生支援服務組合"]進行。
-
-.步驟
-. 建立名為的檔案 `autosupportconfig.yaml`。
-. 將 AutoSupport 選項新增至檔案，並根據環境需求修改參數。
-+
-下列範例顯示 AutoSupport 選項參數的預設值：
-
-+
-[source, yaml]
-----
-autoSupport:
-  enabled: true
-----
-+
-當 `autoSupport.enabled`設為 `false`時， AutoSupport 支援套裝組合的每日上傳會停用。
-
-. 套用檔案中的值 `autosupportconfig.yaml`：
-+
-[source, console]
-----
-helm upgrade trident-protect netapp-trident-protect/trident-protect -f autosupportconfig.yaml --reuse-values
-----
 

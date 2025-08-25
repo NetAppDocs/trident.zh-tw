@@ -4512,7 +4512,6 @@
   <block id="d0848afd8553c34945705222a97a4553" category="paragraph">您應該會看到類似下列的輸出：</block>
   <block id="07337191562a62a775a853d9901903a6" category="list-text">測試以查看使用者是否能取得他們現在有權存取的 AppVault 資訊：</block>
   <block id="e7165fc51f62031fcae1d793899febaa" category="paragraph">您已授予 AppVault 權限的使用者應該能夠使用授權的 AppVault 物件來執行應用程式資料管理作業，而且不應能夠存取指派命名空間以外的任何資源，或建立他們無法存取的新資源。</block>
-  <block id="a268a576db3133de464aad1cd81ab3e1" category="inline-link-macro">產生支援服務組合</block>
   <block id="753f99fdafabdea1282917a0d7df52d4" category="list-text">執行中的反向重新同步步驟<block ref="07428cadd63a52910df8ba314efe2f56" category="inline-xref-macro-rx"></block>。</block>
   <block id="fe411ea35c29677771dcaad52985fc08" category="list-text">反向重新同步複寫關係。</block>
   <block id="eb10e971ec83f13f35beb8166ae8958b" category="admonition">請勿執行正常的重新同步作業，因為這會捨棄在容錯移轉程序期間寫入目的地叢集的資料。</block>
@@ -5082,26 +5081,12 @@
   <block id="c4ca4238a0b923820dcc509a6f75849b" category="cell">1</block>
   <block id="ee747b6b4f133aa926c072d073f4a8d5" category="list-text">套用檔案中的值<block ref="12cbdc8aa1f61a2cee8eff2b77c0e113" prefix=" " category="inline-code"></block>：</block>
   <block id="54b43aeb73b3f5136e6febff4f374663" category="paragraph">這會將預設值取代為檔案中指定的值<block ref="12cbdc8aa1f61a2cee8eff2b77c0e113" prefix=" " category="inline-code"></block>。</block>
-  <block id="f7d44f30f5245f3d8b32ca7ac3386d95" category="section-title">設定 Trident Protect 的 NetApp AutoSupport 連線</block>
-  <block id="f7b9fd6fa7c3a2cb8d2aa416b333de52" category="paragraph">您可以設定連線的 Proxy ，變更 Trident Protect 連線至 NetApp 支援的方式，以上傳支援套件。您可以根據需要將 Proxy 設定為使用安全連線或不安全連線。</block>
-  <block id="d9e0a3823b1441be4f5c45d4363b5f72" category="open-title">設定安全 Proxy 連線</block>
-  <block id="1f9d5a4d36fe5f9bef4b60a24e652273" category="list-text">設定安全的 Proxy 連線以上傳 Trident Protect 支援服務包：</block>
-  <block id="5bd30bac7c368f4bd00e4b23ea9fa84c" category="open-title">設定不安全的 Proxy 連線</block>
-  <block id="67d7248c78969a2f4f4e7a7204960d0a" category="list-text">設定不安全的 Proxy 連線，以進行 Trident Protect 支援服務套件上傳，以略過 TLS 驗證：</block>
   <block id="19ac5903f95d5ebe1db017be54990f37" category="section-title">將 Trident 保護 Pod 限制在特定節點</block>
   <block id="2c9025d65a10f87c581d792f629f0b40" category="paragraph">您可以使用 Kubernetes nodeSelector 節點選擇限制，根據節點標籤來控制哪些節點符合執行 Trident Protect Pod 的資格。根據預設， Trident Protect 僅限於執行 Linux 的節點。您可以根據自己的需求，進一步自訂這些限制。</block>
   <block id="e131fc2359f1f35a2fdb476c3f19bfdd" category="list-text">建立名為的檔案<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>。</block>
   <block id="785a1066f4a7291f0bd0c65d4529e79f" category="list-text">將 nodeSelector 選項新增至檔案，並修改檔案以新增或變更節點標籤，以根據環境需求加以限制。例如，下列檔案包含預設的作業系統限制，但也針對特定區域和應用程式名稱：</block>
   <block id="0b3a205b675b10deddbe1e4c76c36e22" category="list-text">套用檔案中的值<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>：</block>
   <block id="86ff3a8cca72a77f236198059cede1b6" category="paragraph">這會將預設限制取代為您在檔案中指定的限制<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>。</block>
-  <block id="213e43c92b705298b37a27707e3ecdea" category="section-title">停用每日 Trident Protect AutoSupport 套件上傳</block>
-  <block id="e6e2ac25d149c9ca2eda9da019c8857c" category="paragraph">您也可以停用排定的每日 Trident Protect AutoSupport 支援服務套件上傳。</block>
-  <block id="3701dd93d7fa9d380885a4c7fb15bebc" category="admonition">根據預設， Trident Protect 會收集支援資訊，協助處理您可能開啟的任何 NetApp 支援案例，包括叢集和託管應用程式的記錄，度量和拓撲資訊。Trident Protect 會根據每日排程將這些支援套裝組合傳送至 NetApp 。您可以隨時手動<block ref="dedfc5877c343d6cbe77701c7edd9bde" category="inline-link-macro-rx"></block>進行。</block>
-  <block id="1b8215632ac6cd0bc10bb44ac5786a82" category="list-text">建立名為的檔案<block ref="7cc35e350ac50663f9c914e677dc5c5a" prefix=" " category="inline-code"></block>。</block>
-  <block id="92e8c3505d5d84a0a2e1eb8698158967" category="list-text">將 AutoSupport 選項新增至檔案，並根據環境需求修改參數。</block>
-  <block id="c924e3d11dc98c4bfb0bb0a7e4bba949" category="paragraph">下列範例顯示 AutoSupport 選項參數的預設值：</block>
-  <block id="668d522672fb38a8d3d4961de5f59a62" category="paragraph">當<block ref="4dd202185370b5db00de876ba19c1bd1" prefix=" " category="inline-code"></block>設為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>時， AutoSupport 支援套裝組合的每日上傳會停用。</block>
-  <block id="3a73620d7003f9f9087ba74069b621e9" category="list-text">套用檔案中的值<block ref="7cc35e350ac50663f9c914e677dc5c5a" prefix=" " category="inline-code"></block>：</block>
   <block id="b8c29704f9b86600d95c1c0c4d902455" category="list-text">使用 Helm 安裝 Trident Protect 。以叢集名稱取代<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>，該名稱將指派給叢集，用於識別叢集的備份和快照：</block>
   <block id="029d1c6e95e08907e4a8d285674ab46b" category="inline-link-macro">全域 Trident 保護凍結設定</block>
   <block id="f0c05ba588826dcd6ebd5a2b3796d458" category="list-text">* metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: （ _Optional_ ）此註釋僅適用於從虛擬機器定義的應用程式，例如 KubeVirt 環境，檔案系統會在快照之前凍結。指定此應用程式是否可以在快照期間寫入檔案系統。如果設為 true ，應用程式會忽略全域設定，並在快照期間寫入檔案系統。如果設置爲 false ，則應用程序將忽略全局設置，並在快照期間凍結文件系統。如果指定，但應用程式在應用程式定義中沒有虛擬機器，則會忽略附註。如果未指定，則應用程式會遵循<block ref="61895e61fe23c9afb5a69eafa8d9b7ba" category="inline-link-macro-rx"></block>。</block>
@@ -5809,4 +5794,25 @@
   <block id="ebc465247274e830568c785a604321aa" category="paragraph">Kubernetes 操作逾時。</block>
   <block id="487b75b94dd20a59c7005f9de6a6c4a0" category="admonition">這<block ref="d5276bb17ae062102e883a18454c2f1b" prefix=" " category="inline-code"></block>參數僅適用於Trident安裝。</block>
   <block id="0784343c721b59e3c2426a1b76297982" category="admonition">這<block ref="b958a6de9ca123713491252f2ab02f59" prefix=" " category="inline-code"></block>參數僅適用於Trident安裝。</block>
+  <block id="8238f7162d9219360737b28886d1e81e" category="inline-link-macro">配置AutoSupport和命名空間過濾選項</block>
+  <block id="f674ee7017be04f3990c16ce1e52c071" category="admonition">執行復原或故障轉移操作時，在<block ref="22416353aff9ef4322e1ee858f418ae4" prefix=" " category="inline-code"></block>和<block ref="8028cf835d9b72ff2d6f835934c25568" prefix=" " category="inline-code"></block>被排除在恢復或故障轉移操作之外。確保在初始 Helm 安裝期間配置這些設定。要了解更多信息，請參閱<block ref="be04583f34cff5b6411cf18afbc58993" category="inline-link-macro-rx"></block>。</block>
+  <block id="5db3625cb782a771bf36efc4994a8da5" category="section-title">設定其他Trident保護 Helm Chart 設定</block>
+  <block id="a7532dec52b4d581a8873a3048e6e181" category="paragraph">您可以自訂AutoSupport設定和命名空間過濾以滿足您的特定要求。下表描述了可用的配置參數：</block>
+  <block id="1fceae4a3c0d1966481601a7ac4d1f83" category="cell">自動支援代理</block>
+  <block id="d93069a68fb6f0fccb979fdae4a99614" category="cell">為NetApp AutoSupport連線配置代理 URL。使用此功能透過代理伺服器路由支援包上傳。例子：<block ref="3753b9fc3cbe6d0d91c7b449cad0b465" prefix=" " category="inline-code"></block> 。</block>
+  <block id="c692f16bd0ca5b695511534a2e1eebfb" category="cell">自動支援.不安全</block>
+  <block id="ecf5fdf2786d609376e95f541c7dcdfa" category="cell">設定為時跳過AutoSupport代理連線的 TLS 驗證<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>。僅用於不安全的代理連線。  (預設:<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> )</block>
+  <block id="4dd202185370b5db00de876ba19c1bd1" category="cell">自動支援已啟用</block>
+  <block id="5d75e627a269bd09b3b5ebef5a7bf257" category="cell">啟用或停用每日Trident保護AutoSupport捆綁包上傳。當設定為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>，計劃的每日上傳已停用，但您仍然可以手動產生支援包。  (預設:<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> )</block>
+  <block id="22416353aff9ef4322e1ee858f418ae4" category="cell">恢復跳過命名空間註釋</block>
+  <block id="a91c3b0476974e9ec186952f05c189f1" category="cell">若要從備份和復原作業中排除的命名空間註解的逗號分隔清單。允許您根據註釋過濾命名空間。</block>
+  <block id="8028cf835d9b72ff2d6f835934c25568" category="cell">restoreSkipNamespaceLabels</block>
+  <block id="3f1cf3db23b5a0d9cdd2db63b9b30061" category="cell">若要從備份和復原作業中排除的命名空間標籤的逗號分隔清單。允許您根據標籤過濾命名空間。</block>
+  <block id="4afdb4a6c604cf0a9b830ec8cb0430c9" category="paragraph">您可以使用 YAML 設定檔或命令列標誌來設定這些選項：</block>
+  <block id="bfb59a2948710affa80485c4339915a0" category="open-title">使用 YAML 文件</block>
+  <block id="edd355ced63179ed49206f4f87774b11" category="list-text">建立設定檔並命名<block ref="ba05023d0f1b5d4b64b6cad4cf9a7ecd" prefix=" " category="inline-code"></block>。</block>
+  <block id="68691c61fb4efdab4eca4a7e06fa75c7" category="list-text">在您建立的文件中，新增您想要自訂的設定選項。</block>
+  <block id="8050ee75d62c0711ec176f9e1481041b" category="list-text">填充後<block ref="ba05023d0f1b5d4b64b6cad4cf9a7ecd" prefix=" " category="inline-code"></block>具有正確值的文件，應用設定檔：</block>
+  <block id="2ee46f1547524b1cfc2f8b760b44c719" category="open-title">使用 CLI 標誌</block>
+  <block id="fc7791ffb26e7154ff5b48ab1b14bf8b" category="list-text">使用以下命令<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block>標誌來指定單一參數：</block>
 </blocks>

@@ -5053,7 +5053,6 @@
   <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">建立資料移動者儲存庫密碼機密</block>
   <block id="fc114cb2ee6c7bff559d58e2a7454cab" category="paragraph">請使用下列範例建立密碼機密。當您建立 AppVault 物件時，可以指示 Trident Protect 使用此密碼來驗證資料移動器儲存庫。</block>
   <block id="571768fad7edd9c4f57173c592c1f86c" category="section-title">適用於雲端供應商的 AppVault 主要世代範例</block>
-  <block id="4d813fb6887e4d4533c00424efc22903" category="paragraph">定義 AppVault CR 時，您需要加入認證，才能存取供應商託管的資源。您產生認證金鑰的方式會因供應商而異。以下是多個提供者的命令列金鑰產生範例。您可以使用下列範例來建立每個雲端供應商認證的金鑰。</block>
   <block id="3e2db83ddd4087c64413cfd7c14100b6" category="section-title">AppVault 建立範例</block>
   <block id="80b938565b2e1ff14bd06e780149b085" category="paragraph">以下是每個提供者的 AppVault 定義範例。</block>
   <block id="dd180e899bea0f9a0eb538e256c19673" category="list-text">您可以選擇性地指定 Kubernetes 機密，其中包含 Restic 和 Kopia 儲存庫加密的自訂密碼。如需詳細資訊、請參閱 <block ref="7bf3b37360a9f432b37d8ac6c9f10cd4" category="inline-xref-macro-rx"></block> 。</block>
@@ -5815,4 +5814,20 @@
   <block id="fc7791ffb26e7154ff5b48ab1b14bf8b" category="list-text">使用以下命令<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block>標誌來指定單一參數：</block>
   <block id="b3d3f9a2121425d368b2e48af67d611a" category="list-text">叢集管理員：確保已建立適當的 RBAC，以授予目標命名空間擁有者在目標命名空間中建立 TridentVolumeReference CR 的權限<block ref="6fde1ba4470caca933058264dbfdea2e" prefix="(" category="inline-code"></block>）。</block>
   <block id="74e502e81d780e5b5d204969a0d44635" category="list-text">*叢集管理員：*確保已建立適當的 RBAC，以授予目標命名空間擁有者在目標命名空間中建立 TridentVolumeReference CR 的權限。</block>
+  <block id="955d6e7ec20d5d3fcf83f82552f7d6e0" category="section-title">用於 Amazon S3（AWS）驗證的 EKS Pod Identity</block>
+  <block id="67165804f666601e4155d69a62d46a7d" category="paragraph">Trident Protect 支援 EKS Pod Identity 進行 Kopia 資料移動器操作。此功能可實現對 S3 儲存桶的安全訪問，而無需將 AWS 憑證儲存在 Kubernetes 機密中。</block>
+  <block id="3c0f2c9a4c9b9d63ff7db27d3c3732d2" category="paragraph">*帶有Trident保護的 EKS Pod Identity 的要求*</block>
+  <block id="e674398aa14fe057d6f89aae4be1955a" category="paragraph">在使用具有Trident保護的 EKS Pod Identity 之前，請確保以下事項：</block>
+  <block id="6aa9f6ea95e8a0a226da6a3727f18bb1" category="list-text">您的 EKS 叢集已啟用 Pod Identity。</block>
+  <block id="ecadca4297640c38809298ae5d418fff" category="list-text">您已建立具有必要的 S3 儲存桶權限的 IAM 角色。要了解更多信息，請參閱<block ref="d40f70e9b63b2ee09271e4f02ea6bf6d" category="inline-link-macro-rx"></block>。</block>
+  <block id="af030ad9c72e341fd6b3331215a88c19" category="list-text">IAM 角色與下列Trident保護服務帳戶相關聯：</block>
+  <block id="5b71e41c96f404db1afa2e12eecd6500" category="list-text"><block ref="91bb592c84ad55997a90ac08be4392a4" prefix="" category="inline-code"></block></block>
+  <block id="1aa00347a52b15ca93b318123bc06e86" category="list-text"><block ref="f7466ebc5710cc1f7aebdb3c2347f9e6" prefix="" category="inline-code"></block></block>
+  <block id="7a9c1f2789b528ff73c69693fde3ecba" category="list-text"><block ref="12cb7c67caac3126c1f43145ffe66ca6" prefix="" category="inline-code"></block></block>
+  <block id="71f3c1257dc9ab0b34ac201e2acb022c" category="list-text"><block ref="4853ba7c1c1c3978e9d7142231fc12a6" prefix="" category="inline-code"></block></block>
+  <block id="aeb8fd34d676c01d8d9e00ea6a66b661" category="inline-link">AWS EKS Pod Identity 文檔</block>
+  <block id="a1c4fb1e42d1fc14a6fe64030e00a952" category="paragraph">有關啟用 Pod Identity 以及將 IAM 角色與服務帳戶關聯的詳細說明，請參閱<block ref="66ae84e756b5258fa5896e42189a8ba2" category="inline-link-rx"></block>。</block>
+  <block id="cedc87a271db7f699ec07464bfd0a9ee" category="paragraph">*AppVault 設定* 使用 EKS Pod Identity 時，請使用下列設定來設定您的 AppVault CR<block ref="df9bc6a254da3cea83fc8b7c71c71ea9" prefix=" " category="inline-code"></block>標記而不是明確的憑證：</block>
+  <block id="ed69194cde8739a857f51b02498a0c27" category="paragraph">定義 AppVault CR 時，您需要包含憑證以存取提供者託管的資源，除非您使用 IAM 驗證。如何產生憑證金鑰將根據提供者的不同而有所不同。以下是幾個提供者的命令列金鑰產生範例。您可以使用下列範例為每個雲端提供者的憑證建立金鑰。</block>
+  <block id="0d96febdd171c11830ca8b96c7a4f8e4" category="admonition">對於使用 Pod Identity 和 Kopia 資料移動器的 EKS 環境，您可以刪除<block ref="84695890ad88faf0bb2d6cdae8c01d51" prefix=" " category="inline-code"></block>部分並添加<block ref="df9bc6a254da3cea83fc8b7c71c71ea9" prefix=" " category="inline-code"></block>根據<block ref="c0828e0381730befd1f7a025057c74fb" prefix=" " category="inline-code"></block>配置。</block>
 </blocks>

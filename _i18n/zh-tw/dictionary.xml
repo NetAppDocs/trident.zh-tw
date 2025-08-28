@@ -2977,7 +2977,6 @@
   <block id="4b7cb6c36399bdd4e8724de18a1c079b" category="cell">2027 年 2 月</block>
   <block id="bcb8f00239af2cecd5a6b534dabea922" category="paragraph"><block ref="bcb8f00239af2cecd5a6b534dabea922" category="inline-link-macro-rx"></block></block>
   <block id="62bc04158f931e9b0a26f5676c8ab043" category="paragraph"><block ref="62bc04158f931e9b0a26f5676c8ab043" category="inline-link-macro-rx"></block></block>
-  <block id="3a766ef0e7ab8dbf17dc86487efd5fbf" category="paragraph">Trident 安裝程式會建立 Kubernetes ClusterRole 、該程式可存取叢集的 PersistentVolume 、 PersistentVolumVolume Claim 、 StorageClass 和 Kubernetes 叢集的 Secret 資源。請參閱 <block ref="118dd7a3d307a499ad0f9c547981393b" category="inline-link-macro-rx"></block>。</block>
   <block id="054e161b9c33938d4cac2bab4e4d46b8" category="paragraph">對於具有超過64個節點的Kubernetes叢集、您應該使用多個存取群組。每個存取群組最多可包含64個IQN、每個磁碟區可屬於四個存取群組。在設定最多四個存取群組的情況下、叢集中最多256個節點的任何節點都能存取任何磁碟區。如需 Volume 存取群組的最新限制、請參閱<block ref="ac4000c3a85e5909daa6593f9f0617fd" category="inline-link-rx"></block>。</block>
   <block id="2284dc5d4add6f82e5bc0121aa82a816" category="list-text">新增支援搭配 azure-NetApp-Files 儲存驅動程式使用 Azure 託管身分識別（ AMI ）。</block>
   <block id="f77d4be42f8ef9e2474d677786cf6d7a" category="paragraph">雲端身分識別可讓 Kubernetes Pod 以工作負載身分驗證來存取 Azure 資源、而非提供明確的 Azure 認證。</block>
@@ -5830,4 +5829,5 @@
   <block id="cedc87a271db7f699ec07464bfd0a9ee" category="paragraph">*AppVault 設定* 使用 EKS Pod Identity 時，請使用下列設定來設定您的 AppVault CR<block ref="df9bc6a254da3cea83fc8b7c71c71ea9" prefix=" " category="inline-code"></block>標記而不是明確的憑證：</block>
   <block id="ed69194cde8739a857f51b02498a0c27" category="paragraph">定義 AppVault CR 時，您需要包含憑證以存取提供者託管的資源，除非您使用 IAM 驗證。如何產生憑證金鑰將根據提供者的不同而有所不同。以下是幾個提供者的命令列金鑰產生範例。您可以使用下列範例為每個雲端提供者的憑證建立金鑰。</block>
   <block id="0d96febdd171c11830ca8b96c7a4f8e4" category="admonition">對於使用 Pod Identity 和 Kopia 資料移動器的 EKS 環境，您可以刪除<block ref="84695890ad88faf0bb2d6cdae8c01d51" prefix=" " category="inline-code"></block>部分並添加<block ref="df9bc6a254da3cea83fc8b7c71c71ea9" prefix=" " category="inline-code"></block>根據<block ref="c0828e0381730befd1f7a025057c74fb" prefix=" " category="inline-code"></block>配置。</block>
+  <block id="3d939b5d63f5846e5d71053999d3972e" category="paragraph">Trident安裝程式會建立一個 Kubernetes ClusterRole，該角色對 Kubernetes 叢集的 PersistentVolume、PersistentVolumeClaim、StorageClass 和 Secret 資源有特定的存取權。請參閱<block ref="ddc7df443077796093efdaf5a64d03cd" category="inline-link-macro-rx"></block> 。</block>
 </blocks>

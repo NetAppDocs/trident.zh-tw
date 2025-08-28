@@ -86,7 +86,7 @@ Trident 從 Kubernetes API 伺服器讀取資料、以判斷應用程式何時�
 
 === Trident 使用哪些角色和 Privileges ？
 
-Trident 安裝程式會建立 Kubernetes ClusterRole 、該程式可存取叢集的 PersistentVolume 、 PersistentVolumVolume Claim 、 StorageClass 和 Kubernetes 叢集的 Secret 資源。請參閱 link:../trident-get-started/kubernetes-customize-deploy-tridentctl.html["自訂tridentctl安裝"^]。
+Trident安裝程式會建立一個 Kubernetes ClusterRole，該角色對 Kubernetes 叢集的 PersistentVolume、PersistentVolumeClaim、StorageClass 和 Secret 資源有特定的存取權。請參閱link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["自訂tridentctl安裝"^] 。
 
 
 

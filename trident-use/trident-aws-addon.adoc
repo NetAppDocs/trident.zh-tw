@@ -48,35 +48,11 @@ image::../media/aws-eks-02.png[AWS EKS 02]
 +
 image::../media/aws-eks-03.png[AWS EKS 03]
 
-. 選取 IAM 角色選項以從節點繼承。
+. 配置所需的附加元件設定。
 +
 image::../media/aws-eks-04.png[AWS EKS 04]
 
-. 遵循 *Add-on 組態架構 * ，並將 *Configuration valus* 一節上的組態值參數設定為您在上一個步驟（步驟 1 ）中建立的角色。值應採用下列格式：
-+
-[source, JSON]
-----
-{
-
-  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
-  "cloudProvider": "AWS"
-
-}
-----
-+
-
-NOTE: 如果您為衝突解決方法選取「覆寫」、則現有附加元件的一或多個設定可以使用 Amazon EKS 附加元件設定覆寫。如果您未啟用此選項、且與現有設定發生衝突、則作業將會失敗。您可以使用產生的錯誤訊息來疑難排解衝突。選取此選項之前、請確定 Amazon EKS 附加元件不會管理您需要自行管理的設定。
-
-+
-image::../media/aws-eks-06.png[AWS EKS 06]
-
-
-
-
-NOTE: 如果您使用 Pod Identity 關聯，請跳過此步驟。
-
-+
-
+. 如果您使用 IRSA（服務帳戶的 IAM 角色），請參閱其他設定步驟link:https://docs.netapp.com/us-en/trident/trident-use/trident-fsx-install-trident.html#enable-the-trident-add-on-for-aws["請按這裡"]。
 . 選擇* Create *（建立*）。
 . 確認附加元件的狀態為 _Active_ 。
 +

@@ -22,7 +22,7 @@ summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在
 
 === 設定 Kubernetes StorageClass 物件
 
-會 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^]將 Trident 識別為該類別所使用的資源配置程式、並指示 Trident 如何資源配置 Volume 。例如：
+這 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 物件"^]物件將Trident標識為用於該類別的供應器，並指示Trident如何供應磁碟區。使用此範例為使用 NFS 的磁碟區設定 Storageclass（有關屬性的完整列表，請參閱下面的Trident屬性部分）：
 
 [source, YAML]
 ----
@@ -33,6 +33,20 @@ metadata:
 provisioner: csi.trident.netapp.io
 parameters:
   backendType: "ontap-nas"
+  provisioningType: "thin"
+  snapshots: "true"
+----
+使用此範例為使用 iSCSI 的磁碟區設定 Storageclass：
+
+[source, YAML]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
   provisioningType: "thin"
   snapshots: "true"
 ----
@@ -95,29 +109,6 @@ basic-csi    csi.trident.netapp.io   15h
 
 === 範例資訊清單
 
-.PersistentVolume 範例資訊清單
-[%collapsible]
-====
-此範例資訊清單顯示與 StorageClass 相關的 10Gi 基本 PV `basic-csi`。
-
-[source, YAML]
-----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-storage
-  labels:
-    type: local
-spec:
-  storageClassName: ontap-gold
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteMany
-  hostPath:
-    path: "/my/host/path"
-----
-====
 .PersistentVolume Claim 範例資訊清單
 [%collapsible]
 ====
@@ -140,27 +131,27 @@ spec:
       storage: 1Gi
   storageClassName: ontap-gold
 ----
-.採用 NVMe / TCP 的 PVC
-此範例顯示 NVMe / TCP 的基本 PVC ，並提供 rwx 存取，與名稱為的 StorageClass 相關聯 `protection-gold`。
+.使用 iSCSI 範例的 PVC
+此範例展示了具有 RWO 存取權限的 iSCSI 基本 PVC，它與名為 `protection-gold`。
 
 [source, YAML]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-name: pvc-san-nvme
+name: pvc-san
 spec:
 accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
 resources:
   requests:
-    storage: 300Mi
+    storage: 1Gi
 storageClassName: protection-gold
 ----
 ====
 
 
-=== 建立 PV 和 PVC
+=== 建立PVC
 
 .步驟
 . 建立 PVC 。

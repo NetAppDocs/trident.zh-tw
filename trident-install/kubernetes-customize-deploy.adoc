@@ -130,9 +130,6 @@ NOTE: 這 `k8sTimeout`參數僅適用於Trident安裝。
 
 NOTE: 從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06.1。
 |  
-
-
-| `enableAutoBackendConfig` | 啟用自動後端組態，可根據輸入參數順暢建立後端和儲存類別。 | 無預設值；選用 
 |===
 
 NOTE: 如需格式化 Pod 參數的詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["將Pod指派給節點"^]。

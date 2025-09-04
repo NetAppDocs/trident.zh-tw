@@ -4199,21 +4199,11 @@
   <block id="4dd48cffc8290e0b33e5c4ee6ddc6dbb" category="open-title">使用 CLI 建立備份</block>
   <block id="25ccf268b4f889fe28d3f3de94aace02" category="list-text">建立備份，以您環境的資訊取代括號中的值。例如：</block>
   <block id="451d39e79b7f4418d96b486e79bbce7d" category="section-title">建立資料保護排程</block>
-  <block id="45ad0235a77627fe6b23b64997cecf69" category="paragraph">保護原則可在已定義的排程中建立快照、備份或兩者、以保護應用程式。您可以選擇每小時、每天、每週和每月建立快照和備份、也可以指定要保留的複本數量。</block>
   <block id="1f3ba9ee33f6eeade259b37d0a9d4295" category="open-title">使用 CR 建立排程</block>
   <block id="0e94d109e3c6dd8f63d25b03253b5d5b" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="8b0c6e1f32e0c117335dedae62b11dba" prefix=" " category="inline-code"></block>。</block>
   <block id="fd3508664419c1ac5449e5dc6073188b" category="list-text">*SPEC.applicationRef* ：要備份之應用程式的 Kubernetes 名稱。</block>
-  <block id="42423d5a056001113d7894f5f70d7b91" category="list-text">*SPEC.BackupRetention * ：要保留的備份數量。零表示不應建立備份。</block>
   <block id="53ea99d8bfae17bb8fc2186524166892" category="list-text">*spec.snapshotRetention * ：要保留的快照數。零表示不應建立任何快照。</block>
   <block id="da9137c7fbfdc9b7f02e3ca8def0431d" category="list-text">* spec.granularity*: 執行排程的頻率。可能的值、以及必要的相關欄位：</block>
-  <block id="682d677bcf1ee88366ae753c477ace2d" category="list-text"><block ref="745fd0ea7f576f350a0eed4b8c48a8e2" prefix="" category="inline-code"></block> （要求您指定<block ref="aadd5cec42dbc02d51f62a1095401f59" prefix=" " category="inline-code"></block>）</block>
-  <block id="a1fbdfda9f5f05dbe5b05383881f400f" category="list-text"><block ref="bea79186fd7af2da67e59b4b15df5a26" prefix="" category="inline-code"></block> （要求您指定<block ref="aadd5cec42dbc02d51f62a1095401f59" prefix=" " category="inline-code"></block> 和<block ref="9199af27775b1a2a876e6d7b25540711" prefix=" " category="inline-code"></block>）</block>
-  <block id="41f071e1fad48cd8dcd577b1ac9c6917" category="list-text"><block ref="4a11fc05ed694c195f0703605b64da90" prefix="" category="inline-code"></block>（要求您指定<block ref="d5870327522a71f5b75f9d3793d0dc97" prefix=" " category="inline-code"></block>，和<block ref="4a04848e0e6e9423892ebc93ae61842d" prefix=" " category="inline-code"></block>）</block>
-  <block id="80ec5614051d9052a9306e31ccee727b" category="list-text"><block ref="708638881f3bac9d9c8c742c79502811" prefix="" category="inline-code"></block>（要求您指定<block ref="d5870327522a71f5b75f9d3793d0dc97" prefix=" " category="inline-code"></block>，和<block ref="9a7606959f42328ceeef95d70c353158" prefix=" " category="inline-code"></block>）</block>
-  <block id="fcf190043fb09fd4804fe6782a78a9a2" category="list-text">*spec.dayOfMontth* ：（ _Optional_ ）排程應執行的月份日期（ 1 - 31 ）。如果精細度設為、則此欄位為必<block ref="708638881f3bac9d9c8c742c79502811" prefix=" " category="inline-code"></block>填。</block>
-  <block id="2af4c701bc864e6f851f67ac3c19d5ea" category="list-text">*spec.dayOfWeek * ：（ _Optional _ ）排程應執行的一週中的一天（ 0 - 7 ）。0 或 7 的值表示星期日。如果精細度設為、則此欄位為必<block ref="4a11fc05ed694c195f0703605b64da90" prefix=" " category="inline-code"></block>填。</block>
-  <block id="b3af349c3c5d7f7aaa212c92d5ea9e51" category="list-text">*spec.hour * ：（ _Optional _ ）排程應執行的一天中的小時（ 0 - 23 ）。如果精細度設置爲、或，則此字段爲必填字段<block ref="bea79186fd7af2da67e59b4b15df5a26" prefix=" " category="inline-code"></block><block ref="4a11fc05ed694c195f0703605b64da90" prefix=" " category="inline-code"></block><block ref="708638881f3bac9d9c8c742c79502811" prefix=" " category="inline-code"></block>。</block>
-  <block id="27c9cf2998853e8a9b756268b2844110" category="list-text">* 規格分鐘 * ：（ _ 選用 _ ）排程應執行的小時（ 0 - 59 ）分鐘。如果精細度設置爲、、或，則此字段爲必填字段<block ref="745fd0ea7f576f350a0eed4b8c48a8e2" prefix=" " category="inline-code"></block><block ref="bea79186fd7af2da67e59b4b15df5a26" prefix=" " category="inline-code"></block><block ref="4a11fc05ed694c195f0703605b64da90" prefix=" " category="inline-code"></block><block ref="708638881f3bac9d9c8c742c79502811" prefix=" " category="inline-code"></block>。</block>
   <block id="1326c499c45cd471c6075891c6573130" category="list-text">在您以正確的值填入檔案之後<block ref="8b0c6e1f32e0c117335dedae62b11dba" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="6bb2ab2bbc2b0f3f5faec961628f6f4b" category="open-title">使用 CLI 建立排程</block>
   <block id="95e2bfc6f531a05575927e45b0a34558" category="list-text">建立保護排程，以環境資訊取代方括號中的值。例如：</block>
@@ -4842,8 +4832,6 @@
   <block id="b55333d21cb50b1d1d34c529c999482f" category="list-text">registry ． k8s.io/SIG-storage / csi 置備程式： v5.2.0</block>
   <block id="7e8b00e8f801232796015a8859867e55" category="list-text">登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.13.0</block>
   <block id="0915385df687d0c4a0afb57a61f02af3" category="cell"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block><block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block><block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>，，及<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>僅限。與 Kubernetes Non-Graceful Node Shutdown （ NGNS ）一起運作、讓叢集管理員能夠在節點發生問題時、將已掛載磁碟區的工作負載安全移轉至新節點。</block>
-  <block id="abef2fa5ff95ef0fcfa0688ea6bcb3a9" category="cell"><block ref="c257f92937b246af1d65825bab674c3b" prefix="" category="inline-code"></block></block>
-  <block id="abd94f25c6f83f31232f41e2c03a17c1" category="cell">啟用自動後端組態，可根據輸入參數順暢建立後端和儲存類別。</block>
   <block id="584255a02e82c085a6eee64514bf791a" category="paragraph">強制分離僅適用於<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>，<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>，<block ref="c9cdb62835ea4d8965a6e946dc9826f0" prefix=" " category="inline-code"></block>和<block ref="bc63092df841150cda2e4fd2992a38d1" prefix=" " category="inline-code"></block>。啟用強制分離之前、必須先在 Kubernetes 叢集上啟用非正常節點關機（ NGNS ）。根據預設， Kubernetes 1.28 及更高版本會啟用 NGNS 。如需詳細資訊、請 <block ref="a0c86c823d7e699cfc277c93de351a2d" category="inline-link-macro-rx"></block>參閱。</block>
   <block id="97949d2167cfb02925ebeb5fbc18e41c" category="admonition">使用<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>或<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式時，您需要將後端組態中的參數設定<block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix=" " category="inline-code"></block>為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>，以便 Trident 可以使用受管理的匯出原則套用的污染來限制從 Kubernetes 節點的存取。</block>
   <block id="f27e6cf95381139bd9916c64f178d212" category="list-text">對於運行 Kubernetes 1.24 的羣集，請使用 <block ref="ccef28639b5a7d8b851d32c1ca719ce3" category="inline-link-macro-rx"></block>。</block>
@@ -5410,12 +5398,7 @@
   <block id="13001655f60b86601d45076ffb7e8cb4" category="list-text">*spec.snapshotRef*：（可選）：用作備份來源的快照的名稱。如果未提供，將會建立並備份暫存快照。</block>
   <block id="ba2af206b00fb98d583a5fe7908af2cc" category="list-text">*metadata.annotations.protect.trident.netapp.io/full-backup*：（可選）此註解用於指定備份是否應該是非增量的。依預設，所有備份都是遞增備份。不過，如果此註釋設為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>，則備份將變成非遞增備份。如果未指定，則備份會遵循預設的遞增備份設定。最佳做法是定期執行完整備份，然後在完整備份之間執行遞增備份，以將與還原相關的風險降至最低。</block>
   <block id="93b1107cde6ba041513cd9ccf7b4bae0" category="paragraph">您可以選擇性地使用<block ref="53f5240b338c91a0568f15e2562a35de" prefix=" " category="inline-code"></block>旗標來指定備份是否應為非遞增備份。依預設，所有備份都是遞增備份。使用此旗標時，備份會變成非遞增備份。最佳做法是定期執行完整備份，然後在完整備份之間執行遞增備份，以將與還原相關的風險降至最低。</block>
-  <block id="99cd57e28c97c0577c8e6d701de91b88" category="section-title">建立備份排程</block>
-  <block id="46773fe21c0cf6451e8de9f6a18da51f" category="paragraph">您可以排程非增量完整備份。依預設，所有備份都是遞增備份。定期執行完整備份，並在其間進行增量備份，有助於降低與還原相關的風險。</block>
-  <block id="2c26e9a03dd91b6eafe57094f8245ad8" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="cb18a3ae8903eb525dd256cfa3d4576e" prefix=" " category="inline-code"></block>。</block>
   <block id="1770a13eba6600496a86d2f1cf357813" category="list-text">* metadata.annotations.protect.trident.netapp.io/full-backup-rule*: （ _Optional_ ）此註釋用於指定排程完整備份的規則。您可以將其設定為<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>持續完整備份，或根據您的需求自訂。例如，如果您選擇每日精細度，則可以指定應在星期一進行完整備份。</block>
-  <block id="9355f48a9876fcaefe0351294df4e05c" category="list-text">在您以正確的值填入檔案之後<block ref="cb18a3ae8903eb525dd256cfa3d4576e" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
-  <block id="1bd9850ddb901f0e741293ec737c5de6" category="list-text">建立備份排程，以環境資訊取代方括號中的值。例如：</block>
   <block id="ab5807fb06fd654f730a4ed5a02bb950" category="paragraph">您可以將旗標設定<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block>為持續完整備份，或根據需求自訂旗標<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>。例如，如果您選擇每日精細度，則可以指定應在星期一進行完整備份。例如，使用<block ref="d416cce9d6bcb838c8958b9fbb84dffa" prefix=" " category="inline-code"></block>排程在週一和週四進行完整備份。</block>
   <block id="396e0c641a3eb6083fa0ba7badcff8ac" category="admonition">確保回收策略設定為<block ref="f2a6c498fb90ee345d997f888fce3b18" prefix=" " category="inline-code"></block>從物件儲存中刪除所有備份資料。該策略的預設值是<block ref="afece4245269582cb2f1009d4fb52047" prefix=" " category="inline-code"></block>以避免意外資料遺失。如果政策沒有改變<block ref="f2a6c498fb90ee345d997f888fce3b18" prefix=" " category="inline-code"></block> ，備份資料將保留在物件儲存中，需要手動刪除。</block>
   <block id="28b0a2e1fa7af6d4a2a83bc61c130c0f" category="list-text">確保連接到叢集的 NetApp 儲存裝置使用 Trident 24.02 或更新版本（建議使用 Trident 24.10）。</block>
@@ -5433,11 +5416,8 @@
   <block id="738d4e5947ef1239f584cd47619cf356" category="paragraph">本節列出了系統中支援配置各種行為的註解。如果使用者未明確設定註解，系統將使用預設值。</block>
   <block id="f49fa3f76b2a4fcdf04dff369d417d84" category="cell">protected.trident.netapp.io/data-mover-timeout-sec</block>
   <block id="a666ad37acca2b6a0ee400d7b2acf088" category="cell">允許資料移動設備操作停止的最長時間（以秒為單位）。</block>
-  <block id="94f6d7e04a4d452035300f18b984988c" category="cell">300</block>
   <block id="3b2f6f0bb673ee02e8aafe624e2e971f" category="cell">protected.trident.netapp.io/kopia-content-cache-size-limit-mb</block>
-  <block id="157db7df530023575515d366c9b672e8" category="cell">整數</block>
   <block id="f044e4dc5e5fdde631180451c25a973c" category="cell">Kopia 內容快取的最大大小限制（以兆位元組為單位）。</block>
-  <block id="a9b7ba70783b617e9998dc4dd82eb3c5" category="cell">1000</block>
   <block id="0ae48837f8ebc5da6e90828852d02027" category="admonition">25.06 及更高版本不需要此步驟。</block>
   <block id="ed98e5c2a168d1606df0370fe371df28" category="paragraph">從版本 24.10 升級時，升級期間執行的快照可能會失敗。此失敗不會阻止將來建立快照（無論是手動快照還是計劃快照）。如果升級期間快照失敗，您可以手動建立新快照以確保應用程式受到保護。</block>
   <block id="756accba0f305693c47126f932bd7ac6" category="paragraph">為避免潛在的故障，您可以在升級前停用所有快照計劃，然後在升級後重新啟用。但是，這會導致升級期間遺失所有計劃的快照。</block>
@@ -5831,4 +5811,22 @@
   <block id="bef9303dd11d749d2facca8b3064630e" category="list-text">OpenShift 4.12、4.14 - 4.19（如果您打算使用 OpenShift 4.19 進行 iSCSI 節點準備，則支援的最低Trident版本為 25.06.1。）</block>
   <block id="3b30a7aea8a6f98824f61888e8628449" category="inline-link-macro">Red Hat 擴充更新支援 (EUS) 發布生命週期</block>
   <block id="6b62784ed0975ba9ec1e2f69af860e25" category="admonition">Trident繼續支援舊版 OpenShift 版本，與<block ref="d73f30265a77d175825591fd08508146" category="inline-link-macro-rx"></block>，即使它們依賴上游不再受官方支援的 Kubernetes 版本。在這種情況下安裝Trident時，您可以放心地忽略有關 Kubernetes 版本的任何警告訊息。</block>
+  <block id="4efb4e385545dd4fb4a8cf16e5ef7763" category="paragraph">保護策略透過按照定義的計劃建立快照、備份或兩者來保護應用程式。您可以選擇每小時、每天、每周和每月建立快照和備份，並可以指定要保留的副本數量。您可以使用 full-backup-rule 註解來排程非增量式完整備份。預設情況下，所有備份都是增量的。定期執行完整備份以及其間的增量備份有助於降低與復原相關的風險。</block>
+  <block id="71f68550bd8133367f60c4ea58f6680d" category="list-text">您可以透過設定<block ref="90d510783632c9f8604cd880d9f84137" prefix=" " category="inline-code"></block>歸零，<block ref="460d2880d85882a9c98985b9b97c15f8" prefix=" " category="inline-code"></block>為大於零的值。環境<block ref="460d2880d85882a9c98985b9b97c15f8" prefix=" " category="inline-code"></block>為零意味著任何計劃的備份仍將建立快照，但這些快照是臨時的，並在備份完成後立即刪除。</block>
+  <block id="183c1f11eb5fcbc4a480f1ed7ec6315d" category="list-text">*spec.backupRetention*：要保留的備份數量。零表示不應建立備份（僅快照）。</block>
+  <block id="50b9f8f4650a278b466928c2105fc23a" category="list-text"><block ref="769cb50c95fd3a43c659aa73aba99e5b" prefix="" category="inline-code"></block>（要求您指定<block ref="aadd5cec42dbc02d51f62a1095401f59" prefix=" " category="inline-code"></block>)</block>
+  <block id="03b866ae4a8a50619a4126154196606b" category="list-text"><block ref="c512b685438f41daa7386329a3b8f8d3" prefix="" category="inline-code"></block>（要求您指定<block ref="aadd5cec42dbc02d51f62a1095401f59" prefix=" " category="inline-code"></block>和<block ref="9199af27775b1a2a876e6d7b25540711" prefix=" " category="inline-code"></block>)</block>
+  <block id="2cfd34c47c4dbe46650e40185474bd21" category="list-text"><block ref="6c25e6a6da95b3d583c6ec4c3f82ed4d" prefix="" category="inline-code"></block>（要求您指定<block ref="d5870327522a71f5b75f9d3793d0dc97" prefix=" " category="inline-code"></block>， 和<block ref="4a04848e0e6e9423892ebc93ae61842d" prefix=" " category="inline-code"></block>)</block>
+  <block id="e36f4a95a41882feb14dd016e82700bc" category="list-text"><block ref="9030e39f00132d583da4122532e509e9" prefix="" category="inline-code"></block>（要求您指定<block ref="d5870327522a71f5b75f9d3793d0dc97" prefix=" " category="inline-code"></block>， 和<block ref="9a7606959f42328ceeef95d70c353158" prefix=" " category="inline-code"></block>)</block>
+  <block id="8461dc1f0cf640973db2ba7288efba21" category="list-text"><block ref="90589c47f06eb971d548591f23c285af" prefix="" category="inline-code"></block></block>
+  <block id="85b77ce1b7f65fe79fd40e5b53ba60f5" category="list-text">*spec.dayOfMonth*：（可選）計畫應運行的月份日期（1 - 31）。如果粒度設定為<block ref="9030e39f00132d583da4122532e509e9" prefix=" " category="inline-code"></block>。該值必須以字串形式提供。</block>
+  <block id="c3d0b5531d946d2ff5d8deeeec3e7984" category="list-text">*spec.dayOfWeek*：（可選）計畫應運行的星期幾（0 - 7）。值 0 或 7 表示星期日。如果粒度設定為<block ref="6c25e6a6da95b3d583c6ec4c3f82ed4d" prefix=" " category="inline-code"></block>。該值必須以字串形式提供。</block>
+  <block id="6bacf4f9c6600aa7f82b6f6b4f8a85e0" category="list-text">*spec.hour*：（可選）計畫應運行的小時數（0 - 23）。如果粒度設定為<block ref="c512b685438f41daa7386329a3b8f8d3" prefix=" " category="inline-code"></block>，<block ref="6c25e6a6da95b3d583c6ec4c3f82ed4d" prefix=" " category="inline-code"></block> ， 或者<block ref="9030e39f00132d583da4122532e509e9" prefix=" " category="inline-code"></block>。該值必須以字串形式提供。</block>
+  <block id="7793fda5cb73b26f1ecdca11dcd1383e" category="list-text">*spec.minute*：（可選）計畫應運行的小時中的分鐘數（0 - 59）。如果粒度設定為<block ref="769cb50c95fd3a43c659aa73aba99e5b" prefix=" " category="inline-code"></block>，<block ref="c512b685438f41daa7386329a3b8f8d3" prefix=" " category="inline-code"></block> ，<block ref="6c25e6a6da95b3d583c6ec4c3f82ed4d" prefix=" " category="inline-code"></block> ， 或者<block ref="9030e39f00132d583da4122532e509e9" prefix=" " category="inline-code"></block>。該值必須以字串形式提供。</block>
+  <block id="16220401716289e6ffa12bfc49da1d84" category="paragraph">備份和快照計劃的範例 YAML：</block>
+  <block id="ce230d4d200ba39549537496edaaef6a" category="paragraph">僅快照計劃的範例 YAML：</block>
+  <block id="19c776919085070d66d199dd494adbbf" category="paragraph">對於僅快照計劃，設置<block ref="39c61d5d6dee0f5540cfcb77307edd90" prefix=" " category="inline-code"></block>並指定一個大於 0 的值<block ref="2c3fac80fc69264c6dbace5f18065639" prefix=" " category="inline-code"></block>。</block>
+  <block id="1991a9f25a93e75eb693b6e02bc130ed" category="list-text">Trident保護備份僅支援 Linux 計算節點。  Windows 運算節點不支援備份作業。</block>
+  <block id="aff5adfa33a9913ad2ab5d578c3f08c8" category="cell">“300”</block>
+  <block id="9d397fb20eca1ebda087637e32a30a7b" category="cell">“1000”</block>
 </blocks>

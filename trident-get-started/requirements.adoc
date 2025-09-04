@@ -42,12 +42,17 @@ Trident 支援多個容器引擎和協調器、包括：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
 * Kubernetes 1.27 - 1.33
-* OpenShift 4.14 - 4.19（如果您打算使用 OpenShift 4.19 進行 iSCSI 節點準備，則支援的最低Trident版本為 25.06.1。）
+* OpenShift 4.12、4.14 - 4.19（如果您打算使用 OpenShift 4.19 進行 iSCSI 節點準備，則支援的最低Trident版本為 25.06.1。）
++
+
+NOTE: Trident繼續支援舊版 OpenShift 版本，與link:https://access.redhat.com/support/policy/updates/openshift["Red Hat 擴充更新支援 (EUS) 發布生命週期"]，即使它們依賴上游不再受官方支援的 Kubernetes 版本。在這種情況下安裝Trident時，您可以放心地忽略有關 Kubernetes 版本的任何警告訊息。
+
 * Rancher Kubernetes Engine 2（RKE2）v1.27.x - 1.33.x
-
-
++
 
 NOTE: 雖然Trident在 Rancher Kubernetes Engine 2 (RKE2) 版本 1.27.x - 1.33.x 上受支持，但Trident目前僅在 RKE2 v1.28.5+rke2r1 上獲得認證。
+
+
 
 Trident 也與其他完全託管且自行管理的 Kubernetes 產品合作、包括 Google Kubernetes Engine （ GKE ）、 Amazon Elastic Kubernetes Services （ EKS ）、 Azure Kubernetes Service （ aks ）、 Mirantis Kubernetes Engine （ MKE ）和 VMware Tanzu Portfolio 。
 

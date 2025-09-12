@@ -240,12 +240,15 @@ WARNING: 請勿移除 values.yaml 檔案的預設關聯性。當您想要提供�
 | `iscsiSelfHealingWaitTime` | iSCSI 自我修復透過執行登出和後續登入來嘗試解決過時工作階段的持續時間。 | `7m0s` 
 
 
-| `nodePrep`  a| 
-可讓 Trident 準備 Kubernetes 叢集的節點、以使用指定的資料儲存傳輸協定來管理磁碟區。* 目前 `iscsi`是唯一支援的值。 *
+| `nodePrep` | 使Trident能夠準備 Kubernetes 叢集的節點，以使用指定的資料儲存協定管理磁碟區。 *現在， `iscsi`是唯一支援的值。 *注意：從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06.1。 |  
 
 
-NOTE: 從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06.1。
-|  
+| `enableConcurrency`  a| 
+支援並發Trident控制器操作以提高吞吐量。
+
+
+NOTE: *技術預覽*：此功能在NetApp Trident 25.06 中處於實驗階段，目前支援使用ONTAP-SAN 驅動程式（iSCSI 和 FCP 協定）的有限平行工作流程。
+| 錯 
 
 
 | `k8sAPIQPS`  a| 

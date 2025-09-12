@@ -135,6 +135,14 @@ NOTE: 從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06
 | `k8sAPIQPS`  a| 
 控制器與 Kubernetes API 伺服器通訊時所使用的每秒查詢數 (QPS) 限制。  Burst 值會根據 QPS 值自動設定。
 | `100`; 選修的 
+
+
+| `enableConcurrency`  a| 
+支援並發Trident控制器操作以提高吞吐量。
+
+
+NOTE: *技術預覽*：此功能在NetApp Trident 25.06 中處於實驗階段，目前支援使用ONTAP-SAN 驅動程式（iSCSI 和 FCP 協定）的有限平行工作流程。
+| 錯 
 |===
 
 NOTE: 如需格式化 Pod 參數的詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["將Pod指派給節點"^]。

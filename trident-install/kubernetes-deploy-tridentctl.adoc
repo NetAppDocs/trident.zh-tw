@@ -195,3 +195,16 @@ tridentctl install --windows -n trident
 tridentctl install --enable-force-detach=true -n trident
 ----
 ====
+.啟用並發Trident控制器操作
+[%collapsible]
+====
+為了啟用並發Trident控制器操作以提高吞吐量，請新增 `--enable-concurrency`如本例所示，在安裝過程中選擇此選項。
+
+
+NOTE: *技術預覽*：此功能在NetApp Trident 25.06 中處於實驗階段，目前支援使用ONTAP-SAN 驅動程式（iSCSI 和 FCP 協定）的有限平行工作流程。
+
+[listing]
+----
+tridentctl install --enable-concurrency -n trident
+----
+====

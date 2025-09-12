@@ -318,7 +318,7 @@ link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Pr
 
 
 
-* 新增旗標 `--k8s_api_qps`至安裝程式、以設定 Trident 用來與 Kubernetes API 伺服器通訊的 QPS 值。
+* 新增了新標誌 `--k8s-api-qps`安裝程式設定Trident與 Kubernetes API 伺服器通訊所使用的 QPS 值。
 * 新增 `--node-prep`旗標至安裝程式、以自動管理 Kubernetes 叢集節點上的儲存傳輸協定相依性。已測試並驗證與 Amazon Linux 2023 iSCSI 儲存傳輸協定的相容性
 * 在非正常節點關機案例中、新增對強制分離 ONTAP NAS 經濟型磁碟區的支援。
 * 使用後端選項時、全新的 ONTAP NAS 經濟型 NFS 磁碟區將使用每 qtree 匯出原則 `autoExportPolicy`。qtree 只會在發佈時對應至節點限制的匯出原則、以改善存取控制和安全性。當 Trident 從所有節點取消發佈磁碟區時、現有的 qtree 將切換至新的匯出原則模型、而不會影響作用中的工作負載。

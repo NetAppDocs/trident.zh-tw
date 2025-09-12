@@ -55,6 +55,24 @@ NOTE: 如果您要將 IAM 角色指定給 Trident 、則可以省略將、 `apiK
 
 
 
+=== 同時使用Trident SAN/iSCSI 和 EBS-CSI 驅動程式
+
+如果您打算將 ontap-san 驅動程式（例如 iSCSI）與 AWS（EKS、ROSA、EC2 或任何其他執行個體）一起使用，則節點上所需的多路徑配置可能會與 Amazon Elastic Block Store (EBS) CSI 驅動程式衝突。為了確保多路徑功能不會幹擾同一節點上的 EBS 磁碟，您需要在多路徑設定中排除 EBS。這個例子展示了 `multipath.conf`包含所需Trident設定的文件，同時將 EBS 磁碟排除在多路徑之外：
+
+[listing]
+----
+defaults {
+    find_multipaths no
+}
+blacklist {
+    device {
+        vendor "NVME"
+        product "Amazon Elastic Block Store"
+    }
+}
+----
+
+
 == 驗證
 
 Trident 提供兩種驗證模式。

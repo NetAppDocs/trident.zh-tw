@@ -5838,4 +5838,6 @@
   <block id="bf514a22294dc1e674b6fafac9463f62" category="cell">使Trident能夠準備 Kubernetes 叢集的節點，以使用指定的資料儲存協定管理磁碟區。 *現在，<block ref="39eea648dab96b0ee6022dabb38bc420" prefix=" " category="inline-code"></block>是唯一支援的值。 *注意：從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06.1。</block>
   <block id="efb39fa310a7096844b88691811796ed" category="example-title">啟用並發Trident控制器操作</block>
   <block id="e6bd8d0922b2f21a4aea7439cad54ba6" category="paragraph">為了啟用並發Trident控制器操作以提高吞吐量，請新增<block ref="663f61c1cf47f8a531c8d769e8bf59f4" prefix=" " category="inline-code"></block>如本例所示，在安裝過程中選擇此選項。</block>
+  <block id="6b37510d663e6eea4cd2d594f41e9e80" category="section-title">同時使用Trident SAN/iSCSI 和 EBS-CSI 驅動程式</block>
+  <block id="dd601ed3d730aa713757843173c1c8c5" category="paragraph">如果您打算將 ontap-san 驅動程式（例如 iSCSI）與 AWS（EKS、ROSA、EC2 或任何其他執行個體）一起使用，則節點上所需的多路徑配置可能會與 Amazon Elastic Block Store (EBS) CSI 驅動程式衝突。為了確保多路徑功能不會幹擾同一節點上的 EBS 磁碟，您需要在多路徑設定中排除 EBS。這個例子展示了<block ref="9ac80d53ede05256c28cf9e043eb423c" prefix=" " category="inline-code"></block>包含所需Trident設定的文件，同時將 EBS 磁碟排除在多路徑之外：</block>
 </blocks>

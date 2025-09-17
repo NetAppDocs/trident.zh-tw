@@ -5705,7 +5705,6 @@
   <block id="27f5153068cecd37b6fa4a136586658d" category="sidebar">使用進階設定</block>
   <block id="2c9ccd5e8999c2c36f29069165f327c3" category="admonition">如果您使用 Red Hat OpenShift，請務必注意命名空間註解在 OpenShift 環境中的重要角色。命名空間註解可確保復原的 pod 遵守 OpenShift 安全性情境約束 (SCC) 定義的適當權限和安全性配置，並且可以存取磁碟區而不會出現權限問題。欲了解更多信息，請參閱<block ref="f3121e004cef0b92f500227025367589" category="inline-link-rx"></block>。</block>
   <block id="dcc6257f6685a427757ede81b2086cb2" category="admonition">從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06.1。</block>
-  <block id="78b16a5d2427fb1cb647b8ff8e8936dd" category="section-title">25.06.1 中的新增功能</block>
   <block id="56f0b7f1d902abcea5e9a924acc8cf68" category="list-text">修正了從子系統取消映射之前未檢查 NQN 的問題。</block>
   <block id="74ede3b036d836536636c89ae6208dc1" category="list-text">修正了多次嘗試關閉 LUKS 裝置導致無法分離磁碟區的問題。</block>
   <block id="e593abd973cbfe8b821587be547d75a8" category="list-text">修正了當裝置路徑自建立以來發生變化時 iSCSI 磁碟區取消暫存的問題。</block>
@@ -5840,4 +5839,11 @@
   <block id="e6bd8d0922b2f21a4aea7439cad54ba6" category="paragraph">為了啟用並發Trident控制器操作以提高吞吐量，請新增<block ref="663f61c1cf47f8a531c8d769e8bf59f4" prefix=" " category="inline-code"></block>如本例所示，在安裝過程中選擇此選項。</block>
   <block id="6b37510d663e6eea4cd2d594f41e9e80" category="section-title">同時使用Trident SAN/iSCSI 和 EBS-CSI 驅動程式</block>
   <block id="dd601ed3d730aa713757843173c1c8c5" category="paragraph">如果您打算將 ontap-san 驅動程式（例如 iSCSI）與 AWS（EKS、ROSA、EC2 或任何其他執行個體）一起使用，則節點上所需的多路徑配置可能會與 Amazon Elastic Block Store (EBS) CSI 驅動程式衝突。為了確保多路徑功能不會幹擾同一節點上的 EBS 磁碟，您需要在多路徑設定中排除 EBS。這個例子展示了<block ref="9ac80d53ede05256c28cf9e043eb423c" prefix=" " category="inline-code"></block>包含所需Trident設定的文件，同時將 EBS 磁碟排除在多路徑之外：</block>
+  <block id="f5df426ed26da0917a8092b8f0b273d7" category="section-title">Trident 25.06.2 所需的容器鏡像</block>
+  <block id="2bf22bcd28ba853a9453f882ca5dd194" category="list-text">docker.io/netapp/trident:25.06.2</block>
+  <block id="1f8b4ae7badb9c9b5fd03f3770bf252f" category="list-text">docker.io/netapp/trident-operator:25.06.2（選購）</block>
+  <block id="543f0a02b84be74ac68a52c8fb383d86" category="section-title">Trident 25.06 所需的容器鏡像</block>
+  <block id="c70a7b422c141acedc1060dd737c17a5" category="section-title">25.06.2 中的新增功能</block>
+  <block id="3e49406f91b1756e000630d03496d0da" category="list-text">*Kubernetes*：修正了從 Kubernetes 節點分離磁碟區時發現不正確的 iSCSI 裝置的嚴重問題。</block>
+  <block id="76adb46eab5f5dd5b58c3c8a62320c12" category="section-title">25.06.1 中的變更</block>
 </blocks>

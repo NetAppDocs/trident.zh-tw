@@ -218,6 +218,31 @@ link:../trident-reference/ports.html["Trident 連接埠"]
 
 對於無線安裝、下列清單是安裝 Trident 所需的容器映像參考資料。使用 `tridentctl images`命令來驗證所需的容器映像清單。
 
+
+
+=== Trident 25.06.2 所需的容器鏡像
+
+[cols="2"]
+|===
+| Kubernetes 版本 | Container映像 
+
+
+| v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0 、 v1.33.0  a| 
+* docker.io/netapp/trident:25.06.2
+* Docker 。 IO/NetApp/Trident 自動支援： 25.06
+* registry ． k8s.io/SIG-storage / csi 置備程式： v5.2.0
+* 登錄 .k8s.io/SIG-storage / csi 附加程式： v4.8.1
+* 登錄 .k8s.io/SIG-storage / csi 大小調整： v1.13.2.
+* 登錄 .k8s.IO/SIG-storage / csi 快照機： v8.2.1
+* 登錄 .k8s.io/SIG-storage / csi 節點驅動程式登錄器： v2.13.0
+* docker.io/netapp/trident-operator:25.06.2（選購）
+
+
+|===
+
+
+=== Trident 25.06 所需的容器鏡像
+
 [cols="2"]
 |===
 | Kubernetes 版本 | Container映像 

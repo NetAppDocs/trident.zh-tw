@@ -3556,10 +3556,8 @@
   <block id="0efdc02c2d9fa1fcf31ff85fec4ed8de" category="summary">您可以使用操作員輕鬆升級現有的 Trident 安裝。</block>
   <block id="9a98985a342ee2d7d213394e90d838a9" category="doc">使用 Trident 營運商或 Helm 升級 Trident 安裝</block>
   <block id="5430a6b8f98712c8210f8df2d906793a" category="paragraph">您可以手動或使用 Helm 、使用 Trident 營運商來升級 Trident 。您可以從 Trident 營運商安裝升級至其他 Trident 營運商安裝、或從安裝升級<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>至 Trident 營運商版本。在升級 Trident 操作員安裝之前、請先檢閱<block ref="5cffa5fbe758cc3901f0e33c78b29d1b" category="inline-link-macro-rx"></block>。</block>
-  <block id="7be5118cbf87396f839e400ffc94aecd" category="paragraph">您可以從叢集範圍的 Trident 運算子安裝升級到另一個叢集範圍的 Trident 運算子安裝。所有 Trident 版本 21.01 及更新版本均使用叢集範圍的運算子。</block>
   <block id="18466b7fafaca62c9c0d2438889ca0c6" category="admonition">若要從使用命名空間範圍運算子（ 20.07 至 20.10 版）安裝的 Trident 升級、請使用 Trident 的升級指示<block ref="567dd1ff029f25a404a69ff1e3c8d83b" category="inline-link-macro-rx"></block>。</block>
   <block id="76e06d694db0c428e4d51e3354a7a4bd" category="list-text">驗證您的 Trident 版本：</block>
-  <block id="5681bedbe2af394566fa4b56d2d4c938" category="list-text">刪除用於安裝目前 Trident 執行個體的 Trident 運算子。例如、如果您是從 23.07 升級、請執行下列命令：</block>
   <block id="1863fa40be678d4efa33c952a5cba52e" category="paragraph">您可以升級 Trident Helm 安裝。</block>
   <block id="b2095ed231848e69cbd92e44defb033b" category="admonition">將已安裝 Trident 的 Kubernetes 叢集從 1.24 升級至 1.25 或更新版本時、您必須<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>先更新 values.yaml 以設定<block ref="94ef2a130a825358ab3002442d6e5145" prefix=" " category="inline-code"></block>或新增<block ref="96d5d0b9a6e3e01b2ae2ed889f75d22e" prefix=" " category="inline-code"></block>至<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block>命令、才能升級叢集。</block>
   <block id="5198b91e39c3a2f369e2426e2732625e" category="paragraph">如果您已經將 Kubernetes 叢集從 1.24 升級至 1.25 、而不升級 Trident helm 、則 helm 升級將會失敗。若要順利完成升級、請先執行下列步驟：</block>
@@ -5383,7 +5381,6 @@
   <block id="287d9354cd0e889ca3c170f1a20060ce" category="paragraph">在<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>中，更新<block ref="ff1ea91c85a440ad216d6d8dafdb2b4a" prefix=" " category="inline-code"></block> 以反映映像登錄的位置。您 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有 CSI 映像都必須位於同一個登錄中。例如：</block>
   <block id="3ce13997cacbb7668e6636ffb21ba04a" category="list-text"><block ref="a5ad704b64900183c3e85fea9edad0f0" prefix="" category="inline-code"></block> 如果您的映像全部位於一個登錄中。</block>
   <block id="b6e3b64ea99d65462c313d10936507a1" category="list-text"><block ref="f5f5dab4b39c35c32ac8846470b513ad" prefix="" category="inline-code"></block> 如果您的 Trident 映像位於與 CSI 映像不同的登錄中。</block>
-  <block id="3821e533e08e97c63527fb3e1ab72017" category="list-text">使用適用於您環境的正確套件 YAML 檔案安裝 Trident 、其中 _Kubernetes &lt;bundle.yaml&gt; 版本為 _<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block> 或<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block>以 Kubernetes 版本為基礎。例如、如果您要安裝 Trident 25.06 、請執行下列命令：</block>
   <block id="d180bc23594b2a81a598da69af7136af" category="list-text">如果您 <block ref="538f4beb16c8502421a8389e199d34ce" category="inline-link-macro-rx"></block>是、您可以在單一步驟中使用<block ref="9ba27131bd1269499334744b89769fac" prefix=" " category="inline-code"></block> 進行升級。如果您未新增 Helm repo 或無法使用它來升級：</block>
   <block id="19edaf19feadf74a38c5b3da24fd64bd" category="list-text">使用<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> 反映您要升級至的版本的命令<block ref="c49c0910ea156a14c49e617b509b605a" prefix=" " category="inline-code"></block> 。</block>
   <block id="843e8c92f2887fa83e4564f86e6a7ca0" category="list-text">您可以直接升級至安裝版本的四個版本範圍內的任何目標版本。例如、您可以直接從 24.06 （或任何 24.06 點版本）升級至 25.06 。</block>
@@ -5846,4 +5843,9 @@
   <block id="c70a7b422c141acedc1060dd737c17a5" category="section-title">25.06.2 中的新增功能</block>
   <block id="3e49406f91b1756e000630d03496d0da" category="list-text">*Kubernetes*：修正了從 Kubernetes 節點分離磁碟區時發現不正確的 iSCSI 裝置的嚴重問題。</block>
   <block id="76adb46eab5f5dd5b58c3c8a62320c12" category="section-title">25.06.1 中的變更</block>
+  <block id="618fab30e005e12b783d70218c18af46" category="paragraph">您可以從叢集範圍的Trident操作員安裝升級到另一個叢集範圍的Trident操作員安裝。所有Trident版本都使用叢集範圍的運算元。</block>
+  <block id="723dc7fd3bdd515b6046b390cb3bc388" category="list-text">更新<block ref="9fa80de5781893b057ff1d535201893b" prefix=" " category="inline-code"></block>，<block ref="244895464fd1d6c7ff5a2044c324c0fc" prefix=" " category="inline-code"></block> ， 和<block ref="36b3316c230e2ae6e23e806fff5277a2" prefix=" " category="inline-code"></block>使用您要升級到的版本（例如 25.06）的註冊表和圖像路徑以及正確的金鑰。</block>
+  <block id="b162e08e74f97a30264a0b1a8c613b78" category="list-text">刪除用於安裝目前Trident實例的Trident操作員。例如，如果您從 25.02 升級，請執行以下命令：</block>
+  <block id="31bb2a9401efa36d10c52fa5f70fb6bc" category="list-text">使用適合您環境的正確 bundle YAML 檔案安裝Trident ，其中 _&lt;bundle.yaml&gt;_ 是<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block>或者<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block>根據您的 Kubernetes 版本。例如，如果您正在安裝Trident 25.06.0，請執行下列命令：</block>
+  <block id="6c352d855b7a2a90e6e0514063875d1a" category="list-text">編輯三叉戟項圈以包含圖像 25.06.0。</block>
 </blocks>

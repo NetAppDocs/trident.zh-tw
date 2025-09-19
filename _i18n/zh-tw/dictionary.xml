@@ -5848,4 +5848,5 @@
   <block id="b162e08e74f97a30264a0b1a8c613b78" category="list-text">刪除用於安裝目前Trident實例的Trident操作員。例如，如果您從 25.02 升級，請執行以下命令：</block>
   <block id="31bb2a9401efa36d10c52fa5f70fb6bc" category="list-text">使用適合您環境的正確 bundle YAML 檔案安裝Trident ，其中 _&lt;bundle.yaml&gt;_ 是<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block>或者<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block>根據您的 Kubernetes 版本。例如，如果您正在安裝Trident 25.06.0，請執行下列命令：</block>
   <block id="6c352d855b7a2a90e6e0514063875d1a" category="list-text">編輯三叉戟項圈以包含圖像 25.06.0。</block>
+  <block id="2094195fd55afe126d43ae0e716d1274" category="admonition">跨命名空間克隆僅支援<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>和<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>儲存驅動程式。不支援只讀克隆。</block>
 </blocks>

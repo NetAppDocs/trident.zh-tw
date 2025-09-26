@@ -86,7 +86,7 @@ cd trident-installer
 
 === 步驟2：建立 `TridentOrchestrator` 客戶需求日
 
-建立 `TridentOrchestrator`自訂資源定義（ CRD ）。您稍後會建立 `TridentOrchestrator`自訂資源。使用中適當的 CRD YAML 版本 `deploy/crds`建立 `TridentOrchestrator` CRD ：
+創建 `TridentOrchestrator`自訂資源定義（CRD）。您將創建一個 `TridentOrchestrator`稍後自訂資源。使用適當的 CRD YAML 版本 `deploy/crds`創建 `TridentOrchestrator`CRD：
 
 [listing]
 ----

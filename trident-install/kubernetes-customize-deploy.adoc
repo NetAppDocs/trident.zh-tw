@@ -151,7 +151,7 @@ NOTE: 如需格式化 Pod 參數的詳細資訊、請參閱 link:https://kuberne
 
 === 強制分離的詳細資料
 
-強制分離僅適用於 `ontap-san`， `ontap-san-economy`， `onatp-nas`和 `onatp-nas-economy`。啟用強制分離之前、必須先在 Kubernetes 叢集上啟用非正常節點關機（ NGNS ）。根據預設， Kubernetes 1.28 及更高版本會啟用 NGNS 。如需詳細資訊、請 link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes ：非正常節點關機"^]參閱。
+強制分離適用於 `ontap-san`， `ontap-san-economy` ， `ontap-nas` ， 和 `ontap-nas-economy`僅有的。在啟用強制分離之前，必須在 Kubernetes 叢集上啟用非正常節點關閉 (NGNS)。Kubernetes 1.28 以上版本預設啟用 NGNS。有關詳細信息，請參閱link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes ：非正常節點關機"^] 。
 
 
 NOTE: 使用 `ontap-nas`或 `ontap-nas-economy`驅動程式時，您需要將後端組態中的參數設定 `autoExportPolicy`為 `true`，以便 Trident 可以使用受管理的匯出原則套用的污染來限制從 Kubernetes 節點的存取。

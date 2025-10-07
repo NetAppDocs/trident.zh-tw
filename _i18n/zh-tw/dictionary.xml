@@ -5619,7 +5619,6 @@
   <block id="669b3bc77d6c32aa7e2c1bfe7cc9b452" category="cell">表示 QoS 類型：自動或手動。* Trident 25.06 技術預覽版*</block>
   <block id="06b9281e396db002010bde1de57262eb" category="cell">汽車</block>
   <block id="ae4d8eab27ac4c80edb95b30fc583854" category="cell"><block ref="08566efed9fdb13392ea1b11d6b533a4" prefix="" category="inline-code"></block></block>
-  <block id="dd71c14df42fdb8389de90b03536c45f" category="cell">設定允許的最大吞吐量。僅支援手動 QoS 容量池。* Trident 25.06 技術預覽版*</block>
   <block id="3eef9a5398f4b353f217625ca5768cc0" category="cell"><block ref="60f649f49ce41c3f0123ddceb5c9f688" prefix="" category="inline-code"></block></block>
   <block id="b70d8bcceb91e3665bafe307a5b97682" category="example-title">具有手動 QoS 容量池的後端範例</block>
   <block id="3ffc8f9f72c24f82c0703e3b5a78db96" category="paragraph">此後端配置將磁碟區放置在 Azure 的<block ref="6356111305f5daab178fa6051b7a8ae7" prefix=" " category="inline-code"></block>具有手動 QoS 容量池的位置。* NetApp Trident 25.06 中的技術預覽*。</block>
@@ -5849,4 +5848,5 @@
   <block id="ac359e2f52a664608f09a2e7a47ec527" category="paragraph">強制分離適用於<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>，<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> ，<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> ， 和<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>僅有的。在啟用強制分離之前，必須在 Kubernetes 叢集上啟用非正常節點關閉 (NGNS)。Kubernetes 1.28 以上版本預設啟用 NGNS。有關詳細信息，請參閱<block ref="a0c86c823d7e699cfc277c93de351a2d" category="inline-link-macro-rx"></block> 。</block>
   <block id="04bed90b9e7d65b6d7dd48211e0a9f6c" category="paragraph">創建<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>自訂資源定義（CRD）。您將創建一個<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>稍後自訂資源。使用適當的 CRD YAML 版本<block ref="91ff3926f7c7983bb4a56689f631e6c9" prefix=" " category="inline-code"></block>創建<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>CRD：</block>
   <block id="ef2305a5dae85359e321280954448fc1" category="paragraph">創建<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>自訂資源定義（CRD）。您將創建一個<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>稍後自訂資源。使用適當的 CRD YAML 版本<block ref="91ff3926f7c7983bb4a56689f631e6c9" prefix=" " category="inline-code"></block>創建<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>CRD。</block>
+  <block id="4fe2efdffc54aa536c8714ad9bab97a2" category="cell">設定允許的最大吞吐量（以 MiB/秒為單位）。僅支援手動 QoS 容量池。* Trident 25.06 技術預覽版*</block>
 </blocks>

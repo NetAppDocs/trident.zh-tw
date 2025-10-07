@@ -103,7 +103,7 @@ Azure NetApp Files 後端提供這些組態選項。
 | `qosType` | 表示 QoS 類型：自動或手動。* Trident 25.06 技術預覽版* | 汽車 
 
 
-| `maxThroughput` | 設定允許的最大吞吐量。僅支援手動 QoS 容量池。* Trident 25.06 技術預覽版* | `4 MiB/sec` 
+| `maxThroughput` | 設定允許的最大吞吐量（以 MiB/秒為單位）。僅支援手動 QoS 容量池。* Trident 25.06 技術預覽版* | `4 MiB/sec` 
 |===
 
 NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["設定Azure NetApp Files 適用於某個聲音量的網路功能"^]。

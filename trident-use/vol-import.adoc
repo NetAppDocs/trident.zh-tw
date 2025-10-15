@@ -149,9 +149,9 @@ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-ma
 
 === SAN ONTAP
 
-Trident 支援使用和 `ontap-san-economy`驅動程式進行 Volume 匯入 `ontap-san`。
+Trident支援使用卷宗導入 `ontap-san` （iSCSI、NVMe/TCP 和 FC）和 `ontap-san-economy` 司機。
 
-Trident 可以匯入包含單一 LUN 的 ONTAP SAN FlexVol 磁碟區。這與驅動程式一致 `ontap-san`，可為 FlexVol volume 中的每個 PVC 和 LUN 建立 FlexVol volume 。Trident 會匯入 FlexVol volume ，並將其與 PVC 定義相關聯。
+Trident可以匯入包含單一 LUN 的ONTAP SAN FlexVol磁碟區。這與 `ontap-san` 驅動程序，它為每個 PVC 建立一個FlexVol volume，並在FlexVol volume內建立一個 LUN。Trident導入FlexVol volume並將其與 PVC 定義關聯。Trident可以導入 `ontap-san-economy` 包含多個 LUN 的磁碟區。
 
 .ONTAP SAN 範例
 以下是託管 Volume 和非託管 Volume 匯入的範例。

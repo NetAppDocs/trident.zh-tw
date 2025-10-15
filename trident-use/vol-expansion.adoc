@@ -12,7 +12,7 @@ summary: Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容
 
 
 [role="lead"]
-Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。瞭解擴充 iSCSI ， NFS 和 FC 磁碟區所需的組態資訊。
+Trident為 Kubernetes 使用者提供了在建立磁碟區後擴充磁碟區的能力。尋找有關擴展 iSCSI、NFS、SMB、NVMe/TCP 和 FC 磁碟區所需的配置的資訊。
 
 
 

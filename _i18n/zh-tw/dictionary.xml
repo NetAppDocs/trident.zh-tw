@@ -4996,7 +4996,6 @@
   <block id="b49d0358b75283a3c4f7a2e7229fc097" category="list-text">* 目的地命名空間擁有者： * <block ref="3f6857fc20ae2372499a71869ac3fe7e" prefix="(" category="inline-code"></block>在目的地命名空間中建立 PVC <block ref="6fde1ba4470caca933058264dbfdea2e" prefix="(" category="inline-code"></block>）使用<block ref="77167d63af133b47bca3bbacd580fa44" prefix=" " category="inline-code"></block>或<block ref="bfd2f3d7d043509924eaac702957a99d" prefix=" " category="inline-code"></block>和<block ref="2413b30c8869ee9ac5b416f44004a212" prefix=" " category="inline-code"></block>註釋來指定來源 PVC 。</block>
   <block id="188811e4b8b33253d84403cd9a1fcfa9" category="list-text">對於使用 ONTAP NAS 經濟型驅動程式配置的 PVC ，不支援唯讀複本。</block>
   <block id="18554a6310d1d501f5fdbbbc7a0cd7c6" category="summary">Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。尋找擴充 iSCSI ， FC 和 NFS 磁碟區所需組態的相關資訊。</block>
-  <block id="bda53ac9cab805b0770875d4365918b2" category="paragraph">Trident 可讓 Kubernetes 使用者在建立磁碟區之後擴充其容量。瞭解擴充 iSCSI ， NFS 和 FC 磁碟區所需的組態資訊。</block>
   <block id="1dea918d41199b513b961287c6579f4f" category="section-title">展開FC Volume</block>
   <block id="213524ddd0b0daf2a171ee47c3596e00" category="paragraph">您可以使用 CSI 資源配置程式來擴充 FC 持續 Volume （ PV ）。</block>
   <block id="7ff05a6f045c4cd794027d9a80f2ee93" category="admonition">驅動程式支援 FC Volume 擴充<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>，需要 Kubernetes 1.16 及更新版本。</block>
@@ -5854,4 +5853,5 @@
   <block id="da635a644d2727b18debb9ea48c169b6" category="list-text">*AppVault 可存取性*：來源叢集和目標叢集都必須具有網路存取權限，才能從 AppVault 讀取和寫入應用程式物件複製。</block>
   <block id="debae13e33c5f861b21b322eed48bf3f" category="list-text">*網路連線*：設定防火牆規則、儲存桶權限和 IP 允許列表，以實現跨 WAN 的叢集和 AppVault 之間的通訊。</block>
   <block id="35d8960b4053e461085ad015f6805d14" category="admonition">許多企業環境在 WAN 連線中實施嚴格的防火牆策略。在配置複製之前，請與您的基礎設施團隊驗證這些網路需求。</block>
+  <block id="996b8601627b0cb893a41930ccbbeb4b" category="paragraph">Trident為 Kubernetes 使用者提供了在建立磁碟區後擴充磁碟區的能力。尋找有關擴展 iSCSI、NFS、SMB、NVMe/TCP 和 FC 磁碟區所需的配置的資訊。</block>
 </blocks>

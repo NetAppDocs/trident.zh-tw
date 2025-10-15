@@ -100,7 +100,7 @@ Trident 支援使用和 `ontap-nas-flexgroup`驅動程式進行 Volume 匯入 `o
 
 [NOTE]
 ====
-* 。 `ontap-nas-economy` 驅動程式無法匯入及管理qtree。
+* Trident不支援使用 `ontap-nas-economy` 司機。
 * 。 `ontap-nas` 和 `ontap-nas-flexgroup` 驅動程式不允許重複的磁碟區名稱。
 
 

@@ -2296,7 +2296,6 @@
   <block id="a9e31569460a0b133fdd97c5f482c04e" category="admonition">請勿包含其他參數、例如 PV 名稱或 Volume 大小。這可能會導致匯入命令失敗。</block>
   <block id="37c0e0081d2fa3ebdf688df7e37ecd7a" category="paragraph">請參閱下列 Volume 匯入範例、瞭解支援的驅動程式。</block>
   <block id="b8cd11aae04b2508e6cf401f43cdb4f9" category="section-title">ONTAP NAS 和 ONTAP NAS FlexGroup</block>
-  <block id="6551d29114ca8e4ced094b1f68242124" category="list-text">。<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 驅動程式無法匯入及管理qtree。</block>
   <block id="15f21f5d1f84f4b986a4db037c57333d" category="list-text">。<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 和<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 驅動程式不允許重複的磁碟區名稱。</block>
   <block id="3fa3bc64b029b88f42b842bb7dc4e52d" category="paragraph-title">ONTAP NAS 範例</block>
   <block id="77fe25c67ee05760d58e91a98e3ff055" category="paragraph">以下是託管 Volume 和非託管 Volume 匯入的範例。</block>
@@ -5854,4 +5853,5 @@
   <block id="996b8601627b0cb893a41930ccbbeb4b" category="paragraph">Trident為 Kubernetes 使用者提供了在建立磁碟區後擴充磁碟區的能力。尋找有關擴展 iSCSI、NFS、SMB、NVMe/TCP 和 FC 磁碟區所需的配置的資訊。</block>
   <block id="1b4288d16f58084404fbffe338e680fb" category="paragraph">Trident支援使用卷宗導入<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> （iSCSI、NVMe/TCP 和 FC）和<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 司機。</block>
   <block id="19cfd1d1df86c48cee153f9fbaa31f0f" category="paragraph">Trident可以匯入包含單一 LUN 的ONTAP SAN FlexVol磁碟區。這與<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 驅動程序，它為每個 PVC 建立一個FlexVol volume，並在FlexVol volume內建立一個 LUN。Trident導入FlexVol volume並將其與 PVC 定義關聯。Trident可以導入<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 包含多個 LUN 的磁碟區。</block>
+  <block id="e214c4610b9128a251097b5d36c60e8b" category="list-text">Trident不支援使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 司機。</block>
 </blocks>

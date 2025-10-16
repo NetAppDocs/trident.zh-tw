@@ -5354,10 +5354,6 @@
   <block id="61a3094d46fa14bffb9067eeb8d3405a" category="paragraph"><block ref="61a3094d46fa14bffb9067eeb8d3405a" category="inline-link-macro-rx"></block></block>
   <block id="dfd4fd2ff3f0bcabea8bfd811d0db9b4" category="summary">Trident 是由 NetApp 維護的開放原始碼儲存資源配置程式與協調程式。它可讓您為Docker和Kubernetes所管理的容器化應用程式建立儲存磁碟區。** 請閱讀版本說明、以取得升級至 Trident 25.06.** 的重要資訊</block>
   <block id="1c14876f05b759f9c9be73a49c84ddd4" category="doc">Trident 25.06 文件</block>
-  <block id="7b64f90c10ba527f2f6b6f1e6fb0c9fe" category="list-text">Kubernetes 1.33 現在支援 Trident 。升級Kubernetes之前先升級Trident。</block>
-  <block id="f39d8c359b3284c30097b65ae4e0dccf" category="list-text">Kubernetes 1.27 - 1.33</block>
-  <block id="9f7ace1a0a4d64a8dfa14012ff8f7e8c" category="paragraph">1.27 - 1.33</block>
-  <block id="006871bfbb54929c1e2b37d3ce36b37f" category="cell">v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0 、 v1.33.0</block>
   <block id="3e711dbc16f3de48b46eca5b86572321" category="list-text">Docker 。 IO/NetApp/Trident ： 25.06.0</block>
   <block id="d010f8bd4e6cede4d3e51de4419c09aa" category="list-text">Docker 。 IO/NetApp/Trident 自動支援： 25.06</block>
   <block id="3b72fba0c67a9cb87151e878d3ba37f9" category="list-text">登錄 .k8s.io/SIG-storage / csi 附加程式： v4.8.1</block>
@@ -5663,8 +5659,6 @@
   <block id="05e673132e6ddc1f638835fcde244ff1" category="paragraph">在建立 AppVault CR 之前，請確保您選擇的 AppVault 和資料移動器可以向提供者和任何相關資源進行驗證。</block>
   <block id="2c2d23c6647059f96e585a1174a5c975" category="paragraph">使用 CR 或Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以指定 Kubernetes 金鑰，並使用自訂密碼進行 Restic 和 Kopia 加密。如果您未指定金鑰， Trident Protect 將使用預設密碼。</block>
   <block id="1850a20880f300b00b10477bfcbd6087" category="list-text">請將密碼保存在安全的地方。您將需要它來還原同一叢集或其他叢集上的資料。如果集群或<block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block>命名空間被刪除後，沒有密碼您將無法還原備份或快照。</block>
-  <block id="1847ffdf7c6d0f8b1bbe8c2bb725a3ce" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.27.x - 1.33.x</block>
-  <block id="3e9612318eccb033e5737a43e626163d" category="admonition">雖然Trident在 Rancher Kubernetes Engine 2 (RKE2) 版本 1.27.x - 1.33.x 上受支持，但Trident目前僅在 RKE2 v1.28.5+rke2r1 上獲得認證。</block>
   <block id="9509f036573c9b78acc044938588f7c4" category="paragraph">以下範例指令安裝Trident EKS 附加元件：<block ref="f235325f054788c50b512241d68cb329" prefix=" " category="inline-code"></block> （附專用版本）</block>
   <block id="cedb5a7bb4fc5e3e014ce0b58a3d5095" category="cell">iSCSI經濟型</block>
   <block id="27a75f24043645e5e4d2b91bad951706" category="list-text">* 如果不重新啟動節點，則無法刪除 PV</block>
@@ -5856,4 +5850,10 @@
   <block id="4afb8b760c67eab8ce5a9cf405163d78" category="list-text">NetApp 有限支援下的本機FAS、 AFF、Select 或ASA r2（iSCSI 和 NVMe/TCP）叢集版本。看<block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block>。</block>
   <block id="ed323fee394548d260c31d933876b771" category="section-title">當預期啟用“v4.2-xattrs”時，NFSv4.2 用戶端在升級ONTAP後報告“無效參數”</block>
   <block id="b9785b666a04771c63b539840201a4db" category="paragraph">升級ONTAP後，NFSv4.2 用戶端在嘗試掛載 NFSv4.2 匯出時可能會報告「無效參數」錯誤。當<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> SVM 上未啟用該選項。.解決方法啟用<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> 選項或升級至ONTAP 9.12.1 或更高版本，預設此選項為啟用。</block>
+  <block id="65cfb19ed2b3d296782fbfdd6b7075b1" category="list-text">Trident現已支援 Kubernetes 1.34。在升級 Kubernetes 之前先升級Trident 。</block>
+  <block id="e69ddc8f5253cd0167cca555b0f0fd9c" category="list-text">Kubernetes 1.27 - 1.34</block>
+  <block id="7f6d66fd53fc399c1b8baeebcdb94472" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.27.x - 1.34.x</block>
+  <block id="844c50b4f1aab48821867a1209be687b" category="admonition">雖然Trident在 Rancher Kubernetes Engine 2 (RKE2) 版本 1.27.x - 1.34.x 上受支持，但Trident目前僅在 RKE2 v1.28.5+rke2r1 上獲得認證。</block>
+  <block id="27f15237580e8f85cd2846baf40ad83b" category="paragraph">1.27 - 1.34</block>
+  <block id="73b1fe6d150d74c875ee4a368dd3b1a9" category="cell">v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0</block>
 </blocks>

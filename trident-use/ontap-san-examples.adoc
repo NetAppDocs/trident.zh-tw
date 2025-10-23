@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-examples.html 
-keywords: map backends, storage classes, trident backend, ontap san, ontap san economy, options, storageclasses, fsx, metrocluster 
+keywords: map backends, storage classes, trident backend, ontap san, ontap san economy, options, storageclasses, fsx, metrocluster, ad, active directory 
 summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP SAN 驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。 
 ---
 = SAN組態選項與範例ONTAP
@@ -90,10 +90,10 @@ NOTE: 如果您使用的是「 vsadmin 」認證，則必須是 SVM 的認 `mana
 | 「可信賴的CACertifcate」 | 受信任CA憑證的Base64編碼值。選用。用於憑證型驗證。 | " 
 
 
-| 《使用者名稱》 | 與ONTAP 該叢集通訊所需的使用者名稱。用於認證型驗證。 | " 
+| 《使用者名稱》 | 與ONTAP叢集通訊所需的使用者名稱。用於基於憑證的身份驗證。有關 Active Directory 驗證，請參閱 link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["使用 Active Directory 憑證向後端 SVM 驗證Trident 的身份"]。 | " 
 
 
-| 密碼 | 與ONTAP 該叢集通訊所需的密碼。用於認證型驗證。 | " 
+| 密碼 | 與ONTAP集群通訊所需的密碼。用於基於憑證的身份驗證。有關 Active Directory 驗證，請參閱 link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["使用 Active Directory 憑證向後端 SVM 驗證Trident 的身份"]。 | " 
 
 
 | 《虛擬機器》 | 要使用的儲存虛擬機器 | 如果指定SVM "managementLIF"則衍生 
@@ -169,6 +169,28 @@ Trident 建議使用下列選項來加速格式化程序：
 *-E nobard ： *
 
 * 保留、請勿嘗試在 mkfs 時間捨棄區塊（丟棄區塊一開始在固態裝置和稀疏 / 精簡配置儲存設備上很有用）。這會取代已過時的選項「 -K 」，而且適用於所有檔案系統（ xfs ， ext3 和 ext4 ）。
+
+
+
+
+=== 使用 Active Directory 憑證向後端 SVM 驗證Trident 的身份
+
+您可以設定Trident以使用 Active Directory (AD) 憑證對後端 SVM 進行驗證。在 AD 帳戶可以存取 SVM 之前，您必須設定 AD 網域控制站對叢集或 SVM 的存取權限。對於使用 AD 帳戶進行叢集管理，您必須建立網域隧道。參考 link:https://docs.netapp.com/us-en/ontap/authentication/enable-ad-users-groups-access-cluster-svm-task.html["在ONTAP中設定 Active Directory 網域控制站存取"^] 了解詳情。
+
+.步驟
+. 為後端 SVM 配置網域名稱系統 (DNS) 設定：
++
+`vserver services dns create -vserver <svm_name> -dns-servers <dns_server_ip1>,<dns_server_ip2>`
+
+. 執行下列命令在 Active Directory 中為 SVM 建立電腦帳戶：
++
+`vserver active-directory create -vserver DataSVM -account-name ADSERVER1 -domain demo.netapp.com`
+
+. 使用此命令建立 AD 使用者或群組來管理叢集或 SVM
++
+`security login create -vserver <svm_name> -user-or-group-name <ad_user_or_group> -application <application> -authentication-method domain -role vsadmin`
+
+. 在Trident後端設定檔中，設定 `username` 和 `password` 參數分別為 AD 使用者或群組名稱和密碼。
 
 
 

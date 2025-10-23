@@ -63,10 +63,10 @@ summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP NAS 驅動程式
 | 「可信賴的CACertifcate」 | 受信任CA憑證的Base64編碼值。選用。用於憑證型驗證 | " 
 
 
-| 《使用者名稱》 | 連線至叢集/ SVM的使用者名稱。用於認證型驗證 |  
+| 《使用者名稱》 | 用於連接到叢集/SVM 的使用者名稱。用於基於憑證的身份驗證。有關 Active Directory 驗證，請參閱 link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["使用 Active Directory 憑證向後端 SVM 驗證Trident 的身份"]。 |  
 
 
-| 密碼 | 連線至叢集/ SVM的密碼。用於認證型驗證 |  
+| 密碼 | 連接到叢集/SVM 的密碼。用於基於憑證的身份驗證。有關 Active Directory 驗證，請參閱 link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["使用 Active Directory 憑證向後端 SVM 驗證Trident 的身份"]。 |  
 
 
 | 「toragePrefix」  a| 

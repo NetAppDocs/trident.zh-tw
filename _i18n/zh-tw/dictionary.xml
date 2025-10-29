@@ -5734,8 +5734,6 @@
   <block id="ebc465247274e830568c785a604321aa" category="paragraph">Kubernetes 操作逾時。</block>
   <block id="487b75b94dd20a59c7005f9de6a6c4a0" category="admonition">這<block ref="d5276bb17ae062102e883a18454c2f1b" prefix=" " category="inline-code"></block>參數僅適用於Trident安裝。</block>
   <block id="0784343c721b59e3c2426a1b76297982" category="admonition">這<block ref="b958a6de9ca123713491252f2ab02f59" prefix=" " category="inline-code"></block>參數僅適用於Trident安裝。</block>
-  <block id="8238f7162d9219360737b28886d1e81e" category="inline-link-macro">配置AutoSupport和命名空間過濾選項</block>
-  <block id="f674ee7017be04f3990c16ce1e52c071" category="admonition">執行復原或故障轉移操作時，在<block ref="22416353aff9ef4322e1ee858f418ae4" prefix=" " category="inline-code"></block>和<block ref="8028cf835d9b72ff2d6f835934c25568" prefix=" " category="inline-code"></block>被排除在恢復或故障轉移操作之外。確保在初始 Helm 安裝期間配置這些設定。要了解更多信息，請參閱<block ref="be04583f34cff5b6411cf18afbc58993" category="inline-link-macro-rx"></block>。</block>
   <block id="5db3625cb782a771bf36efc4994a8da5" category="section-title">設定其他Trident保護 Helm Chart 設定</block>
   <block id="a7532dec52b4d581a8873a3048e6e181" category="paragraph">您可以自訂AutoSupport設定和命名空間過濾以滿足您的特定要求。下表描述了可用的配置參數：</block>
   <block id="1fceae4a3c0d1966481601a7ac4d1f83" category="cell">自動支援代理</block>
@@ -5873,4 +5871,8 @@
   <block id="7cf94358f605f1f7e8dbc9526c3af907" category="cell">trident.netapp.io/skipRecoveryQueue</block>
   <block id="fd94acda3d48b098f39b5364b959552d" category="cell">跳過恢復隊列</block>
   <block id="7ea9fc727097fba59345a8e9de8695fa" category="cell">ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、ontap-san-economy</block>
+  <block id="adaf860b162537ccd86468e316749804" category="admonition">執行復原或故障轉移操作時，任何命名空間註解和標籤都將生效。<block ref="22416353aff9ef4322e1ee858f418ae4" prefix=" " category="inline-code"></block> 和<block ref="8028cf835d9b72ff2d6f835934c25568" prefix=" " category="inline-code"></block> 不參與恢復或故障轉移操作。確保在初始 Helm 安裝期間配置這些設定。欲了解更多信息，請參閱 <block ref="bfb3a58fb131a21fe676fab0dd0dcdbd" category="inline-link-macro-rx"></block>。</block>
+  <block id="b326198256560cdd26bbbd434d7ee643" category="admonition">要取得 Helm Chart，首先需要在可以存取網路的電腦上下載 Helm Chart。<block ref="8bc0244104fd1e4f6a9a82b53fe5390a" prefix=" " category="inline-code"></block>然後複製結果<block ref="8c74eec5f0fb822289298440a038bd96" prefix=" " category="inline-code"></block> 將檔案複製到您的離線環境並進行安裝<block ref="ab615f18132ed5543106690415347d9d" prefix=" " category="inline-code"></block> 而不是在最後一步使用存儲庫引用。</block>
+  <block id="b0defdd5283fb4562ef33eef44bef084" category="admonition">這<block ref="2765d219391475ce2b56d9305ad836f9" prefix=" " category="inline-code"></block> 此設定適用於所有組件影像，包括<block ref="337f1ae6c2a69673e695c10040714cd4" prefix=" " category="inline-code"></block> 和<block ref="a3b6861798228b46d8f1400c35806e4c" prefix=" " category="inline-code"></block>。如果您將鏡像推送到註冊表中的特定儲存庫路徑（例如，<block ref="9ced4e1438bfae120b7503d1459e84a0" prefix=" " category="inline-code"></block>），請在登錄欄位中包含完整路徑。這將確保所有圖像都從此處提取。<block ref="52da7a794020b670663422d9b8722c45" prefix=" " category="inline-code"></block>。</block>
+  <block id="8930d6311ad94f452526952640346942" category="admonition">有關其他 Helm Chart 設定選項，包括AutoSupport設定和命名空間過濾，請參閱 <block ref="ef9a5a0ef1ff08e1895ead252257abfa" category="inline-link-macro-rx"></block>。</block>
 </blocks>

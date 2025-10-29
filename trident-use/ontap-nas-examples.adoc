@@ -223,7 +223,7 @@ defaults:
 
 [listing]
 ----
-Total volume size = (PVC requested size) / (1 - (snapshotReserve percentage) / 100)
+Total volume size = <PVC requested size> / (1 - (<snapshotReserve percentage> / 100))
 ----
 對於快照預留 = 50% 且 PVC 請求 = 5 GiB 的情況，總磁碟區大小為 5/.5 = 10 GiB，可用大小為 5 GiB，這正是使用者在 PVC 請求中請求的大小。  `volume show`命令應顯示與此範例類似的結果：
 

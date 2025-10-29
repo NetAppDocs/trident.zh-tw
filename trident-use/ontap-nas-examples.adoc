@@ -98,7 +98,7 @@ NOTE: 在 SVM 中更新 Aggregate 清單時、會透過輪詢 SVM 而無需重�
 | " 
 
 
-| 《限制Volume大小》 | 如果要求的磁碟區大小高於此值、則資源配置失敗。也會限制其管理 qtree 的最大磁碟區大小，且此 `qtreesPerFlexvol`選項可讓您自訂每個 FlexVol volume 的最大 qtree 數量 | "" （預設不會強制執行） 
+| 《限制Volume大小》 | 如果請求的磁碟區大小大於此值，則配置失敗。 | "" （預設不會強制執行） 
 
 
 | 「DebugTraceFlags」 | 疑難排解時要使用的偵錯旗標。例如、 ｛ "api" ： false 、 "method" ： true}

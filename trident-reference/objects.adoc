@@ -75,6 +75,9 @@ Kubernetes「PeristentVolume Claim」物件是Kubernetes叢集使用者所提出
 
 
 | trident.netapp.io/blockSize | 區塊大小 | solidfire-san 
+
+
+| trident.netapp.io/skipRecoveryQueue | 跳過恢復隊列 | ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、ontap-san-economy 
 |===
 如果建立的PV具有「刪除」回收原則、則當PV釋出時（亦即使用者刪除PVc時）、Trident會同時刪除PV和備用Volume。如果刪除動作失敗、Trident會將PV標示為這樣、並定期重試該作業、直到成功或手動刪除PV為止。如果PV使用「+Retain +」原則、Trident會忽略它、並假設系統管理員會從Kubernetes和後端進行清理、以便在移除之前備份或檢查磁碟區。請注意、刪除PV並不會導致Trident刪除背板Volume。您應該使用REST API（「tridentctl」）將其移除。
 
@@ -434,6 +437,9 @@ Volume組態會定義已配置磁碟區應具備的內容。
 
 
 | 檔案系統 | 字串 | 否 | 檔案系統類型 
+
+
+| 跳過恢復隊列 | 字串 | 否 | 刪除磁碟區時，繞過儲存中的復原佇列，立即刪除磁碟區。 
 |===
 Trident在建立磁碟區時會產生「內部名稱」。這包括兩個步驟。首先、它會將儲存前置詞（預設的「Trident」或後端組態中的前置詞）預先加上磁碟區名稱、以「<prefix>-<volume名稱>」格式命名。然後、它會繼續清理名稱、取代後端不允許的字元。對於後端、它會以底線取代連字號（因此內部名稱會變成「<prefix>_<volume名稱>」）ONTAP 。對於元素後端、它會以連字號取代底線。
 

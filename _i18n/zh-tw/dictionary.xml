@@ -5867,4 +5867,10 @@
   <block id="82a5f11771bfe77a499bcb96a45ce13f" category="paragraph"><block ref="22ec37652eb447176b3d5645ac4a7dbb" prefix="" category="inline-code"></block></block>
   <block id="743fda998716813dc210d0fd0c3f2b65" category="list-text">在Trident後端設定檔中，設定<block ref="14c4b06b824ec593239362517f538b29" prefix=" " category="inline-code"></block> 和<block ref="5f4dcc3b5aa765d61d8327deb882cf99" prefix=" " category="inline-code"></block> 參數分別為 AD 使用者或群組名稱和密碼。</block>
   <block id="66896c99fb06e0b6c86498b249f8217a" category="cell">如果請求的磁碟區大小大於此值，則配置失敗。</block>
+  <block id="0a963df5db280495b1f394e5035b3ddd" category="cell"><block ref="fd94acda3d48b098f39b5364b959552d" prefix="" category="inline-code"></block></block>
+  <block id="0989a9fc8f98336f0d088b735c709a10" category="paragraph">刪除磁碟區時，繞過儲存中的復原佇列，立即刪除磁碟區。</block>
+  <block id="fc9d6fd2d8db223be4a7484a8619f26b" category="paragraph">``</block>
+  <block id="7cf94358f605f1f7e8dbc9526c3af907" category="cell">trident.netapp.io/skipRecoveryQueue</block>
+  <block id="fd94acda3d48b098f39b5364b959552d" category="cell">跳過恢復隊列</block>
+  <block id="7ea9fc727097fba59345a8e9de8695fa" category="cell">ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、ontap-san-economy</block>
 </blocks>

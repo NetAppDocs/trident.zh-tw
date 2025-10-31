@@ -16,7 +16,7 @@ summary: 您可以手動部署 Trident 操作員來安裝 Trident 。此程序�
 
 
 
-== Trident 25.06 的重要資訊
+== 關於Trident10的關鍵訊息
 
 * 您必須閱讀下列有關 Trident 的重要資訊。 *
 
@@ -78,8 +78,8 @@ Trident 安裝程式套件包含部署 Trident 營運商和安裝 Trident 所需
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v6.0/trident-installer-25.06.0.tar.gz
-tar -xf trident-installer-25.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v6.0/trident-installer-25.10.0.tar.gz
+tar -xf trident-installer-25.10.0.tar.gz
 cd trident-installer
 ----
 
@@ -96,10 +96,10 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 
 === 步驟3：更新操作員中的登錄位置
 
-在 `/deploy/operator.yaml`中，更新 `image: docker.io/netapp/trident-operator:25.06.0` 以反映映像登錄的位置。您 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"] 可以位於一個登錄或不同的登錄中、但所有 CSI 映像都必須位於同一個登錄中。例如：
+在 `/deploy/operator.yaml`， 更新 `image: docker.io/netapp/trident-operator:25.10.0`反映您的影像註冊位置。你的link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident和csi影像"]CSI 映像檔可以位於同一個登錄檔或不同的登錄檔中，但所有 CSI 映像必須位於同一個登錄檔中。例如：
 
-* `image: <your-registry>/trident-operator:25.06.0` 如果您的映像全部位於一個登錄中。
-* `image: <your-registry>/netapp/trident-operator:25.06.0` 如果您的 Trident 映像位於與 CSI 映像不同的登錄中。
+* `image: <your-registry>/trident-operator:25.10.0`如果您的所有圖片都位於同一個註冊表中。
+* `image: <your-registry>/netapp/trident-operator:25.10.0`如果您的Trident鏡像與 CSI 映像位於不同的登錄檔。
 
 
 
@@ -168,8 +168,8 @@ IMPORTANT: Kubernetes叢集中只應有*一個運算子執行個體*。請勿建
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:25.06"
-tridentImage: "<your-registry>/trident:25.06.0"
+autosupportImage: "<your-registry>/trident-autosupport:25.10"
+tridentImage: "<your-registry>/trident:25.10.0"
 ----
 --
 .不同登錄中的映像
@@ -177,8 +177,8 @@ tridentImage: "<your-registry>/trident:25.06.0"
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:25.06"
-tridentImage: "<your-registry>/trident:25.06.0"
+autosupportImage: "<your-registry>/trident-autosupport:25.10"
+tridentImage: "<your-registry>/trident:25.10.0"
 ----
 --
 ====
@@ -203,16 +203,16 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Autosupport Image:  <your-registry>/trident-autosupport:25.06
+  Autosupport Image:  <your-registry>/trident-autosupport:25.10
   Debug:              true
   Image Registry:     <your-registry>
   Namespace:          trident
-  Trident Image:      <your-registry>/trident:25.06.0
+  Trident Image:      <your-registry>/trident:25.10.0
 Status:
   Current Installation Params:
     IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:          <your-registry>/trident-autosupport:25.06
+    Autosupport Image:          <your-registry>/trident-autosupport:25.10
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                      true
@@ -224,11 +224,11 @@ Status:
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/trident:25.06.0
+    Trident Image:        <your-registry>/trident:25.10.0
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
-  Version:                v25.06.0
+  Version:                v25.10.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -302,6 +302,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 25.06.0        | 25.06.0        |
+| 25.10.0        | 25.10.0        |
 +----------------+----------------+
 ----

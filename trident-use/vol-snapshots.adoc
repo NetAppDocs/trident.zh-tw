@@ -18,7 +18,7 @@ Kubernetes 持續磁碟區（ PV ）的磁碟區快照可啟用磁碟區的時�
 
 == 總覽
 
-卷快照支援 `ontap-nas` ，  `ontap-nas-flexgroup` ，  `ontap-san` ，  `ontap-san-economy` ，  `solidfire-san` ，  `gcp-cvs` ，  `azure-netapp-files` ， 和 `google-cloud-netapp-volumes`司機。
+卷快照受支援 `ontap-nas`， `ontap-nas-flexgroup` ， `ontap-san` ， `ontap-san-economy` ， `solidfire-san` ， `azure-netapp-files` ， 和 `google-cloud-netapp-volumes`司機。
 
 .開始之前
 您必須擁有外部快照控制器和自訂資源定義（ CRD ）、才能使用快照。這是Kubernetes Orchestrator的責任（例如：Kubeadm、GKE、OpenShift）。
@@ -257,7 +257,7 @@ NOTE: 當您還原快照複本時、會覆寫現有的 Volume 組態。建立快
 
 Trident 使用（ TASR ） CR 從快照提供快速的原位磁碟區還原 `TridentActionSnapshotRestore`。此 CR 是 Kubernetes 的必要行動、在作業完成後不會持續存在。
 
-Trident 支持， `ontap-san-economy` `ontap-nas` `azure-netapp-files`，，，， `ontap-nas-flexgroup`， `gcp-cvs`上的快照恢復 `ontap-san` `google-cloud-netapp-volumes`和 `solidfire-san`驅動程式。
+Trident支援快照恢復 `ontap-san`， `ontap-san-economy` ， `ontap-nas` ， `ontap-nas-flexgroup` ， `azure-netapp-files` ， `google-cloud-netapp-volumes` ， 和 `solidfire-san`司機。
 
 .開始之前
 您必須擁有受約束的 PVC 和可用的 Volume 快照。

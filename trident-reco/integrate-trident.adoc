@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-reco/integrate-trident.html 
-keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool, cvs, gcp, volumes 
+keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool 
 summary: Kubernetes叢集通常由兩種類型的節點組成、每種節點負責不同的功能層面。 
 ---
 = 整合 Trident
@@ -124,37 +124,6 @@ Trident 使用 `azure-netapp-files`驅動程式來管理link:https://azure.micro
 
 
 
-=== 在Google Cloud後端驅動程式上執行Cloud Volumes Service
-
-Trident 使用 `gcp-cvs`驅動程式連結 Google Cloud 上的 Cloud Volumes Service 。
-
-驅動程式會 `gcp-cvs`使用虛擬集區來抽象化後端、並允許 Trident 判斷磁碟區的放置位置。系統管理員會定義檔案中的虛擬集區 `backend.json`。儲存類別會使用選取器來依標籤識別虛擬資源池。
-
-* 如果在後端定義虛擬集區、 Trident 將嘗試在 Google Cloud 儲存池中建立一個磁碟區、而這些虛擬集區則受到限制。
-* 如果未在後端定義虛擬集區、 Trident 會從該區域的可用儲存集區中選取 Google Cloud 儲存集區。
-
-
-若要在 Trident 上設定 Google Cloud 後端、您必須在後端檔案中指定 `projectNumber`、 `apiRegion`和 `apiKey`。您可以在Google Cloud主控台找到專案編號。API金鑰取自您在Google Cloud Volumes Service Cloud上設定API存取功能時所建立的服務帳戶私密金鑰檔案。
-
-如需 Cloud Volumes Service on Google Cloud 服務類型和服務層級的詳細資訊link:../trident-use/gcp.html["瞭解 Trident 對 CVS for GCP 的支援"]、請參閱。
-
-[cols="20,10,10,10,10,10,10"]
-|===
-| 適用於Google Cloud驅動程式Cloud Volumes Service | 快照 | 複製 | 多重附加 | QoS | 展開 | 複寫 
-
-
-| 《GCP—CVS》 | 是的 | 是的 | 是的 | 是的 | 是的 | 僅適用於CVS效能服務類型。 
-|===
-[NOTE]
-====
-.複寫附註
-* 複寫並非由 Trident 管理。
-* 該實體複本會建立在與來源Volume相同的儲存資源池中。
-
-
-====
-
-
 == 儲存層級設計
 
 需要設定並套用個別的儲存類別、才能建立Kubernetes儲存類別物件。本節將討論如何為應用程式設計儲存類別。
@@ -193,7 +162,7 @@ Trident 使用 `gcp-cvs`驅動程式連結 Google Cloud 上的 Cloud Volumes Ser
 
 == 虛擬資源池設計
 
-建立後端時，通常可以指定一組參數。管理員無法建立具有相同儲存憑證和不同參數集的另一個後端。隨著虛擬池的引入，這個問題得到了緩解。虛擬池是在後端和 Kubernetes 儲存類別之間引入的層級抽象，以便管理員可以定義參數以及可以透過 Kubernetes 儲存類別作為選擇器引用的標籤，以與後端無關的方式。可以使用Trident為所有支援的NetApp後端定義虛擬池。清單包括SolidFire/ NetApp HCI、 ONTAP、GCP 上的Cloud Volumes Service以及Azure NetApp Files。
+建立後端時，通常可以指定一組參數。管理員無法建立具有相同儲存憑證和不同參數集的另一個後端。隨著虛擬池的引入，這個問題得到了緩解。虛擬池是在後端和 Kubernetes 儲存類別之間引入的層級抽象，以便管理員可以定義參數以及可以透過 Kubernetes 儲存類別作為選擇器引用的標籤，以與後端無關的方式。可以使用Trident為所有支援的NetApp後端定義虛擬池。此清單包括SolidFire/ NetApp HCI、 ONTAP以及Azure NetApp Files。
 
 
 NOTE: 定義虛擬資源池時、建議您不要嘗試重新排列後端定義中現有虛擬資源池的順序。此外、建議您不要編輯/修改現有虛擬資源池的屬性、改為定義新的虛擬資源池。
@@ -277,17 +246,17 @@ Trident 也支援從磁碟區快照建立 PersistentVolumes 。若要達成此�
 
 === 展開Volume
 
-Trident 支援調整 NFS ， iSCSI 和 FC PV 的大小。這可讓使用者透過Kubernetes層直接調整磁碟區大小。所有主要的NetApp儲存平台皆可進行Volume擴充、包括ONTAP ：NetApp、SolidFire/NetApp HCI及Cloud Volumes Service 背後端點。若要稍後允許擴充、請在與該磁碟區相關的 StorageClass 中設定 `allowVolumeExpansion`為 `true`。每當需要調整「持續 Volume 」的大小時、請將「持續 Volume 」宣告中的註釋編輯 `spec.resources.requests.storage`為所需的 Volume 大小。Trident會自動調整儲存叢集上的磁碟區大小。
+Trident支援調整 NFS、iSCSI 和 FC PV 的大小。這樣使用者就可以直接透過 Kubernetes 圖層調整磁碟區的大小。所有主流NetApp儲存平台（包括ONTAP）及SolidFire/ NetApp HCI後端均可進行磁碟區擴充。為了方便日後擴展，請設定 `allowVolumeExpansion`到 `true`在與該磁碟區關聯的 StorageClass 中。每當需要調整持久卷的大小時，請編輯以下內容： `spec.resources.requests.storage`在持久卷聲明中加入所需卷大小的註解。Trident會自動處理儲存叢集上磁碟區的大小調整。
 
 
 
 === 將現有磁碟區匯入Kubernetes
 
-Volume匯入功能可將現有的儲存磁碟區匯入Kubernetes環境。目前支援的驅動程式有「ONTAP-NAS」、「ONTAP-NAs-flexgroup」、「Poolidfire - san」、「azure-NetApp-fil卻」和「GCP - CVS」。當將現有應用程式移轉至Kubernetes或發生災難恢復時、此功能非常實用。
+磁碟區匯入功能允許將現有儲存磁碟區匯入 Kubernetes 環境。目前這得到了以下方面的支持： `ontap-nas` ， `ontap-nas-flexgroup` ， `solidfire-san` ， 和 `azure-netapp-files`司機。將現有應用程式移植到 Kubernetes 或災難復原場景中，此功能非常有用。
 
 使用 ONTAP 和 `solidfire-san`驅動程式時、請使用命令 `tridentctl import volume <backend-name> <volume-name> -f /path/pvc.yaml`將現有的磁碟區匯入 Kubernetes 、以便由 Trident 管理。匯入 Volume 命令中使用的 PVC YAML 或 JSON 檔案會指向將 Trident 識別為資源配置程式的儲存類別。使用NetApp HCI / SolidFire後端時、請確定磁碟區名稱是唯一的。如果磁碟區名稱重複、請將磁碟區複製成唯一名稱、以便磁碟區匯入功能能夠區分它們。
 
-如果 `azure-netapp-files`使用或 `gcp-cvs`驅動程式、請使用命令 `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml`將磁碟區匯入 Kubernetes 、以便由 Trident 管理。如此可確保唯一的Volume參考。
+如果 `azure-netapp-files`使用了驅動程序，請使用命令 `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml`將磁碟區匯入 Kubernetes 以便由Trident管理。這樣可以確保卷號的唯一性。
 
 執行上述命令時、 Trident 會在後端找到該 Volume 並讀取其大小。它會自動新增（並在必要時覆寫）已設定的 PVC Volume Size 。然後 Trident 建立新的 PV 、 Kubernetes 會將 PVC 與 PV 連結起來。
 

@@ -74,7 +74,7 @@ vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
 
 === 複製磁碟區
 
-NetApp Trident 支援使用 `ontap-nas` ，  `ontap-san` ，  `solidfire-san` ， 和 `gcp-cvs`儲存驅動程式。使用 `ontap-nas-flexgroup`或 `ontap-nas-economy`驅動程式時、不支援複製。從現有磁碟區建立新磁碟區、將會產生新的快照。
+NetApp Trident在使用時支援克隆卷 `ontap-nas`， `ontap-san` ， 和 `solidfire-san`儲存驅動程式。使用時 `ontap-nas-flexgroup`或者 `ontap-nas-economy`驅動程式不支援克隆。從現有磁碟區建立新磁碟區將建立一個新的快照。
 
 
 WARNING: 避免複製與其他 StorageClass 關聯的 PVC。請在同一 StorageClass 內執行複製操作，以確保相容性並防止意外行為。

@@ -18,7 +18,7 @@ Trident 運算子可讓您使用規格中的屬性來自訂 Trident 安裝 `Trid
 
 == 瞭解控制器 Pod 和節點 Pod
 
-Trident 以單一控制器 Pod 的形式執行、並在叢集中的每個工作節點上執行節點 Pod 。節點 Pod 必須在任何想要掛載 Trident Volume 的主機上執行。
+Trident在叢集中的每個工作節點上以單一控制器 pod 和節點 pod 的形式運作。節點 pod 必須運行在您希望掛載Trident磁碟區的任何主機上。
 
 Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["節點選取器"^] 和 link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["容忍和污染"^] 用於限制 Pod 在特定或偏好的節點上執行。使用「 ControllerPlugin' 」和 `NodePlugin`，您可以指定限制和置換。
 
@@ -46,7 +46,7 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 | 「Debug」 | 啟用 Trident 的偵錯功能 | 「假」 
 
 
-| `enableForceDetach` | `ontap-san` `ontap-san-economy` `ontap-nas`，，及 `ontap-nas-economy`僅限。與 Kubernetes Non-Graceful Node Shutdown （ NGNS ）一起運作、讓叢集管理員能夠在節點發生問題時、將已掛載磁碟區的工作負載安全移轉至新節點。 | 「假」 
+| `enableForceDetach` | `ontap-san`， `ontap-san-economy` ， `ontap-nas` ， 和 `ontap-nas-economy`僅有的。與 Kubernetes 非優雅節點關閉 (NGNS) 配合使用，使叢集管理員能夠在節點發生故障時安全地將掛載磁碟區的工作負載遷移到新節點。有關信息，請參閱link:../trident-reco/force-detach.html["使用Trident實現有狀態應用程式的故障轉移自動化"]。 | 「假」 
 
 
 | `windows` | 設定為 `true` 可在Windows工作節點上安裝。 | 「假」 
@@ -77,7 +77,7 @@ NOTE: 這 `k8sTimeout`參數僅適用於Trident安裝。
 自動 | 「假」 
 
 
-| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:25.06"` 
+| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport10"` 
 
 
 | 「autosupportProxy」 | 用於傳送 AutoSupport 的 Proxy 位址 / 連接埠
@@ -90,7 +90,7 @@ NOTE: 這 `k8sTimeout`參數僅適用於Trident安裝。
 | `logFormat` | 要使用的 Trident 記錄格式 [text,json] | `"text"` 
 
 
-| 「TridentImage」 | 要安裝的 Trident 映像 | `"netapp/trident:25.06"` 
+| 「TridentImage」 | 要安裝的 Trident 映像 | `"netapp/trident:25.10"` 
 
 
 | 「影像登錄」 | 內部登錄的路徑、格式
@@ -141,173 +141,119 @@ NOTE: 從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06
 支援並發Trident控制器操作以提高吞吐量。
 
 
-NOTE: *技術預覽*：此功能在NetApp Trident 25.06 中處於實驗階段，目前支援使用ONTAP-SAN 驅動程式（iSCSI 和 FCP 協定）的有限平行工作流程。
+NOTE: *技術預覽*：此功能為實驗性功能，目前除了現有的ONTAP -SAN 驅動程式（統一ONTAP 9 中的 iSCSI 和 FCP 協定）技術預覽版外，還支援ONTAP-NAS（僅限 NFS）和ONTAP -SAN（統一ONTAP 9 中的 NVMe）驅動程式的有限並行工作流程。
 | 錯 
 |===
 
 NOTE: 如需格式化 Pod 參數的詳細資訊、請參閱 link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["將Pod指派給節點"^]。
 
-
-
-=== 強制分離的詳細資料
-
-強制分離適用於 `ontap-san`， `ontap-san-economy` ， `ontap-nas` ， 和 `ontap-nas-economy`僅有的。在啟用強制分離之前，必須在 Kubernetes 叢集上啟用非正常節點關閉 (NGNS)。Kubernetes 1.28 以上版本預設啟用 NGNS。有關詳細信息，請參閱link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes ：非正常節點關機"^] 。
-
-
-NOTE: 使用 `ontap-nas`或 `ontap-nas-economy`驅動程式時，您需要將後端組態中的參數設定 `autoExportPolicy`為 `true`，以便 Trident 可以使用受管理的匯出原則套用的污染來限制從 Kubernetes 節點的存取。
-
-
-WARNING: 由於 Trident 仰賴 Kubernetes NGNS 、因此在重新排程所有不可容忍的工作負載之前、請勿移除 `out-of-service`不良節點的污點。如果不考慮套用或移除污染、可能會危及後端資料保護。
-
-當 Kubernetes 叢集管理員已將 Tintt 套用 `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute`至節點、並 `enableForceDetach`設定為 `true`時、 Trident 會判斷節點狀態、並：
-
-. 停止掛載到該節點之磁碟區的後端 I/O 存取。
-. 將 Trident 節點物件標記為 `dirty`（不適用於新出版物）。
-+
-
-NOTE: Trident 控制器將拒絕新的發佈 Volume 要求、直到 Trident 節點 Pod 重新驗證節點（標記為之後）為止 `dirty`。除非 Trident 能夠驗證節點（新出版品安全）、否則任何排程使用已掛載 PVC 的工作負載（即使在叢集節點健全且準備就緒之後）都不會被接受 `clean`。
-
-
-
-還原節點健全狀況並移除污染時、 Trident 將：
-
-. 識別並清除節點上過時的已發佈路徑。
-. 如果節點處於某個狀態（已移除服務外污染、且節點處於 `Ready`狀態）、且所有過時的已發佈路徑均為乾淨、則 `cleanable` Trident 會將節點重新接收為 `clean`、並允許新的已發佈磁碟區至節點。
-
-
-
-
-== 組態範例
-
-您可以在中使用屬性 <<組態選項>> 定義時 `TridentOrchestrator` 以自訂安裝。
-
-.基本自訂組態
-[%collapsible]
+[WARNING]
 ====
-此範例是在執行命令後建立， `cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml`代表基本的自訂安裝：
+* 請勿變更任何容器或欄位的名稱。
+* 請勿更改縮排 - YAML 縮排對於正確解析至關重要。
+
+
+====
+[NOTE]
+====
+* 預設不套用任何限制－只有請求才有預設值，如果未指定則會自動套用。
+* 容器名稱依其在 pod 規格中的顯示方式列出。
+* 邊車列在每個主貨櫃下方。
+* 查看TORC的 `status.CurrentInstallationParams`用於查看目前應用值的欄位。
+
+
+====
+a|
 
 [source, yaml]
 ----
-apiVersion: trident.netapp.io/v1
-kind: TridentOrchestrator
-metadata:
-  name: trident
-spec:
-  debug: true
-  namespace: trident
-  imagePullSecrets:
-  - thisisasecret
+resources:
+  controller:
+    trident-main:
+      requests:
+        cpu: 10m
+        memory: 80Mi
+      limits:
+          cpu:
+          memory:
+    csi-provisioner:
+      requests:
+        cpu: 2m
+        memory: 20Mi
+      limits:
+        cpu:
+        memory:
+    csi-attacher:
+      requests:
+        cpu: 2m
+        memory: 20Mi
+      limits:
+        cpu:
+        memory:
+    csi-resizer:
+      requests:
+        cpu: 3m
+        memory: 20Mi
+      limits:
+        cpu:
+        memory:
+    csi-snapshotter:
+      requests:
+        cpu: 2m
+        memory: 20Mi
+      limits:
+        cpu:
+        memory:
+    trident-autosupport:
+      requests:
+        cpu: 1m
+        memory: 30Mi
+      limits:
+        cpu:
+        memory:
+  node:
+    linux:
+      trident-main:
+        requests:
+          cpu: 10m
+          memory: 60Mi
+        limits:
+          cpu:
+          memory:
+      node-driver-registrar:
+        requests:
+          cpu: 1m
+          memory: 10Mi
+        limits:
+          cpu:
+          memory:
+    windows:
+      trident-main:
+        requests:
+          cpu: 6m
+          memory: 40Mi
+        limits:
+          cpu:
+          memory:
+      node-driver-registrar:
+        requests:
+          cpu: 6m
+          memory: 40Mi
+        limits:
+          cpu:
+          memory:
+      liveness-probe:
+        requests:
+          cpu: 2m
+          memory: 40Mi
+        limits:
+          cpu:
+          memory:
 ----
-====
-.節點選取器
-[%collapsible]
-====
-此範例會安裝 Trident 搭配節點選取器。
+|`httpsMetrics`|為 Prometheus 指標端點啟用 HTTPS。 |false|`hostNetwork` a|為Trident控制器啟用主機聯網。在多宿主網路中，當需要分離前端和後端流量時，這非常有用。  |false
 
-[source, yaml]
-----
-apiVersion: trident.netapp.io/v1
-kind: TridentOrchestrator
-metadata:
-  name: trident
-spec:
-  debug: true
-  namespace: trident
-  controllerPluginNodeSelector:
-    nodetype: master
-  nodePluginNodeSelector:
-    storage: netapp
-----
-====
-.Windows 工作者節點
-[%collapsible]
-====
-此範例是在執行命令後建立， `cat deploy/crds/tridentorchestrator_cr.yaml`會在 Windows 工作節點上安裝 Trident 。
+|===
 
-[source, yaml]
-----
-apiVersion: trident.netapp.io/v1
-kind: TridentOrchestrator
-metadata:
-  name: trident
-spec:
-  debug: true
-  namespace: trident
-  windows: true
-----
-====
-.在 AKS 叢集上的託管身分識別
-[%collapsible]
-====
-此範例會安裝 Trident 、以在 AKS 叢集上啟用託管身分識別。
 
-[source, yaml]
-----
-apiVersion: trident.netapp.io/v1
-kind: TridentOrchestrator
-metadata:
-  name: trident
-spec:
-  debug: true
-  namespace: trident
-  cloudProvider: "Azure"
-----
-====
-.在 AKS 叢集上的雲端身分識別
-[%collapsible]
-====
-此範例會安裝 Trident 、以搭配使用於 AKS 叢集上的雲端身分識別。
-
-[source, yaml]
-----
-apiVersion: trident.netapp.io/v1
-kind: TridentOrchestrator
-metadata:
-  name: trident
-spec:
-  debug: true
-  namespace: trident
-  cloudProvider: "Azure"
-  cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'
-
-----
-====
-.EKS 叢集上的雲端身分識別
-[%collapsible]
-====
-此範例會安裝 Trident 、以搭配使用於 AKS 叢集上的雲端身分識別。
-
-[source, yaml]
-----
-apiVersion: trident.netapp.io/v1
-kind: TridentOrchestrator
-metadata:
-  name: trident
-spec:
-  debug: true
-  namespace: trident
-  cloudProvider: "AWS"
-  cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/trident-role'"
-----
-====
-.GKE 的雲端身分識別
-[%collapsible]
-====
-此範例會安裝 Trident 、以搭配 GKE 叢集上的雲端身分識別使用。
-
-[source, yaml]
-----
-apiVersion: trident.netapp.io/v1
-kind: TridentBackendConfig
-metadata:
-  name: backend-tbc-gcp-gcnv
-spec:
-  version: 1
-  storageDriverName: google-cloud-netapp-volumes
-  projectNumber: '012345678901'
-  network: gcnv-network
-  location: us-west2
-  serviceLevel: Premium
-  storagePool: pool-premium1
-----
-====
+| [註] 有關格式化 pod 參數的更多信息，請參閱link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["將Pod指派給節點"^]。  == 範例配置 您可以使用下列屬性<<組態選項>>在定義時 `TridentOrchestrator`自訂您的安裝。  .基本自訂配置 [%collapsible%closed] ==== 此範例是在運行後建立的 `cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml`指令，表示一個基本的自訂安裝：[source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident imagePullSecrets: - this secret comm== .%此範例使用節點選擇器安裝Trident 。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident controllerPluginNodeSelector: nodetype: master== nodeible NodeSelector: storage:此範例是在運行後建立的 `cat deploy/crds/tridentorchestrator_cr.yaml`該指令在 Windows 工作節點上安裝Trident 。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: Trident windows: true ---- ==== .在 A==KS 叢集上託管身分 [%collapsible%closed] 叢集範例。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: Trident cloudProvider: "Azure" ---- ==== .在 AKS 叢集上使用雲端身分識別叢集上使用雲端範例。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident cloudProvider: "Azure" cloudIdentity: 'xxxazure.workload.identity/xxx-id: "Azure" cloudIdentity: 'xxx.workload. .在 EKS 叢集上使用雲端身分 [%collapsible%closed] ==== 此範例安裝Trident以便在 AKS 叢集上使用雲端身分。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident cloudProvider: "AWS" cloudIdentity: "'eks.amazonaws.com/role-Inawarns. arn:aws:iam::123456:role/trident-role'" ---- ==== .GKE 雲端身分 [%collapsible%closed] ==== 此範例安裝Trident以便在 GKE 叢集上使用雲端身分。 [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentBackendConfig metadata: name: backend-tbc-gcp-gcnv spec: version: 1 storageDriverName: google-cloud-netapp-volumes projectN: '07 us-west2 serviceLevel: Premium storagePool: pool- Trident ---- ==== Trident控制器和Trident Linux 節點 Pod 的 Kubernetes 資源請求與限制Trident[%collapsible%closed] ====警告：*免責聲明*：本範例中提供的請求和限制值僅用於演示目的。請根據您的環境和工作負載需求調整這些值。 [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident imagePullSecrets: - thisisasecret resources: controller: trident imagePullSecrets: - thisisasecret resources: controller: trident imagePullSecrets: - thisisasecret resources: controller: trident imagePullSecrets: - thisisasecret resources: controller: trident-main:5 200m memory: 256Mi # sidecar csi-provisioner: requests: cpu: 2m memory: 20Mi limits: cpu: 100m memory: 64Mi csi-attacher: requests: cpu: 2m memory: 20Mi 5:0 mory 4:0mory 20:00mory 20: 0 cpu: 3m memory: 20Mi limits: cpu: 100m memory: 64Mi csi-snapshotter: requests: cpu: 2m memory: 20Mi limits: cpu: 100m 內存：64Mi trident-autosupportm 0mPUm：PUm節點：linux：trident-main：請求：CPU：10m 記憶體：60Mi 限制：CPU： Trident記憶體：256Mi # Trident node-driver-registrar：請求：CPU：1m 記憶體：10Mi 限制：CPU：50m 記憶體：32 位元組 ==== 記憶體： [%collapsible%closed] ==== 此範例設定Trident控制器以及Trident Windows 和 Linux 節點 pod 的 Kubernetes 資源請求和限制。警告：*免責聲明*：本範例中提供的請求和限制值僅用於演示目的。請根據您的環境和工作負載需求調整這些值。  [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident imagePullSecrets: - thisisasecret windows: true resources: controller: trident-main: requests: cpu: 10m memory: 80Mi limits: cpu: 200m 記憶體：256Mi # sidecar csi-provisioner：請求：CPU：2M 記憶體：20Mi 限制：CPU：100M 記憶體：64Mi csi-attacher：請求：CPU：2M 記憶體：20Mi 限制：CPU：100M 記憶體：64Misi-resizer：20Mi 限制：CPU。 csi-snapshotter：請求：CPU：2M 內存：20Mi 限制：CPU：100M 內存：64Mi trident-autosupport：請求：CPU：1M 內存：30Mi 限制：CPU：50M 內存：128Mi 節點：Milinux：trident-main：請求：CPU：50M 內存限制sidecars node-driver-registrar：請求：CPU：1m 記憶體：10Mi 限制：CPU：50m 記憶體：32Mi windows：trident-main：請求：CPU：6m 記憶體：40Mi 限制：CPU：200m 記憶體：128Mi # sidecaristm- 40Miver限制：CPU：100m 記憶體：128Mi liveness-probe：請求：CPU：2m 記憶體：40Mi 限制：CPU：50m 記憶體：64Mi ---- ==== 
+|===

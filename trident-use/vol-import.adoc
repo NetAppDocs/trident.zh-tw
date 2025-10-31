@@ -42,10 +42,15 @@ WARNING: 這對區塊磁碟區特別重要、因為 Kubernetes 不會知道先�
 ** 如果儲存類別的回收原則為 `delete`、儲存磁碟區會在PV刪除時刪除。
 
 
-* 根據預設， Trident 會管理 PVC 並重新命名後端上的 FlexVol volume 和 LUN 。您可以傳遞 `--no-manage`旗標來匯入未受管理的磁碟區。如果您使用 `--no-manage`、 Trident 在物件生命週期內不會在 PVC 或 PV 上執行任何其他作業。刪除 PV 時不會刪除儲存磁碟區、也會忽略其他操作、例如 Volume Clone 和 Volume resize 。
+* 預設情況下， Trident管理 PVC，並在後端重新命名FlexVol volume和 LUN。你可以透過 `--no-manage`導入非託管磁碟區的標誌和 `--no-rename`標記以保留卷名。
++
+**  `--no-manage`* - 如果您使用 `--no-manage`標誌表明， Trident在物件的生命週期內不會對 PVC 或 PV 執行任何額外的操作。刪除 PV 時，儲存磁碟區不會被刪除，其他操作（如磁碟區複製和磁碟區調整大小）也會被忽略。
+**  `--no-rename`* - 如果您使用 `--no-rename`標誌， Trident在導入磁碟區時保留現有磁碟區名稱，並管理磁碟區的生命週期。此選項僅支援以下情況： `ontap-nas` ， `ontap-san` （含ASA r2 系統） `ontap-san-economy`司機。
 +
 
-TIP: 如果您想要將Kubernetes用於容器化工作負載、但想要管理Kubernetes以外儲存磁碟區的生命週期、則此選項非常實用。
+TIP: 如果您想使用 Kubernetes 進行容器化工作負載，但又想在 Kubernetes 之外管理儲存磁碟區的生命週期，那麼這些選項非常有用。
+
+
 
 * 將註釋新增至PVc和PV、這有兩種用途、表示已匯入磁碟區、以及是否管理了PVc和PV。不應修改或移除此附註。
 
@@ -78,7 +83,7 @@ spec:
 
 WARNING: 請勿包含其他參數、例如 PV 名稱或 Volume 大小。這可能會導致匯入命令失敗。
 
-. 使用 `tridentctl import`命令指定 Trident 後端的名稱、該後端包含磁碟區、以及唯一識別儲存區中磁碟區的名稱（例如： ONTAP FlexVol 、 Element Volume 、 Cloud Volumes Service 路徑）。 `-f`需要引數來指定 PVC 檔案的路徑。
+. 使用 `tridentctl import`用於指定包含磁碟區的Trident後端名稱以及唯一標識儲存上磁碟區的名稱的命令（例如： ONTAP FlexVol、Element Volume）。這 `-f`需要提供參數來指定PVC檔案的路徑。
 +
 [listing]
 ----
@@ -217,28 +222,6 @@ tridentctl import volume element_default element-managed -f pvc-basic-import.yam
 |                   NAME                   |  SIZE  | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
 +------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
 | pvc-970ce1ca-2096-4ecd-8545-ac7edc24a8fe | 10 GiB | basic-element | block    | d3ba047a-ea0b-43f9-9c42-e38e58301c49 | online | true    |
-+------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
-----
-
-
-=== Google Cloud Platform
-
-Trident 支援使用驅動程式進行 Volume 匯入 `gcp-cvs`。
-
-
-NOTE: 若要在 Google Cloud Platform 中匯入以 NetApp Cloud Volumes Service 為後盾的 Volume 、請依其 Volume 路徑識別該 Volume 。Volume 路徑是之後 Volume 匯出路徑的一部分 `:/`。例如、如果匯出路徑為 `10.0.0.1:/adroit-jolly-swift`、磁碟區路徑為 `adroit-jolly-swift`。
-
-.Google Cloud Platform 範例
-下列範例會匯入 `gcp-cvs` 後端上的 Volume `gcpcvs_YEppr` 的磁碟區路徑 `adroit-jolly-swift`。
-
-[listing]
-----
-tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -n trident
-
-+------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
-|                   NAME                   |  SIZE  | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
-+------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
-| pvc-a46ccab7-44aa-4433-94b1-e47fc8c0fa55 | 93 GiB | gcp-storage   | file     | e1a6e65b-299e-4568-ad05-4f0a105c888f | online | true    |
 +------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
 ----
 

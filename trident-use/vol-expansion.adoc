@@ -342,7 +342,7 @@ tridentctl get volumes -n trident
 
 == 展開NFS Volume
 
-Trident 支援 NFS PV 的 Volume 擴充、部署於 `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup` `gcp-cvs`和 `azure-netapp-files`後端。
+Trident支援為已設定的 NFS PV 擴充容量。 `ontap-nas` ， `ontap-nas-economy` ， `ontap-nas-flexgroup` ， 和 `azure-netapp-files`後端。
 
 
 

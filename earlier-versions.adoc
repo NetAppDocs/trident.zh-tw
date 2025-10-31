@@ -12,8 +12,9 @@ summary: 您可以使用版本選取器、在最新版本與前四個版本之�
 
 
 [role="lead"]
-如果您未執行 Trident 25.06 ，則可根據link:get-help.html["Trident 支援生命週期"]取得舊版的文件。
+如果您使用的不是Trident 25.10 版本，則可以根據以下資訊取得先前版本的文件：link:get-help.html["Trident 支援生命週期"] 。
 
+* https://docs.netapp.com/us-en/trident-2506/index.html["Trident25.06"^]
 * https://docs.netapp.com/us-en/trident-2502/index.html["Trident 25.02"^]
 * https://docs.netapp.com/us-en/trident-2410/index.html["Trident 24.10"^]
 * https://docs.netapp.com/us-en/trident-2406/index.html["Trident 24.06"^]
@@ -22,6 +23,4 @@ summary: 您可以使用版本選取器、在最新版本與前四個版本之�
 * https://docs.netapp.com/us-en/trident-2307/index.html["Trident 23.07"^]
 * https://docs.netapp.com/us-en/trident-2304/index.html["Trident 23.04"^]
 * https://docs.netapp.com/us-en/trident-2301/index.html["Trident 23.01"^]
-* https://docs.netapp.com/us-en/trident-2210/index.html["Trident 22.10"^]
-* https://docs.netapp.com/us-en/trident-2207/index.html["Trident 22.07"^]
 

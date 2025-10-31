@@ -21,8 +21,17 @@ NOTE: VolumeGroupSnapshot 是 Kubernetes 中的一個 Beta 功能，包含 Beta 
 
 == 建立卷宗組快照
 
-卷冊組快照支援 `ontap-san`驅動程序，僅適用於 iSCSI 協議，尚不支援光纖通道 (FCP) 和 NVMe/TCP。開始之前
+以下儲存驅動程式支援磁碟區組快照：
 
+* `ontap-san`驅動程式 - 僅適用於 iSCSI 和 FC 協議，不適用於 NVMe/TCP 協定。
+* 《ONTAP-san經濟》
+* 「ONTAP-NAS」
+
+
+
+NOTE: NetApp AFX 儲存系統不支援磁碟區組快照。
+
+.開始之前
 * 確保您的 Kubernetes 版本是 K8s 1.32 或更高版本。
 * 您必須擁有外部快照控制器和自訂資源定義（ CRD ）、才能使用快照。這是Kubernetes Orchestrator的責任（例如：Kubeadm、GKE、OpenShift）。
 +

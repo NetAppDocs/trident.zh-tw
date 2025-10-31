@@ -18,9 +18,12 @@ summary: 您可以將 Trident Protect 升級至最新版本，以利用新功能
 
 [NOTE]
 ====
-從版本 24.10 升級時，升級期間執行的快照可能會失敗。此失敗不會阻止將來建立快照（無論是手動快照還是計劃快照）。如果升級期間快照失敗，您可以手動建立新快照以確保應用程式受到保護。
-
+* 從版本 24.10 升級時，升級期間執行的快照可能會失敗。此失敗不會阻止將來建立快照（無論是手動快照還是計劃快照）。如果升級期間快照失敗，您可以手動建立新快照以確保應用程式受到保護。
++
 為避免潛在的故障，您可以在升級前停用所有快照計劃，然後在升級後重新啟用。但是，這會導致升級期間遺失所有計劃的快照。
+
+* 對於私人鏡像倉庫安裝，請確保目標版本所需的 Helm Chart 和鏡像在您的私人鏡像倉庫中可用，並驗證您的自訂 Helm 值與新 Chart 版本相容。更多信息，請參閱link:trident-protect-installation.html["從私有登錄安裝 Trident Protect"]。
+
 
 ====
 若要升級 Trident Protect ，請執行下列步驟。
@@ -60,6 +63,10 @@ kubectl delete secret -n trident-protect -l name=trident-protect-crds,owner=helm
 +
 [source, console]
 ----
-helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2506.0 --namespace trident-protect
+helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2510.0 --namespace trident-protect
 ----
++
+
+NOTE: 您可以透過新增以下內容來配置升級期間的日誌等級。 `--set logLevel=debug`升級命令。預設日誌等級為 `warn`。建議啟用偵錯日誌記錄進行故障排除，因為它可以幫助NetApp支援人員診斷問題，而無需更改日誌等級或重現問題。
+
 

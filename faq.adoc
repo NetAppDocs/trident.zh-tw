@@ -114,12 +114,6 @@ Trident 只是 Kubernetes Pod 、可在 Kubernetes 執行的任何地方安裝�
 
 
 
-=== Trident 是否能與雲端 Volume Services 搭配運作？
-
-是的、 Trident 支援 Azure 中的 Azure NetApp Files 服務、以及 GCP 中的 Cloud Volumes Service 。
-
-
-
 == 疑難排解與支援
 
 
@@ -367,7 +361,7 @@ Make sure to remove the DP mode or put the volume online before importing the vo
 
 === 哪些驅動程式支援 Trident Volume 快照？
 
-到目前爲止、我們的「ONTAP-NAS」、「ONTAP-NAS-flexgroup」、「ONTAP-SAN」、「ONTAP-san經濟型」、「Poolidfire SAN」、 「GCP-CVS」、以及「azure-NetApp-fil」後端驅動程式。
+截至今日，我們的產品已提供按需快照支援。 `ontap-nas` ， `ontap-nas-flexgroup` ， `ontap-san` ， `ontap-san-economy` ， `solidfire-san` ， 和 `azure-netapp-files`後端驅動程式。
 
 
 

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/volume-driver-options.html 
-keywords: create volumes, Trident, trident for docker, docker, docker volume, driver options, ontap, element volumes, cvs, cloud volumes service on gcp, azure netapp files 
+keywords: create volumes, Trident, trident for docker, docker, docker volume, driver options, ontap, element volumes, azure netapp files 
 summary: 每個儲存驅動程式都有一組不同的選項、您可以在建立磁碟區時指定、以自訂結果。請參閱下方、以瞭解適用於您所設定儲存系統的選項。 
 ---
 = 驅動程式專屬的Volume選項

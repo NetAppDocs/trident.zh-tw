@@ -18,11 +18,11 @@ summary: 深入瞭解 Trident 如何處理其驅動程式的磁碟區快照建�
 
 == 深入瞭解Volume Snapshot建立
 
-* 對於 `ontap-nas`， `ontap-san` ， `gcp-cvs` ， 和 `azure-netapp-files`在驅動程式中，每個持久性磁碟區 (PV) 都會對應到一個FlexVol volume。因此，磁碟區快照被創建為NetApp快照。NetApp快照技術比同類快照技術具有更高的穩定性、可擴展性、可恢復性和效能。這些快照副本在創建所需時間和儲存空間方面都非常有效率。
+* 對於 `ontap-nas`， `ontap-san` ， 和 `azure-netapp-files`在驅動程式中，每個持久性磁碟區 (PV) 都會對應到一個FlexVol volume。因此，磁碟區快照被創建為NetApp快照。NetApp快照技術比同類快照技術具有更高的穩定性、可擴展性、可恢復性和效能。這些快照副本在創建所需時間和儲存空間方面都非常有效率。
 * 適用於 `ontap-nas-flexgroup` 驅動程式、每個持續Volume（PV）都會對應FlexGroup 至一個功能區。因此、磁碟區快照會建立為NetApp FlexGroup 的「資訊快照」。相較於競爭的快照技術、 NetApp Snapshot 快照技術可提供更高的穩定性、擴充性、可恢復性和效能。這些Snapshot複本無論在建立所需的時間、還是在儲存空間中、都能發揮極高的效率。
 * 對於 `ontap-san-economy`驅動程式， PV 會對應至在共享 FlexVol Volume Volume Volume ， PV 的 Volume Snapshot 上建立的 LUN ，這是透過執行相關 LUN 的 FlexClones 來達成的。ONTAP FlexClone 技術讓您幾乎可以立即建立最大資料集的複本。複本會與其父實體共用資料區塊、除了中繼資料所需的儲存空間外、不需要使用任何儲存設備。
 * 對於「Poolidfire - san」驅動程式、每個PV對應至NetApp Element 在該軟體/NetApp HCI叢集上建立的LUN。Volume Snapshot以基礎LUN的元素快照來表示。這些快照是時間點複本、只佔用少量系統資源和空間。
 * 使用 `ontap-nas`和 `ontap-san`驅動程式時、 ONTAP 快照是 FlexVol 的時間點複本、會佔用 FlexVol 本身的空間。這可能會產生磁碟區中的可寫入空間量、以便在建立/排程快照時縮短時間。解決此問題的一種簡單方法、就是透過Kubernetes調整大小來擴充磁碟區。另一個選項是刪除不再需要的快照。刪除透過 Kubernetes 建立的 Volume Snapshot 時、 Trident 會刪除相關的 ONTAP 快照。不透過Kubernetes建立的支援快照也可以刪除。ONTAP
 
 
-使用Trident，您可以利用 VolumeSnapshots 從中建立新的 PV。使用FlexClone技術從這些快照建立 PV，適用於支援的ONTAP和 CVS 後端。從快照建立 PV 時，後備磁碟區是快照父磁碟區的FlexClone 。這 `solidfire-san`驅動程式使用 Element 軟體磁碟區克隆從快照建立 PV。它在這裡從 Element 快照創建一個克隆。
+使用Trident，您可以利用 VolumeSnapshots 從中建立新的 PV。使用FlexClone技術從這些快照建立 PV（適用於受支援的ONTAP後端）執行。從快照建立 PV 時，後備磁碟區是快照父磁碟區的FlexClone 。這 `solidfire-san`驅動程式使用 Element 軟體磁碟區克隆從快照建立 PV。它在這裡從 Element 快照創建一個克隆。

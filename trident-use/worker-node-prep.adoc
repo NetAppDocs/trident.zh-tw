@@ -21,7 +21,7 @@ Kubernetes叢集中的所有工作節點都必須能夠掛載您已為Pod配置�
 如果您使用的是驅動程式組合、則應該安裝所有必要的驅動程式工具。Red Hat Enterprise Linux CoreOS （ RHCOS ）的最新版本預設會安裝工具。
 
 .NFS工具
-link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nfs-volumes["安裝 NFS 工具"]如果您正在使用： `ontap-nas` ， `ontap-nas-economy` ， `ontap-nas-flexgroup` ， `azure-netapp-files` ， `gcp-cvs` 。
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nfs-volumes["安裝 NFS 工具"]如果您正在使用： `ontap-nas` ， `ontap-nas-economy` ， `ontap-nas-flexgroup` ， 或者 `azure-netapp-files`。
 
 .iSCSI工具
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-iscsi-tools["安裝iSCSI工具"] 如果您使用的是： `ontap-san`、 `ontap-san-economy`、 `solidfire-san`。

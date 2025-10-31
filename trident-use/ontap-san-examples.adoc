@@ -17,9 +17,9 @@ summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP SAN 驅動程式
 link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2 系統"^]與其他ONTAP系統（ASA、 AFF和FAS）在儲存層的實作上有所不同。這些變化會影響某些參數的使用，如註釋中所述。link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["詳細了解 ASA r2 系統與其他 ONTAP 系統之間的差異"^]。
 
 
-NOTE: 只有 `ontap-san`ASA r2 系統支援驅動程式（支援 iSCSI 和 NVMe/TCP 協定）。
+NOTE: 只有 `ontap-san`ASA r2 系統支援驅動程式（支援 iSCSI、NVMe/TCP 和 FC 協定）。
 
-在Trident後端設定中，無需指定您的系統是ASA r2。當您選擇 `ontap-san`作為 `storageDriverName`Trident可自動偵測ASA r2 或傳統的ONTAP系統。如下表所示，某些後端設定參數不適用於ASA r2 系統。
+在Trident後端設定中，無需指定您的系統是ASA r2。當您選擇 `ontap-san`作為 `storageDriverName`Trident可自動偵測ASA r2 或其他ONTAP系統。如下表所示，某些後端設定參數不適用於ASA r2 系統。
 
 
 

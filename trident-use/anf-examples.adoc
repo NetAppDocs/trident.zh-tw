@@ -20,9 +20,6 @@ summary: 瞭解 Azure NetApp Files 的 NFS 和 SMB 後端組態選項、並檢�
 
 Trident 使用後端組態（子網路、虛擬網路、服務層級和位置）、在所要求位置的可用容量集區上建立 Azure NetApp Files Volume 、並符合所要求的服務層級和子網路。
 
-
-NOTE: * 從NetApp Trident 25.06 版本開始，手動 QoS 容量池作為技術預覽版受到支援。 *
-
 Azure NetApp Files 後端提供這些組態選項。
 
 [cols="3"]
@@ -100,10 +97,10 @@ Azure NetApp Files 後端提供這些組態選項。
 | `supportedTopologies` | 代表此後端所支援的區域和區域清單。如需詳細資訊、請 link:../trident-use/csi-topology.html["使用「csi拓撲」"]參閱。 |  
 
 
-| `qosType` | 表示 QoS 類型：自動或手動。* Trident 25.06 技術預覽版* | 汽車 
+| `qosType` | 表示 QoS 類型：自動或手動。 | 汽車 
 
 
-| `maxThroughput` | 設定允許的最大吞吐量，單位為 MiB/秒。僅支援手動 QoS 容量池。* Trident 25.06 技術預覽版* | `4 MiB/sec` 
+| `maxThroughput` | 設定允許的最大吞吐量，單位為 MiB/秒。僅支援手動 QoS 容量池。 | `4 MiB/sec` 
 |===
 
 NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["設定Azure NetApp Files 適用於某個聲音量的網路功能"^]。
@@ -267,7 +264,7 @@ capacityPools:
 .具有手動 QoS 容量池的後端範例
 [%collapsible]
 ====
-此後端配置將磁碟區放置在 Azure 中 `eastus`具有手動 QoS 容量池的位置。* NetApp Trident 25.06 中的技術預覽*。
+此後端配置將磁碟區放置在 Azure 中 `eastus`具有手動 QoS 容量池的位置。
 
 [source, yaml]
 ----

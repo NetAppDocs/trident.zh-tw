@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/prereqs-docker.html 
-keywords: deploy, Trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, nvme/tcp, nvme 
+keywords: deploy, Trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, nvme/tcp, fc, nvme 
 summary: 您必須先在主機上安裝及設定必要的通訊協定先決條件、才能部署 Trident 。 
 ---
 = 部署的先決條件

@@ -14,6 +14,13 @@ summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP NAS 驅動程式
 [role="lead"]
 瞭解如何在 Trident 安裝中建立及使用 ONTAP NAS 驅動程式。本節提供後端組態範例及將後端對應至 StorageClasses 的詳細資料。
 
+從 25.10 版本開始， NetApp Trident支持link:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFX 儲存系統"^]。NetApp AFX 儲存系統與其他基於ONTAP的系統（ASA、 AFF和FAS）在儲存層的實作方式上有所不同。
+
+
+NOTE: 只有 `ontap-nas`NetApp AFX 系統支援 NFS 協定驅動程式；不支援 SMB 協定。
+
+在Trident後端設定中，無需指定您的系統是NetApp AFX 儲存系統。當您選擇 `ontap-nas`作為 `storageDriverName`Trident會自動偵測 AFX 儲存系統。如下表所示，某些後端組態參數不適用於 AFX 儲存系統。
+
 
 
 == 後端組態選項
@@ -28,7 +35,12 @@ summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP NAS 驅動程式
 | 「分度」 |  | 永遠為1 
 
 
-| 「torageDriverName」 | 儲存驅動程式名稱 | `ontap-nas`、 `ontap-nas-economy`或 `ontap-nas-flexgroup` 
+| 「torageDriverName」  a| 
+儲存驅動程式名稱
+
+
+NOTE: 僅適用於NetApp AFX 系統 `ontap-nas`已支援。
+| `ontap-nas`、 `ontap-nas-economy`或 `ontap-nas-flexgroup` 
 
 
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱 + "_" + dataLIF 
@@ -82,12 +94,14 @@ NOTE: 使用 ONTAP NAS 經濟型和 24 個以上字元的 storagePrefix 時， q
 
 
 NOTE: 在 SVM 中更新 Aggregate 時、它會透過輪詢 SVM 而無需重新啟動 Trident 控制器、在 Trident 中自動更新。當您在 Trident 中設定特定的 Aggregate 以配置 Volume 時、如果將 Aggregate 重新命名或移出 SVM 、則在輪詢 SVM Aggregate 時、後端將會移至 Trident 中的失敗狀態。您必須將 Aggregate 變更為 SVM 上的 Aggregate 、或是將其全部移除、才能使後端重新上線。
+
+*請勿指定用於 AFX 儲存系統。 *
  a| 
 "
 
 
 
-| 「限制Aggregateusage」 | 如果使用率超過此百分比，則配置失敗。*不適用於Amazon FSx for ONTAP*。 | ""（預設不強制執行） 
+| 「限制Aggregateusage」 | 如果使用率超過此百分比，則配置失敗。*不適用於Amazon FSx for ONTAP*。*請勿指定用於 AFX 儲存系統。 * | ""（預設不強制執行） 
 
 
 | FlexgroupAggregateList  a| 
@@ -106,7 +120,7 @@ NOTE: 在 SVM 中更新 Aggregate 清單時、會透過輪詢 SVM 而無需重�
 請勿使用 `debugTraceFlags` 除非您正在疑難排解並需要詳細的記錄傾印。 | null 
 
 
-| `nasType` | 設定NFS或SMB磁碟區建立。選項包括 `nfs`、 `smb` 或null。NFS磁碟區的預設值設為null。 | `nfs` 
+| `nasType` | 配置 NFS 或 SMB 磁碟區的建立。選項有 `nfs`， `smb`或空值。設定為 null 則預設使用 NFS 磁碟區。*如果指定，則始終設定為 `nfs`適用於 AFX 儲存系統*。 | `nfs` 
 
 
 | 「nfsMountOptions」 | 以逗號分隔的NFS掛載選項清單。Kubernetes-Persistent Volume 的掛載選項通常是在儲存類別中指定、但如果儲存類別中未指定掛載選項、則 Trident 會回復為使用儲存後端組態檔案中指定的掛載選項。如果儲存類別或組態檔案中未指定任何掛載選項、 Trident 將不會在關聯的持續磁碟區上設定任何掛載選項。 | " 
@@ -118,7 +132,7 @@ NOTE: 在 SVM 中更新 Aggregate 清單時、會透過輪詢 SVM 而無需重�
 | `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱；允許 Trident 建立 SMB 共用的名稱；或將參數保留空白以防止共用磁碟區。對於內部部署 ONTAP 、此參數為選用項目。Amazon FSX 需要此參數才能支援 ONTAP 後端、且不可為空白。 | `smb-share` 
 
 
-| 《useREST》 | 使用ONTAP Isrest API的布林參數。 `useREST`設為 `true`時， Trident 會使用 ONTAP REST API 與後端通訊；設為 `false`時， Trident 會使用 ONTAPI （ ZAPI ）呼叫與後端通訊。此功能需要ONTAP 使用更新版本的版本。此外、使用的 ONTAP 登入角色必須具有應用程式存取權 `ontapi` 。這是預先定義的和角色所滿足 `vsadmin` `cluster-admin` 的。從 Trident 24.06 版本和 ONTAP 9.15.1 或更新版本開始， `useREST`依預設會設定為 `true`；變更 `useREST`為 `false`使用 ONTAPI （ ZAPI ）呼叫。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
+| 《useREST》 | 使用ONTAP REST API 的布林參數。 `useREST`設定為 `true`Trident使用ONTAP REST API 與後端通訊；當設定為 `false`Trident使用 ONTAPI (ZAPI) 呼叫與後端通訊。此功能需要ONTAP 9.11.1 及更高版本。此外，所使用的ONTAP登入角色必須具有存取權限。 `ontapi`應用。預定義項滿足了這一點。 `vsadmin`和 `cluster-admin`角色。從Trident 24.06 版本和ONTAP 9.15.1 或更高版本開始， `useREST`設定為 `true`預設；更改 `useREST`到 `false`使用 ONTAPI (ZAPI) 呼叫。*如果指定，則始終設定為 `true`適用於 AFX 儲存系統*。 | `true` 對於 ONTAP 9.15.1 或更高版本，否則 `false`。 
 
 
 | `limitVolumePoolSize` | 在 ONTAP NAS 經濟型後端使用 qtree 時、可要求的 FlexVol 大小上限。 | ""（預設不強制執行） 
@@ -217,7 +231,7 @@ defaults:
   snapshotPolicy: default
   snapshotReserve: "10"
 ----
-為了 `ontap-nas`和 `ontap-nas-flexgroups`Trident現在使用新的計算方法，以確保FlexVol 的尺寸與 snapshotReserve 百分比和 PVC 正確匹配。當使用者要求 PVC 時， Trident會使用新的計算方法建立具有更多空間的原始FlexVol 。此計算方法可確保使用者在 PVC 中獲得其請求的可寫入空間，而不是少於其請求的空間。在 v21.07 之前，當使用者要求 PVC（例如 5 GiB）時，如果快照預留百分比為 50%，則只能獲得 2.5 GiB 的可寫入空間。這是因為使用者要求的是整個磁碟區。 `snapshotReserve`是其中的百分比。在Trident 21.07 中，使用者要求的是可寫入空間，而Trident定義了該空間。 `snapshotReserve`將數值表示為佔總體積的百分比。這不適用於 `ontap-nas-economy`。請參閱以下範例以了解其工作原理：
+為了 `ontap-nas`和 `ontap-nas-flexgroups`Trident現在使用新的計算方法，以確保FlexVol 的尺寸與 snapshotReserve 百分比和 PVC 正確匹配。當使用者要求 PVC 時， Trident會使用新的計算方法建立具有更多空間的原始FlexVol 。此計算可確保使用者在 PVC 中獲得其請求的可寫入空間，而不是少於其請求的空間。在 v21.07 之前，當使用者要求 PVC（例如 5 GiB）時，如果快照預留百分比為 50%，則只能獲得 2.5 GiB 的可寫入空間。這是因為使用者要求的是整個磁碟區。 `snapshotReserve`是其中的百分比。在Trident 21.07 中，使用者要求的是可寫入空間，而Trident定義了該空間。 `snapshotReserve`將數值表示為佔總體積的百分比。這不適用於 `ontap-nas-economy`。請參閱以下範例以了解其工作原理：
 
 計算方式如下：
 

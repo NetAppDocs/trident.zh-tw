@@ -22,7 +22,6 @@ summary: Trident 遵循為期四個月的發行步調、每年提供三個主要
 
 * 在指定的 Kubernetes 叢集中、所有命名空間都應該只安裝一個 Trident 執行個體。
 * Trident 23.07 及更新版本需要 v1 Volume 快照、不再支援 Alpha 或 beta 快照。
-* 如果您在 Google Cloud 中建立了Cloud Volumes Service，link:../trident-use/gcp.html#learn-about-trident-support-for-cloud-volumes-service-for-google-cloud["CVS 服務類型"]您必須更新後端配置才能使用 `standardsw`或者 `zoneredundantstandardsw`從Trident 23.01 升級時的服務等級。未能更新 `serviceLevel`後端故障可能導致磁碟區故障。參考 link:../trident-use/gcp.html#cvs-service-type-examples["CVS 服務類型範例"] 了解詳情。
 * 升級時、 Trident 必須提供 `parameter.fsType`使用中的 `StorageClasses`資訊。您可以在不中斷現有磁碟區的情況下刪除及重新建立 `StorageClasses`磁碟區。
 +
 ** 這是強制實施的一項**要求 https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["安全性內容"^] 適用於SAN磁碟區。

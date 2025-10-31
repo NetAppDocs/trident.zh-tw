@@ -35,7 +35,7 @@ IMPORTANT: 在私有儲存庫中安裝 Trident 時、如果您使用 `--image-re
 * 《Trident服務：yaml》
 * 《Trident命名空間.yaml》
 * 「Trident服務帳戶」。yaml
-* `trident-resourcequota.yaml`*
+* `trident-resourcequota.yaml`
 
 
 產生這些檔案之後、您可以根據自己的需求加以修改、然後使用「-use自訂-yaml」來安裝自訂部署。

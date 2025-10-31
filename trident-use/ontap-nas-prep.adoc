@@ -14,13 +14,6 @@ summary: 瞭解使用 ONTAP NAS 驅動程式設定 ONTAP 後端的需求、驗�
 [role="lead"]
 瞭解使用 ONTAP NAS 驅動程式設定 ONTAP 後端的需求、驗證選項和匯出原則。
 
-從 25.10 版本開始， NetApp Trident支持link:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFX儲存系統"^]。  NetApp AFX 儲存系統與其他ONTAP系統（ASA、 AFF和FAS）在儲存層的實作方式上有所不同。
-
-
-NOTE: 只有 `ontap-nas`AFX 系統支援 NFS 協定驅動程式；不支援 SMB 協定。
-
-在Trident後端設定中，您無需指定您的系統是 AFX。當您選擇 `ontap-nas`作為 `storageDriverName`Trident可自動偵測 AFX 系統。
-
 
 
 == 需求

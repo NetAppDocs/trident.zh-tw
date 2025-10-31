@@ -50,7 +50,7 @@ Kubernetes「PeristentVolume Claim」物件是Kubernetes叢集使用者所提出
 | trident.netapp.io/fileSystem | 檔案系統 | ONTAP-SAN、solidfire-san、ONTAP-san經濟型 
 
 
-| trident.netapp.io/cloneFromPVC | cloneSourceVolume | ontap-nas、ontap-san、solidfire-san、azure-netapp-files、ontap-san-economy 
+| trident.netapp.io/cloneFromPVC | cloneSourceVolume | ontap-nas、ontap-san、solidfire-san、azure-netapp-files、gcp-cvs、ontap-san-economy 
 
 
 | trident.netapp.io/splitOnClone | 分岔OnClone | ONTAP-NAS、ONTAP-SAN 
@@ -65,7 +65,7 @@ Kubernetes「PeristentVolume Claim」物件是Kubernetes叢集使用者所提出
 | trident.netapp.io/snapshotPolicy | Snapshot原則 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS-flexgroup、ONTAP-SAN 
 
 
-| trident.netapp.io/snapshotReserve | Snapshot保留區 | ontap-nas、ontap-nas-flexgroup、ontap-san 
+| trident.netapp.io/snapshotReserve | Snapshot保留區 | ontap-nas、ontap-nas-flexgroup、ontap-san、gcp-cvs 
 
 
 | trident.netapp.io/snapshotDirectory | Snapshot目錄 | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS- Flexgroup 
@@ -173,14 +173,14 @@ volumeBindingMode: Immediate
 
 
 | 後端類型 | 字串  a| 
-ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、solidfire-san、azure-netapp-files、ontap-san-economy
+ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、solidfire-san、gcp-cvs、azure-netapp-files、ontap-san-economy
 | 集區屬於此類型的後端 | 指定後端 | 所有驅動程式 
 
 
-| 快照 | 布爾 | 對、錯 | 集區支援具有快照的磁碟區 | 已啟用快照的Volume | ontap-nas、ontap-san、solidfire-san 
+| 快照 | 布爾 | 對、錯 | 集區支援具有快照的磁碟區 | 已啟用快照的Volume | ontap-nas、ontap-san、solidfire-san、gcp-cvs 
 
 
-| 複製 | 布爾 | 對、錯 | 資源池支援複製磁碟區 | 已啟用複本的Volume | ontap-nas、ontap-san、solidfire-san 
+| 複製 | 布爾 | 對、錯 | 資源池支援複製磁碟區 | 已啟用複本的Volume | ontap-nas、ontap-san、solidfire-san、gcp-cvs 
 
 
 | 加密 | 布爾 | 對、錯 | 資源池支援加密磁碟區 | 已啟用加密的Volume | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS- FlexGroups、ONTAP-SAN 
@@ -218,7 +218,7 @@ ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、solidfire-san�
 | FSType | 字串 | ext4 、 ext3 、 xfs | 區塊磁碟區的檔案系統類型 | solidfire-san、ontap、nap、nap、nas經濟、ontap、nas、flexgroup、ontap、san、ONTAP-san經濟型 | 全部 
 
 
-| owVolume擴充 | 布林值 | 對、錯 | 啟用或停用對增加PVc大小的支援 | ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、ontap-san-economy、solidfire-san、azure-netapp-files | 1.11+ 
+| owVolume擴充 | 布林值 | 對、錯 | 啟用或停用對增加PVc大小的支援 | ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、ontap-san-economy、solidfire-san、gcp-cvs、azure-netapp-files | 1.11+ 
 
 
 | Volume BindingMode | 字串 | 立即、WaitForFirst消費者 | 選擇何時進行磁碟區繫結和動態資源配置 | 全部 | 1.19 - 1.26 
@@ -370,7 +370,7 @@ NOTE: 這是您自己建立和管理的兩種物件類型之一。另一個是Ku
 
 == Trident 物件 `StoragePool`
 
-儲存池代表每個後端可用於配置的不同位置。對於ONTAP而言，這些對應於 SVM 中的聚合。對於NetApp HCI/ SolidFire，這些對應於管理員指定的 QoS 頻段。每個儲存池都有一組獨特的儲存屬性，這些屬性定義了其效能特徵和資料保護特徵。
+儲存池代表每個後端可用於配置的不同位置。對於ONTAP而言，這些對應於 SVM 中的聚合。對於NetApp HCI/ SolidFire，這些對應於管理員指定的 QoS 頻段。對於Cloud Volumes Service，這些對應於雲端提供者區域。每個儲存池都有一組獨特的儲存屬性，這些屬性定義了其效能特徵和資料保護特徵。
 
 與此處的其他物件不同、儲存資源池候選項目一律會自動探索及管理。
 

@@ -19,100 +19,9 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 
 
-== 25.10 版本新增內容
+== 25.06.2 中的新增功能
 
-了解Trident和Trident Protect 的新特性，包括增強功能、修復和棄用。
-
-
-
-=== Trident
-
-
-
-==== 增強功能
-
-* * Kubernetes* ：
-+
-** 除了ONTAP -SAN（iSCSI 和 FC）驅動程式外，還為ONTAP-NAS NFS 和ONTAP -SAN-Economy 驅動程式新增了對 CSI 磁碟區組快照的支持，v1beta1 磁碟區組快照 Kubernetes API。看link:https://docs.netapp.com/us-en/trident/trident-use/vol-group-snapshots.html["使用磁碟區組快照"^]。
-** 為ONTAP-NAS 和ONTAP-NAS-Economy（NAS 驅動程式中不包括 SMB）以及ONTAP-SAN 和ONTAP-SAN-Economy 驅動程式新增了強製磁碟區分離的自動工作負載故障轉移支援。看link:../trident-reco/force-detach.html["強制分離的詳細資料"^]。
-** 增強Trident節點並發性，以提高 FCP 卷節點操作的可擴展性。
-** 為ONTAP NAS 驅動程式新增了ONTAP AFX 支援。看link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-examples.html["列舉NAS組態選項與範例ONTAP"^]。
-** 增加了透過 TridentOrchestrator CR 和 Helm chart 值配置Trident容器的 CPU 和記憶體資源請求和限制的支援。  （link:https://github.com/NetApp/trident/issues/1000["第1000期"] ，link:https://github.com/NetApp/trident/issues/927["第927期"] ，link:https://github.com/NetApp/trident/issues/853["第853期"] ，link:https://github.com/NetApp/trident/issues/592["第592期"] ，link:https://github.com/NetApp/trident/issues/110["第110期"] ）。
-** 為 ASAr2 人格添加了 FC 支援。看link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["SAN組態選項與範例ONTAP"^]。
-** 新增了一個選項，可以使用 HTTPS 而不是 HTTP 來提供 Prometheus 指標。看link:../trident-use/monitor-trident.html["監控 Trident"^]。
-** 新增了一個選項 `--no-rename`導入磁碟區時，保留原始名稱，但讓Trident管理磁碟區的生命週期。看link:../trident-use/vol-import.html["匯入磁碟區"^]。
-** Trident部署現在以系統叢集關鍵優先權運作。
-
-
-* 為Trident控制器新增了透過 helm、operator 和 tridentctl 使用主機網路的選項（link:https://github.com/NetApp/trident/issues/858["第858期"] ）。
-* 在Trident 25.10 中，ANF 驅動程式新增了手動 QoS 支持，使其具備了生產就緒狀態；此實驗性增強功能是在Trident 25.06 中引入的。
-
-
-
-
-==== 實驗性增強功能
-
-
-NOTE: 不適用於生產環境。
-
-* *[技術預覽]*：除了現有的ONTAP-SAN 驅動程式技術預覽版（統一ONTAP 9 中的 iSCSI 和 FCP 協定）之外，還增加了對ONTAP-NAS（僅限 NFS）和ONTAP-SAN（統一ONTAP 9 的 NVMe）的並發支援。
-
-
-
-
-==== 修正
-
-* **Kubernetes**：
-+
-** 透過將 Linux DaemonSet 標準化為 node-driver-registrar 來修復 CSI node-driver-registrar 容器名稱不一致的問題，使其與 Windows DaemonSet 和容器鏡像命名保持一致。
-** 修正了舊版 qtree 的匯出策略未正確升級的問題。
-
-
-* *Openshift*：
-+
-** 修正了由於 SCC 將 allowHostDirVolumePlugin 設為 false 而導致的 Openshift 中 Windows 節點上的Trident節點 pod 無法啟動的問題（link:https://github.com/NetApp/trident/issues/950["第950期"] ）。
-
-
-* 修正了 Kubernetes API QPS 無法通過 Helm 設定的問題（link:https://github.com/NetApp/trident/issues/975["第975期"] ）。
-* 修正了無法在同一個 Kubernetes 節點上基於 NVMe XFS 檔案系統 PVC 的快照掛載持久性磁碟區宣告 (PVC) 的問題。
-* 修正了在 NDVP 模式下主機/Docker 重新啟動後 UUID 變更的問題，方法是為每個後端新增唯一/共用的子系統名稱（例如 netappdvp_subsystem）。
-* 修正了Trident從 23.10 之前的版本升級到 24.10 及以上版本期間 iSCSI 磁碟區的掛載錯誤，解決了「無效的 SANType」問題。
-* 修正了Trident後端狀態在不重新啟動Trident控制器的情況下無法轉換到線上/離線狀態的問題。
-* 修正了導致PVC尺寸調整緩慢的間歇性競爭條件。
-* 修正了卷宗克隆失敗時快照未被清理的問題。
-* 修正了核心更改磁碟區的裝置路徑時無法取消暫存磁碟區的問題。
-* 修正了由於 LUKS 裝置已關閉而導致無法取消暫存磁碟區的問題。
-* 修復了儲存操作緩慢導致 ContextDeadline 錯誤的問題。
-* Trident Operator 將等待可設定的 k8s-timeout 時間來檢查Trident版本。
-
-
-
-
-=== Trident Protect
-
-NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化由 NetApp ONTAP 儲存系統和 NetApp Trident CSI 儲存資源配置程式所支援的狀態化 Kubernetes 應用程式的功能與可用度。
-
-
-
-==== 增強功能
-
-* 新增了用於控制計劃和備份 CR 的快照 CR 逾時的註釋：
-+
-** `protect.trident.netapp.io/snapshot-completion-timeout`
-** `protect.trident.netapp.io/volume-snapshots-ready-to-use-timeout`
-** `protect.trident.netapp.io/volume-snapshots-created-timeout`
-+
-看link:trident-protect-protect-apps.html["支援的備份和計劃註釋"^]。
-
-
-
-* 在計劃 CR 中新增了一個註釋，用於配置 PVC 綁定逾時，該逾時將由備份 CR 使用： `protect.trident.netapp.io/pvc-bind-timeout-sec` 。看link:trident-protect-protect-apps.html["支援的備份和計劃註釋"^]。
-* 改進 `tridentctl-protect`備份和快照清單新增一個字段，用於指示執行鉤子失敗。
-
-
-
-
-== 25.06.2 中的變更
+「新增功能」摘要提供了有關Trident和Trident Protect 版本增強功能、修復程序和棄用項目的詳細資訊。
 
 
 
@@ -171,7 +80,7 @@ IMPORTANT: 對於使用SolidFire的客戶，請不要升級到 25.06.1，因為�
 
 NOTE: VolumeGroupSnapshot 是 Kubernetes 中的一個 Beta 功能，包含 Beta 版 API。 VolumeGroupSnapshot所需的最低版本為 Kubernetes 1.32。
 
-** 除了 iSCSI 之外，還增加了對ONTAP ASA r2 的 NVMe/TCP 支援。看link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["SAN組態選項與範例ONTAP"^]。
+** 除了 iSCSI 之外，還增加了對ONTAP ASA r2 的 NVMe/TCP 支援。看link:link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["SAN組態選項與範例ONTAP"^]。
 ** 為 ONTAP-NAS 和 ONTAP-NAS-Economy 磁碟區新增了安全的 SMB 支援。 ActiveDirectory 使用者和群組現在可以與 SMB 磁碟區一起使用，以增強安全性。請參閱。 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-prep.html#enable-secure-smb["啟用安全 SMB"^]
 ** 增強 Trident 節點並發性，以提高 iSCSI 磁碟區節點作業的可擴充性。
 ** 額外 `--allow-discards`打開 LUKS 磁碟區時允許丟棄/TRIM 命令以回收空間。
@@ -214,6 +123,7 @@ NOTE: 此功能尚處於實驗階段，目前支援使用 ONTAP-SAN 驅動程式
 ** 修正了將 NFSv3 與 Bottlerocket 結合使用時的問題。
 
 
+* 修正了使用SolidFire後端克隆卷時出現的逾時問題（link:https://github.com/NetApp/trident/issues/1008["問題 #1008"] ）。
 * 修正了 ONTAP-NAS-Economy 磁碟區儘管調整大小失敗但仍可擴展至 300 TB 的問題。
 * 修正了使用 ONTAP REST API 時克隆分割操作同步完成的問題。
 

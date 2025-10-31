@@ -193,14 +193,14 @@ pvc-storage Bound  pv-name 2Gi      RWO                       5m
 
 
 | 後端類型 | 字串  a| 
-ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、solidfire-san、azure-netapp-files、ontap-san-economy
+ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、solidfire-san、gcp-cvs、azure-netapp-files、ontap-san-economy
 | 集區屬於此類型的後端 | 指定後端 | 所有驅動程式 
 
 
-| 快照 | 布爾 | 對、錯 | 集區支援具有快照的磁碟區 | 已啟用快照的Volume | ontap-nas、ontap-san、solidfire-san 
+| 快照 | 布爾 | 對、錯 | 集區支援具有快照的磁碟區 | 已啟用快照的Volume | ontap-nas、ontap-san、solidfire-san、gcp-cvs 
 
 
-| 複製 | 布爾 | 對、錯 | 資源池支援複製磁碟區 | 已啟用複本的Volume | ontap-nas、ontap-san、solidfire-san 
+| 複製 | 布爾 | 對、錯 | 資源池支援複製磁碟區 | 已啟用複本的Volume | ontap-nas、ontap-san、solidfire-san、gcp-cvs 
 
 
 | 加密 | 布爾 | 對、錯 | 資源池支援加密磁碟區 | 已啟用加密的Volume | ONTAP-NAS、ONTAP-NAS-經濟型、ONTAP-NAS- FlexGroups、ONTAP-SAN 

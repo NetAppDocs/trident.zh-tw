@@ -201,7 +201,7 @@ WARNING: 請勿移除 values.yaml 檔案的預設關聯性。當您想要提供�
 | `tridentLogLevel` | 允許將 Trident 的日誌級別設置爲： `trace`、 `debug`、 `info`、 `warn` `error`或 `fatal`。 | `"info"` 
 
 
-| `tridentDebug` | 允許將 Trident 的記錄層級設定為 `debug`。 | 「假」 
+| `tridentDebug` | 允許將Trident的日誌等級設定為 `debug`。您可以透過與節點健康檢查 (NHC) 操作符整合來自動執行強制分離程序。有關信息，請參閱link:../trident-reco/force-detach.html["使用Trident實現有狀態應用程式的故障轉移自動化"]。 | 「假」 
 
 
 | `tridentLogWorkflows` | 允許啟用特定的 Trident 工作流程、以進行追蹤記錄或記錄抑制。 | `""` 
@@ -222,41 +222,41 @@ WARNING: 請勿移除 values.yaml 檔案的預設關聯性。當您想要提供�
 | `windows` | 可在 Windows 工作節點上安裝 Trident 。 | 「假」 
 
 
-| `enableForceDetach` | 允許啟用強制分離功能。 | 您可以透過與節點健康檢查 (NHC) 操作符整合來自動執行強制分離程序。有關信息，請參閱link:../trident-reco/force-detach.html["使用Trident實現有狀態應用程式的故障轉移自動化"]。 
+| `enableForceDetach` | 允許啟用強制分離功能。 | 「假」 
 
 
-| 「假」 | `excludePodSecurityPolicy` | 不建立營運商 Pod 安全性原則。 
+| `excludePodSecurityPolicy` | 不建立營運商 Pod 安全性原則。 | 「假」 
 
 
-| 「假」 | `cloudProvider` | 設定為 `"Azure"` 在 AKS 叢集上使用託管身分識別或雲端身分識別時。在 EKS 叢集上使用雲端身分識別時、請設定為「 AWS 」。 
+| `cloudProvider` | 設定為 `"Azure"` 在 AKS 叢集上使用託管身分識別或雲端身分識別時。在 EKS 叢集上使用雲端身分識別時、請設定為「 AWS 」。 | `""` 
 
 
-| `""` | `cloudIdentity` | 在 AKS 叢集上使用雲端身分識別時、請設定為工作負載身分識別（「 azure.Workload .idental/client-id ： XXXXXXXX-xxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxx 」）。在 EKS 叢集上使用雲端身分識別時、請設定為 AWS IAM 角色（「 eks.amazonaws.com/role-arn: arn:AWS:iam::123456 ：角色 Trident 角色」）。 
+| `cloudIdentity` | 在 AKS 叢集上使用雲端身分識別時、請設定為工作負載身分識別（「 azure.Workload .idental/client-id ： XXXXXXXX-xxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxx 」）。在 EKS 叢集上使用雲端身分識別時、請設定為 AWS IAM 角色（「 eks.amazonaws.com/role-arn: arn:AWS:iam::123456 ：角色 Trident 角色」）。 | `""` 
 
 
-| `""` | `iscsiSelfHealingInterval` | 啟動 iSCSI 自我修復的時間間隔。 
+| `iscsiSelfHealingInterval` | 啟動 iSCSI 自我修復的時間間隔。 | `5m0s` 
 
 
-| `5m0s` | `iscsiSelfHealingWaitTime` | iSCSI 自我修復透過執行登出和後續登入來嘗試解決過時工作階段的持續時間。 
+| `iscsiSelfHealingWaitTime` | iSCSI 自我修復透過執行登出和後續登入來嘗試解決過時工作階段的持續時間。 | `7m0s` 
 
 
-| `7m0s` | `nodePrep` | 使Trident能夠準備 Kubernetes 叢集的節點，以使用指定的資料儲存協定管理磁碟區。 *現在， `iscsi`是唯一支援的值。 *注意：從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06.1。 
+| `nodePrep` | 使Trident能夠準備 Kubernetes 叢集的節點，以使用指定的資料儲存協定管理磁碟區。 *現在， `iscsi`是唯一支援的值。 *注意：從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06.1。 |  
 
 
-|  | `enableConcurrency`  a| 
+| `enableConcurrency`  a| 
 支援並發Trident控制器操作以提高吞吐量。
 
 
 NOTE: *技術預覽*：此功能為實驗性功能，目前除了現有的ONTAP -SAN 驅動程式（統一ONTAP 9 中的 iSCSI 和 FCP 協定）技術預覽版外，還支援ONTAP-NAS（僅限 NFS）和ONTAP -SAN（統一ONTAP 9 中的 NVMe）驅動程式的有限並行工作流程。
+| 錯 
 
 
-
-| 錯 | `k8sAPIQPS`  a| 
+| `k8sAPIQPS`  a| 
 控制器與 Kubernetes API 伺服器通訊時所使用的每秒查詢數 (QPS) 限制。  Burst 值會根據 QPS 值自動設定。
+| `100`; 選修的 
 
 
-
-| `100`; 選修的 | `resources`  a| 
+| `resources`  a| 
 設定 Kubernetes 對Trident控制器、節點和操作員 pod 的資源限制和請求。您可以為每個容器和邊車配置 CPU 和內存，以管理 Kubernetes 中的資源分配。
 
 有關配置資源請求和限制的更多信息，請參閱link:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Pod 和容器的資源管理"^]。
@@ -276,10 +276,7 @@ NOTE: *技術預覽*：此功能為實驗性功能，目前除了現有的ONTAP 
 * 查看TORC的 `status.CurrentInstallationParams`用於查看目前應用值的欄位。
 
 
-====
-
-
- a| 
+==== a| 
 [source, yaml]
 ----
 resources:
@@ -371,12 +368,15 @@ resources:
     limits:
       cpu:
       memory:
-----| `httpsMetrics` | 為 Prometheus 指標端點啟用 HTTPS。 
+----
 
 
-| 錯 | 「主機網路」  a| 
+| `httpsMetrics` | 為 Prometheus 指標端點啟用 HTTPS。 | 錯 
+
+
+| 「主機網路」  a| 
 為Trident控制器啟用主機聯網功能。在多宿主網路中，當需要分離前端和後端流量時，這非常有用。
-
+| 錯 
 |===
 
 

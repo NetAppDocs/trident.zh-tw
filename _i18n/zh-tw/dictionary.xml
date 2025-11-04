@@ -5705,7 +5705,6 @@
   <block id="85cacb03f2d374d44118baf0147c92d6" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v5.3.0</block>
   <block id="04405dc8db6e17d7853c7b251f054223" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4.10.0</block>
   <block id="8ca2a31d7227b3df1183df9f930d889e" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v1.14.0</block>
-  <block id="a57cbfd77662e857fd32971e7c3a4564" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.3.1</block>
   <block id="d49d35d0964102edd30044f046d62050" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0</block>
   <block id="6abe296459a351f6d3067ba3a8b8041b" category="list-text">docker.io/netapp/trident-operator:25.10.0（選購）</block>
   <block id="a3bfe8b87df4b85184ac2c726bd7b15e" category="list-text"><block ref="1a368feb8bb72ef66bb194b43d0a15b3" prefix="" category="inline-code"></block>*</block>
@@ -5962,4 +5961,5 @@
   <block id="14f42721f8b15817f87c891438fb0a22" category="admonition">*免責聲明*：本範例中提供的請求和限制值僅用於演示目的。請根據您的環境和工作負載需求調整這些值。</block>
   <block id="75bf9030851f3cf5454c338258e98f47" category="example-title">Kubernetes資源請求和限製配置，適用於Trident控制器以及Trident Windows和Linux節點Pod</block>
   <block id="c6f0dfdaf60b2fd022cd1b94ce713c90" category="paragraph">本範例為Trident控制器和Trident Windows 和 Linux 節點 pod 設定 Kubernetes 資源請求和限制。</block>
+  <block id="b320bddb4a4bb9ebc05f4941f7f248a0" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.3.0</block>
 </blocks>

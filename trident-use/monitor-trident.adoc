@@ -27,7 +27,7 @@ Trident 提供的計量可讓您執行下列動作：
 
 
 
-NOTE: 預設情況下，Trident 的指標會暴露在目標連接埠上。 `8001`在 `/metrics`端點。安裝Trident時，這些指標*預設為啟用*。您可以設定透過 HTTPS 在連接埠上消費Trident指標。 `8444`也一樣。看link:..https://docs.netapp.com/us-en/trident/trident-use/monitor-trident.html#step-2-create-a-prometheus-servicemonitor["步驟2：建立Prometheus ServiceMonitor"^]了解更多。
+NOTE: 預設情況下，Trident 的指標會暴露在目標連接埠上。 `8001`在 `/metrics`端點。安裝Trident時，這些指標*預設為啟用*。您可以設定透過 HTTPS 在連接埠上消費Trident指標。 `8444`也一樣。
 
 .您需要的產品
 * 安裝 Trident 的 Kubernetes 叢集。
@@ -38,7 +38,7 @@ NOTE: 預設情況下，Trident 的指標會暴露在目標連接埠上。 `8001
 
 == 步驟1：定義Prometheus目標
 
-您應該定義 Prometheus 目標、以收集指標、並取得 Trident 管理的後端、建立的磁碟區等相關資訊。這 https://netapp.io/2020/02/20/prometheus-and-trident/["部落格"^]將說明如何搭配 Trident 使用 Prometheus 和 Grafana 來擷取計量。部落格會說明如何在 Kubernetes 叢集中以營運者的身份執行 Prometheus 、以及如何建立 ServiceMonitor 來取得 Trident 指標。
+您應該定義一個 Prometheus 目標來收集指標並獲取有關Trident管理的後端、它創建的捲等的資訊。看link:https://prometheus-operator.dev/docs/developer/getting-started/["Prometheus Operator 文檔"^]。
 
 
 

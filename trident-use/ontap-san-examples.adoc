@@ -164,11 +164,10 @@ NOTE: NVMe 僅支援ONTAP REST API，不支援 ONTAPI (ZAPI)。
 
 === 使用 formatOptions 的建議
 
-Trident 建議使用下列選項來加速格式化程序：
+Trident建議採用以下選項來加速格式化流程：
 
-*-E nobard ： *
-
-* 保留、請勿嘗試在 mkfs 時間捨棄區塊（丟棄區塊一開始在固態裝置和稀疏 / 精簡配置儲存設備上很有用）。這會取代已過時的選項「 -K 」，而且適用於所有檔案系統（ xfs ， ext3 和 ext4 ）。
+* *-E nodiscard (ext3, ext4):* 不要嘗試在 mkfs 時丟棄區塊（最初丟棄區塊對固態設備和稀疏/精簡配置儲存很有用）。這將取代已棄用的選項“-K”，並且適用於 ext3、ext4 檔案系統。
+* *-K (xfs):* 不要在執行 mkfs 時嘗試丟棄區塊。此選項適用於 xfs 檔案系統。
 
 
 

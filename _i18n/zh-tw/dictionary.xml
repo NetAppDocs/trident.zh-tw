@@ -3942,7 +3942,6 @@
   <block id="da9d072bec5b191d5b5120761a2094e5" category="section-title">啟用命令自動完成</block>
   <block id="2994879f05c105b10427c87890d6ce6a" category="paragraph">安裝 Trident Protect CLI 外掛程式之後，您可以啟用某些命令的自動完成功能。</block>
   <block id="df7d0aa2cf46fe870b9bba130ea4d964" category="open-title">啟用 Bash Shell 的自動完成功能</block>
-  <block id="dc8d08efd37c5c2cd13f1da4b74b2004" category="list-text">下載完成指令碼：</block>
   <block id="bbd32e1d32af84e3002666b13f548cce" category="list-text">在主目錄中建立新目錄以包含指令碼：</block>
   <block id="63f01fb9933705d6d795c4c690a6504c" category="list-text">將下載的指令碼移至<block ref="37476bab24bad3126a5edbc11fab761e" prefix=" " category="inline-code"></block>目錄：</block>
   <block id="4a76f80f250e570c9fd0b4b8b9e41486" category="list-text">將下列行新增至<block ref="b8cb707d54dfbd8ab64f0b1dc81b72e1" prefix=" " category="inline-code"></block>主目錄中的檔案：</block>
@@ -4250,7 +4249,6 @@
   <block id="57cc31c4785dfe52bb22cc8d375a3b67" category="list-text">建立自訂資源（ CR ）檔案並命名（例如<block ref="8898becea7c9a79dd32acb9c34818b46" prefix=" " category="inline-code"></block>）。</block>
   <block id="87918fdbe5607aeceec3ec53bc40a2f8" category="list-text">* metadata.name*: （ _required ）排程自訂資源的名稱。</block>
   <block id="3e23380d121194d4ed43d5587e33eeba" category="list-text">*spec.AppVaultRef* ：（ _required _ ）此值必須符合來源應用程式的 AppVault metadata.name 欄位。</block>
-  <block id="a7ac547d97c63ad78926b420081cf36d" category="list-text">*spec.ApplicationRef* ：（ _required _ ）此值必須符合來源應用程式 CR 的 metadata.name 欄位。</block>
   <block id="565c53b27f6972afc514c3431a7fb733" category="list-text">*spec.backupRetention * ：（ _required _ ）此欄位為必填欄位，且值必須設為 0 。</block>
   <block id="e00228f2eaa851d908b74fd6e1cbb1ab" category="list-text">*spec.enabled* ：必須設置爲 true 。</block>
   <block id="b8e08f9f53492c0cf7c4c918c8c27185" category="list-text">* spec.granularity*: 必須設定為<block ref="90589c47f06eb971d548591f23c285af" prefix=" " category="inline-code"></block>。</block>
@@ -4270,7 +4268,6 @@
   <block id="5c0044cad9c27e4f4742c4a031edd6eb" category="list-text">*spec.sourceApplicationName* ：（ _required _ ）此值必須符合您在來源應用程式 CR 中定義的來源應用程式名稱。</block>
   <block id="e1e70c108ffb369c9c05ac65820562c3" category="list-text">在您以正確的值填入檔案之後<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="d4c94febe4f13411fa761de57ad6cce6" category="open-title">使用 CLI 建立 AppMirrorRelationship</block>
-  <block id="1d29e9d9da5d097b90cc18a976fa591c" category="list-text">建立並套用 AppMirrorRelationship 物件，以環境資訊取代方括號中的值。例如：</block>
   <block id="86d47ead9019d8e9c93c863f7ab4e41b" category="list-text">（ _Optional_ ）檢查複寫關係的狀態和狀態：</block>
   <block id="70cc2bec279e168711b67e789468c45c" category="section-title">容錯移轉至目的地叢集</block>
   <block id="196c4df78e5add7c9590d6a1c18367ec" category="paragraph">使用 Trident Protect ，您可以將複寫的應用程式容錯移轉至目的地叢集。此程序會停止複寫關係、並在目的地叢集上使應用程式上線。如果來源叢集上的應用程式正常運作， Trident Protect 不會停止該應用程式。</block>
@@ -4435,7 +4432,6 @@
   <block id="baafbccab17d07f9ba18e7becb7c76d2" category="inline-link-macro">從備份還原資料</block>
   <block id="878bbf0662ed19ef900e4e06bfad92d2" category="list-text">在目的地叢集上<block ref="11860f9f3ec51316f8ebc9805806b6cd" category="inline-link-macro-rx"></block>，。</block>
   <block id="4a0207b6a74b63dcaaa4d58fe75ec431" category="list-text">*resourceFilter.resourceSelectionCriteria* ：（篩選所需）使用<block ref="f4d72a64acd8929c0cc9ed96a7a336cc" prefix=" " category="inline-code"></block>或包含或<block ref="843f2812f595e7ec7c5036e89fde02d6" prefix=" " category="inline-code"></block>排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：</block>
-  <block id="5e77ee724e7a9c6f34c1fd6a65b3f3b5" category="list-text">*spec.storageClassName* ：（ _required _ ）選擇叢集上有效儲存類別的名稱。儲存類別必須連結至與來源環境對等的 ONTAP 儲存 VM 。</block>
   <block id="b22804421b3e5bca94f2a9979721eb60" category="cell">具有此角色的 Google Cloud 服務帳戶的 API 金鑰<block ref="e50dbf86780cfad5e007e4a95a6aa71e" prefix=" " category="inline-code"></block> 。其中包含Google Cloud服務帳戶私密金鑰檔案（逐字複製到後端組態檔）的JSON-格式內容。<block ref="c9ff119073ea2567730fb42e3a4fe805" prefix=" " category="inline-code"></block>必須包含下列金鑰的金鑰值配對：<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block><block ref="b098ad43c65e68f3d8ce27a3c7e6f6e2" prefix=" " category="inline-code"></block>、、<block ref="a4a9fd77bfb3720e66b510bef7ffe71a" prefix=" " category="inline-code"></block>、<block ref="2bfe9d72a4aae8f06a31025b7536be80" prefix=" " category="inline-code"></block>、<block ref="478cc0e49bfbb9ded4ffc7ea662d3968" prefix=" " category="inline-code"></block><block ref="98b215082431c21156af94f3aa69f838" prefix=" " category="inline-code"></block><block ref="8201fe8e688f4f948a62370fd1b411d4" prefix=" " category="inline-code"></block>、和<block ref="61426bc7fdd11e59a5c98e7ee37e3dbb" prefix=" " category="inline-code"></block>。</block>
   <block id="d0e48e9528072c6ff90b82adeab94dea" category="list-text">具有 Volumes Admin （ NetApp Volume 管理）角色的 Google Cloud 服務帳戶 <block ref="04bf1a6a0250bc9d4cba09ee34106dfc" prefix="(" category="inline-code"></block>。請參閱 <block ref="4f506c30a158c85db714d53536a12770" category="inline-link-macro-rx"></block>。</block>
   <block id="a13eeeef5ff2b7fe85692890fb5d28b3" category="open-title">Amazon S3 （ AWS ）</block>
@@ -5234,12 +5230,9 @@
   <block id="3d11bc959173dddd2997400e7bdf4d67" category="list-text">在故障轉移期間，執行掛鉤會自動從來源叢集複製到目標叢集。您無需手動重新建立它們。故障轉移後，執行掛鉤仍存在於應用程式中，並將在任何相關操作期間執行。</block>
   <block id="ba9dd6212c2e02686051fbf28e548584" category="list-text">在反向同步或反向重新同步期間，應用程式上所有現有的執行鉤子都將被移除。當來源應用程式成為目標應用程式時，這些執行鉤子將失效，並將被刪除以阻止其執行。</block>
   <block id="98b9f287abe5860abcc3ab5364313188" category="paragraph">要了解有關執行鉤子的更多信息，請參閱<block ref="d0f7adc5528355d3ba6ac91271095c29" category="inline-link-macro-rx"></block> 。</block>
-  <block id="f815c45e5a618fe75ef3a716b30b711d" category="list-text">或者，在來源叢集上，拍攝來源應用程式的快照。此快照是作為目的地叢集上應用程式的基礎。如果您略過此步驟，則需要等待下一個排定的快照執行，以便擁有最近的快照。</block>
   <block id="9399bd959f53d5a7d8671b597df92df2" category="paragraph">除了下面提供的計劃外，建議建立一個單獨的每日快照計劃，保留期為 7 天，以便在對等 ONTAP 叢集之間維護通用快照。這可確保快照最多可用 7 天，但保留期可根據使用者需求自訂。</block>
   <block id="bd8250ba3a5ac73f1ca0ba8c92937c5a" category="paragraph">如果發生故障轉移，系統可以使用這些快照最多 7 天進行反向操作。這種方法使反向過程更快、更有效率，因為只會傳輸自上次快照以來所做的更改，而不是所有資料。</block>
   <block id="af22b57fbc1d302d6a0b83cb06ce9e6a" category="paragraph">如果應用程式的現有計劃已經滿足所需的保留要求，則不需要額外的計劃。</block>
-  <block id="84caf200e79d5962bc7f3516e9ad328c" category="open-title">使用 CR 拍攝快照</block>
-  <block id="3feb4a62c8b59cd52ae22845d363c901" category="open-title">使用 CLI 拍攝快照</block>
   <block id="e995d56efd9e31d97825dd79be4d1383" category="inline-link-macro">瞭解 ASA R2 儲存系統</block>
   <block id="19bf8687ff63071d6f6661c290cba7c2" category="admonition">ASA r2 系統不支援 LUKS 加密。有關 ASA r2 系統的信息，請參閱<block ref="40f055dd42976ff294174231df35e37e" category="inline-link-macro-rx"></block> 。</block>
   <block id="9470f4768dd90ef0be0fb76cb2f6e04b" category="admonition">避免複製與其他 StorageClass 關聯的 PVC。請在同一 StorageClass 內執行複製操作，以確保相容性並防止意外行為。</block>
@@ -5883,8 +5876,6 @@
   <block id="8b8d9f4c952c1a96deb64c793af4e464" category="list-text"><block ref="a3f0891bded2c705ab3b29833481ffcf" prefix="" category="inline-code"></block></block>
   <block id="73a728f42314eb885248ddf406b25363" category="list-text"><block ref="af978cfba15392673bcd27f4c22e2926" prefix="" category="inline-code"></block></block>
   <block id="aee2fa9c2204a55585128f5277354ae9" category="inline-link-macro">支援的備份和計劃註釋</block>
-  <block id="c012e297eb92b407e41744b41b55a25a" category="paragraph">看<block ref="76183371d4bb7f7ba60f0a02290c6001" category="inline-link-macro-rx"></block>。</block>
-  <block id="39ebbf61bcc7edd8606432a4977ae4fc" category="list-text">在計劃 CR 中新增了一個註釋，用於配置 PVC 綁定逾時，該逾時將由備份 CR 使用：<block ref="728633ade1403bcbcd881fc22ec19596" prefix=" " category="inline-code"></block> 。看<block ref="76183371d4bb7f7ba60f0a02290c6001" category="inline-link-macro-rx"></block>。</block>
   <block id="e3245c0aba43966b1051780d8f62f1fb" category="list-text">改進<block ref="d4845d5856667a10aee97f3404a35627" prefix=" " category="inline-code"></block>備份和快照清單新增一個字段，用於指示執行鉤子失敗。</block>
   <block id="6c194c516ba4058b297409f4d40113b5" category="section-title">25.06.2 中的變更</block>
   <block id="cd133424a13afaa0badf4f13c4bf4c72" category="list-text">除了 iSCSI 之外，還增加了對ONTAP ASA r2 的 NVMe/TCP 支援。看<block ref="f2fd3fe662daf33e514604a72251389c" category="inline-link-macro-rx"></block>。</block>
@@ -5963,4 +5954,17 @@
   <block id="3802caa8e4bea50419dcef8b68f5b82e" category="paragraph">Trident建議採用以下選項來加速格式化流程：</block>
   <block id="8b081afdb240ed6d03a50d7b70aac895" category="list-text">*-E nodiscard (ext3, ext4):* 不要嘗試在 mkfs 時丟棄區塊（最初丟棄區塊對固態設備和稀疏/精簡配置儲存很有用）。這將取代已棄用的選項“-K”，並且適用於 ext3、ext4 檔案系統。</block>
   <block id="01f770831133fae79fa85eb89c42b8f2" category="list-text">*-K (xfs):* 不要在執行 mkfs 時嘗試丟棄區塊。此選項適用於 xfs 檔案系統。</block>
+  <block id="1a715172aa56ca325fbc38f4b522da46" category="list-text">建立完成腳本：</block>
+  <block id="30e52f4e46178e20ec0172d136f6e964" category="list-text">（可選）在來源叢集上，對來源應用程式進行快照。此快照將用作目標叢集上應用程式的基礎。如果跳過此步驟，則需要等待下一次排程快照運行，以便取得最新的快照。若要建立隨選快照，請參閱 <block ref="359fb751a7b652662d6f4f859ab7278e" category="inline-link-macro-rx"></block>。</block>
+  <block id="5c24c4abf654732ea864deb8dfd27900" category="list-text">在來源叢集上，建立複製計劃 CR：</block>
+  <block id="7f3cf5a508f65aafe24cfcbde532a846" category="open-title">使用 CR 建立複製計劃</block>
+  <block id="7228f7e08042915e251a683bfff18231" category="list-text">*spec.appVaultRef*: (_必需_) 此值必須與來源應用程式的 AppVault 的 metadata.name 欄位相符。</block>
+  <block id="2845cbe42176f1140d5d897aaf3abea8" category="list-text">*spec.applicationRef*: (_必需_) 此值必須與來源應用程式 CR 的 metadata.name 欄位相符。</block>
+  <block id="4cd94b75213793150ad247d75cd897e9" category="open-title">使用 CLI 建立複製計劃</block>
+  <block id="3de5f07029546bc00c37d9c9edf9cc20" category="list-text">建立複製計劃，並將括號中的值替換為您環境中的資訊：</block>
+  <block id="7749c9ae56691a1f3a933f4d23d038e3" category="list-text">*spec.sourceApplicationUID*: （必要）此值必須與您在來源應用程式 CR 中定義的來源應用程式的 UID 相符。</block>
+  <block id="3d684c1e0271c67148a368e61c2e954e" category="list-text">*spec.storageClassName*: (_可選_) 選擇叢集上有效的儲存類別的名稱。儲存類別必須連結到與來源環境建立對等連線的ONTAP儲存 VM。如果未提供儲存類，則預設使用叢集上的預設儲存類別。</block>
+  <block id="c97418e1743694adcebfb4447351b629" category="list-text">建立並套用 AppMirrorRelationship 對象，並將括號中的值替換為您環境中的資訊：</block>
+  <block id="2b4bab15439acee1a7a1ecf65aefccf8" category="paragraph">看<block ref="8a2f8872ebe6d6c56e608637c3cdaf0f" category="inline-link-macro-rx"></block>。</block>
+  <block id="da88dec11cfebffca5dfcf278b6ef68c" category="list-text">在計劃 CR 中新增了一個註釋，用於配置 PVC 綁定逾時，該逾時將由備份 CR 使用：<block ref="728633ade1403bcbcd881fc22ec19596" prefix=" " category="inline-code"></block> 。看<block ref="8a2f8872ebe6d6c56e608637c3cdaf0f" category="inline-link-macro-rx"></block>。</block>
 </blocks>

@@ -113,6 +113,9 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 
 的值 `resourceGroups`、 `netappAccounts`、 `capacityPools`、 `virtualNetwork`和 `subnet` 可以使用簡短或完整名稱來指定。在大多數情況下、建議使用完整名稱、因為短名稱可以符合多個名稱相同的資源。
 
+
+NOTE: 如果虛擬網路與Azure NetApp Files(ANF) 儲存帳戶位於不同的資源群組中，則在設定後端資源群組清單時，請為虛擬網路指定資源群組。
+
 。 `resourceGroups`、 `netappAccounts`和 `capacityPools` 值是篩選器、可將探索到的資源集合限制在此儲存後端可用的資源、並可任意組合指定。完整名稱格式如下：
 
 [cols="2"]
@@ -204,13 +207,13 @@ spec:
   version: 1
   storageDriverName: azure-netapp-files
   capacityPools:
-    - ultra-pool
+    - resource-group-1/netapp-account-1/ultra-pool
   resourceGroups:
-    - aks-ami-eastus-rg
+    - resource-group-1
   netappAccounts:
-    - smb-na
-  virtualNetwork: eastus-prod-vnet
-  subnet: eastus-anf-subnet
+    -  resource-group-1/netapp-account-1
+  virtualNetwork: resource-group-1/eastus-prod-vnet
+  subnet: resource-group-1/eastus-prod-vnet/eastus-anf-subnet
 ----
 ====
 .雲端身分識別
@@ -316,8 +319,8 @@ serviceLevel: Ultra
 capacityPools:
   - application-group-1/account-1/ultra-1
   - application-group-1/account-1/ultra-2
-virtualNetwork: my-virtual-network
-subnet: my-subnet
+virtualNetwork: application-group-1/eastus-prod-vnet
+subnet: application-group-1/eastus-prod-vnet/my-subnet
 networkFeatures: Standard
 nfsMountOptions: vers=3,proto=tcp,timeo=600
 limitVolumeSize: 500Gi
@@ -355,20 +358,20 @@ storage:
       performance: gold
     serviceLevel: Ultra
     capacityPools:
-      - ultra-1
-      - ultra-2
+      - application-group-1/netapp-account-1/ultra-1
+      - application-group-1/netapp-account-1/ultra-2
     networkFeatures: Standard
   - labels:
       performance: silver
     serviceLevel: Premium
     capacityPools:
-      - premium-1
+      - application-group-1/netapp-account-1/premium-1
   - labels:
       performance: bronze
     serviceLevel: Standard
     capacityPools:
-      - standard-1
-      - standard-2
+      - application-group-1/netapp-account-1/standard-1
+      - application-group-1/netapp-account-1/standard-2
 
 ----
 ====

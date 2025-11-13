@@ -5968,4 +5968,5 @@
   <block id="da88dec11cfebffca5dfcf278b6ef68c" category="list-text">在計劃 CR 中新增了一個註釋，用於配置 PVC 綁定逾時，該逾時將由備份 CR 使用：<block ref="728633ade1403bcbcd881fc22ec19596" prefix=" " category="inline-code"></block> 。看<block ref="8a2f8872ebe6d6c56e608637c3cdaf0f" category="inline-link-macro-rx"></block>。</block>
   <block id="506953e8ef42800e0b5f740b30b09a33" category="list-text"><block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix="" category="inline-code"></block> - 僅適用於 iSCSI 協定。</block>
   <block id="ebe98a8374dc31f4dd5bb51932ba3ba4" category="admonition">NetApp ASA r2 或 AFX 儲存系統不支援磁碟區組快照。</block>
+  <block id="b3fd6a68d255a3fb79774387cf52d7e4" category="admonition">如果虛擬網路與Azure NetApp Files(ANF) 儲存帳戶位於不同的資源群組中，則在設定後端資源群組清單時，請為虛擬網路指定資源群組。</block>
 </blocks>

@@ -24,12 +24,12 @@ NOTE: VolumeGroupSnapshot 是 Kubernetes 中的一個 Beta 功能，包含 Beta 
 以下儲存驅動程式支援磁碟區組快照：
 
 * `ontap-san`驅動程式 - 僅適用於 iSCSI 和 FC 協議，不適用於 NVMe/TCP 協定。
-* 《ONTAP-san經濟》
+* `ontap-san-economy` - 僅適用於 iSCSI 協定。
 * 「ONTAP-NAS」
 
 
 
-NOTE: NetApp AFX 儲存系統不支援磁碟區組快照。
+NOTE: NetApp ASA r2 或 AFX 儲存系統不支援磁碟區組快照。
 
 .開始之前
 * 確保您的 Kubernetes 版本是 K8s 1.32 或更高版本。

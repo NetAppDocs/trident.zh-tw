@@ -1899,9 +1899,7 @@
   <block id="d0341760d873a30f82a310a6eab0ba9c" category="admonition">請務必遵循Amazon Linux和Ubuntu所需的節點準備步驟<block ref="70013ee128d5437b3d9579d66ece4066" category="inline-link-rx"></block> （AMis）、視您的EKS AMI類型而定。</block>
   <block id="9303b8f40cf82f5e37702c7a6387e725" category="section-title">整合SAN和NAS驅動程式ONTAP</block>
   <block id="fc4e16be02eac62a40d8ba5714cbeda1" category="section-title">準備配置SMB磁碟區</block>
-  <block id="fbf3304d2358758ea71475804b2cbeae" category="paragraph">您可以使用來配置SMB磁碟區<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式：完成之前 <block ref="24f26185e00986318dc562523d4edbf6" category="inline-xref-macro-rx"></block> 完成下列步驟。</block>
   <block id="d98f239eeb5789a80cb4b247e5be144d" category="inline-link-macro">Microsoft管理主控台</block>
-  <block id="8e6249724e4eef8026e47829f03f9e67" category="list-text">建立SMB共用區。您可以使用兩種方式之一來建立SMB管理共用區 <block ref="364bc251e9c8cfbf6ce258767d17d682" category="inline-link-macro-rx"></block> 共享資料夾嵌入式管理單元或使用ONTAP CLI。若要使用ONTAP CLI建立SMB共用：</block>
   <block id="c9e9c2bb32e43693c4687ec082488811" category="list-text">如有必要、請建立共用的目錄路徑結構。</block>
   <block id="8a19300a396203718795b4620552b59c" category="paragraph">。<block ref="293a1aaca0a542f4f1b1dc1a3ad95728" prefix=" " category="inline-code"></block> 命令會在共用建立期間檢查-path選項中指定的路徑。如果指定的路徑不存在、則命令會失敗。</block>
   <block id="a968d0620b250ca44da661cadac02e42" category="list-text">建立與指定SVM相關的SMB共用區：</block>
@@ -2277,7 +2275,6 @@
   <block id="5bb66df6f3cd1e022e0cb84d5ef9e8e6" category="list-text">可在非的命名空間中部署運算子<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> 命名空間、更新<block ref="8610cac3beb01fb0b43bc94c587a807d" prefix=" " category="inline-code"></block>、<block ref="a3df76a4fb69b2a5e9ec42d242e90ea3" prefix=" " category="inline-code"></block> 和<block ref="9fa80de5781893b057ff1d535201893b" prefix=" " category="inline-code"></block> 並使用產生套裝組合檔案<block ref="67b2cc1cd5b1570014463995fb2ada61" prefix=" " category="inline-code"></block>。</block>
   <block id="806742cccf8380250ffb871d582a0a03" category="list-text">確認已建立運算子、部署和複本集。</block>
   <block id="9b800ce65251b771d0eb86610e11f6b0" category="list-text">可從叢集工作節點存取的現有 Amazon FSX for NetApp ONTAP 檔案系統和儲存虛擬機器（ SVM ）。</block>
-  <block id="f55c34459cf261d1102750bcbde548d8" category="paragraph">在您使用配置 SMB 磁碟區之前、請先使用<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式、您必須具備下列項目。</block>
   <block id="78e5b29e139db71ceb7ca6bc99b5e228" category="paragraph">這是最小的後端組態範例。<block ref="79fffaff4013c1e8c508e76646eca77b" prefix=" " category="inline-code"></block>、<block ref="19dce7ac7f5290fc8fa218ad0c858df5" prefix=" " category="inline-code"></block>和<block ref="8468461bca00a47ab5ddba2afc45f52c" prefix=" " category="inline-code"></block> （選用、如果使用信任的CA）會填入<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> 並分別取得用戶端憑證、私密金鑰及信任CA憑證的基礎64編碼值。</block>
   <block id="33ef55e82416e2c1c4beb9cba9560b02" category="paragraph">。<block ref="5910159ef86741f119f7574a9064b5b0" prefix=" " category="inline-code"></block> 使用 SMB 磁碟區的 ONTAP 需要 FSX 參數。</block>
   <block id="ef0e40b987d8b9ad523bdde2bba5157a" category="summary">瞭解使用 ONTAP NAS 驅動程式設定 ONTAP 後端的需求、驗證選項和匯出原則。</block>
@@ -3784,7 +3781,6 @@
   <block id="e5bbe1a57bb9d1fa8056d28e0a96a518" category="summary">使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 支援的區塊和檔案持續性磁碟區。</block>
   <block id="a2e4c75efdd834198ec30de5256aa938" category="paragraph">您可以使用下列驅動程式、將 Trident 與 Amazon FSX for NetApp ONTAP 整合：</block>
   <block id="b67b129bb636d36f948ca02b68bfa9bc" category="cell">叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。如果您在欄位下方<block ref="ac68bbf921d953d1cfab916cb6120864" prefix=" " category="inline-code"></block>提供、則<block ref="d731d2fecb66f9c4a30253bd316a220f" prefix=" " category="inline-code"></block>不需要提供、<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block>因為 Trident 會從 AWS 擷取 SVM<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> 資訊。因此、您必須在 SVM 下提供使用者的認證（例如： vsadmin ）、且使用者必須具有該<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> 角色。</block>
-  <block id="52934bc714f29a2f1d7b732705cd3bc3" category="list-text">Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2019的Windows工作節點。Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。</block>
   <block id="456166bed74a8ee84892a1778e8485a7" category="section-title">Trident 屬性</block>
   <block id="0a6a0f274bdb2256373050bb5155f62f" category="paragraph">您可以將 Amazon FSX for NetApp ONTAP 檔案系統與 Trident 整合、以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可配置由 ONTAP 備份的區塊和檔案持續磁碟區。</block>
   <block id="e22cd0725c5dbd58b894af3d4584607c" category="paragraph">使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 支援的區塊和檔案持續性磁碟區。</block>
@@ -5969,4 +5965,9 @@
   <block id="506953e8ef42800e0b5f740b30b09a33" category="list-text"><block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix="" category="inline-code"></block> - 僅適用於 iSCSI 協定。</block>
   <block id="ebe98a8374dc31f4dd5bb51932ba3ba4" category="admonition">NetApp ASA r2 或 AFX 儲存系統不支援磁碟區組快照。</block>
   <block id="b3fd6a68d255a3fb79774387cf52d7e4" category="admonition">如果虛擬網路與Azure NetApp Files(ANF) 儲存帳戶位於不同的資源群組中，則在設定後端資源群組清單時，請為虛擬網路指定資源群組。</block>
+  <block id="8ab25113bce4fe0aa1a0fe85708c8fde" category="section-title">提供 SMB 卷</block>
+  <block id="6e6aa9c1336da72bae602de2bd041c8b" category="paragraph">您可以使用以下方式設定 SMB 磁碟區：<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>司機。在你完成之前 <block ref="24f26185e00986318dc562523d4edbf6" category="inline-xref-macro-rx"></block> 請完成以下步驟： <block ref="2c87a2692f74b765fc7d12f8607c123c" category="inline-link-macro-rx"></block>。</block>
+  <block id="8227b927875caa5115317241f2ef5aed" category="paragraph-title">SMB工具</block>
+  <block id="07481e3d69515bb71aba543becb5f83d" category="paragraph"><block ref="2c87a2692f74b765fc7d12f8607c123c" category="inline-link-macro-rx"></block> 如果您正在使用：<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 為 SMB 提供卷。</block>
+  <block id="d35c59236d3e20dddbaa302d4a00761e" category="paragraph">您可以使用以下方式設定 SMB 卷<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 司機。</block>
 </blocks>

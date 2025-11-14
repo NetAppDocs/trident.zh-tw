@@ -278,64 +278,6 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 |===
 
 
-== 準備配置SMB磁碟區
+== 提供 SMB 卷
 
-您可以使用來配置SMB磁碟區 `ontap-nas` 驅動程式：完成之前 <<整合SAN和NAS驅動程式ONTAP>> 完成下列步驟。
-
-.開始之前
-在您使用配置 SMB 磁碟區之前、請先使用 `ontap-nas` 驅動程式、您必須具備下列項目。
-
-* Kubernetes叢集具備Linux控制器節點、以及至少一個執行Windows Server 2019的Windows工作節點。Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。
-* 至少有一個 Trident 機密包含您的 Active Directory 認證。產生機密 `smbcreds`：
-+
-[source, console]
-----
-kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
-----
-* 設定為Windows服務的SCSI Proxy。若要設定 `csi-proxy`、請參閱 link:https://github.com/kubernetes-csi/csi-proxy["GitHub：csi Proxy"^] 或 link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub：適用於Windows的SCSI Proxy"^] 適用於Windows上執行的Kubernetes節點。
-
-
-.步驟
-. 建立SMB共用區。您可以使用兩種方式之一來建立SMB管理共用區 link:https://learn.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/what-is-microsoft-management-console["Microsoft管理主控台"^] 共享資料夾嵌入式管理單元或使用ONTAP CLI。若要使用ONTAP CLI建立SMB共用：
-+
-.. 如有必要、請建立共用的目錄路徑結構。
-+
-。 `vserver cifs share create` 命令會在共用建立期間檢查-path選項中指定的路徑。如果指定的路徑不存在、則命令會失敗。
-
-.. 建立與指定SVM相關的SMB共用區：
-+
-[source, console]
-----
-vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
-----
-.. 確認共用區已建立：
-+
-[source, console]
-----
-vserver cifs share show -share-name share_name
-----
-+
-
-NOTE: 請參閱 link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-task.html["建立SMB共用區"^] 以取得完整詳細資料。
-
-
-
-. 建立後端時、您必須設定下列項目以指定SMB Volume。如需ONTAP 所有的FSXfor Sendbackend組態選項、請參閱 link:trident-fsx-examples.html["FSX提供ONTAP 各種組態選項和範例"]。
-+
-[cols="3"]
-|===
-| 參數 | 說明 | 範例 
-
-
-| `smbShare` | 您可以指定下列其中一項：使用 Microsoft 管理主控台或 ONTAP CLI 建立的 SMB 共用名稱、或是允許 Trident 建立 SMB 共用的名稱。ONTAP 後端的 Amazon FSX 需要此參數。 | `smb-share` 
-
-
-| `nasType` | *必須設定為 `smb`.*如果為null、則預設為 `nfs`。 | `smb` 
-
-
-| 《生態樣式》 | 新磁碟區的安全樣式。*必須設定為 `ntfs` 或 `mixed` 適用於SMB磁碟區。* | `ntfs` 或 `mixed` 適用於SMB磁碟區 
-
-
-| 「unixPermissions」 | 新磁碟區的模式。SMB磁碟區*必須保留為空白。* | " 
-|===
-
+您可以使用以下方式設定 SMB 磁碟區： `ontap-nas`司機。在你完成之前 <<整合SAN和NAS驅動程式ONTAP>> 請完成以下步驟： link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["準備配置SMB磁碟區"]。

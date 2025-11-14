@@ -2931,10 +2931,6 @@
   <block id="3c49604e542827bab74a3fdc9c521379" category="doc">自訂磁碟區名稱和標籤</block>
   <block id="52929ef06c83a3071dc677c6076f8eb3" category="paragraph">可自訂的 Volume 名稱和標籤支援：</block>
   <block id="ba7ad86bd3d0a50a4a04306d941e6c28" category="list-text">Volume 建立、匯入及複製作業。</block>
-  <block id="174a7026faf4af3e1ec0eeec9d35af81" category="list-text">在 ONTAP NAS 經濟驅動程式的情況下、只有 Qtree Volume 的名稱符合名稱範本。</block>
-  <block id="12df52676a1d1f4040501d3a804b1a4b" category="list-text">在 ONTAP SAN 經濟型驅動程式的情況下、只有 LUN 名稱符合名稱範本。</block>
-  <block id="0ee903e586aac760f5cdfb2c770f936b" category="list-text">可自訂的磁碟區名稱僅與 ONTAP 內部部署驅動程式相容。</block>
-  <block id="b3c7ca4cfca79f517812064c1b9b0ef3" category="list-text">可自訂的 Volume 名稱不適用於現有的 Volume 。</block>
   <block id="4c71628145ace597229ccf6ca6fdc8bf" category="section-title">可自訂 Volume 名稱的主要行為</block>
   <block id="a5a284fe1356005dc517f157bef35adc" category="list-text">如果名稱範本中的語法無效而導致失敗、則後端建立會失敗。但是、如果範本應用程式失敗、則會根據現有的命名慣例來命名磁碟區。</block>
   <block id="d654edd1d54bb9458ddce1a8e82a2733" category="list-text">如果使用後端組態的名稱範本命名磁碟區、則不適用儲存前置詞。任何所需的前置字元值都可以直接新增至範本。</block>
@@ -5970,4 +5966,9 @@
   <block id="8227b927875caa5115317241f2ef5aed" category="paragraph-title">SMB工具</block>
   <block id="07481e3d69515bb71aba543becb5f83d" category="paragraph"><block ref="2c87a2692f74b765fc7d12f8607c123c" category="inline-link-macro-rx"></block> 如果您正在使用：<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 為 SMB 提供卷。</block>
   <block id="d35c59236d3e20dddbaa302d4a00761e" category="paragraph">您可以使用以下方式設定 SMB 卷<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 司機。</block>
+  <block id="f69aa651a1e9b3f43819495ea61170d7" category="list-text">就此而言<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 驅動程式中，只有 Qtree 磁碟區的名稱符合名稱範本。</block>
+  <block id="482b43f7720e701d1c20f10fcb766b00" category="list-text">就此而言<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 驅動程式中，只有 LUN 名稱符合名稱範本。</block>
+  <block id="da9889ca93f8b399ea30566497c29a3e" category="list-text">自訂磁碟區名稱僅與ONTAP本機驅動程式相容。</block>
+  <block id="c45320b69becc7810ef088c7d038c27a" category="list-text">僅對以下情況支援自訂標籤：<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>，<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>， 和<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 司機。</block>
+  <block id="a9703a3dbb920f8f87b7d3293e2e0831" category="list-text">自訂磁碟區名稱不適用於現有磁碟區。</block>
 </blocks>

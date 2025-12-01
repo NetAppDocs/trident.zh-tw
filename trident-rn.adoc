@@ -88,9 +88,9 @@ NOTE: 不適用於生產環境。
 
 
 
-=== Trident Protect
+=== Trident保護
 
-NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化由 NetApp ONTAP 儲存系統和 NetApp Trident CSI 儲存資源配置程式所支援的狀態化 Kubernetes 應用程式的功能與可用度。
+NetApp Trident Protect 提供進階應用程式資料管理功能，增強了由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存供應器支援的有狀態 Kubernetes 應用程式的功能和可用性。
 
 
 
@@ -227,9 +227,9 @@ NOTE: 此功能尚處於實驗階段，目前支援使用 ONTAP-SAN 驅動程式
 
 
 
-=== Trident Protect
+=== Trident保護
 
-NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化由 NetApp ONTAP 儲存系統和 NetApp Trident CSI 儲存資源配置程式所支援的狀態化 Kubernetes 應用程式的功能與可用度。
+NetApp Trident Protect 提供進階應用程式資料管理功能，增強了由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存供應器支援的有狀態 Kubernetes 應用程式的功能和可用性。
 
 
 
@@ -280,7 +280,7 @@ NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化
 
 == 25.02 的變更
 
-從 Trident 25.02 開始，「新增功能」摘要提供 Trident 和 Trident Protect 版本的增強功能，修正和過時功能的詳細資料。
+從Trident 25.02 開始，「新增功能」摘要提供了Trident和Trident Protect 版本的增強功能、修復和棄用詳情。
 
 
 
@@ -333,21 +333,21 @@ NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化
 
 
 
-=== Trident Protect
+=== Trident保護
 
-NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化由 NetApp ONTAP 儲存系統和 NetApp Trident CSI 儲存資源配置程式所支援的狀態化 Kubernetes 應用程式的功能與可用度。
+NetApp Trident Protect 提供進階應用程式資料管理功能，增強了由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存供應器支援的有狀態 Kubernetes 應用程式的功能和可用性。
 
 
 
 ==== 增強功能
 
-* 新增對 KubeVirt / OpenShift 虛擬化 VM 的備份與還原支援，可同時用於兩個 Volume 模式：檔案與 Volume （ Volume ）：區塊（原始裝置）儲存設備。這項支援可與所有 Trident 驅動程式相容，並可在使用 NetApp SnapMirror with Trident Protect 複寫儲存設備時強化現有的保護功能。
+* 為 KubeVirt / OpenShift 虛擬化虛擬機器添加了備份和復原支持，支援 volumeMode: File 和 volumeMode: Block（原始設備）儲存。此支援與所有Trident驅動程式相容，並在使用NetApp SnapMirror和Trident Protect 複製儲存時增強了現有的保護功能。
 * 新增在 Kubevirt 環境的應用程式層級控制凍結行為的功能。
 * 新增了設定 AutoSupport Proxy 連線的支援。
 * 新增定義資料移動器加密機密的功能（ Kopia / Restic ）。
 * 新增了手動執行掛鉤的功能。
-* 新增在 Trident Protect 安裝期間設定安全性內容限制（ SCC ）的功能。
-* 新增在 Trident Protect 安裝期間設定 nodeSelector 的支援。
+* 增加了在Trident Protect 安裝過程中設定安全上下文約束 (SCC) 的功能。
+* 增加了在Trident Protect 安裝過程中設定 nodeSelector 的支援。
 * 新增 AppVault 物件的 HTTP / HTTPS 外傳 Proxy 支援。
 * 延伸資源篩選器可啟用叢集範圍資源的排除。
 * 在 S3 AppVault 認證中新增對 AWS 工作階段權杖的支援。
@@ -417,7 +417,7 @@ NetApp Trident Protect 提供進階的應用程式資料管理功能，可強化
 ** 災難恢復
 ** 應用程式行動力
 +
-link:./trident-protect/learn-about-trident-protect.html["深入瞭解 Trident Protect"]。
+link:./trident-protect/learn-about-trident-protect.html["了解更多關於Trident Protect的信息"]。
 
 
 

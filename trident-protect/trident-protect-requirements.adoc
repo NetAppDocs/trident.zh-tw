@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-requirements.html 
 keywords: trident protect, application, cluster, snapmirror replication, ontap, configuration 
-summary: 首先，請確認您的營運環境，應用程式叢集，應用程式和授權是否準備就緒。確保您的環境符合這些需求，以部署及操作 Trident Protect 。 
+summary: 首先，請驗證您的運行環境、應用程式叢集、應用程式和授權是否已準備就緒。確保您的環境符合部署和執行Trident Protect 的這些要求。 
 ---
-= Trident 保護需求
+= Trident保護要求
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,13 +14,13 @@ summary: 首先，請確認您的營運環境，應用程式叢集，應用程�
 
 
 [role="lead"]
-首先，請確認您的營運環境，應用程式叢集，應用程式和授權是否準備就緒。確保您的環境符合這些需求，以部署及操作 Trident Protect 。
+首先，請驗證您的運行環境、應用程式叢集、應用程式和授權是否已準備就緒。確保您的環境符合部署和執行Trident Protect 的這些要求。
 
 
 
-== Trident 保護 Kubernetes 叢集相容性
+== Trident Protect Kubernetes 叢集相容性
 
-Trident Protect 可與多種完全託管且自我管理的 Kubernetes 產品相容，包括：
+Trident Protect 與各種完全託管和自架的 Kubernetes 產品相容，包括：
 
 * Amazon Elastic Kubernetes Service （ EKS ）
 * Google Kubernetes Engine（GKE）
@@ -33,16 +33,16 @@ Trident Protect 可與多種完全託管且自我管理的 Kubernetes 產品相�
 
 [NOTE]
 ====
-* Trident保護備份僅支援 Linux 計算節點。  Windows 運算節點不支援備份作業。
-* 請確定您安裝 Trident Protect 的叢集已設定執行中的快照控制器和相關的 CRD 。若要安裝快照控制器，請 https://docs.netapp.com/us-en/trident/trident-use/vol-snapshots.html#deploy-a-volume-snapshot-controller["這些指示"]參閱。
+* Trident Protect備份僅支援Linux運算節點。Windows 運算節點不支援備份作業。
+* 確保安裝Trident Protect 的叢集已配置正在執行中的快照控制器和相關的 CRD。若要安裝快照控制器，請參閱 https://docs.netapp.com/us-en/trident/trident-use/vol-snapshots.html#deploy-a-volume-snapshot-controller["這些指示"]。
 
 
 ====
 
 
-== Trident 保護儲存後端相容性
+== Trident Protect 儲存後端相容性
 
-Trident Protect 支援下列儲存設備後端：
+Trident Protect 支援以下儲存後端：
 
 * Amazon FSX for NetApp ONTAP 產品
 * Cloud Volumes ONTAP
@@ -58,14 +58,14 @@ Trident Protect 支援下列儲存設備後端：
 
 * 確保您擁有 NetApp ONTAP 儲存後端。
 * 請確定您已設定物件儲存貯體以儲存備份。
-* 建立您計畫用於應用程式或應用程式資料管理作業的任何應用程式命名空間。Trident Protect 不會為您建立這些命名空間；如果您在自訂資源中指定不存在的命名空間，則作業將會失敗。
+* 建立您計劃用於應用程式或應用程式資料管理作業的任何應用程式命名空間。Trident Protect 不會為您建立這些命名空間；如果您在自訂資源中指定了不存在的命名空間，則操作將會失敗。
 
 
 
 
 == NAS 經濟容量需求
 
-Trident Protect 支援 NAS 經濟型磁碟區的備份與還原作業。目前不支援快照，複製和 SnapMirror 複寫至 NAS 經濟型磁碟區。您需要為打算搭配 Trident Protect 使用的每個 NAS 經濟型磁碟區啟用快照目錄。
+Trident Protect 支援對 nas-economy 磁碟區進行備份和復原作業。目前不支援將快照、克隆和SnapMirror複製到 nas-economy 磁碟區。您需要為計劃與Trident Protect 一起使用的每個 nas-economy 磁碟區啟用快照目錄。
 
 [NOTE]
 ====
@@ -89,7 +89,7 @@ NOTE: 您可以將 Trident 後端組態選項設定為，為 `true`新的磁碟�
 
 == 使用 KubeVirt VM 保護資料
 
-Trident Protect 在資料保護作業期間為 KubeVirt 虛擬機器提供檔案系統凍結和解凍功能，以確保資料一致性。虛擬機器凍結操作的配置方法和預設行為在Trident Protect 版本之間有所不同，較新的版本透過 Helm chart 參數提供了簡化的配置。
+Trident Protect 在資料保護作業期間為 KubeVirt 虛擬機器提供檔案系統凍結和解凍功能，以確保資料一致性。虛擬機器凍結操作的配置方法和預設行為在Trident Protect 的不同版本中有所不同，較新的版本透過 Helm chart 參數提供了簡化的配置。
 
 
 NOTE: 在恢復操作期間，任何 `VirtualMachineSnapshots`為虛擬機器 (VM) 所建立的資料不會被復原。
@@ -104,10 +104,10 @@ Trident Protect 在資料保護作業期間自動凍結和解凍 KubeVirt 檔案
 helm install ... --set vm.freeze=false ...
 ----
 ====
-.Trident保護 24.10.1 至 25.06
+.Trident Protect 24.10.1 至 25.06
 [%collapsible]
 ====
-從 Trident Protect 24.10.1 開始， Trident Protect 會在資料保護作業期間，自動凍結和取消凍結 KubeVirt 檔案系統。您也可以使用下列命令停用此自動行為：
+從Trident Protect 24.10.1 開始， Trident Protect 會在資料保護作業期間自動凍結和解凍 KubeVirt 檔案系統。您也可以使用以下命令停用此自動行為：
 
 [source, console]
 ----
@@ -117,9 +117,9 @@ kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=
 .Trident Protect 24.10
 [%collapsible]
 ====
-Trident Protect 24.10 無法在資料保護作業期間，自動確保 KubeVirt VM 檔案系統的狀態一致。如果您想要使用 Trident Protect 24.10 來保護 KubeVirt VM 資料，則必須在資料保護作業之前，手動啟用檔案系統的凍結 / 取消凍結功能。如此可確保檔案系統處於一致的狀態。
+Trident Protect 24.10 在資料保護作業期間不會自動確保 KubeVirt VM 檔案系統的一致性狀態。如果您想使用Trident Protect 24.10 保護您的 KubeVirt VM 數據，則需要在執行資料保護作業之前手動啟用檔案系統的凍結/解凍功能。這樣可以確保檔案系統處於一致狀態。
 
-您可以將 Trident Protect 24.10 設定為在資料保護作業期間管理 VM 檔案系統的凍結和取消凍結link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["設定虛擬化"^]，然後使用下列命令：
+您可以設定Trident Protect 24.10 來管理資料保護作業期間 VM 檔案系統的凍結與解凍。link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["設定虛擬化"^]然後使用以下命令：
 
 [source, console]
 ----
@@ -130,7 +130,7 @@ kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=
 
 == SnapMirror 複寫需求
 
-NetApp SnapMirror 複寫可與 Trident Protect 搭配使用，適用於下列 ONTAP 解決方案：
+NetApp SnapMirror複製功能可與Trident Protect 搭配使用，適用於下列ONTAP解決方案：
 
 * 內部部署 NetApp FAS ， AFF 和 ASA 叢集
 * NetApp ONTAP Select
@@ -144,7 +144,7 @@ NetApp SnapMirror 複寫可與 Trident Protect 搭配使用，適用於下列 ON
 
 如果您打算使用 SnapMirror 複寫，請確保 ONTAP 叢集符合下列需求：
 
-* *NetApp Trident*：NetApp Trident 必須存在於使用 ONTAP 作為後端的來源 Kubernetes 叢集和目標 Kubernetes 叢集上。Trident Protect 使用下列驅動程式所支援的儲存類別，以 NetApp SnapMirror 技術支援複寫：
+* * NetApp Trident *：使用ONTAP作為後端服務的來源 Kubernetes 叢集和目標 Kubernetes 叢集上都必須存在NetApp Trident 。Trident Protect 支援使用NetApp SnapMirror技術進行複製，該技術使用以下驅動程式支援的儲存類別：
 +
 ** `ontap-nas` ：NFS
 ** `ontap-san` ：iSCSI
@@ -174,14 +174,14 @@ NOTE: 僅支援 SnapMirror 非同步保護。
 NOTE: 確保兩個 ONTAP 叢集之間複寫關係中使用的 SVM 名稱是唯一的。
 
 * *NetApp Trident 與 SVM*：對等遠端 SVM 必須可供目標叢集上的 NetApp Trident 使用。
-* * 託管後端 * ：您需要在 Trident Protect 中新增及管理 ONTAP 儲存後端，才能建立複寫關係。
+* *託管後端*：您需要在Trident Protect 中新增和管理ONTAP儲存後端，以建立複製關係。
 
 
 
 
 === 用於 SnapMirror 複寫的 Trident / ONTAP 組態
 
-Trident Protect 要求您至少設定一個儲存後端，以支援來源叢集和目的地叢集的複寫。如果來源叢集和目的地叢集相同、則目的地應用程式應使用不同於來源應用程式的儲存後端、以獲得最佳恢復能力。
+Trident Protect 要求您至少設定一個支援來源叢集和目標叢集複製的儲存後​​端。如果來源叢集和目標叢集相同，為了獲得最佳彈性，目標應用程式應該使用與來源應用程式不同的儲存後端。
 
 
 

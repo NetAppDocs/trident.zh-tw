@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-installation.html 
 keywords: install, trident, protect, requirements, registry 
-summary: 如果您的環境符合需求，您可以依照下列步驟安裝 Trident Protect 。 
+summary: 如果您的環境符合要求，您可以依照下列步驟安裝Trident Protect。 
 ---
-= 安裝及設定 Trident Protect
+= 安裝並設定Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,15 +14,15 @@ summary: 如果您的環境符合需求，您可以依照下列步驟安裝 Trid
 
 
 [role="lead"]
-如果您的環境符合 Trident Protect 的要求，您可以依照下列步驟在叢集上安裝 Trident Protect 。您可以從 NetApp 取得 Trident Protect ，或從您自己的私有登錄安裝。如果您的叢集無法存取網際網路，從私有登錄安裝會很有幫助。
+如果您的環境符合Trident Protect 的要求，您可以依照下列步驟在叢集上安裝Trident Protect。您可以從NetApp取得Trident Protect，或從您自己的私人註冊表中安裝它。如果您的叢集無法存取互聯網，從私有註冊表安裝會很有幫助。
 
 
 
-== 安裝 Trident Protect
+== 安裝Trident Protect
 
 [role="tabbed-block"]
 ====
-.安裝 Trident Protect from NetApp
+.從NetApp安裝Trident Protect
 --
 .步驟
 . 新增Trident Helm儲存庫：
@@ -31,7 +31,7 @@ summary: 如果您的環境符合需求，您可以依照下列步驟安裝 Trid
 ----
 helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
-. 使用 Helm 安裝 Trident Protect 。以叢集名稱取代 `<name-of-cluster>`，該名稱將指派給叢集，用於識別叢集的備份和快照：
+. 使用 Helm 安裝Trident Protect。代替 `<name-of-cluster>`集群名稱將分配給集群，並用於標識集群的備份和快照：
 +
 [source, console]
 ----
@@ -49,9 +49,9 @@ helm install trident-protect netapp-trident-protect/trident-protect --set cluste
 
 
 --
-.從私有登錄安裝 Trident Protect
+.從私人註冊表安裝Trident Protect
 --
-如果 Kubernetes 叢集無法存取網際網路，您可以從私有映像登錄安裝 Trident Protect 。在這些範例中，請將方括號中的值取代為環境中的資訊：
+如果您的 Kubernetes 叢集無法存取互聯網，您可以從私人鏡像倉庫安裝Trident Protect。在這些範例中，請將括號中的值替換為您環境中的資訊：
 
 .步驟
 . 將下列影像拉到您的本機電腦，更新標記，然後將它們推送到您的私人登錄：
@@ -91,7 +91,7 @@ docker push <private-registry-url>/controller:25.10.0
 
 NOTE: 要取得 Helm Chart，首先需要在可以存取網路的電腦上下載 Helm Chart。 `helm pull trident-protect --version 100.2510.0 --repo https://netapp.github.io/trident-protect-helm-chart`然後複製結果 `trident-protect-100.2510.0.tgz` 將檔案複製到您的離線環境並進行安裝 `helm install trident-protect ./trident-protect-100.2510.0.tgz` 而不是在最後一步使用存儲庫引用。
 
-. 建立 Trident Protect 系統命名空間：
+. 建立Trident Protect 系統命名空間：
 +
 [source, console]
 ----
@@ -115,7 +115,7 @@ kubectl create secret docker-registry regcred --docker-username=<registry-userna
 ----
 helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
-. 建立名為的檔案 `protectValues.yaml`。請確定其中包含下列 Trident Protect 設定：
+. 建立一個名為的文件 `protectValues.yaml`。請確保其中包含以下Trident Protect 設定：
 +
 [source, yaml]
 ----
@@ -128,7 +128,7 @@ imagePullSecrets:
 
 NOTE: 這 `imageRegistry`和 `imagePullSecrets`這些值適用於所有組件影像，包括 `resourcebackup`和 `resourcerestore`。如果您將鏡像推送到註冊表中的特定儲存庫路徑（例如， `example.com:443/my-repo`），請在登錄欄位中包含完整路徑。這將確保所有圖像都從此處提取。 `<private-registry-url>/<image-name>:<tag>`。
 
-. 使用 Helm 安裝 Trident Protect 。以叢集名稱取代 `<name_of_cluster>`，該名稱將指派給叢集，用於識別叢集的備份和快照：
+. 使用 Helm 安裝Trident Protect。代替 `<name_of_cluster>`集群名稱將分配給集群，並用於標識集群的備份和快照：
 +
 [source, console]
 ----
@@ -148,4 +148,4 @@ helm install trident-protect netapp-trident-protect/trident-protect --set cluste
 --
 ====
 
-NOTE: 有關其他 Helm Chart 設定選項，包括AutoSupport設定和命名空間過濾，請參閱 link:trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["自訂 Trident Protect 安裝"]。
+NOTE: 有關其他 Helm Chart 設定選項，包括AutoSupport設定和命名空間過濾，請參閱 link:trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["自訂Trident Protect 安裝"]。

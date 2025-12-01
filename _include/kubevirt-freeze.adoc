@@ -2,7 +2,7 @@
 :allow-uri-read: 
 
 
-Trident Protect 在資料保護作業期間為 KubeVirt 虛擬機器提供檔案系統凍結和解凍功能，以確保資料一致性。虛擬機器凍結操作的配置方法和預設行為在Trident Protect 版本之間有所不同，較新的版本透過 Helm chart 參數提供了簡化的配置。
+Trident Protect 在資料保護作業期間為 KubeVirt 虛擬機器提供檔案系統凍結和解凍功能，以確保資料一致性。虛擬機器凍結操作的配置方法和預設行為在Trident Protect 的不同版本中有所不同，較新的版本透過 Helm chart 參數提供了簡化的配置。
 
 
 NOTE: 在恢復操作期間，任何 `VirtualMachineSnapshots`為虛擬機器 (VM) 所建立的資料不會被復原。
@@ -17,10 +17,10 @@ Trident Protect 在資料保護作業期間自動凍結和解凍 KubeVirt 檔案
 helm install ... --set vm.freeze=false ...
 ----
 ====
-.Trident保護 24.10.1 至 25.06
+.Trident Protect 24.10.1 至 25.06
 [%collapsible]
 ====
-從 Trident Protect 24.10.1 開始， Trident Protect 會在資料保護作業期間，自動凍結和取消凍結 KubeVirt 檔案系統。您也可以使用下列命令停用此自動行為：
+從Trident Protect 24.10.1 開始， Trident Protect 會在資料保護作業期間自動凍結和解凍 KubeVirt 檔案系統。您也可以使用以下命令停用此自動行為：
 
 [source, console]
 ----
@@ -30,9 +30,9 @@ kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=
 .Trident Protect 24.10
 [%collapsible]
 ====
-Trident Protect 24.10 無法在資料保護作業期間，自動確保 KubeVirt VM 檔案系統的狀態一致。如果您想要使用 Trident Protect 24.10 來保護 KubeVirt VM 資料，則必須在資料保護作業之前，手動啟用檔案系統的凍結 / 取消凍結功能。如此可確保檔案系統處於一致的狀態。
+Trident Protect 24.10 在資料保護作業期間不會自動確保 KubeVirt VM 檔案系統的一致性狀態。如果您想使用Trident Protect 24.10 保護您的 KubeVirt VM 數據，則需要在執行資料保護作業之前手動啟用檔案系統的凍結/解凍功能。這樣可以確保檔案系統處於一致狀態。
 
-您可以將 Trident Protect 24.10 設定為在資料保護作業期間管理 VM 檔案系統的凍結和取消凍結link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["設定虛擬化"^]，然後使用下列命令：
+您可以設定Trident Protect 24.10 來管理資料保護作業期間 VM 檔案系統的凍結與解凍。link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["設定虛擬化"^]然後使用以下命令：
 
 [source, console]
 ----

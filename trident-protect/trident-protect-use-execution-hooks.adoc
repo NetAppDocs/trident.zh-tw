@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-use-execution-hooks.html 
 keywords: trident, protect, execution hooks 
-summary: 您可以使用 Trident Protect 為應用程式建立自訂執行掛鉤。您需要擁有擁有擁有者、管理員或成員權限、才能建立執行掛勾。 
+summary: 您可以使用Trident Protect 為應用程式建立自訂執行鉤子。您需要擁有所有者、管理員或成員權限才能建立執行鉤子。 
 ---
-= 管理 Trident Protect 執行攔截器
+= 管理Trident Protect 執行鉤子
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -20,7 +20,7 @@ summary: 您可以使用 Trident Protect 為應用程式建立自訂執行掛鉤
 
 == 執行掛勾的類型
 
-Trident Protect 支援下列類型的執行掛鉤，視執行時機而定：
+Trident Protect 支援以下幾種執行鉤子類型，取決於它們的運行時機：
 
 * 快照前
 * 快照後
@@ -37,7 +37,7 @@ Trident Protect 支援下列類型的執行掛鉤，視執行時機而定：
 執行資料保護作業時、執行掛機事件會依照下列順序發生：
 
 . 任何適用的自訂操作前執行掛勾都會在適當的容器上執行。您可以視需要建立及執行任意數量的自訂操作前掛勾、但在作業之前執行這些掛勾的順序既不保證也無法設定。
-. 如果適用，檔案系統會凍結。link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["深入瞭解如何使用 Trident Protect 設定檔案系統凍結"]。
+. 如果適用，則會發生檔案系統凍結。link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["了解更多關於使用Trident Protect 設定檔系統凍結的信息"]。
 . 執行資料保護作業。
 . 凍結的檔案系統會在適用的情況下解除凍結。
 . 任何適用的自訂操作後執行掛勾都會在適當的容器上執行。您可以視需要建立及執行任意數量的自訂後置作業掛勾、但在作業後執行這些掛勾的順序並不保證也無法設定。
@@ -67,9 +67,9 @@ NOTE: 如果快照前執行攔截器新增，變更或移除 Kubernetes 資源�
 規劃應用程式的執行掛勾時、請考量下列事項。
 
 * 執行攔截必須使用指令碼來執行動作。許多執行掛勾可以參照相同的指令碼。
-* Trident Protect 需要以可執行的 Shell 指令碼格式寫入執行攔截程式所使用的指令碼。
+* Trident Protect 要求執行鉤子使用的腳本以可執行 shell 腳本的格式編寫。
 * 指令碼大小上限為96KB。
-* Trident Protect 使用執行掛鉤設定和任何符合條件，來判斷哪些掛勾適用於快照，備份或還原作業。
+* Trident Protect 使用執行鉤子設定和任何符合條件來決定哪些鉤子適用於快照、備份或還原作業。
 
 
 
@@ -81,7 +81,7 @@ NOTE: 由於執行掛勾通常會減少或完全停用執行中應用程式的�
 
 當您新增或編輯應用程式的執行掛鉤時，您可以將篩選器新增至執行掛鉤，以管理掛鉤將符合的容器。篩選器對於在所有容器上使用相同容器映像的應用程式來說非常實用、但可能會將每個映像用於不同的用途（例如Elasticsearch）。篩選器可讓您建立執行攔截器在某些容器上執行的案例、但不一定所有容器都相同。如果您為單一執行掛勾建立多個篩選器、這些篩選器會與邏輯和運算子結合使用。每個執行掛機最多可有10個作用中篩選器。
 
-您新增至執行掛勾的每個篩選器都會使用規則運算式來比對叢集中的容器。當掛機符合容器時、掛機會在該容器上執行其相關的指令碼。篩選器的規則運算式使用規則運算式2（RE2）語法、不支援建立篩選器、將容器從相符項目清單中排除。如需 Trident Protect 支援執行攔截篩選器中規則運算式的語法資訊，請參閱 https://github.com/google/re2/wiki/Syntax["規則運算式2（RE2）語法支援"^]。
+新增到執行掛鉤的每個過濾器都使用正規表示式來匹配叢集中的容器。當鉤子與容器匹配時，鉤子將在該容器上運行其關聯的腳本。過濾器的正規表示式使用正規表示式 2 (RE2) 語法，該語法不支援建立從符合清單中排除容器的過濾器。有關Trident Protect 在執行鉤子過濾器中支援的正規表示式語法的詳細信息，請參閱 https://github.com/google/re2/wiki/Syntax["規則運算式2（RE2）語法支援"^]。
 
 
 NOTE: 如果您將命名空間篩選器新增至執行掛勾、而執行還原或複製作業之後執行、且還原或複製來源與目的地位於不同的命名空間、則命名空間篩選器只會套用至目的地命名空間。
@@ -96,7 +96,7 @@ NOTE: 如果您將命名空間篩選器新增至執行掛勾、而執行還原�
 
 == 建立執行掛鉤
 
-您可以使用 Trident Protect 為應用程式建立自訂執行掛鉤。您需要擁有擁有擁有者、管理員或成員權限、才能建立執行掛勾。
+您可以使用Trident Protect 為應用程式建立自訂執行鉤子。您需要擁有所有者、管理員或成員權限才能建立執行鉤子。
 
 [role="tabbed-block"]
 ====
@@ -104,7 +104,7 @@ NOTE: 如果您將命名空間篩選器新增至執行掛勾、而執行還原�
 --
 .步驟
 . 建立自訂資源（ CR ）檔案並命名為 `trident-protect-hook.yaml`。
-. 設定下列屬性以符合 Trident Protect 環境和叢集組態：
+. 設定以下屬性以符合您的Trident Protect 環境和叢集設定：
 +
 ** * metadata.name*: （ _required ）此自訂資源的名稱；為您的環境選擇唯一且合理的名稱。
 ** *SPEC.applicationRef* ：（ _required _ ）要執行執行攔截的應用程式 Kubernetes 名稱。
@@ -221,7 +221,7 @@ tridentctl-protect create exechook <my_exec_hook_name> --action <action_type> --
 --
 .步驟
 . 建立自訂資源（ CR ）檔案並命名為 `trident-protect-resource-backup.yaml`。
-. 設定下列屬性以符合 Trident Protect 環境和叢集組態：
+. 設定以下屬性以符合您的Trident Protect 環境和叢集設定：
 +
 ** * metadata.name*: （ _required ）此自訂資源的名稱；為您的環境選擇唯一且合理的名稱。
 ** *spec.applicationRef* ：（ _required _ ）要建立資源備份的應用程式 Kubernetes 名稱。
@@ -294,7 +294,7 @@ kubectl describe resourcebackup <my_backup_name>
 --
 .步驟
 . 建立自訂資源（ CR ）檔案並命名為 `trident-protect-hook-run.yaml`。
-. 設定下列屬性以符合 Trident Protect 環境和叢集組態：
+. 設定以下屬性以符合您的Trident Protect 環境和叢集設定：
 +
 ** * metadata.name*: （ _required ）此自訂資源的名稱；為您的環境選擇唯一且合理的名稱。
 ** *SPEC.applicationRef* ：（ _required _ ）請確保此值符合您在步驟 1 中建立的 ResourceBackup CR 應用程式名稱。

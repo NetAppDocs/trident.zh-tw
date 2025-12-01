@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-generate-support-bundle.html 
 keywords: trident, protect, bundle, support, netapp, custom, resource, file 
-summary: Trident Protect 可讓系統管理員產生套件組合，其中包含 NetApp 支援所需的資訊，包括所管理叢集和應用程式的記錄，度量和拓撲資訊。如果您已連線至網際網路，則可以使用自訂資源（ CR ）檔案，將支援套件上傳至 NetApp 支援網站（ NSS ）。 
+summary: 'Trident Protect 使管理員能夠產生包含對NetApp支援有用的信息的捆綁包，包括有關受管理叢集和應用程式的日誌、指標和拓撲資訊。如果您已連接到互聯網，則可以使用自訂資源 (CR) 檔案將支援包上傳至NetApp支援網站 (NSS)。' 
 ---
-= 產生 Trident Protect 支援服務組合
+= 產生Trident Protect 支援包
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: Trident Protect 可讓系統管理員產生套件組合，其中包含 
 
 
 [role="lead"]
-Trident Protect 使管理員能夠產生包含對NetApp支援有用的信息的捆綁包，包括有關所管理的叢集和應用程式的日誌、指標和拓撲資訊。如果您已連接到互聯網，則可以使用自訂資源 (CR) 檔案將支援包上傳至NetApp支援網站 (NSS)。
+Trident Protect 使管理員能夠產生包含對NetApp支援有用的信息的捆綁包，包括有關受管理叢集和應用程式的日誌、指標和拓撲資訊。如果您已連接到互聯網，則可以使用自訂資源 (CR) 檔案將支援包上傳至NetApp支援網站 (NSS)。
 
 [role="tabbed-block"]
 ====

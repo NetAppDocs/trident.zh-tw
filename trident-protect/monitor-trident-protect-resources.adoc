@@ -2,20 +2,20 @@
 permalink: trident-protect/monitor-trident-protect-resources.html 
 sidebar: sidebar 
 keywords: manage, authentication, rbac 
-summary: 您可以使用 kube 狀態度量和 Prometheus 來監控 Trident Protect 資源的狀態。這會提供有關部署，節點和 Pod 的健全狀況資訊。 
+summary: 您可以使用 kube-state-metrics 和 Prometheus 監控Trident Protect 資源的狀態。這可以為您提供有關部署、節點和 Pod 的運作狀況資訊。 
 ---
-= 監控 Trident Protect 資源
+= 監控Trident保護資源
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-您可以使用 kube-state 度量， Prometheus 和 Alertmanager 開放原始碼工具來監控受 Trident Protect 保護的資源健全狀況。
+您可以使用 kube-state-metrics、Prometheus 和 Alertmanager 開源工具來監控Trident Protect 保護的資源的健康狀況。
 
-kube-state 度量服務會從 Kubernetes API 通訊產生度量。搭配 Trident Protect 使用可提供環境中資源狀態的實用資訊。
+kube-state-metrics 服務從 Kubernetes API 通訊產生指標。將其與Trident Protect 結合使用，可以顯示有關環境中資源狀態的有用資訊。
 
-Prometheus 是一個工具組，可擷取由 kube 狀態度量所產生的資料，並將其呈現為這些物件的易讀資訊。kube 狀態指標和 Prometheus 共同提供一種方法，讓您使用 Trident Protect 監控所管理資源的健全狀況和狀態。
+Prometheus 是一個工具包，它可以接收 kube-state-metrics 產生的數據，並將其呈現為關於這些物件的易於閱讀的資訊。kube-state-metrics 和 Prometheus 共同提供了一種方法，讓您可以監控使用Trident Protect 管理的資源的健康狀況和狀態。
 
 AlertManager 是一項服務，可擷取 Prometheus 等工具所傳送的警示，並將其路由至您設定的目的地。
 
@@ -33,7 +33,7 @@ AlertManager 是一項服務，可擷取 Prometheus 等工具所傳送的警示�
 
 == 步驟 1 ：安裝監控工具
 
-若要在 Trident Protect 中啟用資源監控，您必須安裝及設定 kube-st狀態 度量， Promethus 和 Alertmanager 。
+要在Trident Protect 中啟用資源監控，您需要安裝和設定 kube-state-metrics、Promethus 和 Alertmanager。
 
 
 
@@ -108,7 +108,7 @@ prometheus:
 ----
 helm install custom-resource -f metrics-config.yaml prometheus-community/kube-state-metrics --version 5.21.0
 ----
-. 依照中的指示，設定 kube 狀態度量，以產生 Trident Protect 所使用之自訂資源的度量 https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/extend/customresourcestate-metrics.md#custom-resource-state-metrics["Kube-state 度量自訂資源文件"^]。
+. 請依照下列說明配置 kube-state-metrics，以產生Trident Protect 使用的自訂資源的指標： https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/extend/customresourcestate-metrics.md#custom-resource-state-metrics["Kube-state 度量自訂資源文件"^] 。
 
 
 

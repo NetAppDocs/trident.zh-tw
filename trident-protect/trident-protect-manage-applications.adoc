@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-manage-applications.html 
 keywords: appvault, data protection, custom resource, namespace, application, cluster 
-summary: 您可以建立應用程式 CR 和相關的 AppVault CR ，讓 Trident Protect 瞭解您想要管理的應用程式。 
+summary: 您可以透過建立應用程式 CR 和關聯的 AppVault CR，讓Trident Protect 了解您要管理的應用程式。 
 ---
-= 使用 Trident Protect 定義管理應用程式
+= 使用Trident Protect 定義管理應用程式
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,19 +14,19 @@ summary: 您可以建立應用程式 CR 和相關的 AppVault CR ，讓 Trident 
 
 
 [role="lead"]
-您可以建立應用程式 CR 和相關的 AppVault CR ，以定義您想要使用 Trident Protect 管理的應用程式。
+您可以透過建立應用程式 CR 和關聯的 AppVault CR 來定義要使用Trident Protect 管理的應用程式。
 
 
 
 == 建立 AppVault CR
 
-您需要建立 AppVault CR ，以便在應用程式上執行資料保護作業時使用，而 AppVault CR 必須位於安裝 Trident Protect 的叢集上。AppVault CR 專屬於您的環境，如需 AppVault CRS 的範例，請參閱link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源。"]
+您需要建立一個 AppVault CR，該 CR 將在對應用程式執行資料保護操作時使用，並且 AppVault CR 需要位於安裝了Trident Protect 的叢集上。AppVault CR 是針對您的特定環境的；有關 AppVault CR 的範例，請參閱：link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源。"]
 
 
 
 == 定義應用程式
 
-您需要定義每個要使用 Trident Protect 管理的應用程式。您可以手動建立應用程式 CR 或使用 Trident Protect CLI 來定義應用程式以進行管理。
+您需要定義要使用Trident Protect 管理的每個應用程式。您可以透過手動建立應用程式 CR 或使用Trident Protect CLI 來定義要管理的應用程式。
 
 [role="tabbed-block"]
 ====
@@ -46,7 +46,7 @@ summary: 您可以建立應用程式 CR 和相關的 AppVault CR ，讓 Trident 
 **** *labelSelector * ：（ _Optional_ ）根據叢集範圍的資源標籤來篩選資源。
 
 
-*** * metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: （ _Optional_ ）此註釋僅適用於從虛擬機器定義的應用程式，例如 KubeVirt 環境，檔案系統會在快照之前凍結。指定此應用程式是否可以在快照期間寫入檔案系統。如果設為 true ，應用程式會忽略全域設定，並在快照期間寫入檔案系統。如果設置爲 false ，則應用程序將忽略全局設置，並在快照期間凍結文件系統。如果指定，但應用程式在應用程式定義中沒有虛擬機器，則會忽略附註。如果未指定，則應用程式會遵循link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全域 Trident 保護凍結設定"]。
+*** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_可選_) 此註解僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。指定此應用程式在快照期間是否可以寫入檔案系統。如果設定為 true，應用程式將忽略全域設置，並且可以在快照期間寫入檔案系統。如果設定為 false，應用程式將忽略全域設置，並且在快照期間檔案系統將被凍結。如果指定了註解，但應用程式定義中沒有虛擬機，則忽略該註解。如未特別說明，則申請流程如下：link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全球Trident Protect 冷凍設置"] 。
 +
 [NOTE]
 ====
@@ -153,7 +153,7 @@ kubectl apply -f maria-app.yaml
 .步驟
 . 使用下列其中一個範例建立及套用應用程式定義，以環境中的資訊取代方括號中的值。您可以在應用程式定義中加入命名空間和資源，使用以逗號分隔的清單，以及範例中所示的引數。
 +
-您可以選擇在建立應用程式時使用註釋，以指定應用程式是否可以在快照期間寫入檔案系統。這僅適用於從虛擬機器定義的應用程式，例如 KubeVirt 環境，檔案系統會在快照之前凍結。如果您將註釋設為 `true`，應用程式會忽略全域設定，並在快照期間寫入檔案系統。如果將其設置爲 `false`，則應用程序將忽略全局設置，並在快照期間凍結文件系統。如果您使用附註，但應用程式在應用程式定義中沒有虛擬機器，則會忽略附註。如果您不使用註釋，應用程式會遵循link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全域 Trident 保護凍結設定"]。
+建立應用程式時，您可以選擇使用註解來指定應用程式在快照期間是否可以寫入檔案系統。這僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。如果您將註釋設定為 `true`該應用程式忽略全域設置，可以在快照期間寫入檔案系統。如果你把它設定為 `false`該應用程式忽略全域設置，導致檔案系統在快照期間凍結。如果使用了註解，但應用程式定義中沒有虛擬機，則該註解將被忽略。如果您不使用註解，應用程式將遵循以下規則：link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全球Trident Protect 冷凍設置"] 。
 
 +
 若要在使用 CLI 建立應用程式時指定評註，您可以使用此 `--annotation`旗標。

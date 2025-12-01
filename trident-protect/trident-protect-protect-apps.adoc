@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-protect-apps.html
 keywords: protect, snapshots, demand, configuration, cluster, appvault 
 summary: 使用自動保護原則或以臨機操作的方式、擷取快照與備份資料、以保護所有應用程式。 
 ---
-= 使用 Trident Protect 保護應用程式
+= 使用Trident Protect 保護應用程式
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,10 +14,10 @@ summary: 使用自動保護原則或以臨機操作的方式、擷取快照與�
 
 
 [role="lead"]
-您可以使用自動保護原則或臨機操作方式，拍攝快照和備份，以保護由 Trident Protect 管理的所有應用程式。
+您可以使用自動保護策略或臨時保護策略，透過拍攝快照和備份來保護Trident Protect 管理的所有應用程式。
 
 
-NOTE: 您可以將 Trident Protect 設定為在資料保護作業期間凍結和取消凍結檔案系統。link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["深入瞭解如何使用 Trident Protect 設定檔案系統凍結"]。
+NOTE: 您可以設定Trident Protect 在資料保護作業期間凍結和解凍檔案系統。link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["了解更多關於使用Trident Protect 設定檔系統凍結的信息"]。
 
 
 
@@ -390,13 +390,13 @@ kubectl get backup -n <namespace_name> <my_backup_cr_name> -o jsonpath='{.status
 
 == 啟用 NetApp 檔案（ anf ）作業的備份與還原
 
-如果您已安裝 Trident Protect ，您可以啟用節省空間的備份與還原功能，以供使用 NetApp 檔案儲存類別的儲存後端使用，並在 Trident 24.06 之前建立。此功能可與 NFSv4 磁碟區搭配使用，不會佔用容量集區的額外空間。
+如果您已安裝Trident Protect，則可以為使用 azure-netapp-files 儲存類別且在Trident 24.06 之前建立的儲存後端啟用節省空間的備份和還原功能。此功能適用於 NFSv4 卷，並且不會佔用容量池中的額外空間。
 
 .開始之前
 請確認下列事項：
 
-* 您已安裝 Trident Protect 。
-* 您已在 Trident Protect 中定義應用程式。在您完成此程序之前、此應用程式的保護功能有限。
+* 您已安裝Trident Protect。
+* 您已在Trident Protect中定義了一個應用程式。在您完成此步驟之前，此應用程式的保護功能將受到限制。
 * 您已 `azure-netapp-files` 選擇儲存後端的預設儲存類別。
 
 
@@ -426,13 +426,13 @@ tridentctl get volume <pv name> -n trident -o yaml | grep snapshotDir
 snapshotDirectory: "true"
 ----
 +
-未啟用 Snapshot 目錄時， Trident Protect 會選擇一般備份功能，在備份程序期間會暫時佔用容量集區中的空間。在這種情況下，請確保容量集區中有足夠的可用空間，以建立備份磁碟區大小的暫存磁碟區。
+如果未啟用快照目錄， Trident Protect 將選擇常規備份功能，該功能會在備份過程中暫時佔用容量池中的空間。在這種情況下，請確保容量池中有足夠的空間來建立​​與被備份磁碟區大小相同的臨時磁碟區。
 
 
 
 
 
 .結果
-應用程式已準備好使用 Trident Protect 進行備份與還原。每個 PVC 也可供其他應用程式用於備份和還原。
+該應用程式已準備好使用Trident Protect 進行備份和還原。每個 PVC 也可供其他應用程式用於備份和還原。
 
 ====

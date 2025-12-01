@@ -1,28 +1,28 @@
 ---
 section: trident-protect
-title: 使用 Trident Protect 保護應用程式
+title: 使用Trident Protect 保護應用程式
 entries:
-- title: 瞭解 Trident Protect
+- title: 了解Trident Protect
   url: "/trident-protect/learn-about-trident-protect.html"
-- title: 安裝 Trident Protect
+- title: 安裝Trident Protect
   entries:
-  - title: Trident 保護需求
+  - title: Trident保護要求
     url: "/trident-protect/trident-protect-requirements.html"
-  - title: 安裝 Trident Protect
+  - title: 安裝Trident Protect
     url: "/trident-protect/trident-protect-installation.html"
-  - title: 安裝 Trident Protect CLI 外掛程式
+  - title: 安裝Trident Protect CLI 插件
     url: "/trident-protect/trident-protect-cli.html"
-  - title: 自訂 Trident Protect 安裝
+  - title: 自訂Trident Protect 安裝
     url: "/trident-protect/trident-protect-customize-installation.html"
-- title: 管理 Trident Protect
+- title: 管理Trident Protect
   entries:
   - title: 管理授權與存取控制
     url: "/trident-protect/manage-authorization-access-control.html"
-  - title: 監控 Trident Protect 資源
+  - title: 監控Trident保護資源
     url: "/trident-protect/monitor-trident-protect-resources.html"
-  - title: 產生 Trident Protect 支援服務組合
+  - title: 產生Trident Protect 支援包
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
-  - title: 升級 Trident Protect
+  - title: 升級Trident保護
     url: "/trident-protect/trident-protect-upgrade.html"
 - title: 管理及保護應用程式
   entries:
@@ -34,7 +34,7 @@ entries:
     url: "/trident-protect/trident-protect-protect-apps.html"
   - title: 還原應用程式
     entries:
-    - title: 使用 Trident Protect 還原應用程式
+    - title: 使用Trident Protect 恢復應用程式
       url: "/trident-protect/trident-protect-restore-apps.html"
     - title: 使用進階設定
       url: "/trident-protect/trident-protect-restore-settings.html"
@@ -42,7 +42,7 @@ entries:
     url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
   - title: 移轉應用程式
     url: "/trident-protect/trident-protect-migrate-apps.html"
-  - title: 使用 Trident Protect 管理執行掛鉤
+  - title: 使用Trident Protect 管理執行鉤子
     url: "/trident-protect/trident-protect-use-execution-hooks.html"
-- title: 解除安裝 Trident Protect
+- title: 解除安裝Trident Protect
   url: "/trident-protect/trident-protect-uninstall.html"

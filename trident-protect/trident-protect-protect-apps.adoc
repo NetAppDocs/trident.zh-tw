@@ -221,8 +221,20 @@ tridentctl-protect create backup <my_backup_name> --appvault <my-vault-name> --a
 
 ** *SPEC.applicationRef* ：要備份之應用程式的 Kubernetes 名稱。
 ** *spec.appVaultRef* ：（ _required _ ）應儲存備份內容的 AppVault 名稱。
-** *spec.backupRetention*：要保留的備份數量。零表示不應建立備份（僅快照）。
-** *spec.snapshotRetention * ：要保留的快照數。零表示不應建立任何快照。
+** *spec.backupRetention*: (_必要_) 要保留的備份數量。零表示不應建立備份（僅快照）。
+** *spec.backupReclaimPolicy*: (_可選_) 決定如果備份 CR 在其保留期內被刪除，則備份會發生什麼情況。保留期過後，備份檔案總是會被刪除。可能的值（區分大小寫）：
++
+*** `Retain` （預設）
+*** `Delete`
+
+
+** *spec.snapshotRetention*: (_必需_) 要保留的快照數量。零表示不建立任何快照。
+** *spec.snapshotReclaimPolicy*: (_可選_) 決定如果快照 CR 在其保留期內被刪除，則快照會發生什麼情況。保留期過後，快照總是會被刪除。可能的值（區分大小寫）：
++
+*** `Retain`
+*** `Delete`(預設)
+
+
 ** * spec.granularity*: 執行排程的頻率。可能的值、以及必要的相關欄位：
 +
 *** `Hourly`（要求您指定 `spec.minute`)
@@ -301,7 +313,22 @@ NOTE: 您可以使用 `tridentctl-protect create schedule --help`來檢視此命
 +
 [source, console]
 ----
-tridentctl-protect create schedule <my_schedule_name> --appvault <my_appvault_name> --app <name_of_app_to_snapshot> --backup-retention <how_many_backups_to_retain> --data-mover <Kopia_or_Restic> --day-of-month <day_of_month_to_run_schedule> --day-of-week <day_of_month_to_run_schedule> --granularity <frequency_to_run> --hour <hour_of_day_to_run> --minute <minute_of_hour_to_run> --recurrence-rule <recurrence> --snapshot-retention <how_many_snapshots_to_retain> -n <application_namespace> --full-backup-rule <string>
+tridentctl-protect create schedule <my_schedule_name> \
+  --appvault <my_appvault_name> \
+  --app <name_of_app_to_snapshot> \
+  --backup-retention <how_many_backups_to_retain> \
+  --backup-reclaim-policy <Retain|Delete (default Retain)> \
+  --data-mover <Kopia_or_Restic> \
+  --day-of-month <day_of_month_to_run_schedule> \
+  --day-of-week <day_of_week_to_run_schedule> \
+  --granularity <frequency_to_run> \
+  --hour <hour_of_day_to_run> \
+  --minute <minute_of_hour_to_run> \
+  --recurrence-rule <recurrence> \
+  --snapshot-retention <how_many_snapshots_to_retain> \
+  --snapshot-reclaim-policy <Retain|Delete (default Delete)> \
+  --full-backup-rule <string> \
+  -n <application_namespace>
 ----
 +
 您可以將旗標設定 `--full-backup-rule`為持續完整備份，或根據需求自訂旗標 `always`。例如，如果您選擇每日精細度，則可以指定應在星期一進行完整備份。例如，使用 `--full-backup-rule "Monday,Thursday"`排程在週一和週四進行完整備份。

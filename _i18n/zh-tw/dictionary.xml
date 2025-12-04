@@ -4010,7 +4010,6 @@
   <block id="1f3ba9ee33f6eeade259b37d0a9d4295" category="open-title">使用 CR 建立排程</block>
   <block id="0e94d109e3c6dd8f63d25b03253b5d5b" category="list-text">建立自訂資源（ CR ）檔案並命名為<block ref="8b0c6e1f32e0c117335dedae62b11dba" prefix=" " category="inline-code"></block>。</block>
   <block id="fd3508664419c1ac5449e5dc6073188b" category="list-text">*SPEC.applicationRef* ：要備份之應用程式的 Kubernetes 名稱。</block>
-  <block id="53ea99d8bfae17bb8fc2186524166892" category="list-text">*spec.snapshotRetention * ：要保留的快照數。零表示不應建立任何快照。</block>
   <block id="da9137c7fbfdc9b7f02e3ca8def0431d" category="list-text">* spec.granularity*: 執行排程的頻率。可能的值、以及必要的相關欄位：</block>
   <block id="1326c499c45cd471c6075891c6573130" category="list-text">在您以正確的值填入檔案之後<block ref="8b0c6e1f32e0c117335dedae62b11dba" prefix=" " category="inline-code"></block> 、請套用 CR ：</block>
   <block id="6bb2ab2bbc2b0f3f5faec961628f6f4b" category="open-title">使用 CLI 建立排程</block>
@@ -5406,7 +5405,6 @@
   <block id="6b62784ed0975ba9ec1e2f69af860e25" category="admonition">Trident繼續支援舊版 OpenShift 版本，與<block ref="d73f30265a77d175825591fd08508146" category="inline-link-macro-rx"></block>，即使它們依賴上游不再受官方支援的 Kubernetes 版本。在這種情況下安裝Trident時，您可以放心地忽略有關 Kubernetes 版本的任何警告訊息。</block>
   <block id="4efb4e385545dd4fb4a8cf16e5ef7763" category="paragraph">保護策略透過按照定義的計劃建立快照、備份或兩者來保護應用程式。您可以選擇每小時、每天、每周和每月建立快照和備份，並可以指定要保留的副本數量。您可以使用 full-backup-rule 註解來排程非增量式完整備份。預設情況下，所有備份都是增量的。定期執行完整備份以及其間的增量備份有助於降低與復原相關的風險。</block>
   <block id="71f68550bd8133367f60c4ea58f6680d" category="list-text">您可以透過設定<block ref="90d510783632c9f8604cd880d9f84137" prefix=" " category="inline-code"></block>歸零，<block ref="460d2880d85882a9c98985b9b97c15f8" prefix=" " category="inline-code"></block>為大於零的值。環境<block ref="460d2880d85882a9c98985b9b97c15f8" prefix=" " category="inline-code"></block>為零意味著任何計劃的備份仍將建立快照，但這些快照是臨時的，並在備份完成後立即刪除。</block>
-  <block id="183c1f11eb5fcbc4a480f1ed7ec6315d" category="list-text">*spec.backupRetention*：要保留的備份數量。零表示不應建立備份（僅快照）。</block>
   <block id="50b9f8f4650a278b466928c2105fc23a" category="list-text"><block ref="769cb50c95fd3a43c659aa73aba99e5b" prefix="" category="inline-code"></block>（要求您指定<block ref="aadd5cec42dbc02d51f62a1095401f59" prefix=" " category="inline-code"></block>)</block>
   <block id="03b866ae4a8a50619a4126154196606b" category="list-text"><block ref="c512b685438f41daa7386329a3b8f8d3" prefix="" category="inline-code"></block>（要求您指定<block ref="aadd5cec42dbc02d51f62a1095401f59" prefix=" " category="inline-code"></block>和<block ref="9199af27775b1a2a876e6d7b25540711" prefix=" " category="inline-code"></block>)</block>
   <block id="2cfd34c47c4dbe46650e40185474bd21" category="list-text"><block ref="6c25e6a6da95b3d583c6ec4c3f82ed4d" prefix="" category="inline-code"></block>（要求您指定<block ref="d5870327522a71f5b75f9d3793d0dc97" prefix=" " category="inline-code"></block>， 和<block ref="4a04848e0e6e9423892ebc93ae61842d" prefix=" " category="inline-code"></block>)</block>
@@ -5969,4 +5967,10 @@
   <block id="70568f333da28442c152ac2e1f71e1a0" category="sidebar">使用Trident Protect 保護應用程式</block>
   <block id="8545a0d7cdafff8da2dece1a851630dc" category="sidebar">管理Trident Protect</block>
   <block id="83ff2dd2ff6a9ee85daa1b0fefef4019" category="sidebar">使用Trident Protect 管理執行鉤子</block>
+  <block id="94404deae8ba6c1ce377a82e28c7c23d" category="list-text">*spec.backupRetention*: (_必要_) 要保留的備份數量。零表示不應建立備份（僅快照）。</block>
+  <block id="18b62a0490b46e770b6772506df16e66" category="list-text">*spec.backupReclaimPolicy*: (_可選_) 決定如果備份 CR 在其保留期內被刪除，則備份會發生什麼情況。保留期過後，備份檔案總是會被刪除。可能的值（區分大小寫）：</block>
+  <block id="b847e9fad963501d7bf56021c133b124" category="list-text">*spec.snapshotRetention*: (_必需_) 要保留的快照數量。零表示不建立任何快照。</block>
+  <block id="7686f86b5b964234d48e80748592235c" category="list-text">*spec.snapshotReclaimPolicy*: (_可選_) 決定如果快照 CR 在其保留期內被刪除，則快照會發生什麼情況。保留期過後，快照總是會被刪除。可能的值（區分大小寫）：</block>
+  <block id="0219cebc6ab6bc045fd44c689e3508dd" category="list-text"><block ref="afece4245269582cb2f1009d4fb52047" prefix="" category="inline-code"></block></block>
+  <block id="eced49573e92b0138aa5161875ff0f1e" category="list-text"><block ref="f2a6c498fb90ee345d997f888fce3b18" prefix="" category="inline-code"></block>(預設)</block>
 </blocks>

@@ -35,6 +35,7 @@ Trident Protect 與各種完全託管和自架的 Kubernetes 產品相容，包�
 ====
 * Trident Protect備份僅支援Linux運算節點。Windows 運算節點不支援備份作業。
 * 確保安裝Trident Protect 的叢集已配置正在執行中的快照控制器和相關的 CRD。若要安裝快照控制器，請參閱 https://docs.netapp.com/us-en/trident/trident-use/vol-snapshots.html#deploy-a-volume-snapshot-controller["這些指示"]。
+* 確保至少存在一個 VolumeSnapshotClass。更多信息，請參閱link:https://docs.netapp.com/us-en/trident_main/trident-reference/objects.html#kubernetes-volumesnapshotclass-objects["Volume SnapshotClass"]。
 
 
 ====

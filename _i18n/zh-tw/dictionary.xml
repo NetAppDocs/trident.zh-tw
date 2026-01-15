@@ -5347,7 +5347,6 @@
   <block id="9ffdb95250e26c7a6b468126ac7c75b0" category="section-title">工作原理</block>
   <block id="81f2df0265026a1a04bda5484798a10d" category="section-title">輪換憑證並更新後端</block>
   <block id="4bdb23ea513714e3ddde2986c05c669f" category="inline-link-macro">增強資料一致性：使用Trident在 OpenShift 虛擬化中使用磁碟區組快照</block>
-  <block id="299fb00578f305c7fc8cabf601fd1c80" category="list-text">2025年8月19日：<block ref="e5b6bdace6eea699ef0d8738f7d6c354" category="inline-link-macro-rx"></block></block>
   <block id="a21cecd213989d401167ec6cfba8d998" category="list-text">2024年11月11日： <block ref="daed3e0cfbeb06368e36167c5fc4f468" category="inline-link-macro-rx"></block></block>
   <block id="dcae39a3bdbd6a2685507ccc14623d62" category="list-text">將 Prometheus ServiceMonitor CRD 應用到叢集：</block>
   <block id="710d51eba716c95765550f52a1c4fd61" category="cell"><block ref="4aff31f193e6ea4df2a1c4f841bad5d6" prefix="" category="inline-code"></block></block>
@@ -5808,8 +5807,6 @@
   <block id="4d3f50a0bb8d0aa06198251d243a610f" category="list-text">2025年5月9日：<block ref="8bf4497e25dfb1d363a51c8a1225e8b2" category="inline-link-macro-rx"></block></block>
   <block id="51cbce14d33c240dcce6264e624cc50c" category="inline-link-macro">隆重介紹Trident Protect 基於角色的存取控制</block>
   <block id="6160324dcfbbd61773bc180e8a31deb7" category="list-text">2025年1月15日：<block ref="081a62f4f9eb4d3386a2721283573d9c" category="inline-link-macro-rx"></block></block>
-  <block id="182ea97ce927399855cdcfbb500fd3b5" category="inline-link">隆重介紹 tridentctl protect： Trident Protect 的強大命令列介面</block>
-  <block id="8e71d16338d786f6825af5e4b954c0cc" category="list-text">2024年11月11日：<block ref="b1b53e288de7dce6fe2cc1c6406062ed" category="inline-link-rx"></block></block>
   <block id="9f2c55992b2b50b1d922c2d01e878ff7" category="inline-link-macro">Kubernetes驅動的資料管理： Trident Protect開啟新時代</block>
   <block id="0e7954c659c3ab1217994a58581a985d" category="list-text">2024年11月11日：<block ref="a4680749fd618f0f08eaefc023a6637d" category="inline-link-macro-rx"></block></block>
   <block id="3e08b68951a9cc47f14998b092350bbb" category="inline-link">使用Trident Protect 保護應用程式</block>
@@ -5991,4 +5988,7 @@
   <block id="1c93bd59e1abbbe543685399acba3c3b" category="list-text">Red Hat Enterprise Linux (RHEL) 8 或更高版本，支援 AMD64 和 ARM64 架構</block>
   <block id="d79b838675f4d040c12110c1c22fcf32" category="list-text">Ubuntu 22.04 LTS 或更高版本，支援 AMD64 和 ARM64 架構</block>
   <block id="02869471b3c4ac5c57fb8c2e1d4355dd" category="list-text">SUSE Linux Enterprise Server (SLES) 15 或更高版本</block>
+  <block id="2e5501c697a356fbc5ebc7fc18d5467a" category="inline-link-macro">面向 Kubernetes 的高階儲存解決方案</block>
+  <block id="18d930d0cd6047efc1b1fec17dfe8fe3" category="list-text">2025年10月16日：<block ref="24a30123068a80ec6ff5fa73300429f7" category="inline-link-macro-rx"></block></block>
+  <block id="5aa8cff4223fc11760e8f52c0535ed21" category="list-text">2025年8月19日：<block ref="f1470e59c8af729c50256514ac3dbbf4" category="inline-link-macro-rx"></block></block>
 </blocks>

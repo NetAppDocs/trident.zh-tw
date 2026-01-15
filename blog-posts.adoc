@@ -18,8 +18,9 @@ summary: 您可以找到一些很棒的NetApp Trident和Trident Protect 部落�
 
 == Trident 部落格
 
+* 2025年10月16日：link:https://www.netapp.com/blog/trident-25-10-advanced-kubernetes-storage-solutions/["面向 Kubernetes 的高階儲存解決方案"^]
+* 2025年8月19日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Enhancing-Data-Consistency-Volume-Group-Snapshots-in-OpenShift-virtualization/ba-p/462798["增強資料一致性：使用Trident在 OpenShift 虛擬化中使用磁碟區組快照"^]
 * 2025年5月9日： link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Automatic-Trident-backend-configuration-for-FSx-for-ONTAP-with-the-Amazon-EKS/ba-p/460586["使用 Amazon EKS 外掛程式自動為 FSx for ONTAP 設定 Trident 後端"^]
-* 2025年8月19日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Enhancing-Data-Consistency-Volume-Group-Snapshots-in-OpenShift-virtualization/ba-p/462798["增強資料一致性：使用Trident在 OpenShift 虛擬化中使用磁碟區組快照"]
 * 2025年4月15日： link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/NetApp-Trident-with-Google-Cloud-NetApp-Volumes-for-SMB-Protocol/ba-p/460118["NetApp Trident 與 Google Cloud NetApp Volumes 的 SMB 協議"^]
 * 2025年4月14日： link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Leveraging-Fiber-Channel-Protocol-with-Trident-25-02-for-Persistent-Storage-on/ba-p/460091["利用Trident 25.02 的光纖通道協定實現 Kubernetes 上的持久存儲"^]
 * 2025年4月14日： link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Unlocking-the-power-of-NetApp-ASA-r2-systems-for-Kubernetes-block-storage/ba-p/460113["釋放 NetApp ASA r2 系統對 Kubernetes 區塊儲存的強大功能"^]
@@ -49,6 +50,5 @@ summary: 您可以找到一些很棒的NetApp Trident和Trident Protect 部落�
 * 2025 年 3 月 11 日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Extending-GitOps-patterns-to-application-data-protection-with-NetApp-Trident/ba-p/459323["使用 NetApp Trident 將 GitOps 模式延伸至應用程式資料保護"^]
 * 2025 年 3 月 3 日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Trident-25-02-Elevating-the-Red-Hat-OpenShift-Experience-with-Exciting-New/ba-p/459055["Trident 25.02 ：以令人興奮的新功能提升 Red Hat OpenShift 體驗"^]
 * 2025年1月15日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Introducing-Trident-protect-role-based-access-control/ba-p/457837["隆重介紹Trident Protect 基於角色的存取控制"^]
-* 2024年11月11日： https://community.netapp.com/t5/Tech-ONTAP-Blogs/Introducing-tridentctl-protect-the-powerful-CLI-for-Trident-protect/ba-p/456494["隆重介紹 tridentctl protect： Trident Protect 的強大命令列介面"^]
 * 2024年11月11日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Kubernetes-driven-data-management-The-new-era-with-Trident-protect/ba-p/456395["Kubernetes驅動的資料管理： Trident Protect開啟新時代"^]
 

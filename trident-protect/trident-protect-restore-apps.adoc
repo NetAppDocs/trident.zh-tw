@@ -30,9 +30,13 @@ summary: 您可以使用Trident Protect 從快照或備份中還原您的應用�
 
 當您使用 BackupRestore CR 將備份還原到不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程序，並為還原的應用程式建立一個應用程式 CR。為了保護已還原的應用程序，可以建立按需備份或快照，或製定保護計劃。
 
+[NOTE]
+====
+* 將備份還原至具有現有資源的不同命名空間，並不會改變任何與備份中共用名稱的資源。若要還原備份中的所有資源，請刪除並重新建立目標命名空間，或將備份還原至新的命名空間。
+* 使用 CR 還原到新命名空間時，必須先手動建立目標命名空間，然後再套用 CR。Trident Protect 僅在使用 CLI 時才會自動建立命名空間。
 
-NOTE: 將備份還原至具有現有資源的不同命名空間，並不會改變任何與備份中共用名稱的資源。若要還原備份中的所有資源，請刪除並重新建立目標命名空間，或將備份還原至新的命名空間。
 
+====
 .開始之前
 確保 AWS 工作階段權杖到期時間足以執行任何長時間執行的 S3 還原作業。如果 Token 在還原作業期間過期，作業可能會失敗。
 
@@ -271,9 +275,13 @@ tridentctl-protect create backupinplacerestore <my_restore_name> \
 
 如果原始叢集發生問題，您可以將備份還原至不同的叢集。
 
+[NOTE]
+====
+* 當您使用 Kopia 作為資料移動器還原備份時，您可以選擇在 CR 中指定註解或使用 CLI 來控制 Kopia 使用的暫存的行為。請參閱 https://kopia.io/docs/getting-started/["Kopia 文件"^]有關您可以配置的選項的詳細資訊。使用 `tridentctl-protect create --help`有關使用Trident Protect CLI 指定註釋的更多信息，請參閱命令。
+* 使用 CR 還原到新命名空間時，必須先手動建立目標命名空間，然後再套用 CR。Trident Protect 僅在使用 CLI 時才會自動建立命名空間。
 
-NOTE: 當您使用 Kopia 作為資料移動器還原備份時，您可以選擇在 CR 中指定註解或使用 CLI 來控制 Kopia 使用的暫存的行為。請參閱 https://kopia.io/docs/getting-started/["Kopia 文件"^]有關您可以配置的選項的詳細資訊。使用 `tridentctl-protect create --help`有關使用Trident Protect CLI 指定註釋的更多信息，請參閱命令。
 
+====
 .開始之前
 確保符合下列先決條件：
 
@@ -397,9 +405,13 @@ tridentctl-protect create backuprestore <restore_name> \
 
 您可以使用自訂資源 (CR) 檔案從快照還原數據，還原到不同的命名空間或原始來源命名空間。當您使用 SnapshotRestore CR 將快照還原到不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程序，並為還原的應用程式建立應用程式 CR。為了保護已還原的應用程序，可以建立按需備份或快照，或製定保護計劃。
 
+[NOTE]
+====
+* SnapshotRestore 支持 `spec.storageClassMapping`屬性，但僅當來源和目標儲存類別使用相同的儲存後端。如果您嘗試恢復到 `StorageClass`如果使用不同的儲存後端，則復原操作將會失敗。
+* 使用 CR 還原到新命名空間時，必須先手動建立目標命名空間，然後再套用 CR。Trident Protect 僅在使用 CLI 時才會自動建立命名空間。
 
-NOTE: SnapshotRestore 支持 `spec.storageClassMapping`屬性，但僅當來源和目標儲存類別使用相同的儲存後端。如果您嘗試恢復到 `StorageClass`如果使用不同的儲存後端，則復原操作將會失敗。
 
+====
 .開始之前
 確保 AWS 工作階段權杖到期時間足以執行任何長時間執行的 S3 還原作業。如果 Token 在還原作業期間過期，作業可能會失敗。
 

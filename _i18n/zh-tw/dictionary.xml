@@ -4933,7 +4933,6 @@
   <block id="a42a308559809e0fc20b13ea51d5d3d4" category="list-text">在來源叢集上，建立來源應用程式 CR ：</block>
   <block id="85d88f09b637997959adc6d50a42d56f" category="list-text">在目的地叢集上，建立與您在來源叢集上套用的 AppVault CR 相同的來源應用程式 AppVault CR ，並命名該應用程式（例如<block ref="3ad9e8b652d0a9a977e2534bf143ea29" prefix=" " category="inline-code"></block>）。</block>
   <block id="8af8219e9797756f7e348dd40e365632" category="list-text">為目的地叢集上的目的地應用程式建立目的地 AppVault CR 。視您的儲存供應商而定，請修改中的範例<block ref="789b31b0a5cabea5de04107e65439f53" category="inline-link-macro-rx"></block>以符合您的環境：</block>
-  <block id="f454fc9c64d31c07a352c043fe184940" category="list-text">在目的地叢集上，建立 AppMirrorRelationship CR 檔案：</block>
   <block id="3d9dc864aeb5b914422a6a665c53ceeb" category="list-text">（ _Optional_ ）在目的地叢集上，檢查複寫關係的狀態和狀態：</block>
   <block id="fe07abfd92e0d0809a7eb71ce3f79b4b" category="list-text">在目標叢集上，編輯 AppMirrorRelationship CR 檔案（例如<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block>），並將 * spec.desiredState* 的值變更為<block ref="2c42d7d277f63fcbe64b041b997ceaed" prefix=" " category="inline-code"></block>。</block>
   <block id="2ebd442ba9080ba8f10b660fd69bb379" category="list-text">選用：在來源叢集上，建立來源應用程式的快照。如此可確保擷取來源叢集的最新變更。</block>
@@ -5040,7 +5039,6 @@
   <block id="6b556cca1436ef5909ccaa59f5aae989" category="paragraph">您可以使用<block ref="e80c5db95c437e3b5acee80112bd1f1a" prefix=" " category="inline-code"></block>和<block ref="484f02b530e920abf065e3f27b7a6d80" prefix=" " category="inline-code"></block>用於包含或排除資源的標誌<block ref="303a9ae359153efd5b4c1067cd875175" prefix=" " category="inline-code"></block>例如群組、類型、版本、標籤、名稱和命名空間，如下例所示：</block>
   <block id="13001655f60b86601d45076ffb7e8cb4" category="list-text">*spec.snapshotRef*：（可選）：用作備份來源的快照的名稱。如果未提供，將會建立並備份暫存快照。</block>
   <block id="93b1107cde6ba041513cd9ccf7b4bae0" category="paragraph">您可以選擇性地使用<block ref="53f5240b338c91a0568f15e2562a35de" prefix=" " category="inline-code"></block>旗標來指定備份是否應為非遞增備份。依預設，所有備份都是遞增備份。使用此旗標時，備份會變成非遞增備份。最佳做法是定期執行完整備份，然後在完整備份之間執行遞增備份，以將與還原相關的風險降至最低。</block>
-  <block id="ab5807fb06fd654f730a4ed5a02bb950" category="paragraph">您可以將旗標設定<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block>為持續完整備份，或根據需求自訂旗標<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>。例如，如果您選擇每日精細度，則可以指定應在星期一進行完整備份。例如，使用<block ref="d416cce9d6bcb838c8958b9fbb84dffa" prefix=" " category="inline-code"></block>排程在週一和週四進行完整備份。</block>
   <block id="396e0c641a3eb6083fa0ba7badcff8ac" category="admonition">確保回收策略設定為<block ref="f2a6c498fb90ee345d997f888fce3b18" prefix=" " category="inline-code"></block>從物件儲存中刪除所有備份資料。該策略的預設值是<block ref="afece4245269582cb2f1009d4fb52047" prefix=" " category="inline-code"></block>以避免意外資料遺失。如果政策沒有改變<block ref="f2a6c498fb90ee345d997f888fce3b18" prefix=" " category="inline-code"></block> ，備份資料將保留在物件儲存中，需要手動刪除。</block>
   <block id="28b0a2e1fa7af6d4a2a83bc61c130c0f" category="list-text">確保連接到叢集的 NetApp 儲存裝置使用 Trident 24.02 或更新版本（建議使用 Trident 24.10）。</block>
   <block id="070b998f5495f2da2fb3ac5053772d1e" category="list-text"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block> ：NFS</block>
@@ -5412,7 +5410,6 @@
   <block id="7793fda5cb73b26f1ecdca11dcd1383e" category="list-text">*spec.minute*：（可選）計畫應運行的小時中的分鐘數（0 - 59）。如果粒度設定為<block ref="769cb50c95fd3a43c659aa73aba99e5b" prefix=" " category="inline-code"></block>，<block ref="c512b685438f41daa7386329a3b8f8d3" prefix=" " category="inline-code"></block> ，<block ref="6c25e6a6da95b3d583c6ec4c3f82ed4d" prefix=" " category="inline-code"></block> ， 或者<block ref="9030e39f00132d583da4122532e509e9" prefix=" " category="inline-code"></block>。該值必須以字串形式提供。</block>
   <block id="16220401716289e6ffa12bfc49da1d84" category="paragraph">備份和快照計劃的範例 YAML：</block>
   <block id="ce230d4d200ba39549537496edaaef6a" category="paragraph">僅快照計劃的範例 YAML：</block>
-  <block id="19c776919085070d66d199dd494adbbf" category="paragraph">對於僅快照計劃，設置<block ref="39c61d5d6dee0f5540cfcb77307edd90" prefix=" " category="inline-code"></block>並指定一個大於 0 的值<block ref="2c3fac80fc69264c6dbace5f18065639" prefix=" " category="inline-code"></block>。</block>
   <block id="aff5adfa33a9913ad2ab5d578c3f08c8" category="cell">“300”</block>
   <block id="9d397fb20eca1ebda087637e32a30a7b" category="cell">“1000”</block>
   <block id="c58ac3825b86aa7d2974a07f7fa6034e" category="cell"><block ref="ddb26827be8b4407890c3c9d97a1cfaa" prefix="" category="inline-code"></block></block>
@@ -5551,7 +5548,6 @@
   <block id="c905e2b95aa2520ffe7b6ad7aad2c503" category="section-title">支援的日程註釋</block>
   <block id="231f65a2442cb5e8f7f8b483af54ac5a" category="paragraph">下表描述了建立計劃變更請求 (CR) 時可以使用的註釋：</block>
   <block id="5b58e088de549b107fa1dd792e819579" category="cell">protect.trident.netapp.io/full-backup-rule</block>
-  <block id="9ffffe599d0bc4659e6c0f79801fcaae" category="cell">指定安排完整備份的規則。你可以將其設定為<block ref="f9f90eeaf400d228facde6bc48da5cfb" prefix=" " category="inline-code"></block>您可以根據需要進行持續完整備份或自訂備份。例如，如果您選擇按日粒度進行備份，則可以指定應進行完整備份的星期幾（例如，<block ref="1f27587ff587afb7a193caa147250c69" prefix=" " category="inline-code"></block> ）。</block>
   <block id="b01a80a674fe93ad98089e11a51fcea9" category="cell">未設定（所有備份均為增量備份）</block>
   <block id="b5e51a86f312c3ccd69b085ad9c3dbe0" category="cell">等待新建立的持久卷聲明 (PVC) 到達的最大時間（以秒為單位）<block ref="685d1f2146dd079015e81918414e8971" prefix=" " category="inline-code"></block>操作失敗前的階段。適用於所有還原 CR 類型（備份還原、備份就地還原、快照還原、快照就地還原）。如果您的儲存後端或叢集經常需要更多時間，請使用更高的值。</block>
   <block id="f5c80bb44fdac7820c81d85638ff23d1" category="admonition">您可以透過新增以下內容來配置升級期間的日誌等級。<block ref="96bd1ee7f33c1d6baf0aad13f7a31974" prefix=" " category="inline-code"></block>升級命令。預設日誌等級為<block ref="1ea4c3ab05ee0c6d4de30740443769cb" prefix=" " category="inline-code"></block>。建議啟用偵錯日誌記錄進行故障排除，因為它可以幫助NetApp支援人員診斷問題，而無需更改日誌等級或重現問題。</block>
@@ -5991,4 +5987,14 @@
   <block id="18d930d0cd6047efc1b1fec17dfe8fe3" category="list-text">2025年10月16日：<block ref="24a30123068a80ec6ff5fa73300429f7" category="inline-link-macro-rx"></block></block>
   <block id="5aa8cff4223fc11760e8f52c0535ed21" category="list-text">2025年8月19日：<block ref="f1470e59c8af729c50256514ac3dbbf4" category="inline-link-macro-rx"></block></block>
   <block id="60aaccb9d5284a26ba3fa0ce52289c0e" category="list-text">在NetApp完全或有限支援下執行ONTAP版本的本機FAS、 AFF或ASA r2（iSCSI、NVMe/TCP 和 FC）。看 <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block>。</block>
+  <block id="0d981bd922d3b7fa5c6ab60538882152" category="paragraph">以下選項可讓您對日程安排進行更多控制：</block>
+  <block id="658bebab9811ba4b6af979bf6729b880" category="list-text">*完整備份計畫*：使用<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block> 標記以安排非增量式完整備份。此標誌僅適用於<block ref="b26e8dcc9204c19e8b53f41bdb74a18f" prefix=" " category="inline-code"></block>。可能的值：</block>
+  <block id="4567b4a707ba5825e128edd3634d5f92" category="list-text"><block ref="68eec46437c384d8dad18d5464ebc35c" prefix="" category="inline-code"></block>每天都要建立完整備份。</block>
+  <block id="f21917ffe281ee71fd8121ec0a3fccbf" category="list-text">具體工作日：指定一個或多個日期，以逗號分隔（例如，<block ref="1f27587ff587afb7a193caa147250c69" prefix=" " category="inline-code"></block>）。有效值：星期一、星期二、星期三、星期四、星期五、星期六、星期日。</block>
+  <block id="6e849a02b0ee49331b8e0924db4fd606" category="admonition">這<block ref="61df7cc86eb24ab1300f0e74e74bb50c" prefix=" " category="inline-code"></block> 此標誌位不適用於按小時、按週或按月劃分的粒度。</block>
+  <block id="e77d5330cef0b9b9ffe0a6484cc5ae6c" category="list-text">*僅快照計劃*：設定<block ref="39c61d5d6dee0f5540cfcb77307edd90" prefix=" " category="inline-code"></block> 並指定一個大於零的值<block ref="2c3fac80fc69264c6dbace5f18065639" prefix=" " category="inline-code"></block>。</block>
+  <block id="a0c9aee704bd08ded7adab26e23ad3f0" category="cell">指定安排完整備份的規則。你可以將其設定為<block ref="68eec46437c384d8dad18d5464ebc35c" prefix=" " category="inline-code"></block> 您可以根據需要進行持續完整備份或自訂備份。例如，如果您選擇按日粒度進行備份，則可以指定應進行完整備份的星期幾（例如，<block ref="1f27587ff587afb7a193caa147250c69" prefix=" " category="inline-code"></block>）。有效的工作日值為：星期一、星期二、星期三、星期四、星期五、星期六、星期日。請注意，此註釋只能用於已包含以下內容的日程表：<block ref="e073761397c4b88e318b992e2a122f3c" prefix=" " category="inline-code"></block> 設定為<block ref="c512b685438f41daa7386329a3b8f8d3" prefix=" " category="inline-code"></block>。</block>
+  <block id="11442c99db3d2b2bf685a98052263ff2" category="list-text">使用 CR 還原到新命名空間時，必須先手動建立目標命名空間，然後再套用 CR。Trident Protect 僅在使用 CLI 時才會自動建立命名空間。</block>
+  <block id="0f98c9dc4568dec3e7387b839805d490" category="list-text">在目標叢集上，建立 AppMirrorRelationship CR 檔案。</block>
+  <block id="b056e38029a731ef20ed5ec00c3dcfd8" category="admonition">使用 CR 時，請在套用 CR 之前手動建立目標命名空間。Trident Protect 僅在使用 CLI 時才會自動建立命名空間。</block>
 </blocks>

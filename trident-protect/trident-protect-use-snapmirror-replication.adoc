@@ -364,7 +364,11 @@ kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n trident-
 ----
 
 
-. 在目的地叢集上，建立 AppMirrorRelationship CR 檔案：
+. 在目標叢集上，建立 AppMirrorRelationship CR 檔案。
++
+
+NOTE: 使用 CR 時，請在套用 CR 之前手動建立目標命名空間。Trident Protect 僅在使用 CLI 時才會自動建立命名空間。
+
 +
 [role="tabbed-block"]
 ====

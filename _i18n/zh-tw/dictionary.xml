@@ -5490,7 +5490,6 @@
   <block id="493d70b01045b3860d249e304254b4c7" category="paragraph">使用Trident，您可以利用 VolumeSnapshots 從中建立新的 PV。使用FlexClone技術從這些快照建立 PV（適用於受支援的ONTAP後端）執行。從快照建立 PV 時，後備磁碟區是快照父磁碟區的FlexClone 。這<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>驅動程式使用 Element 軟體磁碟區克隆從快照建立 PV。它在這裡從 Element 快照創建一個克隆。</block>
   <block id="25f96c73018ecdf4416a2540508d0a38" category="paragraph">使用時<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>，<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ， 和<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>儲存驅動程序， Trident可以克隆磁碟區。使用時<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>或者<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式不支援克隆。從現有磁碟區建立新磁碟區將建立一個新的快照。</block>
   <block id="6ee9f47ba3ae173d8bb74106620d9108" category="paragraph">NetApp Trident支援在所有流行的NetApp儲存平台（包括公有雲和本機）上使用和管理儲存資源，包括本機ONTAP叢集（AFF、 FAS和ASA）、 ONTAP Select、 Cloud Volumes ONTAP、Element 軟體（NetApp HCI、 SolidFire ）、 Azure NetApp Files ONTAP 、Element 軟體（ NetApp HCI 、 SolidFire）、 Azure NetApp Files和Amazon FSx for NetApp ONTAP。</block>
-  <block id="c51e83bb218f1a11360d19989cc8e7dd" category="list-text">NetApp 有限支援下的本機FAS、 AFF或ASA r2（iSCSI、NVMe/TCP 和 FC）叢集版本。看<block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block>。</block>
   <block id="8f83acda25105c19b3eeb3c4d237ac45" category="section-title">Trident 25.10 所需的容器鏡像</block>
   <block id="c707950f03771f414f81ae094c2a267c" category="list-text">docker.io/netapp/trident:25.10.0</block>
   <block id="a83aae835c84331f16ea2f7ab7c6b32b" category="list-text">docker.io/netapp/trident-autosupport:25.10</block>
@@ -5991,4 +5990,5 @@
   <block id="2e5501c697a356fbc5ebc7fc18d5467a" category="inline-link-macro">面向 Kubernetes 的高階儲存解決方案</block>
   <block id="18d930d0cd6047efc1b1fec17dfe8fe3" category="list-text">2025年10月16日：<block ref="24a30123068a80ec6ff5fa73300429f7" category="inline-link-macro-rx"></block></block>
   <block id="5aa8cff4223fc11760e8f52c0535ed21" category="list-text">2025年8月19日：<block ref="f1470e59c8af729c50256514ac3dbbf4" category="inline-link-macro-rx"></block></block>
+  <block id="60aaccb9d5284a26ba3fa0ce52289c0e" category="list-text">在NetApp完全或有限支援下執行ONTAP版本的本機FAS、 AFF或ASA r2（iSCSI、NVMe/TCP 和 FC）。看 <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block>。</block>
 </blocks>

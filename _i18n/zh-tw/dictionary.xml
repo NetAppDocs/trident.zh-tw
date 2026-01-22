@@ -5997,4 +5997,7 @@
   <block id="11442c99db3d2b2bf685a98052263ff2" category="list-text">使用 CR 還原到新命名空間時，必須先手動建立目標命名空間，然後再套用 CR。Trident Protect 僅在使用 CLI 時才會自動建立命名空間。</block>
   <block id="0f98c9dc4568dec3e7387b839805d490" category="list-text">在目標叢集上，建立 AppMirrorRelationship CR 檔案。</block>
   <block id="b056e38029a731ef20ed5ec00c3dcfd8" category="admonition">使用 CR 時，請在套用 CR 之前手動建立目標命名空間。Trident Protect 僅在使用 CLI 時才會自動建立命名空間。</block>
+  <block id="5d644af86a05d68ceba69b7be5855202" category="paragraph">以下範例指令安裝 Trident EKS 外掛程式版本 25.6.1：<block ref="c0283be6b5622fc9d2b8ebb2d7fd26c9" prefix=" " category="inline-code"></block>（使用專用版本）</block>
+  <block id="5ebe108c241a46f56c18ffb59389b015" category="paragraph">以下範例指令安裝 Trident EKS 外掛程式版本 25.6.2：<block ref="c1c3ee7d0d3404bd1e2b5bdd62f81d43" prefix=" " category="inline-code"></block>（使用專用版本）</block>
+  <block id="7400a1a595f19cde496a4d3cdf6a4570" category="admonition">使用</block>
 </blocks>

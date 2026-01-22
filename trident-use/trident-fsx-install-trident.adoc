@@ -189,6 +189,9 @@ NOTE: *如果您使用 Pod Identity 關聯，請跳過這些步驟。 *
 
 *對於 Pod Identity，請使用以下格式*：
 
+
+NOTE: 使用
+
 [source, json]
 ----
 {

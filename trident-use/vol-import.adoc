@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/vol-import.html 
-keywords: volumes, import volumes, drivers, tridentctl import, pv, persistent volumes, pvc, disaster recovery, dr, clone, reuse, managed volume, unmanaged volume, managed 
-summary: 您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入為Kubernetes PV。 
+keywords: volumes, import volumes, drivers, tridentctl import, pv, persistent volumes, pvc, disaster recovery, dr, clone, reuse, managed volume, unmanaged volume, managed, annotations 
+summary: '您可以使用 `tridentctl import`或 PVC 註解將現有儲存磁碟區匯入為 Kubernetes PV。' 
 ---
 = 匯入磁碟區
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入�
 
 
 [role="lead"]
-您可以使用「tridentcl匯入」將現有的儲存磁碟區匯入為Kubernetes PV。
+您可以使用 `tridentctl import`或透過使用 Trident 匯入註解建立持久性磁碟區宣告（PVC），將現有儲存磁碟區匯入為 Kubernetes PV。
 
 
 
@@ -59,10 +59,17 @@ TIP: 如果您想使用 Kubernetes 進行容器化工作負載，但又想在 Ku
 
 == 匯入 Volume
 
-您可以使用 `tridentctl import` 匯入 Volume 。
+您可以使用  `tridentctl import` 或透過建立具有 Trident 匯入註解的 PVC 來匯入磁碟區。
 
+
+NOTE: 如果使用 PVC 註釋，則無需下載或使用 `tridentctl`匯入磁碟區。
+
+[role="tabbed-block"]
+====
+.使用 tridentctl
+--
 .步驟
-. 建立持續 Volume Claim （ PVC ）檔案（例如、 `pvc.yaml`）用於建立 PVC 。PVC 檔案應包含在內 `name`、 `namespace`、 `accessModes`和 `storageClassName`。您也可以指定 `unixPermissions` 在您的 PVC 定義中。
+. 建立 PVC 檔案（例如 `pvc.yaml`），用於建立 PVC。PVC 檔案應包含 `name`、 `namespace`、 `accessModes`和 `storageClassName`。您也可以在 PVC 定義中指定 `unixPermissions`。
 +
 以下是最低規格的範例：
 
@@ -81,7 +88,7 @@ spec:
 ----
 +
 
-WARNING: 請勿包含其他參數、例如 PV 名稱或 Volume 大小。這可能會導致匯入命令失敗。
+NOTE: 僅包含必需參數。其他參數（例如 PV 名稱或磁碟區大小）可能會導致匯入命令失敗。
 
 . 使用 `tridentctl import`用於指定包含磁碟區的Trident後端名稱以及唯一標識儲存上磁碟區的名稱的命令（例如： ONTAP FlexVol、Element Volume）。這 `-f`需要提供參數來指定PVC檔案的路徑。
 +
@@ -91,6 +98,58 @@ tridentctl import volume <backendName> <volumeName> -f <path-to-pvc-file>
 ----
 
 
+--
+.使用 PVC 註釋
+--
+.步驟
+. 建立一個 PVC YAML 檔案（例如， `pvc.yaml`），其中包含所需的 Trident 匯入註解。PVC 檔案應包含：
++
+** `name` 和  `namespace` 在中繼資料中
+** `accessModes`、 `resources.requests.storage` 和  `storageClassName` 在規格中
+** 註釋：
++
+*** `trident.netapp.io/importOriginalName`：後端的磁碟區名稱
+*** `trident.netapp.io/importBackendUUID`：磁碟區所在的後端 UUID
+*** `trident.netapp.io/notManaged`（可選）：設定為 `"true"`表示非託管磁碟區。預設值為 `"false"`。
++
+以下是匯入託管磁碟區的範例規格：
+
++
+[source, yaml]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: <pvc-name>
+  namespace: <namespace>
+  annotations:
+    trident.netapp.io/importOriginalName: "<volume-name>"
+    trident.netapp.io/importBackendUUID: "<backend-uuid>"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: <size>
+  storageClassName: <storage-class-name>
+----
+
+
+
+
+. 將 PVC YAML 檔案套用到您的 Kubernetes 叢集：
++
+[listing]
+----
+kubectl apply -f <pvc-file>.yaml
+----
++
+Trident 會自動匯入磁碟區並將其繫結至 PVC。
+
+
+
+--
+====
 
 
 == 範例
@@ -112,8 +171,8 @@ Trident 支援使用和 `ontap-nas-flexgroup`驅動程式進行 Volume 匯入 `o
 ====
 使用驅動程式建立的每個磁碟區都 `ontap-nas`是 ONTAP 叢集上的 FlexVol volume 。使用驅動程式匯入 FlexVol 磁碟區 `ontap-nas`的運作方式相同。ONTAP 叢集上已存在的 FlexVol Volume 可匯入為 `ontap-nas` PVC 。同樣地、 FlexGroup Vols 也可以匯入為 `ontap-nas-flexgroup` PVCS 。
 
-.ONTAP NAS 範例
-以下是託管 Volume 和非託管 Volume 匯入的範例。
+.使用 tridentctl 的 ONTAP NAS 範例
+以下範例展示如何使用 `tridentctl`匯入託管磁碟區和非託管磁碟區。
 
 [role="tabbed-block"]
 ====
@@ -150,6 +209,60 @@ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-ma
 ----
 --
 ====
+.使用 PVC 註解的 ONTAP NAS 範例
+以下範例展示如何使用 PVC 註解匯入託管和非託管磁碟區。
+
+[role="tabbed-block"]
+====
+.託管 Volume
+--
+以下範例從後端 `81abcb27-ea63-49bb-b606-0a5315ac5f21`匯入一個名為 `ontap_volume1`的 1GiB `ontap-nas` 磁碟區，並使用 PVC 註解設定了 RWO 存取模式：
+
+[source, yaml]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: <managed-imported-volume>
+  namespace: <namespace>
+  annotations:
+    trident.netapp.io/importOriginalName: "ontap_volume1"
+    trident.netapp.io/importBackendUUID: "81abcb27-ea63-49bb-b606-0a5315ac5f21"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: <storage-class-name>
+
+----
+--
+.非託管 Volume
+--
+以下範例從後端 `34abcb27-ea63-49bb-b606-0a5315ac5f34`匯入名為 `ontap-volume2`的 1Gi `ontap-nas` 磁碟區，並使用 PVC 註解設定 RWO 存取模式：
+
+[source, yaml]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: <umanaged-imported-volume>
+  namespace: <namespace>
+  annotations:
+    trident.netapp.io/importOriginalName: "ontap-volume2"
+    trident.netapp.io/importBackendUUID: "34abcb27-ea63-49bb-b606-0a5315ac5f34"
+    trident.netapp.io/notManaged: "true"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: <storage-class-name>
+----
+--
+====
 
 
 === SAN ONTAP
@@ -158,8 +271,7 @@ Trident支援使用卷宗導入 `ontap-san` （iSCSI、NVMe/TCP 和 FC）和 `on
 
 Trident可以匯入包含單一 LUN 的ONTAP SAN FlexVol磁碟區。這與 `ontap-san` 驅動程序，它為每個 PVC 建立一個FlexVol volume，並在FlexVol volume內建立一個 LUN。Trident導入FlexVol volume並將其與 PVC 定義關聯。Trident可以導入 `ontap-san-economy` 包含多個 LUN 的磁碟區。
 
-.ONTAP SAN 範例
-以下是託管 Volume 和非託管 Volume 匯入的範例。
+以下範例展示如何匯入託管和非託管磁碟區：
 
 [role="tabbed-block"]
 ====
@@ -211,7 +323,6 @@ Trident 支援使用驅動程式的 NetApp Element 軟體和 NetApp HCI Volume �
 
 NOTE: Element驅動程式支援重複的Volume名稱。不過、如果有重複的磁碟區名稱、 Trident 會傳回錯誤。因應措施是複製磁碟區、提供唯一的磁碟區名稱、然後匯入複製的磁碟區。
 
-.元素範例
 下列範例會匯入 `element-managed` 後端上的 Volume `element_default`。
 
 [listing]
@@ -233,7 +344,6 @@ Trident 支援使用驅動程式進行 Volume 匯入 `azure-netapp-files`。
 
 NOTE: 若要匯入 Azure NetApp Files Volume 、請依磁碟區路徑識別該磁碟區。Volume 路徑是之後 Volume 匯出路徑的一部分 `:/`。例如、如果掛載路徑為 `10.0.0.2:/importvol1`、磁碟區路徑為 `importvol1`。
 
-.Azure NetApp Files 範例
 下列範例會匯入 `azure-netapp-files` 後端上的 Volume `azurenetappfiles_40517` 磁碟區路徑 `importvol1`。
 
 [listing]
@@ -252,8 +362,7 @@ tridentctl import volume azurenetappfiles_40517 importvol1 -f <path-to-pvc-file>
 
 Trident 支援使用驅動程式進行 Volume 匯入 `google-cloud-netapp-volumes`。
 
-.Google Cloud NetApp Volumes 範例
-以下示例將使用 Volume `testvoleasiaeast1` 在後端導入一個 `google-cloud-netapp-volumes` Volume `backend-tbc-gcnv1` 。
+以下範例使用磁碟區  `testvoleasiaeast1` 從後端  `backend-tbc-gcnv1` 匯入磁碟區。
 
 [listing]
 ----

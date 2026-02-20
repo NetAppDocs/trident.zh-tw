@@ -8,6 +8,8 @@ indexpage:
       url: trident-rn.html
     - title: 舊版
       url: "/earlier-versions.html"
+    - title: Trident 對 ASA r2 儲存系統的支援
+      url: trident-asar2-support.html
   - title: 開始使用
     links:
     - title: 瞭解 Trident

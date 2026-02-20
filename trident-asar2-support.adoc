@@ -1,0 +1,48 @@
+= 支援的作業
+:allow-uri-read: 
+
+
+sidebar: sidebar permalink: trident-asar2-support.html keywords: asar2, trident, fcp, nvme, tcp, nvme/tcp, fibre channel summary: NetApp Trident 支援 ONTAP ASA r2 的 iSCSI 和 NVMe/TCP。--- = NetApp Trident 對 ONTAP ASA r2 儲存系統的支援 :hardbreaks: :icons: font :imagesdir: ./media/
+
+[role="lead"]
+NetApp Trident 25.02 及更高版本支援 NetApp ASA r2 系統作為儲存後端。如需更多資訊，請參閱 link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2 系統"^]。
+
+ASA r2 系統需要  `ontap-san` 驅動程式。Trident 不支援 ASA r2 系統的  `ontap-san-economy` 驅動程式。
+
+當您在後端設定中將 `ontap-san`指定為 `storageDriverName`時，Trident 會自動偵測 ASA r2 儲存系統。
+
+Trident 為 ASA r2 系統提供有限的資料保護，並配備 Trident protect。
+
+支援的 SAN 傳輸協定取決於您的 Trident 版本：
+
+* Trident 25.02 及更高版本支援 iSCSI 。
+* Trident 25.06 及更新版本除了支援 iSCSI 外，還支援 NVMe/TCP。
+
+
+您必須為 ONTAP 後端儲存的儲存虛擬機器（SVM）指派至少一個 Aggregate。請參閱 link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["在 ASA r2 系統中為 SVM 指派 Aggregate"^] 以取得相關說明。
+
+
+
+== 支援的作業
+
+* 配置持久磁碟區（PV）
+* 動態磁碟區配置
+* 建立和刪除磁碟區
+* 複製磁碟區
+* 擴充磁碟區
+* 管理儲存類別
+
+
+
+
+== 不支援的作業
+
+* LUKS 加密
+* SnapMirror Volume 複寫
+* 限制 Aggregate 使用量
+* 空間保留模式
+* 快照
+* 分層
+
+
+如需更多資訊，請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["SAN組態選項與範例ONTAP"^]。

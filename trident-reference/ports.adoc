@@ -16,25 +16,104 @@ summary: 深入瞭解 Trident 所通訊的連接埠。
 
 
 
-== Trident 連接埠
+== 總覽
 
-Trident使用下列連接埠在 Kubernetes 內部進行通訊：
+Trident 使用各種連接埠與 Kubernetes 叢集內部以及儲存後端進行通訊。以下概述了關鍵連接埠、其用途和安全注意事項。
 
-[cols="2,4"]
+* **出站流量控制重點**：Kubernetes 節點（控制器和工作節點）主要啟動對儲存 LIF/IP 的流量，因此 iptables 規則應允許節點 IP 透過這些連接埠向特定儲存 IP 發起出站流量。避免使用過於寬泛的「任意到任意」規則。
+* **入站限制**：將內部 Trident 連接埠限制為叢集內部流量（例如，使用 Calico 等 CNI）。主機防火牆上無不必要的入站暴露。
+* **協定安全性**：
++
+** 盡可能使用 TCP （更可靠）。
+** 如果敏感，請為 iSCSI 啟用 CHAP/IPsec；為管理啟用 TLS/HTTPS（連接埠 443/8443）。
+** 對於 NFSv4（Trident 中的預設值），如果不需要，請剪除 UDP/ 較舊的 NFSv3 連接埠（例如 4045-4049）。
+** 限制在受信任的子網路內；使用 Prometheus 等工具進行監控（選用連接埠 8001）。
+
+
+
+
+
+
+=== 控制器節點的連接埠
+
+這些連接埠主要用於 Trident 操作員（後端管理）。所有內部連接埠均為 Pod 層級；僅當主機防火牆干擾 CNI 時才允許在節點上使用。
+
+[cols="1,1,2,1,2"]
 |===
-| 連接埠 | 目的 
+| 連接埠 / 協定 | 方向 | 目的 | 驅動程式 / 通訊協定 | 安全注意事項 
 
 
-| 8443. | 後端通道HTTPS 
+| TCP 8000 | 入站 / 出站（叢集內部） | Trident REST 伺服器（operator-controller 通訊） | 全部 | 僅限使用 pod CIDR；不得暴露於外部環境。 
 
 
-| 8001 | Prometheus指標端點 
+| TCP 8443 | 入站 / 出站（叢集內部） | 反向通道 HTTPS （安全內部 API） | 全部 | 採用 TLS 加密；若使用，則僅限於 Kubernetes 服務網格。 
 
 
-| 8000 | Trident REST伺服器 
+| TCP 8001 | 入站（叢集內部、選用） | Prometheus 指標 | 全部 | 僅對監控工具開放（例如，使用 RBAC）；如果未使用則停用。 
 
 
-| 17546 | Trident取消安裝套件所使用的活動/整備度探針連接埠 
+| TCP 443 | 傳出 | HTTPS 至 ONTAP SVM/ 叢集管理 LIF | ONTAP（全部）、ANF | 需要進行 TLS 憑證驗證；僅限管理 LIF IP 位址。 
+
+
+| TCP 8443 | 傳出 | HTTPS 至 E 系列 Web Services Proxy | E 系列（iSCSI） | 預設 REST API；使用憑證；可在後端 YAML 中設定。 
+|===
+
+
+=== 工作節點的連接埠
+
+這些連接埠用於 CSI 節點守護程序集和 pod 掛載。資料連接埠用於出站連接到儲存資料 LIF；如果使用 NFSv3，則包含 NFSv3 附加資訊（NFSv4 為選用）。
+
+[cols="1,1,2,1,2"]
+|===
+| 連接埠 / 協定 | 方向 | 目的 | 驅動程式 / 通訊協定 | 安全注意事項 
+
+
+| TCP 17546 | 傳入（本機至 Pod） | CSI 節點存活 / 就緒偵測 | 全部 | 可設定（--probe-port）；確保無主機衝突；僅限本機。 
+
+
+| TCP 8000 | 入站 / 出站（叢集內部） | Trident REST伺服器 | 全部 | 如上所述；Pod 內部。 
+
+
+| TCP 8443 | 入站 / 出站（叢集內部） | 後端通道HTTPS | 全部 | 如上所述。 
+
+
+| TCP 8001 | 入站（叢集內部、選用） | Prometheus 指標 | 全部 | 如上所述。 
+
+
+| TCP 443 | 傳出 | HTTPS 至 ONTAP SVM/ 叢集管理 LIF | ONTAP（全部）、ANF | 如上所述；用於探索。 
+
+
+| TCP 8443 | 傳出 | HTTPS 至 E 系列 Web Services Proxy | E 系列（iSCSI） | 如上所述。 
+
+
+| TCP/UDP 111 | 傳出 | RPCBIND/portmapper | ONTAP-NAS （NFSv3/v4）、ANF （NFS） | v3 版本必需；v4 版本可選（防火牆卸載）；如果僅使用 NFSv4 ，則限制使用。 
+
+
+| TCP/UDP 2049 | 傳出 | NFS 精靈程式 | ONTAP-NAS （NFSv3/v4）、ANF （NFS） | 核心資料；眾所周知；使用 TCP 以確保可靠性。 
+
+
+| TCP/UDP 635 | 傳出 | 掛載精靈程式 | ONTAP-NAS （NFSv3/v4）、ANF （NFS） | 掛載；可進行雙向回呼（如有需要，允許傳入臨時連線）。 
+
+
+| UDP 4045 | 傳出 | NFS 鎖定管理器（nlockmgr） | ONTAP-NAS （NFSv3） | 檔案鎖定；跳過 v4 （ pNFS 處理）；僅限 UDP 。 
+
+
+| UDP 4046 | 傳出 | NFS 狀態監視器（statd） | ONTAP-NAS （NFSv3） | 通知；可能需要入站臨時連接埠 (1024-65535) 進行回調。 
+
+
+| UDP 4049 | 傳出 | NFS 配額守護程式（rquotad） | ONTAP-NAS （NFSv3） | 配額；v4 版本跳過。 
+
+
+| TCP 3260 | 傳出 | iSCSI 目標（探索 / 資料 / CHAP） | ONTAP-SAN （iSCSI）、E-Series （iSCSI） | 眾所周知；透過此連接埠進行 CHAP 驗證；啟用雙向 CHAP 以確保安全。 
+
+
+| TCP 445 | 傳出 | SMB/CIFS | ONTAP-NAS (SMB)、ANF (SMB) | 眾所周知；使用具有加密功能的 SMB3（Trident 註釋 netapp.io/smb-encryption=true）。 
+
+
+| TCP/UDP 88 （選用） | 傳出 | Kerberos 驗證 | ONTAP （NFS/SMB/iSCSI with Kerb） | 如果使用 Kerberos（非預設）；連接至 AD 伺服器，而非儲存設備。 
+
+
+| TCP/UDP 389 （選用） | 傳出 | LDAP | ONTAP （ NFS/SMB 搭配 LDAP ） | 類似；用於名稱解析 / 驗證；限制為 AD。 
 |===
 
 NOTE: 您可以在安裝期間使用變更活動力/整備度探針連接埠 `--probe-port` 旗標。請務必確認工作節點上的其他程序並未使用此連接埠。

@@ -1223,16 +1223,9 @@
   <block id="25f221cc63a7e1fa55b05c29420a72a2" category="paragraph"><block ref="2841e7defe3939e68d83d007d1ad666b" category="inline-link-rx"></block> 將例行工作自動化、讓基礎架構管理員能夠專注於更重要的功能、進而簡化資料中心的管理與規模。</block>
   <block id="be17f8b9c728a6cb61cad5a2609b3888" category="paragraph">Trident完全支援此功能。NetApp HCITrident可直接針對底層NetApp HCI 的資訊儲存平台、為容器化應用程式配置及管理儲存設備。</block>
   <block id="29e7ab00082418141d470583a19c28d3" category="paragraph"><block ref="2384314bcd106c8062815b2ed789c4ad" category="inline-link-rx"></block> 是採用NetApp技術的企業級Azure檔案共享服務。您可以在Azure原生環境中執行最嚴苛的檔案型工作負載、並享有NetApp所提供的效能與豐富資料管理功能。</block>
-  <block id="60aaf44d4b562252c04db7f98497e9aa" category="cell">連接埠</block>
   <block id="261addf78c7b2c961032b3dd08ba0b1f" category="cell">目的</block>
-  <block id="7e6b20d014d1c659e4eaf20dc2dcd7eb" category="cell">8443.</block>
   <block id="69bbf3571db03f0487c04a8254d15c75" category="cell">後端通道HTTPS</block>
-  <block id="bc3c4a6331a8a9950945a1aa8c95ab8a" category="cell">8001</block>
-  <block id="e5a4c481cc6f5935efb2c9d381f2e342" category="cell">Prometheus指標端點</block>
-  <block id="67ff32d40fb51f1a2fd2c4f1b1019785" category="cell">8000</block>
   <block id="10f5b805a46ea829cc3b9d8560a224ae" category="cell">Trident REST伺服器</block>
-  <block id="35cf0f704286108deb76366a16415140" category="cell">17546</block>
-  <block id="fb1396f82d0096741ea1b06f8cee2340" category="cell">Trident取消安裝套件所使用的活動/整備度探針連接埠</block>
   <block id="af2a4d2810d86aa0169c117f82682f9a" category="doc">常見問題集</block>
   <block id="96ab491ef73d5db0cd15f55e1552cc22" category="section-title">一般問題</block>
   <block id="92d1656d06303733c5e1398fb273a17e" category="section-title">疑難排解與支援</block>
@@ -4544,7 +4537,6 @@
   <block id="97949d2167cfb02925ebeb5fbc18e41c" category="admonition">使用<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>或<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式時，您需要將後端組態中的參數設定<block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix=" " category="inline-code"></block>為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>，以便 Trident 可以使用受管理的匯出原則套用的污染來限制從 Kubernetes 節點的存取。</block>
   <block id="f27e6cf95381139bd9916c64f178d212" category="list-text">對於運行 Kubernetes 1.24 的羣集，請使用 <block ref="ccef28639b5a7d8b851d32c1ca719ce3" category="inline-link-macro-rx"></block>。</block>
   <block id="b9f6abf28d1518cdaae0ed7e29a5727e" category="list-text">對於運行 Kubernetes 1.25 或更高版本的羣集，請使用 <block ref="d1039b29d019902f70f499d65ede99cb" category="inline-link-macro-rx"></block>。</block>
-  <block id="701fc71f0daf0d596d98b3af41d195dd" category="list-text">內部部署 NetApp FAS ， AFF 和 ASA 叢集</block>
   <block id="405c5315f2ee81c7d907857a97bc9ccc" category="list-text">將備份產出工件放在 FlexVol volume 上</block>
   <block id="f4d58905240b9c44d84e6ee73c8499ac" category="admonition">NetApp 建議您保護 FlexVol 所在的 SVM ，並與另一個 SVM 建立 SnapMirror 關係。</block>
   <block id="2e465fe2a334bfbbd0254091d76e5cf5" category="cell">NO腳 註： 3[]</block>
@@ -5220,7 +5212,6 @@
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">為 ONTAP-NAS 和 ONTAP-NAS-Economy 磁碟區新增了安全的 SMB 支援。 ActiveDirectory 使用者和群組現在可以與 SMB 磁碟區一起使用，以增強安全性。請參閱。 <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block></block>
   <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">增加了對使用 SnapMirror 對 NVMe 後端進行磁碟區複製的支援。請參閱。 <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block></block>
   <block id="b71ccf1062cee8c376a7eb37e3c42603" category="cell">啟用LUKS加密。請參閱 <block ref="569f9f91cdcc19909b8acbf6f423daf7" category="inline-link-macro-rx"></block>。</block>
-  <block id="af4e755c6284fa61e563c93320e97aaa" category="paragraph">Trident使用下列連接埠在 Kubernetes 內部進行通訊：</block>
   <block id="ef46cb32ba76d79fbc7bfb7586fff578" category="list-text">確保您已升級至最新版本<block ref="452b142235e718663e27bc4f162c14ca" prefix=" " category="inline-code"></block> 。</block>
   <block id="aa56a1d260c6089f006323437ab5613f" category="list-text">建議的最小FlexGroup成員/磁碟區大小為 100 GiB。</block>
   <block id="006ae665d682a3f9a5488cf901070b36" category="list-text">建立一個 10 GiB 卷：</block>
@@ -6016,4 +6007,107 @@
   <block id="3a175f8153aad5b64492df6eadb5a5af" category="paragraph">以下範例展示如何匯入託管和非託管磁碟區：</block>
   <block id="ae3918e109e702f2d03b5027de8a73eb" category="paragraph">以下範例使用磁碟區 <block ref="acdf8df0c694db089171ecaf51f80166" prefix=" " category="inline-code"></block> 從後端 <block ref="c082d32d434314708cccf35dd974ac32" prefix=" " category="inline-code"></block> 匯入磁碟區。</block>
   <block id="36a57158e28c15925c88aebde90472b6" category="admonition">執行此命令後，ONTAP 會提示輸入憑證。貼上步驟 1 中產生的<block ref="0c7b1ee06b5fdaab7c83f24275255cf5" prefix=" " category="inline-code"></block>檔案內容，然後輸入<block ref="b1a326c06d88bf042f73d70f50197905" prefix=" " category="inline-code"></block>以完成安裝。</block>
+  <block id="02356881e19a0d2738b050b76923c98e" category="doc">支援的作業</block>
+  <block id="7620488d5fb7b77dda771508677fd29e" category="paragraph">sidebar: sidebar permalink: trident-asar2-support.html keywords: asar2, trident, fcp, nvme, tcp, nvme/tcp, fibre channel summary: NetApp Trident 支援 ONTAP ASA r2 的 iSCSI 和 NVMe/TCP。--- = NetApp Trident 對 ONTAP ASA r2 儲存系統的支援 :hardbreaks: :icons: font :imagesdir: ./media/</block>
+  <block id="9d20e3956cff4f7ce8f40089410b6eda" category="paragraph">NetApp Trident 25.02 及更高版本支援 NetApp ASA r2 系統作為儲存後端。如需更多資訊，請參閱 <block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block>。</block>
+  <block id="1be09f20bc514ebd461d2bb177d2eb7f" category="paragraph">ASA r2 系統需要 <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 驅動程式。Trident 不支援 ASA r2 系統的 <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 驅動程式。</block>
+  <block id="a7feabe5a282558971f299220f74bae8" category="paragraph">當您在後端設定中將<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>指定為<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block>時，Trident 會自動偵測 ASA r2 儲存系統。</block>
+  <block id="03019553d9edba0e6e0c0a6a69b87704" category="paragraph">Trident 為 ASA r2 系統提供有限的資料保護，並配備 Trident protect。</block>
+  <block id="cffdc7c8af3edd8e2ab5d0909a02f4de" category="paragraph">支援的 SAN 傳輸協定取決於您的 Trident 版本：</block>
+  <block id="03d5e46618c7e3ad868d5cc4c591541d" category="list-text">Trident 25.02 及更高版本支援 iSCSI 。</block>
+  <block id="24525e30a5445d5265dd96c923474e0b" category="list-text">Trident 25.06 及更新版本除了支援 iSCSI 外，還支援 NVMe/TCP。</block>
+  <block id="ecca84ff6726050090920a9604fbfcd7" category="inline-link-macro">在 ASA r2 系統中為 SVM 指派 Aggregate</block>
+  <block id="836a7be3aded6bf9559fc22ee97ff832" category="paragraph">您必須為 ONTAP 後端儲存的儲存虛擬機器（SVM）指派至少一個 Aggregate。請參閱 <block ref="bd23fed717350000765127c8eeba8bcd" category="inline-link-macro-rx"></block> 以取得相關說明。</block>
+  <block id="ac0a767cbb7c3c86dc3232476a98bbc3" category="list-text">配置持久磁碟區（PV）</block>
+  <block id="ada2ae8373a77b5749935256495dfb92" category="list-text">動態磁碟區配置</block>
+  <block id="089b1a74c440f41311e9edfc9ff25527" category="list-text">建立和刪除磁碟區</block>
+  <block id="e77f59d55c87b3814d3c452702e1dfba" category="list-text">複製磁碟區</block>
+  <block id="eee7162a80343b2de9595157208fa532" category="list-text">擴充磁碟區</block>
+  <block id="b1b368e04c91cca604a13b06c7dfb557" category="list-text">管理儲存類別</block>
+  <block id="e870a9b4efff663e4e1757bb4a0aa6f8" category="section-title">不支援的作業</block>
+  <block id="d384359ca03c8d46191c719c57744679" category="list-text">SnapMirror Volume 複寫</block>
+  <block id="1ff3ec0458fe354a7b9f7acc8fb7b9f5" category="list-text">限制 Aggregate 使用量</block>
+  <block id="1f32a40978f39d073c959d3ec9961b1f" category="list-text">空間保留模式</block>
+  <block id="337c62c6b6eb7319bae58701105e889c" category="list-text">分層</block>
+  <block id="454ba6b6bbd094d40f864704d90b4115" category="paragraph">如需更多資訊，請參閱 <block ref="f2fd3fe662daf33e514604a72251389c" category="inline-link-macro-rx"></block>。</block>
+  <block id="1f5fbd447c15161203715e6f0823f9b9" category="list-text">本地端 NetApp FAS、AFF 和 ASA 系統。目前 ASA r2 系統尚不支援使用 Trident protect 的 SnapMirror 複寫。</block>
+  <block id="5fe3ac61fd2f23e7440a79d235449950" category="paragraph">Trident 使用各種連接埠與 Kubernetes 叢集內部以及儲存後端進行通訊。以下概述了關鍵連接埠、其用途和安全注意事項。</block>
+  <block id="e2982759423bea2e9baa4036efa43f81" category="list-text">**出站流量控制重點**：Kubernetes 節點（控制器和工作節點）主要啟動對儲存 LIF/IP 的流量，因此 iptables 規則應允許節點 IP 透過這些連接埠向特定儲存 IP 發起出站流量。避免使用過於寬泛的「任意到任意」規則。</block>
+  <block id="681cfe808cf35feaa5d801ba50b9c5cc" category="list-text">**入站限制**：將內部 Trident 連接埠限制為叢集內部流量（例如，使用 Calico 等 CNI）。主機防火牆上無不必要的入站暴露。</block>
+  <block id="f29e70ae71d7c67e0e41be9d799c9758" category="list-text">**協定安全性**：</block>
+  <block id="2f6bfc90489de7a6d13557b533b73460" category="list-text">盡可能使用 TCP （更可靠）。</block>
+  <block id="7bf05dc714b02fad656efe3370a56e01" category="list-text">如果敏感，請為 iSCSI 啟用 CHAP/IPsec；為管理啟用 TLS/HTTPS（連接埠 443/8443）。</block>
+  <block id="f62007db80d73ad43dce4c1fa0334b16" category="list-text">對於 NFSv4（Trident 中的預設值），如果不需要，請剪除 UDP/ 較舊的 NFSv3 連接埠（例如 4045-4049）。</block>
+  <block id="751bb9af94ec54a8edaca4c36a03f76c" category="list-text">限制在受信任的子網路內；使用 Prometheus 等工具進行監控（選用連接埠 8001）。</block>
+  <block id="565b3a71c341951cb7f354a90940b314" category="section-title">控制器節點的連接埠</block>
+  <block id="783c8826af4fe8c51d5710ed5e3d6c58" category="paragraph">這些連接埠主要用於 Trident 操作員（後端管理）。所有內部連接埠均為 Pod 層級；僅當主機防火牆干擾 CNI 時才允許在節點上使用。</block>
+  <block id="49cb55259b6d9f7eff23cbf8f9750d2a" category="cell">連接埠 / 協定</block>
+  <block id="02674a4ef33e11c879283629996c8ff8" category="cell">方向</block>
+  <block id="9a7986fa4f21a724e065da32ce7d3066" category="cell">驅動程式 / 通訊協定</block>
+  <block id="2d3dc2a8d266c55a1864348f4ea58c78" category="cell">安全注意事項</block>
+  <block id="ed79fc67fc7562b584de17e5742957b1" category="cell">TCP 8000</block>
+  <block id="16fca17bec0c66d6aa78c616ca13106b" category="cell">入站 / 出站（叢集內部）</block>
+  <block id="a61cba730436c85663a090b4228935c5" category="cell">Trident REST 伺服器（operator-controller 通訊）</block>
+  <block id="8a8f9f4c3a3787f1beebb13b7b03fe07" category="cell">僅限使用 pod CIDR；不得暴露於外部環境。</block>
+  <block id="9f8b178d72fff26453bd078cf20f89af" category="cell">TCP 8443</block>
+  <block id="5a8608210bb719e47153c9e710f2b605" category="cell">反向通道 HTTPS （安全內部 API）</block>
+  <block id="19234386359486cb6edf789dc52f67be" category="cell">採用 TLS 加密；若使用，則僅限於 Kubernetes 服務網格。</block>
+  <block id="63d8247b7d66e8caf2f2b5b5e87711e2" category="cell">TCP 8001</block>
+  <block id="de02f7d96ec96f8e02385ab82def439d" category="cell">入站（叢集內部、選用）</block>
+  <block id="b423acbee70ba15b7aac2689d6dea6e8" category="cell">Prometheus 指標</block>
+  <block id="28f8d2aaf87b70e75aa6cb3773525ee1" category="cell">僅對監控工具開放（例如，使用 RBAC）；如果未使用則停用。</block>
+  <block id="5f76d762520637f1eb1b8dd5e4b71129" category="cell">TCP 443</block>
+  <block id="4c32be4a0b4f48cdd593aef35fd69e44" category="cell">傳出</block>
+  <block id="cf67cfc68c8e1671ed7d3ad8cac69c46" category="cell">HTTPS 至 ONTAP SVM/ 叢集管理 LIF</block>
+  <block id="6650aa04d5ec7c2961db034c14303e0f" category="cell">ONTAP（全部）、ANF</block>
+  <block id="10e43a998d86b200b20657f765ddd75b" category="cell">需要進行 TLS 憑證驗證；僅限管理 LIF IP 位址。</block>
+  <block id="46c9630e17f6ff51a1956eb0c7182222" category="cell">HTTPS 至 E 系列 Web Services Proxy</block>
+  <block id="545e0bbe79f819dd2f2cabc97dd208ce" category="cell">E 系列（iSCSI）</block>
+  <block id="4aa291503889bd2e31fa7f227ae35e0c" category="cell">預設 REST API；使用憑證；可在後端 YAML 中設定。</block>
+  <block id="843f43e25b08cd1f2c8762e49c96a5bf" category="section-title">工作節點的連接埠</block>
+  <block id="c50e450235c9b86b6cb22269b47efcb6" category="paragraph">這些連接埠用於 CSI 節點守護程序集和 pod 掛載。資料連接埠用於出站連接到儲存資料 LIF；如果使用 NFSv3，則包含 NFSv3 附加資訊（NFSv4 為選用）。</block>
+  <block id="794520b5e223ab54911ea56429f96a91" category="cell">TCP 17546</block>
+  <block id="b7c4daebc7f2ca5e5eea2603b9a8f807" category="cell">傳入（本機至 Pod）</block>
+  <block id="df2d51347a3094292537492dd5e61719" category="cell">CSI 節點存活 / 就緒偵測</block>
+  <block id="06432368f5e2df3d3bb0fcd07dcf1dd3" category="cell">可設定（--probe-port）；確保無主機衝突；僅限本機。</block>
+  <block id="6c5435b7d0340c74ab42c32c0387929e" category="cell">如上所述；Pod 內部。</block>
+  <block id="a1f4108def709cd298286164d2417d92" category="cell">如上所述。</block>
+  <block id="03630046046996e9534e611992df8433" category="cell">如上所述；用於探索。</block>
+  <block id="7dc6151116748c06820707b3267ee0b6" category="cell">TCP/UDP 111</block>
+  <block id="3ee12b938a2552d8e7e829deac4f0d88" category="cell">RPCBIND/portmapper</block>
+  <block id="ee36adb297d92e86dd9cb9a6294bafe2" category="cell">ONTAP-NAS （NFSv3/v4）、ANF （NFS）</block>
+  <block id="22514c1437249e60404f00fd34a14237" category="cell">v3 版本必需；v4 版本可選（防火牆卸載）；如果僅使用 NFSv4 ，則限制使用。</block>
+  <block id="a44b673cbbbd63bfa33d42c853f57439" category="cell">TCP/UDP 2049</block>
+  <block id="5cf46b19bdb5ea243def7352324db5af" category="cell">NFS 精靈程式</block>
+  <block id="a3d5e36471b118748b9809c728b8706e" category="cell">核心資料；眾所周知；使用 TCP 以確保可靠性。</block>
+  <block id="dadf63f06e80201d3184f2640cd298b6" category="cell">TCP/UDP 635</block>
+  <block id="5e2f8c4b43975de24c7ce83515735445" category="cell">掛載精靈程式</block>
+  <block id="e5244c0346406a928b4ea917313fa4cc" category="cell">掛載；可進行雙向回呼（如有需要，允許傳入臨時連線）。</block>
+  <block id="efa93c17e157e1d5090386967cdb26d5" category="cell">UDP 4045</block>
+  <block id="e34b81b15f0605845bbab2e62b941e95" category="cell">NFS 鎖定管理器（nlockmgr）</block>
+  <block id="b4d2b01fa2642e452f75d6c9ea84c896" category="cell">ONTAP-NAS （NFSv3）</block>
+  <block id="c9757b3b9c0d43496934cc5c61f0ea25" category="cell">檔案鎖定；跳過 v4 （ pNFS 處理）；僅限 UDP 。</block>
+  <block id="0ad88ddb156af6c77a62e3c422bb6ed6" category="cell">UDP 4046</block>
+  <block id="0c07a3f50bfead8133f677c80315e5d8" category="cell">NFS 狀態監視器（statd）</block>
+  <block id="03d50f6c0f603a7631c255847730fefb" category="cell">通知；可能需要入站臨時連接埠 (1024-65535) 進行回調。</block>
+  <block id="e8ca37106ef4a4e019c15bac46839edf" category="cell">UDP 4049</block>
+  <block id="d79dad3c12c4aa05664c9bfe4f78c368" category="cell">NFS 配額守護程式（rquotad）</block>
+  <block id="e716de1c754186f3826191be4310a6ec" category="cell">配額；v4 版本跳過。</block>
+  <block id="7225e1eb3c81ceb83eca870b64334c8e" category="cell">TCP 3260</block>
+  <block id="10dea8cd911f137e3f289e9bc8c190fd" category="cell">iSCSI 目標（探索 / 資料 / CHAP）</block>
+  <block id="c3968e18b5ea3f1ad6700d9f28c5b63c" category="cell">ONTAP-SAN （iSCSI）、E-Series （iSCSI）</block>
+  <block id="f4900033adabb00fef579ccb7d75c8e4" category="cell">眾所周知；透過此連接埠進行 CHAP 驗證；啟用雙向 CHAP 以確保安全。</block>
+  <block id="044b07266a6afd8cc1a38120b7907315" category="cell">TCP 445</block>
+  <block id="8d3f3d8ac4e0e2e8685821807920a78e" category="cell">SMB/CIFS</block>
+  <block id="6394b139c6fcce1d63f8ea67aefe460e" category="cell">ONTAP-NAS (SMB)、ANF (SMB)</block>
+  <block id="918bdaecf248faba54fe168bb49b4ff7" category="cell">眾所周知；使用具有加密功能的 SMB3（Trident 註釋 netapp.io/smb-encryption=true）。</block>
+  <block id="f95ea8d2892ce46d82a41cfe5cc6c7fc" category="cell">TCP/UDP 88 （選用）</block>
+  <block id="9294e74dcbe2d6fc0a9314c3ffc93c9e" category="cell">Kerberos 驗證</block>
+  <block id="193d69cdf4103022467d6eb1dda6d79a" category="cell">ONTAP （NFS/SMB/iSCSI with Kerb）</block>
+  <block id="b4c57a4577c26a1346db38afa8cf748a" category="cell">如果使用 Kerberos（非預設）；連接至 AD 伺服器，而非儲存設備。</block>
+  <block id="b7b67c3b8a1dc9a73ad39cc47db63176" category="cell">TCP/UDP 389 （選用）</block>
+  <block id="2363dee608bcd9f6ce7f980bfdad5789" category="cell">LDAP</block>
+  <block id="1dba8f0975c45572eb495fa5122b37e8" category="cell">ONTAP （ NFS/SMB 搭配 LDAP ）</block>
+  <block id="b7f43df36fb2e13c1c3d456da9ceba9e" category="cell">類似；用於名稱解析 / 驗證；限制為 AD。</block>
+  <block id="e447b6c9645ce6cd63337d813a552cd5" category="sidebar">Trident 對 ASA r2 儲存系統的支援</block>
 </blocks>

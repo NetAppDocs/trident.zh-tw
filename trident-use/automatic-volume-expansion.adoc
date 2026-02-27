@@ -1,0 +1,441 @@
+---
+sidebar: sidebar 
+permalink: trident-use/automatic-volume-expansion.html 
+keywords: trident, autogrow, automatic volume expansion, autogrow policy, pvc resize, ontap, kubernetes 
+summary: 使用 Trident 中的 Trident Autogrow Policies 設定及管理自動磁碟區擴充。 
+---
+= 自動磁碟區擴充
+:allow-uri-read: 
+
+
+自動磁碟區擴充功能可讓 Trident 配置的持續磁碟區（PV）在其已用容量達到定義的臨界值時自動成長。
+
+此功能透過 *Autogrow Policies (AGPs)* 實現。Autogrow Policy 定義：
+
+* 觸發擴充的使用率臨界值
+* 磁碟區增長的量
+* 磁碟區可達到的最大大小
+
+
+自動磁碟區擴充可降低營運開銷，並有助於防止因磁碟區已滿而導致的應用程式中斷。
+
+
+
+== 需求
+
+* Trident 26.02 或更新版本
+* 建立 `TridentAutogrowPolicy`自訂資源的 RBAC 權限
+* StorageClasses 必須包括 `allowVolumeExpansion: true`
+* 支援的 ONTAP 通訊協定：
++
+** NFS
+** iSCSI
+** FCP
+** NVMe
+
+
+
+
+
+NOTE: ONTAP 9.16.1 之前的 ONTAP NVMe 原始區塊磁碟區不支援自動擴充。
+
+
+NOTE: 對於 SAN 磁碟區，如果 `growthAmount`小於或等於 50MiB，Trident 會在調整大小之前將該值增加到 51MiB，前提是產生的大小不超過 `maxSize`。
+
+
+NOTE: 在棕地環境中，由於磁碟區發佈遷移行為，自動擴充功能可能無法對某些現有磁碟區生效。
+
+
+
+== 建立 Autogrow 策略
+
+Autogrow Policies 是 Kubernetes 自訂資源，類型為 `TridentAutogrowPolicy`。
+
+Autogrow 原則定義了磁碟區何時以及如何擴展。
+
+
+
+=== 欄位定義
+
+[cols="1,3,1"]
+|===
+| 欄位 | 說明 | 必要 
+
+
+| `metadata.name` | 唯一原則識別碼。 | 是的 
+
+
+| `usedThreshold` | 觸發擴充的已用容量百分比。 | 是的 
+
+
+| `growthAmount` | 達到閾值時要增長的量。可以指定為百分比（例如， `"10%"`）或固定值（例如， `"5Gi"`）。如果未指定，則預設為 `10%`。 | 否 
+
+
+| `maxSize` | 最大磁碟區大小限制。如果未指定，磁碟區可以無限制地增長，而不會強制執行上限。 | 否 
+|===
+
+
+=== 範例：標準 Autogrow 策略
+
+以下範例建立了一個策略，該策略在利用率達到 80% 時觸發擴展，每次成長 10%，並將成長限制在 500Gi。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: standard-autogrow
+spec:
+  usedThreshold: "80%"
+  growthAmount: "10%"
+  maxSize: "500Gi"
+----
+
+
+=== 建立原則
+
+. 將 YAML 定義儲存到檔案中。
+. 套用原則：
+
+
+[listing]
+----
+kubectl apply -f autogrow-policy.yaml
+----
+. 驗證建立：
+
+
+[listing]
+----
+kubectl get tridentautogrowpolicy standard-autogrow
+----
+預期輸出：
+
+[listing]
+----
+NAME                USED THRESHOLD   GROWTH AMOUNT   STATE
+standard-autogrow   80%              10%             Success
+----
+
+
+== 組態範例
+
+
+
+=== 生產資料庫的保守原則
+
+對於避免容量耗盡至關重要的正式作業資料庫工作負載，請使用較低的臨界值和較大的成長增量。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: production-db-policy
+spec:
+  usedThreshold: "75%"
+  growthAmount: "20%"
+  maxSize: "5Ti"
+----
+
+
+=== 固定增長的日誌儲存
+
+當需要可預測的成長步長時，請使用固定大小的增量。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: log-storage-policy
+spec:
+  usedThreshold: "90%"
+  growthAmount: "10Gi"
+  maxSize: "100Gi"
+----
+
+
+=== 自動增長策略（帶預設值）
+
+如果僅指定 `usedThreshold`， `growthAmount` 預設為 `10%`，且 `maxSize` 無限制。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: logs-policy
+spec:
+  usedThreshold: "85%"
+----
+
+
+=== 自動增長策略與預設 growthAmount
+
+使用預設增長增量時指定最大大小。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: default-ga-policy
+spec:
+  usedThreshold: "70%"
+  maxSize: "100Gi"
+----
+
+
+=== 自動增長策略（預設 maxSize）
+
+允許不受限制的增長，同時指定自訂增長百分比。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: default-ms-policy
+spec:
+  usedThreshold: "80%"
+  growthAmount: "150%"
+----
+
+
+=== 自動成長策略（小數百分比）
+
+分數百分比可以對閾值和成長增量進行精細控制。
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: fractional-policy
+spec:
+  usedThreshold: "80.28%"
+  growthAmount: "10.65%"
+  maxSize: "100Gi"
+----
+
+
+== 政策狀態
+
+[cols="1,3"]
+|===
+| 狀態 | 說明 
+
+
+| 成功 | 策略已驗證，可以投入使用。 
+
+
+| 失敗 | 偵測到驗證錯誤。請檢閱並修正規格。 
+
+
+| 刪除 | 刪除正在進行中。Finalizer 會在磁碟區參照原則時防止移除。 
+|===
+
+
+== 管理 Autogrow 策略
+
+
+
+=== 列出原則
+
+[listing]
+----
+kubectl get tridentautogrowpolicy
+----
+
+
+=== 檢視原則詳細資料
+
+[listing]
+----
+kubectl describe tridentautogrowpolicy production-db-policy
+----
+
+
+=== 使用 tridentctl
+
+[listing]
+----
+tridentctl get autogrowpolicy
+tridentctl get autogrowpolicy production-db-policy -o yaml
+----
+
+
+=== 更新 Autogrow 策略
+
+
+IMPORTANT: 變更會影響目前使用該原則的所有磁碟區。
+
+[listing]
+----
+kubectl edit tridentautogrowpolicy production-db-policy
+----
+更新將在下次增長作業期間套用。不需要重新啟動 Volume 。
+
+
+
+=== 刪除 Autogrow 策略
+
+Autogrow 策略包含 finalizer 保護，以防止在使用過程中被刪除。
+
+[listing]
+----
+kubectl delete tridentautogrowpolicy production-db-policy
+----
+如果磁碟區參照該原則，則該原則將保持在 `Deleting`狀態，直到移除所有參照為止。
+
+若要使用原則識別磁碟區：
+
+[listing]
+----
+tridentctl get autogrowpolicy production-db-policy -o yaml
+----
+從磁碟區移除原則：
+
+[listing]
+----
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+----
+
+
+== 在 StorageClass 上配置自動增長策略
+
+使用  `trident.netapp.io/autogrowPolicy` 註解關聯策略。
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+驗證註記：
+
+[listing]
+----
+kubectl get storageclass ontap-gold \
+  -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
+
+
+=== 更新 StorageClass 上的自動成長策略
+
+[listing]
+----
+kubectl annotate storageclass ontap-gold \
+  trident.netapp.io/autogrowPolicy="standard-autogrow" \
+  --overwrite
+----
+
+
+=== 從 StorageClass 中移除自動增長策略
+
+選項 1：移除註釋
+
+[listing]
+----
+kubectl annotate storageclass ontap-gold \
+  trident.netapp.io/autogrowPolicy-
+----
+選項 2：將註釋設定為 `none`
+
+[listing]
+----
+kubectl annotate storageclass ontap-gold \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+----
+
+
+== 將自動成長政策應用於 PVC
+
+在 PVC 層級應用原則以覆寫 StorageClass 行為。
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: database-pvc
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+spec:
+  storageClassName: ontap-gold
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Gi
+----
+停用 PVC 上的自動生長功能：
+
+[listing]
+----
+kubectl annotate pvc database-pvc \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+----
+
+
+== 監控 Autogrow 原則使用情形
+
+列出原則：
+
+[listing]
+----
+kubectl get tridentautogrowpolicy
+----
+尋找 PVC 使用的原則：
+
+[listing]
+----
+kubectl get pvc database-pvc \
+  -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
+監控事件：
+
+[listing]
+----
+kubectl get events \
+  --field-selector involvedObject.kind=TridentAutogrowPolicy
+----
+
+
+== 疑難排解
+
+[cols="1,3,2"]
+|===
+| 問題 | 可能的原因 | 解決方案 
+
+
+|  `Failed` 狀態的原則 | 無效的規範 | 修正原則並重新套用 
+
+
+| 磁碟區不會擴充 | `maxSize` 達到 | 增加 `maxSize` 
+
+
+| 頻繁擴充 | 閾值過低 | 增加 `usedThreshold` 
+
+
+| PVC 顯示 `AutogrowPolicyNotFound` | 政策不存在 | 驗證原則名稱 
+
+
+| PVC 顯示 `AutogrowPolicyNotUsable` |  `Failed` 狀態的原則 | 解決驗證錯誤 
+
+
+| TAGRI 多次拒絕 | `maxSize` 超出 | 增加 `maxSize` 或調整 `growthAmount` 
+|===

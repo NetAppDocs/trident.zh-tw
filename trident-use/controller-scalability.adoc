@@ -1,0 +1,242 @@
+---
+sidebar: sidebar 
+permalink: trident-use/controller-scalability.html 
+keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, nas-eco, san-eco 
+summary: 了解控制器的可擴充性、並行行為和功能成熟度。 
+---
+= 控制器擴充性
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident 透過提升多個儲存驅動程式之間的並發性，實現了控制器可擴充性。客戶可以了解哪些 Trident 驅動程式在正式發佈時支援控制器可擴充性，以及哪些驅動程式在 Trident 26.02 中以技術預覽版的形式提供。這有助於客戶做出明智的部署決策，並為可擴充的 Kubernetes 環境進行適當的風險管理。
+
+
+
+== 關鍵概念和定義
+
+
+
+=== 控制器擴充性
+
+控制器可擴展性是指 Trident 控制器能夠並行處理多個儲存操作，而不是將它們串行化並置於單一鎖定之後。這些操作包括磁碟區的建立、刪除、調整大小、快照的建立和刪除、磁碟區的發布和取消發布以及後端管理。
+
+啟用控制器可擴充性後，對不同磁碟區和後端執行的操作將同時進行。這可以提高吞吐量，並縮短並發 PersistentVolumeClaim 和 VolumeSnapshot 操作數量較多環境下的端對端操作時間。
+
+
+
+== 控制器擴充性支援
+
+Trident 支援不同成熟度等級的控制器可擴充性，視儲存驅動程式而定。
+
+
+
+=== 正式發行
+
+以下驅動程式在 Trident 26.02 正式版中支援控制器擴充性：
+
+* `san`
+* `nas`
+* `san-nvme`
+* `google-cloud-netapp-volumes`
+
+
+
+
+== 啟用控制器擴充性
+
+控制器的可擴充性由  `enableConcurrency` 配置選項控制。必須在 Trident 安裝期間或透過更新現有部署明確啟用此選項。
+
+
+
+=== Trident 操作程式部署
+
+若要使用 Trident operator 啟用控制器可擴展性，請在 `TridentOrchestrator` 自訂資源中將 `enableConcurrency` 設定為 `true`。
+
+
+
+==== 新安裝
+
+建立或編輯  `TridentOrchestrator` CR，並將  `enableConcurrency` 設定為  `true`：
+
+[source]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableConcurrency: true
+----
+套用 CR ：
+
+[source]
+----
+kubectl apply -f tridentorchestrator_cr.yaml
+----
+
+
+==== 現有安裝
+
+對現有  `TridentOrchestrator` CR 進行修補，以啟用控制器可擴充性：
+
+[source]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"enableConcurrency":true}}'
+----
+確認設定已套用：
+
+[source]
+----
+kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableConcurrency}'
+----
+
+
+=== Helm 部署
+
+若要使用 Helm 啟用控制器可擴充性，請將  `enableConcurrency` 值設為  `true`。
+
+
+
+==== 新安裝
+
+[source]
+----
+helm install trident netapp-trident/trident-operator --namespace trident --create-namespace --set enableConcurrency=true
+----
+
+
+==== 現有安裝
+
+[source]
+----
+helm upgrade trident netapp-trident/trident-operator --namespace trident --set enableConcurrency=true
+----
+或者，在自訂的 `values.yaml` 檔案中，將 `enableConcurrency` 設定為 `true`：
+
+[source]
+----
+# values.yaml
+enableConcurrency: true
+----
+然後使用 values 檔案進行安裝或升級：
+
+[source]
+----
+helm install trident netapp-trident/trident-operator --namespace trident --create-namespace -f values.yaml
+----
+
+
+=== Tridentctl 部署
+
+若要啟用控制器可擴充性與 `tridentctl`，請在安裝期間傳遞 `--enable-concurrency`標誌。
+
+
+
+==== 新安裝
+
+[source]
+----
+tridentctl install -n trident --enable-concurrency
+----
+
+
+==== 現有安裝
+
+若要在現有的 `tridentctl`型部署上啟用控制器擴充性，請使用旗標解除安裝並重新安裝：
+
+[source]
+----
+tridentctl uninstall -n trident
+tridentctl install -n trident --enable-concurrency
+----
+
+
+=== 確認控制器可擴充性已啟用
+
+啟用控制器可擴充性後，請檢查控制器 pod 日誌，以驗證 Trident 控制器是否已啟用並發功能：
+
+[source]
+----
+kubectl logs -n trident deploy/trident-controller | grep -i concurrency
+----
+您應該會看到一條日誌條目，表示並發已啟用。
+
+
+
+=== 技術預覽
+
+以下驅動程式在 Trident 26.02 中以技術預覽版的形式支援控制器擴充性：
+
+* `nas-eco`
+* `san-eco`
+
+
+對於這些驅動程式：
+
+* 控制器並發功能可用於評估和測試
+* 行為可能會在未來版本中變更
+* 不建議在正式作業環境中使用
+
+
+
+
+== 並行行為
+
+啟用控制器可擴充性時：
+
+* Trident 以精細的每個資源鎖定取代單一全域鎖定
+* 修改相同資源的作業會序列化，以維持資料一致性
+* 僅從資源讀取資料的操作可以與對該資源的其他讀取操作並發進行
+* Trident 將每個管理 LIF 的同時 ONTAP API 請求數限制為 20 個，以防止後端儲存系統過載。
+* 如果多個後端共用同一個管理 LIF、則它們共用這 20 次請求的限制
+
+
+
+
+== 已知限制和注意事項
+
+以下考量事項適用於控制器擴充性：
+
+* 並行處理由 Trident 控制器在內部管理
+* 此版本中沒有使用者可設定的並行限制
+* 整體處理量取決於：
++
+** 正在使用的儲存驅動程式
+** 後端回應能力
+** Kubernetes API 伺服器效能
+
+
+* 高並發性會增加後端儲存系統的負載
+
+
+
+
+== 注意事項和限制
+
+Trident 26.02 有以下限制：
+
+* 控制器的可擴充性行為在不同的驅動程式中並不完全相同
+* 技術預覽版驅動程式可能出現：
++
+** 高負載下效能不穩定
+** 版本之間的行為變更
+
+
+* 由於並行執行，偵錯並發操作可能更加複雜
+* 指標和記錄可能會顯示交錯的作業輸出
+
+
+
+
+== 建議
+
+* 對於需要高可擴展性的正式作業環境，請使用通用版本 (GA) 驅動程式
+* 在非正式作業環境中評估技術預覽驅動程式
+* 在大規模運作時監控後端和控制器效能
+* 避免在自動化指令碼中假設作業順序
+

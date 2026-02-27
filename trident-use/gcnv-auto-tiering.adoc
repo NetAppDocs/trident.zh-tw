@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-use/google-cloud-netapp-volumes-auto-tiering.html 
+keywords: trident, google cloud netapp volumes, auto-tiering, storageclass, pvc annotations, data tiering, cooling days 
+summary: 使用 Trident 透過 Kubernetes 原生機制設定 Google Cloud NetApp Volumes 自動分層。 
+---
+= 配置 Google Cloud NetApp Volumes 的自動分層
+:hardbreaks:
+:allow-uri-read: 
+:icons: 
+:imagesdir: ../media/
+:icontype: font:
+
+
+[role="lead"]
+本頁面介紹如何使用 Trident 為 Google Cloud NetApp Volumes 配置自動分層。自動分層是在磁碟區配置期間透過 Trident 後端參數和 PersistentVolumeClaim 註解進行配置的。
+
+
+
+== 總覽
+
+自動分層儲存功能可讓 Trident 自動配置磁碟區，將不活躍資料從效能層移至容量層。這樣既能降低儲存成本，又能確保頻繁存取資料的效能。
+
+Trident 僅在建立磁碟區時套用自動分層設定。Trident 26.02 不支援配置後變更。
+
+
+
+== 概念
+
+
+
+=== 自動分層
+
+自動分層儲存會根據存取模式，將存取頻率較低的資料從效能層移至容量層。資料移動是非同步進行的，並非即時生效。
+
+
+
+=== 分層原則
+
+分層原則決定是否為磁碟區啟用自動分層。
+
+支援以下策略：* `auto`：啟用基於存取模式的自動分層 * `none`：停用自動分層
+
+
+
+=== 冷卻天數
+
+冷卻天數規定了資料區塊在符合分層儲存條件之前必須保持非活動狀態的最短天數。冷卻天數僅在分層儲存策略設定為 `auto`時適用。
+
+
+
+== 組態模型
+
+
+
+=== 組態範圍
+
+自動分層可在多個範圍內進行設定：
+
+* **儲存池範圍** 適用於從該池配置的所有磁碟區。
+* **Volume 範圍** 透過 PersistentVolumeClaim 註解應用於單一磁碟區。
+
+
+Trident 會根據每個設定的定義位置來決定有效組態。
+
+
+
+=== 組態優先順序
+
+當相同設定被定義在多個作用域時，Trident 會套用下列優先順序：
+
+. PersistentVolumeClaim 註解
+. Trident 後端組態
+. 儲存池預設值
+
+
+在較高優先順序定義的設定會覆蓋較低層級的值。
+
+
+
+== Trident 26.02 支援的功能
+
+Trident 26.02 支援以下 Google Cloud NetApp Volumes 自動分層功能：
+
+* 在磁碟區配置期間啟用或停用自動分層
+* 在 Trident 後端組態中定義分層原則
+* 使用 PVC 註解覆蓋分層原則和每個磁碟區的冷卻天數
+* 為啟用自動分層的磁碟區配置冷卻日
+
+
+
+
+== Trident 26.02 中不支援的功能
+
+不支援以下操作：
+
+* 在建立磁碟區後修改自動分層設定
+* 使用 Kubernetes 更新變更現有磁碟區的分層原則
+* 在 Trident 管理的佈建工作流程之外套用自動分層設定
+
+
+
+
+== 後端配置參數
+
+以下參數可在 Trident 後端組態中定義時控制自動分層行為：
+
+[cols="2,1,2"]
+|===
+| 參數 | 必要 | 說明 
+
+
+| tieringPolicy | 否 | 磁碟區的分層原則(`auto`或 `none`） 
+
+
+| tieringMinimumCoolingDays | 否 | 資料分層前的非活躍天數（範圍：2–183、預設值：31） 
+|===
+
+
+== 使用 PersistentVolumeClaim 註解進行磁碟區層級覆寫
+
+
+
+=== 支持的註釋
+
+PersistentVolumeClaim 註解允許對每個磁碟區的自動分層設定進行覆蓋。
+
+[cols="2,2"]
+|===
+| 註釋 | 說明 
+
+
+| `trident.netapp.io/tieringPolicy` | 覆寫磁碟區的分層原則 
+
+
+| `trident.netapp.io/tieringMinimumCoolingDays` | 覆寫磁碟區的冷卻天數值 
+|===
+
+
+=== 範例：PersistentVolumeClaim 與自動分層覆寫
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: auto-tiering-pvc
+  annotations:
+    trident.netapp.io/tieringPolicy: auto
+    trident.netapp.io/tieringMinimumCoolingDays: "45"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: google-cloud-netapp-volumes-auto-tiering
+  resources:
+    requests:
+      storage: 500Gi
+----
+
+
+== 行為和限制
+
+
+
+=== 資源配置行為
+
+* 自動分層設定僅在建立磁碟區時進行評估和應用。
+* Trident 在配置完成後不會協調分層配置。
+* 當分層策略設定為 `none`時，冷卻日將被忽略。
+
+
+
+
+=== 平台限制
+
+* 自動分層僅支援 NAS 磁碟區（ NFS 和 SMB ）。
+* 區塊磁碟區（iSCSI）不支援自動分層。
+* Google Cloud NetApp Volumes 儲存池必須在 Google Cloud 中啟用自動分層儲存。
+
+
+
+
+=== 支援的值
+
+*  `tieringMinimumCoolingDays` 的有效範圍：2 至 183
+* 預設值：31
+

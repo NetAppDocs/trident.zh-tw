@@ -1,0 +1,84 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-nvme-rwx-subsystem-limits.html 
+keywords: trident, nvme, rwx, ontap, nvme subsystem, rwx nvme limit, super-subsystem, controller limit, 26.02 
+summary: 了解 RWX NVMe 子系統限制，包括每個磁碟區 64 個節點限制、子系統架構變更以及所需的升級步驟。 
+---
+= 了解 RWX NVMe 子系統限制
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 NVMe 協定的 ReadWriteMany （RWX）磁碟區的擴充性限制為每個磁碟區 64 個節點。以下內容包括這些限制、解釋了所涉及的 NVMe 子系統架構、並概述了所需的解決步驟。
+
+
+
+== 了解 64 節點限制
+
+如果您打算將 ReadWriteMany（RWX）磁碟區與 NVMe 協定一起使用，則單一 RWX NVMe 磁碟區不能在 Kubernetes 叢集中被超過 64 個節點掛載。
+
+不要在超過 64 個節點上排程掛載相同 RWX NVMe PersistentVolumeClaim 的工作負載。
+
+此限制僅適用於使用 NVMe 傳輸協定的 RWX Volume。
+
+
+
+== 了解 NVMe 子系統模型
+
+
+
+=== 每個磁碟區子系統模型（Trident 26.02 之前的版本）
+
+在 Trident 26.02 之前的版本中，RWX NVMe 磁碟區採用每個磁碟區子系統模型進行配置。每個 RWX NVMe 磁碟區都對應到 ONTAP 上專屬的 NVMe 子系統。
+
+此模型雖然簡單，但可擴展性限制較低。在大型 Kubernetes 叢集中，子系統控制器限制會很快達到，因為每個 RWX 磁碟區都會佔用一個專用子系統。
+
+
+
+=== 超子系統模型（在 Trident 26.02 中引入）
+
+從 Trident 26.02 開始，RWX NVMe 磁碟區使用共享的超級子系統模型。多個 RWX NVMe 磁碟區共用同一個 NVMe 子系統。
+
+每個超級子系統最多支援 1024 個命名空間（磁碟區）。此模型顯著提高了 RWX 工作負載的可擴充性，並降低了達到 ONTAP 子系統限制的可能性。
+
+每個 RWX NVMe 磁碟區最多支援 64 個節點。
+
+
+
+== 識別錯誤症狀
+
+如果大規模建立或附加 RWX NVMe Volume，可能會遇到類似以下的錯誤：
+
+[listing]
+----
+Maximum number of controllers reached. No more controllers can be created.
+----
+此錯誤表示已達到 ONTAP NVMe 子系統控制器限制。
+
+
+
+== 解決子系統限制錯誤
+
+若要突破每個磁碟區子系統的限制，並利用超級子系統模型，請升級至 Trident 26.02 或更新版本。
+
+
+
+== 升級 Trident 以套用超子系統模型
+
+若要將超子系統模型套用於 RWX NVMe 磁碟區：
+
+. 將 Trident 升級到 26.02 或更高版本。
+. 將所有使用 RWX NVMe 磁碟區的 Pod 縮減為零個複本。
+. 確認沒有工作負載正在使用 RWX NVMe 磁碟區。
+. 將 Pod 重新擴展。
+
+
+此重新啟動順序可確保使用超級子系統模型附加 RWX NVMe 磁碟區。
+
+* 此限制僅適用於使用 NVMe 傳輸協定的 RWX Volume。
+* 每個 RWX NVMe 磁碟區的 64 節點限制適用。
+* 其他存取模式和其他傳輸協定不受影響。
+

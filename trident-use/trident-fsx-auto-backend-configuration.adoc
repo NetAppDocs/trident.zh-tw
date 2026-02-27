@@ -1,0 +1,132 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-fsx-auto-backend-configuration.html 
+keywords: trident, aws fsx, fsxn, fsx for netapp ontap, automatic backend configuration, storageclass, backend automation, ontap-nas, ontap-san 
+summary: 了解如何使用 Trident StorageClass 參數，為 AWS FSx for NetApp ONTAP 配置自動後端建立。 
+---
+= 為 AWS FSx for NetApp ONTAP 設定自動後端組態
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident 支援 AWS FSx for NetApp ONTAP（FSxN）的自動後端組態。當您建立包含所需 FSxN 參數的 StorageClass 時、Trident 會自動建立對應的後端和 VolumeSnapshotClass。
+
+
+
+== 了解自動後端組態的運作方式
+
+Trident 從 StorageClass 定義中派生後端配置。當您套用 StorageClass 時，Trident 會驗證必要的參數、建立後端，並使用狀態標記 StorageClass。
+
+Trident 只會建立一次 VolumeSnapshotClass。Trident 會為後續的 StorageClasses 重複使用相同的 VolumeSnapshotClass。
+
+
+
+== 指定所需的 StorageClass 參數
+
+若要觸發自動後端建立、請在 StorageClass `parameters` 區段中定義所需的參數。
+
+[cols="2,1,2,2"]
+|===
+| 參數 | 必要 | 類型 | 說明 
+
+
+| `fsxFilesystemID` | 是的 | 字串 | FSx for NetApp ONTAP 檔案系統 ID 
+
+
+| 「torageDriverName」 | 是的 | 字串 | Trident 儲存驅動程式（例如、 `ontap-nas` 或  `ontap-san`） 
+
+
+| `credentialsName` | 是的 | 字串 | 包含 AWS 認證資料的 Kubernetes Secret 名稱 
+|===
+
+
+== 指定選用參數
+
+您可以透過 StorageClass 傳遞可選的後端參數。在 StorageClass `parameters` 部分中將所有可選值定義為字串。
+
+有關後端參數的完整列表、請參閱：xref:trident-use/trident-fsx-storage-backend.adoc#backend-advanced-configuration-and-examples[FSx for NetApp ONTAP 後端組態]。
+
+
+
+== 建立 StorageClass
+
+以下範例展示 StorageClass 如何觸發自動後端配置。
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-fsx-demo
+  annotations:
+    description: "Demo StorageClass for FSx for NetApp ONTAP"
+provisioner: csi.trident.netapp.io
+parameters:
+  fsxFilesystemID: "fs-0abc123"
+  storageDriverName: "ontap-nas"
+  credentialsName: trident-fsx-credentials
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+----
+套用 StorageClass 後，Trident 會自動建立後端。您可以建立參考此 StorageClass 的 PersistentVolumeClaims。
+
+
+
+== 驗證後端組態狀態
+
+Trident 會將後端建立的結果記錄在 StorageClass 註解中。
+
+[cols="2,2"]
+|===
+| 註釋 | 說明 
+
+
+| `trident.netapp.io/configuratorStatus` | 組態結果 (`Success` 或 `Failure`） 
+
+
+| `trident.netapp.io/configuratorMessage` | 詳細狀態或錯誤訊息 
+
+
+| `trident.netapp.io/configuratorName` | 內部配置器資源的名稱 
+
+
+| `trident.netapp.io/managed` | 表示 StorageClass 由 Trident 管理 
+
+
+| `trident.netapp.io/additionalStoragePools` | 為此後端建立的儲存資源池 
+|===
+若要驗證狀態、請執行：
+
+[source, bash]
+----
+kubectl get storageclass ontap-fsx-demo -o yaml
+----
+確認  `trident.netapp.io/configuratorStatus` 是否已設定為  `Success`。如果值為  `Failure`，請檢查  `trident.netapp.io/configuratorMessage` 以瞭解錯誤。
+
+
+
+== 新增其他 FSxN 檔案系統
+
+如果您在繼續使用相同 StorageClass 的情況下需要額外的儲存容量，請新增額外的 FSxN 檔案系統 ID。
+
+編輯 StorageClass 並新增以下註釋：
+
+[source, yaml]
+----
+metadata:
+  annotations:
+    trident.netapp.io/additionalFsxNFileSystemID: '["fs-03cc1a718cddd6e248"]'
+----
+套用變更後， Trident 會更新後端組態並更新 StorageClass 註釋。
+
+
+
+== 操作考量與限制
+
+刪除 StorageClass 通常會刪除關聯的 Trident 後端。這可能會中斷儲存連線並導致正在運行的工作負載中斷。刪除託管 StorageClass 之前，請務必驗證其影響。
+
+僅 AWS FSx for NetApp ONTAP 支援自動後端組態。

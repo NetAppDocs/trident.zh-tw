@@ -1,0 +1,352 @@
+---
+sidebar: sidebar 
+permalink: trident-use/gcnv-block.html 
+keywords: Trident backend, Google Cloud NetApp Volumes, iSCSI, SAN, block storage, Flex Unified pools, GKE 
+summary: 設定 Trident 從 Google Cloud NetApp Volumes Flex Unified 池配置區塊（iSCSI）磁碟區。 
+---
+= 設定 Google Cloud NetApp Volumes 以用於 SAN 工作負載
+:allow-uri-read: 
+
+
+[role="lead"]
+您可以設定 Trident，使其使用 iSCSI 協定從 Google Cloud NetApp Volumes 設定區塊儲存磁碟區。SAN 磁碟區則透過
+`google-cloud-netapp-volumes-san`儲存驅動程式從 *Flex Unified* 儲存池進行設定。
+
+此驅動程式專用於區塊工作負載，不支援 NAS 協定。
+
+
+NOTE:  `google-cloud-netapp-volumes-san` 後端是配置 iSCSI 區塊磁碟區所必需的。 `google-cloud-netapp-volumes` 後端僅支援 NAS 協定，無法用於 SAN 工作負載。
+
+
+
+== NAS 磁碟區和 iSCSI 區塊磁碟區
+
+Google Cloud NetApp Volumes 同時支援 NAS 和區塊儲存，這兩種儲存方式在應用程式存取和管理資料的方式上有所不同。
+
+NAS 磁碟區提供基於檔案的儲存，並使用 NFS 或 SMB 作為共用檔案系統掛載。當多個 Pod 或節點需要同時存取相同資料時，通常會使用這些磁碟區。
+
+iSCSI 區塊磁碟區提供原始區塊儲存，並以區塊裝置的形式附加到 Kubernetes 節點。每個磁碟區都配置為邏輯單元號碼（LUN），並透過 iSCSI 協定進行存取。區塊儲存通常用於工作負載需要區塊級存取或應用程式管理的 I/O 行為的情況。
+
+您可以使用由 *Flex Unified* Google Cloud NetApp Volumes 池支援的 Trident 管理的 iSCSI 儲存，在 Google Kubernetes Engine 上部署面向區塊的工作負載。
+
+這適用於以下環境：
+
+* Trident 26.02 及更新版本
+* Google Kubernetes Engine（GKE）
+* Google Cloud NetApp Volumes *Flex Unified* 儲存池
+* 基於 iSCSI 的區塊工作負載
+
+
+
+NOTE: Trident 26.02 中的 SAN 工作負載僅支援 Flex 服務等級。
+
+
+
+== 儲存架構概述
+
+對於 SAN 工作負載，Trident 透過在 Flex Unified 儲存池中建立 iSCSI 邏輯單元號碼（LUN）來配置區塊儲存設備。
+
+每個 Kubernetes PersistentVolume 對應一個 LUN。Trident 管理 LUN 的完整生命週期，包括建立、主機映射、掛載和清理。
+
+
+
+== Flex Unified 儲存池
+
+Flex Unified 儲存池使用 iSCSI 協定提供區塊儲存，是 SAN 配置所必需的。
+
+適用於 Trident 26.02：
+
+* 僅支援 *Flex Unified REGIONAL* 資源池
+* 從 Trident 26.02.1 版本開始支援 Flex Unified *ZONAL* 池。
+* SAN 工作負載僅支援 *Flex* 服務層級
+
+
+
+
+== 區塊磁碟區
+
+區塊磁碟區以 iSCSI LUN 的形式配置，並以區塊裝置的形式呈現給 Kubernetes 節點。
+
+區塊磁碟區：
+
+* 使用 iSCSI 協定
+* 支援檔案系統和原始區塊呈現
+* 由 Trident 附加和管理
+* 支援多種 Kubernetes 存取模式
+
+
+
+
+== 存取模式
+
+Trident 配置的區塊磁碟區支援下列存取模式：
+
+* `ReadWriteOnce`（RWO）
+* `ReadOnlyMany`（ROX）
+* `ReadWriteOncePod`（RWOP）
+* `ReadWriteMany` (RWX)，僅在以下情況下支持 `volumeMode: Block`
+
+
+
+
+== volumeMode 行為
+
+ `volumeMode`欄位控制區塊磁碟區的公開方式：
+
+* `Filesystem` Trident 格式化並掛載磁碟區。
+* `Block` Trident 會連接該裝置並將其作為原始區塊裝置公開。
+
+
+
+
+== 設定 Trident SAN 後端
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-san
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes-san
+  projectNumber: "<project-number>"
+  location: "<region>"
+  sdkTimeout: "600"
+  storage:
+  - labels:
+      cloud: gcp
+      performance: flex
+    network: "<vpc-network>"
+    serviceLevel: Flex
+----
+
+
+== 為 SAN 工作負載建立 StorageClass
+
+配置完 SAN 後端後，建立一個 StorageClass 引用 
+`google-cloud-netapp-volumes-san` 驅動程式。
+
+檔案系統類型是在 StorageClass 中定義的，而不是在後端定義的。
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-san
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+支援的檔案系統類型：
+
+* `ext4` (預設)
+* `ext3`
+* `xfs`
+
+
+
+NOTE: SAN 驅動程式僅支援 Flex 服務級別，不使用 NAS 特定的後端參數，例如 `exportRule`、 `unixPermissions`、
+`nasType`、 `snapshotDir`、 `nfsMountOptions`或與分層相關的設定。
+
+
+
+== 支援的作業
+
+使用 
+`google-cloud-netapp-volumes-san` 驅動程式配置的區塊磁碟區支援：
+
+* 建立
+* 刪除
+* 複製
+* Snapshot
+* 調整大小
+* 匯入
+
+
+
+
+== 配置區塊磁碟區
+
+
+
+=== ReadWriteOnce（RWO）
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gcnv-san-rwo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: gcnv-san
+----
+
+
+=== ReadWriteOncePod（RWOP）
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gcnv-san-rwop
+spec:
+  accessModes:
+    - ReadWriteOncePod
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: gcnv-san
+----
+
+
+=== ReadOnlyMany（ROX）
+
+ROX 的一個常見模式是複製現有 ReadWriteOnce 磁碟區並將複製磁碟區掛載為唯讀。
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gcnv-san-rox
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: gcnv-san
+  dataSource:
+    kind: PersistentVolumeClaim
+    name: gcnv-san-rwo
+----
+
+
+=== ReadWriteMany (RWX) — 僅原始區塊
+
+僅在 `volumeMode: Block`時才支援 ReadWriteMany。
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gcnv-san-raw-rwx
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Block
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: gcnv-san
+----
+
+
+== 額外 GiB 過度配置行為
+
+Google Cloud NetApp Volumes 區塊磁碟區包含內部元資料開銷。與已配置的容量相比，此開銷會減少核心可見的裝置大小。
+
+測試結果顯示：
+
+* 初始建立時大約需要 300 KiB 的額外負荷
+* 調整大小後最多約 107 MiB 的額外開銷
+
+
+由於 Google Cloud NetApp Volumes 只接受整 GiB 的分配，Trident 透過以下方式確保可用裝置大小始終滿足或超過 PVC 請求：
+
+* 將請求的大小向上取整到下一個整數 GiB
+* 新增額外的 1 GiB 緩衝區
+
+
+範例：
+
+* PVC 請求：100 GiB
+* Google Cloud NetApp Volumes 中已配置的大小：101 GiB
+* 應用程式可見的可用空間：至少 100 GiB
+
+
+這樣可以確保應用程式始終獲得所請求的容量，即使考慮了內部中繼資料開銷也是如此。
+
+
+
+== Pod 範例
+
+
+
+=== 檔案系統掛載區塊磁碟區（RWO）
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-rwo
+spec:
+  containers:
+  - name: app
+    image: ubuntu:22.04
+    command: ["sleep", "infinity"]
+    volumeMounts:
+    - name: data
+      mountPath: /mnt/data
+  volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: gcnv-san-rwo
+----
+
+
+=== 原始區塊設備（RWX）
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-raw-rwx
+spec:
+  containers:
+  - name: app
+    image: ubuntu:22.04
+    command: ["sleep", "infinity"]
+    volumeDevices:
+    - name: data
+      devicePath: /dev/xda
+  volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: gcnv-san-raw-rwx
+----
+
+
+== 附加和掛載行為
+
+對於從 Google Cloud NetApp Volumes 配置的 SAN 磁碟區：
+
+* Trident 在 Flex Unified 儲存池中建立邏輯單元號碼（LUN）。
+* 發布期間，Trident 將 LUN 對應到每個節點的主機群組。
+* 在節點暫存期間、 Trident ：
++
+** 登入 iSCSI 目標
+** 探索 LUN
+** 配置多路徑
+
+
+* 如果 `volumeMode: Filesystem`，Trident 會視需要格式化裝置並將其掛載。
+* 如果 `volumeMode: Block`，Trident 會將裝置連接並直接暴露給 pod，而無需格式化或掛載。
+
+
+
+NOTE: SAN 區塊磁碟區不提供分散式鎖定或寫入協調功能。當多個節點存取區塊磁碟區時（ReadWriteMany `volumeMode: Block`），應用程式或檔案系統必須管理並發性。

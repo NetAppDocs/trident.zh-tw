@@ -26,6 +26,8 @@ entries:
       url: "/trident-use/gcnv-prep.html"
     - title: 組態選項與範例
       url: "/trident-use/gcnv-examples.html"
+    - title: 設定自動分層
+      url: "/trident-use/gcnv-auto-tiering.html"
   - title: 不含SolidFire NetApp HCI
     url: "/trident-use/element.html"
   - title: 支援SAN驅動程式ONTAP
@@ -54,8 +56,10 @@ entries:
       url: "/trident-use/trident-fsx-install-trident.html"
     - title: 設定儲存後端
       url: "/trident-use/trident-fsx-storage-backend.html"
-    - title: 設定自動後端組態
-      url: "/trident-use/trident-fsx-auto-backend-configuration.html"
+    - title: 建立 Autogrow 策略
+      url: "/trident-use/automatic-volume-expansion.html"
+    - title: 管理 Autogrow 策略
+      url: "/trident-use/create-autogrow-policy.html"
     - title: 設定儲存類別和 PVC
       url: "/trident-use/trident-fsx-storageclass-pvc.html"
     - title: 部署範例應用程式

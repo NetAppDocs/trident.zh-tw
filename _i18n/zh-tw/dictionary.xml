@@ -5260,7 +5260,6 @@
   <block id="5df2f935f2bc3df2c6378f665b3d6659" category="list-text">您可以新增<block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix=" " category="inline-code"></block>在所有 OpenShift 工作節點上配置和啟用 iSCSI 和 Multipath 服務的參數。</block>
   <block id="f61306bfa8c6de676059739358d4479f" category="list-text">按一下「建立」； Trident Orchestrator 將會完全安裝。</block>
   <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">卸載Trident操作員</block>
-  <block id="b94d4c5305d8d32a875a24a5b1501274" category="admonition">對於使用SolidFire的客戶，請不要升級到 25.06.1，因為取消發布捲時有已知問題。  25.06.2 即將發布以解決此問題。</block>
   <block id="4011c398b0ff3b95197b4f4713f3216e" category="list-text">使用<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>命令和更新的路徑<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block>文件。</block>
   <block id="f05848de69e82db6963b7b9c5322a67f" category="paragraph">*例子*：<block ref="7aa76d5ff854a67029ba30d1a11e1e53" prefix=" " category="inline-code"></block></block>
   <block id="b8331cd182c8a703fc1ad6851d01da14" category="list-text">填充後<block ref="699c503b46d4ca3ec78905dff3704cac" prefix=" " category="inline-code"></block>具有正確值的文件，應用 CR：</block>
@@ -5381,7 +5380,6 @@
   <block id="e214c4610b9128a251097b5d36c60e8b" category="list-text">Trident不支援使用<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 司機。</block>
   <block id="ed323fee394548d260c31d933876b771" category="section-title">當預期啟用“v4.2-xattrs”時，NFSv4.2 用戶端在升級ONTAP後報告“無效參數”</block>
   <block id="b9785b666a04771c63b539840201a4db" category="paragraph">升級ONTAP後，NFSv4.2 用戶端在嘗試掛載 NFSv4.2 匯出時可能會報告「無效參數」錯誤。當<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> SVM 上未啟用該選項。.解決方法啟用<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> 選項或升級至ONTAP 9.12.1 或更高版本，預設此選項為啟用。</block>
-  <block id="844c50b4f1aab48821867a1209be687b" category="admonition">雖然Trident在 Rancher Kubernetes Engine 2 (RKE2) 版本 1.27.x - 1.34.x 上受支持，但Trident目前僅在 RKE2 v1.28.5+rke2r1 上獲得認證。</block>
   <block id="431f7ca0be64e2c321d4d4be79b721aa" category="inline-link-macro">使用 Active Directory 憑證向後端 SVM 驗證Trident 的身份</block>
   <block id="ebce82cad933beb695765f374ca16800" category="cell">用於連接到叢集/SVM 的使用者名稱。用於基於憑證的身份驗證。有關 Active Directory 驗證，請參閱 <block ref="c266761f957eda011224921a8539eded" category="inline-link-macro-rx"></block>。</block>
   <block id="c48567e30df98d399ca8a25594294caa" category="cell">連接到叢集/SVM 的密碼。用於基於憑證的身份驗證。有關 Active Directory 驗證，請參閱 <block ref="c266761f957eda011224921a8539eded" category="inline-link-macro-rx"></block>。</block>
@@ -5670,11 +5668,9 @@
   <block id="c6f0dfdaf60b2fd022cd1b94ce713c90" category="paragraph">本範例為Trident控制器和Trident Windows 和 Linux 節點 pod 設定 Kubernetes 資源請求和限制。</block>
   <block id="b320bddb4a4bb9ebc05f4941f7f248a0" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.3.0</block>
   <block id="80aabc2f42a52376f3d884d3b02360f4" category="admonition">如果您使用 Red Hat OpenShift，請務必注意命名空間註解在 OpenShift 環境中的重要角色。命名空間註解可確保復原的 pod 遵守 OpenShift 安全性情境約束 (SCC) 定義的適當權限和安全性配置，並且可以存取磁碟區而不會出現權限問題。欲了解更多信息，請參閱<block ref="842acfa178c0bbf09e368bf9db0716b8" category="inline-link-macro-rx"></block>。</block>
-  <block id="0547999ac2794529491ce433caf5eadb" category="list-text">OpenShift 4.12、4.14 - 4.20（如果您打算在 OpenShift 4.19 中使用 iSCSI 節點準備，則支援的最低Trident版本為 25.06.1。）</block>
   <block id="5137aa193de4e4cc652a198db463acd3" category="admonition">預設情況下，Trident 的指標會暴露在目標連接埠上。<block ref="bc3c4a6331a8a9950945a1aa8c95ab8a" prefix=" " category="inline-code"></block>在<block ref="ae3b848d2daecffc635ae20b0b882d8f" prefix=" " category="inline-code"></block>端點。安裝Trident時，這些指標*預設為啟用*。您可以設定透過 HTTPS 在連接埠上消費Trident指標。<block ref="c24f4c5eef7ec01c46e003a9296c8645" prefix=" " category="inline-code"></block>也一樣。</block>
   <block id="e4850469bb389cec2e3ac44d4276ffb0" category="inline-link-macro">Prometheus Operator 文檔</block>
   <block id="faa779ed6ae9bda26148b1ff6bf0cc52" category="paragraph">您應該定義一個 Prometheus 目標來收集指標並獲取有關Trident管理的後端、它創建的捲等的資訊。看<block ref="64a51bde051e46320750fd80d285a3d9" category="inline-link-macro-rx"></block>。</block>
-  <block id="0bca60aba2da7f8ae6d6dac4fb580afe" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.34.x</block>
   <block id="3802caa8e4bea50419dcef8b68f5b82e" category="paragraph">Trident建議採用以下選項來加速格式化流程：</block>
   <block id="8b081afdb240ed6d03a50d7b70aac895" category="list-text">*-E nodiscard (ext3, ext4):* 不要嘗試在 mkfs 時丟棄區塊（最初丟棄區塊對固態設備和稀疏/精簡配置儲存很有用）。這將取代已棄用的選項“-K”，並且適用於 ext3、ext4 檔案系統。</block>
   <block id="01f770831133fae79fa85eb89c42b8f2" category="list-text">*-K (xfs):* 不要在執行 mkfs 時嘗試丟棄區塊。此選項適用於 xfs 檔案系統。</block>
@@ -5954,7 +5950,6 @@
   <block id="ae3918e109e702f2d03b5027de8a73eb" category="paragraph">以下範例使用磁碟區 <block ref="acdf8df0c694db089171ecaf51f80166" prefix=" " category="inline-code"></block> 從後端 <block ref="c082d32d434314708cccf35dd974ac32" prefix=" " category="inline-code"></block> 匯入磁碟區。</block>
   <block id="36a57158e28c15925c88aebde90472b6" category="admonition">執行此命令後，ONTAP 會提示輸入憑證。貼上步驟 1 中產生的<block ref="0c7b1ee06b5fdaab7c83f24275255cf5" prefix=" " category="inline-code"></block>檔案內容，然後輸入<block ref="b1a326c06d88bf042f73d70f50197905" prefix=" " category="inline-code"></block>以完成安裝。</block>
   <block id="02356881e19a0d2738b050b76923c98e" category="doc">支援的作業</block>
-  <block id="7620488d5fb7b77dda771508677fd29e" category="paragraph">sidebar: sidebar permalink: trident-asar2-support.html keywords: asar2, trident, fcp, nvme, tcp, nvme/tcp, fibre channel summary: NetApp Trident 支援 ONTAP ASA r2 的 iSCSI 和 NVMe/TCP。--- = NetApp Trident 對 ONTAP ASA r2 儲存系統的支援 :hardbreaks: :icons: font :imagesdir: ./media/</block>
   <block id="9d20e3956cff4f7ce8f40089410b6eda" category="paragraph">NetApp Trident 25.02 及更高版本支援 NetApp ASA r2 系統作為儲存後端。如需更多資訊，請參閱 <block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block>。</block>
   <block id="1be09f20bc514ebd461d2bb177d2eb7f" category="paragraph">ASA r2 系統需要 <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 驅動程式。Trident 不支援 ASA r2 系統的 <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 驅動程式。</block>
   <block id="a7feabe5a282558971f299220f74bae8" category="paragraph">當您在後端設定中將<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>指定為<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block>時，Trident 會自動偵測 ASA r2 儲存系統。</block>
@@ -6064,8 +6059,6 @@
   <block id="3efcec6a387ab5737e772a3baeea51b2" category="list-text">Kubernetes 1.27 - 1.35</block>
   <block id="43e43f38c3caf4af908ea20149dccef1" category="paragraph">1.27 - 1.35</block>
   <block id="ac6cc7900e3d9478b2fcf3a73c070b29" category="section-title">Trident 26.02 所需的容器鏡像</block>
-  <block id="5efca7076d66285d044c3d550f412284" category="cell">v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0 、 v1.33.0 、 v1.34.0 、 v1.35.0</block>
-  <block id="4711816ecf930de7bedb0fff0ed5f46a" category="list-text">docker.io/netapp/trident:26.02.0</block>
   <block id="627219ce2083b03812e10846d1307811" category="list-text">*spec.runImmediately*：（選用）設定為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>以在建立排程時觸發一次性立即基準執行（根據保留設定進行備份和 / 或快照）。預設為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>。這不會修改後續的重複執行。</block>
   <block id="b267d2c4b44dd537f81ddd4d1ca1cdd8" category="paragraph">範例 YAML 文件，用於實現立即運行的排程任務：</block>
   <block id="ea89dfc546da2da95449976a3262efd9" category="list-text">*立即基線保護*：使用 <block ref="40c288e5937b634afc8b0a225fcdb4cf" prefix=" " category="inline-code"></block> 在建立排程時立即建立初始備份或快照，而不是等待首次排程執行時間。預設為 <block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>。</block>
@@ -6083,14 +6076,6 @@
   <block id="f65c06826afa8d10471cd5dee9af7426" category="section-title">步驟 2：升級 Trident Protect</block>
   <block id="900b2ff0e4545565ae3f08238031bafd" category="section-title">26.02 版本新增內容</block>
   <block id="15472a280efaab6ff08ec110afd8de46" category="paragraph">了解 NetApp Trident 和 Trident Protect 的新特性，包括增強功能、修復和棄用。</block>
-  <block id="0cd674dc13f7f0d0cd814406895c6c26" category="list-text">ONTAP-NAS（僅限 NFS）、ONTAP-SAN（iSCSI、FCP、NVMe）和 Google Cloud NetApp Volumes 驅動程式的並行支援現已正式推出（GA）。</block>
-  <block id="338c280673458e2a0d8326791500585f" category="list-text">新增對 Amazon FSx for NetApp ONTAP 自動後端組態的支援。當您建立包含所需參數的 StorageClass 時、 NetApp Trident 會自動建立對應的後端和 VolumeSnapshotClass （如果需要）。</block>
-  <block id="88be3cb839b87cd59251186a46ce2131" category="list-text">增加了對不同 Microsoft Azure 雲端的支援，例如 Azure Government 和 Azure China，以及 Azure NetApp Files 後端的自訂雲端組態。</block>
-  <block id="326b034ae63f6d3994c281a8cac9f8ec" category="list-text">提高了 NVMe Volume 的控制器擴充性。</block>
-  <block id="4b16c8e89b3ae74b883249dfbda3fb76" category="list-text">新增了對磁碟區自動增長功能的支援。您可以透過定義自訂 NetApp Trident 自動增長原則來控制自動增長行為。</block>
-  <block id="56eb637028c773a0b3f0928d684b0858" category="list-text">增加了對 Google Cloud NetApp Volumes 區塊儲存（SAN/iSCSI）的支援。</block>
-  <block id="d0301040d2b23da6942cccd05795fb8f" category="list-text">新增支援 Google Cloud NetApp Volumes 的自動分層功能。您現在可以透過 NetApp Trident，為 Google Cloud NetApp Volumes 新增 Kubernetes 原生控制項，以設定 ONTAP FabricPool 的自動分層，進一步優化儲存成本。</block>
-  <block id="2bfdbe4418b0bc08ea91cca205c02d4f" category="list-text">新增對 Kubernetes 1.35 的支援。</block>
   <block id="7311a436928a6eeb8c6adc3401143feb" category="list-text">*[Tech Preview]*：為 ONTAP-NAS-Economy 和 ONTAP-SAN-Economy 驅動程式新增了並發支援。</block>
   <block id="4c74a316da3601aa60b802f3ba8e8ca9" category="inline-link-macro">問題 #1086</block>
   <block id="0a1b89da458ac0294d519466f17db4e9" category="list-text">修正了在 ONTAP-NAS、ONTAP-NAS-Economy 和 Google Cloud NetApp Volumes 驅動程式中，取消發布只讀複製會從來源磁碟區中刪除匯出策略規則的問題<block ref="34642f06ac184977842d0b61f89276bf" category="inline-link-macro-rx"></block>。</block>
@@ -6180,107 +6165,26 @@
   <block id="e354cb28235dafa136e3bb2951da5976" category="paragraph">以下範例安裝 Trident 並使用<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block> 設定<block ref="e7b51407a2bfaa34b58afce0107e9a5f" prefix=" " category="inline-code"></block>，並使用<block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix=" " category="inline-code"></block> 設定<block ref="c9d280b28993d1d105c3fbafb5868a15" prefix=" " category="inline-code"></block>：</block>
   <block id="dd65a9b1594d71259218948b0e7d9403" category="paragraph">請使用以下環境變數設定 *cloud provider* 和 *cloud identity* 標誌的值：</block>
   <block id="ebc14fa9723daa39f7a3620b5c70ee28" category="paragraph">以下範例安裝 Trident 並將<block ref="e33bb4eb32023da4a8ea7a1ba6927067" prefix=" " category="inline-code"></block>設定為<block ref="e7b51407a2bfaa34b58afce0107e9a5f" prefix=" " category="inline-code"></block>、將<block ref="c5af480af77c330e04a1fce1f6c2b03a" prefix=" " category="inline-code"></block>設定為<block ref="c9d280b28993d1d105c3fbafb5868a15" prefix=" " category="inline-code"></block>：</block>
-  <block id="4431d6cabbe63411158ce47a87075100" category="summary">使用 Trident 中的 Trident Autogrow Policies 設定及管理自動磁碟區擴充。</block>
   <block id="c5c1e2b25189cb805d40d5edaff3a9ac" category="doc">自動磁碟區擴充</block>
-  <block id="05b985d01acfd656ed032d9bc7d59b64" category="paragraph">自動磁碟區擴充功能可讓 Trident 配置的持續磁碟區（PV）在其已用容量達到定義的臨界值時自動成長。</block>
-  <block id="8744b6bf99be8c012a456c7593bdee48" category="paragraph">此功能透過 *Autogrow Policies (AGPs)* 實現。Autogrow Policy 定義：</block>
   <block id="8d81b7eeed8b82e0fdde76c9b21413d5" category="list-text">觸發擴充的使用率臨界值</block>
   <block id="afe5ec242306d084478fbbb7d22d7a22" category="list-text">磁碟區增長的量</block>
   <block id="3ce9a3a1c103f1e626dbee6a0235da0a" category="list-text">磁碟區可達到的最大大小</block>
-  <block id="f3142d8afac2286e464184d23e9be335" category="paragraph">自動磁碟區擴充可降低營運開銷，並有助於防止因磁碟區已滿而導致的應用程式中斷。</block>
   <block id="5970ba32e517360957a1a5328597a42f" category="list-text">Trident 26.02 或更新版本</block>
-  <block id="7de7745d1c9c8eb6f9bbae0549ad5e2b" category="list-text">建立<block ref="785854d43993e53bddae51b76513d6be" prefix=" " category="inline-code"></block>自訂資源的 RBAC 權限</block>
-  <block id="37420a74404f89ebeaa964dfd9948430" category="list-text">StorageClasses 必須包括<block ref="41bff9aad0d85451896a93a22edd478a" prefix=" " category="inline-code"></block></block>
   <block id="65092a645c4b02f8a9b562376070dc6a" category="list-text">支援的 ONTAP 通訊協定：</block>
   <block id="a7c815fafe60ae637d38216fa6300395" category="list-text">FCP</block>
   <block id="70d9e3c68d42d6ec42ab792e06c44357" category="list-text">NVMe</block>
-  <block id="5db6e4ff2c3aa3867d13359cb8452238" category="admonition">ONTAP 9.16.1 之前的 ONTAP NVMe 原始區塊磁碟區不支援自動擴充。</block>
-  <block id="5a107b7e0ff0cf845f66fdf1c9a461c1" category="admonition">對於 SAN 磁碟區，如果<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>小於或等於 50MiB，Trident 會在調整大小之前將該值增加到 51MiB，前提是產生的大小不超過<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block>。</block>
   <block id="69999debfe8e265ab59b7d6bb13b14ef" category="admonition">在棕地環境中，由於磁碟區發佈遷移行為，自動擴充功能可能無法對某些現有磁碟區生效。</block>
   <block id="f5130e45647f9ca05d1dc8689e0952e3" category="section-title">建立 Autogrow 策略</block>
-  <block id="d7d77ebb2e9ac153ea4f3fb857d1404f" category="paragraph">Autogrow Policies 是 Kubernetes 自訂資源，類型為<block ref="785854d43993e53bddae51b76513d6be" prefix=" " category="inline-code"></block>。</block>
-  <block id="c8f59a2fd1bd94b489580d051e8c18bb" category="paragraph">Autogrow 原則定義了磁碟區何時以及如何擴展。</block>
-  <block id="ca8bd5f6386efc9750b392e945b0492f" category="section-title">欄位定義</block>
-  <block id="3edef07062ce16bdb7176deb08146753" category="cell"><block ref="765cecee8002899c6cc0bea7842f7fe5" prefix="" category="inline-code"></block></block>
-  <block id="919a60d22df5af995ec919a856e03083" category="cell">唯一原則識別碼。</block>
-  <block id="6559bfdec61ba0fdf4bb4170d44d3b6e" category="cell"><block ref="b89d4d9ef2127a19b1fd6bdb32024b88" prefix="" category="inline-code"></block></block>
-  <block id="24f9739c831043a919cd961eb05cd4fc" category="cell">觸發擴充的已用容量百分比。</block>
-  <block id="a8ac65bbcca844c519112e2a0fd585dc" category="cell"><block ref="b8975976fc99a32ebfa6029b743acee3" prefix="" category="inline-code"></block></block>
-  <block id="9d396c3ef1efa932a335669ffac4ccdd" category="cell">達到閾值時要增長的量。可以指定為百分比（例如，<block ref="70ead32841956db772f45f40e3c3774c" prefix=" " category="inline-code"></block>）或固定值（例如，<block ref="f8850a9a2722dacb85fe765edf367e2d" prefix=" " category="inline-code"></block>）。如果未指定，則預設為<block ref="bb1a5a2b7eec4f940f8e78abe48d68bf" prefix=" " category="inline-code"></block>。</block>
-  <block id="53fa92b69b520221539f22b6a850f945" category="cell"><block ref="b78e1120b12abd7215d67324fe9476ff" prefix="" category="inline-code"></block></block>
-  <block id="794e2938483731640e76be5a85d68b25" category="cell">最大磁碟區大小限制。如果未指定，磁碟區可以無限制地增長，而不會強制執行上限。</block>
-  <block id="053243817e050955ef10aef683324bbe" category="section-title">範例：標準 Autogrow 策略</block>
-  <block id="a4b0c6d5e0f61e08b3142ebb028e8bac" category="paragraph">以下範例建立了一個策略，該策略在利用率達到 80% 時觸發擴展，每次成長 10%，並將成長限制在 500Gi。</block>
-  <block id="acaa1d46643095a73079b7d23273e254" category="section-title">建立原則</block>
-  <block id="d75da22dc42e57c75a740560e85952f2" category="list-text">將 YAML 定義儲存到檔案中。</block>
-  <block id="06d0a1748ca2593f14c5fbba6e4111f1" category="list-text">套用原則：</block>
-  <block id="bec1f1326646b26cbd4a8894830275f5" category="list-text">驗證建立：</block>
-  <block id="d15e02bf0c54e008af2e8212aa7c7d4f" category="paragraph">預期輸出：</block>
   <block id="18676fa799168f2bdd968065f654b90a" category="section-title">組態範例</block>
   <block id="c3370c7a5bc0e7d0006f3c8310734e1c" category="section-title">生產資料庫的保守原則</block>
-  <block id="e98efa44f764f9733009c866bab3d0d2" category="paragraph">對於避免容量耗盡至關重要的正式作業資料庫工作負載，請使用較低的臨界值和較大的成長增量。</block>
-  <block id="ae68a5fc0b46aab6af709e82213f1df1" category="section-title">固定增長的日誌儲存</block>
-  <block id="0b20fe91ee5df99ffab0454bc6d730f9" category="paragraph">當需要可預測的成長步長時，請使用固定大小的增量。</block>
-  <block id="b5b8f71ccacaab0c3084a8001d860801" category="section-title">自動增長策略（帶預設值）</block>
-  <block id="56f9736a2e7a91291c4790e71aee82ea" category="paragraph">如果僅指定<block ref="b89d4d9ef2127a19b1fd6bdb32024b88" prefix=" " category="inline-code"></block>，<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block> 預設為<block ref="bb1a5a2b7eec4f940f8e78abe48d68bf" prefix=" " category="inline-code"></block>，且<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block> 無限制。</block>
-  <block id="b5fc9db1b7ca7b0f79be4cb27dcd4aa8" category="section-title">自動增長策略與預設 growthAmount</block>
-  <block id="b70ffe86a4e41b0de208c9de42ee9be8" category="paragraph">使用預設增長增量時指定最大大小。</block>
-  <block id="21a0db03870f1f47e26f420207bbac3c" category="section-title">自動增長策略（預設 maxSize）</block>
-  <block id="c1d5311f0efec14e9e57392fc15dde10" category="paragraph">允許不受限制的增長，同時指定自訂增長百分比。</block>
-  <block id="2f857eb76c2a43a5905dcf9daf614a8a" category="section-title">自動成長策略（小數百分比）</block>
-  <block id="e2dc44c1b9c32f47b9fe94e976044a9d" category="paragraph">分數百分比可以對閾值和成長增量進行精細控制。</block>
   <block id="c5b8210f63684973e3529d8893838478" category="section-title">政策狀態</block>
   <block id="46a2a41cc6e552044816a2d04634545d" category="cell">狀態</block>
   <block id="505a83f220c02df2f85c3810cd9ceb38" category="cell">成功</block>
-  <block id="fbd6d64d8e28126247475bedc540979d" category="cell">策略已驗證，可以投入使用。</block>
-  <block id="899bef1f26ac5a843fa15b2500e6b1b5" category="cell">偵測到驗證錯誤。請檢閱並修正規格。</block>
   <block id="ffbb410a55bb31f801dea6387e2745ac" category="cell">刪除</block>
-  <block id="722212fbea0dbbb78ba4b71b1717258e" category="cell">刪除正在進行中。Finalizer 會在磁碟區參照原則時防止移除。</block>
   <block id="7847741f22918a5ba2c62a0957705cd4" category="section-title">管理 Autogrow 策略</block>
-  <block id="64f972ec7ebfc63ed24f775c80d59396" category="section-title">列出原則</block>
   <block id="0963baeb80881f2591bd06d7c9106b2c" category="section-title">檢視原則詳細資料</block>
   <block id="98f5cd9a2cbea70399d87c5824290f9d" category="section-title">更新 Autogrow 策略</block>
-  <block id="c67d5bc73347f01a6075d9f38cb3f0a3" category="admonition">變更會影響目前使用該原則的所有磁碟區。</block>
-  <block id="308becce311bab0fd272c5164092b69b" category="paragraph">更新將在下次增長作業期間套用。不需要重新啟動 Volume 。</block>
   <block id="d73a44f1efd76ad4c6b0a239a95393b5" category="section-title">刪除 Autogrow 策略</block>
-  <block id="03d0f8e91f88248ed37a5eabfda09fb6" category="paragraph">Autogrow 策略包含 finalizer 保護，以防止在使用過程中被刪除。</block>
-  <block id="c2ee1b6ea6cab0cc178468683aee04e3" category="paragraph">如果磁碟區參照該原則，則該原則將保持在<block ref="ffbb410a55bb31f801dea6387e2745ac" prefix=" " category="inline-code"></block>狀態，直到移除所有參照為止。</block>
-  <block id="70bc5a292072a57e7abd715bc5ca1eb9" category="paragraph">若要使用原則識別磁碟區：</block>
-  <block id="beda8223d76ff7f3a24810bd51e6fa4e" category="paragraph">從磁碟區移除原則：</block>
-  <block id="d291ae0fc2326ed35e07d909f0a04351" category="section-title">在 StorageClass 上配置自動增長策略</block>
-  <block id="edec1cf972696290e5507eda3d3b260d" category="paragraph">使用 <block ref="d3ebc760d856a789e9b6f2f04b100023" prefix=" " category="inline-code"></block> 註解關聯策略。</block>
-  <block id="3d4cdcd772a5e091be1d7b0a589a59e7" category="paragraph">驗證註記：</block>
-  <block id="2bdcdf22c17f5d25fd8deb041de6c7c2" category="section-title">更新 StorageClass 上的自動成長策略</block>
-  <block id="514752c1197295a4ee06fed95748c717" category="section-title">從 StorageClass 中移除自動增長策略</block>
-  <block id="1be637b7d332f23262e87c1e62a91e3f" category="paragraph">選項 1：移除註釋</block>
-  <block id="7c32958c93824523b039811dff6e9f5c" category="paragraph">選項 2：將註釋設定為<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block></block>
-  <block id="ad27878601d64c95783c24e4ead1c9c7" category="section-title">將自動成長政策應用於 PVC</block>
-  <block id="31fc6be91568bca00c3b4be696dc2302" category="paragraph">在 PVC 層級應用原則以覆寫 StorageClass 行為。</block>
-  <block id="485f24bf8898757c475dfe1d5cd65646" category="paragraph">停用 PVC 上的自動生長功能：</block>
-  <block id="45eeb5028890cef4641347bedb08cce8" category="section-title">監控 Autogrow 原則使用情形</block>
-  <block id="9b3756ecb53876435c29f328805b5d9a" category="paragraph">列出原則：</block>
-  <block id="5255bb974a782141dac5a67fb21489a7" category="paragraph">尋找 PVC 使用的原則：</block>
-  <block id="c4880dc7ec4e91144f452fe61887eb04" category="paragraph">監控事件：</block>
-  <block id="642facf67e0ad311eee88b3ab8381590" category="cell">問題</block>
-  <block id="0d1d3d5d416350d799209a3ab6ea4824" category="cell">可能的原因</block>
-  <block id="b5a4b64b2aa505bd7c11f79b8a9f458d" category="cell">解決方案</block>
-  <block id="fb87bf50bb773104c56a93f09f74ca97" category="cell"><block ref="d7c8c85bf79bbe1b7188497c32c3b0ca" prefix=" " category="inline-code"></block> 狀態的原則</block>
-  <block id="a4f90ae476b9b8369ccd158570d2390c" category="cell">無效的規範</block>
-  <block id="4829c1d3316af7e10ca16897777fe307" category="cell">修正原則並重新套用</block>
-  <block id="e761d3b4f72826c779f37e432f85b46d" category="cell">磁碟區不會擴充</block>
-  <block id="5506df6f90195d2776e6ab05bfe5d280" category="cell"><block ref="b78e1120b12abd7215d67324fe9476ff" prefix="" category="inline-code"></block> 達到</block>
-  <block id="effd7e7c48952072d2455c0474828b91" category="cell">增加<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block></block>
-  <block id="5a1fa9239426a01c8fcb83e79c189366" category="cell">頻繁擴充</block>
-  <block id="ff4837a3bcc573b7f509605b114f8794" category="cell">閾值過低</block>
-  <block id="24fde2a7dd3fbb55c4773323c7eb9d7e" category="cell">增加<block ref="b89d4d9ef2127a19b1fd6bdb32024b88" prefix=" " category="inline-code"></block></block>
-  <block id="de8006ee4bff7c5cca67a233a1425f7f" category="cell">PVC 顯示<block ref="6d9afb9b36669e4b3a10df2c92726a1d" prefix=" " category="inline-code"></block></block>
-  <block id="d726fa7ccc92f4ccf09c236f456e7843" category="cell">政策不存在</block>
-  <block id="88be40e87063d8de83efe09ff5c22f94" category="cell">驗證原則名稱</block>
-  <block id="e89e886c509a8a31789c451d642ab3ae" category="cell">PVC 顯示<block ref="335c1bcda171678e4caf6ea5dd5abf36" prefix=" " category="inline-code"></block></block>
-  <block id="68e84c9dcbc56424284427bad6cbe06b" category="cell">解決驗證錯誤</block>
-  <block id="e88d0e6ad66cb32d3082ea6c15fadc4e" category="cell">TAGRI 多次拒絕</block>
-  <block id="a15cd7028ab9440e82999cb6fc630ef4" category="cell"><block ref="b78e1120b12abd7215d67324fe9476ff" prefix="" category="inline-code"></block> 超出</block>
-  <block id="ae1db572a79eb0a356b15ed9606c10da" category="cell">增加<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block> 或調整<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block></block>
   <block id="a7d2fe608fafbe7aab36a7d35c1c1f76" category="summary">了解控制器的可擴充性、並行行為和功能成熟度。</block>
   <block id="3e763e2b1294995bd50b4c7f4ec3e8b2" category="doc">控制器擴充性</block>
   <block id="7c722282ff2880e6d4f4a9dbdba1c4d7" category="paragraph">Trident 透過提升多個儲存驅動程式之間的並發性，實現了控制器可擴充性。客戶可以了解哪些 Trident 驅動程式在正式發佈時支援控制器可擴充性，以及哪些驅動程式在 Trident 26.02 中以技術預覽版的形式提供。這有助於客戶做出明智的部署決策，並為可擴充的 Kubernetes 環境進行適當的風險管理。</block>
@@ -6605,5 +6509,217 @@
   <block id="85d72c32c8b3a4ec780181f2d80353e6" category="list-text">每個 RWX NVMe 磁碟區的 64 節點限制適用。</block>
   <block id="f8441ad262aed57fe834868e18fef751" category="list-text">其他存取模式和其他傳輸協定不受影響。</block>
   <block id="e9bfcc730facb3fb0d4f568b0c0d94e5" category="sidebar">設定區塊儲存設備</block>
-  <block id="0a016d1270ba974707ac8af9f53a2e63" category="sidebar">設定自動後端組態</block>
+  <block id="a65039090aec95e4e36c9e0bb3f2c78f" category="section-title">VolumeSnapshots 未達 ReadyToUse 狀態</block>
+  <block id="0e14aafcb9d65542bb9e7d2fe3c6e355" category="paragraph"><block ref="22971c572be5287cd926ba5f52538b65" prefix=" " category="inline-code"></block> sidecar 存在已知問題。在所有 Kubernetes 版本中、VolumeGroupSnapshots<block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block> 會阻止 VolumeSnapshots 達到<block ref="a87026a344997ce04709fb7b1377c9e7" prefix=" " category="inline-code"></block>狀態。</block>
+  <block id="791735d716b346dae5819444cf3822a3" category="paragraph">有兩種因應措施：</block>
+  <block id="f707d7e24f85853fa65412720b4ccf70" category="list-text">刪除 VolumeGroupSnapshots CRD 以停用 VolumeGroupSnapshots，然後重新安裝 Trident。</block>
+  <block id="c9644b1386fe489395415704ac0e7e8f" category="list-text">安裝 VolumeGroupSnapshots<block ref="26237abe1a9f48388cfc22a74b49b3d2" prefix=" " category="inline-code"></block> 和<block ref="106ed44c271b7d02c288d45962a36249" prefix=" " category="inline-code"></block> 版本 8.4.0 或更高版本，然後重新安裝 Trident。VolumeGroupSnapshots 無法在低於 v1.34 的 Kubernetes 版本上運行。</block>
+  <block id="daed52db7c601a094cad7fbdfc21ed65" category="summary">NetApp Trident 支援 ONTAP ASA r2 的 iSCSI 和 NVMe/TCP 。</block>
+  <block id="bb36b98a1bf8375b9d3906703dad4dbb" category="doc">NetApp Trident 對 ONTAP ASA r2 儲存系統的支援</block>
+  <block id="2558e4b797d243bba4d45d38e97897b8" category="section-title">支援的 Kubernetes 平台</block>
+  <block id="0e2ef50b7c69ffbf62cb09918ee19243" category="paragraph">Trident 支援多種 Kubernetes 發行版和平台。</block>
+  <block id="743dd0163ccee4a4f89d41bf4005a591" category="paragraph">支援的平台包括：</block>
+  <block id="9dc48bb809ddb16298a6203467073aba" category="list-text">SUSE Harvester 1.7.0 （ONTAP iSCSI）</block>
+  <block id="ec92eeadf77128110614c3ae4b04e5c6" category="list-text">OpenShift 4.12、4.14 - 4.21（如果您打算在 OpenShift 4.19 版本中使用 iSCSI 節點準備功能，則支援的最低 Trident 版本為 25.06.1。）</block>
+  <block id="991b6998365b18269e10fd6932757c88" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.35.x</block>
+  <block id="8d64b27a6d71fd535c11f889aa7bab23" category="cell">v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0 、 v1.33.0 、 v1.35.0</block>
+  <block id="c707950f03771f414f81ae094c2a267c" category="list-text">docker.io/netapp/trident:25.10.0</block>
+  <block id="fa39b55af1ef0692bcd52101a2886102" category="inline-link-macro">控制器擴充性文件</block>
+  <block id="132f0447aa079a2a979713029f6c5c0f" category="list-text">新增 ONTAP-NAS（僅限 NFS）、ONTAP-SAN（iSCSI、FCP、NVMe）和 Google Cloud NetApp Volumes（GCNV）驅動程式並發支援的正式版（GA），此功能已從技術預覽版升級。如需詳細資訊，請參閱 <block ref="2cdc5fbb0ceee513eb25d6f3a67c7e5a" category="inline-link-macro-rx"></block>。</block>
+  <block id="79c677a07b8e51f9201ddd1c415adbfc" category="inline-link-macro">自動磁碟區擴充文件</block>
+  <block id="bc3e246915169868930c0ee0e959ac01" category="list-text">新增了對 Trident 基於自訂使用者定義 Trident AutoGrow 策略的磁碟區自動成長支援。如需詳細資訊，請參閱 <block ref="a7492e90c94d8dac09c3e235d76ad157" category="inline-link-macro-rx"></block>。</block>
+  <block id="f1ce9012acefe1573350ec9a275586e1" category="inline-link-macro">NVMe Volume 說明文件</block>
+  <block id="d64e31d264670bc5bb4d277ec52e11bf" category="list-text">增強了 Trident 節點的並發性，以提高 NVMe 磁碟區節點操作的可擴展性。如需詳細資訊，請參閱 <block ref="62b786b7a7858209491e5527e6756cf9" category="inline-link-macro-rx"></block>。</block>
+  <block id="960cb4eabfd2ed61ed7d9d341b9db051" category="inline-link-macro">設定 Google Cloud NetApp Volumes 文件的自動分層</block>
+  <block id="cf29405754ca46eff4d1ac1e8660f0d0" category="list-text">新增對 Google Cloud NetApp Volumes NAS 磁碟區自動分層的支援（透過 PVC 註解 <block ref="a3e48f0594dda6037d37d52d343489b0" prefix="(" category="inline-code"></block>、<block ref="dbcd3e39f9838cf1a4cd4282c88a4d40" prefix=" " category="inline-code"></block>），包括池選擇和克隆繼承。如需詳細資訊，請參閱 <block ref="d2bd62cb3e4e9a240b83e91db1904a44" category="inline-link-macro-rx"></block>。</block>
+  <block id="3d1c3457c57a67aa1261a00c491531ae" category="inline-link-macro">Google Cloud NetApp Volumes 區塊組態文件</block>
+  <block id="24b6d159af48f2ad16c50b2120b816bf" category="list-text">新增對使用 <block ref="0ffa63dea74ac96b64836a273ee062bb" prefix=" " category="inline-code"></block> 驅動程式的 GCNV SAN 區塊（iSCSI）磁碟區的支援，包括資源配置、用於 LUN 存取的每節點主機群組對應，以及從磁碟區複製作業。如需詳細資訊，請參閱 <block ref="d9e346867b3e384bbbdd1c2d5b29c137" category="inline-link-macro-rx"></block>。</block>
+  <block id="2e0ebc9390cad6b06468e0dd7a381973" category="inline-link-macro">Amazon FSx for NetApp ONTAP 後端組態文件</block>
+  <block id="aaf04faa854f63ba7e0d47b80c29b9c9" category="list-text">新增對 Amazon FSx for NetApp ONTAP 自動後端組態的支援。當您建立包含所需參數的 StorageClass 時、 Trident 會自動建立對應的後端和 VolumeSnapshotClass （如有需要）。如需詳細資訊、請參閱 <block ref="09369af1700ce5c7823f26ae413e56a7" category="inline-link-macro-rx"></block> 。</block>
+  <block id="f95c8a4475ff340ef046246c0c849166" category="inline-link-macro">Azure NetApp Files 後端組態文件</block>
+  <block id="6eb24a3243ef3dc1f05eff9604a173a6" category="list-text">增加了對不同 Microsoft Azure 雲端的支援，例如 Azure Government 和 Azure China，以及 Azure NetApp Files 後端的自訂雲端組態。如需詳細資訊，請參閱 <block ref="4e9e5b49f39a6fbe1064450752ff81e6" category="inline-link-macro-rx"></block>。</block>
+  <block id="15867a7811f736f8877cd402ddda159c" category="inline-link-macro">需求文件</block>
+  <block id="1a4f07a2ad9994c7471bfd0c745619e7" category="list-text">新增對 Kubernetes 1.35 的支援。如需詳細資訊，請參閱 <block ref="828495d4e8327d8b9cec4516431f4186" category="inline-link-macro-rx"></block>。</block>
+  <block id="7dcbfc054c3b07861db3f7ce9431ef8c" category="admonition">對於正在使用 SolidFire 的客戶，請勿升級至 25.06.1，因為在取消發佈磁碟區時存在已知問題。25.06.2 即將發佈以解決此問題。</block>
+  <block id="2d182a7ab511ccb3d269a7a50785226d" category="summary">使用 Trident Autogrow 政策設定和管理自動磁碟區擴充。</block>
+  <block id="f35e4c53f5dd5cf7f66cb0f2632c0ec9" category="paragraph">自動磁碟區擴充功能可讓 Trident 配置的持續磁碟區能夠在已使用容量達到定義的閾值時自動擴展。此功能可降低營運開銷，並有助於防止因容量耗盡而導致的應用程式中斷。</block>
+  <block id="8b057886f0c63560fb462624b87988d3" category="paragraph">自動磁碟區擴充是使用 Autogrow Policies 實作的。Autogrow Policy 定義：</block>
+  <block id="f194983a4f5c93b4f4788469b4372653" category="paragraph">當超過定義的使用率臨界值時，磁碟區大小會自動增加。磁碟區大小永遠不會自動減少。</block>
+  <block id="72e7e5d6921df6ef726f79ae4b5598ab" category="paragraph">在配置自動磁碟區擴充之前、請確保滿足以下要求：</block>
+  <block id="550fa0f1a58ef45e52d4e327c8363b05" category="list-text">基於角色的存取控制權限，用於建立 <block ref="785854d43993e53bddae51b76513d6be" prefix=" " category="inline-code"></block> 自訂資源</block>
+  <block id="d65d8cf51037ac2b5227ecc668bcc424" category="list-text">StorageClasses 配置 <block ref="41bff9aad0d85451896a93a22edd478a" prefix=" " category="inline-code"></block></block>
+  <block id="65d8121019c0a0fdeb453e848ab0c506" category="list-text">網路檔案系統</block>
+  <block id="1c01ba6365cc1a63f21002af09bfabb2" category="list-text">網際網路小型電腦系統介面</block>
+  <block id="2ece8545cb8cad1bfe8d121e6b221358" category="list-text">光纖通道傳輸協定</block>
+  <block id="6d403e90026e021280e3bf7be489c0c6" category="list-text">非揮發性記憶體高速通道（NVMe over Fabrics）</block>
+  <block id="f89fade625f46ac0801e1c58bcc219b1" category="list-text">ONTAP 9.16.1 之前的 ONTAP Non-Volatile Memory Express 原始區塊磁碟區不支援自動擴充。</block>
+  <block id="79c1f6e047330955b15e414a9754811f" category="list-text">對於儲存區域網路磁碟區，如果<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>小於或等於 50 mebibytes，Trident 會在調整大小之前自動將該值增加到 51 mebibytes，前提是產生的大小不超過<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block>。</block>
+  <block id="694eddd4570562a7b60b1bcdd363d725" category="list-text">當磁碟區達到<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block>時，就不會再發生擴充。</block>
+  <block id="68bb75f716bd49935341200bea0c291a" category="list-text">支援自動磁碟區擴充的通訊協定：</block>
+  <block id="c300edae1ce25b2d904c13ab45802931" category="section-title">使用自動增長策略配置磁碟區</block>
+  <block id="ef752dc2c9b5a9327eef395f09a31ff8" category="paragraph">Autogrow Policy 可以在兩個層級進行設定：</block>
+  <block id="723f64a520be321dd9117222d0b9d52d" category="list-text">儲存類別層級：設定所有磁碟區的預設值（使用註釋）</block>
+  <block id="21c0b104b6b005ca76bad21f2d705cdc" category="list-text">PVC 等級：覆蓋儲存類別預設值（使用註解）</block>
+  <block id="3f9b887a82fa2117ca86aa7c26ae7238" category="paragraph">自動增長策略可在磁碟區達到定義的容量臨界值時自動擴展磁碟區。</block>
+  <block id="9e2b13cf05e3acd43a5b403b1fcc4daa" category="paragraph">請確保您已具備：</block>
+  <block id="30c8db50debd656b38da6b2bc5776a5d" category="list-text">已安裝 Trident 26.02 或更新版本</block>
+  <block id="4f441c27f3a2146d9eac0b06ea2d691e" category="list-text">基於角色的存取控制權限，用於建立 <block ref="785854d43993e53bddae51b76513d6be" prefix=" " category="inline-code"></block> 資源</block>
+  <block id="f56b79bf3c300d0656b5590a8b28cdbc" category="list-text">了解工作負載成長需求</block>
+  <block id="643ab8a4f3f99c83afc84893ef6c6e18" category="paragraph">Autogrow Policy 定義了當磁碟區達到定義的容量臨界值時如何自動擴充。</block>
+  <block id="027064727de35da06f0ec5ad6661d02c" category="paragraph">您可以在工作流程中的任何階段建立 Autogrow 策略：</block>
+  <block id="53dc7b789c7b75a76697ea8a09d331d2" category="list-text">在創建 StorageClasses 和磁碟區之前</block>
+  <block id="2c996e25afaf90de22ec79e9a6a73a7e" category="list-text">StorageClasses 存在之後</block>
+  <block id="97149dda6cb4283edb4c0312d8ecb2e5" category="list-text">配置磁碟區之後</block>
+  <block id="58a13eadd2875559839b7ed48d9a4e94" category="paragraph">這種靈活性使您能夠在不重新建立現有資源的情況下引入自動擴充。</block>
+  <block id="1ff439f927877a33304c69e5133b335c" category="section-title">自動增長策略規格</block>
+  <block id="cf2bdfea25d77139fbab5e9d28db31e8" category="paragraph">Autogrow Policies 是 Kubernetes 自訂資源，定義如下：</block>
+  <block id="d094dbc6674438379e9a7b76b8d100f3" category="cell">唯一原則識別碼</block>
+  <block id="ec743639640633cc0c6f72f43470b40e" category="cell">production-db-policy</block>
+  <block id="b89d4d9ef2127a19b1fd6bdb32024b88" category="cell">usedThreshold</block>
+  <block id="0eb94597b9397ffdebc5e81f04ffd452" category="cell">觸發擴充的容量百分比</block>
+  <block id="41c8ca734636280a8cb0d496b1ce394f" category="cell">百分比字串</block>
+  <block id="e68c720bbfedb9afa99a3606f2e79068" category="cell">"80%"</block>
+  <block id="b8975976fc99a32ebfa6029b743acee3" category="cell">growthAmount</block>
+  <block id="2fc23688d922d66425148266a45963c7" category="cell">達到臨界值時的增長量</block>
+  <block id="d9a618b2fa63013a5d1984fea1216d8b" category="cell">百分比或大小</block>
+  <block id="3520e1fdae83b091604d3ad0333da0cc" category="cell">"10%" 或 "5Gi"</block>
+  <block id="70ead32841956db772f45f40e3c3774c" category="cell">"10%"</block>
+  <block id="b78e1120b12abd7215d67324fe9476ff" category="cell">maxSize</block>
+  <block id="8916ea751fd05957dc1daa2a2dd4b691" category="cell">最大磁碟區大小限制</block>
+  <block id="05b680f87ed701663de0c9116be966e2" category="cell">Kubernetes 數量</block>
+  <block id="81c60c972ba6f1e12a679e84b31a30f4" category="cell">"500Gi"</block>
+  <block id="545f6c2f382c04810103b3e5e6f7d841" category="cell">無限</block>
+  <block id="b6d2c5d36b2cb4f99fea0124c574832d" category="list-text">建立定義 Autogrow Policy 的 YAML 檔案：</block>
+  <block id="d8cf78d9ebdf9b4ba811868e061105ed" category="list-text">將原則套用至您的叢集：</block>
+  <block id="f326973ba9a93c4364d0b9c615d3cc61" category="list-text">確認策略已建立：</block>
+  <block id="dc5e77e8271a90719f56728ca8904a65" category="listing-title">預期輸出</block>
+  <block id="65a6f87610269d13ef276dbbd579d362" category="paragraph">建立原則後、Trident 會驗證規格並指派下列其中一種狀態：</block>
+  <block id="3d6623b8d5249788a0d797d4bbc5e5a1" category="cell">需要採取行動</block>
+  <block id="1abc19259b570c44f290695eb93f562f" category="cell">策略已驗證，可以投入使用。</block>
+  <block id="983e45d9f14c8e4b92b207877e7cabb0" category="cell">無。</block>
+  <block id="7f8b84e6a6a1cdd6cef7cad1f59ef866" category="cell">偵測到驗證錯誤。</block>
+  <block id="7ae2cc145400de1cec220648eef4acb8" category="cell">檢閱並修正規格。</block>
+  <block id="640fd9f95cff5e796c7bea791e570605" category="cell">刪除作業正在進行中。</block>
+  <block id="704aaf038b441fe6fd4bc62c839b1baf" category="cell">等待完成。</block>
+  <block id="cdadb767e93e6813c21f18ee07542d19" category="section-title">將政策與 StorageClass 建立關聯</block>
+  <block id="5e52d0bbf90c859836c5d7ebaf77f5de" category="paragraph">您可以使用 <block ref="d3ebc760d856a789e9b6f2f04b100023" prefix=" " category="inline-code"></block> 註解將 Autogrow Policy 與 StorageClass 關聯起來。所有從該 StorageClass 配置的磁碟區都將繼承該策略。</block>
+  <block id="01fc55ed3c3f01d36754f8850a737e79" category="admonition">StorageClass 必須具有<block ref="41bff9aad0d85451896a93a22edd478a" prefix=" " category="inline-code"></block>。</block>
+  <block id="5bfcafc90fdf417bf84954ada08bace1" category="list-text">建立或修改帶有 Autogrow Policy 註解的 StorageClass：</block>
+  <block id="bb54bd5f7d75e4c4674ce392c3199f0f" category="list-text">應用 StorageClass：</block>
+  <block id="26b7937a749c7d4e28c65b0d7315ea6f" category="list-text">驗證註釋：</block>
+  <block id="eb5fb681dc78779652a8e1e3de8529cc" category="section-title">政策優先順序</block>
+  <block id="0e7eeb7282ec962d76e07d93f9ab907a" category="paragraph">當 StorageClass 和 PVC 上都設定了自動成長策略註解時，Trident 應用以下優先規則：</block>
+  <block id="1d6321bfd7ef586834ed2693134b4ea0" category="list-text">*PVC 註釋優先。*如果 PVC 設定<block ref="d3ebc760d856a789e9b6f2f04b100023" prefix=" " category="inline-code"></block>，則始終使用該值。</block>
+  <block id="f220836f6d12c2792c68c8277a5dbd7f" category="list-text">*StorageClass 註解僅適用於 PVC 沒有註解的情況。*</block>
+  <block id="00360e79b8b108c277e01d49429b621e" category="list-text">*如果兩者都沒有註解、* 則不會套用 Autogrow Policy 。</block>
+  <block id="efa0d16bb620ca8efbad9daa730478fa" category="cell">StorageClass 註解</block>
+  <block id="b717381de1b403ebb4dc8918e60c008a" category="cell">PVC 註釋</block>
+  <block id="62503b02361a4f61b748428c82cae0eb" category="cell">有效行為</block>
+  <block id="0b29fc513e3d27ad9e0551e8a3277318" category="cell"><block ref="942559eba629f2b6bcd637f5070904d2" prefix="" category="inline-code"></block></block>
+  <block id="9ba66a9f92056682b7d86a38b4bc18c0" category="cell">未設定</block>
+  <block id="6de6aae944bab5b5cf18167dd26aed06" category="cell">用途<block ref="b6d44ca8f1212b3baf6def1d5fe5ea90" prefix=" " category="inline-code"></block>。</block>
+  <block id="8240faf0eb9b53daef99cca38281e22f" category="cell"><block ref="1d1620154df3b632ce96b9f1c6cab7da" prefix="" category="inline-code"></block></block>
+  <block id="1449080289b858ed814a9827e4ff45c3" category="cell">使用<block ref="1b6f2331613486099b517057aef06fe0" prefix=" " category="inline-code"></block>（PVC 覆寫 StorageClass）。</block>
+  <block id="84cde0885217ace18c015108e721c9bf" category="cell"><block ref="d690e9b5e1d3865b7b182b16e2282642" prefix="" category="inline-code"></block></block>
+  <block id="1a6dd5add18ca77348cff8e06bebf376" category="cell">無自動增長策略（PVC 停用自動增長）。</block>
+  <block id="71108fcc50203282543094293fc528b1" category="cell"><block ref="66c8497228dd4680d2641f1aedb18573" prefix="" category="inline-code"></block></block>
+  <block id="881940a4483e95bf2ca30cc719599c86" category="cell">用途<block ref="217be650e3cea5547e1647dd5e157efd" prefix=" " category="inline-code"></block>。</block>
+  <block id="af8b4ee6b6168c5fcd1cf89c7e1fb839" category="cell">無自動成長政策。</block>
+  <block id="d224f00749592afc25c394e8a46960ab" category="paragraph">以下範例展示了不同使用情境下的常見 Autogrow Policy 配置。</block>
+  <block id="e7d6787e89244341f8baf25879cda7f7" category="section-title">具有固定增長增量的日誌儲存</block>
+  <block id="5f0f046c472d5f8a205910ddd6cdcd34" category="section-title">包含預設設定的最小原則</block>
+  <block id="8f61fa179b18006703c8a040e19e9034" category="paragraph">當您省略<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>和<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block>時，Trident 使用預設的<block ref="bb1a5a2b7eec4f940f8e78abe48d68bf" prefix="(" category="inline-code"></block>成長、無限大小）：</block>
+  <block id="c6f6dcb67d87d278072c14ce763fa6d8" category="section-title">具有自訂 maxSize 和預設 growthAmount 的策略</block>
+  <block id="33aaea2199fbcd3960c192dd98f427ea" category="section-title">無限制的積極成長 maxSize</block>
+  <block id="59260f3f4f157c585d9b506790e24c1d" category="section-title">包含小數百分比的原則</block>
+  <block id="536b961207e61e995c8842cd7f880dfe" category="admonition">支援小數百分比。若您指定超過三位小數，Trident 會將數值四捨五入至小數點後三位。</block>
+  <block id="a3c6536155079c56e217b714dd32156d" category="section-title">NAS StorageClass 具備自動成長功能</block>
+  <block id="ead791c7fcb36c8bf4517df6422ca401" category="section-title">具有自動增長功能的 SAN StorageClass</block>
+  <block id="d93e8bbe8932c056f644485d998abed0" category="summary">使用 Trident Autogrow 策略管理自動磁碟區擴充。</block>
+  <block id="3c7244feeba190cf384cf7680deae8c5" category="paragraph">建立 Autogrow Policies 後，您可以根據需要查看、更新和刪除它們。您還可以監控哪些磁碟區正在使用特定策略。</block>
+  <block id="f127daf0f31d2cf17567640922396d40" category="section-title">檢視自動成長原則</block>
+  <block id="a856e3bd9be8a17273ffb7916a0e8cd9" category="section-title">列出所有原則</block>
+  <block id="34914968db6f29a3c3a86d7f2b36d075" category="paragraph">使用<block ref="0f12ee5c9f1dd90158580f1c292b0d37" prefix=" " category="inline-code"></block>列出叢集中的所有 Autogrow 原則：</block>
+  <block id="3819595924cdc1be14e0472af2f70423" category="paragraph">或者，使用 <block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>：</block>
+  <block id="2e118838acd96d5aeab6ec1af633b8b3" category="paragraph">若要檢視原則的完整規格和狀態：</block>
+  <block id="24b24af452d89c9ef544590f783ec6f5" category="paragraph">若要以 YAML 格式檢視策略及其相關磁碟區：</block>
+  <block id="5098c9d6d57a257a25506581a06953f9" category="paragraph">您可以修改現有原則，以變更其臨界值、成長量或大小上限。變更會立即對所有使用該原則的磁碟區生效。</block>
+  <block id="e99e45bf54875e2d6e25e1ff5d6e0b22" category="admonition">變更會影響目前使用該原則的所有磁碟區。請盡可能先在非正式作業環境中測試變更。</block>
+  <block id="1119e3ac17411888a8e0183d7fb43943" category="list-text">編輯原則：</block>
+  <block id="6f67767c052db224b03ce0cb88b05033" category="list-text">根據需要修改<block ref="b979c2934ac0b4ba3f08dabfdd1b2299" prefix=" " category="inline-code"></block>欄位：</block>
+  <block id="4a51327030b3f667597882c4f597d0ec" category="list-text">儲存並退出。變更會立即生效。</block>
+  <block id="4afb9d53aace8c157d896c1239f6583a" category="section-title">更新考量事項</block>
+  <block id="5df24eb0c553c6dad7c311df77b34f62" category="list-text">*立即生效：* 所有採用此策略的磁碟區將在下次成長評估時採用新的參數。</block>
+  <block id="90592e84d0f06d49d9efd29d8d61328c" category="list-text">*無需重新啟動磁碟區：* 變更將應用於下一次成長作業。</block>
+  <block id="82d1a9fb9f7df7b8fee5d5a771853207" category="list-text">*先測試：* 盡可能在非生產環境中驗證變更。</block>
+  <block id="bd4a523a3f9036ff2cd2640727efd1bf" category="list-text">*溝通變更：* 當您修改共享策略時，請通知團隊。</block>
+  <block id="feadcc7b1e7283ce60d027ce4ec3ee73" category="paragraph">Autogrow 策略使用終結器保護來防止在磁碟區正在積極使用時意外刪除。</block>
+  <block id="0c0bbfd974826d70b2d33d8511be99f8" category="list-text">刪除原則：</block>
+  <block id="2006f92af655d0522b1f24915066515f" category="list-text">如果磁碟區仍在使用該原則，則刪除操作將進入<block ref="ffbb410a55bb31f801dea6387e2745ac" prefix=" " category="inline-code"></block>狀態。檢查哪些磁碟區受到影響：</block>
+  <block id="9903b03bd671f30651ab08727947f972" category="list-text">從每個受影響的磁碟區中移除該原則。請選擇下列其中一個選項：</block>
+  <block id="f5feae89f3bb59b58caac881c35e8982" category="list-text">*選項 A：明確停用自動增長*，方法是將註解設定為 <block ref="f6d62a8e69201d3806ac1ef24ec64c4d" prefix=" " category="inline-code"></block>：</block>
+  <block id="15ce4350958acc3f6689457802af07bd" category="list-text">*選項 B：完全移除註解：*</block>
+  <block id="7b98c26f2f995f0578f9a8215030ee01" category="section-title">刪除行為</block>
+  <block id="54861efdd06fc309e1c9a420feff98eb" category="cell">情境</block>
+  <block id="b39a035a995fc6597c8eb942210d1527" category="cell">行為</block>
+  <block id="1128826ad82482094abe89bfc07d1caf" category="cell">沒有磁碟區使用此原則</block>
+  <block id="99f2474e11c087549bed64cc4d63f42a" category="cell">原則會立即刪除。</block>
+  <block id="10f3a53367ceffb82330d7e82de2e934" category="cell">磁碟區正在使用該原則</block>
+  <block id="44ba5a1b58b9415c92702b0cf78b16a7" category="cell">策略進入 <block ref="ffbb410a55bb31f801dea6387e2745ac" prefix=" " category="inline-code"></block> 狀態。終結器會阻止完成，直到所有磁碟區都被移除。</block>
+  <block id="2b21405ba45856a6567451eee6fb9676" category="cell">所有磁碟區均已從該原則中移除</block>
+  <block id="bc8864a43499a95fb188832699bf06ea" category="cell">最終處理程序被移除，該政策被刪除。</block>
+  <block id="b9882e74567cad146011c32269a8fd30" category="section-title">監控 Autogrow Policy 使用情況</block>
+  <block id="2e931a5b60f757d9883400b02201e532" category="section-title">使用原則檢查磁碟區</block>
+  <block id="2a5e99f75b0425bc2473b15b7b939fd8" category="section-title">尋找磁碟區使用的原則</block>
+  <block id="f462dca1e7e1024964087daf5ccaf8b5" category="section-title">監控原則事件</block>
+  <block id="c84d4278eb32c7a089aea86ebf95ad39" category="section-title">支援的通訊協定</block>
+  <block id="8f7e4fc0f49fe34f79780ce5d9aac3d3" category="paragraph">Autogrow 支援以下儲存傳輸協定：</block>
+  <block id="2fc47d723564d3e4812205baf9d844e6" category="admonition">對於 SAN 磁碟區，如果設定的<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>為 50 MiB 或更小，Trident 會自動將調整大小作業的成長量增加到 51 MB，只要產生的大小不超過<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block>。</block>
+  <block id="482723983a4f2af954e36ff41e567451" category="section-title">已知限制</block>
+  <block id="648bda045c71ffd4389f5a86a0e50b5d" category="list-text">*ONTAP NVMe 原始區塊磁碟區：*使用 ONTAP 9.16.1 之前版本建立的磁碟區不支援自動成長。</block>
+  <block id="09ba5335c89d16756f0502e125c49ac7" category="list-text">*現有磁碟區（棕地部署）：* 即使應用了有效的自動成長策略，自動成長功能也可能無法對現有磁碟區生效。這是由於磁碟區發布正在進行遷移。若要確認遷移已完成，請檢查 Trident 控制器日誌中的<block ref="af46de9ba965e0758fb411512ab65939" prefix=" " category="inline-code"></block>訊息。</block>
+  <block id="642189a23200e831a4b6bb21067b24ec" category="section-title">Trident 何時評估閾值？</block>
+  <block id="c1011a60b8f46b36a2cc1cdd037f746e" category="paragraph">Trident 持續監控磁碟區使用量。當已使用容量超過<block ref="b89d4d9ef2127a19b1fd6bdb32024b88" prefix=" " category="inline-code"></block>時，Trident 會建立內部調整大小請求，並依據設定的<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>擴充磁碟區。</block>
+  <block id="55dbd6e0fe5d9b75f41d817c39c13c2d" category="paragraph">例如，此原則會在容量達到 80% 時觸發擴充，每次將磁碟區增加 10%，最多可達 500 GiB：</block>
+  <block id="193f3cb2bb5b332fea39a9ea34e69087" category="section-title">磁碟區已配置完畢後，我還能套用原則嗎？</block>
+  <block id="6c8d02ace433a2908e515061db638960" category="paragraph">是的。您可以隨時建立 Autogrow Policy，並透過新增或更新<block ref="d3ebc760d856a789e9b6f2f04b100023" prefix=" " category="inline-code"></block>註解將其應用於現有的 PVC。您無需重新建立 PVC 或 StorageClass。</block>
+  <block id="b99082a3eb962e1fa5d1fc28604f1a68" category="paragraph">將原則套用至現有的 PVC：</block>
+  <block id="7e6415021d7c4fadc0a16960769cd4af" category="paragraph">將原則套用至現有的 StorageClass：</block>
+  <block id="6852d46a7f12e4ac5bd8135d2811f6f6" category="section-title">如果我在 StorageClass 和 PVC 上都設定了自動成長策略會發生什麼事？</block>
+  <block id="bd17699641cf7343854a3198cdf7da2f" category="paragraph">PVC 註解始終優先。如果 PVC 具有<block ref="d3ebc760d856a789e9b6f2f04b100023" prefix=" " category="inline-code"></block>註解，Trident 將使用該值，而不管 StorageClass 中指定了什麼值。詳情請參閱<block ref="d2839e2bf68ffd7fca8df7984b7e917b" category="inline-link-macro-rx"></block>。</block>
+  <block id="1e2410d687cee7f9d4903b106dcffc9c" category="paragraph">例如，假設有以下 StorageClass：</block>
+  <block id="3b719965029f11402bd8b5380f755e50" category="paragraph">而這個 PVC 覆寫了 StorageClass 原則：</block>
+  <block id="d6d85ac14273714d990863d333174c4a" category="paragraph">Trident 使用<block ref="1b6f2331613486099b517057aef06fe0" prefix=" " category="inline-code"></block>for<block ref="9f405b89d6f90cccb2683dca5a203fb5" prefix=" " category="inline-code"></block>，不是<block ref="b6d44ca8f1212b3baf6def1d5fe5ea90" prefix=" " category="inline-code"></block>。</block>
+  <block id="d556d5646fe3f1fd28ba7a1fcbd79929" category="section-title">如何停用特定磁碟區的自動增長？</block>
+  <block id="e2e6a334679127c4f81b77f4a081d706" category="paragraph">將 PVC 註釋設定為<block ref="f6d62a8e69201d3806ac1ef24ec64c4d" prefix=" " category="inline-code"></block>。這將覆蓋該磁碟區的任何 StorageClass 層級原則：</block>
+  <block id="8bbfcbd93d8cc88f6b487d8ec1d08aaf" category="paragraph">您可以確認自動增長功能已停用：</block>
+  <block id="c91eea4d92096393948ae31b7eb9296b" category="section-title">當磁碟區達到 maxSize 時會發生什麼事？</block>
+  <block id="8c1e915437865d1d3710f0a5b20c8738" category="paragraph">Trident 停止擴充磁碟區。即使使用量持續增加超過<block ref="b89d4d9ef2127a19b1fd6bdb32024b88" prefix=" " category="inline-code"></block>，也不會再為該磁碟區建立調整大小的請求。</block>
+  <block id="6ee65f4bca45a04d76863e490aec7932" category="paragraph">例如，根據此原則，Trident 在磁碟區達到 100 GiB 後將停止成長：</block>
+  <block id="969dfc37aea8dafda4ae3c7232d96587" category="paragraph">若要允許無限增長，請省略 <block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block> 或將其設為 <block ref="cfcd208495d565ef66e7dff9f98764da" prefix=" " category="inline-code"></block>：</block>
+  <block id="666cd9150209e0b0d49b2bceac54a77d" category="section-title">我可以在不重新啟動磁碟區的情況下變更原則嗎？</block>
+  <block id="c3b00d913de35ad7090a063302874aad" category="paragraph">是的。更新原則後，所有使用該原則的磁碟區都會在下次成長評估時採用新參數。無需重新啟動磁碟區。</block>
+  <block id="0cb8faa3ad2519a71d06643b2a102cd7" category="paragraph">若要就地更新原則：</block>
+  <block id="57bb704884957a2317add5ca4edc87ee" category="paragraph">根據需要修改欄位：</block>
+  <block id="656dc5d8699e6355dd74883d8b4144df" category="paragraph">儲存並退出。驗證更新的原則：</block>
+  <block id="fa05d67a89c9c8f88e5d01e608b6c00c" category="section-title">為什麼我的原則處於失敗狀態？</block>
+  <block id="e3f44d27f7876add17299d99e7b83e7a" category="paragraph"><block ref="d7c8c85bf79bbe1b7188497c32c3b0ca" prefix=" " category="inline-code"></block> 狀態表示原則規格包含驗證錯誤。執行下列命令以檢視錯誤詳細資料：</block>
+  <block id="17ab4c6aad4148a27a468cb217919d57" category="paragraph">常見原因包括無效的<block ref="b89d4d9ef2127a19b1fd6bdb32024b88" prefix=" " category="inline-code"></block>（必須為 1-99%）、<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>超過<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block>或無效的 Kubernetes 數量格式。請更正規格並重新應用：</block>
+  <block id="0a974295aa0a1ee94a2efba7ca4786d7" category="section-title">為什麼我無法刪除原則？</block>
+  <block id="f0645da1b066e5e7a93f209350305cff" category="paragraph">策略使用終結器保護。如果磁碟區仍在使用該策略，刪除操作將進入<block ref="ffbb410a55bb31f801dea6387e2745ac" prefix=" " category="inline-code"></block>狀態，並等待直到所有磁碟區都從該策略中移除。</block>
+  <block id="6a792cdc0f46a4cf6a16eef5d3f5bc97" category="paragraph">識別受影響的磁碟區：</block>
+  <block id="9c663f1e1d46516e0d24fed61c98bd74" category="paragraph">然後從每個 PVC 中移除註解：</block>
+  <block id="c1da314b8762df45f4533806e0b5655e" category="paragraph">移除所有磁碟區後，最終處理程式將被釋放，策略將被刪除。</block>
+  <block id="f4b4085ee46b81c59ddaa607775b32e0" category="section-title">自動增長功能是否適用於所有 ONTAP 後端？</block>
+  <block id="6799f039a8ee0cbdaabb6c7369a938b9" category="paragraph">Autogrow 支援 NFS、iSCSI、FCP 和 NVMe 協定。但是，NVMe 原始區塊磁碟區需要 ONTAP 9.16.1 或更高版本。</block>
+  <block id="8504c1220f82dfbe91d0b8a16d01bbbb" category="paragraph">對於現有部署環境中的磁碟區，可能需要先完成磁碟區發布遷移，然後自動增長功能才能生效。請透過檢查 Trident 控制器日誌來驗證遷移狀態：</block>
+  <block id="9d45f6d0f534baba86021732a263b768" category="paragraph">以下 StorageClass 範例展示了為 NAS 和 SAN 後端配置的自動成長功能：</block>
+  <block id="1d08484a29cbed8f24ca4834cbced072" category="listing-title">NAS 後端</block>
+  <block id="fae4a0b973a551230e955c1a78ea6fd0" category="listing-title">SAN 後端</block>
+  <block id="4d3ddc69fe26b731a08866cbf1ea85f7" category="section-title">SAN 磁碟區的最小成長量是多少？</block>
+  <block id="53143ff377f54decc74a178e79655b95" category="paragraph">對於 SAN 磁碟區，有效最小增長量為 51 MB。如果您配置的<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>為 50 MiB 或更少，Trident 會自動將調整大小作業的增長量增加到 51 MB。</block>
+  <block id="945c53097aed6aee6897384c32c13596" category="paragraph">例如，此原則設定了<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>為<block ref="b3b9f60c2eb049d3bcbddd22d73210ce" prefix=" " category="inline-code"></block>，但 Trident 會對使用該原則的任何 SAN 磁碟區套用 51 MB 的成長：</block>
+  <block id="a55370dbc1a259397316ceebdfed21b8" category="paragraph">為避免自動調整，請將 <block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block> 設定為大於 50 MiB 的值：</block>
+  <block id="b58eceaaba71c126318ed8daedaef74b" category="sidebar">設定自動分層</block>
+  <block id="29032e0a813e69e465f384eaf892dbb3" category="sidebar">管理 Autogrow 策略</block>
 </blocks>

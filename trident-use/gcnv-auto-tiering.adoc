@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-use/google-cloud-netapp-volumes-auto-tiering.html 
+permalink: trident-use/gcnv-auto-tiering.html 
 keywords: trident, google cloud netapp volumes, auto-tiering, storageclass, pvc annotations, data tiering, cooling days 
 summary: 使用 Trident 透過 Kubernetes 原生機制設定 Google Cloud NetApp Volumes 自動分層。 
 ---

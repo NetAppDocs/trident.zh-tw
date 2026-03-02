@@ -29,6 +29,19 @@ NOTE: 如果這是您第一次使用 Kubernetes 、您應該熟悉 link:https://
 
 
 
+== 支援的 Kubernetes 平台
+
+Trident 支援多種 Kubernetes 發行版和平台。
+
+支援的平台包括：
+
+* 上游Kubernetes
+* Red Hat OpenShift
+* SUSE Harvester 1.7.0 （ONTAP iSCSI）
+
+
+
+
 == Kubernetes 與 NetApp 產品整合
 
 NetApp 儲存產品組合可與 Kubernetes 叢集的許多層面整合、提供進階的資料管理功能、強化 Kubernetes 部署的功能、功能、效能和可用度。

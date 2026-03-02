@@ -1,0 +1,487 @@
+---
+sidebar: sidebar 
+permalink: trident-use/manage-autogrow-policies.html 
+keywords: trident, autogrow, automatic volume expansion, autogrow policy, persistent volume claim resize, ontap, kubernetes 
+summary: 使用 Trident Autogrow 策略管理自動磁碟區擴充。 
+---
+= 管理 Autogrow 策略
+:allow-uri-read: 
+
+
+[role="lead"]
+建立 Autogrow Policies 後，您可以根據需要查看、更新和刪除它們。您還可以監控哪些磁碟區正在使用特定策略。
+
+
+
+== 檢視自動成長原則
+
+
+
+=== 列出所有原則
+
+使用 `kubectl`列出叢集中的所有 Autogrow 原則：
+
+[source, console]
+----
+kubectl get tridentautogrowpolicy
+----
+或者，使用  `tridentctl`：
+
+[source, console]
+----
+tridentctl get autogrowpolicy
+----
+
+
+=== 檢視原則詳細資料
+
+若要檢視原則的完整規格和狀態：
+
+[source, console]
+----
+kubectl describe tridentautogrowpolicy production-db-policy
+----
+若要以 YAML 格式檢視策略及其相關磁碟區：
+
+[source, console]
+----
+tridentctl get autogrowpolicy production-db-policy -o yaml
+----
+
+
+== 更新 Autogrow 策略
+
+您可以修改現有原則，以變更其臨界值、成長量或大小上限。變更會立即對所有使用該原則的磁碟區生效。
+
+
+IMPORTANT: 變更會影響目前使用該原則的所有磁碟區。請盡可能先在非正式作業環境中測試變更。
+
+.步驟
+. 編輯原則：
++
+[source, console]
+----
+kubectl edit tridentautogrowpolicy production-db-policy
+----
+. 根據需要修改 `spec`欄位：
++
+[source, yaml]
+----
+spec:
+  usedThreshold: "75%"    # Changed from 80%
+  growthAmount: "20%"     # Changed from 10%
+  maxSize: "1Ti"          # Changed from 500Gi
+----
+. 儲存並退出。變更會立即生效。
+
+
+
+
+=== 更新考量事項
+
+* *立即生效：* 所有採用此策略的磁碟區將在下次成長評估時採用新的參數。
+* *無需重新啟動磁碟區：* 變更將應用於下一次成長作業。
+* *先測試：* 盡可能在非生產環境中驗證變更。
+* *溝通變更：* 當您修改共享策略時，請通知團隊。
+
+
+
+
+== 刪除 Autogrow 策略
+
+Autogrow 策略使用終結器保護來防止在磁碟區正在積極使用時意外刪除。
+
+.步驟
+. 刪除原則：
++
+[source, console]
+----
+kubectl delete tridentautogrowpolicy production-db-policy
+----
+. 如果磁碟區仍在使用該原則，則刪除操作將進入 `Deleting`狀態。檢查哪些磁碟區受到影響：
++
+[source, console]
+----
+tridentctl get autogrowpolicy production-db-policy -o yaml
+----
+. 從每個受影響的磁碟區中移除該原則。請選擇下列其中一個選項：
++
+--
+** *選項 A：明確停用自動增長*，方法是將註解設定為  `"none"`：
++
+[source, console]
+----
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+----
+** *選項 B：完全移除註解：*
++
+[source, console]
+----
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy-
+----
+
+
+--
+
+
+
+
+=== 刪除行為
+
+[cols="1,2"]
+|===
+| 情境 | 行為 
+
+
+| 沒有磁碟區使用此原則 | 原則會立即刪除。 
+
+
+| 磁碟區正在使用該原則 | 策略進入  `Deleting` 狀態。終結器會阻止完成，直到所有磁碟區都被移除。 
+
+
+| 所有磁碟區均已從該原則中移除 | 最終處理程序被移除，該政策被刪除。 
+|===
+
+
+== 監控 Autogrow Policy 使用情況
+
+
+
+=== 使用原則檢查磁碟區
+
+[source, console]
+----
+tridentctl get autogrowpolicy production-db-policy -o json | jq '.volumes'
+----
+
+
+=== 尋找磁碟區使用的原則
+
+[source, console]
+----
+kubectl get pvc database-pvc -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
+
+
+=== 監控原則事件
+
+[source, console]
+----
+kubectl get events --field-selector involvedObject.kind=TridentAutogrowPolicy
+----
+
+
+== 支援的通訊協定
+
+Autogrow 支援以下儲存傳輸協定：
+
+* NFS
+* iSCSI
+* FCP
+* NVMe
+
+
+
+NOTE: 對於 SAN 磁碟區，如果設定的 `growthAmount`為 50 MiB 或更小，Trident 會自動將調整大小作業的成長量增加到 51 MB，只要產生的大小不超過 `maxSize`。
+
+
+
+== 已知限制
+
+* *ONTAP NVMe 原始區塊磁碟區：*使用 ONTAP 9.16.1 之前版本建立的磁碟區不支援自動成長。
+* *現有磁碟區（棕地部署）：* 即使應用了有效的自動成長策略，自動成長功能也可能無法對現有磁碟區生效。這是由於磁碟區發布正在進行遷移。若要確認遷移已完成，請檢查 Trident 控制器日誌中的 `"Migration completed"`訊息。
+
+
+
+
+== 常見問題集
+
+
+
+=== Trident 何時評估閾值？
+
+Trident 持續監控磁碟區使用量。當已使用容量超過 `usedThreshold`時，Trident 會建立內部調整大小請求，並依據設定的 `growthAmount`擴充磁碟區。
+
+例如，此原則會在容量達到 80% 時觸發擴充，每次將磁碟區增加 10%，最多可達 500 GiB：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: standard-autogrow
+spec:
+  usedThreshold: "80%"
+  growthAmount: "10%"
+  maxSize: "500Gi"
+----
+
+
+=== 磁碟區已配置完畢後，我還能套用原則嗎？
+
+是的。您可以隨時建立 Autogrow Policy，並透過新增或更新 `trident.netapp.io/autogrowPolicy`註解將其應用於現有的 PVC。您無需重新建立 PVC 或 StorageClass。
+
+將原則套用至現有的 PVC：
+
+[source, console]
+----
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy="production-db-policy" \
+  --overwrite
+----
+將原則套用至現有的 StorageClass：
+
+[source, console]
+----
+kubectl annotate storageclass ontap-gold \
+  trident.netapp.io/autogrowPolicy="production-db-policy" \
+  --overwrite
+----
+
+
+=== 如果我在 StorageClass 和 PVC 上都設定了自動成長策略會發生什麼事？
+
+PVC 註解始終優先。如果 PVC 具有 `trident.netapp.io/autogrowPolicy`註解，Trident 將使用該值，而不管 StorageClass 中指定了什麼值。詳情請參閱link:create-autogrow-policies.adoc#_policy_precedence["政策優先順序"]。
+
+例如，假設有以下 StorageClass：
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+  annotations:
+    trident.netapp.io/autogrowPolicy: "standard-agp"
+provisioner: csi.trident.netapp.io
+allowVolumeExpansion: true
+----
+而這個 PVC 覆寫了 StorageClass 原則：
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: database-pvc
+  annotations:
+    trident.netapp.io/autogrowPolicy: "logs-policy"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: ontap-gold
+----
+Trident 使用 `logs-policy`for `database-pvc`，不是 `standard-agp`。
+
+
+
+=== 如何停用特定磁碟區的自動增長？
+
+將 PVC 註釋設定為 `"none"`。這將覆蓋該磁碟區的任何 StorageClass 層級原則：
+
+[source, console]
+----
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+----
+您可以確認自動增長功能已停用：
+
+[source, console]
+----
+kubectl get pvc <pvc-name> -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
+.預期輸出
+[source, console]
+----
+none
+----
+
+
+=== 當磁碟區達到 maxSize 時會發生什麼事？
+
+Trident 停止擴充磁碟區。即使使用量持續增加超過 `usedThreshold`，也不會再為該磁碟區建立調整大小的請求。
+
+例如，根據此原則，Trident 在磁碟區達到 100 GiB 後將停止成長：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: capped-policy
+spec:
+  usedThreshold: "90%"
+  growthAmount: "10Gi"
+  maxSize: "100Gi"
+----
+若要允許無限增長，請省略  `maxSize` 或將其設為  `0`：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: unlimited-policy
+spec:
+  usedThreshold: "85%"
+  growthAmount: "10%"
+----
+
+
+=== 我可以在不重新啟動磁碟區的情況下變更原則嗎？
+
+是的。更新原則後，所有使用該原則的磁碟區都會在下次成長評估時採用新參數。無需重新啟動磁碟區。
+
+若要就地更新原則：
+
+[source, console]
+----
+kubectl edit tridentautogrowpolicy production-db-policy
+----
+根據需要修改欄位：
+
+[source, yaml]
+----
+spec:
+  usedThreshold: "75%"    # Changed from 80%
+  growthAmount: "20%"     # Changed from 10%
+  maxSize: "1Ti"          # Changed from 500Gi
+----
+儲存並退出。驗證更新的原則：
+
+[source, console]
+----
+kubectl get tridentautogrowpolicy production-db-policy
+----
+.預期輸出
+[source, console]
+----
+NAME                   USED THRESHOLD   GROWTH AMOUNT   STATE
+production-db-policy   75%              20%             Success
+----
+
+
+=== 為什麼我的原則處於失敗狀態？
+
+ `Failed` 狀態表示原則規格包含驗證錯誤。執行下列命令以檢視錯誤詳細資料：
+
+[source, console]
+----
+kubectl describe tridentautogrowpolicy <policy-name>
+----
+常見原因包括無效的 `usedThreshold`（必須為 1-99%）、 `growthAmount`超過 `maxSize`或無效的 Kubernetes 數量格式。請更正規格並重新應用：
+
+[source, console]
+----
+kubectl apply -f autogrow-policy.yaml
+----
+
+
+=== 為什麼我無法刪除原則？
+
+策略使用終結器保護。如果磁碟區仍在使用該策略，刪除操作將進入 `Deleting`狀態，並等待直到所有磁碟區都從該策略中移除。
+
+識別受影響的磁碟區：
+
+[source, console]
+----
+tridentctl get autogrowpolicy production-db-policy -o yaml
+----
+然後從每個 PVC 中移除註解：
+
+[source, console]
+----
+# Option A: Explicitly disable autogrow
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+
+# Option B: Remove the annotation entirely
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy-
+----
+移除所有磁碟區後，最終處理程式將被釋放，策略將被刪除。
+
+
+
+=== 自動增長功能是否適用於所有 ONTAP 後端？
+
+Autogrow 支援 NFS、iSCSI、FCP 和 NVMe 協定。但是，NVMe 原始區塊磁碟區需要 ONTAP 9.16.1 或更高版本。
+
+對於現有部署環境中的磁碟區，可能需要先完成磁碟區發布遷移，然後自動增長功能才能生效。請透過檢查 Trident 控制器日誌來驗證遷移狀態：
+
+[source, console]
+----
+kubectl logs -l app=trident-controller -n trident | grep "Migration completed"
+----
+以下 StorageClass 範例展示了為 NAS 和 SAN 後端配置的自動成長功能：
+
+.NAS 後端
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-nas-autogrow
+  annotations:
+    trident.netapp.io/autogrowPolicy: "standard-autogrow"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+.SAN 後端
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: database-storage
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+
+
+=== SAN 磁碟區的最小成長量是多少？
+
+對於 SAN 磁碟區，有效最小增長量為 51 MB。如果您配置的 `growthAmount`為 50 MiB 或更少，Trident 會自動將調整大小作業的增長量增加到 51 MB。
+
+例如，此原則設定了 `growthAmount`為 `"40Mi"`，但 Trident 會對使用該原則的任何 SAN 磁碟區套用 51 MB 的成長：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: san-minimal-policy
+spec:
+  usedThreshold: "85%"
+  growthAmount: "40Mi"
+  maxSize: "100Gi"
+----
+為避免自動調整，請將  `growthAmount` 設定為大於 50 MiB 的值：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: san-policy
+spec:
+  usedThreshold: "85%"
+  growthAmount: "100Mi"
+  maxSize: "500Gi"
+----

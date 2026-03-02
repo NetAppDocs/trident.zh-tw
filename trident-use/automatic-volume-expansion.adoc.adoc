@@ -1,0 +1,382 @@
+---
+sidebar: sidebar 
+permalink: trident-use/automatic-volume-expansion.html 
+keywords: trident, autogrow, automatic volume expansion, autogrow policy, persistent volume claim resize, ontap, kubernetes 
+summary: 使用 Trident Autogrow 政策設定和管理自動磁碟區擴充。 
+---
+= 自動磁碟區擴充
+:allow-uri-read: 
+
+
+[role="lead"]
+自動磁碟區擴充功能可讓 Trident 配置的持續磁碟區能夠在已使用容量達到定義的閾值時自動擴展。此功能可降低營運開銷，並有助於防止因容量耗盡而導致的應用程式中斷。
+
+自動磁碟區擴充是使用 Autogrow Policies 實作的。Autogrow Policy 定義：
+
+* 觸發擴充的使用率臨界值
+* 磁碟區增長的量
+* 磁碟區可達到的最大大小
+
+
+當超過定義的使用率臨界值時，磁碟區大小會自動增加。磁碟區大小永遠不會自動減少。
+
+
+
+== 需求
+
+在配置自動磁碟區擴充之前、請確保滿足以下要求：
+
+* Trident 26.02 或更新版本
+* 基於角色的存取控制權限，用於建立  `TridentAutogrowPolicy` 自訂資源
+* StorageClasses 配置  `allowVolumeExpansion: true`
+* 支援的 ONTAP 通訊協定：
++
+** 網路檔案系統
+** 網際網路小型電腦系統介面
+** 光纖通道傳輸協定
+** 非揮發性記憶體高速通道（NVMe over Fabrics）
+
+
+
+
+
+
+== 限制
+
+* ONTAP 9.16.1 之前的 ONTAP Non-Volatile Memory Express 原始區塊磁碟區不支援自動擴充。
+* 對於儲存區域網路磁碟區，如果 `growthAmount`小於或等於 50 mebibytes，Trident 會在調整大小之前自動將該值增加到 51 mebibytes，前提是產生的大小不超過 `maxSize`。
+* 在棕地環境中，由於磁碟區發佈遷移行為，自動擴充功能可能無法對某些現有磁碟區生效。
+* 當磁碟區達到 `maxSize`時，就不會再發生擴充。
+* 支援自動磁碟區擴充的通訊協定：
++
+** 網路檔案系統
+** 網際網路小型電腦系統介面
+** 光纖通道傳輸協定
+** 非揮發性記憶體高速通道（NVMe over Fabrics）
+
+
+
+
+
+
+== 使用自動增長策略配置磁碟區
+
+Autogrow Policy 可以在兩個層級進行設定：
+
+* 儲存類別層級：設定所有磁碟區的預設值（使用註釋）
+* PVC 等級：覆蓋儲存類別預設值（使用註解）
+
+
+
+
+== 建立 Autogrow 策略
+
+自動增長策略可在磁碟區達到定義的容量臨界值時自動擴展磁碟區。
+
+請確保您已具備：
+
+* 已安裝 Trident 26.02 或更新版本
+* 基於角色的存取控制權限，用於建立  `TridentAutogrowPolicy` 資源
+* 了解工作負載成長需求
+
+
+Autogrow Policy 定義了當磁碟區達到定義的容量臨界值時如何自動擴充。
+
+您可以在工作流程中的任何階段建立 Autogrow 策略：
+
+* 在創建 StorageClasses 和磁碟區之前
+* StorageClasses 存在之後
+* 配置磁碟區之後
+
+
+這種靈活性使您能夠在不重新建立現有資源的情況下引入自動擴充。
+
+
+
+=== 自動增長策略規格
+
+Autogrow Policies 是 Kubernetes 自訂資源，定義如下：
+
+[cols="1,3,1,1,2,1"]
+|===
+| 欄位 | 說明 | 格式 | 必要 | 範例 | 預設 
+
+
+| 名稱 | 唯一原則識別碼 | 字串 | 是的 | production-db-policy | 沒有任何 
+
+
+| usedThreshold | 觸發擴充的容量百分比 | 百分比字串 | 是的 | "80%" | 沒有任何 
+
+
+| growthAmount | 達到臨界值時的增長量 | 百分比或大小 | 否 | "10%" 或 "5Gi" | "10%" 
+
+
+| maxSize | 最大磁碟區大小限制 | Kubernetes 數量 | 否 | "500Gi" | 無限 
+|===
+
+
+== 建立 Autogrow 策略
+
+.步驟
+. 建立定義 Autogrow Policy 的 YAML 檔案：
++
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: standard-autogrow
+spec:
+  usedThreshold: "80%"
+  growthAmount: "10%"
+  maxSize: "500Gi"
+----
+. 將原則套用至您的叢集：
++
+[source, console]
+----
+kubectl apply -f autogrow-policy.yaml
+----
+. 確認策略已建立：
++
+[source, console]
+----
+kubectl get tridentautogrowpolicy standard-autogrow
+----
++
+.預期輸出
+[source, console]
+----
+NAME                USED THRESHOLD   GROWTH AMOUNT   STATE
+standard-autogrow   80%              10%             Success
+----
+
+
+
+
+== 政策狀態
+
+建立原則後、Trident 會驗證規格並指派下列其中一種狀態：
+
+[cols="1,2,2"]
+|===
+| 狀態 | 說明 | 需要採取行動 
+
+
+| 成功 | 策略已驗證，可以投入使用。 | 無。 
+
+
+| 失敗 | 偵測到驗證錯誤。 | 檢閱並修正規格。 
+
+
+| 刪除 | 刪除作業正在進行中。 | 等待完成。 
+|===
+
+
+== 將政策與 StorageClass 建立關聯
+
+您可以使用  `trident.netapp.io/autogrowPolicy` 註解將 Autogrow Policy 與 StorageClass 關聯起來。所有從該 StorageClass 配置的磁碟區都將繼承該策略。
+
+
+NOTE: StorageClass 必須具有 `allowVolumeExpansion: true`。
+
+.步驟
+. 建立或修改帶有 Autogrow Policy 註解的 StorageClass：
++
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+. 應用 StorageClass：
++
+[source, console]
+----
+kubectl apply -f storageclass.yaml
+----
+. 驗證註釋：
++
+[source, console]
+----
+kubectl get storageclass ontap-gold -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
++
+.預期輸出
+[source, console]
+----
+production-db-policy
+----
+
+
+
+
+== 政策優先順序
+
+當 StorageClass 和 PVC 上都設定了自動成長策略註解時，Trident 應用以下優先規則：
+
+. *PVC 註釋優先。*如果 PVC 設定 `trident.netapp.io/autogrowPolicy`，則始終使用該值。
+. *StorageClass 註解僅適用於 PVC 沒有註解的情況。*
+. *如果兩者都沒有註解、* 則不會套用 Autogrow Policy 。
+
+
+[cols="1,1,2"]
+|===
+| StorageClass 註解 | PVC 註釋 | 有效行為 
+
+
+| `trident.netapp.io/autogrowPolicy: standard-agp` | 未設定 | 用途 `standard-agp`。 
+
+
+| `trident.netapp.io/autogrowPolicy: standard-agp` | `trident.netapp.io/autogrowPolicy: logs-policy` | 使用 `logs-policy`（PVC 覆寫 StorageClass）。 
+
+
+| `trident.netapp.io/autogrowPolicy: standard-agp` | `trident.netapp.io/autogrowPolicy: "none"` | 無自動增長策略（PVC 停用自動增長）。 
+
+
+| 未設定 | `trident.netapp.io/autogrowPolicy: dev-policy` | 用途 `dev-policy`。 
+
+
+| 未設定 | 未設定 | 無自動成長政策。 
+|===
+
+
+== 組態範例
+
+以下範例展示了不同使用情境下的常見 Autogrow Policy 配置。
+
+
+
+=== 生產資料庫的保守原則
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: production-db-policy
+spec:
+  usedThreshold: "75%"
+  growthAmount: "20%"
+  maxSize: "5Ti"
+----
+
+
+=== 具有固定增長增量的日誌儲存
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: log-storage-policy
+spec:
+  usedThreshold: "90%"
+  growthAmount: "10Gi"
+  maxSize: "100Gi"
+----
+
+
+=== 包含預設設定的最小原則
+
+當您省略 `growthAmount`和 `maxSize`時，Trident 使用預設的(`10%`成長、無限大小）：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: logs-policy
+spec:
+  usedThreshold: "85%"
+----
+
+
+=== 具有自訂 maxSize 和預設 growthAmount 的策略
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: default-ga-policy
+spec:
+  usedThreshold: "70%"
+  maxSize: "100Gi"
+----
+
+
+=== 無限制的積極成長 maxSize
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: aggressive-growth-policy
+spec:
+  usedThreshold: "80%"
+  growthAmount: "150%"
+----
+
+
+=== 包含小數百分比的原則
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: precise-policy
+spec:
+  usedThreshold: "80.28%"
+  growthAmount: "10.65%"
+  maxSize: "100Gi"
+----
+
+NOTE: 支援小數百分比。若您指定超過三位小數，Trident 會將數值四捨五入至小數點後三位。
+
+
+
+=== NAS StorageClass 具備自動成長功能
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-nas-autogrow
+  annotations:
+    trident.netapp.io/autogrowPolicy: "standard-autogrow"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+
+
+=== 具有自動增長功能的 SAN StorageClass
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: database-storage
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----

@@ -58,15 +58,15 @@ helm install trident-protect netapp-trident-protect/trident-protect --set cluste
 +
 [source, console]
 ----
-docker.io/netapp/controller:25.10.0
-docker.io/netapp/restic:25.10.0
-docker.io/netapp/kopia:25.10.0
-docker.io/netapp/kopiablockrestore:25.10.0
-docker.io/netapp/trident-autosupport:25.10.0
-docker.io/netapp/exechook:25.10.0
-docker.io/netapp/resourcebackup:25.10.0
-docker.io/netapp/resourcerestore:25.10.0
-docker.io/netapp/resourcedelete:25.10.0
+docker.io/netapp/controller:26.02.0
+docker.io/netapp/restic:26.02.0
+docker.io/netapp/kopia:26.02.0
+docker.io/netapp/kopiablockrestore:26.02.0
+docker.io/netapp/trident-autosupport:26.02.0
+docker.io/netapp/exechook:26.02.0
+docker.io/netapp/resourcebackup:26.02.0
+docker.io/netapp/resourcerestore:26.02.0
+docker.io/netapp/resourcedelete:26.02.0
 docker.io/netapp/trident-protect-utils:v1.0.0
 ----
 +
@@ -75,17 +75,17 @@ docker.io/netapp/trident-protect-utils:v1.0.0
 +
 [source, console]
 ----
-docker pull docker.io/netapp/controller:25.10.0
+docker pull docker.io/netapp/controller:26.02.0
 ----
 +
 [source, console]
 ----
-docker tag docker.io/netapp/controller:25.10.0 <private-registry-url>/controller:25.10.0
+docker tag docker.io/netapp/controller:26.02.0 <private-registry-url>/controller:26.02.0
 ----
 +
 [source, console]
 ----
-docker push <private-registry-url>/controller:25.10.0
+docker push <private-registry-url>/controller:26.02.0
 ----
 +
 

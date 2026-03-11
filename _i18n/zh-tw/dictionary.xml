@@ -5420,7 +5420,6 @@
   <block id="2cfd796902655e533881e53b6b9743ed" category="inline-link-macro">使用Trident實現有狀態應用程式的故障轉移自動化</block>
   <block id="37192895ab9e45a1476b492913427f2b" category="cell"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block>，<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> ，<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> ， 和<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>僅有的。與 Kubernetes 非優雅節點關閉 (NGNS) 配合使用，使叢集管理員能夠在節點發生故障時安全地將掛載磁碟區的工作負載遷移到新節點。有關信息，請參閱<block ref="b527eafc73367312d2cf15ed698bf909" category="inline-link-macro-rx"></block>。</block>
   <block id="60585d23d0424100e875c835ca11617b" category="cell"><block ref="32cb6d68d6f79ec1ffc0f6c142f98724" prefix="" category="inline-code"></block></block>
-  <block id="31542891665c698b01e329860640e5c7" category="cell"><block ref="28bf9671a0ee5fcfc79204f771e26222" prefix="" category="inline-code"></block></block>
   <block id="8cc9b564860a969e1ea13bb42dd266a6" category="admonition">*技術預覽*：此功能為實驗性功能，目前除了現有的ONTAP -SAN 驅動程式（統一ONTAP 9 中的 iSCSI 和 FCP 協定）技術預覽版外，還支援ONTAP-NAS（僅限 NFS）和ONTAP -SAN（統一ONTAP 9 中的 NVMe）驅動程式的有限並行工作流程。</block>
   <block id="0a765e0aea70531f5419d2305575e409" category="list-text">請勿變更任何容器或欄位的名稱。</block>
   <block id="6ed7c34275f3763b87b8daa44ab9b370" category="list-text">請勿更改縮排 - YAML 縮排對於正確解析至關重要。</block>
@@ -5440,11 +5439,7 @@
   <block id="cca021b5f438a6d9183c226d38fb5a5a" category="cell">為 Prometheus 指標端點啟用 HTTPS。</block>
   <block id="47e2815ddaeccbcfa3ba4dfe88ab9cb3" category="paragraph">為Trident控制器啟用主機聯網功能。在多宿主網路中，當需要分離前端和後端流量時，這非常有用。</block>
   <block id="5305ee1fa605f73597adfacd52531aac" category="section-title">關於Trident10的關鍵訊息</block>
-  <block id="077208648087e4b2216fa5c97d2c9869" category="paragraph">在<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>， 更新<block ref="23e32d1bd77e7bd89ad56d9805b235f4" prefix=" " category="inline-code"></block>反映您的影像註冊位置。你的<block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block>CSI 映像檔可以位於同一個登錄檔或不同的登錄檔中，但所有 CSI 映像必須位於同一個登錄檔中。例如：</block>
-  <block id="987644f856423d363e0c4d97c607d177" category="list-text"><block ref="8845b59d1ba2d787251f9e1e834fe7cb" prefix="" category="inline-code"></block>如果您的所有圖片都位於同一個註冊表中。</block>
-  <block id="bfff829a19a446d3e874073827db4b1d" category="list-text"><block ref="94f29a685c906a2ad670b937fffaaf11" prefix="" category="inline-code"></block>如果您的Trident鏡像與 CSI 映像位於不同的登錄檔。</block>
   <block id="13421cd669efb1bbf8db0c5eac94e4d0" category="paragraph">有關信息，請參閱<block ref="b527eafc73367312d2cf15ed698bf909" category="inline-link-macro-rx"></block>。</block>
-  <block id="196e168efbb56cd8b229b8c03e801ea3" category="list-text">使用<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block>其中命令<block ref="a9bf50a881c5d6e503f43683efad1e38" prefix=" " category="inline-code"></block>反映您想要升級到的版本。</block>
   <block id="b1cbc96f53c677765633caf5af4dd9c7" category="list-text">（選用）若要啟用偵錯日誌記錄（建議用於故障排除），請使用：</block>
   <block id="a75138553dd56a4327fa0da9256c6130" category="paragraph">偵錯日誌記錄有助於NetApp支援人員排除故障，而無需變更日誌等級或重現問題。</block>
   <block id="acbe525f4ec795ff5a3b0f861d110760" category="admonition">要取得 Helm Chart，首先需要在可以存取網路的電腦上下載 Helm Chart。<block ref="647ef8ddeca7869e0a7beea8e1dd05ed" prefix=" " category="inline-code"></block>然後複製結果<block ref="c265d889aefa7f1eafd4a9d64a5611ae" prefix=" " category="inline-code"></block> 將檔案複製到您的離線環境並進行安裝<block ref="222083e2a3b7f539cdb75386d59d4681" prefix=" " category="inline-code"></block> 而不是在最後一步使用存儲庫引用。</block>
@@ -5556,7 +5551,6 @@
   <block id="e48ddaf893ab9a71f2cb65cb8aaa2cf7" category="cell">ontap-nas、ontap-san、solidfire-san</block>
   <block id="d2583dd4ccd2bddbfb497981b5f2f808" category="cell">ontap-nas、ontap-nas-economy、ontap-nas-flexgroup、ontap-san、ontap-san-economy、solidfire-san、azure-netapp-files</block>
   <block id="2da75969ae2c50dfcc7a3458269b1f39" category="paragraph">儲存池代表每個後端可用於配置的不同位置。對於ONTAP而言，這些對應於 SVM 中的聚合。對於NetApp HCI/ SolidFire，這些對應於管理員指定的 QoS 頻段。每個儲存池都有一組獨特的儲存屬性，這些屬性定義了其效能特徵和資料保護特徵。</block>
-  <block id="9d5a9690e203a91236d7cd904141669f" category="section-title">25.10 版本新增內容</block>
   <block id="bf2cad21c17e517de15898a65bd88f1e" category="list-text">除了ONTAP -SAN（iSCSI 和 FC）驅動程式外，還為ONTAP-NAS NFS 和ONTAP -SAN-Economy 驅動程式新增了對 CSI 磁碟區組快照的支持，v1beta1 磁碟區組快照 Kubernetes API。看<block ref="b136941d5c2c98d5e9ff86fd07e97048" category="inline-link-macro-rx"></block>。</block>
   <block id="56f5bb963efe48d3888916499768c7d6" category="list-text">增強Trident節點並發性，以提高 FCP 卷節點操作的可擴展性。</block>
   <block id="06b45a58a51e7373d67a23e9559f7c66" category="list-text">為ONTAP NAS 驅動程式新增了ONTAP AFX 支援。看<block ref="3da83682cd332597e99e50fecca154d7" category="inline-link-macro-rx"></block>。</block>
@@ -5570,7 +5564,6 @@
   <block id="539fc2aefa387351c4c1a5ba902494b6" category="list-text">Trident部署現在以系統叢集關鍵優先權運作。</block>
   <block id="6e7cec8ec1bab8a88b529cb4aacdea8d" category="inline-link-macro">第858期</block>
   <block id="02c18582a91ac4954d52fb3312cd214d" category="list-text">為Trident控制器新增了透過 helm、operator 和 tridentctl 使用主機網路的選項（<block ref="4526aa80b75cdbaa8290c8d45d45b56c" category="inline-link-macro-rx"></block> ）。</block>
-  <block id="cb114173f156e2eda40775089a3067ff" category="list-text">在Trident 25.10 中，ANF 驅動程式新增了手動 QoS 支持，使其具備了生產就緒狀態；此實驗性增強功能是在Trident 25.06 中引入的。</block>
   <block id="91382004a95ee6b6ff1b03f17d2bc907" category="list-text">*[技術預覽]*：除了現有的ONTAP-SAN 驅動程式技術預覽版（統一ONTAP 9 中的 iSCSI 和 FCP 協定）之外，還增加了對ONTAP-NAS（僅限 NFS）和ONTAP-SAN（統一ONTAP 9 的 NVMe）的並發支援。</block>
   <block id="f5e490c8e946fa06aeba4784e6b32f48" category="list-text">**Kubernetes**：</block>
   <block id="9e8257af5db1baeffb10d50a398ac154" category="list-text">透過將 Linux DaemonSet 標準化為 node-driver-registrar 來修復 CSI node-driver-registrar 容器名稱不一致的問題，使其與 Windows DaemonSet 和容器鏡像命名保持一致。</block>
@@ -6722,4 +6715,13 @@
   <block id="f5345a3e1ca4c50ed544fae4c14150b1" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v2.0.0</block>
   <block id="ed2e3a3511b1047c788e7fd621778ee2" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.5.0</block>
   <block id="62b6189a1ca283e5a1f0152c40a1d139" category="list-text">docker.io/netapp/trident-operator:26.02.0 （選用）</block>
+  <block id="0adb26270c00fc572774f5cb57d01573" category="inline-link-macro">26.02</block>
+  <block id="e352a332a817691cf8394c9b1288306f" category="paragraph"><block ref="e352a332a817691cf8394c9b1288306f" category="inline-link-macro-rx"></block></block>
+  <block id="ae86b0bdf0b542a819fd22e434545766" category="cell"><block ref="1d7ac1b2b38a742e32aa51ad1489b0a7" prefix="" category="inline-code"></block></block>
+  <block id="c28a6ef170d50135b201634575bf11b4" category="section-title">關於 Trident 26.02 的關鍵資訊</block>
+  <block id="e2c49768b478259ae558315a6874896b" category="paragraph">在<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>中，更新<block ref="b5184a708a9f3a0020e58d5d08445198" prefix=" " category="inline-code"></block>以反映您的映像登錄的位置。您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄中，也可以位於不同的登錄中，但所有 CSI 映像必須位於同一個登錄中。例如：</block>
+  <block id="73321a84803ccb3eb0b3dc9281954ba7" category="list-text"><block ref="ca771b97d048ca724b0d35dbea604dba" prefix="" category="inline-code"></block> 如果您的所有映像都位於同一個登錄中。</block>
+  <block id="f6742c05233fa63959541b8dde0d38c6" category="list-text"><block ref="b60c14c79386a1c34022777459be2c8d" prefix="" category="inline-code"></block> 如果您的 Trident 映像與 CSI 映像位於不同的登錄檔。</block>
+  <block id="1005b3a0632a1617ff4b8822375abb93" category="list-text">使用 <block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> 命令，其中 <block ref="5949043f5e5709138a63b4badf24d7cc" prefix=" " category="inline-code"></block> 反映您要升級到的版本。</block>
+  <block id="fb40eaf6d704634f11299ec916862c3b" category="list-text">在 Trident 26.02 中為 ANF 驅動程式新增了手動 QoS 支援，使其可用於正式作業；此實驗性增強功能已於 Trident 25.06 中推出。</block>
 </blocks>

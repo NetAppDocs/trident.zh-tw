@@ -31,7 +31,7 @@ summary: 您可以使用 protectctl 指令建立和操作Trident Protect 自訂�
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-protect-linux-amd64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.02.0/tridentctl-protect-linux-amd64
 ----
 
 
@@ -43,7 +43,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-protect-linux-arm64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.02.0/tridentctl-protect-linux-arm64
 ----
 
 
@@ -55,7 +55,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-protect-macos-amd64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.02.0/tridentctl-protect-macos-amd64
 ----
 
 
@@ -67,7 +67,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-protect-macos-arm64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.02.0/tridentctl-protect-macos-arm64
 ----
 
 

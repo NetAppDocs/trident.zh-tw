@@ -122,7 +122,7 @@ NOTE: 不適用於生產環境。
 
 
 
-== 25.10 版本新增內容
+== 26.02 版本新增內容
 
 了解Trident和Trident Protect 的新特性，包括增強功能、修復和棄用。
 
@@ -148,7 +148,7 @@ NOTE: 不適用於生產環境。
 
 
 * 為Trident控制器新增了透過 helm、operator 和 tridentctl 使用主機網路的選項（link:https://github.com/NetApp/trident/issues/858["第858期"] ）。
-* 在Trident 25.10 中，ANF 驅動程式新增了手動 QoS 支持，使其具備了生產就緒狀態；此實驗性增強功能是在Trident 25.06 中引入的。
+* 在 Trident 26.02 中為 ANF 驅動程式新增了手動 QoS 支援，使其可用於正式作業；此實驗性增強功能已於 Trident 25.06 中推出。
 
 
 

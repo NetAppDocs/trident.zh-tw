@@ -35,13 +35,13 @@ helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-he
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2510.0 --create-namespace --namespace trident-protect
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2602.0 --create-namespace --namespace trident-protect
 ----
 . （選用）若要啟用偵錯日誌記錄（建議用於故障排除），請使用：
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2510.0 --create-namespace --namespace trident-protect
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2602.0 --create-namespace --namespace trident-protect
 ----
 +
 偵錯日誌記錄有助於NetApp支援人員排除故障，而無需變更日誌等級或重現問題。
@@ -89,7 +89,7 @@ docker push <private-registry-url>/controller:26.02.0
 ----
 +
 
-NOTE: 要取得 Helm Chart，首先需要在可以存取網路的電腦上下載 Helm Chart。 `helm pull trident-protect --version 100.2510.0 --repo https://netapp.github.io/trident-protect-helm-chart`然後複製結果 `trident-protect-100.2510.0.tgz` 將檔案複製到您的離線環境並進行安裝 `helm install trident-protect ./trident-protect-100.2510.0.tgz` 而不是在最後一步使用存儲庫引用。
+NOTE: 若要取得 Helm chart，請先在可存取互聯網的機器上使用 `helm pull trident-protect --version 100.2602.0 --repo https://netapp.github.io/trident-protect-helm-chart`下載 Helm chart，然後將產生的 `trident-protect-100.2602.0.tgz`檔案複製到您的離線環境中，並在最後一步中使用 `helm install trident-protect ./trident-protect-100.2602.0.tgz`而不是儲存庫引用進行安裝。
 
 . 建立Trident Protect 系統命名空間：
 +
@@ -132,13 +132,13 @@ NOTE: 這 `imageRegistry`和 `imagePullSecrets`這些值適用於所有組件影
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2510.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2602.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
 . （選用）若要啟用偵錯日誌記錄（建議用於故障排除），請使用：
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2510.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2602.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
 +
 偵錯日誌記錄有助於NetApp支援人員排除故障，而無需變更日誌等級或重現問題。

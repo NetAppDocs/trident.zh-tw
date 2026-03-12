@@ -5437,7 +5437,6 @@
   <block id="13421cd669efb1bbf8db0c5eac94e4d0" category="paragraph">有關信息，請參閱<block ref="b527eafc73367312d2cf15ed698bf909" category="inline-link-macro-rx"></block>。</block>
   <block id="b1cbc96f53c677765633caf5af4dd9c7" category="list-text">（選用）若要啟用偵錯日誌記錄（建議用於故障排除），請使用：</block>
   <block id="a75138553dd56a4327fa0da9256c6130" category="paragraph">偵錯日誌記錄有助於NetApp支援人員排除故障，而無需變更日誌等級或重現問題。</block>
-  <block id="acbe525f4ec795ff5a3b0f861d110760" category="admonition">要取得 Helm Chart，首先需要在可以存取網路的電腦上下載 Helm Chart。<block ref="647ef8ddeca7869e0a7beea8e1dd05ed" prefix=" " category="inline-code"></block>然後複製結果<block ref="c265d889aefa7f1eafd4a9d64a5611ae" prefix=" " category="inline-code"></block> 將檔案複製到您的離線環境並進行安裝<block ref="222083e2a3b7f539cdb75386d59d4681" prefix=" " category="inline-code"></block> 而不是在最後一步使用存儲庫引用。</block>
   <block id="b12f855d5509dac4b79afc31e54cc96f" category="admonition">這<block ref="990dc1a09e10c7b5378e6bc8a1956cb8" prefix=" " category="inline-code"></block>和<block ref="0d9b54b29da54379cca6b8782b9faae5" prefix=" " category="inline-code"></block>這些值適用於所有組件影像，包括<block ref="337f1ae6c2a69673e695c10040714cd4" prefix=" " category="inline-code"></block>和<block ref="a3b6861798228b46d8f1400c35806e4c" prefix=" " category="inline-code"></block>。如果您將鏡像推送到註冊表中的特定儲存庫路徑（例如，<block ref="9ced4e1438bfae120b7503d1459e84a0" prefix=" " category="inline-code"></block>），請在登錄欄位中包含完整路徑。這將確保所有圖像都從此處提取。<block ref="52da7a794020b670663422d9b8722c45" prefix=" " category="inline-code"></block>。</block>
   <block id="3f09cbddd61fbee1ddfdf268eb77431c" category="section-title">支援的備份註釋</block>
   <block id="4ca8f3a143324271168d8e81d7efa3cd" category="paragraph">下表描述了建立備份 CR 時可以使用的註解：</block>
@@ -6733,4 +6732,5 @@
   <block id="5a450639fa89231b036826f5af7d71cd" category="paragraph">如果您是透過<block ref="0d472c887b61206765c1caa63a9290ec" prefix=" " category="inline-code"></block>安裝程式套件中的檔案手動部署操作員來安裝 Trident，請透過刪除相同的資訊清單來移除。</block>
   <block id="038293ff84b09b1a0092a33fdf412425" category="list-text">使用套件組合資訊清單刪除操作員部署：</block>
   <block id="f5c23abe35c557b95db4b3fce1038b0e" category="sidebar">切換至 OpenShift 認證的 Trident 操作員</block>
+  <block id="14f3910a0b98b041ef49c99202ac9220" category="admonition">若要取得 Helm chart，請先在可存取互聯網的機器上使用<block ref="75b190fb779b22a7754d4a5d68128df4" prefix=" " category="inline-code"></block>下載 Helm chart，然後將產生的<block ref="c13cb34a78859274a12ec8a8c0ff2044" prefix=" " category="inline-code"></block>檔案複製到您的離線環境中，並在最後一步中使用<block ref="df98262a1bb421160e8fe1c48161c970" prefix=" " category="inline-code"></block>而不是儲存庫引用進行安裝。</block>
 </blocks>

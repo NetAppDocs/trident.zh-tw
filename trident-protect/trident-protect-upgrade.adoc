@@ -82,7 +82,7 @@ kubectl delete secret -n trident-protect -l name=trident-protect-crds,owner=helm
 +
 [source, console]
 ----
-helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2510.0 --namespace trident-protect
+helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2602.0 --namespace trident-protect
 ----
 +
 

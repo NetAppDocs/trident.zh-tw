@@ -6422,44 +6422,21 @@
   <block id="2f13846a70e8fb109b7700e3f99c95b7" category="admonition">NAS 磁碟區使用<block ref="2cf0f101be3f96ddc2574af750739255" prefix=" " category="inline-code"></block>。</block>
   <block id="d63cdaacfd1f92fd44fc2139351bfa08" category="summary">了解如何使用 Trident StorageClass 參數，為 AWS FSx for NetApp ONTAP 配置自動後端建立。</block>
   <block id="e3bba1d709b01263e961683a754186ef" category="doc">為 AWS FSx for NetApp ONTAP 設定自動後端組態</block>
-  <block id="112932a144144754ee49bfabdb99d739" category="paragraph">Trident 支援 AWS FSx for NetApp ONTAP（FSxN）的自動後端組態。當您建立包含所需 FSxN 參數的 StorageClass 時、Trident 會自動建立對應的後端和 VolumeSnapshotClass。</block>
   <block id="48f98d5d006ce1ca257a0a87c8c1a910" category="section-title">了解自動後端組態的運作方式</block>
-  <block id="16b97664881a67a27dea071f7290ff06" category="paragraph">Trident 從 StorageClass 定義中派生後端配置。當您套用 StorageClass 時，Trident 會驗證必要的參數、建立後端，並使用狀態標記 StorageClass。</block>
-  <block id="3d4d8632d9ddb90edb43db4b7c53a227" category="paragraph">Trident 只會建立一次 VolumeSnapshotClass。Trident 會為後續的 StorageClasses 重複使用相同的 VolumeSnapshotClass。</block>
   <block id="2087f7f73117d92097c6c97c99e9f9a6" category="section-title">指定所需的 StorageClass 參數</block>
-  <block id="6c60936b230f8221d8dfdd63e27e1ff4" category="paragraph">若要觸發自動後端建立、請在 StorageClass<block ref="166e64f6c3677d0c513901242a3e702d" prefix=" " category="inline-code"></block> 區段中定義所需的參數。</block>
   <block id="b5e95e42782dfdcfdcebda2005b25ffc" category="cell"><block ref="d731d2fecb66f9c4a30253bd316a220f" prefix="" category="inline-code"></block></block>
-  <block id="2a5a5f55665caf158babf5108995ea0a" category="cell">FSx for NetApp ONTAP 檔案系統 ID</block>
-  <block id="b2407737db469410c1a18f4bf2f29654" category="cell">Trident 儲存驅動程式（例如、<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 或 <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>）</block>
   <block id="afc9aaf0855a91c5ecebf6aa039d80cb" category="cell"><block ref="37bfe1312ffccda13b94ae3bedbe6f27" prefix="" category="inline-code"></block></block>
-  <block id="fa8a3a4ea9867d7d878570a2d5212f13" category="cell">包含 AWS 認證資料的 Kubernetes Secret 名稱</block>
   <block id="65a0b35674815028a1cfb3945c2602dc" category="section-title">指定選用參數</block>
-  <block id="e82817ea5e60bb30717e6dd9f767651e" category="paragraph">您可以透過 StorageClass 傳遞可選的後端參數。在 StorageClass<block ref="166e64f6c3677d0c513901242a3e702d" prefix=" " category="inline-code"></block> 部分中將所有可選值定義為字串。</block>
   <block id="2e8ca701f1d742434cb6f2ee4fc42b1f" category="inline-xref-macro">FSx for NetApp ONTAP 後端組態</block>
-  <block id="9ad6fe0223f2a4064237d3b668da48e8" category="paragraph">有關後端參數的完整列表、請參閱：<block ref="405b5c63eb2716d2b54f049a27c529fa" category="inline-xref-macro-rx"></block>。</block>
   <block id="a827d1eec1018cab2532481f63bc2b3e" category="section-title">建立 StorageClass</block>
-  <block id="fba69ccc557df84216c2ed0216c7c140" category="paragraph">以下範例展示 StorageClass 如何觸發自動後端配置。</block>
-  <block id="ca5814ce9b88e8690a5d98623410e81d" category="paragraph">套用 StorageClass 後，Trident 會自動建立後端。您可以建立參考此 StorageClass 的 PersistentVolumeClaims。</block>
   <block id="3eba0f379ef75adb46211bc74f7afeff" category="section-title">驗證後端組態狀態</block>
-  <block id="50ebdcd69d5fa27fa38c3f3a1dddc765" category="paragraph">Trident 會將後端建立的結果記錄在 StorageClass 註解中。</block>
   <block id="91c1225f0dfffa441a294c9d9a9d8348" category="cell"><block ref="bfa17afa82ab15b8ee3af4af55582f7c" prefix="" category="inline-code"></block></block>
-  <block id="2dba7d785c7b788725212b29c9a22452" category="cell">組態結果 <block ref="505a83f220c02df2f85c3810cd9ceb38" prefix="(" category="inline-code"></block> 或<block ref="e139a585510a502bbf1841cf589f5086" prefix=" " category="inline-code"></block>）</block>
   <block id="793c6a1a7136fff624d64a69f273c02b" category="cell"><block ref="d4983a0c46f31dbf43955d08123b5f4d" prefix="" category="inline-code"></block></block>
-  <block id="d98dde1e904004fd88a13fbfb031c500" category="cell">詳細狀態或錯誤訊息</block>
   <block id="e7eefb1f12a95ce43353423c91398f88" category="cell"><block ref="c4af8950076736ecd46438b9f1797026" prefix="" category="inline-code"></block></block>
-  <block id="bcc2c8da789654b87c7d99c009f5aa92" category="cell">內部配置器資源的名稱</block>
   <block id="df292b709ddd5287770ef3f771388bc4" category="cell"><block ref="5fa73c463fadb6fe38fba76713c91a4a" prefix="" category="inline-code"></block></block>
-  <block id="c9b6e4714e46730bf84b476f066f7443" category="cell">表示 StorageClass 由 Trident 管理</block>
   <block id="ec835e7ba061671b4f27bb901480c7d4" category="cell"><block ref="3e567bfdbda21477b14ea69a753cc729" prefix="" category="inline-code"></block></block>
-  <block id="fbcbbf502e3c16ab54359894752796a2" category="cell">為此後端建立的儲存資源池</block>
-  <block id="f48f60fc8705cbffeaccecb6871e3318" category="paragraph">若要驗證狀態、請執行：</block>
-  <block id="ce1010d74ec7ecc3439482137d207b9a" category="paragraph">確認 <block ref="bfa17afa82ab15b8ee3af4af55582f7c" prefix=" " category="inline-code"></block> 是否已設定為 <block ref="505a83f220c02df2f85c3810cd9ceb38" prefix=" " category="inline-code"></block>。如果值為 <block ref="e139a585510a502bbf1841cf589f5086" prefix=" " category="inline-code"></block>，請檢查 <block ref="d4983a0c46f31dbf43955d08123b5f4d" prefix=" " category="inline-code"></block> 以瞭解錯誤。</block>
   <block id="c038542804b6ae7e5c293cac3dda76bc" category="section-title">新增其他 FSxN 檔案系統</block>
-  <block id="4c4f29a446a9127f4387c76407e2fdeb" category="paragraph">如果您在繼續使用相同 StorageClass 的情況下需要額外的儲存容量，請新增額外的 FSxN 檔案系統 ID。</block>
-  <block id="91cc0b93c8dc86369bc288988a041c18" category="paragraph">編輯 StorageClass 並新增以下註釋：</block>
-  <block id="c9f5e695969fa31f7d624a795cc39fc0" category="paragraph">套用變更後， Trident 會更新後端組態並更新 StorageClass 註釋。</block>
   <block id="94ac9687d4fb314a9f0b680481435dd9" category="section-title">操作考量與限制</block>
-  <block id="adf4ed394ce07a1587cbc4320c7a6f81" category="paragraph">刪除 StorageClass 通常會刪除關聯的 Trident 後端。這可能會中斷儲存連線並導致正在運行的工作負載中斷。刪除託管 StorageClass 之前，請務必驗證其影響。</block>
   <block id="08f45bc4adb475bf58bc296ae49e6860" category="paragraph">僅 AWS FSx for NetApp ONTAP 支援自動後端組態。</block>
   <block id="7e80a1b4c777bf1b96cc3f7eadcdc40d" category="summary">了解 RWX NVMe 子系統限制，包括每個磁碟區 64 個節點限制、子系統架構變更以及所需的升級步驟。</block>
   <block id="df49672d11fa6f15f19136396b6056e9" category="doc">了解 RWX NVMe 子系統限制</block>
@@ -6733,4 +6710,51 @@
   <block id="038293ff84b09b1a0092a33fdf412425" category="list-text">使用套件組合資訊清單刪除操作員部署：</block>
   <block id="f5c23abe35c557b95db4b3fce1038b0e" category="sidebar">切換至 OpenShift 認證的 Trident 操作員</block>
   <block id="14f3910a0b98b041ef49c99202ac9220" category="admonition">若要取得 Helm chart，請先在可存取互聯網的機器上使用<block ref="75b190fb779b22a7754d4a5d68128df4" prefix=" " category="inline-code"></block>下載 Helm chart，然後將產生的<block ref="c13cb34a78859274a12ec8a8c0ff2044" prefix=" " category="inline-code"></block>檔案複製到您的離線環境中，並在最後一步中使用<block ref="df98262a1bb421160e8fe1c48161c970" prefix=" " category="inline-code"></block>而不是儲存庫引用進行安裝。</block>
+  <block id="8507ba02df0d48deded5730897bf6e97" category="paragraph">Trident 支援 AWS FSx for NetApp ONTAP（FSxN）的自動後端組態。</block>
+  <block id="ad7922ff1c481d0995f1437bea7a8c84" category="paragraph">當您建立包含所需 FSxN 參數的 StorageClass 時、Trident 會自動建立對應的後端和 VolumeSnapshotClass。Trident 只會為給定的驅動程式組態建立一次 VolumeSnapshotClass，並將其重複用於後續的 StorageClasses。</block>
+  <block id="639387f7f88bde513f926ea1ff4c90e6" category="paragraph">Trident 從 StorageClass 定義中派生後端配置。</block>
+  <block id="4d61a55113f960775e1ae2a50b382699" category="paragraph">應用 StorageClass 以觸發自動後端配置。Trident 執行以下操作：</block>
+  <block id="f379938a5185874724527005bf3aeabb" category="list-text">驗證所需參數</block>
+  <block id="dc69727d180499e284348dc296eb2b50" category="list-text">自動建立後端</block>
+  <block id="7ed584db38a9bee1167dc955425223ab" category="list-text">建立 VolumeSnapshotClass（僅一次）</block>
+  <block id="d64b5a6e1547ddfca09a13e5aebe8168" category="list-text">使用配置狀態註釋 StorageClass</block>
+  <block id="d98a4165abe92912837ea03bad13759c" category="paragraph">設定成功後，您可以建立參考此 StorageClass 的 PersistentVolumeClaims。</block>
+  <block id="572fc95faf8275e347b442bf3862873e" category="paragraph">在 StorageClass 的<block ref="166e64f6c3677d0c513901242a3e702d" prefix=" " category="inline-code"></block>部分中定義所需的參數，以觸發自動後端建立。</block>
+  <block id="4a66f688b5f27b391011d4d5f210cf07" category="cell">FSx for NetApp ONTAP 檔案系統 ID。</block>
+  <block id="1646b27d6ff4817458c1e837765e5048" category="cell">Trident 儲存驅動程式。例如：<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 或 <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>。</block>
+  <block id="01461391f59e5a91649f8828a5274a6e" category="cell">包含憑證的 AWS Secrets Manager 密碼的名稱或 ARN。</block>
+  <block id="34fe8bf3198a28916988621e485274d7" category="paragraph">您可以透過 StorageClass 傳遞可選的後端參數。</block>
+  <block id="32ec076320f5cf515e93b96f2d762f7c" category="paragraph">所有 FSx for NetApp ONTAP 後端支援的後端參數也可以直接透過 StorageClass 的<block ref="166e64f6c3677d0c513901242a3e702d" prefix=" " category="inline-code"></block>部分傳遞。</block>
+  <block id="b4d40b4e27b99937451381cd46cb5716" category="cell">後端參數</block>
+  <block id="ebb061953c0454b2c8ee7b0ac615ebcd" category="cell">選用</block>
+  <block id="35f9df52b863fe74078a89ed50659cd4" category="cell">FSx for NetApp ONTAP 支援的所有後端參數都可以透過 StorageClass<block ref="166e64f6c3677d0c513901242a3e702d" prefix=" " category="inline-code"></block> 部分直接傳遞。每個參數都必須定義為字串。</block>
+  <block id="9013b630235e2a5c48b7357e23e1bd2f" category="paragraph">重要：</block>
+  <block id="093b64ad2bc19e69e8ac30868397065b" category="list-text">所有參數必須定義為字串。</block>
+  <block id="5c7a8e5d73a7d753e99fbea649139ddf" category="list-text">所有參數都必須出現在 StorageClass 的<block ref="166e64f6c3677d0c513901242a3e702d" prefix=" " category="inline-code"></block>區段中。</block>
+  <block id="6df7b7e87aa9ee0a36cc34ecb50760de" category="paragraph">如需查看支援的後端參數完整清單，請參閱：</block>
+  <block id="3061a43007bdd725d91e07b257a95c18" category="paragraph"><block ref="405b5c63eb2716d2b54f049a27c529fa" category="inline-xref-macro-rx"></block>.</block>
+  <block id="560b5d77cb99a3f440a43be46abddd5a" category="paragraph">建立一個包含所需 FSxN 參數的 StorageClass。</block>
+  <block id="435d9294f40415e32213e33dc71f0990" category="paragraph">應用 StorageClass 以觸發自動後端建立。</block>
+  <block id="1996b3e22e3c049f173c9258a0318dad" category="paragraph">Trident 會自動在內部建立必要的後端資源。</block>
+  <block id="1d8672de58014181098298a6721a3fe3" category="paragraph">使用 StorageClass 註解驗證後端配置狀態。</block>
+  <block id="8637d6c1f3e0436f7f2ec935b829bd22" category="paragraph">範例輸出：</block>
+  <block id="7d44151d1c04f56778fdcda39c28489b" category="paragraph">關鍵註釋：</block>
+  <block id="00fba83be7dd1c62083c4dbdc936160d" category="cell">配置結果 <block ref="505a83f220c02df2f85c3810cd9ceb38" prefix="(" category="inline-code"></block> 或 <block ref="e139a585510a502bbf1841cf589f5086" prefix=" " category="inline-code"></block>）。</block>
+  <block id="b3f4653ea561becfb420ba89942039e2" category="cell">詳細的組態狀態或錯誤訊息。</block>
+  <block id="a8bee80258fd236126c46b4006875a3d" category="cell">內部配置器資源名稱。</block>
+  <block id="674a9490cf7dbd931790a3722bfaf24d" category="cell">表示 StorageClass 由 Trident 管理。</block>
+  <block id="87cb7130886a6009701858ca4f62e4e6" category="cell">為此後端建立的儲存資源池。</block>
+  <block id="50889c77737a508d96fb6c795d274147" category="paragraph">如果配置成功<block ref="f31947ad13c330ab8360969e3083e133" prefix="(" category="inline-code"></block>），則 StorageClass 完全可運行。</block>
+  <block id="728493218793a9604a3195856ce6861a" category="paragraph">您現在可以：</block>
+  <block id="1746ddc5758a692a0a5f1902e441d3b9" category="list-text">使用此 StorageClass 建立 PersistentVolumeClaims</block>
+  <block id="27efeebaa06cc87dcd84d9187e02d636" category="list-text">在應用程式工作負載中掛載產生的磁碟區</block>
+  <block id="c2aa447cb205ef48df2b7259c8d85c6e" category="paragraph">如果在繼續使用相同 StorageClass 的情況下需要額外的儲存容量，請附加額外的 FSx for NetApp ONTAP 檔案系統。</block>
+  <block id="44061aff26d10e3d18e361f3ba5cf2ca" category="paragraph">編輯 StorageClass：</block>
+  <block id="3ad8d6e662d9bac0193dd1e7ded5b38a" category="paragraph">新增或更新註釋，加入其他檔案系統 ID：</block>
+  <block id="f5bcc5b755c86f8b844d1fb00c67e121" category="paragraph">使用附加檔案系統的 StorageClass 範例：</block>
+  <block id="c212966e67174317a9aa5f609e6cf3d5" category="paragraph">此操作在繼續使用現有 StorageClass 的同時，增加了額外的儲存容量。</block>
+  <block id="4a984d77b47539ccaabab173a2f9df45" category="paragraph">刪除 StorageClass 通常會刪除關聯的 Trident 後端。</block>
+  <block id="9e30ef913cabaa12906b6d57768d8d26" category="paragraph">這可能會中斷儲存連線並導致正在運行的工作負載中斷。</block>
+  <block id="ffa574ac86862864324d67c3d6ad69c0" category="paragraph">在刪除任何託管 StorageClass 之前，請先驗證其潛在影響。</block>
+  <block id="0a016d1270ba974707ac8af9f53a2e63" category="sidebar">設定自動後端組態</block>
 </blocks>

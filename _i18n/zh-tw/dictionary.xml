@@ -4956,10 +4956,6 @@
   <block id="e26bc895e5bb00237e35bd08e101a228" category="inline-link-macro">25.06</block>
   <block id="e388180fa8946253a28286d92fcbc393" category="cell">2028 年 6 月</block>
   <block id="61a3094d46fa14bffb9067eeb8d3405a" category="paragraph"><block ref="61a3094d46fa14bffb9067eeb8d3405a" category="inline-link-macro-rx"></block></block>
-  <block id="d7ccfdca42aadc41314f5df3ed2e4cbf" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> 並指定部署和映像登錄位置的名稱。您 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄或不同的登錄中、但所有 CSI 映像都必須位於同一個登錄中。在範例中<block ref="5c9befb508998ce21883733ce6ab129f" prefix=" " category="inline-code"></block>、是您要安裝的 Trident 版本。</block>
-  <block id="9632d6ad86670e70a32c6b93e85ad9f4" category="paragraph">例如，若要變更的預設值<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block>，請執行下列命令，其中<block ref="5c9befb508998ce21883733ce6ab129f" prefix=" " category="inline-code"></block>是您要安裝的 Trident 版本：</block>
-  <block id="b34ad03c5088f36033c20b21d9aae4c2" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block>並指定部署名稱、如下例所示、其中<block ref="5c9befb508998ce21883733ce6ab129f" prefix=" " category="inline-code"></block>是您要安裝的 Trident 版本。</block>
-  <block id="d180bc23594b2a81a598da69af7136af" category="list-text">如果您 <block ref="538f4beb16c8502421a8389e199d34ce" category="inline-link-macro-rx"></block>是、您可以在單一步驟中使用<block ref="9ba27131bd1269499334744b89769fac" prefix=" " category="inline-code"></block> 進行升級。如果您未新增 Helm repo 或無法使用它來升級：</block>
   <block id="843e8c92f2887fa83e4564f86e6a7ca0" category="list-text">您可以直接升級至安裝版本的四個版本範圍內的任何目標版本。例如、您可以直接從 24.06 （或任何 24.06 點版本）升級至 25.06 。</block>
   <block id="d4ea8129c0158e8c6ac0b3bb00a333e5" category="list-text">如果您要從四個版本的外部版本升級、請執行多步驟升級。使用升級說明從升級至最新版本、以符合四個版本的 <block ref="a799aa6eaf3a5192b34ea19f24bb716f" category="inline-link-macro-rx"></block> 視窗。例如、如果您執行的是 23.07 、而且想要升級至 25.06 ：</block>
   <block id="96643a0b653f3484db440bd905d8e591" category="list-text">第一次從 23.07 升級至 24.06 。</block>
@@ -6757,4 +6753,8 @@
   <block id="9e30ef913cabaa12906b6d57768d8d26" category="paragraph">這可能會中斷儲存連線並導致正在運行的工作負載中斷。</block>
   <block id="ffa574ac86862864324d67c3d6ad69c0" category="paragraph">在刪除任何託管 StorageClass 之前，請先驗證其潛在影響。</block>
   <block id="0a016d1270ba974707ac8af9f53a2e63" category="sidebar">設定自動後端組態</block>
+  <block id="fd271eb2e0c07a35a036e5d3d38f7295" category="list-text">使用<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block>並為您的部署和映像登錄位置指定名稱。您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄中，也可以位於不同的登錄中，但所有 CSI 映像必須位於同一個登錄中。在範例中，<block ref="64bf780034fbb05b851c4a4fedbc6d2a" prefix=" " category="inline-code"></block>是您要安裝的 Trident 版本。</block>
+  <block id="b1a6996825cda91a559712aa47487d56" category="paragraph">例如，若要變更 <block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block> 的預設值，請執行下列命令，其中 <block ref="64bf780034fbb05b851c4a4fedbc6d2a" prefix=" " category="inline-code"></block> 是您要安裝的 Trident 版本：</block>
+  <block id="4b4a2f07a31fb7ce67a051d38cdb07a1" category="list-text">使用 <block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> 並為您的部署指定一個名稱，如下例所示，其中 <block ref="5b8b118bf0117b802a69cacdb76c3dc5" prefix=" " category="inline-code"></block> 是您要安裝的 Trident 版本。</block>
+  <block id="965e298527e6fa46e6de9289de270ccf" category="list-text">如果您<block ref="538f4beb16c8502421a8389e199d34ce" category="inline-link-macro-rx"></block>，可以使用<block ref="ecdd1f9daa1459f8b8c837369bdc27a9" prefix=" " category="inline-code"></block>一步升級。如果您沒有新增 Helm 倉庫或無法使用它進行升級：</block>
 </blocks>

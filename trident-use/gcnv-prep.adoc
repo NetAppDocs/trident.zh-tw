@@ -16,9 +16,9 @@ summary: 在您設定 Google Cloud NetApp Volumes 後端之前、您必須確保
 
 
 
-== NFS Volume 的必要條件
+== NFS 或 SMB 磁碟區的先決條件
 
-如果您是第一次使用 Google Cloud NetApp Volumes 、或是在新位置使用、則需要進行一些初始設定、才能設定 Google Cloud NetApp Volumes 並建立 NFS Volume 。請參閱 link:https://cloud.google.com/netapp/volumes/docs/before-you-begin/application-resilience["開始之前"^]。
+如果您是首次使用 Google Cloud NetApp Volumes 或在新的位置使用，則需要進行一些初始配置才能設定 Google Cloud NetApp Volumes 並建立 NFS 或 SMB 磁碟區。請參閱 link:https://cloud.google.com/netapp/volumes/docs/before-you-begin/application-resilience["開始之前"^]。
 
 在設定 Google Cloud NetApp Volumes 後端之前、請先確認您擁有下列項目：
 

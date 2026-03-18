@@ -359,7 +359,6 @@
   <block id="9770c6469e9d27585d6c0c389ede7bc3" category="cell">子網路</block>
   <block id="7addf9faaab78a084548d05b695cd2e2" category="cell">資源群組//&lt;虛擬網路&gt;/&lt;子網路&gt;</block>
   <block id="1274e36c193ec0ce8b5c49d5e78ffd7b" category="cell">「0.00.0.0/0」</block>
-  <block id="08ee53e1d5cefb7967a295e98036598e" category="cell">控制.snapshot目錄的可見度</block>
   <block id="ef81b740be2293b7e3c41047afe98764" category="cell">100公克</block>
   <block id="976a6dc52dbcabb541efa0a91e922604" category="cell">""（預覽功能、訂閱時需要白名單）</block>
   <block id="8f828c7344e7fe65d66237a25193068b" category="summary">瞭解如何準備使用ONTAP 支援不支援的SAN驅動程式來設定支援功能的後端。ONTAP</block>
@@ -2227,7 +2226,6 @@
   <block id="01eacb47d802acac83a7e60311768055" category="list-text">。<block ref="63f9100803e1f67a5e33cbd5da9dbb33" prefix=" " category="inline-code"></block> StorageClass 會對應至中的第一個和第二個虛擬集區<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 後端：這是唯一提供金級保護的資源池。</block>
   <block id="6b35cdd98b7f7e55e698a6d0628e18e0" category="list-text">。<block ref="afbfe298fa275e5fff1aca9b2f213d9a" prefix=" " category="inline-code"></block> StorageClass 會對應至中的第三和第四個虛擬集區<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 後端：這是唯一提供金級以外保護層級的資源池。</block>
   <block id="535efa214445261dfda5d5edc613e56b" category="list-text">。<block ref="65846755494383158592c748f74421ec" prefix=" " category="inline-code"></block> StorageClass 會對應至中的第四個虛擬集區<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 後端：這是唯一為 mysqldb 類型應用程式提供儲存池組態的集區。</block>
-  <block id="d0c5a28c77fc4e37f7271d37f7372724" category="list-text">t<block ref="2e63b2ff91d4aeb88b54db5c90b71443" prefix=" " category="inline-code"></block> StorageClass 會對應至中的第三個虛擬集區<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 後端：這是唯一提供銀級保護和 20000 個信用點數的資源池。</block>
   <block id="0191eea3640b05213a7522d6581a2fd5" category="list-text">。<block ref="a96bee9dd30f3ea0af93b4c64ca1e4a4" prefix=" " category="inline-code"></block> StorageClass 會對應至中的第三個虛擬集區<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 後端和中的第二個虛擬集區<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> 後端：這是唯一擁有 5000 個信用點數的集區方案。</block>
   <block id="cd5dd52b9f0bba70b1336e13afe05818" category="paragraph">這是使用的基本組態<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> 驅動程式：</block>
   <block id="31089bb4131b18ca65c3d384cdd49644" category="example-title">雙向 CHAP 範例</block>
@@ -2990,8 +2988,6 @@
   <block id="1fa71ec0db169cb1ef6cfabf7648910e" category="paragraph">若要驗證 PVC 是否受限、請執行下列命令：</block>
   <block id="42d7c2849e22a4d78da8b275f64f75aa" category="summary">在您設定 Google Cloud NetApp Volumes 後端之前、您必須確保符合下列需求。</block>
   <block id="b50d4e4fb1b847d1270df87e42364fe0" category="doc">準備設定 Google Cloud NetApp Volumes 後端</block>
-  <block id="0935df2153a18d9a4776751ebfb7cb82" category="section-title">NFS Volume 的必要條件</block>
-  <block id="a03c3224ff98ca5b518f8a11ed9d6f72" category="paragraph">如果您是第一次使用 Google Cloud NetApp Volumes 、或是在新位置使用、則需要進行一些初始設定、才能設定 Google Cloud NetApp Volumes 並建立 NFS Volume 。請參閱 <block ref="d2edeebd0b5ddcd8a293f6eb7960f37c" category="inline-link-macro-rx"></block>。</block>
   <block id="ec8b4b1603705e8f5deb17b1f83c5b04" category="paragraph">在設定 Google Cloud NetApp Volumes 後端之前、請先確認您擁有下列項目：</block>
   <block id="1215f8190533dfdf63d2224a6d88266f" category="inline-link-macro">Google Cloud NetApp Volumes</block>
   <block id="cbd1a08f0c7e9ece495b85acebbda95f" category="list-text">使用 Google Cloud NetApp Volumes 服務設定的 Google Cloud 帳戶。請參閱 <block ref="633097af004065de10009ea2f33900c4" category="inline-link-macro-rx"></block>。</block>
@@ -3160,7 +3156,6 @@
   <block id="98c76e4bb2a33d9fd5985c31833d545b" category="paragraph">如果在後端啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。</block>
   <block id="dd7e96ca2da30b4de0cef5d5d0d67883" category="paragraph">如需更多資訊、請參閱<block ref="5113a2fb1642ecd23870711ba25c4ad7" category="inline-link-macro-rx"></block>：。</block>
   <block id="775acc7033e41c0ec1b40c64643c6339" category="paragraph">用於存取目錄的 NAS 選項<block ref="a15da8cecb1f1192c4d913b8ba676121" prefix=" " category="inline-code"></block>。</block>
-  <block id="9baf39c0a00f0d9f174a9671e5cefbab" category="paragraph">針對 NFSv3 的 NFSv4 "false" 為 "true"</block>
   <block id="e1232df03027aec38979e9ee0c9b350c" category="paragraph">選擇<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>驅動程式來增加單一磁碟區的平行度、使其可擴充至數十億個檔案的 PB 範圍。FlexGroups的一些理想使用案例包括AI / ML / DL、Big Data和分析、軟體建置、串流、檔案儲存庫等。Trident 會在佈建 FlexGroup Volume 時、使用指派給 SVM 的所有集合體。支援Trident也有下列考量：FlexGroup</block>
   <block id="90bce6b2a4ca618777f172f6d51e69f1" category="list-text">FlexGroup 磁碟區不支援複製。</block>
   <block id="971d29a2392e004ddd4263282b307e0c" category="inline-link">NetApp FlexGroup Volume 最佳實務做法與實作指南</block>
@@ -4292,7 +4287,6 @@
   <block id="c994f1e00d22f7d8d4e7b3e7f50f8002" category="doc">Kerberos 執行中加密</block>
   <block id="c8ea4672c0efc6fee26c8648f609a829" category="paragraph">使用 Kerberos 在線上加密，您可以針對託管叢集與儲存後端之間的流量啟用加密，藉此改善資料存取安全性。</block>
   <block id="420bac2406e93da0c7c791aca209017d" category="paragraph">Trident 支援 ONTAP 的 Kerberos 加密作為儲存後端：</block>
-  <block id="796f801ad41f96aeb2e1a1950ed629e4" category="list-text">* 內部部署 ONTAP * ： Trident 支援透過 NFSv3 和 NFSv4 連線進行 Kerberos 加密，從 Red Hat OpenShift 和上游 Kubernetes 叢集到內部部署 ONTAP 磁碟區。</block>
   <block id="0a710c309a5f6dc65b056833a5208521" category="paragraph">您可以建立、刪除、調整大小、快照、複製、 唯讀複製及匯入使用 NFS 加密的磁碟區。</block>
   <block id="2aff02c8ceb99a9445937af9d4d8f286" category="section-title">使用內部部署的 ONTAP 磁碟區來設定在線上 Kerberos 加密</block>
   <block id="330282591e8caa9814eb88ec524b89cf" category="paragraph">您可以在託管叢集與內部部署 ONTAP 儲存後端之間的儲存流量上啟用 Kerberos 加密。</block>
@@ -4300,12 +4294,9 @@
   <block id="0ff02d27ae5cac1a12c6c403fd55443c" category="list-text">請確定您可以存取<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 公用程式。</block>
   <block id="bef890ed7cc869346d4b483cd3e3ab00" category="list-text">確保您具有 ONTAP 儲存後端的管理員存取權。</block>
   <block id="160b05c1b85ce34d702a3568614baec1" category="list-text">確保您知道將從 ONTAP 儲存後端共用的磁碟區名稱。</block>
-  <block id="9fe985de654739fa6f48edb0d49059b4" category="inline-link">NetApp NFSv4 增強與最佳實務指南</block>
-  <block id="9c6a0d551d50340cca48e6cfa4355566" category="list-text">請確定您使用 Kerberos 加密的任何 NFSv4 磁碟區都已正確設定。請參閱的 NetApp NFSv4 網域組態一節（第 13 頁）<block ref="fcbfe3012009d21ef9ba8407142f85b6" category="inline-link-rx"></block>。</block>
   <block id="7c67bfc9153da2055f6d09209f9853c7" category="section-title">新增或修改 ONTAP 匯出原則</block>
   <block id="3afa4a2a4546fcf1b9a361d1bff9763b" category="paragraph">您需要將規則新增至現有的 ONTAP 匯出原則、或建立新的匯出原則、以支援 ONTAP 儲存 VM 根磁碟區的 Kerberos 加密、以及與上游 Kubernetes 叢集共用的任何 ONTAP 磁碟區。您新增的匯出原則規則或您建立的新匯出原則需要支援下列存取通訊協定和存取權限：</block>
   <block id="e21233a7f0d7fedb5883aea1dfed27cf" category="paragraph-title">存取傳輸協定</block>
-  <block id="e10f51f4d0eb1b58929237c03db4b832" category="paragraph">使用 NFS 、 NFSv3 和 NFSv4 存取通訊協定來設定匯出原則。</block>
   <block id="baedff73fdfff23f65e8b80727cd3088" category="paragraph-title">存取詳細資料</block>
   <block id="892969be437eb53b05f372cc0ae74d6c" category="paragraph">您可以根據對磁碟區的需求、設定 Kerberos 加密的三個不同版本之一：</block>
   <block id="fda32d078836aa6e69a3497be5f9cdca" category="list-text">* Kerberos 5* - （驗證與加密）</block>
@@ -5027,7 +5018,6 @@
   <block id="969ab4db9d9d63b4573cc75a0b550b21" category="list-text">[技術預覽] 使用 ANF 驅動程式新增了手動 QOS 支援。</block>
   <block id="fa420d9ecbb50720fc93ab14f7943b42" category="list-text">修正了 CSI NodeExpandVolume 的問題，當底層 SCSI 磁碟不可用時，多路徑裝置可能會出現大小不一致的情況。</block>
   <block id="69e0fec3be54a3b91103c8c7b788339f" category="list-text">修正了無法清理 ONTAP-NAS 和 ONTAP-NAS-Economy 驅動程式的重複匯出策略的問題。</block>
-  <block id="6e02211c85412fa0d990bce8af9e671f" category="list-text">修正了 GCNV 卷預設為 NFSv3 的問題<block ref="e477739f39dbd2f1e1c5268912135e92" prefix=" " category="inline-code"></block>未設定；現在 NFSv3 和 NFSv4 協定均受支援。如果<block ref="e477739f39dbd2f1e1c5268912135e92" prefix=" " category="inline-code"></block>如果未提供，則將使用主機的預設 NFS 版本（NFSv3 或 NFSv4）。</block>
   <block id="aaa014969ef27003313b67f83fe7091d" category="inline-link-macro">問題 #831</block>
   <block id="cd620e798a4bbf9171d504843ebb70d0" category="list-text">修正了使用 Kustomize 安裝 Trident 時出現的部署問題（ <block ref="ae3bb668f87d2aa74a2bfe43dedc0001" category="inline-link-macro-rx"></block> ）。</block>
   <block id="81a9708305846c55b26ba31f647ab071" category="inline-link-macro">問題 #1016</block>
@@ -5247,7 +5237,6 @@
   <block id="8b29df4adf6fbbaec0828beed4564d1b" category="list-text">按一下「查看操作員」以查看操作員的詳細資料。</block>
   <block id="7c7ed74fe0c2134a4029358fd7840eaa" category="list-text">在 * Trident Orchestrator* 下，按一下 *建立實例*。</block>
   <block id="7b61a3bcc8bbd41470bf0de7fcfd839e" category="list-text">按一下「YAML 檢視」並將以下內容貼上到表單中：</block>
-  <block id="9152cfa618e086866a5af7caaed0d2bd" category="list-text">Red Hat Enterprise Linux CoreOS (RHCOS) 未啟用和設定 iSCSI。</block>
   <block id="5df2f935f2bc3df2c6378f665b3d6659" category="list-text">您可以新增<block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix=" " category="inline-code"></block>在所有 OpenShift 工作節點上配置和啟用 iSCSI 和 Multipath 服務的參數。</block>
   <block id="f61306bfa8c6de676059739358d4479f" category="list-text">按一下「建立」； Trident Orchestrator 將會完全安裝。</block>
   <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">卸載Trident操作員</block>
@@ -5995,7 +5984,6 @@
   <block id="7dc6151116748c06820707b3267ee0b6" category="cell">TCP/UDP 111</block>
   <block id="3ee12b938a2552d8e7e829deac4f0d88" category="cell">RPCBIND/portmapper</block>
   <block id="ee36adb297d92e86dd9cb9a6294bafe2" category="cell">ONTAP-NAS （NFSv3/v4）、ANF （NFS）</block>
-  <block id="22514c1437249e60404f00fd34a14237" category="cell">v3 版本必需；v4 版本可選（防火牆卸載）；如果僅使用 NFSv4 ，則限制使用。</block>
   <block id="a44b673cbbbd63bfa33d42c853f57439" category="cell">TCP/UDP 2049</block>
   <block id="5cf46b19bdb5ea243def7352324db5af" category="cell">NFS 精靈程式</block>
   <block id="a3d5e36471b118748b9809c728b8706e" category="cell">核心資料；眾所周知；使用 TCP 以確保可靠性。</block>
@@ -6734,4 +6722,18 @@
   <block id="91cc0b93c8dc86369bc288988a041c18" category="paragraph">編輯 StorageClass 並新增以下註釋：</block>
   <block id="c9f5e695969fa31f7d624a795cc39fc0" category="paragraph">套用變更後， Trident 會更新後端組態並更新 StorageClass 註釋。</block>
   <block id="adf4ed394ce07a1587cbc4320c7a6f81" category="paragraph">刪除 StorageClass 通常會刪除關聯的 Trident 後端。這可能會中斷儲存連線並導致正在運行的工作負載中斷。刪除託管 StorageClass 之前，請務必驗證其影響。</block>
+  <block id="dac5012fe50d282b4ce61c95054ca149" category="paragraph">啟用或停用對 <block ref="a15da8cecb1f1192c4d913b8ba676121" prefix=" " category="inline-code"></block> 目錄的存取。</block>
+  <block id="51f9d701191e420ed39266d6c65191b8" category="paragraph">有效值：<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>。預設行為可能因 ONTAP 和 Trident 版本而異。請明確設定以確保行為一致。</block>
+  <block id="b6e5467d6e3184e82d2324528e166e84" category="list-text">Red Hat Enterprise Linux CoreOS （RHCOS） 未啟用和設定 iSCSI。</block>
+  <block id="ebf79a17d0a10b060b88da85a533dc26" category="list-text">*本地 ONTAP* - Trident 支援透過 NFSv3 進行 Kerberos 加密，並支援從 Red Hat OpenShift 和上游 Kubernetes 叢集到本機 ONTAP 磁碟區的連線。</block>
+  <block id="65675a41b0f49633987e598dd7ffcb23" category="inline-link">NetApp 增強功能與最佳實務做法指南</block>
+  <block id="052ef7045b8c09ce818e2fad09ebe073" category="list-text">請確保所有使用 Kerberos 加密的磁碟區都已正確配置。請參閱<block ref="f8470a53f564de1533285eba87ab95cd" category="inline-link-rx"></block>的 NetApp 網域設定部分（第 13 頁）。</block>
+  <block id="336dea50c2c2418edd367cce565e1879" category="paragraph">使用 NFS、NFSv3 和存取協定設定匯出原則。</block>
+  <block id="f18904f016d0dd2cbc3caf83ed1734d3" category="cell">v3 版本必需；v4 版本可選（防火牆卸載）；如果僅使用 -only 則限制。</block>
+  <block id="460db1bfc0066fbf55e3e388b2ba8592" category="list-text">修正了 GCNV 磁碟區在<block ref="e477739f39dbd2f1e1c5268912135e92" prefix=" " category="inline-code"></block>未設定時預設使用 NFSv3 的問題；現在同時支援 NFSv3 和 NFSv4 協定。如果未提供<block ref="e477739f39dbd2f1e1c5268912135e92" prefix=" " category="inline-code"></block>，則使用主機的預設 NFS 版本（NFSv3 或 NFSv4）。</block>
+  <block id="4bd5d0aa96daf67a3e8c2494ca905de2" category="cell"><block ref="b326b5062b2f0e69046810717534cb09" prefix="" category="inline-code"></block>, <block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>（明確設定）。</block>
+  <block id="11c1dbb3fa55c48a97462a616085ddfc" category="cell"><block ref="b326b5062b2f0e69046810717534cb09" prefix="" category="inline-code"></block>, <block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>（預設行為可能有所不同。請明確設定）NFSv3 設定為 "false"</block>
+  <block id="826434aa2de870d45f65375eed4dd985" category="section-title">NFS 或 SMB 磁碟區的先決條件</block>
+  <block id="796744214a34447ec504843fb0c28924" category="paragraph">如果您是首次使用 Google Cloud NetApp Volumes 或在新的位置使用，則需要進行一些初始配置才能設定 Google Cloud NetApp Volumes 並建立 NFS 或 SMB 磁碟區。請參閱 <block ref="d2edeebd0b5ddcd8a293f6eb7960f37c" category="inline-link-macro-rx"></block>。</block>
+  <block id="f58d26da0e092aac8227607603acb293" category="list-text"><block ref="2e63b2ff91d4aeb88b54db5c90b71443" prefix=" " category="inline-code"></block> StorageClass 將對應到 <block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 後端中的第三個虛擬資源池。這是唯一提供銀級保護和 20000 信用點數的資源池。</block>
 </blocks>

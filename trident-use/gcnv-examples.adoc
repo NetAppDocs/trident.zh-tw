@@ -86,7 +86,7 @@ summary: 瞭解 Google Cloud NetApp Volume 的 NFS 和 NFS 後端組態選項、
 | 「匯出規則」 | 新磁碟區的匯出規則。必須是以逗號分隔的任何 IPv4 位址組合清單。 | 「0.00.0.0/0」 
 
 
-| 「napshotDir | 存取「.snapshot」目錄 | 針對 NFSv3 的 NFSv4 "false" 為 "true" 
+| 「napshotDir | 存取「.snapshot」目錄 | `true`,  `false`（預設行為可能有所不同。請明確設定）NFSv3 設定為 "false" 
 
 
 | 「快照保留區」 | 保留給快照的磁碟區百分比 | " （接受預設值 0 ） 

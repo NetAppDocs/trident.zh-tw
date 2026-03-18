@@ -310,7 +310,7 @@ NOTE: 此功能尚處於實驗階段，目前支援使用 ONTAP-SAN 驅動程式
 +
 ** 修正了 CSI NodeExpandVolume 的問題，當底層 SCSI 磁碟不可用時，多路徑裝置可能會出現大小不一致的情況。
 ** 修正了無法清理 ONTAP-NAS 和 ONTAP-NAS-Economy 驅動程式的重複匯出策略的問題。
-** 修正了 GCNV 卷預設為 NFSv3 的問題 `nfsMountOptions`未設定；現在 NFSv3 和 NFSv4 協定均受支援。如果 `nfsMountOptions`如果未提供，則將使用主機的預設 NFS 版本（NFSv3 或 NFSv4）。
+** 修正了 GCNV 磁碟區在 `nfsMountOptions`未設定時預設使用 NFSv3 的問題；現在同時支援 NFSv3 和 NFSv4 協定。如果未提供 `nfsMountOptions`，則使用主機的預設 NFS 版本（NFSv3 或 NFSv4）。
 ** 修正了使用 Kustomize 安裝 Trident 時出現的部署問題（ link:https://github.com/NetApp/trident/issues/831["問題 #831"] ）。
 ** 修正了從快照建立的 PVC 缺少匯出策略的問題（ link:https://github.com/NetApp/trident/issues/1016["問題 #1016"] ）。
 ** 修正了 ANF 磁碟區大小未自動與 1 GiB 增量對齊的問題。

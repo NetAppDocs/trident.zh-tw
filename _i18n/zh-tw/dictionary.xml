@@ -6723,17 +6723,17 @@
   <block id="c9f5e695969fa31f7d624a795cc39fc0" category="paragraph">套用變更後， Trident 會更新後端組態並更新 StorageClass 註釋。</block>
   <block id="adf4ed394ce07a1587cbc4320c7a6f81" category="paragraph">刪除 StorageClass 通常會刪除關聯的 Trident 後端。這可能會中斷儲存連線並導致正在運行的工作負載中斷。刪除託管 StorageClass 之前，請務必驗證其影響。</block>
   <block id="dac5012fe50d282b4ce61c95054ca149" category="paragraph">啟用或停用對 <block ref="a15da8cecb1f1192c4d913b8ba676121" prefix=" " category="inline-code"></block> 目錄的存取。</block>
-  <block id="51f9d701191e420ed39266d6c65191b8" category="paragraph">有效值：<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>。預設行為可能因 ONTAP 和 Trident 版本而異。請明確設定以確保行為一致。</block>
   <block id="b6e5467d6e3184e82d2324528e166e84" category="list-text">Red Hat Enterprise Linux CoreOS （RHCOS） 未啟用和設定 iSCSI。</block>
-  <block id="ebf79a17d0a10b060b88da85a533dc26" category="list-text">*本地 ONTAP* - Trident 支援透過 NFSv3 進行 Kerberos 加密，並支援從 Red Hat OpenShift 和上游 Kubernetes 叢集到本機 ONTAP 磁碟區的連線。</block>
-  <block id="65675a41b0f49633987e598dd7ffcb23" category="inline-link">NetApp 增強功能與最佳實務做法指南</block>
-  <block id="052ef7045b8c09ce818e2fad09ebe073" category="list-text">請確保所有使用 Kerberos 加密的磁碟區都已正確配置。請參閱<block ref="f8470a53f564de1533285eba87ab95cd" category="inline-link-rx"></block>的 NetApp 網域設定部分（第 13 頁）。</block>
-  <block id="336dea50c2c2418edd367cce565e1879" category="paragraph">使用 NFS、NFSv3 和存取協定設定匯出原則。</block>
-  <block id="f18904f016d0dd2cbc3caf83ed1734d3" category="cell">v3 版本必需；v4 版本可選（防火牆卸載）；如果僅使用 -only 則限制。</block>
   <block id="460db1bfc0066fbf55e3e388b2ba8592" category="list-text">修正了 GCNV 磁碟區在<block ref="e477739f39dbd2f1e1c5268912135e92" prefix=" " category="inline-code"></block>未設定時預設使用 NFSv3 的問題；現在同時支援 NFSv3 和 NFSv4 協定。如果未提供<block ref="e477739f39dbd2f1e1c5268912135e92" prefix=" " category="inline-code"></block>，則使用主機的預設 NFS 版本（NFSv3 或 NFSv4）。</block>
   <block id="4bd5d0aa96daf67a3e8c2494ca905de2" category="cell"><block ref="b326b5062b2f0e69046810717534cb09" prefix="" category="inline-code"></block>, <block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>（明確設定）。</block>
   <block id="11c1dbb3fa55c48a97462a616085ddfc" category="cell"><block ref="b326b5062b2f0e69046810717534cb09" prefix="" category="inline-code"></block>, <block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>（預設行為可能有所不同。請明確設定）NFSv3 設定為 "false"</block>
   <block id="826434aa2de870d45f65375eed4dd985" category="section-title">NFS 或 SMB 磁碟區的先決條件</block>
   <block id="796744214a34447ec504843fb0c28924" category="paragraph">如果您是首次使用 Google Cloud NetApp Volumes 或在新的位置使用，則需要進行一些初始配置才能設定 Google Cloud NetApp Volumes 並建立 NFS 或 SMB 磁碟區。請參閱 <block ref="d2edeebd0b5ddcd8a293f6eb7960f37c" category="inline-link-macro-rx"></block>。</block>
   <block id="f58d26da0e092aac8227607603acb293" category="list-text"><block ref="2e63b2ff91d4aeb88b54db5c90b71443" prefix=" " category="inline-code"></block> StorageClass 將對應到 <block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 後端中的第三個虛擬資源池。這是唯一提供銀級保護和 20000 信用點數的資源池。</block>
+  <block id="183d6aa6c2aa2a35b1017b0f500bf757" category="paragraph">有效值：<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>、<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>。預設行為可能因 ONTAP 和 Trident 版本而異。請明確設定以確保行為一致。</block>
+  <block id="796f801ad41f96aeb2e1a1950ed629e4" category="list-text">*內部部署 ONTAP* - Trident 支援透過 NFSv3 和 NFSv4 連線，從 Red Hat OpenShift 和上游 Kubernetes 叢集到內部部署 ONTAP 磁碟區的 Kerberos 加密。</block>
+  <block id="9fe985de654739fa6f48edb0d49059b4" category="inline-link">NetApp NFSv4 增強功能與最佳實務指南</block>
+  <block id="9c6a0d551d50340cca48e6cfa4355566" category="list-text">請確保所有與 Kerberos 加密一起使用的 NFSv4 磁碟區都已正確設定。請參閱 NetApp NFSv4 域配置部分（第 13 頁）<block ref="fcbfe3012009d21ef9ba8407142f85b6" category="inline-link-rx"></block>。</block>
+  <block id="e10f51f4d0eb1b58929237c03db4b832" category="paragraph">使用 NFS、NFSv3 和 NFSv4 存取協定設定匯出原則。</block>
+  <block id="22514c1437249e60404f00fd34a14237" category="cell">v3 版本必需；v4 版本可選（防火牆卸載）；如果僅使用 NFSv4 ，則限制使用。</block>
 </blocks>

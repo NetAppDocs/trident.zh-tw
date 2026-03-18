@@ -234,13 +234,6 @@ NAS 選項適用於已佈建的 NFS 磁碟區、預設為 `777`
  a| 
 啟用或停用對  `.snapshot` 目錄的存取。
 
-
-
-| 「napshotDir  a| 
-用於存取目錄的 NAS 選項 `.snapshot`。
- a| 
-啟用或停用對  `.snapshot` 目錄的存取。
-
 有效值： `true`、 `false`。預設行為可能因 ONTAP 和 Trident 版本而異。請明確設定以確保行為一致。
 
 

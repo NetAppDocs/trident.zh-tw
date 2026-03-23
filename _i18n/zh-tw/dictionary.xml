@@ -2971,7 +2971,6 @@
   <block id="95c5fc7684c0c685ae305908e8360de5" category="cell">新磁碟區的匯出規則。必須是以逗號分隔的任何 IPv4 位址組合清單。</block>
   <block id="3731633acfd0b9fb847e03ce2fdab4fa" category="cell">" （接受預設值 0 ）</block>
   <block id="f666bd4432d66c3d0a6c3eb68602a507" category="cell">新磁碟區的UNIX權限（4個八進位數字）。</block>
-  <block id="b0663450e547d90a59ef16fd10b49313" category="paragraph">當您剛開始使用 Google Cloud NetApp Volumes 並試用時、這項組態非常理想、但實際上您很可能需要為您所配置的 Volume 提供額外的範圍。</block>
   <block id="2d55ceabc505d58735d6f639a0ddee3c" category="example-title">使用 StoragePools 篩選器進行組態</block>
   <block id="9f50e88dc1b2f50c32d6623a46186422" category="paragraph">此後端組態會在單一檔案中定義多個虛擬集區。虛擬集區是在一節中定義<block ref="ddecebdea58b5f264d27f1f7909bab74" prefix=" " category="inline-code"></block> 。當您有多個儲存集區支援不同的服務層級、而且您想要在 Kubernetes 中建立代表這些層級的儲存類別時、這些功能就很有用。虛擬集區標籤用於區分集區。例如、在下面的範例中、<block ref="c05f6c233521207f6fe311afef550c3c" prefix=" " category="inline-code"></block> 標籤和<block ref="f1d0ae63f2e948a9e43dcc60303d595d" prefix=" " category="inline-code"></block> 類型是用來區分虛擬集區。</block>
   <block id="88b8febb44310d1976318cdfbfc8e272" category="paragraph">您也可以將某些預設值設定為適用於所有虛擬集區、並覆寫個別虛擬集區的預設值。在下列範例中<block ref="bb0d75280f9b683f2f1f0767fd0aff9b" prefix=" " category="inline-code"></block> 、並<block ref="c72971f17465d2a32345bc872af62a34" prefix=" " category="inline-code"></block> 做為所有虛擬集區的預設值。</block>
@@ -6736,4 +6735,7 @@
   <block id="9c6a0d551d50340cca48e6cfa4355566" category="list-text">請確保所有與 Kerberos 加密一起使用的 NFSv4 磁碟區都已正確設定。請參閱 NetApp NFSv4 域配置部分（第 13 頁）<block ref="fcbfe3012009d21ef9ba8407142f85b6" category="inline-link-rx"></block>。</block>
   <block id="e10f51f4d0eb1b58929237c03db4b832" category="paragraph">使用 NFS、NFSv3 和 NFSv4 存取協定設定匯出原則。</block>
   <block id="22514c1437249e60404f00fd34a14237" category="cell">v3 版本必需；v4 版本可選（防火牆卸載）；如果僅使用 NFSv4 ，則限制使用。</block>
+  <block id="9d5a9690e203a91236d7cd904141669f" category="section-title">25.10 版本新增內容</block>
+  <block id="f74472a1f5a071b8eb49ce2cf4c7f852" category="paragraph">如果您剛開始使用 Google Cloud NetApp Volumes 並進行嘗試，此配置是理想的選擇，但在實踐中，您可能需要為配置的磁碟區提供額外的範圍。</block>
+  <block id="8eff9b9f03bae3f241ea78649c5afe12" category="admonition">請將<block ref="49e22ed291a6cbd4445ed587b8bd46c4" prefix=" " category="inline-code"></block>和<block ref="7d02a93664a6fdb768f99da64ea2b2e7" prefix=" " category="inline-code"></block>替換為您的服務帳戶憑證。</block>
 </blocks>

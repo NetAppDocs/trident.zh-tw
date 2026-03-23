@@ -105,7 +105,10 @@ summary: 瞭解 Google Cloud NetApp Volume 的 NFS 和 NFS 後端組態選項、
 ====
 這是絕對最低的後端組態。有了這項組態、 Trident 會探索您在設定位置中委派給 Google Cloud NetApp Volumes 的所有儲存池、並隨機將新磁碟區放在其中一個集區上。由於省略、因此 `nasType` `nfs` 會套用預設值、而後端會為 NFS 磁碟區進行資源配置。
 
-當您剛開始使用 Google Cloud NetApp Volumes 並試用時、這項組態非常理想、但實際上您很可能需要為您所配置的 Volume 提供額外的範圍。
+如果您剛開始使用 Google Cloud NetApp Volumes 並進行嘗試，此配置是理想的選擇，但在實踐中，您可能需要為配置的磁碟區提供額外的範圍。
+
+
+NOTE: 請將 `<id_value>`和 `<key_value>`替換為您的服務帳戶憑證。
 
 [source, yaml]
 ----
@@ -116,15 +119,11 @@ metadata:
   name: backend-tbc-gcnv-secret
 type: Opaque
 stringData:
-  private_key_id: f2cb6ed6d7cc10c453f7d3406fc700c5df0ab9ec
+  private_key_id: "<id_value>"
   private_key: |
     -----BEGIN PRIVATE KEY-----
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    XsYg6gyxy4zq7OlwWgLwGa==
+    <key_value>
     -----END PRIVATE KEY-----
-
 ---
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -191,14 +190,12 @@ metadata:
   name: backend-tbc-gcnv-secret
 type: Opaque
 stringData:
-  private_key_id: f2cb6ed6d7cc10c453f7d3406fc700c5df0ab9ec
+  private_key_id: "<id_value>"
   private_key: |
     -----BEGIN PRIVATE KEY-----
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    XsYg6gyxy4zq7OlwWgLwGa==
+    <key_value>
     -----END PRIVATE KEY-----
+---
 
 ---
 apiVersion: trident.netapp.io/v1
@@ -245,14 +242,10 @@ metadata:
   name: backend-tbc-gcnv-secret
 type: Opaque
 stringData:
-  private_key_id: f2cb6ed6d7cc10c453f7d3406fc700c5df0ab9ec
+  private_key_id: "<id_value>"
   private_key: |
     -----BEGIN PRIVATE KEY-----
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    XsYg6gyxy4zq7OlwWgLwGa==
+    <key_value>
     -----END PRIVATE KEY-----
 
 ---

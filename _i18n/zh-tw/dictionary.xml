@@ -4473,7 +4473,6 @@
   <block id="bde4e01f8df98626e0dc1c36a8e06a5a" category="admonition">在將安裝了 Trident 的 Kubernetes 叢集從 1.25 升級至 1.26 或更新版本之前<block ref="1b428bb9b9fe27db6cd8932526864634" category="inline-link-macro-rx"></block>、請參閱。</block>
   <block id="8f323a9e5c0c5162cc6e0d48e0cb1850" category="paragraph-title">支援的儲存驅動程式：</block>
   <block id="8321592ce24c8a122ecf26a63cfca407" category="list-text">ONTAP-NAS</block>
-  <block id="caafdf62a2c609bfa5316118231a1007" category="list-text">ONTAP NAS 經濟效益</block>
   <block id="188c0d870c5f930d042bdaa1f1fc3573" category="list-text">ONTAP SAN （ iSCSI ， FCP ， NVMe over TCP ）</block>
   <block id="1bbe28a8ef9b1c85d07b013af0628d36" category="list-text">ONTAP SAN 經濟型（僅限 iSCSI ）</block>
   <block id="db526afc657fdfec1ca176eb9d281f89" category="list-title">要考量的重點：</block>
@@ -4951,7 +4950,6 @@
   <block id="96643a0b653f3484db440bd905d8e591" category="list-text">第一次從 23.07 升級至 24.06 。</block>
   <block id="0d5f6bd4062e1e564fa83bfc5eb6a64c" category="list-text">然後從 24.06 升級至 25.06 。</block>
   <block id="bc08c4a5eed12311fe8187fb000dd58a" category="paragraph">有關 Amazon S3 策略的更多信息，請參閱<block ref="61017e44ea21b481e69f04f8ac510768" category="inline-link-rx"></block> 。</block>
-  <block id="2508b93e69f47b3a094284dbdc9a09de" category="list-text">（可選）新增包含或排除標有特定標籤的資源的過濾：</block>
   <block id="b4d332d25d8164d8387707934254781d" category="admonition">當兩者<block ref="a25777d0a6883efb33950a7cd7a8f9b9" prefix=" " category="inline-code"></block>和<block ref="2021b5ec814a388ca04af6c6d6c2d16f" prefix=" " category="inline-code"></block>被使用， <block ref="a25777d0a6883efb33950a7cd7a8f9b9" prefix=" " category="inline-code"></block>首先運行，然後<block ref="2021b5ec814a388ca04af6c6d6c2d16f" prefix=" " category="inline-code"></block>應用於結果資源。</block>
   <block id="6b556cca1436ef5909ccaa59f5aae989" category="paragraph">您可以使用<block ref="e80c5db95c437e3b5acee80112bd1f1a" prefix=" " category="inline-code"></block>和<block ref="484f02b530e920abf065e3f27b7a6d80" prefix=" " category="inline-code"></block>用於包含或排除資源的標誌<block ref="303a9ae359153efd5b4c1067cd875175" prefix=" " category="inline-code"></block>例如群組、類型、版本、標籤、名稱和命名空間，如下例所示：</block>
   <block id="13001655f60b86601d45076ffb7e8cb4" category="list-text">*spec.snapshotRef*：（可選）：用作備份來源的快照的名稱。如果未提供，將會建立並備份暫存快照。</block>
@@ -6152,17 +6150,12 @@
   <block id="d73a44f1efd76ad4c6b0a239a95393b5" category="section-title">刪除 Autogrow 策略</block>
   <block id="a7d2fe608fafbe7aab36a7d35c1c1f76" category="summary">了解控制器的可擴充性、並行行為和功能成熟度。</block>
   <block id="3e763e2b1294995bd50b4c7f4ec3e8b2" category="doc">控制器擴充性</block>
-  <block id="7c722282ff2880e6d4f4a9dbdba1c4d7" category="paragraph">Trident 透過提升多個儲存驅動程式之間的並發性，實現了控制器可擴充性。客戶可以了解哪些 Trident 驅動程式在正式發佈時支援控制器可擴充性，以及哪些驅動程式在 Trident 26.02 中以技術預覽版的形式提供。這有助於客戶做出明智的部署決策，並為可擴充的 Kubernetes 環境進行適當的風險管理。</block>
   <block id="e04993fd01b523a76b5b9a538805b2d6" category="section-title">關鍵概念和定義</block>
   <block id="69d77896e3703b0128d79a9a4fe5d53b" category="paragraph">控制器可擴展性是指 Trident 控制器能夠並行處理多個儲存操作，而不是將它們串行化並置於單一鎖定之後。這些操作包括磁碟區的建立、刪除、調整大小、快照的建立和刪除、磁碟區的發布和取消發布以及後端管理。</block>
-  <block id="9bf8393dc5dc54fce5d4a9f76acad511" category="paragraph">啟用控制器可擴充性後，對不同磁碟區和後端執行的操作將同時進行。這可以提高吞吐量，並縮短並發 PersistentVolumeClaim 和 VolumeSnapshot 操作數量較多環境下的端對端操作時間。</block>
   <block id="21613907b762f0cc51bc3d23de9acf49" category="section-title">控制器擴充性支援</block>
   <block id="f4cfb80b57eb5b462d0cf3c33ec91c40" category="paragraph">Trident 支援不同成熟度等級的控制器可擴充性，視儲存驅動程式而定。</block>
   <block id="17f275435be27f21cff221ebd3078f0b" category="section-title">正式發行</block>
   <block id="abc22c127d9f5a140f7e5d22f43bdb07" category="paragraph">以下驅動程式在 Trident 26.02 正式版中支援控制器擴充性：</block>
-  <block id="5eed4a5d1e0295efd49be5650e3cd357" category="list-text"><block ref="9f5a44a734ac9e43b5968d0f3b71d69b" prefix="" category="inline-code"></block></block>
-  <block id="6f6436ce3b2b5fd903fb1af98b3840ce" category="list-text"><block ref="b9d04cd47823420fa061075ba05345de" prefix="" category="inline-code"></block></block>
-  <block id="09e7b0e179bb2e0ab2cfeeabe1cbbbff" category="list-text"><block ref="4a972779e4584977a0a73254ad6a00b6" prefix="" category="inline-code"></block></block>
   <block id="3d7dbef0187f91e8bfc32cbc02f806d2" category="section-title">啟用控制器擴充性</block>
   <block id="39f67830f9ab10991a752f559f616c80" category="paragraph">控制器的可擴充性由 <block ref="b061e443e106870da185a3681948cf1b" prefix=" " category="inline-code"></block> 配置選項控制。必須在 Trident 安裝期間或透過更新現有部署明確啟用此選項。</block>
   <block id="33993cacba834442900d968ea88eeba2" category="section-title">Trident 操作程式部署</block>
@@ -6464,7 +6457,6 @@
   <block id="9dc48bb809ddb16298a6203467073aba" category="list-text">SUSE Harvester 1.7.0 （ONTAP iSCSI）</block>
   <block id="ec92eeadf77128110614c3ae4b04e5c6" category="list-text">OpenShift 4.12、4.14 - 4.21（如果您打算在 OpenShift 4.19 版本中使用 iSCSI 節點準備功能，則支援的最低 Trident 版本為 25.06.1。）</block>
   <block id="991b6998365b18269e10fd6932757c88" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.35.x</block>
-  <block id="8d64b27a6d71fd535c11f889aa7bab23" category="cell">v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0 、 v1.33.0 、 v1.35.0</block>
   <block id="fa39b55af1ef0692bcd52101a2886102" category="inline-link-macro">控制器擴充性文件</block>
   <block id="132f0447aa079a2a979713029f6c5c0f" category="list-text">新增 ONTAP-NAS（僅限 NFS）、ONTAP-SAN（iSCSI、FCP、NVMe）和 Google Cloud NetApp Volumes（GCNV）驅動程式並發支援的正式版（GA），此功能已從技術預覽版升級。如需詳細資訊，請參閱 <block ref="2cdc5fbb0ceee513eb25d6f3a67c7e5a" category="inline-link-macro-rx"></block>。</block>
   <block id="79c677a07b8e51f9201ddd1c415adbfc" category="inline-link-macro">自動磁碟區擴充文件</block>
@@ -6489,10 +6481,6 @@
   <block id="72e7e5d6921df6ef726f79ae4b5598ab" category="paragraph">在配置自動磁碟區擴充之前、請確保滿足以下要求：</block>
   <block id="550fa0f1a58ef45e52d4e327c8363b05" category="list-text">基於角色的存取控制權限，用於建立 <block ref="785854d43993e53bddae51b76513d6be" prefix=" " category="inline-code"></block> 自訂資源</block>
   <block id="d65d8cf51037ac2b5227ecc668bcc424" category="list-text">StorageClasses 配置 <block ref="41bff9aad0d85451896a93a22edd478a" prefix=" " category="inline-code"></block></block>
-  <block id="65d8121019c0a0fdeb453e848ab0c506" category="list-text">網路檔案系統</block>
-  <block id="1c01ba6365cc1a63f21002af09bfabb2" category="list-text">網際網路小型電腦系統介面</block>
-  <block id="2ece8545cb8cad1bfe8d121e6b221358" category="list-text">光纖通道傳輸協定</block>
-  <block id="6d403e90026e021280e3bf7be489c0c6" category="list-text">非揮發性記憶體高速通道（NVMe over Fabrics）</block>
   <block id="f89fade625f46ac0801e1c58bcc219b1" category="list-text">ONTAP 9.16.1 之前的 ONTAP Non-Volatile Memory Express 原始區塊磁碟區不支援自動擴充。</block>
   <block id="79c1f6e047330955b15e414a9754811f" category="list-text">對於儲存區域網路磁碟區，如果<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>小於或等於 50 mebibytes，Trident 會在調整大小之前自動將該值增加到 51 mebibytes，前提是產生的大小不超過<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block>。</block>
   <block id="694eddd4570562a7b60b1bcdd363d725" category="list-text">當磁碟區達到<block ref="b78e1120b12abd7215d67324fe9476ff" prefix=" " category="inline-code"></block>時，就不會再發生擴充。</block>
@@ -6677,7 +6665,6 @@
   <block id="73321a84803ccb3eb0b3dc9281954ba7" category="list-text"><block ref="ca771b97d048ca724b0d35dbea604dba" prefix="" category="inline-code"></block> 如果您的所有映像都位於同一個登錄中。</block>
   <block id="f6742c05233fa63959541b8dde0d38c6" category="list-text"><block ref="b60c14c79386a1c34022777459be2c8d" prefix="" category="inline-code"></block> 如果您的 Trident 映像與 CSI 映像位於不同的登錄檔。</block>
   <block id="1005b3a0632a1617ff4b8822375abb93" category="list-text">使用 <block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> 命令，其中 <block ref="5949043f5e5709138a63b4badf24d7cc" prefix=" " category="inline-code"></block> 反映您要升級到的版本。</block>
-  <block id="fb40eaf6d704634f11299ec916862c3b" category="list-text">在 Trident 26.02 中為 ANF 驅動程式新增了手動 QoS 支援，使其可用於正式作業；此實驗性增強功能已於 Trident 25.06 中推出。</block>
   <block id="f1462e5be0262f51cdc6fb6c3b5027dc" category="summary">如果您使用 Red Hat OpenShift，您可以從社群 Operator、基於 Helm 的安裝或手動部署的 Operator 切換到經過認證的 Trident Operator。</block>
   <block id="9e7ed03c18ddecce0aa7a5623628fe1a" category="doc">切換到 OpenShift 認證的 Trident 操作員</block>
   <block id="00e22a4bea8f6d3bb56845f5728a38f9" category="paragraph">您可以從社群版 Operator、基於 Helm 的安裝或手動部署的 Operator 切換到 Red Hat OpenShift 認證的 Trident Operator。每種方法的過程都包括卸載現有 Operator，然後使用 OperatorHub 安裝認證的 Operator。</block>
@@ -6738,4 +6725,32 @@
   <block id="9d5a9690e203a91236d7cd904141669f" category="section-title">25.10 版本新增內容</block>
   <block id="f74472a1f5a071b8eb49ce2cf4c7f852" category="paragraph">如果您剛開始使用 Google Cloud NetApp Volumes 並進行嘗試，此配置是理想的選擇，但在實踐中，您可能需要為配置的磁碟區提供額外的範圍。</block>
   <block id="8eff9b9f03bae3f241ea78649c5afe12" category="admonition">請將<block ref="49e22ed291a6cbd4445ed587b8bd46c4" prefix=" " category="inline-code"></block>和<block ref="7d02a93664a6fdb768f99da64ea2b2e7" prefix=" " category="inline-code"></block>替換為您的服務帳戶憑證。</block>
+  <block id="5efca7076d66285d044c3d550f412284" category="cell">v1.27.0 、 v1.28.0 、 v1.29.0 、 v1.30.0 、 v1.31.0 、 v1.32.0 、 v1.33.0 、 v1.34.0 、 v1.35.0</block>
+  <block id="bc8f2e08eff77df26551ba5e4180236f" category="list-text">（_選用_）如有需要、您可以將資源篩選新增至相同的 CR、以包含或排除特定資源：</block>
+  <block id="b5576cce77be319ad80f479a5e774cba" category="list-text">*通用篩選器範例：*</block>
+  <block id="4878b93d7331aa7f789a8e06af931f1a" category="list-text">*僅限 PVC 的篩選器範例：*</block>
+  <block id="729c4752abbc1a92298c5161a8100451" category="paragraph">要定義僅限 PVC 的應用程式、您還必須在資源篩選器中包含<block ref="858e55ea2e6429120a862313c50a9f5f" prefix=" " category="inline-code"></block>和<block ref="19476662cd814e0aa085eca121de89b8" prefix=" " category="inline-code"></block>。快照和備份作業取決於<block ref="858e55ea2e6429120a862313c50a9f5f" prefix=" " category="inline-code"></block>（繫結至每個 PVC 的叢集範圍磁碟區）和<block ref="19476662cd814e0aa085eca121de89b8" prefix=" " category="inline-code"></block>（快照驅動程式）、若無這些作業、將會失敗。例如：</block>
+  <block id="afc0c1def10e8514f4a868a53d15d8b3" category="list-text">要定義僅限 PVC 的應用程式、您還必須在資源篩選器中包含<block ref="858e55ea2e6429120a862313c50a9f5f" prefix=" " category="inline-code"></block>和<block ref="238b026ca0f52e8b4332cd3af9225ae8" prefix=" " category="inline-code"></block>。快照和備份作業取決於<block ref="858e55ea2e6429120a862313c50a9f5f" prefix=" " category="inline-code"></block>（繫結至每個 PVC 的叢集範圍磁碟區）和<block ref="19476662cd814e0aa085eca121de89b8" prefix=" " category="inline-code"></block>（快照驅動程式）、若無這些作業、將會失敗。例如：</block>
+  <block id="cb114173f156e2eda40775089a3067ff" category="list-text">在 Trident 25.10 中為 ANF 驅動程式新增了手動 QoS 支援，使其可用於正式作業；此實驗性增強功能已於 Trident 25.06 中推出。</block>
+  <block id="6d228b9c6fb2e4c9e3a85dbae436035c" category="list-text">網路檔案系統 (NFS)</block>
+  <block id="611e52be5c0e9d0f23d78a96a901a63b" category="list-text">網際網路小型電腦系統介面（iSCSI）</block>
+  <block id="ce1ff0a6a194c07d183ef0de076f81ae" category="list-text">光纖通道傳輸協定（NVMe）</block>
+  <block id="062d8e05f949590d9b752838eb96ff40" category="list-text">非揮發性記憶體高速互連 （ FCP ）</block>
+  <block id="8b346ec343205378291cfb292f7afa32" category="paragraph">Trident 透過提升多個儲存驅動程式之間的並發性，實現了控制器可擴充性。客戶可以了解哪些 Trident 驅動程式在正式發佈時支援控制器可擴充性，以及哪些驅動程式在 Trident 26.02 中以技術預覽版的形式提供。這有助於客戶做出明智的部署決策，並為可擴充的 Kubernetes 環境進行適當的風險管理。</block>
+  <block id="d6295b678067b0517d1f1e80acbf65c1" category="paragraph">啟用控制器可擴充性後，對不同磁碟區和後端執行的操作將同時進行。這可以提高吞吐量，並縮短並發 PersistentVolumeClaim 和 VolumeSnapshot 操作數量較多環境下的端對端操作時間。</block>
+  <block id="6255f747f2d40f968f7a0826747a0636" category="paragraph"><block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 和<block ref="0ffa63dea74ac96b64836a273ee062bb" prefix=" " category="inline-code"></block> 驅動程式不同。僅支援<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>。請勿在後端組態或範例中使用<block ref="0ffa63dea74ac96b64836a273ee062bb" prefix=" " category="inline-code"></block>。</block>
+  <block id="fc2f887dc2460c374d01c874dc013f61" category="list-text">Google Kubernetes Engine （GKE） 或 Red Hat OpenShift</block>
+  <block id="fd6f67555f9414f6cb4a924904d29b2e" category="section-title">ONTAP SAN-economy 範例</block>
+  <block id="95b8f759c00784ea06c255ec28ef4f17" category="paragraph">以下範例展示如何為 <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 後端匯入託管磁碟區和非託管磁碟區。</block>
+  <block id="cd805ce2dbd9451a974f2acc64c5fd18" category="paragraph">當您匯入託管磁碟區時、Trident 會取得 FlexVol 的所有權並將其重新命名。當您從相同的 FlexVol 匯入多個 LUN 時、您必須考慮此重新命名。</block>
+  <block id="afd08f385b676318edd97369e4121696" category="paragraph">以下範例將<block ref="333f8b44a629c8943a24b91a4a14ecf9" prefix=" " category="inline-code"></block>從FlexVol<block ref="2fd63cd7714151e69c9b0d6210034f92" prefix=" " category="inline-code"></block>匯入為名為<block ref="09fab819a0444dbd1b61c6219360c761" prefix=" " category="inline-code"></block>的受管理磁碟區：</block>
+  <block id="d8f943c1f05fbc696453b41f18bd652e" category="paragraph">匯入後<block ref="333f8b44a629c8943a24b91a4a14ecf9" prefix=" " category="inline-code"></block>， Trident 會重新命名 FlexVol （例如、重新命名為<block ref="ee1b0d49ef72b8531428ba74bff16ee6" prefix=" " category="inline-code"></block>）。若要從相同的 FlexVol 匯入其他 LUN 、請使用新的 FlexVol 名稱：</block>
+  <block id="0f2575859847b8917853d095a206e71b" category="admonition"><block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> 後端一次匯入一個 LUN 。您可以使用指令碼自動執行多個匯入作業。</block>
+  <block id="2104d88c957999bac1dc8030b79d900f" category="paragraph">匯入非託管磁碟區時、 Trident 不會取得 FlexVol 的所有權。但是、 FlexVol 和 LUN 必須遵循 Trident 命名慣例。</block>
+  <block id="e97143415114bd4c1d7261b41a11a1cd" category="list-text">FlexVol 命名格式</block>
+  <block id="899fd23a8b7d184693fb53c11467639e" category="list-text"><block ref="c9b620313c5166ecea90dddaf82d0f7b" prefix="" category="inline-code"></block> 是您後端組態中 <block ref="ed66bef2b107983b6e4066fddf8c45c3" prefix=" " category="inline-code"></block> 的值。預設值為 <block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block>。</block>
+  <block id="29350d9e59d2f261c23bd9aeade10962" category="list-text"><block ref="027cb34a258949505ca6293485c6d908" prefix="" category="inline-code"></block> 可以是您選擇的任何字串。</block>
+  <block id="63e1a9a9d7b9fc2be6e83be05814b615" category="list-text">LUN 命名要求</block>
+  <block id="85958d42db0cb572989090e88d48a620" category="list-text">LUN 必須命名為<block ref="1793051c27c3288cfb3a1c86e4e41b41" prefix=" " category="inline-code"></block>。</block>
+  <block id="34c417f2acb582bff5bf551e16b1edb7" category="list-text">如果您的<block ref="ed66bef2b107983b6e4066fddf8c45c3" prefix=" " category="inline-code"></block>是<block ref="d16fb36f0911f878998c136191af705e" prefix=" " category="inline-code"></block>，則 LUN 的完整路徑為：</block>
 </blocks>

@@ -94,12 +94,13 @@ spec:
 
 
 
-. （可選）新增包含或排除標有特定標籤的資源的過濾：
+. （_選用_）如有需要、您可以將資源篩選新增至相同的 CR、以包含或排除特定資源：
 +
-** *resourceFilter.resourceSelectionCriteria* ：（篩選所需）使用 `Include`或包含或 `Exclude`排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
+** *通用篩選器範例：*
 +
-*** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
+*** *resourceFilter.resourceSelectionCriteria* ：（篩選所需）使用 `Include`或包含或 `Exclude`排除在 resourceMatchers 中定義的資源。新增下列資源配置工具參數、以定義要納入或排除的資源：
 +
+**** *resourceFilter.resourceMatchers* ：一組 resourceMatcher 物件。如果您在此陣列中定義多個元素，它們會比對為 OR 作業，而每個元素（群組，種類，版本）內的欄位會比對為 AND 作業。
 **** *resourceMatchers[].group* ：（ _Optional_ ）要篩選的資源群組。
 **** *resourceMatchers[].cher* ：（ _Optional_ ）要篩選的資源種類。
 **** *resourceMatchers[].version* ：（ _Optional_ ）要篩選的資源版本。
@@ -137,6 +138,31 @@ spec:
 
 
 
+** *僅限 PVC 的篩選器範例：*
++
+要定義僅限 PVC 的應用程式、您還必須在資源篩選器中包含 `PersistentVolume`和 `VolumeSnapshotClass`。快照和備份作業取決於 `PersistentVolume`（繫結至每個 PVC 的叢集範圍磁碟區）和 `VolumeSnapshotClass`（快照驅動程式）、若無這些作業、將會失敗。例如：
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: my-pvc-app
+  namespace: my-app-namespace
+spec:
+  includedNamespaces:
+  - namespace: my-app-namespace
+  resourceFilter:
+    resourceMatchers:
+    - kind: PersistentVolumeClaim
+      version: v1
+    - kind: PersistentVolume
+      version: v1
+    - kind: VolumeSnapshotClass
+      version: v1
+    resourceSelectionCriteria: Include
+----
 
 
 . 建立應用程式 CR 以符合您的環境之後，請套用 CR 。例如：
@@ -171,13 +197,17 @@ tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespa
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
 ----
-+
-您可以使用 `--resource-filter-include`和 `--resource-filter-exclude`用於包含或排除資源的標誌 `resourceSelectionCriteria`例如群組、類型、版本、標籤、名稱和命名空間，如下例所示：
-
+** 您可以使用 `--resource-filter-include`和 `--resource-filter-exclude`用於包含或排除資源的標誌 `resourceSelectionCriteria`例如群組、類型、版本、標籤、名稱和命名空間，如下例所示：
 +
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --resource-filter-include '[{"Group":"apps","Kind":"Deployment","Version":"v1","Names":["my-deployment"],"Namespaces":["my-namespace"],"LabelSelectors":["app=my-app"]}]'
+----
+** 要定義僅限 PVC 的應用程式、您還必須在資源篩選器中包含 `PersistentVolume`和 `VolumeSnapshotClass``。快照和備份作業取決於 `PersistentVolume`（繫結至每個 PVC 的叢集範圍磁碟區）和 `VolumeSnapshotClass`（快照驅動程式）、若無這些作業、將會失敗。例如：
++
+[source, console]
+----
+tridentctl-protect create app my-pvc-app --namespaces <my-app-namespace> --resource-filter-include '[{"Kind":"PersistentVolumeClaim","Version":"v1"},{"Kind":"PersistentVolume","Version":"v1"},{"Kind":"VolumeSnapshotClass","Version":"v1"}]' -n <my-app-namespace>
 ----
 
 

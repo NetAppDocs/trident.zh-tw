@@ -148,7 +148,7 @@ NOTE: 不適用於生產環境。
 
 
 * 為Trident控制器新增了透過 helm、operator 和 tridentctl 使用主機網路的選項（link:https://github.com/NetApp/trident/issues/858["第858期"] ）。
-* 在 Trident 26.02 中為 ANF 驅動程式新增了手動 QoS 支援，使其可用於正式作業；此實驗性增強功能已於 Trident 25.06 中推出。
+* 在 Trident 25.10 中為 ANF 驅動程式新增了手動 QoS 支援，使其可用於正式作業；此實驗性增強功能已於 Trident 25.06 中推出。
 
 
 

@@ -31,10 +31,10 @@ summary: 使用 Trident Autogrow 政策設定和管理自動磁碟區擴充。
 * StorageClasses 配置  `allowVolumeExpansion: true`
 * 支援的 ONTAP 通訊協定：
 +
-** 網路檔案系統
-** 網際網路小型電腦系統介面
-** 光纖通道傳輸協定
-** 非揮發性記憶體高速通道（NVMe over Fabrics）
+** 網路檔案系統 (NFS)
+** 網際網路小型電腦系統介面（iSCSI）
+** 光纖通道傳輸協定（NVMe）
+** 非揮發性記憶體高速互連 （ FCP ）
 
 
 
@@ -49,10 +49,10 @@ summary: 使用 Trident Autogrow 政策設定和管理自動磁碟區擴充。
 * 當磁碟區達到 `maxSize`時，就不會再發生擴充。
 * 支援自動磁碟區擴充的通訊協定：
 +
-** 網路檔案系統
-** 網際網路小型電腦系統介面
-** 光纖通道傳輸協定
-** 非揮發性記憶體高速通道（NVMe over Fabrics）
+** 網路檔案系統 (NFS)
+** 網際網路小型電腦系統介面（iSCSI）
+** 光纖通道傳輸協定（NVMe）
+** 非揮發性記憶體高速互連 （ FCP ）
 
 
 

@@ -38,12 +38,16 @@ Trident 支援不同成熟度等級的控制器可擴充性，視儲存驅動程
 
 以下驅動程式在 Trident 26.02 正式版中支援控制器擴充性：
 
-* `san`
-* `nas`
-* `san-nvme`
+* 「ONTAP-SAN」
+* 「ONTAP-NAS」
 * `google-cloud-netapp-volumes`
 
 
+[NOTE]
+====
+ `google-cloud-netapp-volumes` 和 `google-cloud-netapp-volumes-san` 驅動程式不同。僅支援 `google-cloud-netapp-volumes`。請勿在後端組態或範例中使用 `google-cloud-netapp-volumes-san`。
+
+====
 
 
 == 啟用控制器擴充性

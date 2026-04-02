@@ -8,12 +8,14 @@ summary: 設定 Trident 從 Google Cloud NetApp Volumes 提供 NAS（NFS 和 SMB
 :allow-uri-read: 
 
 
-[role="lead lead"]
+[role="lead"]
 您可以將 Google Cloud NetApp Volumes 設定為 Trident 的後端，用於配置基於檔案的儲存磁碟區。Trident 可以透過使用 Google Cloud NetApp Volumes 後端來掛載 NFS 和 SMB 磁碟區。
 
-Trident 在 Google Cloud NetApp Volumes 中為 NAS 和 SAN 工作負載使用獨立的後端。 `google-cloud-netapp-volumes`後端僅支援基於檔案的協議，不能用於配置 iSCSI 磁碟區。
 
-若要配置 iSCSI 區塊磁碟區，請使用 
+NOTE: Trident 在 Google Cloud NetApp Volumes 中為 NAS 和 SAN 工作負載使用獨立的後端。 `google-cloud-netapp-volumes`後端僅支援基於檔案的協議，不能用於配置 iSCSI 磁碟區。
+
+
+NOTE: 若要配置 iSCSI 區塊磁碟區，請使用 
 `google-cloud-netapp-volumes-san` 後端，這是專為 SAN 工作負載設計的獨立後端類型。
 
 

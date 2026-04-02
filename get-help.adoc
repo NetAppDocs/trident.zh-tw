@@ -90,7 +90,7 @@ link:https://docs.netapp.com/us-en/trident-2301/index.html["23.01"^]
 
 == 自我支援
 
-如需疑難排解文章的完整清單，請 https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["NetApp知識庫（需要登入）"^]參閱。
+如需完整的疑難排解文章清單，請參閱 https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["NetApp知識庫（需要登入）"^]。
 
 
 

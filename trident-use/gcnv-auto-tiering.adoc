@@ -13,7 +13,7 @@ summary: 使用 Trident 透過 Kubernetes 原生機制設定 Google Cloud NetApp
 
 
 [role="lead"]
-本頁面介紹如何使用 Trident 為 Google Cloud NetApp Volumes 配置自動分層。自動分層是在磁碟區配置期間透過 Trident 後端參數和 PersistentVolumeClaim 註解進行配置的。
+自動分層是透過 Trident 後端參數和 PersistentVolumeClaim 註解在磁碟區配置期間進行設定的。您可以使用 Trident 為 Google Cloud NetApp Volumes 設定自動分層。
 
 
 

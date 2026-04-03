@@ -304,7 +304,7 @@ tridentctl-protect create backupinplacerestore <my_restore_name> \
 
 
 .步驟
-. 使用Trident Protect CLI 外掛程式檢查目標叢集上 AppVault CR 的可用性：
+. 使用 Trident Protect CLI 外掛程式驗證 AppVault CR 是否存在於目標叢集上：
 +
 [source, console]
 ----
@@ -312,9 +312,9 @@ tridentctl-protect get appvault --context <destination_cluster_name>
 ----
 +
 
-NOTE: 確保目的地叢集上存在用於應用程式還原的命名空間。
+NOTE: 如果目標叢集上不存在 AppVault CR，請按照 link:trident-protect-appvault-custom-resources.html["使用Trident Protect AppVault 物件來管理儲存桶。"] 中的步驟建立它。
 
-. 從目的地叢集檢視可用 AppVault 的備份內容：
+. 查看目標叢集上可用 AppVault 的備份內容，並記下 `appArchivePath`要還原的備份：
 +
 [source, console]
 ----
@@ -342,6 +342,9 @@ tridentctl-protect get appvaultcontent <appvault_name> \
 . 使用 AppVault 名稱和歸檔路徑將應用程式還原至目的地叢集：
 
 
+
+NOTE: 使用 CR 時，請確保用於應用程式還原的命名空間存在於目的地叢集上。
+
 [role="tabbed-block"]
 ====
 .使用 CR
@@ -351,16 +354,7 @@ tridentctl-protect get appvaultcontent <appvault_name> \
 +
 ** * metadata.name*: （ _required ）此自訂資源的名稱；為您的環境選擇唯一且合理的名稱。
 ** *spec.appVaultRef* ：（ _required _ ）儲存備份內容的 AppVault 名稱。
-** *spec.appArchivePath* ：儲存備份內容的 AppVault 內部路徑。您可以使用下列命令來尋找此路徑：
-+
-[source, console]
-----
-kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
-----
-+
-
-NOTE: 如果無法使用 BackupRestore CR ，您可以使用步驟 2 所述的命令來檢視備份內容。
-
+** *spec.appArchivePath*：（_必填_）AppVault 內儲存備份內容的路徑。使用步驟 2 中的指令查看備份內容，並找到 `appArchivePath`要還原的備份。
 ** *spec.destinationApplicationName*：（_選用_）還原應用程式的名稱。如果提供、還原的應用程式會使用此名稱。如果未提供、還原的應用程式會使用來源應用程式名稱。
 ** *spec.namespaceMapping*: 將還原作業的來源命名空間對應至目的地命名空間。以環境中的資訊取代 `my-source-namespace`和 `my-destination-namespace`。
 +

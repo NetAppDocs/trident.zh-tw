@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-deploy.html 
+permalink: trident-install/kubernetes-deploy.html 
 keywords: deploy, Trident, methods, operator, tridentctl, helm, tanzu, vmware 
 summary: '您可以使用 Trident 運算子（手動或使用 Helm ）或搭配來安裝 Trident `tridentctl` 。本主題提供重要資訊、協助您選擇正確的安裝程序。' 
 ---
@@ -62,7 +62,7 @@ TIP: 如果您尚未熟悉link:../trident-get-started/intro.html["基本概念"^
 
 === 使用Trident運算子
 
-無論是手動部署或使用 Helm 、 Trident 營運者都是簡化安裝並動態管理 Trident 資源的絕佳方式。您甚至可以link:../trident-get-started/kubernetes-customize-deploy.html["自訂您的Trident營運者部署"]使用自訂資源（ CR ）中的屬性 `TridentOrchestrator`。
+無論手動部署或使用 Helm，Trident operator 都是簡化安裝和動態管理 Trident 資源的絕佳方式。您甚至可以link:kubernetes-customize-deploy.html["自訂您的Trident營運者部署"]使用 `TridentOrchestrator`自訂資源（CR）中的屬性。
 
 使用Trident營運者的好處包括：
 

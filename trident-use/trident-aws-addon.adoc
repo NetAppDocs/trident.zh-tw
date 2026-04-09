@@ -37,26 +37,26 @@ NetApp Trident 簡化了 Kubernetes 中適用於 NetApp ONTAP 儲存管理的 Am
 . 請務必建立 IAM 角色和 AWS 密碼，讓 EKS Pod 能夠存取 AWS 資源。有關說明，請參閱link:../trident-use/trident-fsx-iam-role.html["建立 IAM 角色和 AWS 密碼"^]。
 . 在 EKS Kubernetes 叢集上，瀏覽至 * 附加元件 * 索引標籤。
 +
-image::../media/aws-eks-01.png[AWS EKS 01]
+image::../media/aws-eks-01.png[EKS 叢集附加元件選項卡]
 
 . 前往 * AWS Marketplace 附加元件 * 並選擇 _storage 類別。
 +
-image::../media/aws-eks-02.png[AWS EKS 02]
+image::../media/aws-eks-02.png[AWS Marketplace 附加元件儲存類別]
 
 . 找到 * NetApp Trident * 並選取 Trident 附加元件的核取方塊，然後按一下 * 下一步 * 。
 . 選擇所需版本的附加元件。
 +
-image::../media/aws-eks-03.png[AWS EKS 03]
+image::../media/aws-eks-03.png[Trident 附加元件版本選擇]
 
 . 配置所需的附加元件設定。
 +
-image::../media/aws-eks-04.png[AWS EKS 04]
+image::../media/aws-eks-04.png[Trident 附加元件組態設定]
 
 . 如果您使用 IRSA（服務帳戶的 IAM 角色），請參閱其他設定步驟link:https://docs.netapp.com/us-en/trident/trident-use/trident-fsx-install-trident.html#enable-the-trident-add-on-for-aws["請按這裡"]。
 . 選擇* Create *（建立*）。
 . 確認附加元件的狀態為 _Active_ 。
 +
-image::../media/aws-eks-05.png[AWS EKS 05]
+image::../media/aws-eks-05.png[Trident 附加元件啟動狀態]
 
 . 執行下列命令，確認叢集上已正確安裝 Trident ：
 +

@@ -25,9 +25,9 @@ indexpage:
   - title: 部署 Trident
     links:
     - title: 與Trident營運者一起部署
-      url: "/trident-get-started/kubernetes-deploy-operator.html"
+      url: "/trident-install/kubernetes-deploy-operator.html"
     - title: 使用tridentctl部署
-      url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
+      url: "/trident-install/kubernetes-deploy-tridentctl.html"
     - title: 部署 Trident for Docker
       url: "/trident-docker/deploy-docker.html"
   - title: 升級 Trident

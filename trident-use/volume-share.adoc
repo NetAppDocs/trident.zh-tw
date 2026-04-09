@@ -141,7 +141,7 @@ Trident 會讀取 `shareFromPVC`目的地 PVC 上的附註、並將目的地 PV 
 
 == 使用 `tridentctl get` 查詢從屬Volume
 
-使用[`tridentctl` 公用程式、您可以執行 `get` 取得從屬磁碟區的命令。如需詳細資訊、請參閱連結：../ Trident參考/ tridentctl.html[`tridentctl` 命令與選項]。
+使用 [`tridentctl` 公用程式、您可以執行  `get` 命令來取得從屬磁碟區。如需詳細資訊、請參閱 link:../trident-reference/trident-cl.html[`tridentctl` 命令和選項]。
 
 [listing]
 ----

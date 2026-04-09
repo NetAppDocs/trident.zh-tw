@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-customize-deploy-tridentctl.html 
+permalink: trident-install/kubernetes-customize-deploy-tridentctl.html 
 keywords: deploy, Trident, methods, operator, tridentctl, helm, attributes, customize 
 summary: 您可以使用 Trident 安裝程式自訂部署。 
 ---

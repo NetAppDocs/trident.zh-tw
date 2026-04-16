@@ -6691,8 +6691,6 @@
   <block id="cb114173f156e2eda40775089a3067ff" category="list-text">在 Trident 25.10 中為 ANF 驅動程式新增了手動 QoS 支援，使其可用於正式作業；此實驗性增強功能已於 Trident 25.06 中推出。</block>
   <block id="6d228b9c6fb2e4c9e3a85dbae436035c" category="list-text">網路檔案系統 (NFS)</block>
   <block id="611e52be5c0e9d0f23d78a96a901a63b" category="list-text">網際網路小型電腦系統介面（iSCSI）</block>
-  <block id="ce1ff0a6a194c07d183ef0de076f81ae" category="list-text">光纖通道傳輸協定（NVMe）</block>
-  <block id="062d8e05f949590d9b752838eb96ff40" category="list-text">非揮發性記憶體高速互連 （ FCP ）</block>
   <block id="8b346ec343205378291cfb292f7afa32" category="paragraph">Trident 透過提升多個儲存驅動程式之間的並發性，實現了控制器可擴充性。客戶可以了解哪些 Trident 驅動程式在正式發佈時支援控制器可擴充性，以及哪些驅動程式在 Trident 26.02 中以技術預覽版的形式提供。這有助於客戶做出明智的部署決策，並為可擴充的 Kubernetes 環境進行適當的風險管理。</block>
   <block id="d6295b678067b0517d1f1e80acbf65c1" category="paragraph">啟用控制器可擴充性後，對不同磁碟區和後端執行的操作將同時進行。這可以提高吞吐量，並縮短並發 PersistentVolumeClaim 和 VolumeSnapshot 操作數量較多環境下的端對端操作時間。</block>
   <block id="6255f747f2d40f968f7a0826747a0636" category="paragraph"><block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 和<block ref="0ffa63dea74ac96b64836a273ee062bb" prefix=" " category="inline-code"></block> 驅動程式不同。僅支援<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>。請勿在後端組態或範例中使用<block ref="0ffa63dea74ac96b64836a273ee062bb" prefix=" " category="inline-code"></block>。</block>
@@ -6750,4 +6748,6 @@
   <block id="395717e339150790e9789265ce54670c" category="image-alt">Trident 附加元件組態設定</block>
   <block id="7d46dc6377e8ce5df89a34c4ad4e2991" category="image-alt">Trident 附加元件啟動狀態</block>
   <block id="2c0204a63fd46aab7636df3eb5f83972" category="paragraph">使用 <block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 公用程式、您可以執行 <block ref="b5eda0a74558a342cf659187f06f746f" prefix=" " category="inline-code"></block> 命令來取得從屬磁碟區。如需詳細資訊、請參閱 link:../trident-reference/trident-cl.html<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix="[" category="inline-code"></block> 命令和選項]。</block>
+  <block id="69ce754add983294c9646b227af63485" category="list-text">光纖通道協定（FCP）</block>
+  <block id="95879db8219c8aca8e161d3712e8b423" category="list-text">非揮發性記憶體高速互連（NVMe）</block>
 </blocks>

@@ -2988,7 +2988,6 @@
   <block id="dd2c158264290c91be79556252aca308" category="inline-link-macro">設定 Google Cloud NetApp Volumes 的存取權</block>
   <block id="7cef0ad261753740989fa192df2e19e9" category="paragraph">如需如何設定 Google Cloud NetApp Volumes 存取權限的詳細資訊、請 <block ref="5e9b4ec852ec4a511a1370be58118d01" category="inline-link-macro-rx"></block>參閱。</block>
   <block id="b73a4f3ea8538e5ef0b4078c119b3c8d" category="doc">設定 Google Cloud NetApp Volumes 後端</block>
-  <block id="23fa813a6884f33dc0d2070ae5260e6a" category="section-title">Google Cloud NetApp Volumes 驅動程式詳細資料</block>
   <block id="5ab9649a1218ec1b35bfb38efbeaea76" category="cell"><block ref="94594b2ccbc8e0d220ad37504461650b" prefix="" category="inline-code"></block></block>
   <block id="74d08e13aea757b8172499f067668443" category="paragraph">可要求的最大磁碟區大小。</block>
   <block id="f14a3ef36727dfbbea91c1d6b3fdbede" category="cell"><block ref="c8f83e727d4a4255a6485c24776e86bb" prefix="" category="inline-code"></block></block>
@@ -5202,9 +5201,7 @@
   <block id="1ad8c45e73d79fb1d5606c962d0f3cda" category="list-text">選擇所需的選項，然後按一下「*安裝*」以開啟操作員配置。</block>
   <block id="3bcd8afe0d2e66ac8ee08b64d8ab5aa9" category="admonition">請確保選擇最新的 Operator 版本。</block>
   <block id="e1834934410991eaa116cd9cffd2e554" category="list-text">保留所有參數，然後按一下“*安裝*”。</block>
-  <block id="a1e30a9991b9e8abb01ef39a2da53ae9" category="paragraph">安裝完成後，Operator 將顯示在已安裝的 Operator 清單中並可供使用。</block>
   <block id="8b29df4adf6fbbaec0828beed4564d1b" category="list-text">按一下「查看操作員」以查看操作員的詳細資料。</block>
-  <block id="7c7ed74fe0c2134a4029358fd7840eaa" category="list-text">在 * Trident Orchestrator* 下，按一下 *建立實例*。</block>
   <block id="7b61a3bcc8bbd41470bf0de7fcfd839e" category="list-text">按一下「YAML 檢視」並將以下內容貼上到表單中：</block>
   <block id="5df2f935f2bc3df2c6378f665b3d6659" category="list-text">您可以新增<block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix=" " category="inline-code"></block>在所有 OpenShift 工作節點上配置和啟用 iSCSI 和 Multipath 服務的參數。</block>
   <block id="f61306bfa8c6de676059739358d4479f" category="list-text">按一下「建立」； Trident Orchestrator 將會完全安裝。</block>
@@ -5360,7 +5357,6 @@
   <block id="d11ec52e40490f88487a9042fdcfbce4" category="list-text">對於<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>，<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ， 和<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>在驅動程式中，每個持久性磁碟區 (PV) 都會對應到一個FlexVol volume。因此，磁碟區快照被創建為NetApp快照。NetApp快照技術比同類快照技術具有更高的穩定性、可擴展性、可恢復性和效能。這些快照副本在創建所需時間和儲存空間方面都非常有效率。</block>
   <block id="493d70b01045b3860d249e304254b4c7" category="paragraph">使用Trident，您可以利用 VolumeSnapshots 從中建立新的 PV。使用FlexClone技術從這些快照建立 PV（適用於受支援的ONTAP後端）執行。從快照建立 PV 時，後備磁碟區是快照父磁碟區的FlexClone 。這<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>驅動程式使用 Element 軟體磁碟區克隆從快照建立 PV。它在這裡從 Element 快照創建一個克隆。</block>
   <block id="25f96c73018ecdf4416a2540508d0a38" category="paragraph">使用時<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>，<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ， 和<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>儲存驅動程序， Trident可以克隆磁碟區。使用時<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>或者<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式不支援克隆。從現有磁碟區建立新磁碟區將建立一個新的快照。</block>
-  <block id="6ee9f47ba3ae173d8bb74106620d9108" category="paragraph">NetApp Trident支援在所有流行的NetApp儲存平台（包括公有雲和本機）上使用和管理儲存資源，包括本機ONTAP叢集（AFF、 FAS和ASA）、 ONTAP Select、 Cloud Volumes ONTAP、Element 軟體（NetApp HCI、 SolidFire ）、 Azure NetApp Files ONTAP 、Element 軟體（ NetApp HCI 、 SolidFire）、 Azure NetApp Files和Amazon FSx for NetApp ONTAP。</block>
   <block id="04405dc8db6e17d7853c7b251f054223" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4.10.0</block>
   <block id="d49d35d0964102edd30044f046d62050" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0</block>
   <block id="a3bfe8b87df4b85184ac2c726bd7b15e" category="list-text"><block ref="1a368feb8bb72ef66bb194b43d0a15b3" prefix="" category="inline-code"></block>*</block>
@@ -6321,39 +6317,17 @@
   <block id="c4e1812ca4554d39c9cac903c53a89f0" category="list-text">如果<block ref="2cf0f101be3f96ddc2574af750739255" prefix=" " category="inline-code"></block>，Trident 會視需要格式化裝置並將其掛載。</block>
   <block id="171a09f6114249f41e579916571ceb0d" category="list-text">如果<block ref="f772287729bdf01bff1301d6925477bb" prefix=" " category="inline-code"></block>，Trident 會將裝置連接並直接暴露給 pod，而無需格式化或掛載。</block>
   <block id="d1360e89470f42abf8a1bd73bd223f8e" category="admonition">SAN 區塊磁碟區不提供分散式鎖定或寫入協調功能。當多個節點存取區塊磁碟區時（ReadWriteMany<block ref="f772287729bdf01bff1301d6925477bb" prefix=" " category="inline-code"></block>），應用程式或檔案系統必須管理並發性。</block>
-  <block id="d0bd2d44c9e10fd926af513d41f656f9" category="summary">設定 Trident 從 Google Cloud NetApp Volumes 提供 NAS（NFS 和 SMB）磁碟區。</block>
-  <block id="e408445650c57d1c86de3334ef3c5506" category="doc">配置 Google Cloud NetApp Volumes 以用於 NAS 工作負載</block>
-  <block id="533896b18d8dc2c69fd548bd5af29c8e" category="paragraph">Trident 在 Google Cloud NetApp Volumes 中為 NAS 和 SAN 工作負載使用獨立的後端。<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block>後端僅支援基於檔案的協議，不能用於配置 iSCSI 磁碟區。</block>
-  <block id="c710352491043a1ba711d50aa67d45cd" category="paragraph">若要配置 iSCSI 區塊磁碟區，請使用 <block ref="0ffa63dea74ac96b64836a273ee062bb" prefix=" " category="inline-code"></block> 後端，這是專為 SAN 工作負載設計的獨立後端類型。</block>
-  <block id="ddc6ce5874a2cb498e3d88489cbc793d" category="paragraph">Google Cloud NetApp Volumes 同時支援 NAS 和區塊儲存，這兩種儲存方式在應用程式存取和管理資料的方式上有所不同。</block>
-  <block id="accb28c92867af01b495141debf8f519" category="paragraph">NAS 磁碟區提供基於檔案的儲存設備，並透過 NFS 或 SMB 等標準檔案傳輸協定進行存取。磁碟區以共享檔案系統的形式掛載，並支援來自多個 Pod 或節點的並行存取。</block>
-  <block id="4c0404d5ddc4e949af109c94e653adfe" category="paragraph">iSCSI 區塊磁碟區提供原始區塊儲存，並以區塊裝置的形式連接到 Kubernetes 節點進行存取。區塊儲存通常用於需要區塊級存取或應用程式管理的 I/O 行為的工作負載。</block>
-  <block id="6b1a59dfdfcbb3dc88e037816ac0df67" category="list-text">Google Cloud NetApp Volumes NAS 池</block>
-  <block id="d76666e197387a4421a06438669e6ad8" category="list-text">NFS 和 SMB 工作負載</block>
   <block id="f2ab524dedd31413fe8e2755467bb64f" category="inline-xref-macro">設定區塊儲存設備（iSCSI）</block>
-  <block id="9bc80a0492db8408f89c6ef1bfa69a7a" category="paragraph">對於區塊 （iSCSI） 工作負載，請參閱 <block ref="a4226c5d239e9ee0850d6130550adaf5" category="inline-xref-macro-rx"></block>。</block>
-  <block id="17c4928de29ad4230b614c8515d837af" category="paragraph">Trident 提供<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 驅動程式，以從 Google Cloud NetApp Volumes 配置 NAS 儲存空間。</block>
   <block id="386dcfb8da95be29d7285301520e80bf" category="paragraph">此驅動程式支援以下存取模式：</block>
   <block id="bc017e37ded408a3a23af691ab128221" category="list-text">ReadWriteMany（RWX）</block>
-  <block id="027148c3ed37ec209705c69ce6ce9907" category="section-title">Google Kubernetes Engine 的雲端身分識別</block>
-  <block id="9cc69947b2cd9b98967379d8a14d9b43" category="paragraph">雲端身分可讓 Kubernetes 工作負載透過以工作負載身分進行驗證來存取 Google Cloud 資源，而非使用靜態 Google Cloud 認證。</block>
   <block id="a6a097d451f9b5f33e7c150b700b10cf" category="paragraph">若要將雲端身分與 Google Cloud NetApp Volumes 結合使用、您必須具備以下條件：</block>
   <block id="46c4ad918d4d7d2301881f2230189612" category="list-text">使用 Google Kubernetes Engine （ GKE ）部署的 Kubernetes 叢集</block>
-  <block id="e007f272ceb35aab73d641c135b516e3" category="list-text">GKE 叢集上已啟用工作負載身分識別，節點集區上已啟用中繼資料伺服器</block>
-  <block id="49bad990f2f56bdf9e36100a5f582acf" category="list-text">具有 Google Cloud NetApp Volumes 管理員角色的 Google Cloud 服務帳號<block ref="04bf1a6a0250bc9d4cba09ee34106dfc" prefix="(" category="inline-code"></block>）或等效的自訂角色</block>
-  <block id="a3f732db91c6663c2157717ec2fb5373" category="list-text">Trident 已安裝，雲端提供者設定為 <block ref="c731f72e1d22a7c5e01a7cb789a8885e" prefix=" " category="inline-code"></block> 並已設定雲端身分註解</block>
-  <block id="d90bc169c19838cd49e5930eb50502c0" category="paragraph">若要使用 Trident operator 安裝 Trident，請編輯<block ref="244895464fd1d6c7ff5a2044c324c0fc" prefix=" " category="inline-code"></block>以將<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block>設定為<block ref="c731f72e1d22a7c5e01a7cb789a8885e" prefix=" " category="inline-code"></block>並將<block ref="89abe9fddbe3cf0f9bcd7779fe4aed69" prefix=" " category="inline-code"></block>設定為 GKE 服務帳戶。</block>
-  <block id="b8d55dbd5246e647599f92d491d2c1f3" category="paragraph">使用 Helm 安裝 Trident 時，請設定雲端提供者和雲端身分。</block>
-  <block id="f4f2ecc7bda01176bacfabd31bcd96a2" category="paragraph">透過指定雲端供應商和雲端身分來安裝 Trident。</block>
   <block id="4017d4ccb0d5ed7f4a9bd66a7bad52e4" category="section-title">設定 Trident NAS 後端</block>
   <block id="e117bc162c2f19aed2385e3ff68c089a" category="section-title">配置 NAS Volume</block>
-  <block id="30c561298011c846dba14947d887f78e" category="paragraph">NAS 磁碟區透過 <block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 後端配置，並支援 NFS 和 SMB 協定。</block>
   <block id="0110c935bbb63db65fceb5cea1837a1c" category="section-title">NFS Volume 的 StorageClass</block>
   <block id="74a197a74b0fdabd7c1582a58bc83cc3" category="paragraph">若要佈建 NFS 磁碟區，請將 <block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block> 設為 <block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix=" " category="inline-code"></block>。</block>
   <block id="445c0c7199d2b15690ca1b861e7ec64c" category="section-title">適用於 SMB 磁碟區的 StorageClass</block>
-  <block id="8d041e7326ff1ad0f7b524f57f02e415" category="paragraph">使用<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block>、<block ref="cbaeda71dd7ad722656bfbee3894b411" prefix=" " category="inline-code"></block>和<block ref="6e6f0396d57fb3262d1dd721bd7db474" prefix=" " category="inline-code"></block>，您可以指定 SMB 磁碟區並提供所需的 Active Directory 憑證。</block>
   <block id="747c3d716cb0db06e12cd34f58777f92" category="section-title">PersistentVolumeClaim 範例（RWX）</block>
-  <block id="3547209fc9bcf9a90850633000faea02" category="paragraph">NAS 磁碟區支援並發存取，通常採用以下方式配置<block ref="caa8dc1f4bb28d2d11226494cd05a123" prefix=" " category="inline-code"></block>。</block>
   <block id="0051d4676dbfd69734ffeca90405dc0c" category="section-title">PersistentVolumeClaim 範例（RWO）</block>
   <block id="2f13846a70e8fb109b7700e3f99c95b7" category="admonition">NAS 磁碟區使用<block ref="2cf0f101be3f96ddc2574af750739255" prefix=" " category="inline-code"></block>。</block>
   <block id="d63cdaacfd1f92fd44fc2139351bfa08" category="summary">了解如何使用 Trident StorageClass 參數，為 AWS FSx for NetApp ONTAP 配置自動後端建立。</block>
@@ -6412,7 +6386,6 @@
   <block id="bb36b98a1bf8375b9d3906703dad4dbb" category="doc">NetApp Trident 對 ONTAP ASA r2 儲存系統的支援</block>
   <block id="2558e4b797d243bba4d45d38e97897b8" category="section-title">支援的 Kubernetes 平台</block>
   <block id="0e2ef50b7c69ffbf62cb09918ee19243" category="paragraph">Trident 支援多種 Kubernetes 發行版和平台。</block>
-  <block id="743dd0163ccee4a4f89d41bf4005a591" category="paragraph">支援的平台包括：</block>
   <block id="9dc48bb809ddb16298a6203467073aba" category="list-text">SUSE Harvester 1.7.0 （ONTAP iSCSI）</block>
   <block id="ec92eeadf77128110614c3ae4b04e5c6" category="list-text">OpenShift 4.12、4.14 - 4.21（如果您打算在 OpenShift 4.19 版本中使用 iSCSI 節點準備功能，則支援的最低 Trident 版本為 25.06.1。）</block>
   <block id="991b6998365b18269e10fd6932757c88" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.35.x</block>
@@ -6434,8 +6407,6 @@
   <block id="1a4f07a2ad9994c7471bfd0c745619e7" category="list-text">新增對 Kubernetes 1.35 的支援。如需詳細資訊，請參閱 <block ref="828495d4e8327d8b9cec4516431f4186" category="inline-link-macro-rx"></block>。</block>
   <block id="7dcbfc054c3b07861db3f7ce9431ef8c" category="admonition">對於正在使用 SolidFire 的客戶，請勿升級至 25.06.1，因為在取消發佈磁碟區時存在已知問題。25.06.2 即將發佈以解決此問題。</block>
   <block id="2d182a7ab511ccb3d269a7a50785226d" category="summary">使用 Trident Autogrow 政策設定和管理自動磁碟區擴充。</block>
-  <block id="f35e4c53f5dd5cf7f66cb0f2632c0ec9" category="paragraph">自動磁碟區擴充功能可讓 Trident 配置的持續磁碟區能夠在已使用容量達到定義的閾值時自動擴展。此功能可降低營運開銷，並有助於防止因容量耗盡而導致的應用程式中斷。</block>
-  <block id="8b057886f0c63560fb462624b87988d3" category="paragraph">自動磁碟區擴充是使用 Autogrow Policies 實作的。Autogrow Policy 定義：</block>
   <block id="f194983a4f5c93b4f4788469b4372653" category="paragraph">當超過定義的使用率臨界值時，磁碟區大小會自動增加。磁碟區大小永遠不會自動減少。</block>
   <block id="72e7e5d6921df6ef726f79ae4b5598ab" category="paragraph">在配置自動磁碟區擴充之前、請確保滿足以下要求：</block>
   <block id="550fa0f1a58ef45e52d4e327c8363b05" category="list-text">基於角色的存取控制權限，用於建立 <block ref="785854d43993e53bddae51b76513d6be" prefix=" " category="inline-code"></block> 自訂資源</block>
@@ -6711,7 +6682,6 @@
   <block id="d5c64803deffce85697dfc74edff222a" category="paragraph">如需完整的疑難排解文章清單，請參閱<block ref="57f5c759ada931c6a2051314ca6ee99e" category="inline-link-rx"></block>。</block>
   <block id="5244ac716dbb2dd029da822917011675" category="paragraph">自動分層是透過 Trident 後端參數和 PersistentVolumeClaim 註解在磁碟區配置期間進行設定的。您可以使用 Trident 為 Google Cloud NetApp Volumes 設定自動分層。</block>
   <block id="5da21c390857453a730d154195b8d8c5" category="paragraph">您可以設定 Trident，使其使用 iSCSI 協定從 Google Cloud NetApp Volumes 配置區塊儲存磁碟區。SAN 磁碟區則透過<block ref="0ffa63dea74ac96b64836a273ee062bb" prefix=" " category="inline-code"></block>儲存驅動程式從 Flex Unified 儲存池進行配置。</block>
-  <block id="53eb2e8715c68706fd60a20aea024d5f" category="paragraph">您可以將 Google Cloud NetApp Volumes 設定為 Trident 的後端，用於配置基於檔案的儲存磁碟區。Trident 可以透過使用 Google Cloud NetApp Volumes 後端來掛載 NFS 和 SMB 磁碟區。</block>
   <block id="7bd17d3f5d8aeed56a3d78c1a04e52d7" category="paragraph">學習如何在 Trident 安裝中建立和使用 ONTAP NAS 驅動程式。本節提供後端組態範例以及將後端對應至 StorageClasses 的詳細資訊。從 25.10 版本開始，NetApp Trident 支援 <block ref="f33b68c7b6392c7aac0a8125f2e686d8" category="inline-link-macro-rx"></block>。NetApp AFX 儲存系統與其他基於 ONTAP 的系統（ASA、AFF 和 FAS）在儲存層的實作方式上有所不同。</block>
   <block id="c32e295517ca2afdf0849a0ccf956198" category="paragraph">在 Trident 後端組態中、您不需要指定系統是 NetApp AFX 儲存系統。當您選取<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>作為<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block>時、 Trident 會自動偵測 AFX 儲存系統。部分後端組態參數不適用於 AFX 儲存系統。</block>
   <block id="5d57df97e93c7218bf50f1ec5cda9223" category="paragraph">下表顯示後端組態選項：</block>
@@ -6749,5 +6719,33 @@
   <block id="7d46dc6377e8ce5df89a34c4ad4e2991" category="image-alt">Trident 附加元件啟動狀態</block>
   <block id="2c0204a63fd46aab7636df3eb5f83972" category="paragraph">使用 <block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> 公用程式、您可以執行 <block ref="b5eda0a74558a342cf659187f06f746f" prefix=" " category="inline-code"></block> 命令來取得從屬磁碟區。如需詳細資訊、請參閱 link:../trident-reference/trident-cl.html<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix="[" category="inline-code"></block> 命令和選項]。</block>
   <block id="69ce754add983294c9646b227af63485" category="list-text">光纖通道協定（FCP）</block>
-  <block id="95879db8219c8aca8e161d3712e8b423" category="list-text">非揮發性記憶體高速互連（NVMe）</block>
+  <block id="955581130750cc1758fa61171c2e0575" category="paragraph">NetApp Trident 可在公有雲或本地端，跨所有主流 NetApp 儲存平台實現儲存資源的使用與管理，包括本地端 ONTAP 叢集（AFF、FAS 和 ASA）、ONTAP Select、Cloud Volumes ONTAP、Element 軟體（NetApp HCI、SolidFire）、Azure NetApp Files、Amazon FSx for NetApp ONTAP，以及 Google Cloud NetApp Volumes。</block>
+  <block id="e08706b9934e8c02c4412d7cbbb8de70" category="paragraph">支援的平台包括：* Upstream Kubernetes * Red Hat OpenShift * SUSE Harvester 1.7.0 (ONTAP iSCSI)</block>
+  <block id="1868784d55625cd96ac74dd1393e90f9" category="paragraph">UI 提供預設範例。您可以直接編輯，而無需複製完整組態。</block>
+  <block id="ca375865284ae4e0a7735a38800e6c18" category="paragraph">選用：啟用並行</block>
+  <block id="a7dfe0e5a21691eba1519b710d8d3a75" category="paragraph">若要啟用並行性，請在規格中新增下列欄位：</block>
+  <block id="e462982ca8759f37262a2a6a8451e97c" category="paragraph">自動磁碟區擴充功能可讓 Trident 配置的持續磁碟區能夠在已使用容量達到定義的閾值時自動擴展。此功能可降低營運開銷，並有助於防止因容量耗盡而導致的應用程式中斷。自動磁碟區擴充是使用 Autogrow Policies 實作的。Autogrow Policy 定義：</block>
+  <block id="be5604670da5d8891500d723278316d1" category="list-text">非揮發性記憶體高速介面 （NVMe）</block>
+  <block id="9c0055473b26fecad9098555df70ac26" category="summary">設定 Trident 從 Google Cloud NetApp Volumes 配置儲存設備。</block>
+  <block id="8017a2a2aa268385aa5d673bc5e3e347" category="doc">配置 Google Cloud NetApp Volumes</block>
+  <block id="5415aece488056c805aca704d6c84d08" category="paragraph">您可以將 Google Cloud NetApp Volumes 設定為 Trident 的後端，以便為 Kubernetes 工作負載配置儲存設備。</block>
+  <block id="b64e7afc78a4b16a5af44804f8d8044a" category="paragraph">Trident 支援 Google Cloud NetApp Volumes，可用於 NAS（NFS 和 SMB）和區塊（iSCSI）工作負載。</block>
+  <block id="7cd0e03fa87d1fef6b4f4183c72ff470" category="list-text">NAS 工作負載使用 <block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 後端</block>
+  <block id="4e7c1c9f71d66cf3bb588cea92fafde5" category="list-text">區塊 （iSCSI） 工作負載使用 <block ref="0ffa63dea74ac96b64836a273ee062bb" prefix=" " category="inline-code"></block> 後端</block>
+  <block id="2cc40b9eb3f06619fcd9facbf4a21920" category="paragraph">NAS Volume 提供檔案型儲存設備，並使用 NFS 或 SMB 傳輸協定進行存取。這些 Volume 支援跨多個 Pod 或節點的共享存取。</block>
+  <block id="1935f97dad1b0c304f6abc254afe2de1" category="paragraph">區塊磁碟區提供原始區塊儲存設備，並以連接至 Kubernetes 節點的 iSCSI 裝置形式進行存取。當應用程式需要區塊層級存取時，就會使用這些磁碟區。</block>
+  <block id="f21b6a2382d256aa586680b59e096f52" category="list-text">Google Cloud NetApp Volumes 儲存池</block>
+  <block id="3315682958a605a4533e397d630d9fd5" category="paragraph">若要設定區塊（iSCSI）儲存設備、請參閱 <block ref="a4226c5d239e9ee0850d6130550adaf5" category="inline-xref-macro-rx"></block>。</block>
+  <block id="9d2f541ab4662082ddc25455a6e6b777" category="paragraph">雲端身分可讓 Kubernetes 工作負載透過以工作負載身分進行驗證來存取 Google Cloud 資源，而非使用靜態認證。</block>
+  <block id="2ffcf7a384e905c1da617f12771ee803" category="list-text">GKE 叢集上已啟用工作負載身分識別，節點集區上已啟用中繼資料伺服器</block>
+  <block id="22f36643bcaa8e680a0c665e40bdc17f" category="list-text">具有 Google Cloud NetApp Volumes 管理員角色的 Google Cloud 服務帳號<block ref="04bf1a6a0250bc9d4cba09ee34106dfc" prefix="(" category="inline-code"></block>）或等效的自訂角色</block>
+  <block id="6780dd98800bf9588676247e72589a70" category="list-text">Trident 已安裝，雲端提供者設定為 <block ref="c731f72e1d22a7c5e01a7cb789a8885e" prefix=" " category="inline-code"></block> 並已設定雲端身分註解</block>
+  <block id="0ba3dd3710cbfb600b577c4a616a4a0a" category="paragraph">若要使用 Trident 運算子安裝 Trident，請編輯<block ref="244895464fd1d6c7ff5a2044c324c0fc" prefix=" " category="inline-code"></block>：</block>
+  <block id="022137435a47f3f2a2bec86fdbe4b899" category="paragraph">使用 Helm 安裝 Trident 時、請設定雲端供應商和雲端身分：</block>
+  <block id="df79184505d4af08dd59bcfc62f37e0a" category="paragraph">透過指定雲端供應商和雲端身分來安裝 Trident：</block>
+  <block id="a4e5d5eb76b9e93431357e39539c9093" category="section-title">配置 NAS 儲存</block>
+  <block id="b0d4b85733993733f785881ce8d6acc1" category="section-title">驅動程式詳細資料</block>
+  <block id="574fe6dc4c1256174b51cb080d9c29d7" category="paragraph">Trident 提供<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 驅動程式，以從 Google Cloud NetApp Volumes 配置 NAS 儲存空間。</block>
+  <block id="9cc2fc7699d7a45046ad2a26aecf813c" category="paragraph">NAS 磁碟區透過 <block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> 後端配置，並支援 NFS 和 SMB 協定。</block>
+  <block id="e31618e7026dbf60de16d83baf88e924" category="paragraph">若要配置 SMB Volume ，請將 <block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block> 設為 <block ref="79e0f325804dafbdaef73b3b17c0fd8d" prefix=" " category="inline-code"></block> 並提供認證資料。</block>
 </blocks>

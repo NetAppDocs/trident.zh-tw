@@ -2,45 +2,101 @@
 sidebar: sidebar 
 permalink: trident-use/gcnv.html 
 keywords: Trident backend, Google Cloud NetApp Volumes, NAS, NFS, SMB, file storage, GKE 
-summary: 設定 Trident 從 Google Cloud NetApp Volumes 提供 NAS（NFS 和 SMB）磁碟區。 
+summary: 設定 Trident 從 Google Cloud NetApp Volumes 配置儲存設備。 
 ---
-= 配置 Google Cloud NetApp Volumes 以用於 NAS 工作負載
+= 配置 Google Cloud NetApp Volumes
 :allow-uri-read: 
 
 
 [role="lead"]
-您可以將 Google Cloud NetApp Volumes 設定為 Trident 的後端，用於配置基於檔案的儲存磁碟區。Trident 可以透過使用 Google Cloud NetApp Volumes 後端來掛載 NFS 和 SMB 磁碟區。
-
-
-NOTE: Trident 在 Google Cloud NetApp Volumes 中為 NAS 和 SAN 工作負載使用獨立的後端。 `google-cloud-netapp-volumes`後端僅支援基於檔案的協議，不能用於配置 iSCSI 磁碟區。
-
-
-NOTE: 若要配置 iSCSI 區塊磁碟區，請使用 
-`google-cloud-netapp-volumes-san` 後端，這是專為 SAN 工作負載設計的獨立後端類型。
+您可以將 Google Cloud NetApp Volumes 設定為 Trident 的後端，以便為 Kubernetes 工作負載配置儲存設備。
 
 
 
-== NAS 磁碟區和 iSCSI 區塊磁碟區
+== 總覽
 
-Google Cloud NetApp Volumes 同時支援 NAS 和區塊儲存，這兩種儲存方式在應用程式存取和管理資料的方式上有所不同。
+Trident 支援 Google Cloud NetApp Volumes，可用於 NAS（NFS 和 SMB）和區塊（iSCSI）工作負載。
 
-NAS 磁碟區提供基於檔案的儲存設備，並透過 NFS 或 SMB 等標準檔案傳輸協定進行存取。磁碟區以共享檔案系統的形式掛載，並支援來自多個 Pod 或節點的並行存取。
+* NAS 工作負載使用  `google-cloud-netapp-volumes` 後端
+* 區塊 （iSCSI） 工作負載使用  `google-cloud-netapp-volumes-san` 後端
 
-iSCSI 區塊磁碟區提供原始區塊儲存，並以區塊裝置的形式連接到 Kubernetes 節點進行存取。區塊儲存通常用於需要區塊級存取或應用程式管理的 I/O 行為的工作負載。
+
+NAS Volume 提供檔案型儲存設備，並使用 NFS 或 SMB 傳輸協定進行存取。這些 Volume 支援跨多個 Pod 或節點的共享存取。
+
+區塊磁碟區提供原始區塊儲存設備，並以連接至 Kubernetes 節點的 iSCSI 裝置形式進行存取。當應用程式需要區塊層級存取時，就會使用這些磁碟區。
 
 這適用於以下環境：
 
 * Trident 26.02 及更新版本
 * Google Kubernetes Engine （GKE） 或 Red Hat OpenShift
-* Google Cloud NetApp Volumes NAS 池
-* NFS 和 SMB 工作負載
+* Google Cloud NetApp Volumes 儲存池
 
 
-對於區塊 （iSCSI） 工作負載，請參閱 xref:trident-use/gcnv-block.html[設定區塊儲存設備（iSCSI）]。
+若要設定區塊（iSCSI）儲存設備、請參閱 xref:trident-use/gcnv-block.html[設定區塊儲存設備（iSCSI）]。
 
 
 
-== Google Cloud NetApp Volumes 驅動程式詳細資料
+== 準備進行設定
+
+雲端身分可讓 Kubernetes 工作負載透過以工作負載身分進行驗證來存取 Google Cloud 資源，而非使用靜態認證。
+
+若要將雲端身分與 Google Cloud NetApp Volumes 結合使用、您必須具備以下條件：
+
+* 使用 Google Kubernetes Engine （ GKE ）部署的 Kubernetes 叢集
+* GKE 叢集上已啟用工作負載身分識別，節點集區上已啟用中繼資料伺服器
+* 具有 Google Cloud NetApp Volumes 管理員角色的 Google Cloud 服務帳號(`roles/netapp.admin`）或等效的自訂角色
+* Trident 已安裝，雲端提供者設定為  `GCP` 並已設定雲端身分註解
+
+
+[role="tabbed-block"]
+====
+.Trident運算子
+--
+若要使用 Trident 運算子安裝 Trident，請編輯 `tridentorchestrator_cr.yaml`：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  cloudProvider: "GCP"
+  cloudIdentity: "iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com"
+----
+--
+.掌舵
+--
+使用 Helm 安裝 Trident 時、請設定雲端供應商和雲端身分：
+
+[listing]
+----
+helm install trident trident-operator-100.6.0.tgz \
+  --set cloudProvider=GCP \
+  --set cloudIdentity="iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com"
+----
+--
+.試用
+--
+透過指定雲端供應商和雲端身分來安裝 Trident：
+
+[listing]
+----
+tridentctl install \
+  --cloud-provider=GCP \
+  --cloud-identity="iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com" \
+  -n trident
+----
+--
+====
+
+
+== 配置 NAS 儲存
+
+
+
+=== 驅動程式詳細資料
 
 Trident 提供 `google-cloud-netapp-volumes` 驅動程式，以從 Google Cloud NetApp Volumes 配置 NAS 儲存空間。
 
@@ -70,63 +126,7 @@ Rwo 、 ROX 、 rwx 、 RWOP
 |===
 
 
-== Google Kubernetes Engine 的雲端身分識別
-
-雲端身分可讓 Kubernetes 工作負載透過以工作負載身分進行驗證來存取 Google Cloud 資源，而非使用靜態 Google Cloud 認證。
-
-若要將雲端身分與 Google Cloud NetApp Volumes 結合使用、您必須具備以下條件：
-
-* 使用 Google Kubernetes Engine （ GKE ）部署的 Kubernetes 叢集
-* GKE 叢集上已啟用工作負載身分識別，節點集區上已啟用中繼資料伺服器
-* 具有 Google Cloud NetApp Volumes 管理員角色的 Google Cloud 服務帳號(`roles/netapp.admin`）或等效的自訂角色
-* Trident 已安裝，雲端提供者設定為  `GCP` 並已設定雲端身分註解
-
-
-[role="tabbed-block"]
-====
-.Trident運算子
---
-若要使用 Trident operator 安裝 Trident，請編輯 `tridentorchestrator_cr.yaml`以將 `cloudProvider`設定為 `GCP`並將 `cloudIdentity`設定為 GKE 服務帳戶。
-
-[source, yaml]
-----
-apiVersion: trident.netapp.io/v1
-kind: TridentOrchestrator
-metadata:
-  name: trident
-spec:
-  namespace: trident
-  cloudProvider: "GCP"
-  cloudIdentity: "iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com"
-----
---
-.掌舵
---
-使用 Helm 安裝 Trident 時，請設定雲端提供者和雲端身分。
-
-[listing]
-----
-helm install trident trident-operator-100.6.0.tgz \
-  --set cloudProvider=GCP \
-  --set cloudIdentity="iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com"
-----
---
-.試用
---
-透過指定雲端供應商和雲端身分來安裝 Trident。
-
-[listing]
-----
-tridentctl install \
-  --cloud-provider=GCP \
-  --cloud-identity="iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com" \
-  -n trident
-----
---
-====
-
-
-== 設定 Trident NAS 後端
+=== 設定 Trident NAS 後端
 
 [source, yaml]
 ----
@@ -148,13 +148,13 @@ spec:
 ----
 
 
-== 配置 NAS Volume
+=== 配置 NAS Volume
 
 NAS 磁碟區透過  `google-cloud-netapp-volumes` 後端配置，並支援 NFS 和 SMB 協定。
 
 
 
-=== NFS Volume 的 StorageClass
+==== NFS Volume 的 StorageClass
 
 若要佈建 NFS 磁碟區，請將  `nasType` 設為  `nfs`。
 
@@ -172,10 +172,9 @@ allowVolumeExpansion: true
 ----
 
 
-=== 適用於 SMB 磁碟區的 StorageClass
+==== 適用於 SMB 磁碟區的 StorageClass
 
-使用 `nasType`、 `csi.storage.k8s.io/node-stage-secret-name`和
-`csi.storage.k8s.io/node-stage-secret-namespace`，您可以指定 SMB 磁碟區並提供所需的 Active Directory 憑證。
+若要配置 SMB Volume ，請將  `nasType` 設為  `smb` 並提供認證資料。
 
 [source, yaml]
 ----
@@ -193,10 +192,7 @@ allowVolumeExpansion: true
 ----
 
 
-=== PersistentVolumeClaim 範例（RWX）
-
-NAS 磁碟區支援並發存取，通常採用以下方式配置
-`ReadWriteMany`。
+==== PersistentVolumeClaim 範例（RWX）
 
 [source, yaml]
 ----
@@ -214,7 +210,7 @@ spec:
 ----
 
 
-=== PersistentVolumeClaim 範例（RWO）
+==== PersistentVolumeClaim 範例（RWO）
 
 [source, yaml]
 ----

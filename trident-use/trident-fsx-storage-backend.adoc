@@ -13,7 +13,17 @@ summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在
 
 
 
-== 整合SAN和NAS驅動程式ONTAP
+== 總覽
+
+在使用 Trident 配置磁碟區之前，您需要透過建立 Trident Backend Configuration（TBC）將儲存後端與 Trident 整合。TBC 定義了 Trident 如何連接到儲存後端，並提供 Trident 管理儲存資源所需的必要資訊。
+
+
+
+== 為 FSx for ONTAP 建立 Trident 後端組態（TBC）
+
+有兩種方法可以設定 Trident 後端以使用 FSx for ONTAP 檔案系統：* 建立一個利用自動後端功能的 StorageClass。* 分別建立後端和 StorageClass。
+
+本節中的步驟涵蓋如何單獨建立後端。有關如何使用自動後端功能的資訊，請參閱xref:trident-fsx-storageclass-pvc.html#configure-a-kubernetes-storageclass-object-with-automatic-backend-configuration-support-for-fsx-for-ontap[配置 StorageClass 和 PVC]章節以取得更多資訊。
 
 若要建立儲存後端，您需要以 JSON 或 YAML 格式建立組態檔案。檔案需要指定您想要的儲存類型（ NAS 或 SAN ），檔案系統和 SVM ，才能從中取得，以及如何驗證。以下範例說明如何定義 NAS 型儲存設備，以及如何使用 AWS 密碼將認證儲存至您要使用的 SVM ：
 
@@ -280,4 +290,4 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 
 == 提供 SMB 卷
 
-您可以使用以下方式設定 SMB 磁碟區： `ontap-nas`司機。在你完成之前 <<整合SAN和NAS驅動程式ONTAP>> 請完成以下步驟： link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["準備配置SMB磁碟區"]。
+您可以使用以下方式設定 SMB 磁碟區： `ontap-nas`司機。在你完成之前 <<ONTAP SAN and NAS driver integration>> 請完成以下步驟： link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["準備配置SMB磁碟區"]。

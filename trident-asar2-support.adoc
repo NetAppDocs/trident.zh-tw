@@ -24,6 +24,7 @@ Trident 為 ASA r2 系統提供有限的資料保護，並配備 Trident protect
 
 * Trident 25.02 及更高版本支援 iSCSI 。
 * Trident 25.06 及更新版本除了支援 iSCSI 外，還支援 NVMe/TCP。
+* Trident 25.10 及更高版本除了支援 iSCSI 和 NVMe/TCP 外，還支援 FC。
 
 
 您必須為 ONTAP 後端儲存的儲存虛擬機器（SVM）指派至少一個 Aggregate。請參閱 link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["在 ASA r2 系統中為 SVM 指派 Aggregate"^] 以取得相關說明。

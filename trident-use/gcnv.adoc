@@ -95,6 +95,11 @@ tridentctl install \
 == 配置 NAS 儲存
 
 
+NOTE: 對於 Google Cloud NetApp Volumes UNIFIED 儲存池，Trident 在執行磁碟區操作時會套用 UNIFIED 專屬的命名與驗證規則。
+
+在尋找磁碟區時，Trident 可以評估多個相容的磁碟區名稱變體（例如連字號和底線格式），以提高匯入和探索的可靠性。
+
+
 
 === 驅動程式詳細資料
 

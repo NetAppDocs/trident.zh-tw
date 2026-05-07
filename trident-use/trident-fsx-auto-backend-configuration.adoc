@@ -28,7 +28,7 @@ Trident 只會建立一次 VolumeSnapshotClass。Trident 會為後續的 Storage
 
 若要觸發自動後端建立、請在 StorageClass `parameters` 區段中定義所需的參數。
 
-[cols="2,1,2,2"]
+[cols="2,1,1,3"]
 |===
 | 參數 | 必要 | 類型 | 說明 
 
@@ -39,7 +39,7 @@ Trident 只會建立一次 VolumeSnapshotClass。Trident 會為後續的 Storage
 | 「torageDriverName」 | 是的 | 字串 | Trident 儲存驅動程式（例如、 `ontap-nas` 或  `ontap-san`） 
 
 
-| `credentialsName` | 是的 | 字串 | 包含 AWS 認證資料的 Kubernetes Secret 名稱 
+| `credentialsName` | 是的 | 字串 | 包含 FSx for ONTAP 憑證的 Kubernetes Secret 名稱 
 |===
 
 
@@ -47,7 +47,7 @@ Trident 只會建立一次 VolumeSnapshotClass。Trident 會為後續的 Storage
 
 您可以透過 StorageClass 傳遞可選的後端參數。在 StorageClass `parameters` 部分中將所有可選值定義為字串。
 
-有關後端參數的完整列表、請參閱：xref:trident-use/trident-fsx-storage-backend.adoc#backend-advanced-configuration-and-examples[FSx for NetApp ONTAP 後端組態]。
+有關後端參數的完整列表、請參閱：xref:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples[FSx for NetApp ONTAP 後端組態]。
 
 
 

@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-fsx-create-pvc.html 
+keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
+summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在 Amazon Elastic Kubernetes Service （ EKS ）中執行的 Kubernetes 叢集可以佈建由 ONTAP 支援的區塊和檔案持續性磁碟區。 
+---
+= 配置 PVC
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節包含如何建立 PersistentVolumeClaim（PVC）使用已設定 Kubernetes StorageClass 來請求 PV 的說明。如果成功，則可以將 PV 掛載到 Pod 中。
+
+
+
+== 建立 PVC
+
+ https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolume Claim"^]（PVC）是對叢集上 PersistentVolume 的存取請求。PVC 可以配置為請求特定大小的儲存空間或存取模式。透過關聯的 StorageClass，叢集管理員不僅可以控制 PersistentVolume 大小和存取模式，還可以控制效能或服務等級等更多參數。
+
+建立 Trident 後端和 StorageClass 後，即可建立 PVC。建立 PVC 後，即可將該磁碟區掛載到 pod 中。
+
+
+
+=== 範例資訊清單
+
+以下範例展示了 PVC 的基本組態選項。
+
+.可存取 RWX 的 PVC
+此範例顯示具有 rwx 存取權的基本 PVC 、與名稱為的 StorageClass 相關聯 `basic-csi`。
+
+[source, YAML]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-storage
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ontap-gold
+----
+.使用 iSCSI 範例的 PVC
+此範例展示了具有 RWO 存取權限的 iSCSI 基本 PVC，它與名為 `protection-gold`。
+
+[source, YAML]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-san
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: protection-gold
+----
+
+
+=== 建立PVC
+
+.步驟
+. 建立 PVC 。
++
+[source, console]
+----
+kubectl create -f pvc.yaml
+----
+. 確認 PVC 狀態。
++
+[source, console]
+----
+kubectl get pvc
+----
+
+
+[listing]
+----
+NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
+pvc-storage Bound  pv-name 2Gi      RWO                       5m
+----
+如需儲存類別如何與互動的詳細資訊 `PersistentVolumeClaim`、以及控制 Trident 配置磁碟區的參數、請參閱link:../trident-reference/objects.html["Kubernetes和Trident物件"]。

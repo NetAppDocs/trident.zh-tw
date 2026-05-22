@@ -6799,4 +6799,14 @@
   <block id="b808c0f6c02a2bfc490cec673c19e395" category="cell">協定 LIF 的 IP 位址。*ONTAP NAS 驅動程式*：NetApp 建議指定 dataLIF。如果未提供，Trident 將從 SVM 取得 dataLIF。您可以指定一個完全限定網域名稱（FQDN）用於 NFS 掛載操作，從而建立輪詢 DNS 以在多個 dataLIF 之間進行負載平衡。初始設定後可以更改。*ONTAP SAN 驅動程式*：iSCSI 無需指定。Trident 使用 ONTAP 選擇性 LUN 對應來發現建立多路徑會話所需的 iSCSI LIF。如果明確定義了 dataLIF，則會產生警告。如果 Trident 是使用 IPv6 旗標安裝的，可以設定為使用 IPv6 位址。IPv6 位址必須用中括號定義，例如［28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555］。</block>
   <block id="c0f12f4cfb79ab18be46d9a2f0eccd58" category="sidebar">設定儲存類別</block>
   <block id="6c8701a99958ffdb3999e3f1f6e5fdbf" category="sidebar">管理自動磁碟區擴充</block>
+  <block id="ca98c81b13d8207d786f43bf91fb1214" category="paragraph">更新了 Trident Protect 依賴項以解決安全漏洞：</block>
+  <block id="1e814d791d35fa19b57c4145b3286329" category="inline-link-macro">CVE-2026-33186</block>
+  <block id="afa5c2c58b0ea0edf4224d65e5937d55" category="list-text">gRPC-Go：<block ref="1c9c3ccc32b9c44006ccf474ce58b736" category="inline-link-macro-rx"></block></block>
+  <block id="d4d19dcac0c9bbf8965fcda3320fccfb" category="inline-link-macro">CVE-2024-45337</block>
+  <block id="b5dd9eebb8922267c5bd4f5556d26701" category="list-text">Go x/crypto SSH：<block ref="f482c36ed3999907815ac53d6074ec2f" category="inline-link-macro-rx"></block></block>
+  <block id="3ae92ebfe83269512ddaa15612a81256" category="list-text">OpenTelemetry-Go：<block ref="4699607a06f93475b0f8f4a13bd690dc" category="inline-link-macro-rx"></block></block>
+  <block id="b78ae2b3b9e5d50bcd9c234029141082" category="inline-link-macro">CVE-2025-22871</block>
+  <block id="8e31ed98521d2fbd01629de60bdbfd6a" category="list-text">Go 執行階段：<block ref="472bd143483bc49bc89effbd314435c0" category="inline-link-macro-rx"></block></block>
+  <block id="278b5284fc6585f71203297ebab6500e" category="inline-link-macro">CVE-2025-23109</block>
+  <block id="fd2c12a453dd202f7117b96858090a49" category="list-text">其他相依性：<block ref="7beaa9a23a5ebb4abc880f48947240a7" category="inline-link-macro-rx"></block></block>
 </blocks>

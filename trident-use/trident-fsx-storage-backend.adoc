@@ -23,7 +23,7 @@ summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在
 
 有兩種方法可以設定 Trident 後端以使用 FSx for ONTAP 檔案系統：* 建立一個利用自動後端功能的 StorageClass。* 分別建立後端和 StorageClass。
 
-本節中的步驟涵蓋如何單獨建立後端。有關如何使用自動後端功能的資訊，請參閱xref:trident-fsx-storageclass-pvc.html#configure-a-kubernetes-storageclass-object-with-automatic-backend-configuration-support-for-fsx-for-ontap[配置 StorageClass 和 PVC]章節以取得更多資訊。
+本節中的步驟涵蓋如何單獨建立後端。有關如何使用自動後端功能的資訊，請參閱link:trident-fsx-storageclass-pvc.html#configure-a-kubernetes-storageclass-object-with-automatic-backend-configuration-support-for-fsx-for-ontap["配置 StorageClass 和 PVC"]章節以取得更多資訊。
 
 若要建立儲存後端，您需要以 JSON 或 YAML 格式建立組態檔案。檔案需要指定您想要的儲存類型（ NAS 或 SAN ），檔案系統和 SVM ，才能從中取得，以及如何驗證。以下範例說明如何定義 NAS 型儲存設備，以及如何使用 AWS 密碼將認證儲存至您要使用的 SVM ：
 
@@ -163,7 +163,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 | 《馬納格門達利》 | 叢集或 SVM 管理 LIF 的 IP 位址可以指定完整網域名稱（ FQDN ）。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。如果您在欄位下方 `aws`提供、則 `fsxFilesystemID`不需要提供、 `managementLIF`因為 Trident 會從 AWS 擷取 SVM `managementLIF` 資訊。因此、您必須在 SVM 下提供使用者的認證（例如： vsadmin ）、且使用者必須具有該 `vsadmin` 角色。 | "10.0.0.1 " ， "[2001:1234:abcd::fefe] 
 
 
-| 「DataLIF」 | 傳輸協定LIF的IP位址。* ONTAP NAS 驅動程式 * ： NetApp 建議指定 dataLIF 。如果未提供， Trident 會從 SVM 擷取 dataLIFs 。您可以指定完整網域名稱（ FQDN ），以用於 NFS 裝載作業，讓您建立循環 DNS ，以便在多個 dataLIFs 之間進行負載平衡。可在初始設定之後變更。請參閱 。*《SAN驅動程式*：請勿指定用於iSCSI》ONTAP 。Trident 使用 ONTAP 選擇性 LUN 對應來探索建立多重路徑工作階段所需的 iSCI 生命。如果明確定義dataLIF、就會產生警告。如果使用 IPv6 旗標安裝 Trident 、則可設定為使用 IPv6 位址。IPv6位址必須以方括弧來定義、例如[28e8：d9fb：a825：b7bf：69a8：d02f：9e7b：3555]。 |  
+| 「DataLIF」 | 協定 LIF 的 IP 位址。*ONTAP NAS 驅動程式*：NetApp 建議指定 dataLIF。如果未提供，Trident 將從 SVM 取得 dataLIF。您可以指定一個完全限定網域名稱 （FQDN） 用於 NFS 掛載作業，從而建立輪詢 DNS 以在多個 dataLIF 之間進行負載平衡。初始設定後可以變更。請參閱 https://kb.netapp.com/Cloud/Astra/Trident/Is_it_possible_to_update_the_DataLIF_on_the_trident_backend["初始配置後更新 dataLIF"^]。*ONTAP SAN 驅動程式*：iSCSI 無需指定。Trident 使用 ONTAP Selective LUN Map 來探索建立多路徑工作階段所需的 iSCSI LIF。如果明確定義了 dataLIF，則會產生警告。如果 Trident 是使用 IPv6 旗標安裝的，則可以設定為使用 IPv6 位址。IPv6 位址必須以方括號定義，例如 [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]。 |  
 
 
 | 「AutoExpportPolicy」 | 啟用自動匯出原則建立及更新[布 林值]。使用 `autoExportPolicy`和 `autoExportCIDRs`選項、 Trident 可以自動管理匯出原則。 | 「假」 
@@ -275,7 +275,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 | 加密 | 在新磁碟區上啟用 NetApp Volume Encryption （ NVE ）；預設為 `false`。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。如需更多資訊、請參閱link:../trident-reco/security-reco.html["Trident 如何與 NVE 和 NAE 搭配運作"]：。 | 「假」 
 
 
-| `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["使用Linux統一金鑰設定（LUKS）"]。僅限SAN。 | " 
+| `luksEncryption` | 啟用 LUKS 加密。請參閱link:../trident-reco/security-luks.html["使用Linux統一金鑰設定（LUKS）"]。僅限 SAN。 | " 
 
 
 | 「分層政策」 | 要使用的分層原則	`none` |  
@@ -290,4 +290,4 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 
 == 提供 SMB 卷
 
-您可以使用以下方式設定 SMB 磁碟區： `ontap-nas`司機。在你完成之前 <<ONTAP SAN and NAS driver integration>> 請完成以下步驟： link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["準備配置SMB磁碟區"]。
+您可以使用  `ontap-nas` 驅動程式來配置 SMB 磁碟區。在完成 link:trident-fsx-storage-backend.html#ontap-san-and-nas-driver-integration["ONTAP SAN 和 NAS 驅動程式整合"] 之前，請先完成以下步驟：link:worker-node-prep.html#prepare-to-provision-smb-volumes.html["準備配置SMB磁碟區"]

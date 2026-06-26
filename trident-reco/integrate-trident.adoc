@@ -108,7 +108,7 @@ NetApp HCI / SolidFire平台搭配使用的「Poolidfire」驅動程式、可協
 
 === 背後驅動程式Azure NetApp Files
 
-Trident 使用 `azure-netapp-files`驅動程式來管理link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^]服務。
+Trident 使用  `azure-netapp-files` 驅動程式來管理 link:https://azure.microsoft.com/en-us/products/netapp/["Azure NetApp Files"^] 服務。
 
 有關此驅動程式及其設定方式link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["適用於 Azure NetApp Files 的 Trident 後端組態"^]的詳細資訊，請參閱。
 

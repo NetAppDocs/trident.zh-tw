@@ -37,7 +37,7 @@ NOTE: 請務必遵循Amazon Linux和Ubuntu所需的節點準備步驟 https://do
 +
 ** 使用支援SMB磁碟區 `ontap-nas` 僅限驅動程式。
 ** Trident EKS 附加元件不支援 SMB Volume 。
-** Trident 僅支援掛載至 Windows 節點上執行的 Pod 的 SMB 磁碟區。如 link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["準備配置SMB磁碟區"] 需詳細資訊、請參閱。
+** Trident 僅支援掛載到在 Windows 節點上執行的 Pod 的 SMB 磁碟區。詳情請參閱 link:worker-node-prep.html#prepare-to-provision-smb-volumes["準備配置SMB磁碟區"]。
 
 
 * 在 Trident 24.02 之前、在已啟用自動備份的 Amazon FSX 檔案系統上建立的磁碟區、無法由 Trident 刪除。若要在 Trident 24.02 或更新版本中避免此問題、請在 AWS FSX for ONTAP 的後端組態檔案中指定 `fsxFilesystemID`、 AWS `apiRegion`、 AWS `apikey` 和 AWS `secretKey` 。

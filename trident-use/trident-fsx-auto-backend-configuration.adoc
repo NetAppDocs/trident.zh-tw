@@ -47,7 +47,7 @@ Trident 只會建立一次 VolumeSnapshotClass。Trident 會為後續的 Storage
 
 您可以透過 StorageClass 傳遞可選的後端參數。在 StorageClass `parameters` 部分中將所有可選值定義為字串。
 
-有關後端參數的完整列表、請參閱：xref:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples[FSx for NetApp ONTAP 後端組態]。
+有關後端參數的完整列表、請參閱：link:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples["FSx for NetApp ONTAP 後端組態"]。
 
 
 

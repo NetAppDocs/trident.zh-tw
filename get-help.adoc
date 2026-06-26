@@ -109,5 +109,5 @@ link:https://docs.netapp.com/us-en/trident-2301/index.html["23.01"^]
 == 以取得更多資訊
 
 * link:https://github.com/NetApp/trident["Trident 資源"^]
-* link:https://cloud.netapp.com/kubernetes-hub["Kubernetes Hub"^]
+* link:https://www.netapp.com/console/["Kubernetes Hub"^]
 

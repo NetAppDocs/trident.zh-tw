@@ -64,7 +64,7 @@ image::../media/aws-eks-05.png[Trident 附加元件啟動狀態]
 ----
 kubectl get pods -n trident
 ----
-. 繼續設定並設定儲存後端。如需相關資訊，請參閱 link:../trident-use/trident-fsx-storage-backend.html["設定儲存後端"^]。
+. 繼續進行設定並配置儲存後端。如需相關資訊、請參閱 link:trident-fsx-storage-backend.html["設定儲存後端"]。
 
 
 

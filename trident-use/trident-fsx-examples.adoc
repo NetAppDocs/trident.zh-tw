@@ -162,7 +162,7 @@ NOTE: 如果 PVCS 連接到一個或多個 Pod ，您必須關閉所有對應的
 | 加密 | 在新磁碟區上啟用 NetApp Volume Encryption （ NVE ）；預設為 `false`。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。如需更多資訊、請參閱link:../trident-reco/security-reco.html["Trident 如何與 NVE 和 NAE 搭配運作"]：。 | 「假」 
 
 
-| `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["使用Linux統一金鑰設定（LUKS）"]。僅限SAN。 | " 
+| `luksEncryption` | 啟用 LUKS 加密。請參閱link:../trident-reco/security-luks.html["使用Linux統一金鑰設定（LUKS）"]。僅限 SAN。 | " 
 
 
 | 「分層政策」 | 要使用的分層原則	`none` |  

@@ -12,7 +12,7 @@ summary: 您可以使用操作員輕鬆升級現有的 Trident 安裝。
 
 
 [role="lead"]
-您可以手動或使用 Helm 、使用 Trident 營運商來升級 Trident 。您可以從 Trident 營運商安裝升級至其他 Trident 營運商安裝、或從安裝升級 `tridentctl`至 Trident 營運商版本。在升級 Trident 操作員安裝之前、請先檢閱link:upgrade-trident.html#select-an-upgrade-method["選擇升級方法"]。
+您可以使用 Trident Operator 手動或透過 Helm 升級 Trident。您可以從一個 Trident Operator 安裝升級到另一個 Trident Operator 安裝，也可以從 `tridentctl`安裝升級到 Trident Operator 版本。在升級 Trident Operator 安裝之前，請先檢閱link:upgrade-trident.html#step-3-select-an-upgrade-method["選擇升級方法"]。
 
 
 
@@ -26,7 +26,6 @@ NOTE: 若要從使用命名空間範圍運算子（ 20.07 至 20.10 版）安裝
 .關於這項工作
 Trident 提供一個套件檔案、可讓您用來安裝運算子、並為 Kubernetes 版本建立相關的物件。
 
-* 對於運行 Kubernetes 1.24 的羣集，請使用 link:https://github.com/NetApp/trident/tree/stable/v25.02/deploy/bundle_pre_1_25.yaml["bunder_pre_1_25.yaml"^]。
 * 對於運行 Kubernetes 1.25 或更高版本的羣集，請使用 link:https://github.com/NetApp/trident/tree/stable/v25.02/deploy/bundle_post_1_25.yaml["bunder_POST_1_25.yaml"^]。
 
 

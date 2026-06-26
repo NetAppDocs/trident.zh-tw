@@ -56,7 +56,7 @@ TIP: 如果您尚未熟悉link:../trident-get-started/intro.html["基本概念"^
 
 == 選擇您的安裝方法
 
-選取最適合您的安裝方法。您也應該檢閱的考量事項 link:kubernetes-deploy.html#move-between-installation-methods["在方法之間移動"] 做出決定之前。
+選擇適合您的安裝方式。在做出決定之前，您還應該考慮 link:kubernetes-deploy.html#moving-between-installation-methods["在方法之間移動"]。
 
 
 

@@ -6808,4 +6808,5 @@
   <block id="b47863ca8303793c6edc0412cba0ba86" category="paragraph">您可以使用 <block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式來配置 SMB 磁碟區。但是，若要執行此操作，您必須完成以下步驟：<block ref="543ecb8334f9fccbb514e5c7ef0f9169" category="inline-link-macro-rx"></block>。</block>
   <block id="3ab416b72f7e6cf66a52a4fa23bd71bc" category="list-text">Trident 僅支援掛載到在 Windows 節點上執行的 Pod 的 SMB 磁碟區。詳情請參閱 <block ref="543ecb8334f9fccbb514e5c7ef0f9169" category="inline-link-macro-rx"></block>。</block>
   <block id="0aed33e870a02a203987e1f6cbeb75d8" category="list-text">使用 Trident 搭配<block ref="5990d744db8a85d254742635736f0912" category="inline-link-rx"></block>時，您可能會遇到的常見問題是租用戶金鑰和客戶端金鑰來自權限不足的應用程式註冊。有關 Trident 要求的完整清單，請參閱<block ref="afedf4ee56554ea6e6b54e6aa206680c" category="inline-link-macro-rx"></block>組態。</block>
+  <block id="716408bdc95cd9a68b94d30cf1063020" category="section-title">26.06 版本新增內容</block>
 </blocks>

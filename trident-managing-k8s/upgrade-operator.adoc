@@ -87,11 +87,11 @@ helm mapkubeapis trident  --namespace trident
 . 如果您link:../trident-install/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-trident-using-helm["已使用 Helm 安裝 Trident"]，可以使用 `helm upgrade trident netapp-trident/trident-operator --version 100.2602.0`一步升級。如果您沒有新增 Helm 倉庫或無法使用它進行升級：
 +
 .. 從下載最新的 Trident 版本link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]。
-.. 使用  `helm upgrade` 命令，其中  `trident-operator-26.02.0.tgz` 反映您要升級到的版本。
+.. 使用  `helm upgrade` 命令，其中  `trident-operator-26.06.0.tgz` 反映您要升級到的版本。
 +
 [listing]
 ----
-helm upgrade <name> trident-operator-26.02.0.tgz
+helm upgrade <name> trident-operator-26.06.0.tgz
 ----
 +
 
@@ -116,11 +116,11 @@ NOTE: 在切換安裝方法之前，請先查看 link:../trident-install/kuberne
 +
 [listing]
 ----
-# Download the release required [26.02.0]
-mkdir 26.02.0
-cd 26.02.0
-wget https://github.com/NetApp/trident/releases/download/v26.02.0/trident-installer-26.02.0.tar.gz
-tar -xf trident-installer-26.02.0.tar.gz
+# Download the release required [26.06.0]
+mkdir 26.06.0
+cd 26.06.0
+wget https://github.com/NetApp/trident/releases/download/v26.06.0/trident-installer-26.06.0.tar.gz
+tar -xf trident-installer-26.06.0.tar.gz
 cd trident-installer
 ----
 . 從資訊清單建立「TridentOrchestrator」CRD。
@@ -177,6 +177,6 @@ kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
-Version:                v26.02.0
+Version:                v26.06.0
 ----
 

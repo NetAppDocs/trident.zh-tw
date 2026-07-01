@@ -1,0 +1,299 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-resource-transformations.html 
+keywords: trident, protect, restore, transformation, resource, modify, json patch, rfc 6902 
+summary: 使用資源轉換在復原 Kubernetes 資源時進行修改。 
+---
+= 使用自訂資源還原資源時修改資源
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+資源轉換功能可讓您在復原資源的過程中進行修改。當復原後的版本需要與原始版本有所不同時，此功能非常有用，例如，在將應用程式還原到不同的叢集時，更新 ConfigMap 中的主機名稱。
+
+
+
+== 資源修改的運作方式
+
+The `transformations` 欄位位於 `SnapshotRestore`、 `BackupRestore`、 `AppMirrorRelationship` 及其他復原資源中，可讓您在復原過程中修改 Kubernetes 資源。當復原後的應用程式需要與原始應用程式採用不同的組態時，例如變更主機名稱、登錄 URL、資源限制或環境變數，此功能非常實用。
+
+資源轉換使用 https://www.rfc-editor.org/rfc/rfc6902["RFC 6902 JSON Patch"^]操作和 https://www.rfc-editor.org/rfc/rfc6901["RFC 6901 JSON Pointer"^]路徑來定位和修改 Kubernetes 資源中的特定欄位。
+
+下面展示了包含資源轉換的還原物件的基本結構：
+
+[source, yaml]
+----
+
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  name: my-restore
+  namespace: target-namespace
+spec:
+  appVaultRef: my-vault
+  appArchivePath: /path/to/snapshot
+  namespaceMapping:
+    - source: source-ns
+      destination: target-ns
+  transformations:
+    - resource:
+        kind: ConfigMap       # Required: resource kind
+        group: ""             # Optional: API group (empty for core resources)
+        version: ""           # Optional: API version
+        name: ""              # Optional: specific resource name
+      operations:
+        - op: replace         # Operation type
+          path: "/data/key"   # JSON Pointer path
+          value: "new-value"  # New value (for add/replace/test)
+
+----
+
+
+== 支援的資源
+
+您可以將資源轉換套用至符合下列條件的資源：
+
+* *kind*（必填）：Kubernetes 資源類型（例如， `ConfigMap`， `Deployment`， `Pod`）
+* *group*（可選）：API 群組（例如， `apps`， `route.openshift.io`）— 對於核心資源，請省略
+* *版本*（可選）：API 版本（例如， `v1`， `v1beta1`）
+* *名稱*（可選）：僅套用於指定名稱的資源
+
+
+
+NOTE: 目前不支援修改 PersistentVolumeClaims 和命名空間。
+
+
+
+== 支援的作業
+
+您可以使用以下操作來修改資源： `add`， `copy`， `move`， `remove`， `replace`，以及 `test`。
+
+
+
+=== 為資源新增值
+
+使用  `add` 操作可在指定路徑新增欄位或值。您可以為物件或陣列新增資料。
+
+[role="tabbed-block"]
+====
+.使用 CR
+--
+以下範例向  `Deployment` 資源新增節點選擇器：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: Deployment
+    operations:
+      - op: add
+        path: "/spec/template/spec/nodeSelector"
+        value:
+          "topology.kubernetes.io/zone": "us-east-1a"
+          disktype: "ssd"
+----
+--
+.使用CLI
+--
+使用以下命令透過命令列執行此轉換：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation 'apps,v1,Deployment:add{"path":"/spec/template/spec/nodeSelector","value":{"topology.kubernetes.io/zone":"us-east-1a","disktype":"ssd"}}'
+----
+--
+====
+
+
+=== 複製資源中的值
+
+使用  `copy` 操作可將相同資源內的值從一個路徑複製到另一個路徑。來源值不會改變。
+
+[role="tabbed-block"]
+====
+.使用 CR
+--
+以下範例複製  `ConfigMap` 物件的資料鍵：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: ConfigMap
+    operations:
+      - op: copy
+        from: "/data/source-key"
+        path: "/data/backup-key"
+----
+--
+.使用CLI
+--
+使用以下命令透過命令列執行此轉換：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation ',v1,ConfigMap:copy{"from":"/data/source-key","path":"/data/backup-key"}'
+----
+--
+====
+
+
+=== 在資源內移動值
+
+使用 `move`操作可將相同資源中的值從一個路徑移至另一個路徑。來源路徑將被移除，值將被放置在目標路徑中。
+
+[role="tabbed-block"]
+====
+.使用 CR
+--
+以下範例重新命名  `ConfigMap` 物件的資料鍵：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: ConfigMap
+    operations:
+      - op: move
+        from: "/data/OLD_KEY"
+        path: "/data/NEW_KEY"
+----
+--
+.使用CLI
+--
+使用以下命令透過命令列執行此轉換：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation ',v1,ConfigMap:move{"from":"/data/OLD_KEY","path":"/data/NEW_KEY"}'
+----
+--
+====
+
+
+=== 從資源中移除值
+
+使用  `remove` 操作可刪除指定路徑中的欄位或值。
+
+[role="tabbed-block"]
+====
+.使用 CR
+--
+以下範例從 `ConfigMap`資源中刪除註解：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: ConfigMap
+    operations:
+      - op: remove
+        path: "/metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration"
+----
+
+NOTE: 在上述範例的路徑中、 `~1` 是  `/` 的 JSON Pointer 轉義序列。
+
+--
+.使用CLI
+--
+使用以下命令透過命令列執行此轉換：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation ',v1,ConfigMap:remove{"path":"/metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration"}'
+----
+--
+====
+
+
+=== 取代資源中的值
+
+使用  `replace` 操作可取代指定路徑下資源中的現有值。JSON 路徑必須已存在。
+
+[role="tabbed-block"]
+====
+.使用 CR
+--
+以下範例變更  `Route` 物件的主機名稱：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: Route
+      group: route.openshift.io
+    operations:
+      - op: replace
+        path: "/spec/host"
+        value: "prod.example.com"
+----
+--
+.使用CLI
+--
+使用以下命令透過命令列執行此轉換：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation 'route.openshift.io,v1,Route:replace{"path":"/spec/host","value":"prod.example.com"}'
+----
+--
+====
+
+
+=== 測試資源修改
+
+使用  `test` 操作，在執行其他操作之前驗證路徑處的值是否與預期值相符。如果測試失敗，整個修改將會回滾。
+
+[role="tabbed-block"]
+====
+.使用 CR
+--
+以下範例僅在  `environment` 設定為  `staging` 時，才會更新  `database-host`：
+
+[source, yaml]
+----
+transformations:
+  - resource:
+      kind: ConfigMap
+    operations:
+      - op: test
+        path: "/data/environment"
+        value: "staging"
+      - op: replace
+        path: "/data/database-host"
+        value: "prod-db.example.com"
+----
+--
+.使用CLI
+--
+使用以下命令透過命令列執行此轉換：
+
+[source, console]
+----
+tridentctl-protect create snapshotrestore <restore_name> \
+  --snapshot <namespace/snapshot-name> \
+  --namespace-mapping <source-ns>:<dest-ns> \
+  --transformation ',v1,ConfigMap:test{"path":"/data/environment","value":"staging"},replace{"path":"/data/database-host","value":"prod-db.example.com"}'
+----
+--
+====

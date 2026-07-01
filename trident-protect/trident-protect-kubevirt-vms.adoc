@@ -1,0 +1,568 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-kubevirt-vms.html 
+keywords: kubevirt, openshift virtualization, virtual machine, vm, backup, restore, includedvirtualmachines 
+summary: 使用 Trident Protect 保護 OpenShift Virtualization 上的 KubeVirt 虛擬機器。備份命名空間中的所有 VM，或依名稱指定特定的 VM。從備份或快照歸檔中選擇性地還原個別 VM。 
+---
+= 使用 Trident Protect 保護 KubeVirt 虛擬機器
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident Protect 可讓您備份與還原執行於 OpenShift Virtualization 上的 KubeVirt 虛擬機器（VM）。您可以同時保護一或多個命名空間中的所有 VM，或使用  `includedVirtualMachines` 欄位依名稱指定特定的 VM。Trident Protect 會在備份期間自動收集所有相依的 VM 資源，而在還原期間，您可以復原整個封存或選擇性地還原個別 VM。
+
+
+
+== KubeVirt 保護模式
+
+Trident Protect 支援兩種定義要保護的 KubeVirt 虛擬機器的方式。定義應用程式時，請選擇其中一種模式：
+
+[cols="1,1,2"]
+|===
+| 模式 | 欄位 | 說明 
+
+
+| 基於命名空間 | `includedNamespaces` | 保護一個或多個命名空間中所有符合的資源。在命名空間條目上使用 `labelSelector`來動態控制包含哪些虛擬機器。 
+
+
+| 虛擬機器範圍 | `includedVirtualMachines` | 依命名空間和名稱保護特定 KubeVirt VM。當 VM 分佈在多個命名空間中，或您不想保護所有命名空間資源時，請使用此模式。 
+|===
+您必須在  `ApplicationSpec` 中指定恰好一個欄位 (`includedNamespaces` 或  `includedVirtualMachines` ）。您無法在同一個應用程式中同時使用兩者。
+
+兩種模式均支援額外的篩選功能：
+
+* 使用 `resourceFilter`來包含或排除特定資源。
+* 使用 `includedClusterScopedResources`以包含相容的叢集範圍資源，例如 `StorageClass`物件。
+
+
+
+NOTE: Trident Protect 可在資料保護作業期間凍結和解凍 KubeVirt 虛擬機器檔案系統，以確保資料一致性。如需組態詳細資料，請參閱 link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["使用 KubeVirt VM 保護資料"]。
+
+
+
+== 備份和快照期間收集的資源
+
+當您為包含 KubeVirt VM 的應用程式建立備份或快照時，Trident Protect 會收集選定的 VM 資源並自動探索其相依資源。
+
+收集行為適用於以下兩種情況：
+
+* 使用 VM 範圍的應用程式 `includedVirtualMachines`。
+* 基於命名空間且包含 KubeVirt `VirtualMachine` 資源的應用程式。
+
+
+
+
+=== VM 範圍的收集
+
+對於 VM 範圍的應用程式，Trident Protect 從 `VirtualMachine`中列出的每個 `includedVirtualMachines`開始，並探索還原該 VM 所需的相依資源。
+
+[cols="1,1,3"]
+|===
+| 資源類型 | 範圍 | 探索方式 
+
+
+| `VirtualMachine` | 命名空間 | 從 `includedVirtualMachines`清單中直接比對。 
+
+
+| `VirtualMachineInstance` | 命名空間 | 如果虛擬機器正在執行，則使用與虛擬機器相同的命名空間和名稱。 
+
+
+| `VirtualMachineInstancetype` | 命名空間 | 被引用 `spec.instancetype`時 `kind: VirtualMachineInstancetype`。 
+
+
+| `VirtualMachineClusterInstancetype` | 叢集 | 由  `spec.instancetype` 參照，當  `kind` 未設定或  `kind: VirtualMachineClusterInstancetype` 時。 
+
+
+| `VirtualMachinePreference` | 命名空間 | 被引用 `spec.preference`時 `kind: VirtualMachinePreference`。 
+
+
+| `VirtualMachineClusterPreference` | 叢集 | 由  `spec.preference` 參照，當  `kind` 未設定或  `kind: VirtualMachineClusterPreference` 時。 
+
+
+| `DataVolume` | 命名空間 | 被  `spec.template.spec.volumes[].dataVolume.name` 引用。 
+
+
+| `PersistentVolumeClaim` | 命名空間 | 從 DataVolume 支援的 PVC 中探索，這些 PVC 使用與 DataVolume 相同的名稱；直接 PVC 參照位於 `persistentVolumeClaim.claimName`；記憶體傾印 PVC 位於 `memoryDump.claimName`；以及暫時性 PVC 位於 `ephemeral.persistentVolumeClaim.claimName`。 
+
+
+| `PersistentVolume` | 叢集 | 透過使用  `spec.volumeName` 從每個收集的 PVC 的備援 PV 中探索。 
+
+
+| `Secret` | 命名空間 | 從磁碟區金鑰 `secret.secretName`中探索到；containerDisk 映像提取金鑰；CloudInitNoCloud 和 CloudInitConfigDrive 使用者資料和網路資料金鑰參考；Sysprep 金鑰；KernelBoot 容器映像提取金鑰；以及 AccessCredentials SSH 或密碼金鑰。 
+
+
+| `ConfigMap` | 命名空間 | 從磁碟區 ConfigMaps 中 `configMap.name`和 Sysprep ConfigMaps 中探索到。 
+
+
+| `ServiceAccount` | 命名空間 | 從 `serviceAccount.serviceAccountName`磁碟區參考中探索到。 
+
+
+| `NetworkAttachmentDefinition` | 命名空間 | 當網路名稱不包含  `/` 時，從  `spec.template.spec.networks[].multus.networkName` 中的 Multus 網路探索。僅收集相同命名空間的 NetworkAttachmentDefinition 參照。會跳過跨命名空間參照。 
+
+
+| `Pod` | 命名空間 | 透過標籤選擇器為  `virt-launcher` Pods 探索 `kubevirt.io=virt-launcher,vm.kubevirt.io/name=<vmName>`。 
+
+
+| 儲存類別、Trident 磁碟區和 Trident 後端 | 叢集 | 收集方式與基於命名空間的應用程式相同，以針對 VM 探索到的 PVC 為基礎。 
+|===
+
+NOTE: 在收集完所有虛擬機器範圍的命名空間資源後，Trident Protect 會套用標準 `resourceFilter`（如果已設定）。然後，叢集範圍的資源收集將照常進行。
+
+
+
+=== 基於命名空間的集合
+
+對於基於命名空間的應用程式，Trident Protect 會掃描選定的命名空間並收集所有相符的資源。如果找到任何 KubeVirt `VirtualMachine` 物件，Trident Protect 會自動收集其相依資源，包括執行個體類型、偏好設定和 `virt-launcher` Pod，其方式與處理 VM 範圍應用程式的方式相同。
+
+這意味著即使應用程式已使用 `includedNamespaces`定義，VM 特定資源也會包含在備份或快照中。
+
+
+
+== 使用基於命名空間的應用程式定義保護虛擬機器
+
+在建立基於命名空間的應用程式時，Trident Protect 會掃描選定的命名空間並收集所有資源，包括所有 KubeVirt 虛擬機器。對於找到的每個虛擬機器，Trident Protect 也會收集備份和還原該虛擬機器所需的相依資源。
+
+基於命名空間的應用程式範例 CR：
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: <application_name>
+  namespace: <application_namespace>
+spec:
+  includedNamespaces:
+    - namespace: <vm_namespace>
+----
+建立應用程式後，請使用標準的 Trident Protect 工作流程進行備份和快照：
+
+* 有關快照 YAML 範例，請參閱link:trident-protect-protect-apps.html#create-an-on-demand-snapshot["建立隨需快照"]。
+* 有關備份 YAML 範例，請參閱link:trident-protect-protect-apps.html#create-an-on-demand-backup["建立隨選備份"]。
+
+
+
+
+=== 恢復基於命名空間的虛擬機器應用程式的行為
+
+由於基於命名空間的應用程式會從選定的命名空間收集資源，因此備份或快照可能包含 KubeVirt 執行時間物件和 KubeVirt 管理的中繼資料。其中某些物件不應直接還原，因為它們代表來源叢集的執行時間狀態。
+
+在復原過程中，Trident Protect 會套用 KubeVirt 感知轉換來移除來源叢集元資料並跳過暫存 KubeVirt 資源。這有助於 KubeVirt 在復原的環境中乾淨地重新建立虛擬機器。
+
+[cols="1,2"]
+|===
+| 資源 | 轉換 
+
+
+| VirtualMachine | 移除以 `kubevirt.io/`開頭的標籤和註釋。 
+
+
+| VirtualMachineInstance | 移除以 `kubevirt.io/`開頭的標籤和註釋。 
+
+
+| VirtualMachineInstanceMigration | 已忽略且未恢復。 
+
+
+| VirtualMachineSnapshot | 已忽略且未恢復。 
+
+
+| VirtualMachineSnapshotContent | 已忽略且未恢復。 
+
+
+| Pod (`virt-launcher`） | 當 pod 具有 `kubevirt.io=virt-launcher`標籤時跳過。 
+|===
+
+NOTE: Trident Protect 會依照預先定義的順序復原 KubeVirt 資源，以避免相依性問題。CDI DataVolumes (`cdi.kubevirt.io`） 會優先復原，以確保在建立虛擬機器物件之前，虛擬機器磁碟資料已可供使用。之後，VirtualMachines (`kubevirt.io`） 會在 VirtualMachineInstances 之前復原。
+
+
+
+== 使用標籤選擇器進行動態虛擬機器保護
+
+如果要動態保護 VM，但又不想列出每個 VM 名稱，請使用基於命名空間的應用程式定義和標籤選擇器。
+
+只有 VirtualMachine CR 需要標籤。相依資源（例如 DataVolumes、PVC、Secrets 和 ConfigMaps）會自動收集。
+
+.步驟
+. 使用共用標籤標記虛擬機器 CR：
++
+[source, console]
+----
+kubectl label virtualmachine <vm_name 1> app=<label_value> -n <vm_namespace>
+kubectl label virtualmachine <vm_name_2> app=<label_value> -n <vm_namespace>
+----
+. 建立含有  `includedNamespaces` 和  `labelSelector` 的應用程式 CR：
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: <application_name>
+  namespace: <application_namespace>
+spec:
+  includedNamespaces:
+    - namespace: <vm_namespace>
+      labelSelector:
+        matchLabels:
+          app: <label_value>
+----
+. 使用標準 Trident Protect 工作流程建立備份和還原。
+
+
+*其他詳細資料*：
+
+* 您可以隨時透過變更標籤來新增或移除受保護的虛擬機器：
+
+
+[source, console]
+----
+kubectl label virtualmachine <vm_name_to_add> app=<label_value> -n <vm_namespace>
+kubectl label virtualmachine <vm_name_to_remove> app=<different_label_value> -n <vm_namespace>
+----
+* 您也可以跨多個命名空間使用標籤選擇器：
+
+
+[source, yaml]
+----
+spec:
+  includedNamespaces:
+    - namespace: <vm_namespace_1>
+      labelSelector:
+        matchLabels:
+          <label_key>: <label_value>
+    - namespace: <vm_namespace_2>
+      labelSelector:
+        matchLabels:
+          <label_key>: <label_value>
+----
+
+
+== 使用 includedVirtualMachines 保護特定虛擬機器
+
+當您想要保護一個或多個命名空間中的一組指定 VirtualMachines，並從歸檔中選擇性地還原特定虛擬機時，請使用 `includedVirtualMachines`。
+
+應用程式和復原 CR 都使用相同的 `includedVirtualMachines`選擇器格式。
+
+在不同的上下文中使用此選擇器：
+
+* 在應用程式 CR 中，它定義了哪些虛擬機器受到保護。
+* 在還原 CR 中，它定義了從備份或快照封存中還原哪些虛擬機器。
+
+
+
+NOTE: 在還原 CR 時，此欄 `includedVirtualMachines`位為選填欄位。如果不包含此欄位，則會還原整個封存。如果指定此欄位，則僅還原列出的虛擬機器及其相依資源。
+
+以下 YAML 程式碼展示了共用選擇器結構：
+
+[source, yaml]
+----
+includedVirtualMachines:
+  - namespace: <vm_namespace_1>
+    names:
+      - <vm_name_1>
+      - <vm_name_2>
+  - namespace: <vm_namespace_2>
+    names:
+      - <vm_name_3>
+----
+
+NOTE: 多個條目位於 `includedVirtualMachines`中，可以參考不同的命名空間，從而實現多命名空間 VM 感知應用程式定義和還原。
+
+[cols="1,1,2"]
+|===
+| 欄位 | 類型 | 說明 
+
+
+| 命名空間 | 字串 | 包含目標虛擬機器物件的 Kubernetes 命名空間。 
+
+
+| 名稱 | 字串列表 | 此命名空間中的一個或多個虛擬機器名稱。 
+|===
+.基於虛擬機器的應用程式範例：
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: <application_name>
+  namespace: <application_namespace>
+spec:
+  includedVirtualMachines:
+    - namespace: <vm_namespace_1>
+      names:
+        - <vm_name_1>
+        - <vm_name_2>
+    - namespace: <vm_namespace_2>
+      names:
+        - <vm_name_3>
+  includedClusterScopedResources:
+    - group: storage.k8s.io
+      kind: StorageClass
+----
+
+
+== 還原特定 KubeVirt VM
+
+您可以使用 `includedVirtualMachines`還原 CR，僅從備份、快照或複製快照存檔中還原選定的 KubeVirt 虛擬機器。
+
+當 `includedVirtualMachines`在還原 CR 上指定時，Trident Protect 僅還原列出的 VirtualMachines 及其相依資源，例如 `VirtualMachineInstance`、 `DataVolume`、 `PersistentVolumeClaim`、 `PersistentVolume`、 `Secret`、 `ConfigMap`、 `ServiceAccount`，以及其他 VM 相關物件。
+
+如果您未在復原 CR 中指定 `includedVirtualMachines`，Trident Protect 將根據復原 CR 設定還原完整的歸檔。
+
+
+
+=== 支援的還原 CR 和 CLI 命令
+
+下表列出了支援的還原 CR `includedVirtualMachines`及其對應的 CLI 命令。
+
+[cols="1,1,3"]
+|===
+| 恢復 CR | CLI 指令 | 說明 
+
+
+| `BackupRestore` | `tridentctl-protect create backuprestore` | 從備份還原到新的或不同的命名空間映射。支援 `namespaceMapping`和 `storageClassMapping`。 
+
+
+| `BackupInplaceRestore` | `tridentctl-protect create backupinplacerestore` | 從備份還原到原始命名空間或多個命名空間。 
+
+
+| `SnapshotRestore` | `tridentctl-protect create snapshotrestore` | 從快照還原到新的或不同的命名空間映射。支援 `namespaceMapping`和 `storageClassMapping`。 
+
+
+| `SnapshotInplaceRestore` | `tridentctl-protect create snapshotinplacerestore` | 從快照還原到原始命名空間或多個命名空間。 
+
+
+| `ReplicateSnapshotRestore` | 僅支援 YAML 格式，或如果您的環境中支援，也可以使用受支援的 CLI 命令。 | 從複製的快照還原。支援 `namespaceMapping`、 `storageClassMapping`，以及使用 `inPlaceRestore`旗標進行原地還原。 
+|===
+
+NOTE:  `tridentctl-protect` CLI 在還原命令上沒有適用於  `includedVirtualMachines` 的旗標。若要還原特定的 VMs，您必須直接使用  `kubectl apply` 套用還原 CR YAML 檔案。您可以從頭撰寫 YAML，或是搭配  `--dry-run --output yaml` 使用 CLI 以產生初始檔案，在  `spec` 下方新增  `includedVirtualMachines` 欄位，然後套用它。
+
+
+
+=== 虛擬機器範圍的復原行為
+
+The `includedVirtualMachines` 恢復 CR 中的欄位使用與應用程式 CR 相同的選擇器格式：
+
+[source, yaml]
+----
+includedVirtualMachines:
+  - namespace: <source_vm_namespace>
+    names:
+      - <vm_name_1>
+      - <vm_name_2>
+----
+對於還原 CR， `includedVirtualMachines`中的命名空間值指的是備份、快照或複製快照封存中存在的來源命名空間。
+
+如果使用 `namespaceMapping`，Trident Protect 會先從來源歸檔中選擇要求的虛擬機，然後在還原過程中套用命名空間對應。如果使用 `storageClassMapping`，Trident Protect 會在還原轉換階段套用儲存類別對應。
+
+
+
+=== 使用 CLI 產生還原 YAML 檔案
+
+您可以使用 `tridentctl-protect`來產生基本復原 CR，然後編輯 YAML 以新增 `includedVirtualMachines`。
+
+[source, console]
+----
+tridentctl-protect create <restore_command> <restore_name> \
+  <restore_options> \
+  --dry-run --output yaml > <restore_name>.yaml
+----
+編輯產生的 YAML ，並在  `spec` 下方新增  `includedVirtualMachines` 欄位，然後套用該檔案：
+
+[source, console]
+----
+kubectl apply -f <restore_name>.yaml
+----
+
+
+=== 範例：定義一個基於虛擬機器的應用程式
+
+以下應用程式保護跨兩個命名空間的三個特定虛擬機器。
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: production-vms
+  namespace: prod
+spec:
+  includedVirtualMachines:
+    - namespace: prod
+      names:
+        - app-server
+        - database-server
+    - namespace: monitoring
+      names:
+        - prometheus-vm
+  includedClusterScopedResources:
+    - group: storage.k8s.io
+      kind: StorageClass
+----
+
+
+=== 範例：建立備份
+
+為基於虛擬機器的應用程式建立備份時，請使用標準備份 CR。備份 CR 中不需要任何虛擬機器特定的欄位。
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Backup
+metadata:
+  name: daily-backup
+  namespace: prod
+spec:
+  applicationRef: production-vms
+  appVaultRef: s3-vault
+----
+
+
+=== 範例：從備份還原單一虛擬機
+
+以下範例僅從備份存檔中還原  `database-server`。存檔中的其他虛擬機器（例如  `app-server` 和  `prometheus-vm`）將被跳過。
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupRestore
+metadata:
+  name: restore-db-only
+  namespace: prod-vms-restore
+spec:
+  appVaultRef: s3-vault
+  appArchivePath: backups/production-vms/2026-03-10T00-00-00Z
+  namespaceMapping:
+    - source: prod
+      destination: prod-dr
+  includedVirtualMachines:
+    - namespace: prod
+      names:
+        - database-server
+----
+[source, console]
+----
+kubectl apply -f restore-db-only.yaml
+----
+僅 `database-server`及其相依資源（例如 DataVolumes、PVCs、PVs、Secrets、ConfigMaps及相關 KubeVirt 資源）會還原。
+
+
+
+=== 範例：從備份中就地還原單一虛擬機
+
+以下範例僅將 `database-server`從備份存檔還原到其原始命名空間。
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupInplaceRestore
+metadata:
+  name: ipr-db-only
+  namespace: prod
+spec:
+  appVaultRef: s3-vault
+  appArchivePath: backups/production-vms/2026-03-10T00-00-00Z
+  includedVirtualMachines:
+    - namespace: prod
+      names:
+        - database-server
+----
+[source, console]
+----
+kubectl apply -f ipr-db-only.yaml
+----
+
+
+=== 範例：從快照還原單一虛擬機
+
+以下範例僅從快照存檔還原 `ubuntu-vm-blue-a627be38`。
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  name: blue-vm-snap-restore
+  namespace: blue
+spec:
+  appVaultRef: my-appvault
+  appArchivePath: snapshots/protectctl-blue-vm/snap-1
+  includedVirtualMachines:
+    - namespace: blue
+      names:
+        - ubuntu-vm-blue-a627be38
+----
+[source, console]
+----
+kubectl apply -f blue-vm-snap-restore.yaml
+----
+
+
+=== 將虛擬機器還原與其他過濾器結合使用
+
+您可以在同一個還原 CR 中同時使用 `includedVirtualMachines`、 `resourceFilter`、 `namespaceMapping`和 `storageClassMapping`來微調要還原的內容。
+
+新增 `resourceFilter`時，Trident Protect 首先會選擇 `includedVirtualMachines`中列出的 VM 及其相依資源。然後套用資源篩選器，進一步縮小這些結果中包含或排除的項目範圍。
+
+[source, yaml]
+----
+spec:
+  includedVirtualMachines:
+    - namespace: <vm_namespace>
+      names:
+        - <vm_name>
+  resourceFilter:
+    resourceSelectionCriteria: Include
+    resourceMatchers:
+      - kinds: ["PersistentVolumeClaim"]
+        names: ["<pvc_name>"]
+----
+對於 `BackupRestore`、 `SnapshotRestore` 和 `ReplicateSnapshotRestore`， `namespaceMapping` 和 `storageClassMapping` 協同工作 `includedVirtualMachines`。 `includedVirtualMachines` 中的命名空間參考對應於歸檔中出現的來源命名空間。命名空間和儲存類別映射在過濾完成後，於復原轉換階段套用。
+
+有關還原行為的詳細資訊，請參閱 link:trident-protect-restore-apps.html["使用Trident Protect 恢復應用程式"]。
+
+
+
+== 使用 CLI 建立虛擬機器範圍的應用程式
+
+使用 `--virtual-machines`標誌可將應用程式的範圍限定於特定的 KubeVirt VM，而不是整個命名空間。 `--virtual-machines`標誌與 `--namespaces`互斥。
+
+.步驟
+. 運行以下命令之一以建立應用程式，並將括號中的值替換為您的環境資訊。 `--virtual-machines` 標誌的格式為  `<namespace>(<vm_name>)`。對於多個 VM，請在括號內使用逗號分隔的名稱：
++
+** 命名空間中的單一虛擬機器：
++
+[source, console]
+----
+tridentctl-protect create application <application_name> \
+  -n <application_namespace> \
+  --virtual-machines "<vm_namespace>(<vm_name>)"
+----
+** 跨命名空間的多台虛擬機器：
++
+[source, console]
+----
+tridentctl-protect create application <application_name> \
+  -n <application_namespace> \
+  --virtual-machines "<vm_namespace_1>(<vm_name_1>,<vm_name_2>),<vm_namespace_2>(<vm_name_3>)"
+----
+
+
+
+
+
+
+== 相關資訊
+
+* link:trident-protect-manage-applications.html["定義管理應用程式"]
+* link:trident-protect-protect-apps.html["保護應用程式"]
+* link:trident-protect-restore-apps.html["使用Trident Protect 恢復應用程式"]
+* link:trident-protect-restore-settings.html["使用進階還原設定"]
+* link:trident-protect-cli.html["安裝Trident Protect CLI 插件"]
+* link:trident-protect-appvault-custom-resources.html["使用 AppVault 物件來管理貯體"]
+

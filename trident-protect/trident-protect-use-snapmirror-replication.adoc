@@ -384,6 +384,17 @@ NOTE: 使用 CR 時，請在套用 CR 之前手動建立目標命名空間。Tri
 *** *spec.sourceApplicationName* ：（ _required _ ）此值必須符合您在來源應用程式 CR 中定義的來源應用程式名稱。
 *** *spec.sourceApplicationUID*: （必要）此值必須與您在來源應用程式 CR 中定義的來源應用程式的 UID 相符。
 *** *spec.storageClassName*: (_可選_) 選擇叢集上有效的儲存類別的名稱。儲存類別必須連結到與來源環境建立對等連線的ONTAP儲存 VM。如果未提供儲存類，則預設使用叢集上的預設儲存類別。
+*** *spec.storageClassMapping*: （_可選_）將同一 AMR 內各個 PVC 的來源儲存類別對應到目標儲存類別。每個條目都需要一個 `source`和 `destination`儲存類別名稱。設定後， `storageClassMapping`將完全覆蓋 `storageClassName`；沒有符合來源條目的 PVC 將使用叢集預設儲存類別，而非 `storageClassName`。
++
+在 AppMirrorRelationship CR 中使用 `storageClassMapping`時，請注意以下限制：
+
++
+**** `storageClassMapping` 覆蓋  `storageClassName` 的全部內容。當兩個欄位都設定時， `storageClassName` 將被忽略。
+**** 來源儲存類別在 `storageClassMapping`中沒有相符條目的 PVC 將使用叢集預設儲存類別，而非 `storageClassName`。
+**** 每個條目都需要一個 `source`和 `destination`值。
+**** 更改目標儲存類別可能會強制刪除並重新建立現有的目標 PVC。
+
+
 *** *spec.recurrenceRule* ：以 UTC 時間和循環時間間隔定義開始日期。
 +
 YAML 範例：
@@ -428,10 +439,14 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 +
 [source, console]
 ----
-tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --source-app-vault <my_vault_name> --recurrence-rule <rule> --namespace-mapping <ns_mapping> --source-app-id <source_app_UID> --source-app <my_source_app_name> --storage-class <storage_class_name> -n <application_namespace>
+tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --source-app-vault <my_vault_name> --recurrence-rule <rule> --namespace-mapping <ns_mapping> --source-app-id <source_app_UID> --source-app <my_source_app_name> --storage-class <storage_class_name> --storageclass-mapping  <src_class:dst_class> -n <application_namespace>
 ----
 +
-*範例：*
+
+NOTE: 使用 `--storageclass-mapping`將各個來源儲存類別對應到目標儲存類別。指定一個或多個 `source:destination`以逗號分隔的鍵值對（例如， `"class-a:class-b,class-c:class-d"`）。使用 `*:destination-class`作為萬用字元，可將所有未對應的 PVC 對應到單一目標儲存類別。當 `--storageclass-mapping`設定後， `--storage-class`將被忽略。
+
++
+*使用單一目標儲存類別的範例 (`--storage-class`）：*
 
 +
 [source, console]

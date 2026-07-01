@@ -136,7 +136,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 == 設定其他Trident Protect 舵圖設置
 
-您可以自訂AutoSupport設定和命名空間過濾以滿足您的特定要求。下表描述了可用的配置參數：
+您可以自訂 AutoSupport 設定、命名空間篩選和 OpenShift Webhook 憑證管理，以滿足您的特定需求。下表說明可用的組態參數：
 
 |===
 | 參數 | 類型 | 說明 
@@ -155,6 +155,9 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 
 | restoreSkipNamespaceLabels | 字串 | 若要從備份和復原作業中排除的命名空間標籤的逗號分隔清單。允許您根據標籤過濾命名空間。 
+
+
+| useOpenshiftServiceCA | 布林值 | 啟用與 OpenShift 原生 Service CA Operator 的整合，以便為 Trident Protect 准入 Webhook 自動建立和注入 TLS 憑證。設為 `true`時，Service CA Operator 將自動管理 Webhook TLS 憑證。僅在 OpenShift 叢集上使用。（預設值： `false`） 
 |===
 您可以使用 YAML 設定檔或命令列標誌來設定這些選項：
 
@@ -174,6 +177,7 @@ autoSupport:
   insecure: true
 restoreSkipNamespaceAnnotations: "annotation1,annotation2"
 restoreSkipNamespaceLabels: "label1,label2"
+useOpenshiftServiceCA: true
 ----
 . 填充後 `values.yaml`具有正確值的文件，應用設定檔：
 +
@@ -196,6 +200,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
   --set autoSupport.proxy=http://my.proxy.url \
   --set-string restoreSkipNamespaceAnnotations="{annotation1,annotation2}" \
   --set-string restoreSkipNamespaceLabels="{label1,label2}" \
+  --set useOpenshiftServiceCA=true \
   --reuse-values
 ----
 

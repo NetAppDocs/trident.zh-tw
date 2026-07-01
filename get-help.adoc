@@ -80,11 +80,6 @@ link:https://docs.netapp.com/us-en/trident-2307/index.html["23.07"^]
  a| 
 link:https://docs.netapp.com/us-en/trident-2304/index.html["23.04"^]
 | -- | -- | 2026 年 4 月 
-
-
- a| 
-link:https://docs.netapp.com/us-en/trident-2301/index.html["23.01"^]
-| -- | -- | 2026 年 1 月 
 |===
 
 

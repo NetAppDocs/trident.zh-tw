@@ -38,7 +38,7 @@ summary: '您可以使用安裝 Trident `tridentctl` 。此程序適用於 Tride
 檢查 link:kubernetes-deploy.html["安裝總覽"] 以確保滿足安裝先決條件並為您的環境選擇了正確的安裝選項。
 
 .開始之前
-在開始安裝之前、請先登入Linux主機、然後確認它正在管理正常運作的 link:requirements.html["支援的Kubernetes叢集"^] 而且您擁有必要的權限。
+在開始安裝之前，請登入 Linux 主機並驗證它是否正在管理運作中的 link:../trident-get-started/requirements.html["支援的Kubernetes叢集"^]，以及您是否擁有必要的權限。
 
 
 NOTE: 使用OpenShift時、請在所有範例中使用「oc"而非「kubecll」、然後先執行「ocLogin -u system:admin」或「occ login-u kube-admin」、以*系統：admin*登入。

@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-move.html 
+keywords: trident, volume move, move volume, ontap-san, iscsi, tridentvolumemove, non-disruptive, aggregate, node, relocate 
+summary: 使用 TridentVolumeMove 資源，以非中斷方式將 iSCSI 磁碟區移至同一叢集內的不同 ONTAP 節點和 Aggregate。 
+---
+= 移動磁碟區
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+從 Trident 26.06 開始，儲存管理員可以在工作負載持續運行的情況下，將 iSCSI 磁碟區無中斷地移動至相同 ONTAP 叢集內的不同 ONTAP 節點和聚合。您可以透過 `TridentVolumeMove`自訂資源或 `tridentctl`等效方式以宣告式方式要求移動，Trident 會協調 ONTAP 和主機，確保 I/O 不會中斷。
+
+
+
+== 需求
+
+磁碟區移動功能適用於 iSCSI 磁碟區的 `ontap-san`驅動程式。不支援 NVMe 和 NAS 協定。
+
+在移動磁碟區之前，請確保符合下列需求：
+
+* 後端使用 `ontap-san`驅動程式搭配 ONTAP REST API。
+* ONTAP 叢集至少有兩個節點。
+* 您擁有以下其中一組憑證：
++
+** 如果使用專用自訂 ONTAP 角色，則需要 ONTAP 9.19.1 或更高版本。
+** 早期 ONTAP 版本中的叢集管理員憑證。
+
+
+
+
+
+
+== 工作原理
+
+Trident 會在同一 ONTAP 叢集內的兩個位置之間移動磁碟區（LUN）。在資料移動之前，Trident 會在目標位置新增新的 iSCSI 路徑，與現有路徑並存，以確保主機多路徑裝置始終保持存取。ONTAP 完成移動後，Trident 會刪除過時的來源路徑。
+
+Trident 透過  `TridentVolumeMove` 資源中可見的一組有序狀態來驅動移動，以便您可以追蹤移動進度。
+
+
+
+== 移動磁碟區
+
+
+
+=== 識別磁碟區和位置
+
+. 找到要移動的 PV 的名稱。PV 名稱也是移動資源的名稱。
+. 從 ONTAP 叢集中，記下該磁碟區目前的（來源）節點和 Aggregate，然後選擇目的地（目標）節點和 Aggregate。
+
+
+
+
+=== 開始移動
+
+兩種方法都可以。兩種方法都會建立相同的 `TridentVolumeMove`資源，資源名稱即為 PV 名稱。
+
+[role="tabbed-block"]
+====
+.使用 tridentctl
+--
+[source, console]
+----
+tridentctl create volume-move \
+  --volume      pvc-8a814d62-bd58-4253-b0d1-82f2885db671 \
+  --source-node ontap-node-01 \
+  --source-pool aggr1_node01 \
+  --target-node ontap-node-02 \
+  --target-pool aggr1_node02 \
+  -n trident
+----
+`tvm`是 `volume-move`的別名。新增 `--delete-after-success 10m`可在移動成功後自動刪除資源。
+
+--
+.使用 TridentVolumeMove 資源
+--
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentVolumeMove
+metadata:
+  name: pvc-8a814d62-bd58-4253-b0d1-82f2885db671   # the PV to move
+  namespace: trident
+spec:
+  sourceNode: ontap-node-01
+  sourcePool: aggr1_node01
+  targetNode: ontap-node-02
+  targetPool: aggr1_node02
+  # deleteAfterSuccess: 10m   # optional
+----
+應用該資源：
+
+[source, console]
+----
+kubectl apply -f tridentvolumemove.yaml
+----
+--
+====
+.規格欄位
+`sourceNode` / `targetNode`:: ONTAP 節點名稱（不是 UUID）。
+`sourcePool` / `targetPool`:: ONTAP aggregate 名稱。
+`deleteAfterSuccess`:: 可選持續時間，例如 `30s`或 `10m`。設定為 `0`可立即刪除資源，省略則可保留資源。
+
+
+
+
+=== 監控移動
+
+使用 `tvm`簡稱或 `tridentvolumemove`追蹤進度：
+
+[source, console]
+----
+kubectl get tridentvolumemove -n trident
+----
+若要查看目前狀態和每個節點的進度，請描述資源：
+
+[source, console]
+----
+kubectl describe tridentvolumemove <pv-name> -n trident
+----
+在 `Moving`狀態期間，磁碟區可以同時存在多個附件，因為 ONTAP 可能需要一些時間才能完成大型磁碟區的遷移。為了確保無縫遷移，Trident 會在 Trident 控制器和 Trident 節點之間進行協調。每個狀態依序執行以下步驟，最終以 `Succeeded`或 `Failed`結束。
+
+[cols="1,2"]
+|===
+| 狀態 | 怎麼了 
+
+
+| `Pending` | Trident 會接受並驗證移動請求，並在開始任何儲存變更之前收集所需的資訊。 
+
+
+| `ControllerStaging` | Trident 會準備目標位置。它會將目標節點的儲存介面對應到 LUN，並更新 Kubernetes，以便將來節點重新啟動時能夠重新連線至正確的位置。 
+
+
+| `NodeStaging` | 在每個掛載了該磁碟區的主機上，Trident 會將目標節點的新儲存路徑新增至現有路徑旁邊，以便 pod 的 I/O 可以在兩組路徑上繼續進行。 
+
+
+| `Moving` | ONTAP 將磁碟區資料複製並切換到目標 Aggregate。這是耗時最長的階段，整個過程由 ONTAP 獨立完成，Trident 會輪詢直至完成。在此狀態下允許新的發布。 
+
+
+| `ControllerUnstaging` | 資料移動已完成。Trident 更新 Kubernetes，從所需狀態中刪除來源路徑，然後從 LUN 取消映射來源節點的儲存介面。 
+
+
+| `NodeUnstaging` | 在每台主機上，Trident 會移除過時的來源路徑。主機上只保留目標路徑，多路徑裝置可繼續不間斷地提供 I/O 服務。 
+
+
+| `Succeeded` | 磁碟區已完全移動至目標位置並上線。Trident 會保留 `TridentVolumeMove`資源，或者如果您設定了 `deleteAfterSuccess`，則會自動將其刪除。 
+
+
+| `Failed` | 不可恢復的錯誤導致遷移操作中止或無法啟動。Trident 重設磁碟區狀態以便恢復正常運作，並保留資源以及錯誤訊息。請查看錯誤訊息，修復根本原因，刪除該資源，然後再試一次。 
+|===
+此 `.status.attachments`清單會報告每個附加節點在其 `state`欄位中的進度：
+
+[cols="1,2"]
+|===
+| 依附狀態 | 意義 
+
+
+| `Pending` | 節點已識別為已連線；工作尚未開始。 
+
+
+| `Bridged` | 在現有路徑之外新增目標路徑。 
+
+
+| `Migrated` | 流量現在已透過新路徑提供服務。 
+
+
+| `Cleaned` | 從節點中移除過時的來源路徑。 
+
+
+| `Detached` | 節點在移動過程中已分離，並排除在進一步考慮之外，而 Trident 正在評估連接是否已準備好進行下一步。 
+
+
+| `Failed` | 此節點出現終端錯誤。請查看訊息。 
+|===
+
+
+=== 清理移動資源
+
+如果設定了 `deleteAfterSuccess`，Trident 會自動移除資源。否則，您可以手動刪除。在要求對同一磁碟區進行另一次移動之前，請確保該磁碟區不存在任何處於 `TridentVolumeMove`狀態的資源，無論是 `Succeeded`還是 `Failed`狀態。
+
+[NOTE]
+====
+Trident 不會自動刪除失敗的移動。Trident 將 `Failed`資源保留為稽核記錄。修復根本原因後，請在重試之前手動刪除該資源。
+
+====

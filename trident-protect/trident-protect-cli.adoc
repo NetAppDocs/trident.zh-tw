@@ -18,6 +18,7 @@ summary: 您可以使用 protectctl 指令建立和操作Trident Protect 自訂�
 
 
 
+[[install-the-trident-protect-cli-plugin]]
 == 安裝Trident Protect CLI 插件
 
 在使用命令列公用程式之前，您必須先將其安裝在用來存取叢集的機器上。根據您的機器使用的是 x64 或 ARM CPU ，請遵循下列步驟。
@@ -31,7 +32,7 @@ summary: 您可以使用 protectctl 指令建立和操作Trident Protect 自訂�
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.06.0/tridentctl-protect-linux-amd64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/v26.06.0/tridentctl-protect-linux-amd64
 ----
 
 
@@ -43,7 +44,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.06.0/tridentctl-protect-linux-arm64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/v26.06.0/tridentctl-protect-linux-arm64
 ----
 
 
@@ -55,7 +56,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.06.0/tridentctl-protect-macos-amd64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/v26.06.0/tridentctl-protect-macos-amd64
 ----
 
 
@@ -67,7 +68,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.06.0/tridentctl-protect-macos-arm64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/v26.06.0/tridentctl-protect-macos-arm64
 ----
 
 
@@ -98,6 +99,7 @@ NOTE: 將外掛程式複製到 PATH 變數中的某個位置，可讓您輸入�
 
 
 
+[[view-trident-cli-plugin-help]]
 == 檢視 Trident CLI 外掛程式說明
 
 您可以使用內建的外掛程式說明功能，取得外掛程式功能的詳細說明：
@@ -113,6 +115,7 @@ tridentctl-protect help
 
 
 
+[[enable-command-auto-completion]]
 == 啟用命令自動完成
 
 安裝Trident Protect CLI 外掛程式後，您可以為某些指令啟用自動補全功能。

@@ -16,6 +16,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 
 
 
+[[backend-configuration-options]]
 == 後端組態選項
 
 如需後端組態選項、請參閱下表：
@@ -116,6 +117,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 |===
 
 
+[[update-datalif-after-initial-configuration]]
 === 更新 `dataLIF` 初始組態之後
 
 您可以在初始設定後變更 dataLIF ，方法是執行下列命令，以更新的 dataLIF 提供新的後端 JSON 檔案。
@@ -129,6 +131,7 @@ NOTE: 如果 PVCS 連接到一個或多個 Pod ，您必須關閉所有對應的
 
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == 用於資源配置磁碟區的後端組態選項
 
 您可以使用中的這些選項來控制預設資源配置 `defaults` 組態區段。如需範例、請參閱下列組態範例。
@@ -175,6 +178,7 @@ NOTE: 如果 PVCS 連接到一個或多個 Pod ，您必須關閉所有對應的
 |===
 
 
+[[example-configurations]]
 == 組態範例
 
 .SMB 磁碟區的儲存類別組態

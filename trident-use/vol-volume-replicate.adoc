@@ -20,6 +20,7 @@ Trident 支援一個叢集上的來源磁碟區與對等叢集上的目的地磁
 
 
 
+[[replication-prerequisites]]
 == 複寫先決條件
 
 在您開始之前、請確定符合下列先決條件：
@@ -53,6 +54,7 @@ NOTE: ASA r2 系統不支援使用 SnapMirror 進行磁碟區複製。有關 ASA
 
 
 
+[[create-a-mirrored-pvc]]
 == 建立鏡射 PVC
 
 請遵循下列步驟、並使用 CRD 範例在主要和次要磁碟區之間建立鏡射關係。
@@ -197,6 +199,7 @@ Trident 會檢查 TridentMirrorRelationship CRD ，如果關係不存在，則�
 
 
 
+[[volume-replication-states]]
 == Volume 複寫狀態
 
 Trident Mirror Relationship （ TMR ）是一種 CRD 、代表 PVC 之間複寫關係的一端。目的地 TMR 具有狀態，可告知 Trident 所需的狀態。目的地 TMR 有下列狀態：
@@ -213,6 +216,7 @@ Trident Mirror Relationship （ TMR ）是一種 CRD 、代表 PVC 之間複寫�
 
 
 
+[[promote-secondary-pvc-during-an-unplanned-failover]]
 == 在非計畫性容錯移轉期間升級次要 PVC
 
 在次 Kubernetes 叢集上執行下列步驟：
@@ -222,6 +226,7 @@ Trident Mirror Relationship （ TMR ）是一種 CRD 、代表 PVC 之間複寫�
 
 
 
+[[promote-secondary-pvc-during-a-planned-failover]]
 == 在規劃的容錯移轉期間升級次要 PVC
 
 在計畫性容錯移轉（移轉）期間、請執行下列步驟來升級次要 PVC ：
@@ -246,6 +251,7 @@ spec:
 
 
 
+[[restore-a-mirror-relationship-after-a-failover]]
 == 在容錯移轉後還原鏡射關係
 
 還原鏡射關係之前、請先選擇要設為新主要的一面。
@@ -257,12 +263,14 @@ spec:
 
 
 
+[[additional-operations]]
 == 其他作業
 
 Trident 支援在主要和次要磁碟區上執行下列作業：
 
 
 
+[[replicate-primary-pvc-to-a-new-secondary-pvc]]
 === 將主要 PVC 複製到新的次要 PVC
 
 請確定您已擁有主要 PVC 和次要 PVC 。
@@ -275,12 +283,14 @@ Trident 支援在主要和次要磁碟區上執行下列作業：
 
 
 
+[[resize-a-mirrored-primary-or-secondary-pvc]]
 === 調整鏡射、主要或次要 PVC 的大小
 
 PVC 可以正常調整大小、如果資料量超過目前大小、 ONTAP 會自動擴充任何目的地 flevxols 。
 
 
 
+[[remove-replication-from-a-pvc]]
 === 從 PVC 移除複寫
 
 若要移除複寫、請在目前的次要磁碟區上執行下列其中一項作業：
@@ -291,24 +301,28 @@ PVC 可以正常調整大小、如果資料量超過目前大小、 ONTAP 會自
 
 
 
+[[delete-a-pvc-that-was-previously-mirrored]]
 === 刪除 PVC （先前已鏡射）
 
 Trident 會檢查複寫的 PVCS ，並在嘗試刪除磁碟區之前先釋放複寫關係。
 
 
 
+[[delete-a-tmr]]
 === 刪除 TMR
 
 刪除鏡射關係一側的 TMR 會導致其餘 TMR 在 Trident 完成刪除之前轉換至 _升 遷狀態。如果選取要刪除的 TMR 已處於 _Promive_ 狀態，則沒有現有的鏡射關係， TMR 將會移除，而 Trident 會將本機 PVC 升級為 _ReadWrite_ 。此刪除作業會在 ONTAP 中針對本機磁碟區釋出 SnapMirror 中繼資料。如果此磁碟區在未來的鏡射關係中使用、則在建立新的鏡射關係時、它必須使用具有 _ 建立 _ 磁碟區複寫狀態的新 TMR 。
 
 
 
+[[update-mirror-relationships-when-ontap-is-online]]
 == 當 ONTAP 連線時、請更新鏡射關係
 
 建立鏡射關係之後、可以隨時更新它們。您可以使用 `state: promoted` 或 `state: reestablished` 欄位來更新關聯。將目的地 Volume 升級為一般 ReadWrite Volume 時、您可以使用 _promotedSnapshotHandle_ 來指定特定快照、將目前的 Volume 還原至。
 
 
 
+[[update-mirror-relationships-when-ontap-is-offline]]
 == 當 ONTAP 離線時更新鏡射關係
 
 您可以使用 CRD 來執行 SnapMirror 更新，而無需 Trident 直接連線至 ONTAP 叢集。請參閱下列 TridentActionMirrorUpdate 範例格式：

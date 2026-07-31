@@ -16,6 +16,7 @@ summary: 您可以收集記錄以協助疑難排解。收集記錄的方法會�
 
 
 
+[[collect-logs-for-troubleshooting]]
 == 收集記錄以進行疑難排解
 
 .步驟
@@ -64,6 +65,7 @@ docker plugin enable <plugin>
 
 
 
+[[general-troubleshooting-tips]]
 == 一般疑難排解秘訣
 
 * 新使用者最常遇到的問題是組態錯誤、導致外掛程式無法初始化。發生這種情況時、當您嘗試安裝或啟用外掛程式時、可能會看到如下訊息：

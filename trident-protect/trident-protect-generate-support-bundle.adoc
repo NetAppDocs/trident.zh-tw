@@ -83,6 +83,7 @@ tridentctl-protect create autosupportbundle <my-bundle-name> --trigger-type <tri
 ====
 
 
+[[monitor-and-retrieve-the-support-bundle]]
 == 監視和檢索支援包
 
 使用任一方法建立支援包後，您可以監視其產生進度並將其檢索到本機系統。

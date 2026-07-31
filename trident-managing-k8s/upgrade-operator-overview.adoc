@@ -16,6 +16,7 @@ summary: 在使用 Trident 操作員升級 Trident 之前、您應該先瞭解�
 
 
 
+[[trident-operator-upgrade-handling]]
 == Trident 營運商升級處理
 
 安裝和升級 Trident 的眾多link:../trident-install/kubernetes-deploy.html["使用 Trident 運算子的優點"]之一是能夠自動處理 Trident 和 Kubernetes 物件，而不會中斷現有掛載的磁碟區。這樣，Trident 可以支援零停機升級，或link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["滾動更新 _"^]。具體來說，Trident Operator 與 Kubernetes 叢集通訊以：
@@ -34,6 +35,7 @@ TIP: 有關 Kubernetes 叢集上 Trident 架構的詳細資訊link:../trident-ge
 
 
 
+[[operator-upgrade-workflow]]
 == 營運商升級工作流程
 
 當您使用 Trident 運算子啟動升級時：

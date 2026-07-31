@@ -13,10 +13,12 @@ summary: 使用 Trident Autogrow 策略管理自動磁碟區擴充。
 
 
 
+[[view-autogrow-policies]]
 == 檢視自動成長原則
 
 
 
+[[list-all-policies]]
 === 列出所有原則
 
 使用 `kubectl`列出叢集中的所有 Autogrow 原則：
@@ -33,6 +35,7 @@ tridentctl get autogrowpolicy
 ----
 
 
+[[view-policy-details]]
 === 檢視原則詳細資料
 
 若要檢視原則的完整規格和狀態：
@@ -49,6 +52,7 @@ tridentctl get autogrowpolicy production-db-policy -o yaml
 ----
 
 
+[[update-an-autogrow-policy]]
 == 更新 Autogrow 策略
 
 您可以修改現有原則，以變更其臨界值、成長量或大小上限。變更會立即對所有使用該原則的磁碟區生效。
@@ -77,6 +81,7 @@ spec:
 
 
 
+[[update-considerations]]
 === 更新考量事項
 
 * *立即生效：*所有使用此原則的磁碟區將在下次成長評估時採用新參數。
@@ -87,6 +92,7 @@ spec:
 
 
 
+[[delete-an-autogrow-policy]]
 == 刪除 Autogrow 策略
 
 自動增長原則使用終結器保護，以防止磁碟區在積極使用時意外刪除。
@@ -129,6 +135,7 @@ kubectl annotate pvc <pvc-name> \
 
 
 
+[[deletion-behavior]]
 === 刪除行為
 
 [cols="1,2"]
@@ -146,10 +153,12 @@ kubectl annotate pvc <pvc-name> \
 |===
 
 
+[[monitor-autogrow-policy-usage]]
 == 監控 Autogrow Policy 使用情況
 
 
 
+[[check-volumes-using-a-policy]]
 === 使用原則檢查磁碟區
 
 [source, console]
@@ -158,6 +167,7 @@ tridentctl get autogrowpolicy production-db-policy -o json | jq '.volumes'
 ----
 
 
+[[find-which-policy-a-volume-uses]]
 === 尋找磁碟區使用的原則
 
 [source, console]
@@ -166,6 +176,7 @@ kubectl get pvc database-pvc -o jsonpath='{.metadata.annotations.trident\.netapp
 ----
 
 
+[[monitor-policy-events]]
 === 監控原則事件
 
 [source, console]
@@ -174,6 +185,7 @@ kubectl get events --field-selector involvedObject.kind=TridentAutogrowPolicy
 ----
 
 
+[[supported-protocols]]
 == 支援的通訊協定
 
 Autogrow 支援以下儲存傳輸協定：
@@ -189,12 +201,14 @@ NOTE: 對於 SAN 磁碟區，如果設定的 `growthAmount`為 50 MiB 或更小�
 
 
 
+[[supported-backends]]
 == 支援的後端
 
 Autogrow 支援 ONTAP 後端。Autogrow 也支援 Google Cloud NetApp Volumes （GCNV） 的 NAS 和 SAN 磁碟區。
 
 
 
+[[known-limitations]]
 == 已知限制
 
 * *ONTAP NVMe 原始區塊磁碟區：*使用 ONTAP 9.16.1 之前版本建立的磁碟區不支援自動成長。
@@ -203,10 +217,12 @@ Autogrow 支援 ONTAP 後端。Autogrow 也支援 Google Cloud NetApp Volumes �
 
 
 
+[[frequently-asked-questions]]
 == 常見問題集
 
 
 
+[[when-does-trident-evaluate-the-threshold]]
 === Trident 何時評估閾值？
 
 Trident 持續監控磁碟區使用量。當已使用容量超過 `usedThreshold`時，Trident 會建立內部調整大小請求，並依據設定的 `growthAmount`擴充磁碟區。
@@ -226,6 +242,7 @@ spec:
 ----
 
 
+[[can-i-apply-a-policy-after-volumes-are-already-provisioned]]
 === 磁碟區已配置完畢後，我還能套用原則嗎？
 
 是的。您可以隨時建立 Autogrow Policy，並透過新增或更新 `trident.netapp.io/autogrowPolicy`註解將其應用於現有的 PVC。您無需重新建立 PVC 或 StorageClass。
@@ -248,6 +265,7 @@ kubectl annotate storageclass ontap-gold \
 ----
 
 
+[[what-happens-if-i-set-an-autogrow-policy-on-both-the-storageclass-and-the-pvc]]
 === 如果我在 StorageClass 和 PVC 上都設定了自動成長策略會發生什麼事？
 
 PVC 註解始終優先。如果 PVC 具有 `trident.netapp.io/autogrowPolicy`註解，Trident 將使用該值，而不管 StorageClass 中指定了什麼值。詳情請參閱 link:automatic-volume-expansion.html#policy-precedence["政策優先順序"]。
@@ -287,6 +305,7 @@ Trident 使用 `logs-policy`for `database-pvc`，不是 `standard-agp`。
 
 
 
+[[how-do-i-disable-autogrow-for-a-specific-volume]]
 === 如何停用特定磁碟區的自動增長？
 
 將 PVC 註釋設定為 `"none"`。此設定會覆蓋該磁碟區的任何 StorageClass 層級原則：
@@ -310,6 +329,7 @@ none
 ----
 
 
+[[what-happens-when-a-volume-reaches-maxsize]]
 === 當磁碟區達到 maxSize 時會發生什麼事？
 
 Trident 停止擴充磁碟區。即使使用量持續增加超過 `usedThreshold`，它也不會再為該磁碟區建立任何調整大小的請求。
@@ -341,6 +361,7 @@ spec:
 ----
 
 
+[[can-i-change-a-policy-without-restarting-volumes]]
 === 我可以在不重新啟動磁碟區的情況下變更原則嗎？
 
 是的。更新原則後，所有使用此原則的磁碟區都會在下次成長評估時採用新參數。無需重新啟動磁碟區。
@@ -374,6 +395,7 @@ production-db-policy   75%              20%             Success
 ----
 
 
+[[why-is-my-policy-in-a-failed-state]]
 === 為什麼我的原則處於失敗狀態？
 
  `Failed` 狀態表示原則規格包含驗證錯誤。執行下列命令以檢視錯誤詳細資料：
@@ -390,6 +412,7 @@ kubectl apply -f autogrow-policy.yaml
 ----
 
 
+[[why-cant-i-delete-a-policy]]
 === 為什麼我無法刪除原則？
 
 策略使用終結器保護。如果磁碟區仍然使用該策略，刪除操作將進入 `Deleting`狀態，並等待您將所有磁碟區從該策略中移除。
@@ -417,6 +440,7 @@ kubectl annotate pvc <pvc-name> \
 
 
 
+[[which-backends-does-autogrow-support]]
 === 自動增長功能支援哪些後端？
 
 Autogrow 支援 ONTAP 後端。也支援 Google Cloud NetApp Volumes （GCNV） 的 NAS 和 SAN 磁碟區。
@@ -463,6 +487,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[what-is-the-minimum-growth-amount-for-san-volumes]]
 === SAN 磁碟區的最小成長量是多少？
 
 對於 SAN 磁碟區，有效最小增長量為 51 MB。如果您配置的 `growthAmount`為 50 MiB 或更少，Trident 會自動將調整大小作業的增長量增加到 51 MB。

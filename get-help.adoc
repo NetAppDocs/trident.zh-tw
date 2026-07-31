@@ -16,6 +16,7 @@ NetApp以多種方式支援Trident。我們全年無休提供豐富的免費自�
 
 
 
+[[trident-support-lifecycle]]
 == Trident 支援生命週期
 
 Trident 會根據您的版本提供三個層級的支援。請參閱 link:https://mysupport.netapp.com/site/info/version-support["NetApp 軟體版本支援定義"^]。
@@ -30,6 +31,11 @@ Trident 會根據您的版本提供三個層級的支援。請參閱 link:https:
 
 
 | 版本 | 完全支援 | 有限支援 | 自我支援 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident/index.html["26.06"^]
+| 2026 年 7 月 | 2027 年 7 月 | 2028 年 7 月 
 
 
  a| 
@@ -83,24 +89,28 @@ link:https://docs.netapp.com/us-en/trident-2304/index.html["23.04"^]
 |===
 
 
+[[self-support]]
 == 自我支援
 
 如需完整的疑難排解文章清單，請參閱 https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["NetApp知識庫（需要登入）"^]。
 
 
 
+[[community-support]]
 == 社群支援
 
 我們的上有一個充滿活力的公共容器使用者社群（包括 Trident 開發人員）link:https://discord.gg/NetApp["不和通路"^]。這是您提出專案相關一般問題、並與志同道合的同儕討論相關主題的好地方。
 
 
 
+[[netapp-technical-support]]
 == NetApp 技術支援
 
 如需 Trident 的說明、請使用建立支援服務組合 `tridentctl logs -a -n trident`、並將其傳送至 `NetApp Support <Getting Help>`。
 
 
 
+[[for-more-information]]
 == 以取得更多資訊
 
 * link:https://github.com/NetApp/trident["Trident 資源"^]

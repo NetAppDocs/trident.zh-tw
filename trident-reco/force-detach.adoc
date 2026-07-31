@@ -16,6 +16,7 @@ Trident 的強制分離功能可讓您自動將磁碟區從 Kubernetes 叢集中
 
 
 
+[[details-about-force-detach]]
 == 強制分離的詳細資料
 
 強制分離適用於 `ontap-san`， `ontap-san-economy` ， `ontap-nas` ， 和 `ontap-nas-economy`僅有的。在啟用強制分離之前，必須在 Kubernetes 叢集上啟用非正常節點關閉 (NGNS)。Kubernetes 1.28 以上版本預設啟用 NGNS。有關詳細信息，請參閱link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes ：非正常節點關機"^] 。
@@ -44,12 +45,14 @@ NOTE: Trident 控制器將拒絕新的發佈 Volume 要求、直到 Trident 節�
 
 
 
+[[details-about-automated-failover]]
 == 有關自動故障轉移的詳細信息
 
 您可以透過與下列系統的整合來自動執行強制分離程序：link:https://github.com/medik8s/node-healthcheck-operator["節點健康檢查 (NHC) 操作符"^] 。當節點發生故障時，NHC 會透過在 Trident 的命名空間中建立 TridentNodeRemediation CR 來定義故障節點，從而觸發Trident節點修復 (TNR) 並自動強制分離。TNR 僅在節點發生故障時創建，並在節點恢復上線或節點被刪除後由 NHC 刪除。
 
 
 
+[[failed-node-pod-removal-process]]
 === 節點 Pod 移除過程失敗
 
 自動故障轉移會選擇要從故障節點移除的工作負載。建立 TNR 時，TNR 控制器會將節點標記為髒節點，阻止任何新的捲發布，並開始移除強制分離支援的 pod 及其磁碟區附件。
@@ -88,6 +91,7 @@ NOTE: Trident 控制器將拒絕新的發佈 Volume 要求、直到 Trident 節�
 ====
 
 
+[[tridentnoderemediation-cr]]
 === TridentNode修復CR
 
 TridentNodeRemediation (TNR) CR 定義了一個故障節點。TNR 的名稱是故障節點的名稱。
@@ -135,6 +139,7 @@ TNR（誘捕、絕育、放歸）可能處於下列幾種狀態之一：
 
 
 
+[[enabling-automated-failover]]
 === 啟用自動故障轉移
 
 *先決條件*：
@@ -198,6 +203,7 @@ spec:
 
 
 
+[[additional-setup-information]]
 === 其他設定訊息
 
 當Trident安裝時啟用了強制分離功能， Trident命名空間中會自動建立兩個額外的資源，以方便與 NHC 整合：TridentNodeRemediationTemplate (TNRT) 和 ClusterRole。
@@ -246,6 +252,7 @@ rules:
 ----
 
 
+[[k8s-cluster-upgrades-and-maintenance]]
 === K8s叢集升級與維護
 
 為防止故障轉移，在 K8s 維護或升級期間暫停自動故障轉移，因為預計節點會停止運作或重新啟動。您可以透過修改 NHC CR 的補丁來暫停該 CR（如上所述）：
@@ -256,6 +263,7 @@ rules:
 
 
 
+[[limitations]]
 === 限制
 
 * 僅對受強制分離支援的捲，在發生故障的節點上阻止 I/O 操作。只有使用強制分離支援的磁碟區/PVC的pod才會自動移除。
@@ -264,6 +272,7 @@ rules:
 
 
 
+[[integrating-custom-node-health-check-solutions]]
 === 整合自訂節點健康檢查解決方案
 
 您可以將節點健康檢查操作器替換為其他節點故障偵測工具，以觸發自動故障轉移。為確保與自動故障轉移機制相容，您的自訂解決方案應：

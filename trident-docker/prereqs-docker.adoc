@@ -16,6 +16,7 @@ summary: 您必須先在主機上安裝及設定必要的通訊協定先決條�
 
 
 
+[[verify-the-requirements]]
 == 驗證需求
 
 * 確認您的部署符合所有的 link:../trident-get-started/requirements.html["需求"]。
@@ -30,6 +31,7 @@ docker --version
 
 
 
+[[nfs-tools]]
 === NFS工具
 
 使用作業系統的命令來安裝NFS工具。
@@ -56,6 +58,7 @@ WARNING: 安裝NFS工具之後、請重新啟動工作節點、以避免將磁�
 
 
 
+[[iscsi-tools]]
 === iSCSI工具
 
 使用適用於您作業系統的命令來安裝iSCSI工具。
@@ -158,6 +161,7 @@ sudo systemctl status open-iscsi
 ====
 
 
+[[nvme-tools]]
 == NVMe 工具
 
 使用適用於您作業系統的命令來安裝 NVMe 工具。
@@ -192,6 +196,7 @@ sudo modprobe nvme-tcp
 ====
 
 
+[[fc-tools]]
 == FC工具
 
 使用作業系統的命令來安裝FC工具。

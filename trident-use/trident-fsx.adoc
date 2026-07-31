@@ -16,6 +16,7 @@ https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon
 
 
 
+[[requirements]]
 == 需求
 
 除了link:../trident-get-started/requirements.html["Trident 需求"]、若要將適用於 ONTAP 的 FSX 與 Trident 整合、您還需要：
@@ -31,6 +32,7 @@ NOTE: 請務必遵循Amazon Linux和Ubuntu所需的節點準備步驟 https://do
 
 
 
+[[considerations]]
 == 考量
 
 * SMB Volume：
@@ -49,6 +51,7 @@ NOTE: 如果您要將 IAM 角色指定給 Trident 、則可以省略將、 `apiK
 
 
 
+[[simultaneous-usage-of-trident-saniscsi-and-ebs-csi-driver]]
 === 同時使用Trident SAN/iSCSI 和 EBS-CSI 驅動程式
 
 如果您打算將 ontap-san 驅動程式（例如 iSCSI）與 AWS（EKS、ROSA、EC2 或任何其他執行個體）一起使用，則節點上所需的多路徑配置可能會與 Amazon Elastic Block Store (EBS) CSI 驅動程式衝突。為了確保多路徑功能不會幹擾同一節點上的 EBS 磁碟，您需要在多路徑設定中排除 EBS。這個例子展示了 `multipath.conf`包含所需Trident設定的文件，同時將 EBS 磁碟排除在多路徑之外：
@@ -67,6 +70,7 @@ blacklist {
 ----
 
 
+[[authentication]]
 == 驗證
 
 Trident 提供兩種驗證模式。
@@ -87,6 +91,7 @@ WARNING: Trident 應以 SVM 使用者或具有相同角色之不同名稱的使�
 
 
 
+[[tested-amazon-machine-images-amis]]
 == 已測試的 Amazon Machine 映像（ Amis ）
 
 EKS 叢集支援各種作業系統，但 AWS 已針對容器和 EKS 最佳化某些 Amazon Machine 映像（ Amis ）。以下 AMI 已通過 NetApp Trident 25.02 測試。
@@ -137,6 +142,7 @@ NOTE: 如果此處未列出您想要的 AMI ，並不表示不支援，只是表
 
 
 
+[[find-more-information]]
 == 如需詳細資訊、請參閱
 
 * https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX for NetApp ONTAP 的支援文件"^]

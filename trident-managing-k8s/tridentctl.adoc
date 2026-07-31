@@ -16,6 +16,7 @@ summary: 深入瞭解tridentctl、這是一個命令列公用程式、可讓您�
 
 
 
+[[commands-and-global-flags]]
 == 命令和全域旗標
 
 您可以執行 `tridentctl help` 取得的可用命令清單 `tridentctl` 或附加 `--help` 標記至任何命令、以取得該特定命令的選項和旗標清單。
@@ -70,10 +71,12 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 ====
 
 
+[[command-options-and-flags]]
 == 命令選項和旗標
 
 
 
+[[create]]
 === 建立
 
 使用 `create`命令將資源新增至 Trident 。
@@ -85,6 +88,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 
 
+[[delete]]
 === 刪除
 
 使用 `delete`命令從 Trident 中移除一或多個資源。
@@ -99,6 +103,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 
 
+[[get]]
 === 取得
 
 使用 `get`命令從 Trident 取得一或多個資源。
@@ -116,6 +121,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 
 
+[[images]]
 === 映像
 
 使用 `images`旗標來列印 Trident 所需的容器影像表格。
@@ -128,6 +134,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 
 
+[[import-volume]]
 === 匯入Volume
 
 使用 `import volume`命令將現有磁碟區匯入 Trident 。
@@ -142,6 +149,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 
 
+[[install]]
 === 安裝
 
 使用 `install`旗標來安裝 Trident 。
@@ -171,6 +179,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 
 
+[[logs]]
 === 記錄
 
 使用 `logs`旗標從 Trident 列印記錄。
@@ -187,6 +196,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 
 
+[[send]]
 === 傳送
 
 使用 `send`命令從 Trident 傳送資源。
@@ -198,6 +208,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 
 
+[[uninstall]]
 === 解除安裝
 
 使用 `uninstall`旗標來解除安裝 Trident 。
@@ -210,6 +221,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 
 
+[[update]]
 === 更新
 
 使用 `update`命令修改 Trident 中的資源。
@@ -221,6 +233,7 @@ WARNING: Trident REST介面可設定為偵聽、僅適用於127.0.0.1（適用�
 
 
 
+[[update-backend-state]]
 === 更新後端狀態
 
 使用 `update backend state` 暫停或恢復後端作業的命令。
@@ -297,6 +310,7 @@ spec:
 ====
 
 
+[[version]]
 === 版本
 
 使用 `version` 用於列印版本的旗標 `tridentctl` 以及執行中的Trident服務。
@@ -309,6 +323,7 @@ spec:
 
 
 
+[[plugin-support]]
 == 外掛程式支援
 
 Tridentctl 支援類似 kubectl 的外掛程式。如果外掛程式二進位檔案名稱遵循「 <plugin> 」配置、則 Tridentctl 會偵測外掛程式、且二進位檔案位於列出 PATH 環境變數的資料夾中。所有偵測到的外掛程式都會列在 tridentctl 說明的外掛程式區段中。或者、您也可以在 enviornment 變數 TRIDENTCTL_plugin_path 中指定外掛程式資料夾來限制搜尋（例如： `TRIDENTCTL_PLUGIN_PATH=~/tridentctl-plugins/`）。如果使用此變數、則 tridenctl 只會在指定的資料夾中搜尋。

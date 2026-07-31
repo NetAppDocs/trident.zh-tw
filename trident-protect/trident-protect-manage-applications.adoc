@@ -18,12 +18,14 @@ summary: 您可以透過建立應用程式 CR 和關聯的 AppVault CR，讓Trid
 
 
 
+[[create-an-appvault-cr]]
 == 建立 AppVault CR
 
 您需要建立一個 AppVault CR，該 CR 將在對應用程式執行資料保護操作時使用，並且 AppVault CR 需要位於安裝了Trident Protect 的叢集上。AppVault CR 是針對您的特定環境的；有關 AppVault CR 的範例，請參閱：link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源。"]
 
 
 
+[[define-an-application]]
 == 定義應用程式
 
 您需要定義要使用Trident Protect 管理的每個應用程式。您可以透過手動建立應用程式 CR 或使用Trident Protect CLI 來定義要管理的應用程式。

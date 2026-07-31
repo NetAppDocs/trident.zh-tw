@@ -16,6 +16,7 @@ summary: 瞭解如何使用「tridentctl」來執行後端管理作業。
 
 
 
+[[create-a-backend]]
 == 建立後端
 
 建立之後 link:backends.html["後端組態檔"^]，執行下列命令：
@@ -34,6 +35,7 @@ tridentctl logs -n trident
 
 
 
+[[delete-a-backend]]
 == 刪除後端
 
 若要從 Trident 刪除後端、請執行下列步驟：
@@ -57,6 +59,7 @@ NOTE: 如果 Trident 已從這個後端佈建磁碟區和快照、但該後端�
 
 
 
+[[view-the-existing-backends]]
 == 檢視現有的後端
 
 若要檢視Trident知道的後端、請執行下列步驟：
@@ -77,6 +80,7 @@ tridentctl get backend -o json -n trident
 
 
 
+[[update-a-backend]]
 == 更新後端
 
 建立新的後端組態檔之後、請執行下列命令：
@@ -95,6 +99,7 @@ tridentctl logs -n trident
 
 
 
+[[identify-the-storage-classes-that-use-a-backend]]
 == 識別使用後端的儲存類別
 
 這是您可以用Json回答的問題類型範例、其中的「tridentctl」會輸出後端物件。這會使用您需要安裝的「jq」公用程式。

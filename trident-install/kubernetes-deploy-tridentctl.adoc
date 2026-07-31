@@ -16,6 +16,7 @@ summary: '您可以使用安裝 Trident `tridentctl` 。此程序適用於 Tride
 
 
 
+[[critical-information-about-trident10]]
 == 關於Trident10的關鍵訊息
 
 * 您必須閱讀下列有關 Trident 的重要資訊。 *
@@ -33,6 +34,7 @@ summary: '您可以使用安裝 Trident `tridentctl` 。此程序適用於 Tride
 ====
 
 
+[[install-trident-using-tridentctl]]
 == 使用安裝 Trident `tridentctl`
 
 檢查 link:kubernetes-deploy.html["安裝總覽"] 以確保滿足安裝先決條件並為您的環境選擇了正確的安裝選項。
@@ -69,18 +71,20 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 ====
 
 
+[[step-1-download-the-trident-installer-package]]
 == 步驟1：下載Trident安裝程式套件
 
 Trident 安裝程式套件會建立 Trident Pod 、設定用於維持其狀態的 CRD 物件、並初始化 CSI 側板、以執行資源配置及將磁碟區附加至叢集主機等動作。從下載並解壓縮最新版本link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]的Trident 安裝程式。在範例中、使用您所選的 Trident 版本更新 _<XX.XX.x.tar.gz>_ Trident 。
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.02.0/trident-installer-26.02.0.tar.gz
-tar -xf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.06.0/trident-installer-26.06.0.tar.gz
+tar -xf trident-installer-26.06.0.tar.gz
 cd trident-installer
 ----
 
 
+[[step-2-install-trident]]
 == 步驟 2 ：安裝 Trident
 
 執行命令、在所需的命名空間中安裝 Trident `tridentctl install` 。您可以新增其他引數來指定映像登錄位置。
@@ -98,14 +102,14 @@ cd trident-installer
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.02 --trident-image <your-registry>/trident:26.02.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.06 --trident-image <your-registry>/trident:26.06.0
 ----
 --
 .不同登錄中的映像
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.02 --trident-image <your-registry>/trident:26.02.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.06 --trident-image <your-registry>/trident:26.06.0
 ----
 --
 ====
@@ -132,12 +136,14 @@ INFO Trident installation succeeded.
 ----
 
 
+[[verify-the-installation]]
 == 驗證安裝
 
 您可以使用Pod建立狀態或來驗證安裝 `tridentctl`。
 
 
 
+[[using-pod-creation-status]]
 === 使用Pod建立狀態
 
 您可以檢閱建立的 Pod 狀態、確認 Trident 安裝是否已完成：
@@ -155,6 +161,7 @@ NOTE: 如果安裝程式未成功完成或 `trident-controller-<generated id>` (
 
 
 
+[[using-tridentctl]]
 === 使用 `tridentctl`
 
 您可以使用 `tridentctl`檢查已安裝的 Trident 版本。
@@ -166,11 +173,12 @@ NOTE: 如果安裝程式未成功完成或 `trident-controller-<generated id>` (
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.02.0        | 26.02.0        |
+| 26.06.0        | 26.06.0        |
 +----------------+----------------+
 ----
 
 
+[[sample-configurations]]
 == 組態範例
 
 以下範例提供使用安裝 Trident 的範例組態 `tridentctl`。

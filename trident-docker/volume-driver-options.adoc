@@ -18,6 +18,7 @@ summary: 每個儲存驅動程式都有一組不同的選項、您可以在建�
 
 
 
+[[ontap-volume-options]]
 == 選購的選購配備ONTAP
 
 NFS ， iSCSI 和 FC 的 Volume Create 選項包括：
@@ -105,6 +106,7 @@ Volume的大小、預設為1 GiB。
 |===
 
 
+[[examples]]
 === 範例
 
 請參閱下列範例：
@@ -161,6 +163,7 @@ docker volume create -d netapp --name my_vol --opt snapshotPolicy=myPolicy
 
 
 
+[[element-software-volume-options]]
 == Element軟體Volume選項
 
 元素軟體選項會顯示與磁碟區相關的服務品質（QoS）原則大小和品質。建立磁碟區時、會使用「-o type =service_level」命名法來指定與其相關的QoS原則。
@@ -185,6 +188,7 @@ docker volume create -d netapp --name my_vol --opt snapshotPolicy=myPolicy
 |===
 
 
+[[example]]
 === 範例
 
 請參閱下列QoS定義範例組態檔：

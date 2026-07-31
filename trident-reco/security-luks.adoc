@@ -34,6 +34,7 @@ grep "aes" /proc/cpuinfo
 
 
 
+[[enable-luks-encryption]]
 == 啟用LUKS加密
 
 您可以使用Linux Unified Key Setup（LUKS）來啟用每個Volume、主機端的加密功能、以利ONTAP 執行SAN和ONTAP 支援SAN經濟效益的磁碟區。
@@ -97,12 +98,14 @@ stringData:
 
 
 
+[[limitations]]
 === 限制
 
 LUKS加密磁碟區無法利用ONTAP 重複資料刪除技術與壓縮技術。
 
 
 
+[[backend-configuration-for-importing-luks-volumes]]
 == 用於匯入 LUKS Volume 的後端組態
 
 若要匯入 LUKS Volume 、您必須在後端將設 `luksEncryption`為(`true`。 `luksEncryption`選項告訴 Trident 卷是否符合 LUKS (`false`）(`true`或不符合 LUKS ），如下例所示。
@@ -124,6 +127,7 @@ defaults:
 ----
 
 
+[[pvc-configuration-for-importing-luks-volumes]]
 == 用於匯入 LUKS Volume 的 PVC 組態
 
 若要動態匯入 LUKS Volume 、請將註釋設 `trident.netapp.io/luksEncryption`為 `true`、並在 PVC 中包含啟用 LUKS 的儲存類別、如本範例所示。
@@ -147,6 +151,7 @@ spec:
 ----
 
 
+[[rotate-a-luks-passphrase]]
 == 旋轉LUKS複雜密碼
 
 您可以旋轉LUKS複雜密碼並確認輪調。
@@ -241,6 +246,7 @@ NOTE: 例如、如果傳回兩個複雜密碼 `luksPassphraseNames: ["B", "A"]`�
 
 
 
+[[enable-volume-expansion]]
 == 啟用Volume擴充
 
 您可以在LUKS加密的Volume上啟用Volume擴充。

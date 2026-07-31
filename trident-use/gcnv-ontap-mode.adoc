@@ -20,6 +20,7 @@ summary: 設定 Trident ontap-san 和 ontap-nas 後端，以便在 Google Cloud 
 ====
 
 
+[[how-it-works]]
 == 工作原理
 
 Trident 重複使用現有的  `ontap-san` 和  `ontap-nas` 驅動程式邏輯，並透過 GCNV 代理端點路由 ONTAP REST 呼叫。此方法可讓您在裝載於 GCNV 的 ONTAP 叢集上佈建和管理儲存設備，同時保持與直接 ONTAP 後端相同的作業工作流程。ONTAP 模式不會引入新的儲存驅動程式。您可以透過將  `gcnv` 組態區塊新增至  `ontap-san` 或  `ontap-nas` 後端，來針對每個後端啟用它。
@@ -30,6 +31,7 @@ Trident 重複使用現有的  `ontap-san` 和  `ontap-nas` 驅動程式邏輯�
 
 
 
+[[supported-and-unsupported-scope]]
 == 受支援和不受支援的範圍
 
 此技術預覽版支援以下功能：
@@ -48,6 +50,7 @@ Trident 重複使用現有的  `ontap-san` 和  `ontap-nas` 驅動程式邏輯�
 
 
 
+[[prerequisites]]
 == 先決條件
 
 在設定 ONTAP 模式後端之前，請確保您已具備以下條件：
@@ -61,6 +64,7 @@ Trident 重複使用現有的  `ontap-san` 和  `ontap-nas` 驅動程式邏輯�
 
 
 
+[[configure-the-backend]]
 == 配置後端
 
 A `TridentBackendConfig` requires `credentials`。對於 ONTAP 模式，此金鑰保存 GCP 代理憑證，而不是 ONTAP `managementLIF` / `username` / `password`。 `svm` 是可選的：每個 GCNV ONTAP 模式集區目前都有一個 SVM，如果省略，Trident 會從集區中衍生它。

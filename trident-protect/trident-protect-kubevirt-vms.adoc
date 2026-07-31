@@ -18,6 +18,7 @@ Trident Protect 可讓您備份與還原執行於 OpenShift Virtualization 上�
 
 
 
+[[kubevirt-protection-modes]]
 == KubeVirt 保護模式
 
 Trident Protect 支援兩種定義要保護的 KubeVirt 虛擬機器的方式。定義應用程式時，請選擇其中一種模式：
@@ -45,6 +46,7 @@ NOTE: Trident Protect 可在資料保護作業期間凍結和解凍 KubeVirt 虛
 
 
 
+[[resources-collected-during-backup-and-snapshot]]
 == 備份和快照期間收集的資源
 
 當您為包含 KubeVirt VM 的應用程式建立備份或快照時，Trident Protect 會收集選定的 VM 資源並自動探索其相依資源。
@@ -57,6 +59,7 @@ NOTE: Trident Protect 可在資料保護作業期間凍結和解凍 KubeVirt 虛
 
 
 
+[[vm-scoped-collection]]
 === VM 範圍的收集
 
 對於 VM 範圍的應用程式，Trident Protect 從 `VirtualMachine`中列出的每個 `includedVirtualMachines`開始，並探索還原該 VM 所需的相依資源。
@@ -115,6 +118,7 @@ NOTE: 在收集完所有虛擬機器範圍的命名空間資源後，Trident Pro
 
 
 
+[[namespace-based-collection]]
 === 基於命名空間的集合
 
 對於基於命名空間的應用程式，Trident Protect 會掃描選定的命名空間並收集所有相符的資源。如果找到任何 KubeVirt `VirtualMachine` 物件，Trident Protect 會自動收集其相依資源，包括執行個體類型、偏好設定和 `virt-launcher` Pod，其方式與處理 VM 範圍應用程式的方式相同。
@@ -123,6 +127,7 @@ NOTE: 在收集完所有虛擬機器範圍的命名空間資源後，Trident Pro
 
 
 
+[[protect-vms-using-namespace-based-application-definitions]]
 == 使用基於命名空間的應用程式定義保護虛擬機器
 
 在建立基於命名空間的應用程式時，Trident Protect 會掃描選定的命名空間並收集所有資源，包括所有 KubeVirt 虛擬機器。對於找到的每個虛擬機器，Trident Protect 也會收集備份和還原該虛擬機器所需的相依資源。
@@ -148,6 +153,7 @@ spec:
 
 
 
+[[restore-behavior-for-namespace-based-vm-applications]]
 === 恢復基於命名空間的虛擬機器應用程式的行為
 
 由於基於命名空間的應用程式會從選定的命名空間收集資源，因此備份或快照可能包含 KubeVirt 執行時間物件和 KubeVirt 管理的中繼資料。其中某些物件不應直接還原，因為它們代表來源叢集的執行時間狀態。
@@ -181,6 +187,7 @@ NOTE: Trident Protect 會依照預先定義的順序復原 KubeVirt 資源，以
 
 
 
+[[dynamic-vm-protection-with-label-selectors]]
 == 使用標籤選擇器進行動態虛擬機器保護
 
 如果要動態保護 VM，但又不想列出每個 VM 名稱，請使用基於命名空間的應用程式定義和標籤選擇器。
@@ -242,6 +249,7 @@ spec:
 ----
 
 
+[[protect-specific-vms-with-includedvirtualmachines]]
 == 使用 includedVirtualMachines 保護特定虛擬機器
 
 當您想要保護一個或多個命名空間中的一組指定 VirtualMachines，並從歸檔中選擇性地還原特定虛擬機時，請使用 `includedVirtualMachines`。
@@ -306,6 +314,7 @@ spec:
 ----
 
 
+[[restore-specific-kubevirt-vms]]
 == 還原特定 KubeVirt VM
 
 您可以使用 `includedVirtualMachines`還原 CR，僅從備份、快照或複製快照存檔中還原選定的 KubeVirt 虛擬機器。
@@ -316,6 +325,7 @@ spec:
 
 
 
+[[supported-restore-crs-and-cli-commands]]
 === 支援的還原 CR 和 CLI 命令
 
 下表列出了支援的還原 CR `includedVirtualMachines`及其對應的 CLI 命令。
@@ -344,6 +354,7 @@ NOTE:  `tridentctl-protect` CLI 在還原命令上沒有適用於  `includedVirt
 
 
 
+[[vm-scoped-restore-behavior]]
 === 虛擬機器範圍的復原行為
 
 The `includedVirtualMachines` 恢復 CR 中的欄位使用與應用程式 CR 相同的選擇器格式：
@@ -362,6 +373,7 @@ includedVirtualMachines:
 
 
 
+[[generate-restore-yaml-with-the-cli]]
 === 使用 CLI 產生還原 YAML 檔案
 
 您可以使用 `tridentctl-protect`來產生基本復原 CR，然後編輯 YAML 以新增 `includedVirtualMachines`。
@@ -380,6 +392,7 @@ kubectl apply -f <restore_name>.yaml
 ----
 
 
+[[example-define-a-vm-based-application]]
 === 範例：定義一個基於虛擬機器的應用程式
 
 以下應用程式保護跨兩個命名空間的三個特定虛擬機器。
@@ -406,6 +419,7 @@ spec:
 ----
 
 
+[[example-create-a-backup]]
 === 範例：建立備份
 
 為基於虛擬機器的應用程式建立備份時，請使用標準備份 CR。備份 CR 中不需要任何虛擬機器特定的欄位。
@@ -423,6 +437,7 @@ spec:
 ----
 
 
+[[example-restore-a-single-vm-from-a-backup]]
 === 範例：從備份還原單一虛擬機
 
 以下範例僅從備份存檔中還原  `database-server`。存檔中的其他虛擬機器（例如  `app-server` 和  `prometheus-vm`）將被跳過。
@@ -453,6 +468,7 @@ kubectl apply -f restore-db-only.yaml
 
 
 
+[[example-restore-a-single-vm-in-place-from-a-backup]]
 === 範例：從備份中就地還原單一虛擬機
 
 以下範例僅將 `database-server`從備份存檔還原到其原始命名空間。
@@ -478,6 +494,7 @@ kubectl apply -f ipr-db-only.yaml
 ----
 
 
+[[example-restore-a-single-vm-from-a-snapshot]]
 === 範例：從快照還原單一虛擬機
 
 以下範例僅從快照存檔還原 `ubuntu-vm-blue-a627be38`。
@@ -503,6 +520,7 @@ kubectl apply -f blue-vm-snap-restore.yaml
 ----
 
 
+[[combine-vm-restore-with-other-filters]]
 === 將虛擬機器還原與其他過濾器結合使用
 
 您可以在同一個還原 CR 中同時使用 `includedVirtualMachines`、 `resourceFilter`、 `namespaceMapping`和 `storageClassMapping`來微調要還原的內容。
@@ -528,6 +546,7 @@ spec:
 
 
 
+[[create-a-vm-scoped-application-using-the-cli]]
 == 使用 CLI 建立虛擬機器範圍的應用程式
 
 使用 `--virtual-machines`標誌可將應用程式的範圍限定於特定的 KubeVirt VM，而不是整個命名空間。 `--virtual-machines`標誌與 `--namespaces`互斥。
@@ -557,6 +576,7 @@ tridentctl-protect create application <application_name> \
 
 
 
+[[related-information]]
 == 相關資訊
 
 * link:trident-protect-manage-applications.html["定義管理應用程式"]

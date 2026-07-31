@@ -19,6 +19,7 @@ NOTE: VolumeGroupSnapshot 是 Kubernetes 中的一個 Beta 功能，包含 Beta 
 
 
 
+[[create-volume-group-snapshots]]
 == 建立卷宗組快照
 
 以下儲存驅動程式支援磁碟區組快照：
@@ -104,6 +105,7 @@ spec:
 ----
 
 
+[[recover-volume-data-using-a-group-snapshot]]
 == 使用群組快照恢復磁碟區數據
 
 您可以使用作為磁碟區組快照的一部分所建立的各個快照來還原各個持久性磁碟區。您無法將磁碟區組快照作為一個整體進行還原。
@@ -119,6 +121,7 @@ NOTE: 當您還原快照複本時、會覆寫現有的 Volume 組態。建立快
 
 
 
+[[in-place-volume-restoration-from-a-snapshot]]
 == 從快照進行原位磁碟區還原
 
 Trident 使用（ TASR ） CR 從快照提供快速的原位磁碟區還原 `TridentActionSnapshotRestore`。此 CR 是 Kubernetes 的必要行動、在作業完成後不會持續存在。
@@ -127,6 +130,7 @@ Trident 使用（ TASR ） CR 從快照提供快速的原位磁碟區還原 `Tri
 
 
 
+[[delete-a-pv-with-associated-group-snapshots]]
 == 刪除與群組快照關聯的 PV
 
 刪除群組磁碟區快照時：
@@ -138,6 +142,7 @@ Trident 使用（ TASR ） CR 從快照提供快速的原位磁碟區還原 `Tri
 
 
 
+[[deploy-a-volume-snapshot-controller]]
 == 部署 Volume Snapshot 控制器
 
 如果您的Kubernetes發佈版本未包含快照控制器和客戶需求日、您可以依照下列方式進行部署。
@@ -177,6 +182,7 @@ NOTE: 如有必要、請開啟 `deploy/kubernetes/snapshot-controller/rbac-snaps
 
 
 
+[[related-links]]
 == 相關連結
 
 * link:../trident-reference/objects.html#kubernetes-volumegroupsnapshotclass-objects["卷冊組快照類"]

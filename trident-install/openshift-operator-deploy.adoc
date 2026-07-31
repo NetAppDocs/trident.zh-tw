@@ -19,6 +19,7 @@ summary: 如果您使用 Red Hat OpenShift ，則可以使用運算子來安裝 
 
 
 
+[[find-and-install-the-trident-operator]]
 == 尋找並安裝 Trident 營運商
 
 .步驟
@@ -97,6 +98,7 @@ image::../media/openshift-operator-08.png[已安裝]
 
 
 
+[[uninstall-trident-operator]]
 == 卸載Trident操作員
 
 .步驟

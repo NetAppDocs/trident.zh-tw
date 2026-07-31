@@ -19,6 +19,7 @@ NOTE: 只有 `ontap-nas`NetApp AFX 系統支援 NFS 協定驅動程式；不支�
 
 
 
+[[backend-configuration-options]]
 == 後端組態選項
 
 在 Trident 後端組態中、您不需要指定系統是 NetApp AFX 儲存系統。當您選取 `ontap-nas`作為 `storageDriverName`時、 Trident 會自動偵測 AFX 儲存系統。部分後端組態參數不適用於 AFX 儲存系統。
@@ -143,6 +144,7 @@ NOTE: 在 SVM 中更新 Aggregate 清單時、會透過輪詢 SVM 而無需重�
 |===
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == 用於資源配置磁碟區的後端組態選項
 
 您可以使用中的這些選項來控制預設資源配置 `defaults` 組態區段。如需範例、請參閱下列組態範例。
@@ -198,6 +200,7 @@ NOTE: 搭配 Trident 使用 QoS 原則群組需要 ONTAP 9 8 或更新版本。�
 
 
 
+[[volume-provisioning-examples]]
 === Volume資源配置範例
 
 以下是定義預設值的範例：
@@ -245,6 +248,7 @@ image::../media/volume-show-nas.png[顯示Volume show命令的輸出。]
 
 
 
+[[minimal-configuration-examples]]
 == 最低組態範例
 
 下列範例顯示基本組態、讓大部分參數保留預設值。這是定義後端最簡單的方法。
@@ -427,6 +431,7 @@ labels:
 ====
 
 
+[[examples-of-backends-with-virtual-pools]]
 == 虛擬集區的後端範例
 
 在下面顯示的後端定義檔案範例中、會針對所有儲存池設定特定的預設值、例如 `spaceReserve` 無、 `spaceAllocation` 假、和 `encryption` 錯。虛擬資源池是在儲存區段中定義的。
@@ -612,6 +617,7 @@ storage:
 ====
 
 
+[[map-backends-to-storageclasses]]
 == 將後端對應至StorageClass
 
 請參閱下列 StorageClass 定義 <<虛擬集區的後端範例>>。使用 `parameters.selector` 欄位中、每個 StorageClass 都會呼叫哪些虛擬集區可用於主控磁碟區。磁碟區將會在所選的虛擬資源池中定義各個層面。
@@ -687,6 +693,7 @@ Trident 會決定要選取哪個虛擬集區、並確保符合儲存需求。
 
 
 
+[[update-datalif-after-initial-configuration]]
 == 更新 `dataLIF` 初始組態之後
 
 您可以在初始設定後變更 dataLIF ，方法是執行下列命令，以更新的 dataLIF 提供新的後端 JSON 檔案。
@@ -700,10 +707,12 @@ NOTE: 如果 PVCS 連接到一個或多個 Pod ，您必須關閉所有對應的
 
 
 
+[[secure-smb-examples]]
 == 安全 SMB 範例
 
 
 
+[[backend-configuration-with-ontap-nas-driver]]
 === 使用 ontap-nas 驅動程式的後端配置
 
 [source, yaml]
@@ -726,6 +735,7 @@ spec:
 ----
 
 
+[[backend-configuration-with-ontap-nas-economy-driver]]
 === 使用 ontap-nas-economy 驅動程式的後端配置
 
 [source, yaml]
@@ -748,6 +758,7 @@ spec:
 ----
 
 
+[[backend-configuration-with-storage-pool]]
 === 具有儲存池的後端配置
 
 [source, yaml]
@@ -775,6 +786,7 @@ spec:
 ----
 
 
+[[storage-class-example-with-ontap-nas-driver]]
 === 採用 ontap-nas 驅動程式的儲存類別範例
 
 [source, yaml]
@@ -800,6 +812,7 @@ NOTE: 確保添加 `annotations`啟用安全 SMB。如果沒有註釋，安全 S
 
 
 
+[[storage-class-example-with-ontap-nas-economy-driver]]
 === 採用 ontap-nas-economy 驅動程式的儲存類別範例
 
 [source, yaml]
@@ -822,6 +835,7 @@ volumeBindingMode: Immediate
 ----
 
 
+[[pvc-example-with-a-single-ad-user]]
 === 具有單一 AD 使用者的 PVC 範例
 
 [source, yaml]
@@ -847,6 +861,7 @@ spec:
 ----
 
 
+[[pvc-example-with-multiple-ad-users]]
 === 具有多個 AD 使用者的 PVC 範例
 
 [source, yaml]

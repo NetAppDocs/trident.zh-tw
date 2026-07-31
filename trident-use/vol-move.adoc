@@ -15,6 +15,7 @@ summary: 使用 TridentVolumeMove 資源，以非中斷方式將 iSCSI 磁碟區
 
 
 
+[[requirements]]
 == 需求
 
 磁碟區移動功能適用於 iSCSI 磁碟區的 `ontap-san`驅動程式。不支援 NVMe 和 NAS 協定。
@@ -33,6 +34,7 @@ summary: 使用 TridentVolumeMove 資源，以非中斷方式將 iSCSI 磁碟區
 
 
 
+[[how-it-works]]
 == 工作原理
 
 Trident 會在同一 ONTAP 叢集內的兩個位置之間移動磁碟區（LUN）。在資料移動之前，Trident 會在目標位置新增新的 iSCSI 路徑，與現有路徑並存，以確保主機多路徑裝置始終保持存取。ONTAP 完成移動後，Trident 會刪除過時的來源路徑。
@@ -41,10 +43,12 @@ Trident 透過  `TridentVolumeMove` 資源中可見的一組有序狀態來驅�
 
 
 
+[[move-a-volume]]
 == 移動磁碟區
 
 
 
+[[identify-the-volume-and-locations]]
 === 識別磁碟區和位置
 
 . 找到要移動的 PV 的名稱。PV 名稱也是移動資源的名稱。
@@ -53,6 +57,7 @@ Trident 透過  `TridentVolumeMove` 資源中可見的一組有序狀態來驅�
 
 
 
+[[start-the-move]]
 === 開始移動
 
 兩種方法都可以。兩種方法都會建立相同的 `TridentVolumeMove`資源，資源名稱即為 PV 名稱。
@@ -106,6 +111,7 @@ kubectl apply -f tridentvolumemove.yaml
 
 
 
+[[monitor-the-move]]
 === 監控移動
 
 使用 `tvm`簡稱或 `tridentvolumemove`追蹤進度：
@@ -176,6 +182,7 @@ kubectl describe tridentvolumemove <pv-name> -n trident
 |===
 
 
+[[clean-up-the-move-resource]]
 === 清理移動資源
 
 如果設定了 `deleteAfterSuccess`，Trident 會自動移除資源。否則，您可以手動刪除。在要求對同一磁碟區進行另一次移動之前，請確保該磁碟區不存在任何處於 `TridentVolumeMove`狀態的資源，無論是 `Succeeded`還是 `Failed`狀態。

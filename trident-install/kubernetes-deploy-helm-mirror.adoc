@@ -16,7 +16,8 @@ summary: 您可以部署 Trident 運算子、並使用 Helm 安裝 Trident 。�
 
 
 
-== 關於 Trident 26.02 的關鍵資訊
+[[critical-information-about-trident-26-06]]
+== 關於 Trident 26.06 的關鍵資訊
 
 * 您必須閱讀下列有關 Trident 的重要資訊。 *
 
@@ -25,7 +26,7 @@ summary: 您可以部署 Trident 運算子、並使用 Helm 安裝 Trident 。�
 ====
 []
 =====
-* Trident 現在支援 Kubernetes 1.35。請先升級 Trident，再升級 Kubernetes。
+* Trident 現在支援 Kubernetes 1.36。請先升級 Trident，再升級 Kubernetes。
 * Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值 `find_multipaths: no`。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
@@ -36,6 +37,7 @@ summary: 您可以部署 Trident 運算子、並使用 Helm 安裝 Trident 。�
 ====
 
 
+[[deploy-the-trident-operator-and-install-trident-using-helm]]
 == 部署 Trident 操作員、並使用 Helm 安裝 Trident
 
 使用Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["掌舵表"^] 您可以部署Trident運算子、並在單一步驟中安裝Trident。
@@ -70,7 +72,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2602.0 --set i
 --
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2602.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:26.02.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:26.02 --set tridentImage=<your-registry>/trident:26.02.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2602.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:26.06.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:26.06 --set tridentImage=<your-registry>/trident:26.06.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 ====
@@ -84,6 +86,7 @@ NOTE: 如果您已經為Trident建立命名空間、則「-cree-namespacre」參
 
 
 
+[[pass-configuration-data-during-install]]
 == 在安裝期間傳遞組態資料
 
 安裝期間有兩種傳遞組態資料的方法：
@@ -116,6 +119,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2602.0  --crea
 ----
 
 
+[[configuration-options]]
 == 組態選項
 
 此表格和 `values.yaml` 檔案是 Helm 圖表的一部分、提供按鍵清單及其預設值。

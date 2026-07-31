@@ -16,6 +16,7 @@ summary: 深入瞭解 Trident 所通訊的連接埠。
 
 
 
+[[overview]]
 == 總覽
 
 Trident 使用各種連接埠與 Kubernetes 叢集內部以及儲存後端進行通訊。以下概述了關鍵連接埠、其用途和安全注意事項。
@@ -34,6 +35,7 @@ Trident 使用各種連接埠與 Kubernetes 叢集內部以及儲存後端進行
 
 
 
+[[ports-for-controller-nodes]]
 === 控制器節點的連接埠
 
 這些連接埠主要用於 Trident 操作員（後端管理）。所有內部連接埠均為 Pod 層級；僅當主機防火牆干擾 CNI 時才允許在節點上使用。
@@ -59,6 +61,7 @@ Trident 使用各種連接埠與 Kubernetes 叢集內部以及儲存後端進行
 |===
 
 
+[[ports-for-worker-nodes]]
 === 工作節點的連接埠
 
 這些連接埠用於 CSI 節點守護程序集和 pod 掛載。資料連接埠用於出站連接到儲存資料 LIF；如果使用 NFSv3，則包含 NFSv3 附加資訊（NFSv4 為選用）。

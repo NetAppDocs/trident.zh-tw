@@ -16,6 +16,7 @@ Trident 為 Trident Orchestrator 提供數個命令列選項。您可以使用�
 
 
 
+[[logging]]
 == 記錄
 
 `-debug`:: 啟用除錯輸出。
@@ -24,6 +25,7 @@ Trident 為 Trident Orchestrator 提供數個命令列選項。您可以使用�
 
 
 
+[[kubernetes]]
 == Kubernetes
 
 `-k8s_pod`:: 使用此選項或 `-k8s_api_server` 以啟用Kubernetes支援。設定此選項會使Trident使用內含Pod的Kubernetes服務帳戶認證、來聯絡API伺服器。這只有當Trident在Kubernetes叢集中以Pod形式執行、且已啟用服務帳戶時才會運作。
@@ -32,6 +34,7 @@ Trident 為 Trident Orchestrator 提供數個命令列選項。您可以使用�
 
 
 
+[[docker]]
 == Docker
 
 `-volume_driver <name>`:: 登錄 Docker 外掛程式時使用的驅動程式名稱。預設為 `netapp`。
@@ -41,6 +44,7 @@ Trident 為 Trident Orchestrator 提供數個命令列選項。您可以使用�
 
 
 
+[[rest]]
 == 休息
 
 `-address <ip-or-host>`:: 指定 Trident 的 REST 伺服器應接聽的位址。預設為localhost。當偵聽localhost並在Kubernetes Pod內部執行時、無法從Pod外部直接存取REST介面。使用 `-address ""` 可讓REST介面從Pod IP位址存取。

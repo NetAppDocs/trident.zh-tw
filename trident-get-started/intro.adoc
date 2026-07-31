@@ -16,6 +16,7 @@ Trident 是 NetApp 所維護的完全支援的開放原始碼專案。其設計�
 
 
 
+[[what-is-trident]]
 == 什麼是 Trident ？
 
 NetApp Trident 可在公有雲或本地端，跨所有主流 NetApp 儲存平台實現儲存資源的使用與管理，包括本地端 ONTAP 叢集（AFF、FAS 和 ASA）、ONTAP Select、Cloud Volumes ONTAP、Element 軟體（NetApp HCI、SolidFire）、Azure NetApp Files、Amazon FSx for NetApp ONTAP，以及 Google Cloud NetApp Volumes。
@@ -29,6 +30,7 @@ NOTE: 如果這是您第一次使用 Kubernetes 、您應該熟悉 link:https://
 
 
 
+[[supported-kubernetes-platforms]]
 == 支援的 Kubernetes 平台
 
 Trident 支援多種 Kubernetes 發行版和平台。
@@ -37,6 +39,7 @@ Trident 支援多種 Kubernetes 發行版和平台。
 
 
 
+[[kubernetes-integration-with-netapp-products]]
 == Kubernetes 與 NetApp 產品整合
 
 NetApp 儲存產品組合可與 Kubernetes 叢集的許多層面整合、提供進階的資料管理功能、強化 Kubernetes 部署的功能、功能、效能和可用度。

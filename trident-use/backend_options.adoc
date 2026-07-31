@@ -16,6 +16,7 @@ summary: 瞭解在 Trident 中管理後端的不同方法。
 
 
 
+[[options-for-managing-backends]]
 == 管理後端的選項
 
 隨之推出 `TridentBackendConfig`管理員現在有兩種獨特的後端管理方法。這會提出下列問題：
@@ -26,6 +27,7 @@ summary: 瞭解在 Trident 中管理後端的不同方法。
 
 
 
+[[manage-tridentctl-backends-using-tridentbackendconfig]]
 == 管理 `tridentctl` 後端使用 `TridentBackendConfig`
 
 本節說明透過Kubernetes介面建立「TridentBackendConfig」物件、直接透過「tridentctl」建立的後端管理所需的步驟。
@@ -50,6 +52,7 @@ summary: 瞭解在 Trident 中管理後端的不同方法。
 
 
 
+[[step-0-identify-the-backend]]
 === 步驟0：識別後端
 
 以建立 `TridentBackendConfig` 若要連結至現有的後端、您必須取得後端組態。在此範例中、假設使用下列Json定義建立後端：
@@ -116,6 +119,7 @@ cat ontap-nas-backend.json
 ----
 
 
+[[step-1-create-a-kubernetes-secret]]
 === 步驟1：建立Kubernetes機密
 
 建立包含後端認證的秘密、如以下範例所示：
@@ -142,6 +146,7 @@ secret/backend-tbc-ontap-san-secret created
 ----
 
 
+[[step-2-create-a-tridentbackendconfig-cr]]
 === 步驟2：建立 `TridentBackendConfig` CR
 
 下一步是建立一個「TridentBackendConfig」（TridentBackendConfig）CR、它會自動連結至現有的「ONTAP-NAS-backend」（如本範例所示）。確保符合下列要求：
@@ -204,6 +209,7 @@ tridentbackendconfig.trident.netapp.io/tbc-ontap-nas-backend created
 ----
 
 
+[[step-3-verify-the-status-of-the-tridentbackendconfig-cr]]
 === 步驟3：確認的狀態 `TridentBackendConfig` CR
 
 在建立「TridentBackendConfig」之後、其階段必須是「綁定」。它也應反映與現有後端相同的後端名稱和UUID。
@@ -226,12 +232,14 @@ tridentctl get backend -n trident
 
 
 
+[[manage-tridentbackendconfig-backends-using-tridentctl]]
 == 管理 `TridentBackendConfig` 後端使用 `tridentctl`
 
 可以使用「tridentctl」來列出使用「TridentBackendConfig」建立的後端。此外、系統管理員也可以刪除「TridentBackendConfig」、並確定「pec.deletionPolicy`」設為「效能」、藉此選擇透過「tridentctl」來完全管理此類後端。
 
 
 
+[[step-0-identify-the-backend]]
 === 步驟0：識別後端
 
 例如、假設使用「TridentBackendConfig」建立下列後端：
@@ -253,6 +261,7 @@ tridentctl get backend ontap-san-backend -n trident
 
 
 
+[[step-1-confirm-deletionpolicy-is-set-to-retain]]
 === 步驟1：確認 `deletionPolicy` 設為 `retain`
 
 讓我們來看看的價值 `deletionPolicy`。這需要設為 `retain`。如此可確保刪除 CR 時 `TridentBackendConfig`、後端定義仍會存在、並可透過進行管理 `tridentctl`。
@@ -277,6 +286,7 @@ NOTE: 除非將「刪除原則」設定為「需要」、否則請勿繼續下�
 
 
 
+[[step-2-delete-the-tridentbackendconfig-cr]]
 === 步驟2：刪除 `TridentBackendConfig` CR
 
 最後一個步驟是刪除「TridentBackendConfig」（TridentBackendConfig）。確認「刪除原則」設為「保留」之後、您可以繼續刪除：

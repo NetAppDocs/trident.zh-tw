@@ -16,6 +16,7 @@ summary: 您可以使用操作員輕鬆升級現有的 Trident 安裝。
 
 
 
+[[upgrade-a-manual-installation]]
 == 升級手動安裝
 
 您可以從叢集範圍的Trident操作員安裝升級到另一個叢集範圍的Trident操作員安裝。所有Trident版本都使用叢集範圍的運算元。
@@ -59,6 +60,7 @@ kubectl create -f 25.06.0/trident-installer/deploy/<bundle.yaml> -n trident
 
 
 
+[[upgrade-a-helm-installation]]
 == 升級 Helm 安裝
 
 您可以升級 Trident Helm 安裝。
@@ -104,6 +106,7 @@ NOTE: 如果您在初始安裝期間設定自訂選項（例如指定 Trident �
 
 
 
+[[upgrade-from-a-tridentctl-installation-to-trident-operator]]
 == 從升級 `tridentctl` 安裝至 Trident 操作員
 
 您可以從升級至最新版的Trident運算子 `tridentctl` 安裝：現有的後端和 PVC 將會自動提供使用。

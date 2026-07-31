@@ -27,6 +27,7 @@ summary: 您可以使用Trident Protect 從快照或備份中還原您的應用�
 ====
 
 
+[[restore-from-a-backup-to-a-different-namespace]]
 == 從備份還原至不同的命名空間
 
 當您使用 BackupRestore CR 將備份還原到不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程序，並為還原的應用程式建立一個應用程式 CR。為了保護已還原的應用程序，可以建立按需備份或快照，或製定保護計劃。
@@ -155,6 +156,7 @@ tridentctl-protect create backuprestore <my_restore_name> \
 ====
 
 
+[[restore-from-a-backup-to-the-original-namespace]]
 == 從備份還原至原始命名空間
 
 您可以隨時將備份還原到原始命名空間。執行就地還原時，Trident Protect 會自動管理保護排程和進行中的作業，以防止無效的復原點：
@@ -279,6 +281,7 @@ tridentctl-protect create backupinplacerestore <my_restore_name> \
 ====
 
 
+[[restore-from-a-backup-to-a-different-cluster]]
 == 從備份還原至不同的叢集
 
 如果原始叢集發生問題，您可以將備份還原至不同的叢集。
@@ -406,6 +409,7 @@ tridentctl-protect create backuprestore <restore_name> \
 ====
 
 
+[[restore-from-a-snapshot-to-a-different-namespace]]
 == 從快照還原至不同的命名空間
 
 您可以使用自訂資源 (CR) 檔案從快照還原數據，還原到不同的命名空間或原始來源命名空間。當您使用 SnapshotRestore CR 將快照還原到不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程序，並為還原的應用程式建立應用程式 CR。為了保護已還原的應用程序，可以建立按需備份或快照，或製定保護計劃。
@@ -539,6 +543,7 @@ tridentctl-protect create snapshotrestore <my_restore_name> \
 ====
 
 
+[[restore-from-a-snapshot-to-the-original-namespace]]
 == 從快照還原至原始命名空間
 
 您可以隨時將快照還原到原始命名空間。執行就地還原時，Trident Protect 會自動管理保護排程和進行中的作業，以防止無效的還原點：
@@ -645,6 +650,7 @@ tridentctl-protect create snapshotinplacerestore <my_restore_name> \
 ====
 
 
+[[check-the-status-of-a-restore-operation]]
 == 檢查還原作業的狀態
 
 您可以使用命令列來檢查進行中，已完成或已失敗的還原作業狀態。

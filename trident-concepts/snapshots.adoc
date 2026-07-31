@@ -16,6 +16,7 @@ summary: 深入瞭解 Trident 如何處理其驅動程式的磁碟區快照建�
 
 
 
+[[learn-about-volume-snapshot-creation]]
 == 深入瞭解Volume Snapshot建立
 
 * 對於 `ontap-nas`， `ontap-san` ， 和 `azure-netapp-files`在驅動程式中，每個持久性磁碟區 (PV) 都會對應到一個FlexVol volume。因此，磁碟區快照被創建為NetApp快照。NetApp快照技術比同類快照技術具有更高的穩定性、可擴展性、可恢復性和效能。這些快照副本在創建所需時間和儲存空間方面都非常有效率。

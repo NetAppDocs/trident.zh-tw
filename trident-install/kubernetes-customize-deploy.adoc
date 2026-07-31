@@ -16,6 +16,7 @@ Trident 運算子可讓您使用規格中的屬性來自訂 Trident 安裝 `Trid
 
 
 
+[[understanding-controller-pods-and-node-pods]]
 == 瞭解控制器 Pod 和節點 Pod
 
 Trident在叢集中的每個工作節點上以單一控制器 pod 和節點 pod 的形式運作。節點 pod 必須運行在您希望掛載Trident磁碟區的任何主機上。
@@ -28,6 +29,7 @@ Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-p
 
 
 
+[[configuration-options]]
 == 組態選項
 
 
@@ -90,7 +92,7 @@ NOTE: 這 `k8sTimeout`參數僅適用於Trident安裝。
 | `logFormat` | 要使用的 Trident 記錄格式 [text,json] | `"text"` 
 
 
-| 「TridentImage」 | 要安裝的 Trident 映像 | `"netapp/trident:26.02"` 
+| 「TridentImage」 | 要安裝的 Trident 映像 | `"netapp/trident:26.06"` 
 
 
 | 「影像登錄」 | 內部登錄的路徑、格式
@@ -265,6 +267,7 @@ NOTE: 如需格式化 Pod 參數的詳細資訊、請參閱 link:https://kuberne
 
 
 
+[[sample-configurations]]
 == 組態範例
 
 您可以使用下列屬性<<組態選項>>在定義時 `TridentOrchestrator`自訂您的安裝。

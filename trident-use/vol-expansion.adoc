@@ -16,6 +16,7 @@ Trident為 Kubernetes 使用者提供了在建立磁碟區後擴充磁碟區的�
 
 
 
+[[expand-an-iscsi-volume]]
 == 展開iSCSI Volume
 
 您可以使用「SCSI資源配置程式」來擴充iSCSI持續磁碟區（PV）。
@@ -25,6 +26,7 @@ NOTE: iSCSI磁碟區擴充支援「ontap－san」、「ONTAP－san經濟」、�
 
 
 
+[[step-1-configure-the-storageclass-to-support-volume-expansion]]
 === 步驟1：設定StorageClass以支援Volume擴充
 
 編輯 StorageClass 定義以設定 `allowVolumeExpansion` 欄位至 `true`。
@@ -48,6 +50,7 @@ allowVolumeExpansion: True
 
 
 
+[[step-2-create-a-pvc-with-the-storageclass-you-created]]
 === 步驟2：使用您建立的StorageClass建立一個永久虛擬儲存設備
 
 編輯 PVC 定義並更新 `spec.resources.requests.storage` 以反映新的所需大小、此大小必須大於原始大小。
@@ -84,6 +87,7 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 ----
 
 
+[[step-3-define-a-pod-that-attaches-the-pvc]]
 === 步驟3：定義一個連接至PVc的Pod
 
 將 PV 附加至 Pod 、以便調整大小。調整iSCSI PV的大小有兩種情況：
@@ -118,6 +122,7 @@ Mounted By:    ubuntu-pod
 ----
 
 
+[[step-4-expand-the-pv]]
 === 步驟4：展開PV
 
 若要調整從1Gi建立至2Gi的PV大小、請編輯PVc定義、並將「sec.resumes.requests.storage」更新為2Gi。
@@ -157,6 +162,7 @@ spec:
 ----
 
 
+[[step-5-validate-the-expansion]]
 === 步驟5：驗證擴充
 
 您可以檢查 PVC 、 PV 和 Trident Volume 的大小、以驗證擴充是否正常運作：
@@ -178,6 +184,7 @@ tridentctl get volumes -n trident
 ----
 
 
+[[expand-an-fc-volume]]
 == 展開FC Volume
 
 您可以使用 CSI 資源配置程式來擴充 FC 持續 Volume （ PV ）。
@@ -187,6 +194,7 @@ NOTE: 驅動程式支援 FC Volume 擴充 `ontap-san`，需要 Kubernetes 1.16 �
 
 
 
+[[step-1-configure-the-storageclass-to-support-volume-expansion]]
 === 步驟1：設定StorageClass以支援Volume擴充
 
 編輯 StorageClass 定義以設定 `allowVolumeExpansion` 欄位至 `true`。
@@ -210,6 +218,7 @@ allowVolumeExpansion: True
 
 
 
+[[step-2-create-a-pvc-with-the-storageclass-you-created]]
 === 步驟2：使用您建立的StorageClass建立一個永久虛擬儲存設備
 
 編輯 PVC 定義並更新 `spec.resources.requests.storage` 以反映新的所需大小、此大小必須大於原始大小。
@@ -246,6 +255,7 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 ----
 
 
+[[step-3-define-a-pod-that-attaches-the-pvc]]
 === 步驟3：定義一個連接至PVc的Pod
 
 將 PV 附加至 Pod 、以便調整大小。調整 FC PV 的大小有兩種情況：
@@ -280,6 +290,7 @@ Mounted By:    ubuntu-pod
 ----
 
 
+[[step-4-expand-the-pv]]
 === 步驟4：展開PV
 
 若要調整從1Gi建立至2Gi的PV大小、請編輯PVc定義、並將「sec.resumes.requests.storage」更新為2Gi。
@@ -319,6 +330,7 @@ spec:
 ----
 
 
+[[step-5-validate-the-expansion]]
 === 步驟5：驗證擴充
 
 您可以檢查 PVC 、 PV 和 Trident Volume 的大小、以驗證擴充是否正常運作：
@@ -340,12 +352,14 @@ tridentctl get volumes -n trident
 ----
 
 
+[[expand-an-nfs-volume]]
 == 展開NFS Volume
 
 Trident支援為已設定的 NFS PV 擴充容量。 `ontap-nas` ， `ontap-nas-economy` ， `ontap-nas-flexgroup` ， 和 `azure-netapp-files`後端。
 
 
 
+[[step-1-configure-the-storageclass-to-support-volume-expansion]]
 === 步驟1：設定StorageClass以支援Volume擴充
 
 若要調整NFS PV的大小、管理員必須先將「ow淺Volume Expansion」欄位設定為「true」、以設定儲存類別以允許磁碟區擴充：
@@ -369,6 +383,7 @@ allowVolumeExpansion: true
 
 
 
+[[step-2-create-a-pvc-with-the-storageclass-you-created]]
 === 步驟2：使用您建立的StorageClass建立一個永久虛擬儲存設備
 
 [listing]
@@ -403,6 +418,7 @@ pvc-08f3d561-b199-11e9-8d9f-5254004dfdb7   20Mi       RWO            Delete     
 ----
 
 
+[[step-3-expand-the-pv]]
 === 步驟3：展開PV
 
 若要將新建立的 20 MiB PV 調整為 1 GiB，請編輯 PVC 並設定 `spec.resources.requests.storage`至 1 GiB：
@@ -442,6 +458,7 @@ spec:
 ----
 
 
+[[step-4-validate-the-expansion]]
 === 步驟4：驗證擴充
 
 您可以檢查 PVC 、 PV 和 Trident Volume 的大小、以驗證調整大小是否正常運作：

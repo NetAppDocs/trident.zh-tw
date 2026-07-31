@@ -21,6 +21,7 @@ NOTE: 當超過定義的使用率臨界值時，磁碟區大小會自動增加�
 
 
 
+[[requirements]]
 == 需求
 
 在配置自動磁碟區擴充之前、請確保滿足以下要求：
@@ -40,6 +41,7 @@ NOTE: 當超過定義的使用率臨界值時，磁碟區大小會自動增加�
 
 
 
+[[limitations]]
 == 限制
 
 * ONTAP 9.16.1 之前的 ONTAP Non-Volatile Memory Express 原始區塊磁碟區不支援自動擴充。
@@ -58,6 +60,7 @@ NOTE: 當超過定義的使用率臨界值時，磁碟區大小會自動增加�
 
 
 
+[[provision-volumes-with-autogrow-policy]]
 == 使用自動增長策略配置磁碟區
 
 Autogrow Policy 可以在兩個層級進行設定：
@@ -68,6 +71,7 @@ Autogrow Policy 可以在兩個層級進行設定：
 
 
 
+[[create-an-autogrow-policy]]
 == 建立 Autogrow 策略
 
 自動增長策略可在磁碟區達到定義的容量臨界值時自動擴展磁碟區。
@@ -92,6 +96,7 @@ Autogrow Policy 定義了當磁碟區達到定義的容量臨界值時如何自�
 
 
 
+[[autogrow-policy-specifications]]
 === 自動增長策略規格
 
 Autogrow Policies 是 Kubernetes 自訂資源，定義如下：
@@ -114,6 +119,7 @@ Autogrow Policies 是 Kubernetes 自訂資源，定義如下：
 |===
 
 
+[[create-an-autogrow-policy]]
 == 建立 Autogrow 策略
 
 .步驟
@@ -153,6 +159,7 @@ standard-autogrow   80%              10%             Success
 
 
 
+[[policy-states]]
 == 政策狀態
 
 建立原則後、Trident 會驗證規格並指派下列其中一種狀態：
@@ -172,6 +179,7 @@ standard-autogrow   80%              10%             Success
 |===
 
 
+[[associate-a-policy-with-a-storageclass]]
 == 將政策與 StorageClass 建立關聯
 
 您可以使用  `trident.netapp.io/autogrowPolicy` 註解將 Autogrow Policy 與 StorageClass 關聯起來。所有從該 StorageClass 配置的磁碟區都將繼承該策略。
@@ -218,6 +226,7 @@ production-db-policy
 
 
 
+[[policy-precedence]]
 == 政策優先順序
 
 當 StorageClass 和 PVC 上都設定了自動成長策略註解時，Trident 應用以下優先規則：
@@ -248,12 +257,14 @@ production-db-policy
 |===
 
 
+[[configuration-examples]]
 == 組態範例
 
 以下範例展示了不同使用情境下的常見 Autogrow Policy 配置。
 
 
 
+[[conservative-policy-for-production-databases]]
 === 生產資料庫的保守原則
 
 [source, yaml]
@@ -269,6 +280,7 @@ spec:
 ----
 
 
+[[log-storage-with-fixed-growth-increments]]
 === 具有固定增長增量的日誌儲存
 
 [source, yaml]
@@ -284,6 +296,7 @@ spec:
 ----
 
 
+[[minimal-policy-with-defaults]]
 === 包含預設設定的最小原則
 
 當您省略 `growthAmount`和 `maxSize`時，Trident 使用預設的(`10%`成長、無限大小）：
@@ -299,6 +312,7 @@ spec:
 ----
 
 
+[[policy-with-a-custom-maxsize-and-default-growthamount]]
 === 具有自訂 maxSize 和預設 growthAmount 的策略
 
 [source, yaml]
@@ -313,6 +327,7 @@ spec:
 ----
 
 
+[[aggressive-growth-with-unlimited-maxsize]]
 === 無限制的積極成長 maxSize
 
 [source, yaml]
@@ -327,6 +342,7 @@ spec:
 ----
 
 
+[[policy-with-fractional-percentages]]
 === 包含小數百分比的原則
 
 [source, yaml]
@@ -345,6 +361,7 @@ NOTE: 支援小數百分比。若您指定超過三位小數，Trident 會將數
 
 
 
+[[nas-storageclass-with-autogrow]]
 === NAS StorageClass 具備自動成長功能
 
 [source, yaml]
@@ -363,6 +380,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[san-storageclass-with-autogrow]]
 === 具有自動增長功能的 SAN StorageClass
 
 [source, yaml]

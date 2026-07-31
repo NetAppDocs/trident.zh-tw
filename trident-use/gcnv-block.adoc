@@ -19,6 +19,7 @@ NOTE:  `google-cloud-netapp-volumes-san` 後端是配置 iSCSI 區塊磁碟區�
 
 
 
+[[overview]]
 == 總覽
 
 Trident 支援 Google Cloud NetApp Volumes SAN（iSCSI）工作負載，使用 `google-cloud-netapp-volumes-san` 驅動程式。
@@ -35,6 +36,7 @@ SAN 磁碟區從 Flex Unified 儲存資源池中配置，並以 iSCSI 區塊裝�
 
 
 
+[[flex-unified-storage-pools]]
 == Flex Unified 儲存池
 
 Flex 統一儲存資源池使用 iSCSI 協定提供區塊儲存設備，是 SAN 資源配置所必需的：
@@ -46,6 +48,7 @@ Flex 統一儲存資源池使用 iSCSI 協定提供區塊儲存設備，是 SAN 
 
 
 
+[[configure-a-trident-san-backend]]
 == 設定 Trident SAN 後端
 
 [source, yaml]
@@ -70,6 +73,7 @@ spec:
 ----
 
 
+[[create-a-storageclass]]
 == 建立 StorageClass
 
 配置完 SAN 後端後，建立一個 StorageClass 引用  `google-cloud-netapp-volumes-san` 驅動程式。
@@ -100,10 +104,12 @@ NOTE: SAN 驅動程式僅支援 Flex 服務級別，不使用 NAS 特定的後�
 
 
 
+[[provision-block-volumes]]
 == 配置區塊磁碟區
 
 
 
+[[readwriteonce-rwo]]
 === ReadWriteOnce（RWO）
 
 [source, yaml]
@@ -122,6 +128,7 @@ spec:
 ----
 
 
+[[readwriteoncepod-rwop]]
 === ReadWriteOncePod（RWOP）
 
 [source, yaml]
@@ -140,6 +147,7 @@ spec:
 ----
 
 
+[[readonlymany-rox]]
 === ReadOnlyMany（ROX）
 
 ROX 的一個常見模式是複製現有 ReadWriteOnce 磁碟區並將複製磁碟區掛載為唯讀。
@@ -163,6 +171,7 @@ spec:
 ----
 
 
+[[readwritemany-rwx-raw-block-only]]
 === ReadWriteMany (RWX) — 僅原始區塊
 
 僅在 `volumeMode: Block`時才支援 ReadWriteMany。
@@ -184,6 +193,7 @@ spec:
 ----
 
 
+[[block-volume-behavior]]
 == 區塊磁碟區行為
 
 區塊磁碟區以 iSCSI LUN 的形式配置，並以區塊裝置的形式呈現給 Kubernetes 節點。
@@ -198,6 +208,7 @@ spec:
 
 
 
+[[access-modes]]
 == 存取模式
 
 Trident 配置的區塊磁碟區支援下列存取模式：
@@ -210,6 +221,7 @@ Trident 配置的區塊磁碟區支援下列存取模式：
 
 
 
+[[volumemode-behavior]]
 == volumeMode 行為
 
  `volumeMode`欄位控制區塊磁碟區的公開方式：
@@ -220,6 +232,7 @@ Trident 配置的區塊磁碟區支援下列存取模式：
 
 
 
+[[supported-operations]]
 == 支援的作業
 
 使用  `google-cloud-netapp-volumes-san` 驅動程式配置的區塊磁碟區支援：
@@ -234,6 +247,7 @@ Trident 配置的區塊磁碟區支援下列存取模式：
 
 
 
+[[extra-gib-overprovisioning-behavior]]
 == 額外 GiB 過度配置行為
 
 Google Cloud NetApp Volumes 區塊磁碟區包含內部元資料開銷。與已配置的容量相比，此開銷會減少核心可見的裝置大小。
@@ -259,10 +273,12 @@ Google Cloud NetApp Volumes 區塊磁碟區包含內部元資料開銷。與已�
 
 
 
+[[pod-examples]]
 == Pod 範例
 
 
 
+[[filesystem-mounted-block-volume-rwo]]
 === 檔案系統掛載區塊磁碟區（RWO）
 
 [source, yaml]
@@ -286,6 +302,7 @@ spec:
 ----
 
 
+[[raw-block-device-rwx]]
 === 原始區塊設備（RWX）
 
 [source, yaml]
@@ -309,6 +326,7 @@ spec:
 ----
 
 
+[[attach-and-mount-behavior]]
 == 附加和掛載行為
 
 對於從 Google Cloud NetApp Volumes 配置的 SAN 磁碟區：

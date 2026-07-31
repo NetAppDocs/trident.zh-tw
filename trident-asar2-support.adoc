@@ -31,6 +31,7 @@ Trident 為 ASA r2 系統提供有限的資料保護，並配備 Trident protect
 
 
 
+[[supported-operations]]
 == 支援的作業
 
 * 配置持久磁碟區（PV）
@@ -43,6 +44,7 @@ Trident 為 ASA r2 系統提供有限的資料保護，並配備 Trident protect
 
 
 
+[[unsupported-operations]]
 == 不支援的作業
 
 * LUKS 加密

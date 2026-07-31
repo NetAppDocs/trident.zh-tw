@@ -21,6 +21,7 @@ NOTE: 您可以設定Trident Protect 在資料保護作業期間凍結和解凍�
 
 
 
+[[create-an-on-demand-snapshot]]
 == 建立隨需快照
 
 您可以隨時建立隨需快照。
@@ -84,6 +85,7 @@ tridentctl-protect create snapshot <my_snapshot_name> --appvault <my_appvault_na
 ====
 
 
+[[create-an-on-demand-backup]]
 == 建立隨選備份
 
 您可以隨時備份應用程式。
@@ -168,6 +170,7 @@ tridentctl-protect create backup <my_backup_name> --appvault <my-vault-name> --a
 ====
 
 
+[[supported-backup-annotations]]
 === 支援的備份註釋
 
 下表描述了建立備份 CR 時可以使用的註解：
@@ -193,6 +196,7 @@ tridentctl-protect create backup <my_backup_name> --appvault <my-vault-name> --a
 |===
 
 
+[[create-a-data-protection-schedule]]
 == 建立資料保護排程
 
 保護策略透過按照定義的計劃建立快照、備份或兩者來保護應用程式。您可以選擇每小時、每天、每周和每月建立快照和備份，並可以指定要保留的副本數量。您可以使用 full-backup-rule 註解來排程非增量式完整備份。預設情況下，所有備份都是增量的。定期執行完整備份以及其間的增量備份有助於降低與復原相關的風險。
@@ -378,6 +382,7 @@ NOTE: 這 `--full-backup-rule` 此標誌位不適用於按小時、按週或按�
 ====
 
 
+[[supported-schedule-annotations]]
 === 支援的日程註釋
 
 下表描述了建立計劃變更請求 (CR) 時可以使用的註釋：
@@ -403,6 +408,7 @@ NOTE: 這 `--full-backup-rule` 此標誌位不適用於按小時、按週或按�
 |===
 
 
+[[delete-a-snapshot]]
 == 刪除快照
 
 刪除不再需要的排程或隨需快照。
@@ -418,6 +424,7 @@ kubectl delete snapshot <snapshot_name> -n my-app-namespace
 
 
 
+[[delete-a-backup]]
 == 刪除備份
 
 刪除不再需要的排程或隨需備份。
@@ -436,6 +443,7 @@ kubectl delete backup <backup_name> -n my-app-namespace
 
 
 
+[[check-the-status-of-a-backup-operation]]
 == 檢查備份作業的狀態
 
 您可以使用命令列來檢查正在進行，已完成或已失敗的備份作業狀態。
@@ -451,6 +459,7 @@ kubectl get backup -n <namespace_name> <my_backup_cr_name> -o jsonpath='{.status
 
 
 
+[[enable-backup-and-restore-for-azure-netapp-files-anf-operations]]
 == 啟用 NetApp 檔案（ anf ）作業的備份與還原
 
 如果您已安裝Trident Protect，則可以為使用 azure-netapp-files 儲存類別且在Trident 24.06 之前建立的儲存後端啟用節省空間的備份和還原功能。此功能適用於 NFSv4 卷，並且不會佔用容量池中的額外空間。

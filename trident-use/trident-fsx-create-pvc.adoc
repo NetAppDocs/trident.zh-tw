@@ -16,6 +16,7 @@ summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在
 
 
 
+[[create-the-pvc]]
 == 建立 PVC
 
  https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolume Claim"^]（PVC）是對叢集上 PersistentVolume 的存取請求。PVC 可以配置為請求特定大小的儲存空間或存取模式。透過關聯的 StorageClass，叢集管理員不僅可以控制 PersistentVolume 大小和存取模式，還可以控制效能或服務等級等更多參數。
@@ -24,6 +25,7 @@ summary: 使用 Trident 搭配 Amazon FSX for NetApp ONTAP 、您可以確保在
 
 
 
+[[sample-manifests]]
 === 範例資訊清單
 
 以下範例展示了 PVC 的基本組態選項。
@@ -64,6 +66,7 @@ spec:
 ----
 
 
+[[create-pvc]]
 === 建立PVC
 
 .步驟

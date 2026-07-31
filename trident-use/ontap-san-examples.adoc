@@ -19,6 +19,7 @@ NOTE: 只有 `ontap-san`ASA r2 系統支援驅動程式（支援 iSCSI、NVMe/TC
 
 
 
+[[backend-configuration-options]]
 == 後端組態選項
 
 如需後端組態選項、請參閱下表：
@@ -158,6 +159,7 @@ NOTE: NVMe 僅支援ONTAP REST API，不支援 ONTAPI (ZAPI)。
 |===
 
 
+[[recommendations-for-using-formatoptions]]
 === 使用 formatOptions 的建議
 
 Trident建議採用以下選項來加速格式化流程：
@@ -168,6 +170,7 @@ Trident建議採用以下選項來加速格式化流程：
 
 
 
+[[authenticate-trident-to-a-backend-svm-using-active-directory-credentials]]
 === 使用 Active Directory 憑證向後端 SVM 驗證Trident 的身份
 
 您可以設定Trident以使用 Active Directory (AD) 憑證對後端 SVM 進行驗證。在 AD 帳戶可以存取 SVM 之前，您必須設定 AD 網域控制站對叢集或 SVM 的存取權限。對於使用 AD 帳戶進行叢集管理，您必須建立網域隧道。參考 link:https://docs.netapp.com/us-en/ontap/authentication/enable-ad-users-groups-access-cluster-svm-task.html["在ONTAP中設定 Active Directory 網域控制站存取"^] 了解詳情。
@@ -190,6 +193,7 @@ Trident建議採用以下選項來加速格式化流程：
 
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == 用於資源配置磁碟區的後端組態選項
 
 您可以使用中的這些選項來控制預設資源配置 `defaults` 組態區段。如需範例、請參閱下列組態範例。
@@ -233,6 +237,7 @@ Trident建議採用以下選項來加速格式化流程：
 |===
 
 
+[[volume-provisioning-examples]]
 === Volume資源配置範例
 
 以下是定義預設值的範例：
@@ -278,6 +283,7 @@ image::../media/vol-show-san.png[顯示Volume show命令的輸出。]
 
 
 
+[[minimal-configuration-examples]]
 == 最低組態範例
 
 下列範例顯示基本組態、讓大部分參數保留預設值。這是定義後端最簡單的方法。
@@ -478,6 +484,7 @@ defaults:
 ====
 
 
+[[examples-of-backends-with-virtual-pools]]
 == 虛擬集區的後端範例
 
 在這些後端定義檔案範例中、會針對所有儲存池設定特定的預設值、例如 `spaceReserve` 無、 `spaceAllocation` 假、和 `encryption` 錯。虛擬資源池是在儲存區段中定義的。
@@ -622,6 +629,7 @@ storage:
 ====
 
 
+[[map-backends-to-storageclasses]]
 == 將後端對應至StorageClass
 
 下列 StorageClass 定義請參閱 <<虛擬集區的後端範例>>。使用 `parameters.selector` 欄位中、每個 StorageClass 都會呼叫哪些虛擬集區可用於主控磁碟區。磁碟區將會在所選的虛擬資源池中定義各個層面。

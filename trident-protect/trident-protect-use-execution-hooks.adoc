@@ -18,6 +18,7 @@ summary: 您可以使用Trident Protect 為應用程式建立自訂執行鉤子�
 
 
 
+[[types-of-execution-hooks]]
 == 執行掛勾的類型
 
 Trident Protect 支援以下幾種執行鉤子類型，取決於它們的運行時機：
@@ -32,6 +33,7 @@ Trident Protect 支援以下幾種執行鉤子類型，取決於它們的運行�
 
 
 
+[[order-of-execution]]
 === 執行順序
 
 執行資料保護作業時、執行掛機事件會依照下列順序發生：
@@ -62,6 +64,7 @@ NOTE: 如果快照前執行攔截器新增，變更或移除 Kubernetes 資源�
 
 
 
+[[important-notes-about-custom-execution-hooks]]
 == 關於自訂執行掛勾的重要注意事項
 
 規劃應用程式的執行掛勾時、請考量下列事項。
@@ -77,6 +80,7 @@ NOTE: 由於執行掛勾通常會減少或完全停用執行中應用程式的�
 
 
 
+[[execution-hook-filters]]
 == 執行攔截篩選器
 
 當您新增或編輯應用程式的執行掛鉤時，您可以將篩選器新增至執行掛鉤，以管理掛鉤將符合的容器。篩選器對於在所有容器上使用相同容器映像的應用程式來說非常實用、但可能會將每個映像用於不同的用途（例如Elasticsearch）。篩選器可讓您建立執行攔截器在某些容器上執行的案例、但不一定所有容器都相同。如果您為單一執行掛勾建立多個篩選器、這些篩選器會與邏輯和運算子結合使用。每個執行掛機最多可有10個作用中篩選器。
@@ -88,6 +92,7 @@ NOTE: 如果您將命名空間篩選器新增至執行掛勾、而執行還原�
 
 
 
+[[execution-hook-examples]]
 == 執行攔截範例
 
 請造訪 https://github.com/NetApp/Verda["NetApp Verda GitHub專案"] 下載熱門應用程式（例如 Apache Cassandra 和 Elasticsearch ）的實際執行連結。您也可以查看範例、瞭解如何建構您自己的自訂執行掛勾。
@@ -97,6 +102,7 @@ NOTE: Verda 儲存庫中的腳本按原樣提供，並未獲得 NetApp 的官方
 
 
 
+[[create-an-execution-hook]]
 == 建立執行掛鉤
 
 您可以使用Trident Protect 為應用程式建立自訂執行鉤子。您需要擁有所有者、管理員或成員權限才能建立執行鉤子。
@@ -205,6 +211,7 @@ tridentctl-protect create exechook <my_exec_hook_name> --action <action_type> --
 ====
 
 
+[[manually-run-an-execution-hook]]
 == 手動執行掛鉤
 
 您可以手動執行掛鉤以進行測試，或是在故障後需要手動重新執行掛鉤。您需要擁有擁有者，管理員或成員權限，才能手動執行掛鉤。

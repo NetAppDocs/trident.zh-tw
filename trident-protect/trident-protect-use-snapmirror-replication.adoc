@@ -18,6 +18,7 @@ summary: 使用Trident Protect，您可以利用NetApp SnapMirror技術的非同
 
 
 
+[[namespace-annotations-and-labels-during-restore-and-failover-operations]]
 == 還原和容錯移轉作業期間的命名空間註釋和標籤
 
 在還原和容錯移轉作業期間，目的地命名空間中的標籤和註釋會與來源命名空間中的標籤和註釋相符。會新增來源命名空間中不存在的標籤或註釋，並覆寫已存在的任何標籤或註釋，以符合來源命名空間的值。只存在於目的地命名空間上的標籤或註釋會保持不變。
@@ -40,6 +41,7 @@ NOTE: 執行復原或故障轉移操作時，任何命名空間註解和標籤�
 
 
 
+[[example]]
 === 範例
 
 以下範例提供來源和目的地命名空間，每個命名空間都有不同的註釋和標籤。您可以查看作業前後目的地命名空間的狀態，以及註釋和標籤在目的地命名空間中的組合或覆寫方式。
@@ -105,6 +107,7 @@ NOTE: 您可以設定Trident Protect 在資料保護作業期間凍結和解凍�
 
 
 
+[[execution-hooks-during-failover-and-reverse-operations]]
 == 故障轉移和反向操作期間的執行掛鉤
 
 當使用 AppMirror 關係保護您的應用程式時，您應該在故障轉移和反轉操作期間注意與執行掛鉤相關的特定行為。
@@ -117,6 +120,7 @@ NOTE: 您可以設定Trident Protect 在資料保護作業期間凍結和解凍�
 
 
 
+[[set-up-a-replication-relationship]]
 == 設定複寫關係
 
 設定複寫關係涉及下列事項：
@@ -467,6 +471,7 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 
 
 
+[[fail-over-to-destination-cluster]]
 === 容錯移轉至目的地叢集
 
 使用Trident Protect，您可以將複製的應用程式故障轉移到目標叢集。此過程會停止複製關係，並將應用程式在目標叢集上連線。如果來源叢集上的應用程式正在運行， Trident Protect 不會停止該應用程式。
@@ -491,6 +496,7 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 
 
 
+[[resync-a-failed-over-replication-relationship]]
 === 重新同步容錯移轉複寫關係
 
 重新同步作業會重新建立複寫關係。執行重新同步作業後，原始來源應用程式即成為執行中的應用程式，而對目的地叢集上執行中的應用程式所做的任何變更都會被捨棄。
@@ -515,6 +521,7 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 
 
 
+[[reverse-resync-a-failed-over-replication-relationship]]
 === 反轉重新同步容錯移轉複寫關係
 
 當您反向重新同步容錯移轉複寫關係時，目的地應用程式會變成來源應用程式，來源會變成目的地。在容錯移轉期間對目的地應用程式所做的變更會保留下來。
@@ -528,6 +535,7 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 
 
 
+[[reverse-application-replication-direction]]
 == 反轉應用程式複寫方向
 
 當您反轉複製方向時， Trident Protect 會將應用程式移至目標儲存後端，同時繼續複製回原始來源儲存後端。  Trident Protect 會停止來源應用程式並將資料複製到目標位置，然後再故障轉移到目標應用程式。
@@ -614,6 +622,7 @@ NOTE: 在容錯移轉程序的步驟 2 中，將欄位包含在 `spec.promotedSn
 
 
 
+[[result]]
 === 結果
 
 由於反向複寫，因此會發生下列動作：
@@ -628,6 +637,7 @@ NOTE: 在容錯移轉程序的步驟 2 中，將欄位包含在 `spec.promotedSn
 
 
 
+[[fail-back-applications-to-the-original-source-cluster]]
 === 將應用程式容錯移轉至原始來源叢集
 
 使用Trident Protect，您可以透過以下步驟序列在故障轉移作業後實現「故障復原」。在此恢復原始複製方向的工作流程中， Trident Protect 會將任何應用程式變更複製（重新同步）回原始來源應用程序，然後再反轉複製方向。
@@ -650,6 +660,7 @@ CAUTION: 請勿執行正常的重新同步作業，因為這會捨棄在容錯�
 
 
 
+[[delete-a-replication-relationship]]
 === 刪除複寫關係
 
 您可以隨時刪除複寫關係。當您刪除應用程式複寫關係時，會產生兩個獨立的應用程式，兩者之間沒有任何關係。

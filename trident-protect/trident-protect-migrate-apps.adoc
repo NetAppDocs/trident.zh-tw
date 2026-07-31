@@ -21,12 +21,14 @@ NOTE: 當您移轉應用程式時，為應用程式設定的所有執行掛鉤�
 
 
 
+[[backup-and-restore-operations]]
 == 備份與還原作業
 
 若要針對下列案例執行備份與還原作業，您可以自動化特定的備份與還原工作。
 
 
 
+[[clone-to-same-cluster]]
 === 複製到同一個叢集
 
 若要將應用程式複製到同一個叢集，請建立快照或備份，然後將資料還原到同一個叢集。
@@ -48,6 +50,7 @@ NOTE: 當您移轉應用程式時，為應用程式設定的所有執行掛鉤�
 
 
 
+[[clone-to-different-cluster]]
 === 複製到不同叢集
 
 若要將應用程式複製到不同的叢集（執行跨叢集克隆），請在來源叢集上建立備份，然後將備份還原到不同的叢集。請確保目標叢集上已安裝Trident Protect。
@@ -63,6 +66,7 @@ NOTE: 您可以使用在不同叢集之間複寫應用程式link:trident-protect
 
 
 
+[[migrate-applications-from-one-storage-class-to-another-storage-class]]
 == 將應用程式從一個儲存類別移轉至另一個儲存類別
 
 您可以透過將備份還原到目標儲存類，將應用程式從一個儲存類別遷移到另一個儲存類別。

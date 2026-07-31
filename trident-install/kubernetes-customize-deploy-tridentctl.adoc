@@ -16,6 +16,7 @@ summary: 您可以使用 Trident 安裝程式自訂部署。
 
 
 
+[[learn-about-the-installer]]
 == 深入瞭解安裝程式
 
 Trident 安裝程式可讓您自訂屬性。例如，如果您已將 Trident 映像複製到私有儲存庫，則可以使用指定映像名稱 `--trident-image`。如果您已將 Trident 映像以及所需的 CSI sidecar 映像複製到私有儲存庫，最好使用採用格式的交換器 `<registry FQDN>[:port]`來指定該儲存庫的位置 `--image-registry`。

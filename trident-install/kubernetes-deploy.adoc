@@ -16,7 +16,8 @@ summary: '您可以使用 Trident 運算子（手動或使用 Helm ）或搭配�
 
 
 
-== 關於 Trident 26.02 的關鍵資訊
+[[critical-information-about-trident-26-06]]
+== 關於 Trident 26.06 的關鍵資訊
 
 * 您必須閱讀下列有關 Trident 的重要資訊。 *
 
@@ -36,6 +37,7 @@ summary: '您可以使用 Trident 運算子（手動或使用 Helm ）或搭配�
 ====
 
 
+[[before-you-begin]]
 == 開始之前
 
 無論安裝路徑為何、您都必須具備：
@@ -54,12 +56,14 @@ TIP: 如果您尚未熟悉link:../trident-get-started/intro.html["基本概念"^
 
 
 
+[[choose-your-installation-method]]
 == 選擇您的安裝方法
 
 選擇適合您的安裝方式。在做出決定之前，您還應該考慮 link:kubernetes-deploy.html#moving-between-installation-methods["在方法之間移動"]。
 
 
 
+[[using-the-trident-operator]]
 === 使用Trident運算子
 
 無論手動部署或使用 Helm，Trident operator 都是簡化安裝和動態管理 Trident 資源的絕佳方式。您甚至可以link:kubernetes-customize-deploy.html["自訂您的Trident營運者部署"]使用 `TridentOrchestrator`自訂資源（CR）中的屬性。
@@ -121,6 +125,7 @@ NOTE: 如果叢集升級為不受支援的版本、則操作員會阻止安裝 T
 ====
 
 
+[[using-tridentctl]]
 === 使用 `tridentctl`
 
 如果您現有的部署必須升級、或是想要高度自訂部署、您應該考慮。這是部署 Trident 的傳統方法。
@@ -132,6 +137,7 @@ NOTE: 從 22.04 版本開始、每次安裝 Trident 時、就不會再重新產�
 
 
 
+[[choose-your-installation-mode]]
 == 選擇安裝模式
 
 根據組織所需的安裝模式_（標準、離線或遠端）來判斷您的部署程序。
@@ -171,6 +177,7 @@ NOTE: 無論您的登錄組態為何、都必須將csi映像存放在單一登�
 ====
 
 
+[[select-the-process-based-on-your-method-and-mode]]
 == 根據您的方法和模式選取程序
 
 做出決策後、請選擇適當的程序。
@@ -200,6 +207,7 @@ link:kubernetes-deploy-tridentctl.html["標準或離線安裝"]
 |===
 
 
+[[moving-between-installation-methods]]
 == 在安裝方法之間移動
 
 您可以決定變更安裝方法。在執行此操作之前、請先考慮下列事項：
@@ -212,6 +220,7 @@ link:kubernetes-deploy-tridentctl.html["標準或離線安裝"]
 
 
 
+[[other-known-configuration-options]]
 == 其他已知組態選項
 
 在 VMware Tanzu Portfolio 產品上安裝 Trident 時：

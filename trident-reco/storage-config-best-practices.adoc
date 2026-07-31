@@ -16,6 +16,7 @@ NetApp產品組合中的每個儲存平台都有獨特的功能、無論應用�
 
 
 
+[[platform-overview]]
 == 平台總覽
 
 Trident可搭配ONTAP 使用沒有一個平台比其他平台更適合所有應用程式和案例、不過在選擇平台時、應考慮應用程式和管理裝置團隊的需求。
@@ -24,6 +25,7 @@ Trident可搭配ONTAP 使用沒有一個平台比其他平台更適合所有應�
 
 
 
+[[ontap-and-cloud-volumes-ontap-best-practices]]
 == 最佳實務做法ONTAP Cloud Volumes ONTAP
 
 瞭解設定ONTAP 適用於Cloud Volumes ONTAP Trident的功能性及功能性的最佳實務做法。
@@ -32,6 +34,7 @@ Trident可搭配ONTAP 使用沒有一個平台比其他平台更適合所有應�
 
 
 
+[[use-svms-dedicated-to-trident]]
 === 使用Trident專用的SVM
 
 儲存虛擬機器（SVM）可隔離ONTAP 及管理各個客戶在一個系統上的區隔。將SVM專用於應用程式可委派權限、並可套用最佳實務做法來限制資源使用量。
@@ -49,6 +52,7 @@ SVM管理有多種選項可供選擇：
 
 
 
+[[limit-the-maximum-volume-count]]
 === 限制最大Volume數
 
 根據軟體版本和硬體平台、系統可提供最大的Volume數。ONTAP請參閱 https://hwu.netapp.com/["NetApp Hardware Universe"^] 針對您的特定平台和ONTAP 版本、決定確切的限制。當磁碟區數用盡時、資源配置作業不僅會針對Trident、也會針對所有儲存要求失敗。
@@ -72,6 +76,7 @@ vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
 
 
 
+[[clone-a-volume]]
 === 複製磁碟區
 
 NetApp Trident在使用時支援克隆卷 `ontap-nas`， `ontap-san` ， 和 `solidfire-san`儲存驅動程式。使用時 `ontap-nas-flexgroup`或者 `ontap-nas-economy`驅動程式不支援克隆。從現有磁碟區建立新磁碟區將建立一個新的快照。
@@ -81,6 +86,7 @@ WARNING: 避免複製與其他 StorageClass 關聯的 PVC。請在同一 Storage
 
 
 
+[[limit-the-maximum-size-of-volumes-created-by-trident]]
 === 限制Trident所建立的Volume大小上限
 
 若要設定Trident可建立的磁碟區大小上限、請在「backend.json」定義中使用「limitVolume Sizes」參數。
@@ -89,18 +95,21 @@ WARNING: 避免複製與其他 StorageClass 關聯的 PVC。請在同一 Storage
 
 
 
+[[limit-the-maximum-size-of-flexvols-created-by-trident]]
 === 限制 Trident 所建立的 FlexVols 大小上限
 
 若要將 FlexVols 的最大大小設定為用於 ONTAP SAN 經濟型和 ONTAP NAS 經濟型驅動程式的集區、請使用 `limitVolumePoolSize` `backend.json`定義中的參數。
 
 
 
+[[configure-trident-to-use-bidirectional-chap]]
 === 設定Trident使用雙向CHAP
 
 您可以在後端定義中指定CHAP啟動器和目標使用者名稱和密碼、並在SVM上啟用Trident啟用CHAP。使用 `useCHAP` 後端組態中的參數、Trident會驗證iSCSI連線ONTAP 、以CHAP作為後端。
 
 
 
+[[create-and-use-an-svm-qos-policy]]
 === 建立並使用SVM QoS原則
 
 運用ONTAP 套用至SVM的SVM的SQoS原則、限制Trident佈建磁碟區所耗用的IOPS數量。這對我們有幫助 http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-perf-mon/GUID-77DF9BAF-4ED7-43F6-AECE-95DFB0680D2F.html?cp=7_1_2_1_2["預防欺凌"^] 或失控的容器、避免影響Trident SVM以外的工作負載。
@@ -131,6 +140,7 @@ IMPORTANT: 如果您的版本早於ONTAP 9.8、您應該將QoS原則群組指派
 
 
 
+[[create-qos-policy-groups-for-trident]]
 === 為Trident建立QoS原則群組
 
 服務品質（QoS）可確保關鍵工作負載的效能不會因競爭工作負載而降級。支援QoS原則群組的QoS選項可用於磁碟區、並可讓使用者定義一或多個工作負載的處理量上限。ONTAP如需 QoS 的詳細資訊、請參閱 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-perf-mon/GUID-77DF9BAF-4ED7-43F6-AECE-95DFB0680D2F.html["保證QoS的處理量"^]。
@@ -173,6 +183,7 @@ storage:
 
 
 
+[[limit-storage-resource-access-to-kubernetes-cluster-members]]
 === 限制Kubernetes叢集成員存取儲存資源
 
 限制對 Trident 所建立的 NFS 磁碟區， iSCSI LUN 和 FC LUN 的存取，是 Kubernetes 部署安全性態勢的重要元件。這樣做可防止非Kubernetes叢集一部分的主機存取磁碟區、並可能意外修改資料。
@@ -189,6 +200,7 @@ storage:
 
 
 
+[[use-a-dedicated-export-policy]]
 === 使用專屬的匯出原則
 
 您應該確保每個後端都有一個匯出原則、只允許存取Kubernetes叢集中的節點。Trident 可以自動建立及管理匯出原則。如此一來、Trident就能限制對Kubernetes叢集中節點所配置之磁碟區的存取、並簡化節點的新增/刪除作業。
@@ -203,6 +215,7 @@ storage:
 
 
 
+[[disable-showmount-for-the-application-svm]]
 === 停用 `showmount` 適用於應用程式SVM
 
 此 `showmount`功能可讓 NFS 用戶端查詢 SVM 以取得可用 NFS 匯出清單。部署至 Kubernetes 叢集的 Pod 可針對發出 `showmount -e`命令，並接收可用掛載清單，包括無法存取的掛載。雖然這本身並不是安全威脅、但它確實提供不必要的資訊、可能有助於未獲授權的使用者連線至NFS匯出。
@@ -215,18 +228,21 @@ vserver nfs modify -vserver <svm_name> -showmount disabled
 ----
 
 
+[[solidfire-best-practices]]
 == 最佳實務做法SolidFire
 
 瞭解設定SolidFire Trident之用的功能完善的功能。
 
 
 
+[[create-solidfire-account]]
 === 建立SolidFire 支援帳戶
 
 每SolidFire 個驗證帳戶都代表唯一的磁碟區擁有者、並會收到自己的挑戰握手驗證傳輸協定（CHAP）認證資料。您可以使用帳戶名稱和相對CHAP認證、或是透過Volume存取群組、來存取指派給帳戶的磁碟區。帳戶最多可指派2、000個磁碟區、但一個磁碟區只能屬於一個帳戶。
 
 
 
+[[create-a-qos-policy]]
 === 建立QoS原則
 
 如果您想建立並儲存可套用至許多Volume的標準化服務品質設定、請使用SolidFire 「服務品質（QoS）」原則。
@@ -279,6 +295,7 @@ NOTE: 雖然最大IOPS和爆發IOPS可設定為高達20、000、但實際的Volu
 
 
 
+[[solidfire-authentication]]
 === 驗證SolidFire
 
 Element支援兩種驗證方法：CHAP和Volume Access Groups（VAG）。CHAP使用CHAP傳輸協定驗證主機到後端的驗證。Volume存取群組可控制對其所配置之Volume的存取。NetApp建議使用CHAP進行驗證、因為它更簡單、而且沒有擴充限制。
@@ -292,6 +309,7 @@ CHAP驗證（驗證啟動器是否為預定的Volume使用者）僅支援帳戶�
 
 
 
+[[where-to-find-more-information]]
 == 哪裡可以找到更多資訊？
 
 以下列出部分最佳實務做法文件。搜尋 https://www.netapp.com/search/["NetApp資料庫"^] 適用於最新版本。

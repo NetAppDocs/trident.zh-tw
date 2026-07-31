@@ -16,6 +16,7 @@ Kubernetes 持續磁碟區（ PV ）的磁碟區快照可啟用磁碟區的時�
 
 
 
+[[overview]]
 == 總覽
 
 卷快照受支援 `ontap-nas`， `ontap-nas-flexgroup` ， `ontap-san` ， `ontap-san-economy` ， `solidfire-san` ， `azure-netapp-files` ， 和 `google-cloud-netapp-volumes`司機。
@@ -30,6 +31,7 @@ NOTE: 如果在 GKE 環境中建立隨需磁碟區快照、請勿建立快照控
 
 
 
+[[create-a-volume-snapshot]]
 == 建立磁碟區快照
 
 .步驟
@@ -114,6 +116,7 @@ Status:
 
 
 
+[[create-a-pvc-from-a-volume-snapshot]]
 == 從磁碟區快照建立 PVC
 
 您可以使用 `dataSource` 使用名為的 Volume Snapshot 建立 PVC `<pvc-name>` 做為資料來源。建立好永久虛擬基礎架構之後、就能將它附加到Pod上、就像使用任何其他永久虛擬基礎架構一樣使用。
@@ -147,6 +150,7 @@ spec:
 ----
 
 
+[[import-a-volume-snapshot]]
 == 匯入 Volume 快照
 
 Trident 支援、link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Kubernetes 預先配置的快照程序"^]可讓叢集管理員建立 `VolumeSnapshotContent`物件、並匯入在 Trident 之外建立的快照。
@@ -238,6 +242,7 @@ spec:
 
 
 
+[[recover-volume-data-using-snapshots]]
 == 使用快照恢復 Volume 資料
 
 快照目錄預設為隱藏、以協助使用進行資源配置的磁碟區達到最大相容性 `ontap-nas` 和 `ontap-nas-economy` 驅動程式：啟用 `.snapshot` 直接從快照恢復資料的目錄。
@@ -253,6 +258,7 @@ NOTE: 當您還原快照複本時、會覆寫現有的 Volume 組態。建立快
 
 
 
+[[in-place-volume-restoration-from-a-snapshot]]
 == 從快照進行原位磁碟區還原
 
 Trident 使用（ TASR ） CR 從快照提供快速的原位磁碟區還原 `TridentActionSnapshotRestore`。此 CR 是 Kubernetes 的必要行動、在作業完成後不會持續存在。
@@ -352,12 +358,14 @@ metadata:
 ====
 
 
+[[delete-a-pv-with-associated-snapshots]]
 == 刪除含有相關快照的 PV
 
 刪除含相關快照的持續 Volume 時，對應的 Trident Volume 會更新為「刪除狀態」。移除磁碟區快照以刪除 Trident 磁碟區。
 
 
 
+[[deploy-a-volume-snapshot-controller]]
 == 部署 Volume Snapshot 控制器
 
 如果您的Kubernetes發佈版本未包含快照控制器和客戶需求日、您可以依照下列方式進行部署。
@@ -397,6 +405,7 @@ NOTE: 如有必要、請開啟 `deploy/kubernetes/snapshot-controller/rbac-snaps
 
 
 
+[[related-links]]
 == 相關連結
 
 * link:../trident-concepts/snapshots.html["Volume快照"]

@@ -16,7 +16,8 @@ summary: 您可以手動部署 Trident 操作員來安裝 Trident 。此程序�
 
 
 
-== 關於 Trident 26.02 的關鍵資訊
+[[critical-information-about-trident-26-06]]
+== 關於 Trident 26.06 的關鍵資訊
 
 * 您必須閱讀下列有關 Trident 的重要資訊。 *
 
@@ -25,7 +26,7 @@ summary: 您可以手動部署 Trident 操作員來安裝 Trident 。此程序�
 ====
 []
 =====
-* Trident 現在支援 Kubernetes 1.35。請先升級 Trident，再升級 Kubernetes。
+* Trident 現在支援 Kubernetes 1.36。請先升級 Trident，再升級 Kubernetes。
 * Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值 `find_multipaths: no`。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
@@ -36,6 +37,7 @@ summary: 您可以手動部署 Trident 操作員來安裝 Trident 。此程序�
 ====
 
 
+[[manually-deploy-the-trident-operator-and-install-trident]]
 == 手動部署Trident運算子並安裝Trident
 
 檢查 link:kubernetes-deploy.html["安裝總覽"] 以確保滿足安裝先決條件並為您的環境選擇了正確的安裝選項。
@@ -72,18 +74,20 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 ====
 
 
+[[step-1-download-the-trident-installer-package]]
 === 步驟1：下載Trident安裝程式套件
 
 Trident 安裝程式套件包含部署 Trident 營運商和安裝 Trident 所需的一切。從下載並解壓縮最新版本link:https://github.com/NetApp/trident/releases/latest["GitHub的_Assets區段"^]的Trident 安裝程式。
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.02.0/trident-installer-26.02.0.tar.gz
-tar -xf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.06.0/trident-installer-26.06.0.tar.gz
+tar -xf trident-installer-26.06.0.tar.gz
 cd trident-installer
 ----
 
 
+[[step-2-create-the-tridentorchestrator-crd]]
 === 步驟2：建立 `TridentOrchestrator` 客戶需求日
 
 創建 `TridentOrchestrator`自訂資源定義（CRD）。您將創建一個 `TridentOrchestrator`稍後自訂資源。使用適當的 CRD YAML 版本 `deploy/crds`創建 `TridentOrchestrator`CRD。
@@ -94,6 +98,7 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.1
 ----
 
 
+[[step-3-deploy-the-trident-operator]]
 === 步驟3：部署Trident運算子
 
 Trident 安裝程式提供套件檔案、可用於安裝操作員及建立相關物件。套件檔案是部署操作員及使用預設組態安裝 Trident 的簡單方法。
@@ -147,6 +152,7 @@ IMPORTANT: Kubernetes叢集中只應有*一個運算子執行個體*。請勿建
 
 
 
+[[step-4-create-the-tridentorchestrator-and-install-trident]]
 === 步驟4：建立 `TridentOrchestrator` 並安裝Trident
 
 您現在可以建立 `TridentOrchestrator`並安裝 Trident 。您也可以選擇link:kubernetes-customize-deploy.html["自訂您的Trident安裝"]使用規格中的屬性 `TridentOrchestrator`。
@@ -174,7 +180,7 @@ Status:
   Current Installation Params:
     IPv6:                      false
     Autosupport Hostname:
-    Autosupport Image:         netapp/trident-autosupport:26.02
+    Autosupport Image:         netapp/trident-autosupport:26.06
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                     true
@@ -184,10 +190,10 @@ Status:
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Silence Autosupport:  false
-    Trident Image:        netapp/trident:26.02.0
+    Trident Image:        netapp/trident:26.06.0
   Message:                  Trident installed  Namespace:                trident
   Status:                   Installed
-  Version:                  v26.02.0
+  Version:                  v26.06.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -195,12 +201,14 @@ Events:
 ----
 
 
+[[verify-the-installation]]
 == 驗證安裝
 
 驗證安裝的方法有多種。
 
 
 
+[[using-tridentorchestrator-status]]
 === 使用 `TridentOrchestrator` 狀態
 
 狀態 `TridentOrchestrator` 指出安裝是否成功、並顯示安裝的Trident版本。安裝期間的狀態 `TridentOrchestrator` 變更來源 `Installing` 至 `Installed`。如果您觀察到 `Failed` 狀態、而且營運者無法自行恢復、 link:../troubleshooting.html["檢查記錄"]。
@@ -233,6 +241,7 @@ Events:
 |===
 
 
+[[using-pod-creation-status]]
 === 使用Pod建立狀態
 
 您可以檢閱建立的 Pod 狀態、確認 Trident 安裝是否已完成：
@@ -250,6 +259,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 ----
 
 
+[[using-tridentctl]]
 === 使用 `tridentctl`
 
 您可以使用 `tridentctl`檢查已安裝的 Trident 版本。
@@ -261,6 +271,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.02.0        | 26.02.0        |
+| 26.06.0        | 26.06.0        |
 +----------------+----------------+
 ----

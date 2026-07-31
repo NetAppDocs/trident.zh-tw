@@ -24,6 +24,7 @@ summary: 您應該使用與安裝 Trident 相同的方法來解除安裝 Trident
 
 
 
+[[determine-the-original-installation-method]]
 == 確定原始安裝方法
 
 您應該使用與安裝相同的方法來解除安裝 Trident 。在解除安裝之前、請先確認您原本安裝 Trident 的版本。
@@ -44,12 +45,14 @@ summary: 您應該使用與安裝 Trident 相同的方法來解除安裝 Trident
 
 
 
+[[uninstall-a-trident-operator-installation]]
 == 解除安裝 Trident 運算子安裝
 
 您可以手動或使用 Helm 解除安裝 Trident 運算子安裝。
 
 
 
+[[uninstall-manual-installation]]
 === 解除安裝手動安裝
 
 如果您使用運算子安裝 Trident 、則可以執行下列其中一項動作來解除安裝：
@@ -73,6 +76,7 @@ kubectl delete -f deploy/<bundle.yaml> -n <namespace>
 
 
 
+[[uninstall-helm-installation]]
 === 解除安裝 Helm 安裝
 
 如果您使用 Helm 安裝 Trident 、可以使用解除安裝 `helm uninstall`。
@@ -90,6 +94,7 @@ release "trident" uninstalled
 ----
 
 
+[[uninstall-a-tridentctl-installation]]
 == 解除安裝 `tridentctl` 安裝
 
 使用 `uninstall`中的命令 `tridentctl`移除與 Trident 相關的所有資源、但 CRD 和相關物件除外：

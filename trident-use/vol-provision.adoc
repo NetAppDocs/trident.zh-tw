@@ -16,6 +16,7 @@ summary: 建立 PersistentVolume （ PV ）和 PersistentVolume Claim （ PVC �
 
 
 
+[[overview]]
 == 總覽
 
  https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolume Claim"^]（ PVC ）是存取叢集上 PersistentVolume 的要求。
@@ -26,6 +27,7 @@ summary: 建立 PersistentVolume （ PV ）和 PersistentVolume Claim （ PVC �
 
 
 
+[[create-the-pvc]]
 == 建立 PVC
 
 .步驟
@@ -74,6 +76,7 @@ kubectl delete pod pv-pod
 
 
 
+[[sample-manifests]]
 === 範例資訊清單
 
 .PersistentVolume Claim 範例資訊清單

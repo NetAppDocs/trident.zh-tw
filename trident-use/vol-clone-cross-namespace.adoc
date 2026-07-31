@@ -16,6 +16,7 @@ summary: 使用 Trident ，您可以使用同一個 K8s 叢集中不同命名空
 
 
 
+[[prerequisites]]
 == 先決條件
 
 在複製磁碟區之前，請確定來源和目的地後端的類型相同，而且具有相同的儲存類別。
@@ -25,6 +26,7 @@ NOTE: 跨命名空間克隆僅支援 `ontap-san`和 `ontap-nas`儲存驅動程�
 
 
 
+[[quick-start]]
 == 快速入門
 
 只需幾個步驟即可設定磁碟區複製。
@@ -47,6 +49,7 @@ NOTE: 跨命名空間克隆僅支援 `ontap-san`和 `ontap-nas`儲存驅動程�
 
 
 
+[[configure-the-source-and-destination-namespaces]]
 == 設定來源和目的地命名空間
 
 為了確保安全性，跨命名空間複製磁碟區需要來源命名空間擁有者，叢集管理員和目的地命名空間擁有者共同作業和採取行動。使用者角色會在每個步驟中指定。
@@ -121,6 +124,7 @@ spec:
 
 
 
+[[limitations]]
 == 限制
 
 * 對於使用 ONTAP NAS 經濟型驅動程式配置的 PVC ，不支援唯讀複本。

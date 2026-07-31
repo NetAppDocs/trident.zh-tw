@@ -18,6 +18,7 @@ summary: 如果您的環境符合要求，您可以依照下列步驟安裝Tride
 
 
 
+[[install-trident-protect]]
 == 安裝Trident Protect
 
 [role="tabbed-block"]

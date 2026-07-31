@@ -17,24 +17,28 @@ summary: 使用 Trident 透過 Kubernetes 原生機制設定 Google Cloud NetApp
 
 
 
+[[overview]]
 == 總覽
 
 自動分層儲存功能可讓 Trident 自動配置磁碟區，將不活躍資料從效能層移至容量層。這樣既能降低儲存成本，又能確保頻繁存取資料的效能。
 
-Trident 僅在建立磁碟區時套用自動分層設定。Trident 26.02 不支援配置後變更。
+Trident 僅在建立磁碟區時套用自動分層設定。Trident 26.06 不支援配置後變更。
 
 
 
+[[concepts]]
 == 概念
 
 
 
+[[auto-tiering]]
 === 自動分層
 
 自動分層儲存會根據存取模式，將存取頻率較低的資料從效能層移至容量層。資料移動是非同步進行的，並非即時生效。
 
 
 
+[[tiering-policy]]
 === 分層原則
 
 分層原則決定是否為磁碟區啟用自動分層。
@@ -43,16 +47,19 @@ Trident 僅在建立磁碟區時套用自動分層設定。Trident 26.02 不支�
 
 
 
+[[cooling-days]]
 === 冷卻天數
 
 冷卻天數規定了資料區塊在符合分層儲存條件之前必須保持非活動狀態的最短天數。冷卻天數僅在分層儲存策略設定為 `auto`時適用。
 
 
 
+[[configuration-model]]
 == 組態模型
 
 
 
+[[configuration-scopes]]
 === 組態範圍
 
 自動分層可在多個範圍內進行設定：
@@ -65,6 +72,7 @@ Trident 會根據每個設定的定義位置來決定有效組態。
 
 
 
+[[configuration-precedence]]
 === 組態優先順序
 
 當相同設定被定義在多個作用域時，Trident 會套用下列優先順序：
@@ -78,9 +86,10 @@ Trident 會根據每個設定的定義位置來決定有效組態。
 
 
 
-== Trident 26.02 支援的功能
+[[supported-functionality-in-trident-26-06]]
+== Trident 26.06 支援的功能
 
-Trident 26.02 支援以下 Google Cloud NetApp Volumes 自動分層功能：
+Trident 26.06 支援以下 Google Cloud NetApp Volumes 自動分層功能：
 
 * 在磁碟區配置期間啟用或停用自動分層
 * 在 Trident 後端組態中定義分層原則
@@ -90,7 +99,8 @@ Trident 26.02 支援以下 Google Cloud NetApp Volumes 自動分層功能：
 
 
 
-== Trident 26.02 中不支援的功能
+[[unsupported-functionality-in-trident-26-06]]
+== Trident 26.06 中不支援的功能
 
 不支援以下操作：
 
@@ -101,6 +111,7 @@ Trident 26.02 支援以下 Google Cloud NetApp Volumes 自動分層功能：
 
 
 
+[[backend-configuration-parameters]]
 == 後端配置參數
 
 以下參數可在 Trident 後端組態中定義時控制自動分層行為：
@@ -117,10 +128,12 @@ Trident 26.02 支援以下 Google Cloud NetApp Volumes 自動分層功能：
 |===
 
 
+[[volume-level-overrides-using-persistentvolumeclaim-annotations]]
 == 使用 PersistentVolumeClaim 註解進行磁碟區層級覆寫
 
 
 
+[[supported-annotations]]
 === 支持的註釋
 
 PersistentVolumeClaim 註解允許對每個磁碟區的自動分層設定進行覆蓋。
@@ -137,6 +150,7 @@ PersistentVolumeClaim 註解允許對每個磁碟區的自動分層設定進行�
 |===
 
 
+[[example-persistentvolumeclaim-with-auto-tiering-overrides]]
 === 範例：PersistentVolumeClaim 與自動分層覆寫
 
 [source, yaml]
@@ -158,10 +172,12 @@ spec:
 ----
 
 
+[[behavior-and-limitations]]
 == 行為和限制
 
 
 
+[[provisioning-behavior]]
 === 資源配置行為
 
 * 自動分層設定僅在建立磁碟區時進行評估和應用。
@@ -171,6 +187,7 @@ spec:
 
 
 
+[[platform-limitations]]
 === 平台限制
 
 * 自動分層僅支援 NAS 磁碟區（ NFS 和 SMB ）。
@@ -180,6 +197,7 @@ spec:
 
 
 
+[[supported-values]]
 === 支援的值
 
 *  `tieringMinimumCoolingDays` 的有效範圍：2 至 183

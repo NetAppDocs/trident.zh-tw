@@ -16,6 +16,7 @@ summary: 瞭解 Google Cloud NetApp Volume 的 NFS 和 NFS 後端組態選項、
 
 
 
+[[backend-configuration-options]]
 == 後端組態選項
 
 每個後端都會在單一Google Cloud區域中配置磁碟區。若要在其他區域建立磁碟區、您可以定義其他後端。
@@ -74,6 +75,7 @@ summary: 瞭解 Google Cloud NetApp Volume 的 NFS 和 NFS 後端組態選項、
 |===
 
 
+[[volume-provisioning-options]]
 == Volume資源配置選項
 
 您可以在中控制預設的Volume資源配置 `defaults` 組態檔的一節。
@@ -96,6 +98,7 @@ summary: 瞭解 Google Cloud NetApp Volume 的 NFS 和 NFS 後端組態選項、
 |===
 
 
+[[example-configurations]]
 == 組態範例
 
 下列範例顯示基本組態、讓大部分參數保留預設值。這是定義後端最簡單的方法。
@@ -354,6 +357,7 @@ supportedTopologies:
 ====
 
 
+[[whats-next]]
 == 接下來呢？
 
 建立後端組態檔之後、請執行下列命令：
@@ -381,6 +385,7 @@ tridentctl logs
 
 
 
+[[storage-class-definitions]]
 == 儲存類別定義
 
 以下是上述後端的基本 `StorageClass` 定義。
@@ -434,6 +439,7 @@ parameters:
 
 
 
+[[example-definitions-for-smb-volumes]]
 === SMB磁碟區的定義範例
 
 使用 `nasType`、 `node-stage-secret-name`和 `node-stage-secret-namespace`，您可以指定 SMB 磁碟區並提供所需的 Active Directory 認證。任何具有任何 / 無權限的 Active Directory 使用者 / 密碼都可用於節點階段密碼。
@@ -494,6 +500,7 @@ NOTE: `nasType: smb` 支援SMB磁碟區的集區篩選器。 `nasType: nfs` 或 
 
 
 
+[[pvc-definition-example]]
 === PVC 定義範例
 
 [source, yaml]

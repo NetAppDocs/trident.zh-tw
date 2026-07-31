@@ -16,6 +16,7 @@ summary: 瞭解 Azure NetApp Files 的 NFS 和 SMB 後端組態選項、並檢�
 
 
 
+[[backend-configuration-options]]
 == 後端組態選項
 
 Trident 使用您的後端設定（子網路、虛擬網路、服務等級和位置）在要求的位置可用的容量池上建立 Azure NetApp Files Volume，並符合要求的服務等級和子網路。
@@ -107,9 +108,10 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 
 
 
-== 考慮 Azure 雲端環境（26.02）
+[[consider-azure-cloud-environments-26-06]]
+== 考慮 Azure 雲端環境（26.06）
 
-從 26.02 版本開始， Trident 支援在多個 Azure 雲端環境中建立和管理 Azure NetApp Files 後端。
+從 26.06 版本開始， Trident 支援在多個 Azure 雲端環境中建立和管理 Azure NetApp Files 後端。
 
 支援的 Azure 雲端包括：
 
@@ -121,6 +123,7 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 
 
 
+[[required-permissions-and-resources]]
 === 必要的權限與資源
 
 如果在建立 PVC 時收到「未找到容量池」錯誤，則可能是您的應用程式註冊缺少所需的權限和資源（子網路、虛擬網路、容量池）。如果啟用了偵錯模式，Trident 會記錄建立後端時發現的 Azure 資源。請確認是否使用了適當的角色。
@@ -153,6 +156,7 @@ NOTE: 如果虛擬網路與Azure NetApp Files(ANF) 儲存帳戶位於不同的�
 |===
 
 
+[[volume-provisioning]]
 === Volume資源配置
 
 您可以透過在設定檔特定部分中指定以下選項來控制預設磁碟區配置。如需詳細資訊，請參閱 <<組態範例>>。
@@ -176,6 +180,7 @@ NOTE: 如果虛擬網路與Azure NetApp Files(ANF) 儲存帳戶位於不同的�
 |===
 
 
+[[example-configurations]]
 == 組態範例
 
 以下範例展示了基本配置，其中大多數參數都保留預設值。這是定義後端最簡單的方法。
@@ -415,12 +420,14 @@ supportedTopologies:
 ====
 
 
+[[storage-class-definitions]]
 == 儲存類別定義
 
 以下內容 `StorageClass` 定義請參閱上述儲存資源池。
 
 
 
+[[example-definitions-using-parameter-selector-field]]
 === 使用的範例定義 `parameter.selector` 欄位
 
 使用 `parameter.selector`您可以為每個 `StorageClass`指定用於託管磁碟區的虛擬池。此磁碟區將具有所選儲存池中定義的設定項。
@@ -459,6 +466,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[example-definitions-for-smb-volumes]]
 === SMB磁碟區的定義範例
 
 使用 `nasType`、 `node-stage-secret-name`和 `node-stage-secret-namespace`，您可以指定 SMB 磁碟區並提供所需的 Active Directory 憑證。
@@ -520,6 +528,7 @@ NOTE: `nasType: smb` 篩選支援 SMB 磁碟區的儲存池。
 
 
 
+[[create-the-backend]]
 == 建立後端
 
 建立後端組態檔之後、請執行下列命令：

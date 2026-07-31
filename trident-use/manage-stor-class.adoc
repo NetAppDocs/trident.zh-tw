@@ -16,6 +16,7 @@ summary: 您可以檢視現有的儲存類別、設定預設的儲存類別、�
 
 
 
+[[view-the-existing-storage-classes]]
 == 檢視現有的儲存類別
 
 * 若要檢視現有的Kubernetes儲存類別、請執行下列命令：
@@ -48,6 +49,7 @@ tridentctl get storageclass <storage-class> -o json
 ----
 
 
+[[set-a-default-storage-class]]
 == 設定預設儲存類別
 
 Kubernetes 1.6新增了設定預設儲存類別的功能。如果使用者未在「持續磁碟區宣告」（PVc）中指定一個、則此儲存類別將用於配置「持續磁碟區」。
@@ -74,6 +76,7 @@ NOTE: 叢集中一次只應有一個預設儲存類別。Kubernetes在技術上�
 
 
 
+[[identify-the-backend-for-a-storage-class]]
 == 識別儲存類別的後端
 
 這是您可以使用 JSON 來回答的問題類型範例、此問題 `tridentctl`會針對 Trident 後端物件輸出。這會使用 `jq`您可能需要先安裝的公用程式。
@@ -84,6 +87,7 @@ tridentctl get storageclass -o json | jq  '[.items[] | {storageClass: .Config.na
 ----
 
 
+[[delete-a-storage-class]]
 == 刪除儲存類別
 
 若要從Kubernetes刪除儲存類別、請執行下列命令：

@@ -16,6 +16,7 @@ summary: 虛擬集區在 Trident 的儲存後端和 Kubernetes 的 StorageClasse
 
 
 
+[[learn-about-virtual-pools]]
 == 瞭解虛擬資源池
 
 儲存管理員可以在 JSON 或 YAML 定義檔案的任何 Trident 後端上定義虛擬集區。

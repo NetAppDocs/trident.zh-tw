@@ -16,6 +16,7 @@ Trident 支援 AWS FSx for NetApp ONTAP（FSxN）的自動後端組態。當您�
 
 
 
+[[understand-how-automatic-backend-configuration-works]]
 == 了解自動後端組態的運作方式
 
 Trident 從 StorageClass 定義中派生後端配置。當您套用 StorageClass 時，Trident 會驗證必要的參數、建立後端，並使用狀態標記 StorageClass。
@@ -24,6 +25,7 @@ Trident 只會建立一次 VolumeSnapshotClass。Trident 會為後續的 Storage
 
 
 
+[[specify-required-storageclass-parameters]]
 == 指定所需的 StorageClass 參數
 
 若要觸發自動後端建立、請在 StorageClass `parameters` 區段中定義所需的參數。
@@ -43,6 +45,7 @@ Trident 只會建立一次 VolumeSnapshotClass。Trident 會為後續的 Storage
 |===
 
 
+[[specify-optional-parameters]]
 == 指定選用參數
 
 您可以透過 StorageClass 傳遞可選的後端參數。在 StorageClass `parameters` 部分中將所有可選值定義為字串。
@@ -51,6 +54,7 @@ Trident 只會建立一次 VolumeSnapshotClass。Trident 會為後續的 Storage
 
 
 
+[[create-a-storageclass]]
 == 建立 StorageClass
 
 以下範例展示 StorageClass 如何觸發自動後端配置。
@@ -74,6 +78,7 @@ volumeBindingMode: Immediate
 
 
 
+[[verify-backend-configuration-status]]
 == 驗證後端組態狀態
 
 Trident 會將後端建立的結果記錄在 StorageClass 註解中。
@@ -107,6 +112,7 @@ kubectl get storageclass ontap-fsx-demo -o yaml
 
 
 
+[[add-additional-fsxn-file-systems]]
 == 新增其他 FSxN 檔案系統
 
 如果您在繼續使用相同 StorageClass 的情況下需要額外的儲存容量，請新增額外的 FSxN 檔案系統 ID。
@@ -123,6 +129,7 @@ metadata:
 
 
 
+[[operational-considerations-and-limitations]]
 == 操作考量與限制
 
 刪除 StorageClass 通常會刪除關聯的 Trident 後端。這可能會中斷儲存連線並導致正在運行的工作負載中斷。刪除託管 StorageClass 之前，請務必驗證其影響。

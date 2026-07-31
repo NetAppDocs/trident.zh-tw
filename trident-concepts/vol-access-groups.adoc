@@ -19,6 +19,7 @@ NOTE: 如果您使用的是CHAP、建議您略過本節、以簡化管理並避�
 
 
 
+[[learn-about-volume-access-groups]]
 == 深入瞭解Volume存取群組
 
 Trident 可以使用 Volume 存取群組來控制對其所配置之磁碟區的存取。如果停用 CHAP 、除非您在組態中指定一或多個存取群組 ID 、否則它會預期找到一個稱為的存取群 `trident`組。

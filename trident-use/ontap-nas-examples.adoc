@@ -1,18 +1,16 @@
----
-sidebar: sidebar 
-permalink: trident-use/ontap-nas-examples.html 
-keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster 
-summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP NAS 驅動程式。本節提供後端組態範例、以及如何將後端對應至StorageClass的詳細資料。 
----
 = 列舉NAS組態選項與範例ONTAP
-:hardbreaks:
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
+
+'''
+sidebar: sidebar permalink: trident-use/ontap-nas-examples.html keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster summary: 了解如何使用 ONTAP NAS 驅動程式搭配您的 Trident 安裝。本節提供後端組態範例以及如何將後端對應到 StorageClasses 的詳細資訊。---
+
+
+
+= 列舉NAS組態選項與範例ONTAP
 
 [role="lead"]
-學習如何在 Trident 安裝中建立和使用 ONTAP NAS 驅動程式。本節提供後端組態範例以及將後端對應至 StorageClasses 的詳細資訊。從 25.10 版本開始，NetApp Trident 支援 link:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFX 儲存系統"^]。NetApp AFX 儲存系統與其他基於 ONTAP 的系統（ASA、AFF 和 FAS）在儲存層的實作方式上有所不同。
+在 Trident 安裝中建立和使用 ONTAP NAS 驅動程式。本節提供後端組態範例，以及將後端映射至 StorageClasses 的詳細資訊。從 25.10 版本開始，NetApp Trident 支援link:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFX 儲存系統"^]。NetApp AFX 儲存系統與其他基於 ONTAP 的系統（ASA、AFF 和 FAS）在儲存層的實作上有所不同。
 
 
 NOTE: 只有 `ontap-nas`NetApp AFX 系統支援 NFS 協定驅動程式；不支援 SMB 協定。
@@ -23,6 +21,8 @@ NOTE: 只有 `ontap-nas`NetApp AFX 系統支援 NFS 協定驅動程式；不支�
 == 後端組態選項
 
 在 Trident 後端組態中、您不需要指定系統是 NetApp AFX 儲存系統。當您選取 `ontap-nas`作為 `storageDriverName`時、 Trident 會自動偵測 AFX 儲存系統。部分後端組態參數不適用於 AFX 儲存系統。
+
+從 26.06 版本開始，您可以啟用 ONTAP 均衡放置功能，以便 ONTAP 為新 Volume 選擇彙總。ONTAP 9.19.1 或更新版本上的 AFX 儲存系統需要啟用均衡放置功能。有關需求和範例，請參閱 link:ontap-balanced-placement.html["使用 ONTAP 後端進行均衡放置"]。
 
 下表顯示後端組態選項：
 
@@ -84,20 +84,31 @@ NOTE: 僅適用於NetApp AFX 系統 `ontap-nas`已支援。
 在SVM中配置新磁碟區時所使用的前置碼。設定後無法更新
 
 
-NOTE: 使用 ONTAP NAS 經濟型和 24 個以上字元的 storagePrefix 時， qtree 將不會內嵌儲存前置字元，不過它會位於磁碟區名稱中。
+NOTE: 當使用 ontap-nas-economy 且 storagePrefix 為 24 個或更多字元時，qtree 中不會嵌入儲存設備前綴，但它存在於 Volume 名稱中。
 | " Trident " 
 
 
 | 《Aggregate》  a| 
-用於資源配置的Aggregate（選用；如果已設定、則必須指派給SVM）。對於 `ontap-nas-flexgroup`驅動程式、此選項會被忽略。如果未指派、 任何可用的集合體都可用於佈建 FlexGroup Volume 。
+用於資源配置的彙總（可選；如果設定，則必須指派給 SVM）。對於 `ontap-nas-flexgroup`驅動程式，此選項將被忽略。如果未指派，則可以使用任何可用的彙總來資源配置 FlexGroup Volume。
 
 
-NOTE: 在 SVM 中更新 Aggregate 時、它會透過輪詢 SVM 而無需重新啟動 Trident 控制器、在 Trident 中自動更新。當您在 Trident 中設定特定的 Aggregate 以配置 Volume 時、如果將 Aggregate 重新命名或移出 SVM 、則在輪詢 SVM Aggregate 時、後端將會移至 Trident 中的失敗狀態。您必須將 Aggregate 變更為 SVM 上的 Aggregate 、或是將其全部移除、才能使後端重新上線。
+NOTE: 當 SVM 中的彙總更新時，Trident 會自動輪詢 SVM 並更新，無需重新啟動 Trident 控制器。如果您已在 Trident 中設定了特定的彙總來資源配置 Volume，且該彙總被重新命名或從 SVM 移出，則在輪詢 SVM 彙總時，Trident 中的後端將進入故障狀態。您必須將該彙總變更為 SVM 中存在的彙總，或將其完全移除，才能使後端恢復線上。
 
 *請勿指定用於 AFX 儲存系統。 *
+
+*請勿指定何時 `useBalancedPlacement`設定為 `true`。*
  a| 
 "
 
+
+
+| `useBalancedPlacement`  a| 
+將新 Volume 的彙總選擇委託給 ONTAP [布林值]。需要 ONTAP 9.19.1 或更新版本，且 `useREST`設定為 `true`。不能與 `aggregate`組合使用。
+
+請參考 link:ontap-balanced-placement.html["使用 ONTAP 後端進行均衡放置"] 以了解需求和範例。
+
+*如果指定，對於 ONTAP 9.19.1 或更新版本的 AFF 儲存系統，一律設定為 `true`。*
+| `false`; `true` 適用於 ONTAP 9.19.1 或更新版本的 AFX 儲存系統 
 
 
 | 「限制Aggregateusage」 | 如果使用率超過此百分比，則配置失敗。*不適用於Amazon FSx for ONTAP*。*請勿指定用於 AFX 儲存系統。 * | ""（預設不強制執行） 
@@ -107,7 +118,7 @@ NOTE: 在 SVM 中更新 Aggregate 時、它會透過輪詢 SVM 而無需重新�
 用於資源配置的集合體清單（選用；如果已設定、則必須指派給 SVM ）。指派給 SVM 的所有集合體都會用於佈建 FlexGroup Volume 。支援 * ONTAP NAS FlexGroup * 儲存驅動程式。
 
 
-NOTE: 在 SVM 中更新 Aggregate 清單時、會透過輪詢 SVM 而無需重新啟動 Trident 控制器、自動在 Trident 中更新清單。當您在 Trident 中設定特定的 Aggregate 清單來配置 Volume 時、如果將 Aggregate 清單重新命名或移出 SVM 、則在輪詢 SVM Aggregate 時、後端將會移至 Trident 中的失敗狀態。您必須將 Aggregate 清單變更為 SVM 上的集合清單、或是將其全部移除以使後端重新上線。
+NOTE: 當 SVM 中的彙總列表更新時，Trident 會自動輪詢 SVM 來更新該列表，無需重新啟動 Trident 控制器。如果您已在 Trident 中設定了特定的彙總清單來資源配置 Volume，則如果該彙總清單已重新命名或從 SVM 中移出，Trident 在輪詢 SVM 彙總時會將後端置於故障狀態。您必須將該彙總列表變更為 SVM 中存在的列表，或將其完全移除，才能使後端恢復線上。
 | " 
 
 
@@ -122,7 +133,7 @@ NOTE: 在 SVM 中更新 Aggregate 清單時、會透過輪詢 SVM 而無需重�
 | `nasType` | 配置 NFS 或 SMB 磁碟區的建立。選項有 `nfs`， `smb`或空值。設定為 null 則預設使用 NFS 磁碟區。*如果指定，則始終設定為 `nfs`適用於 AFX 儲存系統*。 | `nfs` 
 
 
-| 「nfsMountOptions」 | 以逗號分隔的NFS掛載選項清單。Kubernetes-Persistent Volume 的掛載選項通常是在儲存類別中指定、但如果儲存類別中未指定掛載選項、則 Trident 會回復為使用儲存後端組態檔案中指定的掛載選項。如果儲存類別或組態檔案中未指定任何掛載選項、 Trident 將不會在關聯的持續磁碟區上設定任何掛載選項。 | " 
+| 「nfsMountOptions」 | 以逗號分隔的 NFS 裝載選項清單。Kubernetes 持久性磁碟區的裝載選項通常在儲存設備類別中指定，但如果儲存設備類別中未指定任何裝載選項，Trident 將回退到使用儲存設備後端組態檔案中指定的裝載選項。如果儲存設備類別和組態檔案中均未指定裝載選項，Trident 將不會在關聯的持久性 Volume 上設定任何裝載選項。 | " 
 
 
 | "qtreesPerFlexvol" | 每FlexVol 個邊的最大qtree數、必須在範圍內[50、300] | "200" 
@@ -175,7 +186,7 @@ NOTE: 在 SVM 中更新 Aggregate 清單時、會透過輪詢 SVM 而無需重�
 | 「PlitOnClone」 | 建立複本時、從其父複本分割複本 | "假" 
 
 
-| 加密 | 在新磁碟區上啟用 NetApp Volume Encryption （ NVE ）；預設為 `false`。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。如需更多資訊、請參閱link:../trident-reco/security-reco.html["Trident 如何與 NVE 和 NAE 搭配運作"]：。 | "假" 
+| 加密 | 在新 Volume 上啟用 NetApp Volume Encryption (NVE)；預設為 `false`。必須在叢集上取得 NVE 授權並啟用，才能使用此選項。如果後端已啟用 NAE，則在 Trident 中資源配置的任何 Volume 都會啟用 NAE。如需詳細資訊，請參閱：link:../trident-reco/security-reco.html["Trident 如何與 NVE 和 NAE 搭配運作"]。 | "假" 
 
 
 | 「分層政策」 | 分層原則以使用「無」 |  
@@ -244,7 +255,7 @@ Total volume size = <PVC requested size> / (1 - (<snapshotReserve percentage> / 
 
 image::../media/volume-show-nas.png[顯示Volume show命令的輸出。]
 
-升級Trident時，先前安裝的現有後端將以上述方式設定磁碟區。對於升級前建立的捲，您應該調整其大小以觀察到變更。例如，一個 2 GiB 的 PVC 包含 `snapshotReserve=50`先前的結果是卷提供了 1 GiB 的可寫空間。例如，將磁碟區大小調整為 3 GiB，將在 6 GiB 的磁碟區上為應用程式提供 3 GiB 的可寫入空間。
+升級 Trident 時，對於先前安裝的現有後端，請依照上述說明進行 Volume 資源配置。對於升級前建立的 Volume，您需要調整其大小才能使變更生效。例如，2 GiB 的 PVC 搭配 `snapshotReserve=50`先前產生的 Volume 僅提供 1 GiB 的可寫入空間。例如，將 Volume 調整為 3 GiB，即可為應用程式在 6 GiB 的 Volume 上提供 3 GiB 的可寫入空間。
 
 
 
@@ -364,6 +375,25 @@ autoExportCIDRs:
 username: admin
 password: password
 nfsMountOptions: nfsvers=4
+----
+====
+.均衡佈局範例
+[%collapsible]
+====
+此範例啟用 ONTAP 平衡放置，以便 ONTAP 為新 Volume 選擇彙總。平衡放置需要 ONTAP 9.19.1 或更新版本。如需詳細資訊，請參閱 link:ontap-balanced-placement.html["使用 ONTAP 後端進行均衡放置"]。
+
+[source, yaml]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-balanced-placement
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: password
+useBalancedPlacement: true
 ----
 ====
 .IPv6 位址範例
@@ -620,9 +650,9 @@ storage:
 [[map-backends-to-storageclasses]]
 == 將後端對應至StorageClass
 
-請參閱下列 StorageClass 定義 <<虛擬集區的後端範例>>。使用 `parameters.selector` 欄位中、每個 StorageClass 都會呼叫哪些虛擬集區可用於主控磁碟區。磁碟區將會在所選的虛擬資源池中定義各個層面。
+以下 StorageClass 定義均參照 <<虛擬集區的後端範例>>。使用  `parameters.selector` 欄位，每個 StorageClass 都會指出哪些虛擬資源池可用於裝載 Volume。Volume 具有所選虛擬資源池中定義的屬性。
 
-* 。 `protection-gold` StorageClass 會對應至中的第一個和第二個虛擬集區 `ontap-nas-flexgroup` 後端：這是唯一提供金級保護的資源池。
+* The `protection-gold` StorageClass 對應至 `ontap-nas-flexgroup`後端中的第一個和第二個虛擬資源池。這些是唯一提供黃金層級保護的資源池。
 +
 [source, yaml]
 ----
@@ -635,7 +665,7 @@ parameters:
   selector: "protection=gold"
   fsType: "ext4"
 ----
-* 。 `protection-not-gold` StorageClass 會對應至中的第三和第四個虛擬集區 `ontap-nas-flexgroup` 後端：這是唯一提供金級以外保護層級的資源池。
+* The `protection-not-gold` StorageClass 對應至 `ontap-nas-flexgroup`後端中的第三和第四個虛擬資源池。這些是唯一提供黃金以外保護層級的資源池。
 +
 [source, yaml]
 ----
@@ -648,7 +678,7 @@ parameters:
   selector: "protection!=gold"
   fsType: "ext4"
 ----
-* 。 `app-mysqldb` StorageClass 會對應至中的第四個虛擬集區 `ontap-nas` 後端：這是唯一為 mysqldb 類型應用程式提供儲存池組態的集區。
+* The `app-mysqldb` StorageClass 映射到 `ontap-nas`後端中的第四個虛擬儲存資源池。這是唯一一個為 mysqldb 類型應用程式提供儲存資源池組態的儲存資源池。
 +
 [source, yaml]
 ----
@@ -661,7 +691,7 @@ parameters:
   selector: "app=mysqldb"
   fsType: "ext4"
 ----
-*  `protection-silver-creditpoints-20k` StorageClass 將對應到  `ontap-nas-flexgroup` 後端中的第三個虛擬資源池。這是唯一提供銀級保護和 20000 信用點數的資源池。
+* The `protection-silver-creditpoints-20k` StorageClass 對應至 `ontap-nas-flexgroup` 後端中的第三個虛擬資源池。這是唯一提供白銀級保護和 20000 信用點的資源池。
 +
 [source, yaml]
 ----
@@ -674,7 +704,7 @@ parameters:
   selector: "protection=silver; creditpoints=20000"
   fsType: "ext4"
 ----
-* 。 `creditpoints-5k` StorageClass 會對應至中的第三個虛擬集區 `ontap-nas` 後端和中的第二個虛擬集區 `ontap-nas-economy` 後端：這是唯一擁有 5000 個信用點數的集區方案。
+* The `creditpoints-5k` StorageClass 分別對應 `ontap-nas`後端中的第三個虛擬資源池和 `ontap-nas-economy`後端中的第二個虛擬資源池。只有這兩個資源池產品提供 5000 creditpoints。
 +
 [source, yaml]
 ----
@@ -689,7 +719,7 @@ parameters:
 ----
 
 
-Trident 會決定要選取哪個虛擬集區、並確保符合儲存需求。
+Trident 決定選擇哪個虛擬資源池，並確保符合儲存需求。
 
 
 

@@ -12,7 +12,7 @@ summary: 瞭解如何在 Trident 安裝中建立及使用 ONTAP SAN 驅動程式
 
 
 [role="lead"]
-了解如何在 Trident 安裝中建立和使用 ONTAP SAN 驅動程式。本節提供後端組態範例以及將後端對應至 StorageClasses 的詳細資訊。link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2 系統"^] 與其他 ONTAP 系統（ASA、AFF 和 FAS）在儲存層的實作方式上有所不同。這些差異會影響某些參數的使用方式（如註明）。link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["詳細了解 ASA r2 系統與其他 ONTAP 系統之間的差異"^]。在 Trident 後端組態中、您不需要指定系統為 ASA r2。當您選擇 `ontap-san`作為 `storageDriverName`時、Trident 會自動偵測 ASA r2 或其他 ONTAP 系統。如下表所示、某些後端組態參數不適用於 ASA r2 系統。
+在 Trident 安裝中建立和使用 ONTAP SAN 驅動程式。本節提供後端組態範例，以及將後端映射至 StorageClasses 的詳細資訊。link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["ASA r2 系統"^]與其他 ONTAP 系統（ASA、AFF 和 FAS）在儲存層的實作上有所不同。這些差異會影響某些參數的使用，如註釋所示。link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["詳細了解 ASA r2 系統與其他 ONTAP 系統之間的差異"^]。在 Trident 後端組態中，您無需指定系統為 ASA r2。當您選擇 `ontap-san`作為 `storageDriverName`時，Trident 會自動偵測 ASA r2 或其他 ONTAP 系統。如下表所示，某些後端組態參數不適用於 ASA r2 系統。
 
 
 NOTE: 只有 `ontap-san`ASA r2 系統支援驅動程式（支援 iSCSI、NVMe/TCP 和 FC 協定）。
@@ -21,6 +21,8 @@ NOTE: 只有 `ontap-san`ASA r2 系統支援驅動程式（支援 iSCSI、NVMe/TC
 
 [[backend-configuration-options]]
 == 後端組態選項
+
+從 26.06 版本開始，您可以啟用 ONTAP 均衡放置，以便 ONTAP 為新 Volume 選擇彙總。請參閱 link:ontap-balanced-placement.html["使用 ONTAP 後端進行均衡放置"] 以瞭解需求和範例。
 
 如需後端組態選項、請參閱下表：
 
@@ -96,19 +98,28 @@ NOTE: 如果您使用的是「 vsadmin 」認證，則必須是 SVM 的認 `mana
 | 《虛擬機器》 | 要使用的儲存虛擬機器 | 如果指定SVM "managementLIF"則衍生 
 
 
-| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。稍後無法修改。若要更新此參數、您需要建立新的後端。 | `trident` 
+| 「toragePrefix」 | 在 SVM 中為新 Volume 進行資源配置時所使用的前置詞。之後無法修改。若要更新此參數，您需要建立新的後端。 | `trident` 
 
 
 | 《Aggregate》  a| 
-用於資源配置的Aggregate（選用；如果已設定、則必須指派給SVM）。對於 `ontap-nas-flexgroup`驅動程式、此選項會被忽略。如果未指派、 任何可用的集合體都可用於佈建 FlexGroup Volume 。
+用於資源配置的彙總（可選；如果設定，則必須指派給 SVM）。對於 `ontap-nas-flexgroup`驅動程式，此選項將被忽略。如果未指派，則可以使用任何可用的彙總來資源配置 FlexGroup Volume。
 
 
-NOTE: 在 SVM 中更新 Aggregate 時、它會透過輪詢 SVM 而無需重新啟動 Trident 控制器、在 Trident 中自動更新。當您在 Trident 中設定特定的 Aggregate 以配置 Volume 時、如果將 Aggregate 重新命名或移出 SVM 、則在輪詢 SVM Aggregate 時、後端將會移至 Trident 中的失敗狀態。您必須將 Aggregate 變更為 SVM 上的 Aggregate 、或是將其全部移除、才能使後端重新上線。
+NOTE: 當 SVM 中的彙總更新時，Trident 會自動輪詢 SVM 並更新，無需重新啟動 Trident 控制器。如果您已在 Trident 中設定了特定的彙總來資源配置 Volume，並且該彙總被重新命名或從 SVM 移出，則在輪詢 SVM 彙總期間，Trident 中的後端將進入故障狀態。您必須將該彙總變更為 SVM 中存在的彙總，或將其完全移除，才能使後端恢復線上。
 
 *不要指定 ASA r2 系統*。
+
+*請勿指定何時 `useBalancedPlacement`設定為 `true`。*
  a| 
 "
 
+
+
+| `useBalancedPlacement`  a| 
+將新 Volume 的彙總選擇委託給 ONTAP [布林值]。需要 ONTAP 9.19.1 或更新版本，且 `useREST`設定為 `true`。不能與 `aggregate`組合使用。
+
+請參考 link:ontap-balanced-placement.html["使用 ONTAP 後端進行均衡放置"] 以了解需求和範例。
+| 「假」 
 
 
 | 「限制Aggregateusage」 | 如果使用率高於此百分比、則無法進行資源配置。如果您使用 Amazon FSX for NetApp ONTAP 後端、請勿指定 `limitAggregateUsage`。提供的 `fsxadmin`和 `vsadmin`不包含使用 Trident 擷取彙總使用量並加以限制所需的權限。*不要指定 ASA r2 系統*。 | ""（預設不強制執行） 
@@ -145,7 +156,7 @@ NOTE: NVMe 僅支援ONTAP REST API，不支援 ONTAPI (ZAPI)。
 
 
 | `formatOptions`  a| 
-用於 `formatOptions`指定命令的命令列引數、每當格式化磁碟區時都會套用這些引數 `mkfs`。這可讓您根據偏好設定來格式化 Volume 。請務必指定與 mkfs 命令選項類似的格式選項、但不包括裝置路徑。範例：「 -E nobard 」
+使用 `formatOptions`為 `mkfs`命令指定命令列參數，此命令會在每次格式化 Volume 時套用。這可讓您根據自己的偏好格式化 Volume。請確保指定的 formatOptions 與 mkfs 命令選項類似，但不包含裝置路徑。例如："-E nodiscard"
 
 *支援 `ontap-san`和 `ontap-san-economy`帶有 iSCSI 協定的驅動程式。 **此外，在使用 iSCSI 和 NVMe/TCP 協定時，支援 ASA r2 系統。 *
  a| 
@@ -224,7 +235,7 @@ Trident建議採用以下選項來加速格式化流程：
 | 「PlitOnClone」 | 建立複本時、從其父複本分割複本 | "假" 
 
 
-| 加密 | 在新磁碟區上啟用 NetApp Volume Encryption （ NVE ）；預設為 `false`。必須在叢集上授權並啟用NVE、才能使用此選項。如果在後端啟用 NAE 、則 Trident 中配置的任何 Volume 都將啟用 NAE 。如需更多資訊、請參閱link:../trident-reco/security-reco.html["Trident 如何與 NVE 和 NAE 搭配運作"]：。 | “false” *如果指定，則設定為 `true`適用於 ASA r2 系統*。 
+| 加密 | 在新 Volume 上啟用 NetApp Volume Encryption (NVE)；預設為 `false`。必須在叢集上取得 NVE 授權並啟用，才能使用此選項。如果後端已啟用 NAE，則在 Trident 中資源配置的任何 Volume 都會啟用 NAE。如需詳細資訊，請參閱：link:../trident-reco/security-reco.html["Trident 如何與 NVE 和 NAE 搭配運作"]。 | “false” *如果指定，則設定為 `true`適用於 ASA r2 系統*。 
 
 
 | `luksEncryption` | 啟用LUKS加密。請參閱 link:../trident-reco/security-luks.html["使用Linux統一金鑰設定（LUKS）"]。 | "" *設定為 `false`適用於 ASA r2 系統*。 
@@ -267,7 +278,7 @@ defaults:
 
 ----
 
-NOTE: 對於使用驅動程式建立的所有磁碟區 `ontap-san`、 Trident 會為 FlexVol 額外增加 10% 的容量、以容納 LUN 中繼資料。LUN的配置大小與使用者在PVc中要求的大小完全相同。Trident 將 10% 新增至 FlexVol （在 ONTAP 中顯示為可用大小）。使用者現在可以取得所要求的可用容量。此變更也可防止LUN成為唯讀、除非可用空間已充分利用。這不適用於ONTAP-san經濟型。
+NOTE: 對於使用此 `ontap-san`驅動程式建立的所有 Volume，Trident 會額外增加 10% 的容量至 FlexVol，以容納 LUN 中繼資料。LUN 的資源配置大小與使用者在 PVC 中要求的大小完全一致。Trident 額外增加 10% 至 FlexVol（在 ONTAP 中顯示為可用大小）。使用者現在可獲得所要求的可用容量。此變更也可防止 LUN 在可用空間未完全使用之前變為唯讀狀態。此變更不適用於 ontap-san-economy。
 
 對於定義的後端 `snapshotReserve`， Trident 將按以下方式計算卷的大小：
 
@@ -401,6 +412,24 @@ chapTargetUsername: iJF4heBRT0TCwxyz
 chapUsername: uh2aNCLSd6cNwxyz
 username: vsadmin
 password: <password>
+----
+====
+.均衡佈局範例
+[%collapsible]
+====
+此範例啟用 ONTAP 平衡放置，以便 ONTAP 為新 Volume 選擇彙總。平衡放置需要 ONTAP 9.19.1 或更新版本。如需詳細資訊，請參閱 link:ontap-balanced-placement.html["使用 ONTAP 後端進行均衡放置"]。
+
+[source, yaml]
+----
+---
+version: 1
+storageDriverName: ontap-san
+backendName: san-balanced-placement
+managementLIF: 10.0.0.1
+svm: svm_iscsi
+username: vsadmin
+password: <password>
+useBalancedPlacement: true
 ----
 ====
 .NVMe / TCP 範例
@@ -632,9 +661,9 @@ storage:
 [[map-backends-to-storageclasses]]
 == 將後端對應至StorageClass
 
-下列 StorageClass 定義請參閱 <<虛擬集區的後端範例>>。使用 `parameters.selector` 欄位中、每個 StorageClass 都會呼叫哪些虛擬集區可用於主控磁碟區。磁碟區將會在所選的虛擬資源池中定義各個層面。
+以下 StorageClass 定義均參照 <<虛擬集區的後端範例>>。使用  `parameters.selector` 欄位，每個 StorageClass 都會指出哪些虛擬資源池可用於裝載 Volume。Volume 現在具有所選虛擬資源池中定義的屬性。
 
-* 。 `protection-gold` StorageClass 會對應至中的第一個虛擬集區 `ontap-san` 後端：這是唯一提供金級保護的集區。
+* The `protection-gold` StorageClass 映射到 `ontap-san` 後端的第一個虛擬資源池。這是唯一提供黃金級保護的資源池。
 +
 [source, yaml]
 ----
@@ -647,7 +676,7 @@ parameters:
   selector: "protection=gold"
   fsType: "ext4"
 ----
-* 。 `protection-not-gold` StorageClass 會對應至中的第二個和第三個虛擬集區 `ontap-san` 後端：這是唯一提供金級以外保護層級的集區。
+* The `protection-not-gold` StorageClass 映射至 `ontap-san`後端中的第二和第三個虛擬資源池。這些是唯一提供金級以外其他保護層級的資源池。
 +
 [source, yaml]
 ----
@@ -660,7 +689,7 @@ parameters:
   selector: "protection!=gold"
   fsType: "ext4"
 ----
-* 。 `app-mysqldb` StorageClass 會對應至中的第三個虛擬集區 `ontap-san-economy` 後端：這是唯一為 mysqldb 類型應用程式提供儲存池組態的集區。
+* The `app-mysqldb` StorageClass 映射到 `ontap-san-economy`後端中的第三個虛擬儲存資源池。這是唯一一個為 mysqldb 類型應用程式提供儲存資源池組態的儲存資源池。
 +
 [source, yaml]
 ----
@@ -673,7 +702,7 @@ parameters:
   selector: "app=mysqldb"
   fsType: "ext4"
 ----
-* 。 `protection-silver-creditpoints-20k` StorageClass 會對應至中的第二個虛擬集區 `ontap-san` 後端：這是唯一提供銀級保護和 20000 個信用點數的資源池。
+* The `protection-silver-creditpoints-20k` StorageClass 對應至 `ontap-san` 後端中的第二個虛擬資源池。這是唯一提供白銀級保護和 20000 信用點的資源池。
 +
 [source, yaml]
 ----
@@ -686,7 +715,7 @@ parameters:
   selector: "protection=silver; creditpoints=20000"
   fsType: "ext4"
 ----
-* 。 `creditpoints-5k` StorageClass 會對應至中的第三個虛擬集區 `ontap-san` 中的後端和第四個虛擬集區 `ontap-san-economy` 後端：這是唯一擁有 5000 個信用點數的集區方案。
+* The `creditpoints-5k` StorageClass 分別對應 `ontap-san`後端中的第三個虛擬資源池和 `ontap-san-economy`後端中的第四個虛擬資源池。只有這兩個資源池產品提供 5000 creditpoints。
 +
 [source, yaml]
 ----
@@ -699,7 +728,7 @@ parameters:
   selector: "creditpoints=5000"
   fsType: "ext4"
 ----
-* 。 `my-test-app-sc` StorageClass 會對應至 `testAPP` 中的虛擬集區 `ontap-san` 驅動程式搭配 `sanType: nvme`。這是唯一的集區服務項目 `testApp`。
+* StorageClass `my-test-app-sc`映射到 `testAPP`驅動程式中的虛擬資源池 `ontap-san`，並搭配 `sanType: nvme`。這是唯一提供 `testApp`的資源池。
 +
 [source, yaml]
 ----
@@ -715,4 +744,4 @@ parameters:
 ----
 
 
-Trident 會決定要選取哪個虛擬集區、並確保符合儲存需求。
+Trident 決定選擇哪個虛擬資源池，並確保符合儲存需求。

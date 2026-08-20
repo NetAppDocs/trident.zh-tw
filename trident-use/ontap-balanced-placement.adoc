@@ -1,0 +1,169 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-balanced-placement.html 
+keywords: trident backend, ontap, balanced placement, useBalancedPlacement, aggregates, afx, unified, provisioning, storage pools 
+summary: Trident 支援 ONTAP 平衡放置，當 Trident 在 ONTAP 後端配置 Volume 時，此功能會將彙總選擇委託給 ONTAP。 
+---
+= 使用 ONTAP 後端進行均衡放置
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:linkattrs: 
+:relative_path: ./
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以在 ONTAP 後端啟用 ONTAP 均衡放置。啟用均衡放置後，ONTAP 會為每個新 Volume 選擇最佳彙總，因此您無需在 Trident 中管理彙總分配。
+
+
+
+[[how-balanced-placement-works]]
+== 均衡配置的運作方式
+
+預設情況下，Trident 會探索指派給 SVM 的彙總，將每個彙總視為一個儲存資源池，並在資源配置 Volume 時選擇一個彙總。
+
+啟用均衡佈局後：
+
+* Trident 將整個 SVM 報告為單一儲存資源池，而非報告個別彙總。
+* ONTAP 為每個新 Volume 選擇彙總，並在可用的彙總之間平衡 Volume。
+* Trident 使用 ONTAP `/application/containers` REST API 建立 Volume。
+
+
+統一 ONTAP 系統（AFF、FAS 和 ASA）和 NetApp AFX 儲存系統均可使用平衡放置。
+
+
+
+[[requirements]]
+== 需求
+
+* 後端必須使用 ONTAP 9.19.1 或更新版本。
+* Trident 必須使用 REST 與 ONTAP 通訊。ZAPI 不支援均衡部署。
+* 後端組態不得指定彙總。均衡放置與明確的彙總選擇不能同時使用。
+
+
+
+
+[[default-values]]
+== 預設值
+
+預設值 `useBalancedPlacement`取決於儲存系統：
+
+[cols="1,1,2"]
+|===
+| 儲存系統 | 預設 | 附註 
+
+
+| 統一 ONTAP （AFF、FAS、ASA） | 「假」 | 除非啟用均衡放置，否則 Trident 會選擇彙總。 
+
+
+| NetApp AFX （ONTAP 9.19.1 或更新版本） | "真的" | 需要平衡配置。將  `useBalancedPlacement` 設定為  `false` 會導致後端驗證失敗。 
+
+
+| NetApp AFX （早於 ONTAP 9.19.1） | 「假」 | 無法進行均衡配置。 
+|===
+
+
+[[configuration-option]]
+== 組態選項
+
+[cols="1,2,1"]
+|===
+| 參數 | 說明 | 預設 
+
+
+| `useBalancedPlacement` | 將新 Volume 的彙總選擇委託給 ONTAP。可以在後端組態的根目錄或各個虛擬資源池中設定此選項。 | `false`； `true`適用於 ONTAP 9.19.1 或更新版本的 AFX 
+|===
+
+
+[[balanced-placement-with-virtual-pools]]
+== 平衡放置與虛擬資源池
+
+均衡放置策略無論是否使用虛擬池都適用：
+
+* 如果沒有虛擬資源池，Trident 會將 SVM 報告為單一儲存資源池，並使用均衡放置來建立所有新 Volume。
+* 對於虛擬資源池，Trident 會像往常一樣報告虛擬資源池並將 Volume 與之相符。如果符合的虛擬資源池啟用了均衡放置，ONTAP 會為該 Volume 選擇彙總。
+
+
+在後端組態的根目錄下設定  `useBalancedPlacement`，可將其套用至所有虛擬資源池；也可以在單一虛擬資源池上設定，以選擇性地啟用該功能。
+
+
+
+[[examples]]
+== 範例
+
+以下範例可在統一的 ONTAP 後端上實現均衡放置：
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-balanced-placement
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: trident_svm
+username: cluster-admin
+password: <password>
+useBalancedPlacement: true
+----
+以下範例使用 `TridentBackendConfig`啟用均衡佈局：
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: nas-balanced-placement
+  managementLIF: 10.0.0.1
+  svm: trident_svm
+  useBalancedPlacement: true
+  credentials:
+    name: backend-tbc-ontap-nas-secret
+----
+以下範例僅在 `gold`虛擬資源池上啟用均衡放置。Trident 繼續為與 `bronze`虛擬資源池相符的 Volume 選擇彙總：
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-virtual-pools
+managementLIF: 10.0.0.1
+svm: trident_svm
+username: cluster-admin
+password: <password>
+storage:
+- labels:
+    performance: gold
+  useBalancedPlacement: true
+- labels:
+    performance: bronze
+----
+
+
+[[backend-validation-errors]]
+== 後端驗證錯誤
+
+在以下情況下，後端建立或更新會失敗：
+
+[cols="2,2"]
+|===
+| 組態 | 結果 
+
+
+| `useBalancedPlacement: true` 在 ONTAP 9.19.1 之前的版本中 | 驗證失敗。請升級至 ONTAP 9.19.1 或更新版本。 
+
+
+| `useBalancedPlacement: true`在後端使用 ZAPI | 驗證失敗。將後端設定為使用 REST。 
+
+
+| `useBalancedPlacement: true`與特定彙總結合 | 驗證失敗。請移除彙總組態或停用均衡放置。 
+
+
+| `useBalancedPlacement: false` 在搭載 ONTAP 9.19.1 或更新版本的 AFX 上 | 驗證失敗。ONTAP 9.19.1 或更高版本的 AFX 需要均衡放置。 
+|===

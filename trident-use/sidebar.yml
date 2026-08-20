@@ -48,6 +48,8 @@ entries:
       url: "/trident-use/ontap-nas-prep.html"
     - title: 組態選項與範例
       url: "/trident-use/ontap-nas-examples.html"
+  - title: 使用 ONTAP 後端進行均衡放置
+    url: "/trident-use/ontap-balanced-placement.html"
   - title: Amazon FSX for NetApp ONTAP 產品
     entries:
     - title: 總覽

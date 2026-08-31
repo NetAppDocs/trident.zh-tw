@@ -233,19 +233,22 @@ Trident Mirror Relationship （ TMR ）是一種 CRD 、代表 PVC 之間複寫�
 
 .步驟
 . 在主要 Kubernetes 叢集上、建立 PVC 的快照、並等待快照建立完成。
-. 在主要 Kubernetes 叢集上、建立 SnapshotInfo CR 以取得內部詳細資料。
+. 在主要 Kubernetes 叢集上，建立 TridentTridentSnapshotInfoCR 以取得內部詳細資訊。
 +
 .範例
 [source, yaml]
 ----
-kind: SnapshotInfo
+kind: TridentSnapshotInfo
 apiVersion: trident.netapp.io/v1
 metadata:
   name: csi-nas
 spec:
-  snapshot-name: csi-nas-snapshot
+  snapshotName csi-nas-snapshot
 ----
-. 在次要 Kubernetes 叢集上、將 _TridentMirrorRelationationship _ CR 的 _spec.state_ 欄位更新為 _updated_ 、 _spec.promotedSnapshotHandle_ 更新為快照的內部名稱。
++
+.. 在輔助 Kubernetes 叢集上，將 _TridentMirrorRelationship_ CR 的 _spec.state_ 欄位更新為 _promoted_，並將 _spec.volumeMappings[].promotedSnapshotHandle_ 更新為快照的 internalName。
+
+
 . 在次要 Kubernetes 叢集上、確認要升級的 TridentMirrorRelationship 狀態（ STATUS.STATUS 欄位）。
 
 

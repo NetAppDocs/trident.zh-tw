@@ -4323,8 +4323,6 @@
   <block id="ffe4cfc202d643b50342b93a4a11a82f" category="section-title">在規劃的容錯移轉期間升級次要 PVC</block>
   <block id="1d60b89a076d7f30b8efdef50e842f68" category="paragraph">在計畫性容錯移轉（移轉）期間、請執行下列步驟來升級次要 PVC ：</block>
   <block id="3310d9a60c164accb7c262ab6e9fbc65" category="list-text">在主要 Kubernetes 叢集上、建立 PVC 的快照、並等待快照建立完成。</block>
-  <block id="8b17b79902950942165541a8ab704363" category="list-text">在主要 Kubernetes 叢集上、建立 SnapshotInfo CR 以取得內部詳細資料。</block>
-  <block id="678346d79faaa65b2da52e6d7ddce845" category="list-text">在次要 Kubernetes 叢集上、將 _TridentMirrorRelationationship _ CR 的 _spec.state_ 欄位更新為 _updated_ 、 _spec.promotedSnapshotHandle_ 更新為快照的內部名稱。</block>
   <block id="7b007b14980acd66e9301e02a5670f47" category="list-text">在次要 Kubernetes 叢集上、確認要升級的 TridentMirrorRelationship 狀態（ STATUS.STATUS 欄位）。</block>
   <block id="f69101c0107c4bbf8f0ccc9141beb68b" category="section-title">在容錯移轉後還原鏡射關係</block>
   <block id="9a023cbe1d3be933d8edb6228f9901ce" category="paragraph">還原鏡射關係之前、請先選擇要設為新主要的一面。</block>
@@ -6616,7 +6614,6 @@
   <block id="7d6abad6d9b0cb2c17d374eb60cfd549" category="paragraph">以下是與 Trident 和 FSx for ONTAP 一起使用的儲存類別設定範例。</block>
   <block id="79aed0c0cab8f60748d97cff824e71d8" category="section-title">NFS 儲存類別</block>
   <block id="1aeaba8f713cb76c3933e520e71db58b" category="paragraph">您可以參考此範例來設定使用 NFS 的磁碟區 StorageClass（有關完整的屬性列表，請參閱下面的 Trident 屬性部分）：</block>
-  <block id="3c2af55b3b722b8e55112e627dcfa582" category="section-title">iSCSI 儲存類別</block>
   <block id="157051d3c2492a3589f7ef937c9a3380" category="paragraph">請使用以下範例設定使用 iSCSI 的磁碟區的 StorageClass：</block>
   <block id="5182a799b5d9bfc055f426543bab1173" category="section-title">使用 NFSv3 和 AWS Bottlerocket 的儲存類別</block>
   <block id="d95d0aae1fadec77938feae823d4861b" category="section-title">Trident StorageClass 屬性</block>
@@ -7316,4 +7313,14 @@
   <block id="d25a42bf8872d5c2742f43937586ad40" category="inline-xref">後端進階組態及範例</block>
   <block id="f3bbb160e5770652e96a6a7ce5e4aaa9" category="paragraph">如需其他組態選項的詳細資訊，請參閱下方的<block ref="24ff2177ac2d3277f1e79fe1615781ee" category="inline-xref-macro-rx"></block>區段。</block>
   <block id="3929c8e22750fae0b1b6ca0e82f82fd3" category="section-title">[[first-link]]後端高階組態和範例</block>
+  <block id="c3bd78da5a8e8ae22bd50629327c0c26" category="section-title">26.06.1 版本新增內容</block>
+  <block id="0063db86c3042093f4b48db59ca75d87" category="list-text">修正了 CSI 發布和 Volume 移動之間的競爭條件，該條件可能導致使用過時的存取資訊附加 Volume。</block>
+  <block id="99bc89ae140f34c4ef13f436b3578358" category="list-text">修復了 NodeGetInfo 在節點註冊完成之前可能返回空拓撲標籤的競爭條件，進而導致拓撲感知佈建失敗。</block>
+  <block id="8141a9378a82f2d156fbd38ada6c3466" category="list-text">修復了一個罕見的 NVMe 斷開連接競爭問題，該問題可能在另一個 pod 仍在連接時拆除共享的子系統。</block>
+  <block id="13d49e861126c9f4e8187c3ed601942a" category="list-text">修正了在並發條件下建立掛載 Volume 的 Clone 時，NVMe PVC Clone 發布失敗（以及父命名空間映射錯誤）的問題。</block>
+  <block id="92908f9dc019fbc39650b0f44ecbe68d" category="list-text">修正了使用 nameTemplate 的 ONTAP-SAN-Economy 後端上 PVC 快照建立失敗的問題。</block>
+  <block id="241bcdc29e2aecc9374092674e96e3b7" category="list-text">在 ONTAP 後端設定中新增選用的<block ref="c187d606271268ec08cafc7fe2d89aba" prefix=" " category="inline-code"></block>（秒），用於設定每個後端的 REST 和 ZAPI API 用戶端逾時時間。</block>
+  <block id="69eb48c01ded3a79590a6ae42b855f34" category="section-title">iSCSI 儲存類別</block>
+  <block id="791aed607ce65a32c8115590f604749d" category="list-text">在主要 Kubernetes 叢集上，建立 TridentTridentSnapshotInfoCR 以取得內部詳細資訊。</block>
+  <block id="e239ae5dff4b309ee9e4b5a6800472ca" category="list-text">在輔助 Kubernetes 叢集上，將 _TridentMirrorRelationship_ CR 的 _spec.state_ 欄位更新為 _promoted_，並將 _spec.volumeMappings[].promotedSnapshotHandle_ 更新為快照的 internalName。</block>
 </blocks>

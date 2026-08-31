@@ -19,6 +19,44 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 
 
+[[whats-new-in-26-06-1]]
+== 26.06.1 版本新增內容
+
+了解 NetApp Trident 和 Trident Protect 的新特性，包括增強功能、修復和棄用。
+
+
+
+[[trident]]
+=== Trident
+
+
+
+==== 修正
+
+* * Kubernetes* ：
++
+** 修正了 CSI 發布和 Volume 移動之間的競爭條件，該條件可能導致使用過時的存取資訊附加 Volume。
+** 修復了 NodeGetInfo 在節點註冊完成之前可能返回空拓撲標籤的競爭條件，進而導致拓撲感知佈建失敗。
+** 修復了一個罕見的 NVMe 斷開連接競爭問題，該問題可能在另一個 pod 仍在連接時拆除共享的子系統。
+** 修正了在並發條件下建立掛載 Volume 的 Clone 時，NVMe PVC Clone 發布失敗（以及父命名空間映射錯誤）的問題。
+** 修正了使用 nameTemplate 的 ONTAP-SAN-Economy 後端上 PVC 快照建立失敗的問題。
+
+
+
+
+
+
+==== 增強功能
+
+* * Kubernetes* ：
++
+** 在 ONTAP 後端設定中新增選用的 `storageAPITimeout`（秒），用於設定每個後端的 REST 和 ZAPI API 用戶端逾時時間。
+
+
+
+
+
+
 [[whats-new-in-26-06]]
 == 26.06 版本新增內容
 

@@ -7271,7 +7271,6 @@
   <block id="f7af0e023dc087b7d5c16907b79c4bad" category="cell">驗證失敗。請移除彙總組態或停用均衡放置。</block>
   <block id="057b2687591b3a31b14dba78c6b7d611" category="cell"><block ref="ecd0f9ed81ebb00c9d34989effc36922" prefix="" category="inline-code"></block> 在搭載 ONTAP 9.19.1 或更新版本的 AFX 上</block>
   <block id="4bb66497bc5009a192e4ed054023287c" category="cell">驗證失敗。ONTAP 9.19.1 或更高版本的 AFX 需要均衡放置。</block>
-  <block id="6372286df7ae09afa69dbe6070fa1f7e" category="paragraph">sidebar: sidebar permalink: trident-use/ontap-nas-examples.html keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster summary: 了解如何使用 ONTAP NAS 驅動程式搭配您的 Trident 安裝。本節提供後端組態範例以及如何將後端對應到 StorageClasses 的詳細資訊。---</block>
   <block id="9726f3cc0bb285cd4ca3c4d9d6de815e" category="paragraph">在 Trident 安裝中建立和使用 ONTAP NAS 驅動程式。本節提供後端組態範例，以及將後端映射至 StorageClasses 的詳細資訊。從 25.10 版本開始，NetApp Trident 支援<block ref="f33b68c7b6392c7aac0a8125f2e686d8" category="inline-link-macro-rx"></block>。NetApp AFX 儲存系統與其他基於 ONTAP 的系統（ASA、AFF 和 FAS）在儲存層的實作上有所不同。</block>
   <block id="c81dd6a3a0f519696cd274574c4268bd" category="paragraph">從 26.06 版本開始，您可以啟用 ONTAP 均衡放置功能，以便 ONTAP 為新 Volume 選擇彙總。ONTAP 9.19.1 或更新版本上的 AFX 儲存系統需要啟用均衡放置功能。有關需求和範例，請參閱 <block ref="deaf97e40b723f17c6bbd60f58aa3b91" category="inline-link-macro-rx"></block>。</block>
   <block id="498001a61165984b9528afdebffef381" category="admonition">當使用 ontap-nas-economy 且 storagePrefix 為 24 個或更多字元時，qtree 中不會嵌入儲存設備前綴，但它存在於 Volume 名稱中。</block>
@@ -7323,4 +7322,5 @@
   <block id="69eb48c01ded3a79590a6ae42b855f34" category="section-title">iSCSI 儲存類別</block>
   <block id="791aed607ce65a32c8115590f604749d" category="list-text">在主要 Kubernetes 叢集上，建立 TridentTridentSnapshotInfoCR 以取得內部詳細資訊。</block>
   <block id="e239ae5dff4b309ee9e4b5a6800472ca" category="list-text">在輔助 Kubernetes 叢集上，將 _TridentMirrorRelationship_ CR 的 _spec.state_ 欄位更新為 _promoted_，並將 _spec.volumeMappings[].promotedSnapshotHandle_ 更新為快照的 internalName。</block>
+  <block id="053cd9e68cf6c155e5b93616bc7e3e32" category="summary">了解如何在 Trident 安裝中建立和使用 ONTAP NAS 驅動程式。本節提供後端組態範例以及如何將後端對應到 StorageClasses 的詳細資訊。</block>
 </blocks>

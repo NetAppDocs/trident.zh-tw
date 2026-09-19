@@ -7322,4 +7322,13 @@
   <block id="053cd9e68cf6c155e5b93616bc7e3e32" category="summary">了解如何在 Trident 安裝中建立和使用 ONTAP NAS 驅動程式。本節提供後端組態範例以及如何將後端對應到 StorageClasses 的詳細資訊。</block>
   <block id="6385f58528c659bddf97b765fc51aebb" category="paragraph">啟用並行 Trident 控制器作業，以提高處理量。如需支援驅動程式的詳細資訊，請參閱連結：https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[控制器擴充性文件]。</block>
   <block id="fa2a90c552980287d1861c7eac323e01" category="paragraph">若要啟用並行 Trident 控制器作業以提高處理量，請在安裝期間新增 <block ref="663f61c1cf47f8a531c8d769e8bf59f4" prefix=" " category="inline-code"></block> 選項，如本範例所示。如需支援驅動程式的詳細資訊，請參閱連結： https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[控制器擴充性文件]。</block>
+  <block id="47c02bc65a2a3f5c0f90a1cf7ed0ea36" category="cell">全面支援結束</block>
+  <block id="7f96dba5716924fd66233cd2846ba50c" category="cell">有限支援結束</block>
+  <block id="38a6591aed8a24a0fe052e68bcbd0ae0" category="cell">自助支援終止</block>
+  <block id="56ce5fa2307a3da023291685ccf4a432" category="cell">2029 年 7 月</block>
+  <block id="f0a624939e52cadb47199d08a32ca6cb" category="cell">2029 年 2 月</block>
+  <block id="2a5fa171033322358bf400252cfb6437" category="paragraph">儲存設備驅動程式的名稱。</block>
+  <block id="ff7ba160cdd39f6a0b7fe88ef8878c45" category="paragraph">建立後無法修改。若要更新此參數，必須建立新的後端。</block>
+  <block id="ce29b5f6c6b616b686e7705a75655bb6" category="cell">儲存設備驅動程式的名稱。建立後無法修改。若要更新此參數，必須建立新的後端。</block>
+  <block id="aa7fcf992c04e66c97a2ecaecf8e9079" category="cell"><block ref="47cb44be55a0dffa15dfc900a4c687be" prefix="" category="inline-code"></block> 注意：影響後端識別和 Volume 命名的後端組態參數（例如 <block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block> 和 <block ref="ed66bef2b107983b6e4066fddf8c45c3" prefix=" " category="inline-code"></block>）在建立後無法變更。若要更新它們，您必須建立新的後端。</block>
 </blocks>

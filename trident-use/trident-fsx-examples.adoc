@@ -29,7 +29,7 @@ summary: 深入瞭解Amazon FSX for ONTAP Sfor Sf。本節提供後端組態範�
 | 「分度」 |  | 永遠為1 
 
 
-| 「torageDriverName」 | 儲存驅動程式名稱 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
+| 「torageDriverName」 | 儲存設備驅動程式的名稱。建立後無法修改。若要更新此參數，必須建立新的後端。 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
 
 
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱 + "_" + dataLIF 

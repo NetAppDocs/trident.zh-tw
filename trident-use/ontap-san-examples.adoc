@@ -34,7 +34,7 @@ NOTE: 只有 `ontap-san`ASA r2 系統支援驅動程式（支援 iSCSI、NVMe/TC
 | 「分度」 |  | 永遠為1 
 
 
-| 「torageDriverName」 | 儲存驅動程式名稱 | `ontap-san`或 `ontap-san-economy` 
+| 「torageDriverName」 | 儲存設備驅動程式的名稱。建立後無法修改。若要更新此參數，必須建立新的後端。 | `ontap-san`或 `ontap-san-economy` 
 
 
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱 + "_" + dataLIF 

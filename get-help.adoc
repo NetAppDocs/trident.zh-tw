@@ -30,17 +30,17 @@ Trident 會根據您的版本提供三個層級的支援。請參閱 link:https:
 |===
 
 
-| 版本 | 完全支援 | 有限支援 | 自我支援 
+| 版本 | 全面支援結束 | 有限支援結束 | 自助支援終止 
 
 
  a| 
 link:https://docs.netapp.com/us-en/trident/index.html["26.06"^]
-| 2026 年 7 月 | 2027 年 7 月 | 2028 年 7 月 
+| 2027 年 7 月 | 2028 年 7 月 | 2029 年 7 月 
 
 
  a| 
 link:https://docs.netapp.com/us-en/trident/index.html["26.02"^]
-| 2026 年 2 月 | 2027 年 2 月 | 2028 年 2 月 
+| 2027 年 2 月 | 2028 年 2 月 | 2029 年 2 月 
 
 
  a| 

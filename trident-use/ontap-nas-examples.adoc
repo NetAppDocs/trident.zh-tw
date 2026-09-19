@@ -37,7 +37,9 @@ NOTE: 只有 `ontap-nas`NetApp AFX 系統支援 NFS 協定驅動程式；不支�
 
 
 | 「torageDriverName」  a| 
-儲存驅動程式名稱
+儲存設備驅動程式的名稱。
+
+建立後無法修改。若要更新此參數，必須建立新的後端。
 
 
 NOTE: 僅適用於NetApp AFX 系統 `ontap-nas`已支援。

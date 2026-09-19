@@ -158,7 +158,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 | 「分度」 |  | 永遠為1 
 
 
-| 「torageDriverName」 | 儲存驅動程式名稱 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
+| 「torageDriverName」 | 儲存設備驅動程式的名稱。建立後無法修改。若要更新此參數，必須建立新的後端。 | `ontap-nas`、 `ontap-nas-economy`、 `ontap-nas-flexgroup`、 `ontap-san`、 `ontap-san-economy` 
 
 
 | 「後端名稱」 | 自訂名稱或儲存後端 | 驅動程式名稱 + "_" + dataLIF 
@@ -197,7 +197,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 | 《虛擬機器》 | 要使用的儲存虛擬機器 | 指定SVM管理LIF時衍生。 
 
 
-| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。無法在建立後修改。若要更新此參數、您需要建立新的後端。 | `trident` 
+| 「toragePrefix」 | 在SVM中配置新磁碟區時所使用的前置碼。無法在建立後修改。若要更新此參數、您需要建立新的後端。 | `trident` 注意：影響後端識別和 Volume 命名的後端組態參數（例如  `storageDriverName` 和  `storagePrefix`）在建立後無法變更。若要更新它們，您必須建立新的後端。 
 
 
 | 「限制Aggregateusage」 | * 請勿指定 Amazon FSX for NetApp ONTAP 。 *提供的 `fsxadmin`和 `vsadmin`不包含使用 Trident 擷取彙總使用量並加以限制所需的權限。 | 請勿使用。 

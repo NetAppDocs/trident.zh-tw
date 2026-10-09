@@ -4,7 +4,7 @@ permalink: trident-reco/integrate-trident.html
 keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool 
 summary: Kubernetes叢集通常由兩種類型的節點組成、每種節點負責不同的功能層面。 
 ---
-= 整合 Trident
+= 將 Trident 與 Kubernetes 整合
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

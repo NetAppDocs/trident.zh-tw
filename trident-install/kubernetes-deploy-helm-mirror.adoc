@@ -26,7 +26,7 @@ summary: 您可以部署 Trident 運算子、並使用 Helm 安裝 Trident 。�
 ====
 []
 =====
-* Trident 現在支援 Kubernetes 1.36。請先升級 Trident，再升級 Kubernetes。
+* Trident 現在支援 Kubernetes 1.37。請先升級 Trident，再升級 Kubernetes。
 * Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值 `find_multipaths: no`。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。

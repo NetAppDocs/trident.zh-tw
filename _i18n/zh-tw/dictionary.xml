@@ -400,7 +400,6 @@
   <block id="0ef79cb4bb284d3ca9c3e95489919301" category="inline-link">Amazon FSX for NetApp ONTAP 的部落格文章</block>
   <block id="3b94214fe5975bca8da92b72f8926be2" category="list-text"><block ref="3b94214fe5975bca8da92b72f8926be2" category="inline-link-rx"></block></block>
   <block id="72a5926b7fb086fe87e93771f6620556" category="summary">瞭解如何使用「tridentctl」來執行後端管理作業。</block>
-  <block id="748a22b5f1312291ad55429ba4b809a0" category="doc">使用tridentctl執行後端管理</block>
   <block id="aeeb03235358f0f4bf3be628bed08721" category="section-title">建立後端</block>
   <block id="34746f7a1d24170eeebf5510a045d43d" category="inline-link-macro">後端組態檔</block>
   <block id="99b7232073a67a8c82304f979e3dc83f" category="paragraph">建立之後 <block ref="03c0b6ed8698193668e92f56e9be3efa" category="inline-link-macro-rx"></block>，執行下列命令：</block>
@@ -1534,7 +1533,6 @@
   <block id="05f901da7fdacb9ca59e3d7e2d40f98d" category="cell"><block ref="0f4137ed1502b5045d6083aa258b5c42" prefix="" category="inline-code"></block></block>
   <block id="a3ff66cf5848a34d56915c8e879a5d52" category="section-title">組態範例</block>
   <block id="5f82f4ab2783617b6e62bdd43d4a4e49" category="doc">準備使用ONTAP 支援的SAN驅動程式來設定後端</block>
-  <block id="19eb1a22d8687def5fb4904d3402728a" category="doc">跨命名空間共用NFS磁碟區</block>
   <block id="6b456f0abe4c4d2f0beb62e5985136cf" category="list-text">多層存取控制、確保安全性</block>
   <block id="6e5d93bf8e8aaaa4795a50f012bc8fea" category="list-text">可搭配所有Trident NFS Volume驅動程式使用</block>
   <block id="0ece56dd58b5aabac15e0d0a30553bc0" category="list-text">不依賴tridentctl或任何其他非原生Kubernetes功能</block>
@@ -2848,7 +2846,6 @@
   <block id="ae7206c28f1d0ee5f9f116f1cfe22c54" category="cell">建立自訂磁碟區名稱的範本。</block>
   <block id="b797b4560e6c4ae4e13d035bbce23b4d" category="example-title">名稱範本的後端組態範例</block>
   <block id="f1b9eac8c1d92956d7734db32c5e55d9" category="list-text">K8s 節點正常或不正常關機（ 24.06 ）</block>
-  <block id="3c49604e542827bab74a3fdc9c521379" category="doc">自訂磁碟區名稱和標籤</block>
   <block id="52929ef06c83a3071dc677c6076f8eb3" category="paragraph">可自訂的 Volume 名稱和標籤支援：</block>
   <block id="ba7ad86bd3d0a50a4a04306d941e6c28" category="list-text">Volume 建立、匯入及複製作業。</block>
   <block id="4c71628145ace597229ccf6ca6fdc8bf" category="section-title">可自訂 Volume 名稱的主要行為</block>
@@ -3371,7 +3368,6 @@
   <block id="9cf6e031ec85179307403b10689113c9" category="paragraph">然後，您可以使用將恢復的卷導入 Trident <block ref="b0a81d9cb6f9ea994a428f959b11d3c6" category="inline-link-macro-rx"></block>。</block>
   <block id="3c520ff745f4964007340c06ce483d92" category="summary">部署 Trident 時、請使用此處列出的建議。</block>
   <block id="4ac9935cf245d076d6ef4babd8659321" category="paragraph"><block ref="c41296e544cd0faaa4fe4e8b22535287" category="inline-link-rx"></block>在不同的應用程式之間提供管理上的分離、是資源共用的障礙。例如、某個命名空間的某個永久虛電路無法從另一個命名空間使用。Trident 為 Kubernetes 叢集中的所有命名空間提供 PV 資源、因此會運用 Privileges 提升的服務帳戶。</block>
-  <block id="f53e7cca65962add5f429193e9cbdb7c" category="doc">整合 Trident</block>
   <block id="ef77c788fd33425198e77cd3ce7c4525" category="paragraph">若要整合 Trident 、下列設計和架構元素需要整合：驅動程式選擇和部署、儲存類別設計、虛擬集區設計、持續 Volume Claim （永久 Volume Claim ）對使用 Trident 的儲存資源配置、 Volume 作業和 OpenShift 服務部署的影響。</block>
   <block id="9586fb9f48cc64f580092d7123d5acad" category="paragraph">請注意、在下表中、並非所有功能都是透過 Trident 公開的。如果需要這些功能、儲存管理員必須在資源配置後套用部分功能。上標註可區分每項功能和驅動程式的功能。</block>
   <block id="5b003b29dfd53276a5b816a47ab32348" category="paragraph">Trident 提供 2 個適用於 ONTAP 的 SAN 驅動程式、其功能如下所示。</block>
@@ -5280,8 +5276,6 @@
   <block id="d11ec52e40490f88487a9042fdcfbce4" category="list-text">對於<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>，<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ， 和<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>在驅動程式中，每個持久性磁碟區 (PV) 都會對應到一個FlexVol volume。因此，磁碟區快照被創建為NetApp快照。NetApp快照技術比同類快照技術具有更高的穩定性、可擴展性、可恢復性和效能。這些快照副本在創建所需時間和儲存空間方面都非常有效率。</block>
   <block id="493d70b01045b3860d249e304254b4c7" category="paragraph">使用Trident，您可以利用 VolumeSnapshots 從中建立新的 PV。使用FlexClone技術從這些快照建立 PV（適用於受支援的ONTAP後端）執行。從快照建立 PV 時，後備磁碟區是快照父磁碟區的FlexClone 。這<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>驅動程式使用 Element 軟體磁碟區克隆從快照建立 PV。它在這裡從 Element 快照創建一個克隆。</block>
   <block id="25f96c73018ecdf4416a2540508d0a38" category="paragraph">使用時<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>，<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> ， 和<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>儲存驅動程序， Trident可以克隆磁碟區。使用時<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>或者<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>驅動程式不支援克隆。從現有磁碟區建立新磁碟區將建立一個新的快照。</block>
-  <block id="04405dc8db6e17d7853c7b251f054223" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4.10.0</block>
-  <block id="d49d35d0964102edd30044f046d62050" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0</block>
   <block id="a3bfe8b87df4b85184ac2c726bd7b15e" category="list-text"><block ref="1a368feb8bb72ef66bb194b43d0a15b3" prefix="" category="inline-code"></block>*</block>
   <block id="e344165681ff8191ed4faed24ded7cc3" category="paragraph">Trident在叢集中的每個工作節點上以單一控制器 pod 和節點 pod 的形式運作。節點 pod 必須運行在您希望掛載Trident磁碟區的任何主機上。</block>
   <block id="2cfd796902655e533881e53b6b9743ed" category="inline-link-macro">使用Trident實現有狀態應用程式的故障轉移自動化</block>
@@ -6389,9 +6383,6 @@
   <block id="945c53097aed6aee6897384c32c13596" category="paragraph">例如，此原則設定了<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block>為<block ref="b3b9f60c2eb049d3bcbddd22d73210ce" prefix=" " category="inline-code"></block>，但 Trident 會對使用該原則的任何 SAN 磁碟區套用 51 MB 的成長：</block>
   <block id="a55370dbc1a259397316ceebdfed21b8" category="paragraph">為避免自動調整，請將 <block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block> 設定為大於 50 MiB 的值：</block>
   <block id="b58eceaaba71c126318ed8daedaef74b" category="sidebar">設定自動分層</block>
-  <block id="93284b31b63cc86c59eeb4dcd6ba1751" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v6.1.0</block>
-  <block id="f5345a3e1ca4c50ed544fae4c14150b1" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v2.0.0</block>
-  <block id="ed2e3a3511b1047c788e7fd621778ee2" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.5.0</block>
   <block id="0adb26270c00fc572774f5cb57d01573" category="inline-link-macro">26.02</block>
   <block id="e352a332a817691cf8394c9b1288306f" category="paragraph"><block ref="e352a332a817691cf8394c9b1288306f" category="inline-link-macro-rx"></block></block>
   <block id="f1462e5be0262f51cdc6fb6c3b5027dc" category="summary">如果您使用 Red Hat OpenShift，您可以從社群 Operator、基於 Helm 的安裝或手動部署的 Operator 切換到經過認證的 Trident Operator。</block>
@@ -6630,10 +6621,6 @@
   <block id="8e31ed98521d2fbd01629de60bdbfd6a" category="list-text">Go 執行階段：<block ref="472bd143483bc49bc89effbd314435c0" category="inline-link-macro-rx"></block></block>
   <block id="278b5284fc6585f71203297ebab6500e" category="inline-link-macro">CVE-2025-23109</block>
   <block id="fd2c12a453dd202f7117b96858090a49" category="list-text">其他相依性：<block ref="7beaa9a23a5ebb4abc880f48947240a7" category="inline-link-macro-rx"></block></block>
-  <block id="1f07946fee6ac5cb85e38a3da3d8db2e" category="list-text">Trident 現在支援 Kubernetes 1.36。請先升級 Trident，再升級 Kubernetes。</block>
-  <block id="4713d9468516722d04cb8a63424d6222" category="list-text">Kubernetes 1.27 - 1.36</block>
-  <block id="203760c50a5659765fa822dc460e7e7b" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.36.x</block>
-  <block id="f3157f5bea9295ba633b817f5c01eba4" category="paragraph">1.27 - 1.36</block>
   <block id="bd36045805a85f9665960a0f6f9e955f" category="list-text"><block ref="bd36045805a85f9665960a0f6f9e955f" category="inline-link-macro-rx"></block></block>
   <block id="7244beaf9a5f0b906f65ac443dbf07a0" category="paragraph">有關 FlexGroups 及適用於 FlexGroups 的工作負載的資訊，請參閱<block ref="02927f5d2a03bd36432bf247f38d70d3" category="inline-link-rx"></block>。</block>
   <block id="714ad635b7b855ea6b214ed7b344a93a" category="paragraph">Cloud Volumes ONTAP 是一款純軟體儲存設備，可在雲端運作 ONTAP 資料管理軟體。您可以使用 Cloud Volumes ONTAP 處理生產工作負載、災難復原、DevOps、檔案共用和資料庫管理。它透過提供儲存效率、高可用性、資料複製、資料分層和應用程式一致性，將企業儲存擴展到雲端。</block>
@@ -6687,7 +6674,6 @@
   <block id="ab69d9120992b9296c38d9e4447f1558" category="paragraph-title">直接在訪客叢集中安裝 Trident：</block>
   <block id="d09686be8886e8eaf49a77f8b1785c59" category="paragraph">您也可以直接在客戶（租用戶）叢集中安裝 Trident。當您需要 Trident 的完整功能集（例如快照、複製、磁碟區調整大小和匯入，而<block ref="9b2a6a8c098cece12ac0a8f284a1a269" prefix=" " category="inline-code"></block>本身不提供這些功能）時，請將 Trident 安裝在客戶叢集中。</block>
   <block id="f02d97ba74a486c6f9a21ae16d123b52" category="paragraph">在客體叢集中，請使用基於 IP 的協定：NFS、iSCSI 和 NVMe/TCP。客體叢集不支援光纖通道 (FC)，因為客體節點是虛擬機器，沒有直接的 FC 連線。</block>
-  <block id="3cbfe5af574efdb4391d1d3e321c8cee" category="cell">v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0</block>
   <block id="e9d36c266026dc04d43783120d0a2d1d" category="paragraph">登入 Linux 主機，並驗證它是否正在管理一個正常運作的 <block ref="958ebeab180637e89445160bac2d22e7" category="inline-link-macro-rx"></block>，以及您是否擁有必要的權限。</block>
   <block id="0d8f30017a3c82df9a5d969fa5e4586f" category="paragraph">在開始安裝之前，請登入 Linux 主機並驗證它是否正在管理運作中的 <block ref="f546aa86570a808d23361d7f4e2a08c3" category="inline-link-macro-rx"></block>，以及您是否擁有必要的權限。</block>
   <block id="4badcdbd19fc30efbca0c1955df11f87" category="list-text">Trident 現在支援 Kubernetes。請先升級 Trident，再升級 Kubernetes。</block>
@@ -7203,10 +7189,7 @@
   <block id="648540f1a67ebba0071e70944d7527c2" category="paragraph"><block ref="648540f1a67ebba0071e70944d7527c2" category="inline-link-macro-rx"></block></block>
   <block id="172ebadfc5f13c0aff9b7f172bc4fed4" category="cell">2027 年 7 月</block>
   <block id="4aab0cfeaa9a8262994350900bdd20f2" category="cell">2028 年 7 月</block>
-  <block id="f6d7c73fe3fc66fa560e7262f79f60ae" category="section-title">Trident 26.06 所需的容器鏡像</block>
-  <block id="f87a5c52c8ee3e84d33252d80679b335" category="list-text">docker.io/netapp/trident:26.06.0</block>
   <block id="01d86b54453ee9aefd6e3ed4a3dc0dc2" category="list-text">docker.io/netapp/trident-autosupport:26.06</block>
-  <block id="9a3b823ceeb6fcbe9a5ac0a50b995ed0" category="list-text">docker.io/netapp/trident-operator:26.06.0 （選用）</block>
   <block id="c31dc22d9ccf9395630afa7de351d6bf" category="cell"><block ref="4e9f324b7febae0727b9d412cb49fa13" prefix="" category="inline-code"></block></block>
   <block id="bcf817488b594e4daf83db1e5511242d" category="section-title">關於 Trident 26.06 的關鍵資訊</block>
   <block id="a67a4c76b07caa7907851893a5518350" category="paragraph">在<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>中，更新<block ref="6225334d80f70f493ad5e35aee5b3e8c" prefix=" " category="inline-code"></block>以反映您的映像登錄的位置。您的 <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> 可以位於一個登錄中，也可以位於不同的登錄中，但所有 CSI 映像必須位於同一個登錄中。例如：</block>
@@ -7331,4 +7314,56 @@
   <block id="ff7ba160cdd39f6a0b7fe88ef8878c45" category="paragraph">建立後無法修改。若要更新此參數，必須建立新的後端。</block>
   <block id="ce29b5f6c6b616b686e7705a75655bb6" category="cell">儲存設備驅動程式的名稱。建立後無法修改。若要更新此參數，必須建立新的後端。</block>
   <block id="aa7fcf992c04e66c97a2ecaecf8e9079" category="cell"><block ref="47cb44be55a0dffa15dfc900a4c687be" prefix="" category="inline-code"></block> 注意：影響後端識別和 Volume 命名的後端組態參數（例如 <block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block> 和 <block ref="ed66bef2b107983b6e4066fddf8c45c3" prefix=" " category="inline-code"></block>）在建立後無法變更。若要更新它們，您必須建立新的後端。</block>
+  <block id="93fbc816e8bf100e5538c460cbfded25" category="doc">Trident Volume 配置流程</block>
+  <block id="7abc4557b186fa5fe308fb648a0c1759" category="doc">Trident Volume 快照建立</block>
+  <block id="4d701192205744a3a09c06efb968dc59" category="doc">Trident 虛擬儲存設備資源池組態</block>
+  <block id="92cde28a49290d108fcbcc24221bac54" category="doc">Trident Volume 存取群組管理</block>
+  <block id="59d40127a6af11747a793d61df5338e5" category="doc">Trident 和 Kubernetes 與 NetApp 產品的整合</block>
+  <block id="0aa4c54ee2846cd1ee10e094f05cfa48" category="list-text">Trident 現在支援 Kubernetes 1.37。請先升級 Trident，再升級 Kubernetes。</block>
+  <block id="fb969327dd7c5284cf39ef2077642427" category="list-text">Kubernetes 1.27 - 1.37</block>
+  <block id="1f8bad982c95fa13c1c3b93510b02a5e" category="list-text">Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.37.x</block>
+  <block id="d03983e9fca4277cf0919e8bea0c196c" category="paragraph">1.27 - 1.37</block>
+  <block id="ba8ebafc2389dabfa3286dbc34aec82b" category="section-title">Trident 26.06.2 所需的容器映像</block>
+  <block id="df499232b0659c7b92a4bb7def65662d" category="cell">v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0、v1.37.0</block>
+  <block id="add431fb6c7231214d4cc5b3f76a2a96" category="list-text">docker.io/netapp/trident:26.06.2</block>
+  <block id="2c3f6f002722bde0c2e5610ddd0a46b8" category="list-text">docker.io/netapp/trident-operator:26.06.2 （選用）</block>
+  <block id="39b839ecfa8ad2cd1a2a661969868248" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4.11.0</block>
+  <block id="a24cc2fae2df54a2712abf546e031441" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.18.0</block>
+  <block id="d61443f5de6e680d2193b40d5e49f950" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v6.3.0</block>
+  <block id="ed11c5a031bd827baa31f76e4b76e814" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v2.1.0</block>
+  <block id="6aa4aa1c57132c60ac255cec26f70cf2" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.6.0</block>
+  <block id="9e2275a440e88168522f5dec7521d5b2" category="doc">自訂 Trident tridentctl 安裝</block>
+  <block id="66a65e8f59856ace86e7d0ab11d6ee2f" category="doc">了解 Trident 營運者升級工作流程</block>
+  <block id="835d266e43d7fc9ad169db97e5f68bb6" category="doc">使用 tridentctl 升級 Trident</block>
+  <block id="17bc6151a1580a16ea3a0bb054635da1" category="doc">Trident 資料保護與災難恢復</block>
+  <block id="b6e5e8475937d3c120e40df57517dc2b" category="doc">Trident 部署建議</block>
+  <block id="d3eb63882efa67a778e4946e3f147dbe" category="doc">將 Trident 與 Kubernetes 整合</block>
+  <block id="6765fc072b17914d8078ae519719dac3" category="doc">Trident Kerberos 傳輸中加密</block>
+  <block id="85c3ba6a32bf7bad0c1de9edded9a5c9" category="doc">Trident Linux 統一金鑰設定 （LUKS）</block>
+  <block id="d51e7b5d90845c1a14a02bc8865f816a" category="doc">Trident 安全性建議</block>
+  <block id="11c409432b2783da745e2f3c5305a019" category="doc">Trident 儲存組態最佳實務</block>
+  <block id="0aa58f379bc7aae0f4d89e420ac722aa" category="section-title">26.06.2 版本新增內容</block>
+  <block id="9fed2c5f98e24bcd80d1becb14f7b9b9" category="list-text">新增對 Kubernetes 1.37 的支援。</block>
+  <block id="fb40a6ba370ad5533a7ce3c5414b2332" category="inline-link-macro">問題 #1166</block>
+  <block id="f97a774ca034ed32bdbb15bc881ffb74" category="inline-link-macro">問題 #1179</block>
+  <block id="8ad55c17d13f4d9d068c35356fccb76e" category="list-text">修正了當 Trident 控制器重新啟動或更新<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block>，且<block ref="b061e443e106870da185a3681948cf1b" prefix=" " category="inline-code"></block>設定為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>時，ONTAP-NAS 匯出原則規則會被靜默刪除的問題。這可能會使已掛載的 Volume 處於停滯狀態（<block ref="2f681c0904e60dd8ca3ac232198e1fde" category="inline-link-macro-rx"></block>，<block ref="2bde1c55e1c876ea9a5b30e5998e20a4" category="inline-link-macro-rx"></block>）。</block>
+  <block id="1ff7a86a442328eb4c73362f63bafe93" category="list-text">修正了後端更新針對非實質變更（例如憑證和 QoS）執行每個 Volume 孤立掃描的問題，這可能會在大型後端上區塊 CSI 操作數小時。現在，該掃描僅在 SVM 或儲存設備前綴發生變更時執行。</block>
+  <block id="4cd96d766317606681a187daeabb7e65" category="list-text">修正了 Trident 偵錯日誌中出現的憑證問題，包括 CSI gRPC 請求轉儲、啟動環境轉儲以及 <block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CRD 控制器記錄的規格。啟動環境轉儲現在只記錄 Trident 自身 <block ref="9587dd0b7e1ce8ba3ecc5647ca653baf" prefix=" " category="inline-code"></block> 變數的值，並按名稱列出其他變數。</block>
+  <block id="878e26ce593b81438793485a524bfdd4" category="doc">使用 kubectl 管理 Trident 後端</block>
+  <block id="ef729a4d7079ef5170ca33d7a2b2ff5b" category="doc">使用 tridentctl 管理 Trident 後端</block>
+  <block id="b0fdb9fb8ca9c19b8f0e60918e66c855" category="doc">選擇 Trident 後端管理方法</block>
+  <block id="f94175d68584fa6fbcca90393df1f78c" category="doc">設定 Trident 後端</block>
+  <block id="efbe44f08e5bb483af8587f9aa173ffb" category="doc">建立 Trident 儲存設備類別</block>
+  <block id="95f086d73ced21ab39864fbcdafc5593" category="doc">管理 Trident 儲存設備類別</block>
+  <block id="3262a5dac33954f8bce5abaf56b06897" category="doc">監控 Trident 儲存設備作業</block>
+  <block id="ce8c3a3d9a1addd78a106ad7348abd3b" category="doc">跨命名空間複製 Trident Volume</block>
+  <block id="4c4aeb85b1b22846a524105b5bf4631f" category="doc">自訂 Trident Volume 名稱和標籤</block>
+  <block id="53ec4d965298dbd0a7cd7654f4cffcda" category="doc">擴充 Trident Volume</block>
+  <block id="26dc9e2c8cafa5e40766157e25e3db26" category="doc">使用 Trident Volume 群組快照</block>
+  <block id="451317abd90ea542d26ebad3c7e3b63a" category="doc">匯入 Trident Volume</block>
+  <block id="4f180ac6611922295d16ff6c0c4c68a6" category="doc">執行 Trident Volume 操作</block>
+  <block id="dc5de362a9aac689498b3450bb50f2d1" category="doc">配置 Trident Volume</block>
+  <block id="e52c3cee59da6b9b8b87a9baa0cd4b45" category="doc">使用 Trident 快照</block>
+  <block id="2e521bb61d9127d4460f3262267cd834" category="doc">跨命名空間共享 Trident NFS Volume</block>
+  <block id="64fc6c7cb21b21d1926676a7cc84c9cf" category="doc">準備 Trident 工作節點</block>
 </blocks>

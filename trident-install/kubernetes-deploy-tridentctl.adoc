@@ -4,7 +4,7 @@ permalink: trident-install/kubernetes-deploy-tridentctl.html
 keywords: deploy, Trident, methods, tridentctl, windows 
 summary: '您可以使用安裝 Trident `tridentctl` 。此程序適用於 Trident 所需的容器映像儲存在私有登錄中或不儲存在私有登錄中的安裝。' 
 ---
-= 使用tridentctl安裝
+= 使用 tridentctl 安裝 Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

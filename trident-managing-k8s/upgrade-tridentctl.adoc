@@ -4,7 +4,7 @@ permalink: trident-managing-k8s/upgrade-tridentctl.html
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
 summary: '您可以使用輕鬆升級現有的 Trident 安裝 `tridentctl`。' 
 ---
-= 使用tridentctl進行升級
+= 使用 tridentctl 升級 Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -4,7 +4,7 @@ permalink: trident-use/create-stor-class.html
 keywords: storage class, manage storage class, storage classes, kubernetes storage classes 
 summary: 您可以設計 Kubernetes StorageClass 檔案、並建立 StorageClass 以指示 Trident 如何配置磁碟區。 
 ---
-= 建立儲存類別
+= 建立 Trident 儲存設備類別
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

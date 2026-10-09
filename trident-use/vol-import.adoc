@@ -4,7 +4,7 @@ permalink: trident-use/vol-import.html
 keywords: volumes, import volumes, drivers, tridentctl import, pv, persistent volumes, pvc, disaster recovery, dr, clone, reuse, managed volume, unmanaged volume, managed, annotations 
 summary: '您可以使用 `tridentctl import`或 PVC 註解將現有儲存磁碟區匯入為 Kubernetes PV。' 
 ---
-= 匯入磁碟區
+= 匯入 Trident Volume
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -4,7 +4,7 @@ permalink: trident-reco/security-luks.html
 keywords: security, luks, linux unified key setup, encryption, key rotation, resizing, advanced encryption, rotation, key, import 
 summary: 您可以啟用 Linux 統一金鑰設定（ LUKS ）來加密 Trident 上的 ONTAP SAN 和 ONTAP SAN 經濟磁碟區。Trident 支援磁碟區大小調整和 LUKS 加密磁碟區的金鑰（複雜密碼）旋轉。 
 ---
-= Linux統一化金鑰設定（LUKS）
+= Trident Linux 統一金鑰設定 （LUKS）
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

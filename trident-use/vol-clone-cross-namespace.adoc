@@ -4,7 +4,7 @@ permalink: trident-use/vol-clone-cross-namespace.html
 keywords: volref, volume reference, clone, pvc, pv, namespace, cvna, cross-namespace, sharing, volumesnapshots 
 summary: 使用 Trident ，您可以使用同一個 K8s 叢集中不同命名空間的現有磁碟區或 Volume 快照來建立新的磁碟區。 
 ---
-= 跨命名空間複製磁碟區
+= 跨命名空間複製 Trident Volume
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -19,6 +19,42 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 
 
+[[whats-new-in-26-06-2]]
+== 26.06.2 版本新增內容
+
+了解 NetApp Trident 和 Trident Protect 的新特性，包括增強功能、修復和棄用。
+
+
+
+[[trident]]
+=== Trident
+
+
+
+==== 增強功能
+
+* * Kubernetes* ：
++
+** 新增對 Kubernetes 1.37 的支援。
+
+
+
+
+
+
+==== 修正
+
+* * Kubernetes* ：
++
+** 修正了當 Trident 控制器重新啟動或更新 `TridentBackendConfig`，且 `enableConcurrency`設定為 `true`時，ONTAP-NAS 匯出原則規則會被靜默刪除的問題。這可能會使已掛載的 Volume 處於停滯狀態（link:https://github.com/NetApp/trident/issues/1166["問題 #1166"]，link:https://github.com/NetApp/trident/issues/1179["問題 #1179"]）。
+** 修正了後端更新針對非實質變更（例如憑證和 QoS）執行每個 Volume 孤立掃描的問題，這可能會在大型後端上區塊 CSI 操作數小時。現在，該掃描僅在 SVM 或儲存設備前綴發生變更時執行。
+** 修正了 Trident 偵錯日誌中出現的憑證問題，包括 CSI gRPC 請求轉儲、啟動環境轉儲以及  `TridentBackendConfig` CRD 控制器記錄的規格。啟動環境轉儲現在只記錄 Trident 自身  `TRIDENT_*` 變數的值，並按名稱列出其他變數。
+
+
+
+
+
+
 [[whats-new-in-26-06-1]]
 == 26.06.1 版本新增內容
 

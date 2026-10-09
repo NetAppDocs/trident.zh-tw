@@ -4,7 +4,7 @@ permalink: trident-get-started/requirements.html
 keywords: trident requirements, supported front ends, supported backends, kubernetes cluster, cluster requirements, version requirements, supported versions, host configuration, host os, system configuration, host operating system, fsx, ports, csi, images, orchestrators, storage systems, feature, kubernetes 
 summary: 安裝 Trident 之前、您應該先檢閱這些一般系統需求。特定後端可能有其他需求。 
 ---
-= 需求
+= Trident 需求
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -26,7 +26,7 @@ summary: 安裝 Trident 之前、您應該先檢閱這些一般系統需求。�
 ====
 []
 =====
-* Trident 現在支援 Kubernetes 1.36。請先升級 Trident，再升級 Kubernetes。
+* Trident 現在支援 Kubernetes 1.37。請先升級 Trident，再升級 Kubernetes。
 * Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值 `find_multipaths: no`。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
@@ -43,13 +43,13 @@ summary: 安裝 Trident 之前、您應該先檢閱這些一般系統需求。�
 Trident 支援多個容器引擎和協調器、包括：
 
 * Antos on － Prem （ VMware ）和 Antos on bare met金 片 1.16
-* Kubernetes 1.27 - 1.36
+* Kubernetes 1.27 - 1.37
 * OpenShift 4.12、4.14 - 4.22（如果您打算在 OpenShift 4.19 版本中使用 iSCSI 節點準備功能，則支援的最低 Trident 版本為 25.06.1。）
 +
 
 NOTE: Trident繼續支援舊版 OpenShift 版本，與link:https://access.redhat.com/support/policy/updates/openshift["Red Hat 擴充更新支援 (EUS) 發布生命週期"]，即使它們依賴上游不再受官方支援的 Kubernetes 版本。在這種情況下安裝Trident時，您可以放心地忽略有關 Kubernetes 版本的任何警告訊息。
 
-* Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.36.x
+* Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.37.x
 
 
 Trident 也與其他完全託管且自行管理的 Kubernetes 產品合作、包括 Google Kubernetes Engine （ GKE ）、 Amazon Elastic Kubernetes Services （ EKS ）、 Azure Kubernetes Service （ aks ）、 Mirantis Kubernetes Engine （ MKE ）和 VMware Tanzu Portfolio 。
@@ -158,56 +158,56 @@ NOTE: 此配置在早期版本中有效，但完整認證從 26.06 開始。
 
 
 | Trident  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 否
 
 
 
 | Volume Snapshot  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 否
 
 
 
 | 來自Volume Snapshot的PVc  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 否
 
 
 
 | iSCSI PV調整大小  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 否
 
 
 
 | 資訊雙向CHAP ONTAP  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 否
 
 
 
 | 動態匯出原則  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 否
 
 
 
 | Trident運算子  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 否
 
 
 
 | csi拓撲  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 否
 
@@ -270,23 +270,23 @@ link:../trident-reference/ports.html["Trident 連接埠"]
 
 
 
-[[container-images-required-for-trident-26-06]]
-=== Trident 26.06 所需的容器鏡像
+[[container-images-required-for-trident-26-06-2]]
+=== Trident 26.06.2 所需的容器映像
 
 [cols="2"]
 |===
 | Kubernetes 版本 | Container映像 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
-* docker.io/netapp/trident:26.06.0
+| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0、v1.37.0  a| 
+* docker.io/netapp/trident:26.06.2
 * docker.io/netapp/trident-autosupport:26.06
-* registry.k8s.io/sig-storage/csi-provisioner:v6.1.0
-* registry.k8s.io/sig-storage/csi-attacher:v4.10.0
-* registry.k8s.io/sig-storage/csi-resizer:v2.0.0
-* registry.k8s.io/sig-storage/csi-snapshotter:v8.5.0
-* registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0
-* docker.io/netapp/trident-operator:26.06.0 （選用）
+* docker.io/netapp/trident-operator:26.06.2 （選用）
+* registry.k8s.io/sig-storage/csi-attacher:v4.11.0
+* registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.18.0
+* registry.k8s.io/sig-storage/csi-provisioner:v6.3.0
+* registry.k8s.io/sig-storage/csi-resizer:v2.1.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v8.6.0
 
 
 |===

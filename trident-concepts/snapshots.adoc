@@ -4,7 +4,7 @@ permalink: trident-concepts/snapshots.html
 keywords: provisioning, Trident 
 summary: 深入瞭解 Trident 如何處理其驅動程式的磁碟區快照建立。 
 ---
-= Volume快照
+= Trident Volume 快照建立
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

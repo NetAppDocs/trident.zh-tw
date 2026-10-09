@@ -4,7 +4,7 @@ permalink: trident-use/monitor-trident.html
 keywords: telemetry, Trident, monitor, metrics, health, volume usage, autosupport 
 summary: Trident 提供一組 Prometheus 指標端點、您可以用來監控 Trident 的效能。 
 ---
-= 監控 Trident
+= 監控 Trident 儲存設備作業
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

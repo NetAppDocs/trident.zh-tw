@@ -4,7 +4,7 @@ permalink: trident-use/volume-share.html
 keywords: volref, volume reference, share, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing 
 summary: 使用 Trident 、您可以在主要命名空間中建立磁碟區、並在一或多個次要命名空間中共用該磁碟區。 
 ---
-= 跨命名空間共用NFS磁碟區
+= 跨命名空間共享 Trident NFS Volume
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

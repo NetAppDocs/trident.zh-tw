@@ -4,7 +4,7 @@ permalink: trident-use/vol-custom-name.html
 keywords: volumes, volume name, custom volume name, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion, 
 summary: Trident 支援指派有意義的名稱和標籤給所建立的磁碟區、以便更容易識別、監控管理磁碟區、並輕鬆地將磁碟區對應至各自的 Kubernetes 資源（ PVCS ）。 
 ---
-= 自訂磁碟區名稱和標籤
+= 自訂 Trident Volume 名稱和標籤
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

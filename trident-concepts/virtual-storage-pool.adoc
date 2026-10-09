@@ -4,7 +4,7 @@ permalink: trident-concepts/virtual-storage-pool.html
 keywords: virtual pools, Trident, backends 
 summary: 虛擬集區在 Trident 的儲存後端和 Kubernetes 的 StorageClasses 之間提供抽象層。管理員可透過通用的後端不受後端限制的方式、定義各個層級的位置、效能及保護、而無需使用StorageClass來指定要用於符合所需條件的實體後端、後端集區或後端類型。 
 ---
-= 虛擬資源池
+= Trident 虛擬儲存設備資源池組態
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

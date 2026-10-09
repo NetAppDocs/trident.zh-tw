@@ -4,7 +4,7 @@ permalink: trident-reco/storage-config-best-practices.html
 keywords: kubernetes, clusters, nodes, components, master, compute 
 summary: Kubernetes叢集通常由兩種類型的節點組成、每種節點負責不同的功能層面。 
 ---
-= 儲存組態
+= Trident 儲存組態最佳實務
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

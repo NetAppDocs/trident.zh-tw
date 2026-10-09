@@ -4,7 +4,7 @@ permalink: trident-reco/backup.html
 keywords: data protection, replication, dr, disaster recovery, snapmirror, back up, snapshot, element, volume replication 
 summary: 瞭解使用 Trident 建立的 Trident 和磁碟區的保護與還原選項。對於每個應用程式、您都應該有持續性需求的資料保護與還原策略。 
 ---
-= 資料保護與災難恢復
+= Trident 資料保護與災難恢復
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -106,7 +106,7 @@ RWO 、 RWOP
 * 使用 `ontap-san-economy` 只有持續磁碟區使用量計數預期會高於 link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["支援的 ONTAP Volume 限制"^]。
 * 使用 `ontap-nas-economy` 只有持續磁碟區使用量計數預期會高於 link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["支援的 ONTAP Volume 限制"^] 和 `ontap-san-economy` 無法使用驅動程式。
 * 請勿使用 `ontap-nas-economy` 如果您預期需要資料保護、災難恢復或行動性、
-* NetApp 不建議在所有 ONTAP 驅動程式中使用 FlexVol 自動擴充， ONTAP SAN 除外。作為因應措施， Trident 支援使用快照保留，並據此擴充 FlexVol 磁碟區。
+* ONTAP Volume 自動調整規模支援  `ontap-san` 和  `ontap-san-economy`。ONTAP NAS 驅動程式不支援此功能。如需詳細資料和限制，請參閱 link:ontap-autosize.html["設定 ONTAP Volume 自動調整規模"]。
 
 
 ====
@@ -141,7 +141,7 @@ Trident 不支援：
 
 * NVMe 原生支援的 DH-HMAC-CHAP
 * 裝置對應工具（ DM ）多重路徑
-* LUKS 加密
+* Linux 統一金鑰設定（LUKS）加密
 
 
 

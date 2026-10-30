@@ -29,7 +29,8 @@ NAS Volume 提供檔案型儲存設備，並使用 NFS 或 SMB 傳輸協定進�
 這適用於以下環境：
 
 * Trident 26.02 及更新版本
-* Google Kubernetes Engine （GKE） 或 Red Hat OpenShift
+* Google Kubernetes Engine (GKE) 或在 GCP 上執行的 Red Hat OpenShift 叢集
+* OpenShift 工作負載身分聯盟（WIF）需要 Trident 26.10 或更新版本
 * Google Cloud NetApp Volumes 儲存池
 
 
@@ -42,7 +43,14 @@ NAS Volume 提供檔案型儲存設備，並使用 NFS 或 SMB 傳輸協定進�
 
 雲端身分可讓 Kubernetes 工作負載透過以工作負載身分進行驗證來存取 Google Cloud 資源，而非使用靜態認證。
 
-若要將雲端身分與 Google Cloud NetApp Volumes 結合使用、您必須具備以下條件：
+在設定工作負載身分之前，請使用獲授權建立所需身分資源的帳戶。對於 GKE，這需要 Google Cloud 權限來建立和設定 Google Cloud 服務帳戶。對於 OpenShift，這需要建立或選擇叢集的 WIF 組態，以及設定 Google Cloud 工作負載身分資源池和供應商的權限。
+
+
+
+[[use-gke-workload-identity]]
+=== 使用 GKE 工作負載身分
+
+若要將 GKE 工作負載身分與 Google Cloud NetApp Volumes 搭配使用，您必須具備：
 
 * 使用 Google Kubernetes Engine （ GKE ）部署的 Kubernetes 叢集
 * GKE 叢集上已啟用工作負載身分識別，節點集區上已啟用中繼資料伺服器
@@ -92,6 +100,241 @@ tridentctl install \
 ----
 --
 ====
+
+
+[[use-workload-identity-federation-on-openshift]]
+[[openshift-wif]]
+=== 在 OpenShift 上使用工作負載身分聯合
+
+從 Trident 26.10 開始，您可以使用 Google Cloud Workload Identity Federation （WIF） 在 GCP 上執行的 OpenShift 叢集上驗證 Google Cloud NetApp Volumes 驅動程式。這適用於自管理的 OpenShift Container Platform （OCP，包括 IPI 部署） 和 OpenShift Dedicated （OSD），並同時支援 NAS (`google-cloud-netapp-volumes`） 和 SAN (`google-cloud-netapp-volumes-san`） 驅動程式。
+
+WIF 將投射的 Kubernetes 服務帳戶 Token 交換為短期的 Google Cloud 認證資料。Trident 使用這些認證資料來模擬 Google Cloud 服務帳戶；該服務帳戶的 IAM 角色會授權其 Google Cloud NetApp Volumes API 呼叫。這可避免在後端組態中儲存長期的服務帳戶金鑰。
+
+
+
+==== 準備 OpenShift 叢集
+
+對於 OSD，請在建立叢集時建立或選擇一個 GCP WIF 組態。例如，OpenShift 叢集管理器 CLI 可以建立一個：
+
+[source, console]
+----
+ocm gcp create wif-config --name <wif-name> --project <gcp-project-id>
+----
+選擇工作負載身分聯合（Workload Identity Federation）作為叢集驗證類型，並將 WIF 組態與叢集關聯。對於自我管理的 OCP，設定一個信任叢集服務帳戶權杖發行者的 Google Cloud OIDC 供應商。OSD 和自我管理 OCP 的叢集資源配置和權杖投影步驟有所不同；請遵循適用的 Red Hat 指南，並將投影的權杖提供給 Trident 控制器 `/var/run/secrets/wif-token/token`。
+
+OSD 的 WIF 驗證在建立叢集時設定。Trident 的 WIF 對象是分隔的安裝設定；您無需重新建立叢集即可為 Trident 啟用 WIF。
+
+在安裝或設定 Trident 之前，請確認用於安裝的 OpenShift 身分擁有所選安裝方法所需的叢集權限。安裝後，請確認控制器和節點 Pod 運作狀況良好：
+
+[source, console]
+----
+oc whoami
+oc auth can-i create namespaces
+oc auth can-i create csidrivers.storage.k8s.io
+oc auth can-i create customresourcedefinitions.apiextensions.k8s.io
+oc auth can-i create securitycontextconstraints.security.openshift.io
+
+oc -n trident get pods
+oc -n trident rollout status deploy/trident-controller --timeout=300s
+oc -n trident rollout status ds/trident-node-linux --timeout=300s
+----
+
+
+==== 使用 WIF 對象安裝 Trident
+
+Trident 僅在安裝期間設定對象時，才會將權杖投射到 WIF。請在 Google Cloud 供應商和後端的 `wipCredentialConfig.audience`中使用相同的對象：
+
+[source, text]
+----
+//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>
+----
+將 `cloudProvider`設為 `GCP`，並使用您選擇的安裝方法來設定 `gcpWIFAudience`：
+
+[role="tabbed-block"]
+====
+.試用
+--
+[source, console]
+----
+tridentctl install \
+  --cloud-provider GCP \
+  --gcp-wif-audience "<audience>" \
+  --namespace trident
+----
+--
+.Trident運算子
+--
+在 `TridentOrchestrator`規格中設定這些欄位：
+
+[source, yaml]
+----
+spec:
+  cloudProvider: GCP
+  gcpWIFAudience: "<audience>"
+----
+--
+.掌舵
+--
+安裝圖表時請設定以下值：
+
+[source, console]
+----
+helm install trident netapp-trident/trident-operator \
+  --set cloudProvider=GCP \
+  --set-string gcpWIFAudience="<audience>"
+----
+--
+====
+請勿同時為 OpenShift WIF 設定 GKE `cloudIdentity` / `--cloud-identity` 選項。安裝後請勿修補 Trident 控制器部署；營運者會還原手冊變更。後端可在 `/var/run/secrets/wif-token/token`取得投影權杖。 `trident-main` Container 不包含 shell，因此請檢查控制器部署的 Volume 組態，而不是使用 `oc exec`來檢查檔案：
+
+[source, console]
+----
+oc -n trident get deploy trident-controller -o yaml
+----
+
+
+==== 設定 Google Cloud 信任與權限
+
+為叢集設定 Google Cloud Workload Identity Pool 和 OIDC 供應商。供應商發行者必須與權杖的 `iss`宣告相符，且其屬性對應必須將 `assertion.sub`對應至 `google.subject`。供應商的允許對象必須與投射權杖的 `aud`宣告相符。
+
+[CAUTION]
+====
+對於 OSD，請勿替換或限制共享的供應商的對象清單。當 `allowedAudiences`為空時，Google 會接受供應商的規範資源名稱（無論是否帶有 `https://`前綴）。設定 `--allowed-audiences`會取代該預設清單，並可能阻止其他 OSD 元件交換權杖。僅當供應商已擁有明確的對象清單時才新增對象，並保留所有現有值。請勿向 OSD 的共享的供應商新增屬性條件。請參閱 Google Cloud link:https://docs.cloud.google.com/iam/docs/reference/rest/v1/projects.locations.workloadIdentityPools.providers#Oidc["OIDC 供應商參考"^]。
+
+====
+僅在使用 OIDC 探索時，才需要公開 `.well-known/openid-configuration`和 JWKS 端點。Google 也支援使用 `jwksJson`或 `--jwk-json-path`直接上傳 JWKS。
+
+在 Trident 將要模擬的 Google Cloud 服務帳戶上，授予 WIF 主體  `roles/iam.workloadIdentityUser` 角色。對於權杖主旨  `system:serviceaccount:trident:trident-controller`，主體具有以下形式：
+
+[source, text]
+----
+principal://iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/subject/system:serviceaccount:trident:trident-controller
+----
+在包含 Google Cloud NetApp Volumes 資源的專案上，授予被模擬的服務帳戶 `roles/netapp.admin`，或具有所需權限的等效自訂角色。這些是分隔的授權：第一個允許模擬，第二個授權儲存設備 API 操作。
+
+如果權杖對象和供應商組態不相符，Google Security Token Service 可能會因 `invalid_grant`對象錯誤而拒絕交換。請使用以下命令檢查供應商組態：
+
+[source, console]
+----
+gcloud iam workload-identity-pools providers describe <provider-id> \
+  --project=<wif-pool-project-id> \
+  --location=global \
+  --workload-identity-pool=<pool-id> \
+  --format="yaml(oidc.allowedAudiences,oidc.issuerUri,attributeMapping)"
+----
+診斷權杖組態時，請將權杖的 `iss`、 `aud`和 `sub`宣告與供應商和 IAM 組態進行比較。請勿共享或記錄完整的投影權杖。
+
+
+
+==== 準備 Google Cloud NetApp Volumes 儲存設備
+
+在後端使用的區域中建立或識別儲存資源池。NAS 後端需要 FILE 資源池；SAN 後端使用 link:gcnv-block.html["設定區塊儲存設備（iSCSI）"] 中所述的 Flex Unified 資源池。確保資源池的 VPC 和專用服務存取（PSA）組態適用於叢集網路。
+
+例如，在為資源池選擇 PSA 範圍之前，列出網路現有的全域 VPC 對等關係範圍：
+
+[source, console]
+----
+gcloud compute addresses list \
+  --project <gcnv-project-id> \
+  --global \
+  --filter="purpose=VPC_PEERING AND network:<network-name>" \
+  --format="table(name,address,prefixLength,status,network,purpose)"
+----
+在 `location`中使用資源池的區域，並在需要時，在 `storagePools`中使用其完整資源路徑明確選擇資源池。區域和資源池位置不符、網路不正確或資源池無法使用，即使驗證成功，也可能無法進行探索或資源配置。
+
+
+
+==== 設定 Trident 後端
+
+在供應商組態和 `wipCredentialConfig.audience`中使用預期的權杖對象。 `projectNumber` 欄位可識別 Google Cloud NetApp Volumes 專案；對象使用包含工作負載身分資源池的專案編號。請將此範例中的預留位置替換為您環境的值：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-nas-wif
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes
+  projectNumber: "<project-number>"
+  location: "<region>"
+  sdkTimeout: "600"
+  storage:
+  - labels:
+      cloud: gcp
+    network: "<vpc-network>"
+    serviceLevel: Premium
+  wipCredentialConfig:
+    type: external_account
+    audience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+    subject_token_type: urn:ietf:params:oauth:token-type:jwt
+    token_url: https://sts.googleapis.com/v1/token
+    credential_source:
+      file: /var/run/secrets/wif-token/token
+    service_account_impersonation_url: https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/<service-account-email>:generateAccessToken
+----
+對於 SAN 後端，請使用 `google-cloud-netapp-volumes-san` 作為 `storageDriverName`，以及適用的 Flex Unified 資源池設定。除此之外，兩個驅動程式的 WIF 認證資料組態是相同的。
+
+套用後端並檢查其觀測狀態：
+
+[source, console]
+----
+oc apply -f <backend-file>.yaml
+oc -n trident get tridentbackendconfig <backend-name> -o yaml
+----
+在測試配置之前，請確認後端為 `Bound`且其上次操作已成功。檢查即時的 `spec`和 `status`；先前套用的組態註解可能無法反映後續的變更。使用 WIF 時，請勿包含靜態 `apiKey`認證資料。
+
+
+
+==== 驗證端對端配置
+
+建立一個針對後端的 StorageClass，然後建立一個小型測試 PVC。例如，NAS StorageClass 可以選擇一個後端標籤：
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-wif-smoke
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  selector: "auth=wif"
+allowVolumeExpansion: true
+----
+將符合的 `auth: wif`標籤新增至 NAS 後端的儲存設備條目，使用 `gcnv-wif-smoke`建立 PVC，並驗證其是否到達 `Bound`。對於 SAN 冒煙測試，請使用 `google-cloud-netapp-volumes-san`、SAN 驅動程式設定和適當的 Flex Unified 資源池。完成後，請刪除測試 PVC 和 StorageClass。
+
+
+
+==== 排除常見故障
+
+[cols="1,2"]
+|===
+| 症狀 | 需要檢查什麼 
+
+
+| `invalid_grant` 或對象不匹配 | 將投射的 token 的 `aud`與供應商允許的對象和 `wipCredentialConfig.audience`進行比較。 
+
+
+| `iam.serviceAccounts.getAccessToken` 權限遭拒 | 檢查 Trident 控制器 `sub`的確切 WIF 主體在模擬的服務帳戶上是否具有 `roles/iam.workloadIdentityUser`。 
+
+
+| `netapp.storagePools.list` 權限遭拒 | 檢查被模擬的服務帳戶是否在正確的專案上擁有 Google Cloud NetApp Volumes 權限，例如 `roles/netapp.admin`。 
+
+
+| 未找到資源池或資源池未找到 | 檢查後端 `location`、資源池區域和類型、網路、PSA 組態，以及任何明確設定的儲存資源池資源路徑。 
+
+
+| 後端仍處於未綁定狀態 | 檢查 Trident 控制器日誌和 TridentBackendConfig 狀態，尋找底層驗證、權限或資源池發現錯誤。 
+|===
+若要檢查控制器記錄以尋找後端協調錯誤：
+
+[source, console]
+----
+oc -n trident logs deploy/trident-controller -c trident-main --tail=400
+----
 
 
 [[configure-nas-storage]]

@@ -51,6 +51,11 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 | `enableForceDetach` | `ontap-san`， `ontap-san-economy` ， `ontap-nas` ， 和 `ontap-nas-economy`僅有的。與 Kubernetes 非優雅節點關閉 (NGNS) 配合使用，使叢集管理員能夠在節點發生故障時安全地將掛載磁碟區的工作負載遷移到新節點。有關信息，請參閱link:../trident-reco/force-detach.html["使用Trident實現有狀態應用程式的故障轉移自動化"]。 | 「假」 
 
 
+| `enableDataLIFRefresh`  a| 
+當 LIF 被新增、移除或指派新位址時，可為已發佈的 Volume 重新整理 NVMe 資料 LIF。適用於統一 ONTAP 上的 `ontap-san`搭配 `sanType: nvme`，以及 ASA r2 上的 NVMe/TCP。如需詳細資訊，請參閱link:../trident-use/refresh-nvme-data-lifs.html["重新整理 NVMe 資料 LIFs"]。
+| 「假」 
+
+
 | `windows` | 設定為 `true` 可在Windows工作節點上安裝。 | 「假」 
 
 
@@ -62,6 +67,9 @@ WARNING: `spec.namespace`在中指定 `TridentOrchestrator`、表示安裝 Tride
 | `cloudIdentity`  a| 
 在 AKS 叢集上使用雲端身分識別時、請設定為工作負載身分識別（「 azure.Workload .idental/client-id ： XXXXXXXX-xxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxx 」）。在 EKS 叢集上使用雲端身分識別時、請設定為 AWS IAM 角色（「 eks.amazonaws.com/role-arn: arn:AWS:iam::123456 ：角色 Trident 角色」）。在 GKE 叢集上使用雲端身分識別時，請設定為雲端身分識別（「 iam.GKE 。 IO/GCP 服務帳戶： xxxx@mygcpproject.iam.gserviceaccount.com 」）。
 | `""` 
+
+
+| `gcpWIFAudience` | 在 OpenShift 上與 Google Cloud Workload Identity Federation 搭配使用的預計服務帳戶權杖受眾。請使用供應商的規範資源名稱。如需詳細資訊，請參閱 link:../trident-use/gcnv.html#openshift-wif["設定 Google Cloud NetApp Volumes 與工作負載身分聯盟"]。 | `""` 
 
 
 | `IPv6` | 透過 IPv6 安裝 Trident | 錯 
@@ -79,7 +87,7 @@ NOTE: 這 `k8sTimeout`參數僅適用於Trident安裝。
 自動 | 「假」 
 
 
-| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport10"` 
+| 「autosupportImage」 | 遙測的容器影像AutoSupport | `"netapp/trident-autosupport:26.10"` 
 
 
 | 「autosupportProxy」 | 用於傳送 AutoSupport 的 Proxy 位址 / 連接埠
@@ -92,7 +100,7 @@ NOTE: 這 `k8sTimeout`參數僅適用於Trident安裝。
 | `logFormat` | 要使用的 Trident 記錄格式 [text,json] | `"text"` 
 
 
-| 「TridentImage」 | 要安裝的 Trident 映像 | `"netapp/trident:26.06"` 
+| 「TridentImage」 | 要安裝的 Trident 映像 | `"netapp/trident:26.10.0"` 
 
 
 | 「影像登錄」 | 內部登錄的路徑、格式
@@ -141,7 +149,12 @@ NOTE: 從 OpenShift 4.19 開始，此功能支援的最低Trident版本為 25.06
 
 | `enableConcurrency`  a| 
 啟用並行 Trident 控制器作業，以提高處理量。如需支援驅動程式的詳細資訊，請參閱連結：https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[控制器擴充性文件]。
-| `resources` 
+| `enableCOSI` 
+
+
+ a| 
+啟用 Trident Container 物件儲存介面（COSI）前端。需要將 `enableConcurrency`設定為 `true`。Trident COSI 無法與社群 COSI 控制器同時運作。如需詳細資訊，請參閱link:../trident-use/cosi.html["使用 COSI 佈建物件儲存"]。
+| 「假」 | `resources` 
 
 
  a| 

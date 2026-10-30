@@ -32,7 +32,7 @@ kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=
 ====
 Trident Protect 24.10 在資料保護作業期間不會自動確保 KubeVirt VM 檔案系統的一致性狀態。如果您想使用Trident Protect 24.10 保護您的 KubeVirt VM 數據，則需要在執行資料保護作業之前手動啟用檔案系統的凍結/解凍功能。這樣可以確保檔案系統處於一致狀態。
 
-您可以設定Trident Protect 24.10 來管理資料保護作業期間 VM 檔案系統的凍結與解凍。link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["設定虛擬化"^]然後使用以下命令：
+您可以設定 Trident Protect 24.10 來管理資料保護作業期間 VM 檔案系統的凍結和解凍，方法是link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html/virtualization/index["設定虛擬化"^]然後使用下列指令：
 
 [source, console]
 ----

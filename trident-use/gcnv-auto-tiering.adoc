@@ -22,7 +22,7 @@ summary: 使用 Trident 透過 Kubernetes 原生機制設定 Google Cloud NetApp
 
 自動分層儲存功能可讓 Trident 自動配置磁碟區，將不活躍資料從效能層移至容量層。這樣既能降低儲存成本，又能確保頻繁存取資料的效能。
 
-Trident 僅在建立磁碟區時套用自動分層設定。Trident 26.06 不支援配置後變更。
+Trident 僅在建立磁碟區時套用自動分層設定。Trident 26.10 不支援配置後變更。
 
 
 
@@ -86,10 +86,10 @@ Trident 會根據每個設定的定義位置來決定有效組態。
 
 
 
-[[supported-functionality-in-trident-26-06]]
-== Trident 26.06 支援的功能
+[[supported-functionality-in-trident-26-10]]
+== Trident 26.10 支援的功能
 
-Trident 26.06 支援以下 Google Cloud NetApp Volumes 自動分層功能：
+Trident 26.10 支援以下 Google Cloud NetApp Volumes 自動分層功能：
 
 * 在磁碟區配置期間啟用或停用自動分層
 * 在 Trident 後端組態中定義分層原則
@@ -99,8 +99,8 @@ Trident 26.06 支援以下 Google Cloud NetApp Volumes 自動分層功能：
 
 
 
-[[unsupported-functionality-in-trident-26-06]]
-== Trident 26.06 中不支援的功能
+[[unsupported-functionality-in-trident-26-10]]
+== Trident 26.10 中不支援的功能
 
 不支援以下操作：
 

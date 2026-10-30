@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/controller-scalability.html 
-keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, asa-r2 
+keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, ontap-nas-flexgroup, asa-r2 
 summary: 了解控制器的可擴充性、並行行為和功能成熟度。 
 ---
 = 控制器擴充性
@@ -14,7 +14,7 @@ summary: 了解控制器的可擴充性、並行行為和功能成熟度。
 [role="lead"]
 Trident 透過提高多個儲存驅動程式之間的並行性來增強控制器的可擴充性。啟用控制器可擴充性後，Trident 控制器會並行處理儲存作業，而非序列化處理，從而提高具有大量並行作業的 Kubernetes 環境中的處理量。
 
-部署前，請確定哪些 Trident 驅動程式在正式發佈時支援控制器可擴充性，哪些驅動程式在 Trident 26.06 中以技術預覽版的形式提供。這有助於您做出明智的部署決策並管理風險。控制器可擴充性預設為停用狀態。
+部署前，請確定哪些 Trident 驅動程式在正式發佈時支援控制器可擴充性，哪些驅動程式在 Trident 26.10 中以技術預覽版的形式提供。這有助於您做出明智的部署決策並管理風險。控制器可擴充性預設為停用狀態。
 
 
 
@@ -51,11 +51,12 @@ Trident 支援不同成熟度等級的控制器可擴充性，以適應不同的
 [[general-availability]]
 === 正式發行
 
-以下驅動程式在 Trident 26.06 正式版中支援控制器擴充性：
+以下驅動程式在 Trident 26.10 正式版中支援控制器擴充性：
 
 * 「ONTAP-SAN」
 * 「ONTAP-NAS」
 * 《ONTAP-NANAS經濟》
+* 「ONTAP-NAA-flexgroup」
 * 《ONTAP-san經濟》
 * `google-cloud-netapp-volumes`
 * 《azure-NetApp-fil形》
@@ -72,7 +73,7 @@ The `google-cloud-netapp-volumes`和 `google-cloud-netapp-volumes-san`驅動程�
 [[technical-preview]]
 === 技術預覽
 
-以下驅動程式在 Trident 26.06 中以技術預覽功能的形式支援控制器可擴充性：
+以下驅動程式在 Trident 26.10 中以技術預覽功能的形式支援控制器可擴充性：
 
 * `asa-r2`（SAN 和 NVMe）
 
@@ -266,7 +267,7 @@ kubectl logs -n trident deploy/trident-controller | grep -i concurrency
 [[caveats-and-limitations]]
 == 注意事項和限制
 
-以下幾點適用於 Trident 26.06 中的控制器可擴充性：
+以下幾點適用於 Trident 26.10 中的控制器可擴充性：
 
 * 控制器可擴充性僅支援正式發行清單和技術預覽清單中的驅動程式。如需詳細資訊，請參閱 <<before-you-enable,啟用之前>>。
 * Trident 控制器在內部管理並行作業。此版本不提供使用者可設定的並行限制。

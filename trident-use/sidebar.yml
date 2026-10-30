@@ -4,6 +4,8 @@ title: 使用 Trident
 entries:
 - title: 準備工作節點
   url: "/trident-use/worker-node-prep.html"
+- title: 使用 COSI 佈建物件儲存
+  url: "/trident-use/cosi.html"
 - title: 設定及管理後端
   entries:
   - title: 總覽
@@ -40,6 +42,8 @@ entries:
       url: "/trident-use/ontap-san-prep.html"
     - title: 組態選項與範例
       url: "/trident-use/ontap-san-examples.html"
+    - title: 重新整理 NVMe 資料 LIFs
+      url: "/trident-use/refresh-nvme-data-lifs.html"
   - title: ASNAS驅動程式ONTAP
     entries:
     - title: 總覽
@@ -96,6 +100,8 @@ entries:
     url: "/trident-use/controller-scalability.html"
   - title: 自動磁碟區擴充
     url: "/trident-use/automatic-volume-expansion.html"
+  - title: 設定 ONTAP Volume 自動調整規模
+    url: "/trident-use/ontap-autosize.html"
   - title: 管理自動磁碟區擴充
     url: "/trident-use/manage-autogrow-policies.html"
   - title: 匯入磁碟區

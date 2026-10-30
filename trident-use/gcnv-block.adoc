@@ -9,30 +9,53 @@ summary: 設定 Trident 從 Google Cloud NetApp Volumes Flex Unified 池配置�
 
 
 [role="lead"]
-您可以設定 Trident，使其使用 iSCSI 協定從 Google Cloud NetApp Volumes 配置區塊儲存磁碟區。SAN 磁碟區則透過 `google-cloud-netapp-volumes-san`儲存驅動程式從 Flex Unified 儲存池進行配置。
+使用  `google-cloud-netapp-volumes-san` 驅動程式從 Google Cloud NetApp Volumes Flex Unified 儲存設備池資源配置 iSCSI 區塊 Volume。
 
 
-NOTE: 此驅動程式專用於區塊工作負載，不支援 NAS 協定。
-
-
-NOTE:  `google-cloud-netapp-volumes-san` 後端是配置 iSCSI 區塊磁碟區所必需的。 `google-cloud-netapp-volumes` 後端僅支援 NAS 協定，無法用於 SAN 工作負載。
+NOTE: SAN 驅動程式僅支援區塊工作負載。若要資源配置 NAS Volume，請使用 `google-cloud-netapp-volumes` 驅動程式。
 
 
 
 [[overview]]
 == 總覽
 
-Trident 支援 Google Cloud NetApp Volumes SAN（iSCSI）工作負載，使用 `google-cloud-netapp-volumes-san` 驅動程式。
+此驅動程式從 Flex Unified 儲存設備池資源配置 Volume，並將其做為 iSCSI 區塊裝置呈現給 Kubernetes 節點。
 
-SAN 磁碟區從 Flex Unified 儲存資源池中配置，並以 iSCSI 區塊裝置的形式呈現給 Kubernetes 節點。
-
-這適用於以下環境：
+此驅動程式支援以下環境：
 
 * Trident 26.02 及更新版本
-* Google Kubernetes Engine （GKE） 或 Red Hat OpenShift
+* Google Kubernetes Engine (GKE) 或在 GCP 上執行的 Red Hat OpenShift 叢集
 * Google Cloud NetApp Volumes Flex 統一儲存池
 * 基於 iSCSI 的工作負載
 
+
+從 Trident 26.10 開始，SAN 驅動程式支援在 GCP 上執行的自我管理 OpenShift Container Platform（OCP，包括 IPI 部署）和 OpenShift Dedicated（OSD）叢集上的 Google Cloud Workload Identity Federation（WIF）。如需 WIF 先決條件與後端組態，請參閱 link:gcnv.html#openshift-wif["在 OpenShift 上使用工作負載身分聯合"]。請使用此頁面上的 SAN 驅動程式名稱與 Flex Unified 儲存設備設定。
+
+
+
+[[configure-wif-for-san]]
+=== 設定 SAN 的 WIF
+
+WIF 將投射的 Kubernetes 服務帳戶權杖交換為短期的 Google Cloud 認證資料。Trident 在呼叫 Google Cloud NetApp Volumes API 時，會使用這些認證資料來模擬 Google Cloud 服務帳戶。
+
+為 OpenShift 叢集設定 Google Cloud Workload Identity Pool 和 OIDC 供應商。供應商發行者必須符合權杖的 `iss`宣告，其屬性對應必須將 `assertion.sub`對應至 `google.subject`，且其允許的對象必須符合權杖的 `aud`宣告。
+
+將 Trident 將要模擬的 Google Cloud 服務帳戶上的 `roles/iam.workloadIdentityUser` 角色，授予 Trident 控制器服務帳戶的 WIF 主體。對於預設的 Trident 控制器服務帳戶，權杖主旨為 `system:serviceaccount:trident:trident-controller`；請使用為您的安裝所設定的主旨。在包含 Google Cloud NetApp Volumes 資源的專案上，授予被模擬的服務帳戶 `roles/netapp.admin` 或等效權限。
+
+Trident 控制器必須能在 `/var/run/secrets/wif-token/token`存取投影的權杖。將 `wipCredentialConfig.audience` 設定為與權杖及供應商允許的對象相同的對象。將下列段落新增至如下所示之 SAN 後端的 `spec`，並將預留位置替換為您環境中的值：
+
+[source, yaml]
+----
+wipCredentialConfig:
+  type: external_account
+  audience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+  subject_token_type: urn:ietf:params:oauth:token-type:jwt
+  token_url: https://sts.googleapis.com/v1/token
+  credential_source:
+    file: /var/run/secrets/wif-token/token
+  service_account_impersonation_url: https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/<service-account-email>:generateAccessToken
+----
+兩種 GCNV 驅動程式的 WIF 組態相同。SAN 後端仍必須使用 `google-cloud-netapp-volumes-san` 和受支援的 Flex Unified 儲存資源池。
 
 
 
@@ -45,6 +68,8 @@ Flex 統一儲存資源池使用 iSCSI 協定提供區塊儲存設備，是 SAN 
 * 從 Trident 26.02.1 開始支援 Flex Unified ZONAL 池。
 * SAN 工作負載僅支援 *Flex* 服務等級。
 
+
+後端 `location`必須與 Flex Unified 資源池的區域相符。如果 Trident 找不到該資源池，請驗證區域、網路和資源池資源路徑。
 
 
 
@@ -78,7 +103,7 @@ spec:
 
 配置完 SAN 後端後，建立一個 StorageClass 引用  `google-cloud-netapp-volumes-san` 驅動程式。
 
-檔案系統類型是在 StorageClass 中定義的，而不是在後端定義的。
+請在 StorageClass 中指定檔案系統類型，而不是在後端。
 
 [source, yaml]
 ----
@@ -92,7 +117,7 @@ parameters:
   fsType: "ext4"
 allowVolumeExpansion: true
 ----
-支援的檔案系統類型：
+此驅動程式支援以下檔案系統類型：
 
 * `ext4` (預設)
 * `ext3`
@@ -101,6 +126,34 @@ allowVolumeExpansion: true
 
 
 NOTE: SAN 驅動程式僅支援 Flex 服務級別，不使用 NAS 特定的後端參數，例如 `exportRule`、 `unixPermissions`、 `nasType`、 `snapshotDir`、 `nfsMountOptions`或與分層相關的設定。
+
+
+
+[[verify-wif-provisioning]]
+== 驗證 WIF 配置
+
+套用後端並驗證 TridentBackendConfig 是否已綁定且其最後一次操作成功：
+
+[source, console]
+----
+oc apply -f <backend-file>.yaml
+oc -n trident get tridentbackendconfig <backend-name> -o yaml
+----
+使用此頁面上的 `gcnv-san` StorageClass 建立 PVC，並驗證其是否達到 `Bound`。這將同時驗證 WIF 交換、服務帳戶模擬、Google Cloud NetApp Volumes 權限和 SAN 資源池選擇。完成後，請刪除測試 PVC。
+
+如果後端資料核對失敗，請檢查 Trident 控制器日誌：
+
+[source, console]
+----
+oc -n trident logs deploy/trident-controller -c trident-main --tail=400
+----
+請檢查以下常見錯誤：
+
+* 對於 `invalid_grant`對象錯誤，請將權杖的 `aud`聲明與 OIDC 供應商允許的對象和 `wipCredentialConfig.audience`進行比較。
+* 對於 `iam.serviceAccounts.getAccessToken`權限錯誤，請驗證 Trident 控制器的 WIF 主體是否對被模擬的服務帳戶具有 `roles/iam.workloadIdentityUser`。
+* 如果發生 `netapp.storagePools.list`權限錯誤，請驗證被模擬的服務帳戶是否對正確的專案擁有所需的 Google Cloud NetApp Volumes 權限。
+* 如果找不到資源池，請驗證其位置和類型是否受支援，後端區域是否與資源池區域相符，以及後端是否參照正確的網路和資源池。
+
 
 
 
@@ -247,28 +300,28 @@ Trident 配置的區塊磁碟區支援下列存取模式：
 
 
 
-[[extra-gib-overprovisioning-behavior]]
-== 額外 GiB 過度配置行為
+[[volume-size-overhead]]
+== Volume 大小例行成本
 
-Google Cloud NetApp Volumes 區塊磁碟區包含內部元資料開銷。與已配置的容量相比，此開銷會減少核心可見的裝置大小。
+Google Cloud NetApp Volumes 區塊 Volume 包含內部中繼資料例行成本。因此，核心可見的裝置大小小於已配置的容量。
 
-測試結果顯示：
+觀察到的例行成本：
 
-* 初始建立時大約需要 300 KiB 的額外負荷
-* 調整大小後最多約 107 MiB 的額外開銷
-
-
-由於 Google Cloud NetApp Volumes 只接受整 GiB 的分配，Trident 透過以下方式確保可用裝置大小始終滿足或超過 PVC 請求：
-
-* 將請求的大小向上取整到下一個整數 GiB
-* 新增額外的 1 GiB 緩衝區
+* 建立 Volume 時大約 300 KiB
+* 調整大小後最多約 107 MiB
 
 
-範例：
+Google Cloud NetApp Volumes 接受以整數 GiB 為單位的容量分配。為確保可用裝置大小符合或超過 PVC 要求，Trident：
 
-* PVC 請求：100 GiB
-* Google Cloud NetApp Volumes 中已配置的大小：101 GiB
-* 應用程式可見的可用空間：至少 100 GiB
+* 將要求的大小無條件進位至下一個整數 GiB。
+* 新增 1 GiB 緩衝區。
+
+
+例如：
+
+* PVC 請求：100 GiB。
+* 已配置容量：101 GiB。
+* 應用程式可見的可用容量：至少 100 GiB。
 
 
 

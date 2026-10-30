@@ -40,6 +40,9 @@ NOTE: 確保 AppVault CR 位於安裝了Trident Protect 的叢集上。如果 Ap
 
 
 
+NOTE: 若要加密快照和備份中繼資料或變更保存庫密碼，請使用  `spec.vaultPasswordSecretRef` 欄位。請參閱 link:trident-protect-encrypt-appvault-metadata.html["加密 Trident Protect 快照與備份的 AppVault 中繼資料"]。
+
+
 
 ==== 建立資料移動者儲存庫密碼機密
 

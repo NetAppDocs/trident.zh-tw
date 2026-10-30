@@ -65,6 +65,9 @@ Azure NetApp Files 後端提供這些組態選項。
 在 AKS 叢集上啟用受管理的身分識別時為選用項目。 |  
 
 
+| `cloudConfiguration.cloudName` | 識別後端的 Azure 雲端環境。使用 Azure Government 時設定為 `AzureGovernment`。 |  
+
+
 | "來源群組" | 用於篩選已探索資源的資源群組清單 | 「[]」（無篩選器） 
 
 
@@ -117,10 +120,18 @@ NOTE: 如需網路功能的詳細資訊、請參閱 link:https://docs.microsoft.
 
 * Azure 商業版
 * Azure Government（Azure Government / MAG）
+* Azure 中國
 
 
 部署 Trident 或建立 Azure NetApp Files 後端時、請確保 Azure Resource Manager 和驗證端點與您的 Azure 雲端環境相符。如果端點不相符、 `tridentctl`就無法驗證、後端建立也會失敗。
 
+對於 Azure Government 後端，請在後端組態中設定 `cloudConfiguration.cloudName`：
+
+[source, yaml]
+----
+cloudConfiguration:
+  cloudName: AzureGovernment
+----
 
 
 [[required-permissions-and-resources]]

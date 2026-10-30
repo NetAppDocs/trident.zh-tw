@@ -44,7 +44,7 @@ kubectl version
 Client Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.3", GitCommit:"1e11e4a2108024935ecfcb2912226cedeafd99df", GitTreeState:"clean", BuildDate:"2020-10-14T12:50:19Z", GoVersion:"go1.15.2", Compiler:"gc", Platform:"linux/amd64"}
 Server Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.3", GitCommit:"1e11e4a2108024935ecfcb2912226cedeafd99df", GitTreeState:"clean", BuildDate:"2020-10-14T12:41:49Z", GoVersion:"go1.15.2", Compiler:"gc", Platform:"linux/amd64"}
 ----
-* 叢集中的節點應具有標籤、以引入拓撲感知(`topology.kubernetes.io/region`和 `topology.kubernetes.io/zone`）。在安裝 Trident 之前，這些標籤 * 應該存在於叢集 * 的節點上，以便 Trident 能夠感知拓撲。
+* 叢集中的節點應具有引進拓撲感知的標籤  `topology.kubernetes.io/region` 和  `topology.kubernetes.io/zone`）。 `topology.kubernetes.io/region` 標籤對於 Trident 中的拓撲感知資源配置是必要的。在安裝 Trident 之前，這些標籤應存在於節點上。如果在安裝後新增或變更拓撲標籤，只需重新啟動 Trident 節點 Pod，Trident 即可套用這些變更。
 +
 [listing]
 ----

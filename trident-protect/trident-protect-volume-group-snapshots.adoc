@@ -1,0 +1,203 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-volume-group-snapshots.html 
+keywords: trident protect, volume group snapshot, consistency group, volumeGroups, multi-volume, kubevirt, ontap-san 
+summary: 使用 Trident Protect 的 Volume 群組快照，在同一時間點擷取應用程式的多個持久性 Volume 宣告。 
+---
+= 搭配 Trident Protect 使用 Volume 群組快照
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 Volume 群組快照可以擷取相同時間點的相關持續性 Volume 宣告（PVC）。這對於寫入多個 Volume 的應用程式非常有用，包括具有多個磁碟的虛擬機器（VM）。
+
+.關於這項工作
+您可以在 `spec.volumeGroups`欄位中定義 Volume 群組，該欄位位於 `Application`自訂資源 （CR） 中。當您建立應用程式的快照時，Trident Protect 會使用 ONTAP 一致性群組，在同一時刻對 Volume 群組中的所有 PVC 建立快照。系統會為 Volume 群組中的每個命名空間建立一個一致性群組。群組中的每個 Volume 也會取得各自的快照，因此您可以個別還原 Volume。
+
+Trident Protect 會為不在 Volume 群組中的 PVC 建立個別的快照。這些快照是依序建立的，因此無法保證它們反映相同的時間點。
+
+Volume 群組快照適用於隨需快照、排程快照，以及 Trident Protect 在備份過程中建立的快照。如果您備份現有快照， Trident Protect 將使用該快照，而不會建立新的群組快照。複寫也不會建立另一個群組快照。它會使用群組快照已建立的每個 Volume 的快照。
+
+Trident Protect 只有在滿足以下所有條件時，才會在同一個時間點擷取 Volume：
+
+* 它們屬於同一 Volume 群組。
+* 它們位於同一命名空間中。
+* 它們位於同一儲存設備虛擬機器（SVM）上。
+* 此命名空間中的 Volume 群組最多包含 80 個 Volume。
+
+
+如果 Trident Protect 無法建立群組快照（例如，由於未滿足某個要求），它會新增警告至 `status.warnings`並建立該群組各個 PVC 的單獨快照。這些快照是依序建立的，因此它們可能無法反映相同的時間點。應用程式快照仍會完成。
+
+下表說明常見情況下會發生的狀況。
+
+[cols="1,2"]
+|===
+| 情況 | 結果 
+
+
+| Volume 群組選擇多個命名空間中的 PVC | 群組快照屬於一個命名空間，因此 Trident Protect 會在每個命名空間中建立個別的群組快照。這些群組快照不會在同一時刻擷取。其中一個可能成功，而另一個仍在執行中、發生故障，或退回至個別快照。例如，在 `payments-a`和 `payments-b`中標記為 `app: payments-db`的 PVC 會成為兩個個別的群組快照。請勿將來自不同命名空間的群組快照視為同一個還原點。 
+
+
+| 命名空間中的 PVC 存在於多個 SVM 上 | Trident Protect 不會依 SVM 或 Trident 後端分割 Volume。ONTAP 一致性群組不能包含來自多個 SVM 的 Volume，因此該整個命名空間（包括共享 SVM 的 Volume）的群組快照會失敗。Trident Protect 會新增警告，移除群組快照，並為每個 Volume 建立個別的快照。若要一起擷取 Volume，請將它們放在同一個 SVM 上。 
+
+
+| 一個命名空間擁有超過 80 個匹配的 PVC | Trident Protect 只會跳過該命名空間，並為其 PVC 建立個別的快照。同一 Volume 群組中的其他命名空間仍會獲得群組快照。 
+
+
+| 一個 PVC 符合多個 `volumeGroups`項目 | Trident Protect 會將 PVC 新增至兩個 Volume 群組，其中一個群組快照可能會失敗。失敗的群組快照會回復為個別快照。請確定每個 PVC 僅符合一個項目。 
+
+
+| Volume 群組包含使用不支援 Volume 群組快照的驅動程式或協定的 PVC | 群組快照失敗，Trident Protect 會為這些 PVC 建立個別的快照。 
+|===
+.開始之前
+* 您的 PVC 必須使用支援 Volume 群組快照的儲存設備驅動程式和協定。如需支援的驅動程式與協定，請參閱 link:../trident-use/vol-group-snapshots.html["使用 Trident Volume 群組快照"]。
+* 您的叢集必須執行 Kubernetes 1.36 或更高版本。
+* Kubernetes 快照控制器必須為 8.5.0 或更新版本，並啟用  `CSIVolumeGroupSnapshot` 功能閘道。
+*  `v1` 的 `VolumeGroupSnapshot`、 `VolumeGroupSnapshotClass` 和 `VolumeGroupSnapshotContent` CRD 必須已安裝。
+* 您必須搭配線上後端使用 Trident 26.10 或更新版本。 `CSIVolumeGroupSnapshot` 功能閘道也必須在 Trident `csi-snapshotter` Container 上啟用。
+* 必須定義使用 `csi.trident.netapp.io`驅動程式的 A `VolumeGroupSnapshotClass`。如果只定義了一個類別，Trident Protect 會使用該類別。如果定義了多個類別，請使用 `snapshot.storage.kubernetes.io/is-default-class: "true"`標註 Trident Protect 應使用的類別。否則，Trident Protect 會依字母順序使用第一個類別。您無法在 `Application`或 `Snapshot` CR 中選擇類別。如需詳細資訊，請參閱link:../trident-reference/objects.html#kubernetes-volumegroupsnapshotclass-objects["卷冊組快照類"]。
+* Trident 後端中的 ONTAP 帳戶必須允許建立、取得和刪除一致性群組，以及為其建立快照。請參閱 link:https://docs.netapp.com/us-en/ontap-restapi/application_consistency-groups_endpoint_overview.html["管理應用程式一致性群組"^] 和 link:https://docs.netapp.com/us-en/ontap-restapi/application_consistency-groups_consistency_group.uuid_snapshots_endpoint_overview.html["管理應用程式一致性群組快照"^]。預設的 SVM 系統管理員角色 (`vsadmin`）不包含這些權限。
+
+
+
+
+[[define-a-volume-group]]
+== 定義 Volume 群組
+
+Trident Protect 僅為屬於 Volume 群組的 Volume 建立群組快照。將 `spec.volumeGroups`新增至 `Application` CR 以定義群組。每個項目都是一個分隔的群組。依標籤、VM 或兩者來選擇 Volume。
+
+.關於這項工作
+* 您只能在 `Application` CR 中定義 Volume 群組。 `tridentctl-protect` CLI 沒有 Volume 群組選項。
+* Trident Protect 僅包含 Volume 群組中已綁定的 PVC，並為未綁定的 PVC 建立單獨的快照。如果某個條目未選擇任何已綁定的 PVC，Trident Protect 不會為該條目建立群組快照。
+* 確保每個 PVC 僅與一個條目相符。
+
+
+.開始之前
+定義您要保護的應用程式。請參閱link:trident-protect-manage-applications.html["使用Trident Protect 定義管理應用程式"]。
+
+.步驟
+. 如果按標籤選擇 Volume，請為要分組的 PVC 貼上標籤。您可以使用任何標籤鍵和值。本頁範例使用 `volume-group=my-volume-group`。
++
+[source, console]
+----
+kubectl label pvc <pvc_name_1> <pvc_name_2> volume-group=my-volume-group -n <application_namespace>
+----
+. 將  `spec.volumeGroups` 新增至您現有的  `Application` CR 檔案中。每個項目必須包含  `labelSelector`、 `vmSelector` 或兩者。如果項目同時包含這兩個欄位，則 Volume 群組會包含任一欄位所選取的每個 Volume。
++
+** *spec.volumeGroups[].labelSelector*: Kubernetes 標籤選擇器 (`matchLabels` 或 `matchExpressions`），用於選擇應用程式中的 PVC。空的選擇器無效。
+** *spec.volumeGroups[].vmSelector*：KubeVirt VM 列表，每個 VM 都有一個 `namespace`和 `name`。Trident Protect 包含每個 VM 裝載的 PVC。
++
+以下範例定義了兩個 Volume 群組。第一組包含標記為 `volume-group: my-volume-group`的 PVC。第二組包含 `my-vm-1`和 `my-vm-2`裝載的 PVC。
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: my-app-name
+  namespace: my-namespace
+spec:
+  includedNamespaces:
+    - namespace: my-namespace
+  volumeGroups:
+    - labelSelector:
+        matchLabels:
+          volume-group: my-volume-group
+    - vmSelector:
+        - namespace: my-namespace
+          name: my-vm-1
+        - namespace: my-namespace
+          name: my-vm-2
+----
++
+
+NOTE: 保留您的 `Application` CR 中已有的其他欄位，例如 `spec.resourceFilter`。如果您在套用的檔案中遺漏了某個欄位， `kubectl apply`會將其從 CR 中刪除。
+
+
+
+. 套用更新後的 CR：
++
+[source, console]
+----
+kubectl apply -f <application_cr_file>.yaml
+----
+
+
+.結果
+ `Application` CR 包含 Volume 群組。應用程式的下一個快照會使用它們。
+
+
+
+[[create-a-snapshot]]
+== 建立快照
+
+為應用程式建立隨選快照、隨選備份或資料保護排程。您不需要新增任何欄位。Trident Protect 使用您在 `Application` CR 中定義的 Volume 群組。如需相關指示，請參閱link:trident-protect-protect-apps.html["使用Trident Protect 保護應用程式"]。
+
+
+NOTE: 預設情況下，Trident Protect 會在凍結虛擬機器檔案系統之前建立群組快照。Volume 群組中的 Volume 會在不凍結的情況下擷取，因此虛擬機器尚未寫入磁碟的資料不會包含在內。不在 Volume 群組中的磁碟會在稍後擷取，屆時 Trident Protect 會在凍結虛擬機器後建立個別的快照。若要同時擷取虛擬機器的所有磁碟，請將所有磁碟都包含在 Volume 群組中。如需凍結虛擬機器檔案系統的詳細資訊，請參閱 link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["使用 KubeVirt VM 保護資料"]。
+
+
+
+[[review-the-result]]
+== 查看結果
+
+快照完成後，檢查其狀態以確認 Trident Protect 是否已建立群組快照。
+
+
+NOTE: 已完成的應用程式快照並不代表其群組快照已成功。即使每個群組快照都被跳過或失敗， `VolumeGroupSnapshotsCreated` 條件也會變成  `true`，而且 Trident Protect 不會建立 Kubernetes 事件或計量。若要偵測此情況，請監控  `status.warnings` 以及  `skipped` 和  `failed` 欄位。
+
+.步驟
+. 取得快照名稱。若要列出應用程式的快照，請執行以下命令：
++
+[source, console]
+----
+kubectl get snapshots -n <application_namespace>
+----
+. 檢查快照狀態：
++
+[source, console]
+----
+kubectl get snapshots <snapshot_name> -n <application_namespace> -o yaml
+----
+
+
+.結果
+ `status.volumeGroupSnapshots` 欄位包含每個群組快照的一個項目。Trident Protect 會為 Volume 群組中的每個命名空間建立一個分隔的群組快照。以下範例為簡化版：
+
+[source, yaml]
+----
+status:
+  volumeGroupSnapshots:
+    - name: vgs-<snapshot_uid_prefix>-<group_index>-<namespace>
+      namespace: <namespace>
+      ready: true
+      memberPVCs:
+        - pvcName: <pvc_name_1>
+          pvcNamespace: <namespace>
+        - pvcName: <pvc_name_2>
+          pvcNamespace: <namespace>
+----
+群組快照名稱包括 `Snapshot` UID 的前八個字元、 `spec.volumeGroups` 條目的索引（從 `0` 開始），以及命名空間，截斷為 12 個字元。
+
+* `ready: true` 表示群組快照成功。組成該群組的快照也會列在  `status.volumeSnapshots` 之下。這些是群組的成員快照，而不是相同 Volume 的額外快照。
+* `skipped: true` 表示 Trident Protect 沒有嘗試建立群組快照，因為該命名空間中的 Volume 群組包含超過 80 個 PVC。Trident Protect 改為建立群組內各個 Volume 的個別快照，並將  `skipReason` 文字新增至  `status.warnings`。
+* `failed: true` 表示 Trident Protect 嘗試建立群組快照，但失敗了。Trident Protect 改為建立群組內各 Volume 的個別快照，並將  `error` 文字新增至  `status.warnings`。
+
+
+.臨時 PVC 標籤和清理
+Trident Protect 會在群組快照中的每個 PVC 上新增一個標籤，例如 `protect.trident.netapp.io/vgs-group-673c0189-0=true`。您自己的標籤不會更改。該標籤會一直保留在 PVC 上，直到您刪除應用程式快照。刪除應用程式快照時， Trident Protect 也會刪除其 Volume 群組快照和成員快照，並從 PVC 移除標籤。無論快照的 `reclaimPolicy`是 `Delete`還是 `Retain`，都會發生這種情況。
+
+.接下來呢？
+從快照還原應用程式的方式與還原任何其他快照的方式相同。Volume 群組快照沒有分隔的還原。Trident Protect 從成員快照還原，因此您可以還原個別的 PVC 或 VM，而無需還原群組中的每個 PVC。請參閱 link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-a-different-namespace["從快照還原至不同的命名空間"] 或 link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-the-original-namespace["從快照還原至原始命名空間"]。
+
+.相關資訊
+* link:trident-protect-manage-applications.html["使用Trident Protect 定義管理應用程式"]
+* link:trident-protect-protect-apps.html["使用Trident Protect 保護應用程式"]
+* link:trident-protect-kubevirt-vms.html["使用 Trident Protect 保護 KubeVirt 虛擬機器"]
+

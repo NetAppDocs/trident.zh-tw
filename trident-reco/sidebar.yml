@@ -18,5 +18,7 @@ entries:
     url: "/trident-reco/security-reco.html"
   - title: Linux統一化金鑰設定（LUKS）
     url: "/trident-reco/security-luks.html"
+  - title: 修復卡住的 RWX LUKS 租賃
+    url: "/trident-reco/rwx-luks-stuck-lease.html"
   - title: Kerberos 執行中加密
     url: "/trident-reco/kerberos-inflight-encryption.html"

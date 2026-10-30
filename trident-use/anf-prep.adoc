@@ -25,6 +25,7 @@ Trident 支援多種 Azure 雲端環境中的 Azure NetApp Files 後端。
 
 * Azure 商業版
 * Azure Government（Azure Government / MAG）
+* Azure 中國
 
 
 在準備環境時，請確保在對應的 Azure 雲端環境中建立 Azure 訂閱、身分配置和 Azure NetApp Files 資源。

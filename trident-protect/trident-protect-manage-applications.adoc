@@ -51,6 +51,7 @@ NOTE: 若要定義 VM 範圍的應用程式，以按名稱而非整個命名空�
 **** *labelSelector * ：（ _Optional_ ）根據叢集範圍的資源標籤來篩選資源。
 
 
+*** *spec.volumeGroups*: （_可選_）使用此屬性將相關 Volume 一起快照為損毀狀況一致 Volume 群組快照。如需詳細資訊，請參閱 link:trident-protect-volume-group-snapshots.html["搭配 Trident Protect 使用 Volume 群組快照"]。
 *** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_可選_) 此註解僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。指定此應用程式在快照期間是否可以寫入檔案系統。如果設定為 true，應用程式將忽略全域設置，並且可以在快照期間寫入檔案系統。如果設定為 false，應用程式將忽略全域設置，並且在快照期間檔案系統將被凍結。如果指定了註解，但應用程式定義中沒有虛擬機，則忽略該註解。如未特別說明，則申請流程如下：link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全球Trident Protect 冷凍設置"] 。
 +
 [NOTE]

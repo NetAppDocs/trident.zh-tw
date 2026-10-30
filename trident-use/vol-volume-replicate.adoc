@@ -164,14 +164,24 @@ metadata:
   name: csi-nas
 spec:
   state: established
+  replicationPolicy: MirrorAllSnapshots
+  replicationSchedule: 5min
   volumeMappings:
   - localPVCName: csi-nas
     remoteVolumeHandle: "datavserver:trident_pvc_3bedd23c_46a8_4384_b12b_3c38b313c1e1"
 ----
 +
-Trident 將使用設定的關係原則名稱（或 ONTAP 的預設值）建立 SnapMirror 關係，並將其初始化。
+TMR `spec` 有四個頂層欄位： `state`，用於設定所需的關係狀態（請參閱 <<Volume 複寫狀態>>）； `volumeMappings`，用於將本機 PVC 與其遠端 Volume 控點建立關聯；以及下述選用的  `replicationPolicy` 和  `replicationSchedule` 欄位。
 
-.. 使用先前建立的 StorageClass 建立 PVC 、作為次要（ SnapMirror 目的地）。
+
+
+
+
+ `replicationPolicy` 和  `replicationSchedule` 欄位為選填。請將  `replicationPolicy` 設定為 ONTAP 上的非同步 SnapMirror 原則名稱，並將  `replicationSchedule` 設定為 ONTAP 排程的名稱。如果省略任一欄位，Trident 將使用後端設定的對應複寫原則或排程。請在建立關係時設定這些欄位；關係建立後，您將無法變更原則或排程。若要使用不同的設定，請刪除並重新建立 TMR。
+
+Trident 使用設定的複寫原則和排程建立並初始化 SnapMirror 關係。
+
+. 使用先前建立的 StorageClass 建立 PVC 、作為次要（ SnapMirror 目的地）。
 +
 .範例
 [source, yaml]
@@ -192,8 +202,6 @@ storageClassName: csi-nas
 ----
 +
 Trident 會檢查 TridentMirrorRelationship CRD ，如果關係不存在，則無法建立 Volume 。如果存在這種關係， Trident 將確保新的 FlexVol volume 放置在與 MirrorRelationship 中定義的遠端 SVM 對等的 SVM 上。
-
-
 
 
 
@@ -261,7 +269,7 @@ spec:
 
 .步驟
 . 在次要 Kubernetes 叢集上、確保已更新 TridentMirrorRelationship 上 _spec.remoteVolumeHandle_ 欄位的值。
-. 在次 Kubernetes 叢集上、將 TridentMirrorRelationship 的 _spec.mirror 欄位更新為 `reestablished`。
+. 在次要 Kubernetes 叢集上，將 TridentMirrorRelationship 的 _spec.state_ 欄位更新為 `reestablished`。
 
 
 

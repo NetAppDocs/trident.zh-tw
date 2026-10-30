@@ -26,7 +26,7 @@ summary: 安裝 Trident 之前、您應該先檢閱這些一般系統需求。�
 ====
 []
 =====
-* Trident 現在支援 Kubernetes 1.37。請先升級 Trident，再升級 Kubernetes。
+* Trident 26.10 支援 Kubernetes 1.27 至 1.37 版本。升級 Kubernetes 前，請先查看下方特定版本的映像清單。
 * Trident 嚴格強制在 SAN 環境中使用多重路徑組態、建議在 multipath.conf 檔案中使用值 `find_multipaths: no`。
 +
 使用非多重路徑組態或使用 `find_multipaths: yes` 或 `find_multipaths: smart` 多重路徑.conf檔案中的值會導致掛載失敗。Trident建議使用 `find_multipaths: no` 自21.07版本以來。
@@ -50,6 +50,13 @@ Trident 支援多個容器引擎和協調器、包括：
 NOTE: Trident繼續支援舊版 OpenShift 版本，與link:https://access.redhat.com/support/policy/updates/openshift["Red Hat 擴充更新支援 (EUS) 發布生命週期"]，即使它們依賴上游不再受官方支援的 Kubernetes 版本。在這種情況下安裝Trident時，您可以放心地忽略有關 Kubernetes 版本的任何警告訊息。
 
 * Rancher Kubernetes Engine 2（RKE2）v1.28.x - 1.37.x
+* 適用於 NFSv4、iSCSI 和 NVMe/TCP 的 Talos OS。每種協定都需要下列 Talos 系統擴充；請與 Sidero Labs 確認這些要求。
++
+** NFSv4： `siderolabs/nfs-utils`
+** iSCSI： `siderolabs/iscsi-tools`、 `siderolabs/multipath-tools`和 `siderolabs/trident-iscsi-tools`
+** NVMe/TCP： `siderolabs/nvme-cli`、 `siderolabs/util-linux-tools`和 `siderolabs/trident-iscsi-tools`
+
+
 
 
 Trident 也與其他完全託管且自行管理的 Kubernetes 產品合作、包括 Google Kubernetes Engine （ GKE ）、 Amazon Elastic Kubernetes Services （ EKS ）、 Azure Kubernetes Service （ aks ）、 Mirantis Kubernetes Engine （ MKE ）和 VMware Tanzu Portfolio 。
@@ -106,10 +113,10 @@ Trident 支援下列適用於 KubeVirt 和 OpenShift 虛擬化的 ONTAP 驅動�
 [[trident-support-for-kubernetes-on-kubernetes-and-openshift-hosted-control-planes]]
 == Trident 對 Kubernetes 上的 Kubernetes 和 OpenShift 託管控制平面的支援
 
-從 26.06 版開始，Trident 完全支援 Kubernetes on Kubernetes 拓撲。Kubernetes 叢集的節點以 KubeVirt 虛擬機器的形式在基礎架構（主機）叢集上執行。此拓撲為 OpenShift 虛擬化上的 OpenShift 託管控制平面（HCP）等託管控制平面產品提供基礎架構。
+Trident 完全符合 Kubernetes on Kubernetes 拓撲的資格。其節點作為 KubeVirt 虛擬機器在基礎架構（主機）叢集上執行的 Kubernetes 叢集。此拓撲是託管控制平面產品的基礎，例如 OpenShift 虛擬化上的 OpenShift 託管控制平面（HCP）。
 
 
-NOTE: 此配置在早期版本中有效，但完整認證從 26.06 開始。
+NOTE: 此組態在早期版本中有效，但完整資格判斷從 26.06 版本開始。
 
 客戶（租戶）叢集使用 KubeVirt CSI 驅動程式(`kubevirt-csi`作為其儲存提供者。當客戶叢集中的工作負載請求 `PersistentVolumeClaim`時，KubeVirt CSI 驅動程式會在基礎架構叢集中建立對應的磁碟區。Trident 從 ONTAP 佈建磁碟區，並將該磁碟區熱插拔至客戶節點虛擬機器中。Trident 僅在基礎架構叢集中運作。客戶叢集透過 KubeVirt CSI 驅動程式間接使用 ONTAP 儲存設備。
 
@@ -124,13 +131,13 @@ NOTE: 此配置在早期版本中有效，但完整認證從 26.06 開始。
 | 元件 | 版本 
 
 
-| Trident | 26.06 
+| Trident | 26.10 
 
 
-| Kubernetes（基礎架構和訪客叢集） | 1.36 
+| Kubernetes（基礎架構和訪客叢集） | 1.37 
 
 
-| KubeVirt | 1.9.0-beta.0 
+| KubeVirt | 1.9.0 
 
 
 | 容器化資料導入器 (CDI) | 1.65 
@@ -268,6 +275,30 @@ link:../trident-reference/ports.html["Trident 連接埠"]
 
 對於無線安裝、下列清單是安裝 Trident 所需的容器映像參考資料。使用 `tridentctl images`命令來驗證所需的容器映像清單。
 
+以下列出的 Trident 26.10 映像清單包含 Kubernetes 1.37 的映像。
+
+
+
+[[container-images-required-for-trident-26-10-0]]
+=== Trident 26.10.0 所需的容器映像
+
+[cols="2"]
+|===
+| Kubernetes 版本 | Container映像 
+
+
+| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0、v1.37.0  a| 
+* docker.io/netapp/trident:26.10.0
+* docker.io/netapp/trident-autosupport:26.10
+* docker.io/netapp/trident-operator:26.10.0 （選用）
+* registry.k8s.io/sig-storage/csi-attacher:v4.11.0
+* registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.17.0
+* registry.k8s.io/sig-storage/csi-provisioner:v6.3.0
+* registry.k8s.io/sig-storage/csi-resizer:v2.1.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v8.6.0
+
+
+|===
 
 
 [[container-images-required-for-trident-26-06-2]]
@@ -278,7 +309,7 @@ link:../trident-reference/ports.html["Trident 連接埠"]
 | Kubernetes 版本 | Container映像 
 
 
-| v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0、v1.37.0  a| 
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
 * docker.io/netapp/trident:26.06.2
 * docker.io/netapp/trident-autosupport:26.06
 * docker.io/netapp/trident-operator:26.06.2 （選用）

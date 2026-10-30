@@ -18,6 +18,17 @@ summary: 以下是此版本的已知問題。
 
 
 
+[[volumes-remain-attached-after-upgrading-from-trident-22-10-or-earlier]]
+== 從 Trident 22.10 或更早版本升級後，Volume 仍保持附加狀態
+
+此問題會影響從 Trident 22.10 或更早版本直接升級至 Trident 26.10 且 Volume 已附加的客戶。從 Trident 23.01 或更高版本升級不受影響。
+
+升級後，受影響的 Volume 可能無法分離。使用 ReadWriteOnce（RWO）Volume 的 Pod 無法移動到另一個節點，並可能報告多重掛載錯誤。刪除 PersistentVolume（PV）也可能停滯。
+
+若要解決此問題，請在擁有過時 Volume 附件的節點上，從該 Volume 的 `globalmount`目錄中刪除殘留的 `volumePublishInfo.json`檔案。
+
+
+
 [[volumesnapshots-not-reaching-readytouse-state]]
 == VolumeSnapshots 未達 ReadyToUse 狀態
 

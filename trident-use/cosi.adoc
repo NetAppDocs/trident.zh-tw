@@ -1,0 +1,236 @@
+---
+sidebar: sidebar 
+permalink: trident-use/cosi.html 
+keywords: COSI, object storage, StorageGRID, ONTAP S3, BucketClaim, BucketAccess 
+summary: 使用 Trident 和容器物件儲存介面來資源配置與存取 S3 儲存桶。 
+---
+= 使用 COSI 佈建物件儲存
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用容器物件儲存介面（COSI）透過 Trident 代管的 Kubernetes 資源為 Kubernetes 工作負載資源配置 S3 儲存桶。
+
+
+
+[[overview]]
+== 總覽
+
+COSI 將物件儲存提供者連接至 Kubernetes 工作負載。Trident 提供下列資源：
+
+* `TridentObjectStore`：將 Trident 連接到物件儲存系統及其認證資料。在 Trident 命名空間中建立此資源。
+* `BucketClass`：定義物件存放區選擇和儲存桶刪除原則。
+* `BucketClaim`：請求一個儲存桶。
+* `BucketAccessClass`：定義如何資源配置儲存桶的存取。
+* `BucketAccess`：要求一或多個儲存桶的認證資料。
+
+
+Trident 透過下列物件儲存驅動程式支援 COSI：
+
+* StorageGRID：已正式發布。
+* ONTAP S3：技術預覽。
+
+
+Trident 支援 S3 協定。在初始版本中，僅支援路徑式 S3 定址。
+
+
+
+[[requirements-and-limitations]]
+== 需求與限制
+
+* 在 `TridentOrchestrator`自訂資源 （TORC） 中同時啟用 `enableConcurrency`和 `enableCOSI`。COSI 預設不會啟用。
+* 在啟用控制器並行之前，請先驗證所有已設定的 Trident 後端是否都使用支援的驅動程式。不受支援的後端驅動程式會導致 Trident 無法啟動；請參閱 link:controller-scalability.html#before-you-enable["在啟用控制器擴充性之前"]。
+* 請勿將 Trident COSI 與社群 COSI 控制器同時執行。
+* 初始版本使用 `objectstorage.k8s.io/v1alpha2` COSI API。
+* StorageGRID `TridentObjectStore` 資源使用長期有效的租戶根目錄認證資料。每個 `TridentObjectStore` 連接到一個 StorageGRID 租戶；多個資源可以連接到同一個租戶。將認證資料儲存在 Trident 命名空間的 Kubernetes Secret 中，並根據您的安全性要求加以保護。
+* StorageGRID `BucketAccess` 支援最多八個儲存桶。
+
+
+如需並行控制器作業的一般資訊，請參閱 link:controller-scalability.html["控制器擴充性"]。
+
+
+
+[[enable-cosi]]
+== 啟用 COSI
+
+在  `TridentOrchestrator` 規範中同時設定這兩個選項：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableConcurrency: true
+  enableCOSI: true
+----
+套用 TORC 或使用一般的營運者工作流程更新現有資源。如需設定 TORC 的詳細資訊，請參閱 link:../trident-install/kubernetes-customize-deploy.html["自訂Trident操作員安裝"]。
+
+
+
+[[configure-a-storagegrid-object-store]]
+== 設定 StorageGRID 物件存放區
+
+在 Trident 命名空間中，使用 StorageGRID 租戶認證資料建立 Kubernetes Secret：
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tenant3
+  namespace: trident
+type: Opaque
+stringData:
+  username: <tenant-root-username>
+  password: <tenant-root-password>
+----
+建立參照 Secret 的 `TridentObjectStore`。將範例端點和帳戶 ID 替換為您 StorageGRID 環境的值：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentObjectStore
+metadata:
+  name: trident-tenant3
+  namespace: trident
+spec:
+  accountId: "<account-id>"
+  credentials:
+    secretName: tenant3
+  labels:
+    tenantInstance: three
+  managementEndpoint: https://<storagegrid-management-endpoint>
+  objectStoreDriver: storage-grid
+  s3Endpoint: https://<storagegrid-s3-endpoint>
+----
+套用這兩個資源：
+
+[source, console]
+----
+kubectl apply -f tenant-secret.yaml
+kubectl apply -f trident-object-store.yaml
+----
+
+
+[[configure-an-ontap-s3-object-store]]
+== 設定 ONTAP S3 物件存放區
+
+[NOTE]
+====
+透過 COSI 提供的 ONTAP S3 支援在 Trident 26.10 中仍處於技術預覽階段，暫不支援在生產環境中使用。組態欄位和行為在正式可用度前可能會有所更改。
+
+====
+在 Trident 命名空間中使用 ONTAP S3 使用者認證資料建立 Kubernetes Secret，然後建立參照該 Secret 的 `TridentObjectStore`。將預留位置替換為您 ONTAP S3 環境的值：
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ontap-s3-credentials
+  namespace: trident
+type: Opaque
+stringData:
+  username: "<user>"
+  password: "<password>"
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentObjectStore
+metadata:
+  name: ontap-s3
+  namespace: trident
+spec:
+  objectStoreDriver: ontap-s3
+  objectStoreName: ontap-object-store
+  managementEndpoint: "<management-endpoint>"
+  svmName: "<svm-name>"
+  storagePrefix: trident
+  credentials:
+    secretName: ontap-s3-credentials
+----
+此 `storagePrefix` 是選用的，省略時預設為 `trident`。套用 Secret 和 `TridentObjectStore`：
+
+[source, console]
+----
+kubectl apply -f ontap-s3-object-store.yaml
+----
+
+
+[[create-a-bucketclass-and-request-a-bucket]]
+== 建立 BucketClass 並申請儲存桶
+
+ `BucketClass` 可以使用標籤選擇器、物件存放區類型或兩者來選擇物件存放區。如果沒有選擇參數， Trident 可以從所有已設定的物件存放區中進行選擇。
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketClass
+metadata:
+  name: sg-delete
+spec:
+  driverName: cosi.trident.netapp.io
+  deletionPolicy: Delete
+  parameters:
+    selector: tenantInstance=three
+    objectStoreType: storage-grid
+----
+建立一個使用該類別的 `BucketClaim`：
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketClaim
+metadata:
+  name: claim-a1
+  namespace: default
+spec:
+  bucketClassName: sg-delete
+  protocols:
+    - S3
+----
+當 Trident 處理要求時，它會選擇一個相符的物件存放區。如果有多個存放區相符， Trident 會隨機選擇一個，將儲存體分配到相符的存放區中。
+
+
+
+[[grant-workload-access-to-a-bucket]]
+== 授予工作負載對儲存桶的存取
+
+建立 `BucketAccessClass`以定義存取資源配置：
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketAccessClass
+metadata:
+  name: sg-access
+spec:
+  authenticationType: Key
+  driverName: cosi.trident.netapp.io
+  multiBucketAccess: MultipleBuckets
+----
+建立參照 bucket claim 的 `BucketAccess`：
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketAccess
+metadata:
+  name: sg-claim-a1
+  namespace: default
+spec:
+  bucketAccessClassName: sg-access
+  bucketClaims:
+    - accessMode: ReadWrite
+      accessSecretName: sg-claim-a1
+      bucketClaimName: claim-a1
+  protocol: S3
+----
+Trident 會建立一個包含儲存桶存取資訊的 Kubernetes Secret。工作負載可以使用標準的 Kubernetes Secret 機制來使用此 Secret。產生的 Secret 包含 S3 連線詳細資訊，例如儲存桶識別碼、端點、區域和存取金鑰。請勿將產生的 Secret 暴露給未經授權的使用者或工作負載。
+
+產生的 Secret 包含 `COSI_S3_ACCESS_KEY_ID`、 `COSI_S3_ACCESS_SECRET_KEY`、 `COSI_S3_ADDRESSING_STYLE`、 `COSI_S3_BUCKET_ID`、 `COSI_S3_ENDPOINT`和 `COSI_S3_REGION`等金鑰。

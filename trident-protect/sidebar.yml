@@ -28,10 +28,14 @@ entries:
   entries:
   - title: 使用 AppVault 物件來管理貯體
     url: "/trident-protect/trident-protect-appvault-custom-resources.html"
+  - title: 加密 AppVault 中繼資料
+    url: "/trident-protect/trident-protect-encrypt-appvault-metadata.html"
   - title: 定義管理應用程式
     url: "/trident-protect/trident-protect-manage-applications.html"
   - title: 保護應用程式
     url: "/trident-protect/trident-protect-protect-apps.html"
+  - title: 使用 Volume 群組快照
+    url: "/trident-protect/trident-protect-volume-group-snapshots.html"
   - title: 還原應用程式
     entries:
     - title: 使用Trident Protect 恢復應用程式
@@ -41,7 +45,11 @@ entries:
     - title: 在還原期間修改資源
       url: "/trident-protect/trident-protect-resource-transformations.html"
   - title: 使用 NetApp SnapMirror 複寫應用程式
-    url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+    entries:
+    - title: 設定和管理應用程式複寫
+      url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+    - title: 容錯移轉至較早的快照
+      url: "/trident-protect/trident-protect-failover-older-snapshot.html"
   - title: 移轉應用程式
     url: "/trident-protect/trident-protect-migrate-apps.html"
   - title: 保護 KubeVirt 虛擬機器

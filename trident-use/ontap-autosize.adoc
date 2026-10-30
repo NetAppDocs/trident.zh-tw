@@ -1,0 +1,229 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-autosize.html 
+keywords: ONTAP, autosize, FlexVol, ontap-san, ontap-san-economy, Trident 
+summary: 為 Trident 代管的 FlexVol Volume 設定 ONTAP Volume 自動調整規模。 
+---
+= 設定 ONTAP Volume 自動調整規模
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+設定 Trident 以在支援持續性 Volume 的 FlexVol Volume 上啟用 ONTAP Volume 自動調整規模。當已用空間達到設定的臨界值時， ONTAP 會自動將 FlexVol 擴充至最大大小。這可為快照和儲存負荷提供額外的容量，而無需手動調整 FlexVol 的大小。
+
+ONTAP Volume 自動調整規模僅會增加後端 FlexVol；它不會變更 PersistentVolumeClaim（PVC）大小。這與 link:automatic-volume-expansion.html["Trident Autogrow 原則"] 不同，後者會擴充 PVC。
+
+Trident 在建立、複製或調整 Volume 以及匯入其管理的 Volume 時，會套用後端自動調整規模設定。
+
+
+
+[[requirements]]
+== 需求
+
+* Trident 26.10 或更高版本。
+* 下列驅動程式之一：
++
+** `ontap-san` 可使用 iSCSI、NVMe 或 Fibre Channel 傳輸協定（FCP）。
+** `ontap-san-economy` 使用 iSCSI。
+
+
+* 本地部署 ONTAP：
++
+** 對於使用 ONTAP REST API 的後端，需要 ONTAP 9.12.1 或更新版本。NVMe 後端必須使用 ONTAP REST API。
+** 對於使用 ONTAPI (ZAPI) 的後端，任何 Trident 支援的 ONTAP 版本均可。請參閱link:../trident-get-started/requirements.html["Trident 需求"]。
+
+
+
+
+
+
+[[limitations]]
+== 限制
+
+* ONTAP Volume 自動調整規模不會縮小 FlexVols。
+* 自動調整規模是按後端設定的。建立分隔的後端，以便針對不同的工作負載使用不同的設定。
+* ONTAP Volume 自動調整規模在 ONTAP NAS 驅動程式、ASA r2 系統、NetApp AFX 或其他解耦式 ONTAP 系統，以及 Google Cloud NetApp Volumes 上不受支援。這些組態的後端建立會失敗。
+* ONTAP Volume 自動調整規模不支援 TridentMirrorRelationship 複寫與 MetroCluster 組態。Trident 不會阻止這些組態。
+* 對於 `ontap-san-economy`， `maximumSize`必須是百分比。
+* 對於 `ontap-san`，絕對的 `maximumSize`可作為大小限制。如果後端 FlexVol 必須超過該限制，則建立或擴充 PVC 將會失敗。
+* 一個 `ontap-san-economy` FlexVol 可以包含多個 PVC 的 LUN。每次 Volume 操作都會將目前後端的自動調整規模設定套用至整個 FlexVol。如果多個後端共享 FlexVols，則最近一次操作會決定其設定。對於 `ontap-san-economy`，只需設定 `mode: grow`並省略 `growThresholdPercent`和 `maximumSize`，以便所有後端使用相同的預設值。
+
+
+
+
+[[ontap-volume-autosize-options]]
+== ONTAP Volume 自動調整規模選項
+
+在後端組態的頂層 `ontapAutosize`區塊中設定這些選項。
+
+[cols="1,3,1,1,1,1"]
+|===
+| 選項 | 說明 | 格式 | 必要 | 當  `ontapAutosize` 存在時的預設值 | 範例 
+
+
+| `mode` | 啟用或停用自動調整規模。 `grow`啟用自動調整規模； `off`停用自動調整規模。 | 字串 | 否 | `off` | `grow` 或  `off` 
+
+
+| `growThresholdPercent` | ONTAP 擴充 FlexVol 的已使用空間百分比。有效值為 2 到 99。 | 整數 | 否 | `85` | `90` 
+
+
+| `maximumSize` | 最大 FlexVol 大小，以其大小的百分比或絕對大小表示。僅針對 `ontap-san`支援絕對大小。 | 百分比或 Kubernetes 數量 | 否 | `"20%"` | `"20%"` 或  `"2Ti"` 
+|===
+當  `ontapAutosize` 區塊存在時，會套用預設值。如果省略該區塊，Trident 不會變更 FlexVols 上的自動調整規模設定。
+
+Trident 會將百分比 `maximumSize`轉換為絕對大小，並在每次調整 Volume 大小時重新計算。例如，使用 `maximumSize: "20%"`，100 GiB 的 FlexVol 可以成長到 120 GiB。
+
+
+
+[[configure-ontap-volume-autosize]]
+== 設定 ONTAP Volume 自動調整規模
+
+. 將  `ontapAutosize` 區塊新增至您的後端組態：
++
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-san
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-san
+  backendName: ontap-san-autosize
+  managementLIF: 10.0.0.1
+  svm: svm_san
+  sanType: iscsi
+  ontapAutosize:
+    mode: grow
+    growThresholdPercent: 85
+    maximumSize: "20%"
+  credentials:
+    name: backend-tbc-ontap-san-secret
+----
+. 建立後端：
++
+[source, console]
+----
+kubectl -n trident create -f backend-tbc-ontap-san.yaml
+----
+. 從此後端配置 Volume 後，驗證套用於其 Trident Volume 的自動調整規模設定：
++
+[source, console]
+----
+kubectl get tridentvolume <pv-name> -n trident \
+  -o jsonpath='{.config.ontapAutosizeMode} {.config.ontapAutosizeGrowThresholdPercent} {.config.ontapAutosizeMaximumSize}'
+----
++
+對於上述組態，預期輸出為：
+
++
+[source, console]
+----
+grow 85 20%
+----
+
+
+
+
+[[update-autosize-settings-on-a-backend]]
+== 在後端更新自動調整規模設定
+
+您可以透過更新後端來新增、變更或移除 `ontapAutosize`區塊。變更不會立即更新現有的 FlexVols：
+
+* 對於 `ontap-san`，新的 Volume、複製和代管匯入會使用新設定。現有 Volume 會保留其目前的設定，包括在調整大小時。
+* 對於 `ontap-san-economy`，共享的 FlexVol 會在下次 Trident 於其中建立、調整大小、複製或匯入 Volume 時接收新設定。
+
+
+
+
+[[configuration-examples]]
+== 組態範例
+
+
+
+[[ontap-san-with-fcp-and-an-absolute-maximum-size]]
+=== `ontap-san`使用 FCP 和絕對最大大小
+
+[source, json]
+----
+{
+  "version": 1,
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "svm": "svm_san",
+  "username": "vsadmin",
+  "password": "<password>",
+  "sanType": "fcp",
+  "ontapAutosize": {
+    "mode": "grow",
+    "growThresholdPercent": 90,
+    "maximumSize": "2Ti"
+  }
+}
+----
+
+
+[[ontap-san-economy]]
+=== 《ONTAP-san經濟》
+
+此範例僅設定 `mode`，因此 Trident 會針對 `growThresholdPercent`和 `maximumSize`使用預設值：
+
+[source, json]
+----
+{
+  "version": 1,
+  "storageDriverName": "ontap-san-economy",
+  "managementLIF": "10.0.0.1",
+  "svm": "svm_san",
+  "username": "vsadmin",
+  "password": "<password>",
+  "ontapAutosize": {
+    "mode": "grow"
+  }
+}
+----
+
+
+[[frequently-asked-questions]]
+== 常見問題集
+
+
+
+[[can-i-use-ontap-volume-autosize-with-trident-autogrow-policies]]
+=== 我能否將 ONTAP Volume 自動調整規模與 Trident Autogrow 原則結合使用？
+
+是的。Trident Autogrow 原則會擴充 PVC，且 Trident 會在每次調整大小期間重新計算 ONTAP 自動調整規模最大值。如果您將絕對 `maximumSize`與 `ontap-san`搭配使用，請將原則的 `maxSize`設定得夠低，以將後端 FlexVol 保持在該限制內。FlexVol 大於 PVC，因為 Trident 會增加快照保留和中繼資料的空間。
+
+
+
+[[what-is-the-difference-between-omitting-ontapautosize-and-setting-mode-off]]
+=== 省略 `ontapAutosize`和設定 `mode: off`之間有什麼差異？
+
+如果省略 `ontapAutosize`，Trident 不會變更 ONTAP FlexVols 上的自動調整規模設定。如果設定 `mode: off`，Trident 會在它建立或更新的 FlexVols 上停用自動調整規模，包括從其來源繼承自動調整規模設定的複本。
+
+
+
+[[why-did-my-pvc-expansion-fail-with-an-ontapautosize-maximum-is-below-required-flexvol-size-error]]
+=== 為什麼我的 PVC 擴充失敗並出現 `ontapAutosize maximum ... is below required FlexVol size`錯誤？
+
+該 Volume 使用絕對 `maximumSize`，而擴充的 PVC 需要更大的 FlexVol。 `ontap-san` Volume 會保留其建立時的最大大小，因此更新後端不會變更現有 Volume 的設定。對於新 Volume，請增加 `maximumSize`或使用百分比。
+
+
+
+[[why-did-volume-creation-fail-with-an-autosize-error]]
+=== 為什麼建立 Volume 失敗並出現自動調整規模錯誤？
+
+ONTAP 拒絕了自動調整規模設定，PVC 事件中包含來自 ONTAP 的原因。例如，最大大小可能超過 ONTAP 系統支援的最大 FlexVol 大小。降低後端的 `maximumSize`；Trident 下次嘗試建立 Volume 時會使用更新後的值。
+
+
+
+[[related-information]]
+== 相關資訊
+
+* link:automatic-volume-expansion.html["使用 Trident Autogrow 原則自動擴充 Volume"]
+* link:https://docs.netapp.com/us-en/ontap-cli/volume-autosize.html["ONTAP 命令參考：Volume 自動調整規模"^]
+

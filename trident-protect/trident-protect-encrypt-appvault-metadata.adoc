@@ -1,0 +1,349 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-encrypt-appvault-metadata.html 
+keywords: trident protect, appvault, encryption, metadata, password, password rotation, vault password, secret, kopia, restic 
+summary: 您可以加密 Trident Protect 儲存在 AppVault 中的快照與備份中繼資料，並變更保護加密資料的密碼。 
+---
+= 加密 Trident Protect 快照與備份的 AppVault 中繼資料
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以加密 Trident Protect 儲存在 AppVault 中的快照和備份中繼資料，包括 Kubernetes Secrets 中的敏感資訊。您也可以變更保護加密資料的密碼。單一密碼變更會重新加密中繼資料加密金鑰，並將 AppVault 中的每個 Kopia 儲存庫和每個 Restic 儲存庫移至新密碼。
+
+加密預設為停用。啟用後，Trident Protect 會在將中繼資料儲存至 AppVault 之前，先加密新的快照與備份中繼資料。這可保護您的應用程式資源，包括 Secrets 中的敏感資訊，除非您明確將這些資源從應用程式快照或備份中排除。
+
+保存庫密碼用於保護加密資料的金鑰。請注意以下行為：
+
+* 當您變更保存庫密碼時， Trident Protect 會使用新密碼保護相同的金鑰。它不會重新寫入已加密的資料。
+* 啟用加密之前儲存的資料仍然可讀。
+* 即使您之後關閉新資料的加密，加密後的資料仍然可以讀取。
+
+
+.關於這項工作
+啟用加密後，除非您指定自訂密碼，否則 Trident Protect 會使用不安全的預設密碼。對於每個 AppVault ，請建立自訂保存庫密碼並在 `spec.vaultPasswordSecretRef`中參照它。
+
+如果您使用預設密碼啟用加密，之後又新增了自訂密碼，則必須輪換密碼，以便將現有資料和儲存庫移至自訂密碼。請參閱 <<輪換保存庫密碼>>。
+
+為每個 AppVault 使用唯一的自訂密碼。一次輪換一個 AppVault 的密碼，並在開始另一次密碼變更之前確認輪換已完成。
+
+.開始之前
+請確保您擁有下列項目：
+
+* 存取 `trident-protect`命名空間。
+* 建立 Kubernetes Secrets 和修補 AppVault 自訂資源（CR）的權限。
+* 為每個 AppVault 規劃分隔的密碼 Secret。
+
+
+
+
+[[enable-metadata-encryption]]
+== 啟用中繼資料加密
+
+您可以透過為 Trident Protect 設定 Helm 值來啟用中繼資料加密。
+
+.步驟
+. 使用 `values.yaml`檔案將 `resourceBackupEncryptionEnabled`設定為 `true`：
++
+.. 將以下內容新增至您的 `values.yaml`檔案：
++
+[source, yaml]
+----
+resourceBackupEncryptionEnabled: true
+----
+.. 套用檔案：
++
+[source, console]
+----
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect -f values.yaml --reuse-values
+----
+
+
+. 或者，使用 Helm `--set` 旗標將 `resourceBackupEncryptionEnabled`設定為 `true`：
++
+[source, console]
+----
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect \
+  --set resourceBackupEncryptionEnabled=true \
+  --reuse-values
+----
+
+
+.結果
+Trident Protect 會對新的快照和備份中繼資料進行加密。
+
+.接下來呢？
+為每個 AppVault 建立自訂保存庫密碼。在此之前，Trident Protect 將使用不安全的預設密碼。
+
+
+
+[[create-a-custom-vault-password]]
+== 建立自訂保存庫密碼
+
+若要使用您自己的密碼，請建立一個包含該密碼的 Kubernetes Secret，然後在 AppVault 中參照該 Secret。
+
+.關於這項工作
+如果在建立 AppVault 時設定自訂密碼，則在儲存任何資料之前，AppVault 會立即使用該自訂密碼。您無需輪換密碼。
+
+如果 AppVault 已經有 Kopia 或 Restic 儲存庫，新增密碼不會變更這些儲存庫的密碼。請勿使用本節中的步驟。請改為遵循 <<輪換保存庫密碼>> 中的步驟。
+
+該 `VAULT_PASSWORD`值必須符合以下要求：
+
+* 不得為空
+* 必須小於 64 KiB
+* 不得包含 NUL 字元
+* 不得包含換行符
+* 不得以空格或其他空白字元開頭或結尾
+
+
+密碼可以包含其他字元，包括非 ASCII 字元。
+
+.步驟
+. 在與 AppVault 相同的命名空間中建立 Secret。Secret 必須包含名為 `VAULT_PASSWORD`的金鑰：
++
+[source, console]
+----
+kubectl -n trident-protect create secret generic vault-password \
+  --from-literal=VAULT_PASSWORD='<password>'
+----
++
+
+NOTE: 如果 AppVault 報告密碼無效，請根據上述要求檢查  `VAULT_PASSWORD` 值。常見原因為空值、結尾有換行字元，或是密碼開頭或結尾有空格。
+
+. 在 AppVault CR 的 `spec.vaultPasswordSecretRef`欄位中參照 Secret：
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: my-vault
+  namespace: trident-protect
+spec:
+  vaultPasswordSecretRef: vault-password
+  providerType: <provider-type>
+  providerConfig:
+    <provider-configuration>
+----
++
+如果 `spec.vaultPasswordSecretRef`為空，則 AppVault 使用不安全的預設密碼。
+
+
+
+.結果
+AppVault 使用您的自訂密碼來保護中繼資料加密金鑰。
+
+
+
+[[rotate-the-vault-password]]
+== 輪換保存庫密碼
+
+您可以輪換已儲存資料的 AppVault 密碼。一次輪換會重新加密中繼資料加密金鑰，並將 AppVault 中的每個 Kopia 儲存庫和每個 Restic 儲存庫移至新密碼。
+
+.關於這項工作
+在輪替過程中，Trident Protect 會執行下列操作：
+
+* 等待正在執行的 AppVault 備份與恢復作業完成後再開始。
+* 使用新密碼保護中繼資料加密金鑰(`metadata-key.json`）。不會重新寫入歸檔物件。
+* 尋找在 AppVault 前置字元下的每個 Kopia 儲存庫和每個 Restic 儲存庫，並將其密碼變更為新密碼。已使用新密碼開啟的儲存庫不會變更。
+* 跳過備份或還原作業仍在使用的儲存庫，稍後重試。
+* 暫停參照 AppVault 的已啟用排程。對於每個排程， Trident Protect 會將  `spec.enabled` 設為  `false` 並新增下列註解：
++
+[source, yaml]
+----
+protect.trident.netapp.io/vault-password-rotation-suspended: <namespace>/<appvault-name>
+----
+
+
+輪換完成後，Trident Protect 只會重新啟用具有此註解的排程。如果輪換失敗，則會從停止的位置繼續執行。已使用新密碼的儲存庫不會再次變更。
+
+.開始之前
+請確保您擁有下列項目：
+
+* 符合 <<建立自訂保存庫密碼,保存庫密碼要求>> 的新密碼。
+* 沒有其他 AppVault 正在輪換其密碼。如果多個 AppVaults 共享同一個儲存桶和前綴，則只有其中一個可以輪換密碼。請參閱 <<管理共享儲存區的 AppVaults 輪換>>。
+
+
+.步驟
+. 建立一個與目前 Secret 名稱不同的新 Secret：
++
+[source, console]
+----
+kubectl -n trident-protect create secret generic vault-password-new \
+  --from-literal=VAULT_PASSWORD='<new-password>'
+----
++
+
+IMPORTANT: 在輪替完成之前，請勿編輯或刪除目前的 Secret。Trident Protect 需要目前的密碼才能開啟現有資料，直到每個儲存庫都使用新密碼為止。如果您過早刪除目前的 Secret，請使用相同的名稱和原始的 `VAULT_PASSWORD`值重新建立它。
+
+. 啟用輪換並設定 AppVault 以使用新的機密。將  `my-vault` 替換為您的 AppVault 名稱：
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault my-vault --type merge --patch '
+spec:
+  enableRotation: true
+  vaultPasswordSecretRef: vault-password-new
+'
+----
++
+
+NOTE: 在變更密碼之前，您必須將 `spec.enableRotation`設定為 `true`。如果是 `false`，AppVault 會報告輪替已停用，並且不會變更密碼。
+
+. 請依照 <<監控密碼輪替>> 中的步驟來監控輪替。
+. 輪替結束後，如果沒有其他項目使用先前的 Secret，請將其刪除。
+
+
+.結果
+中繼資料加密金鑰以及 AppVault 中的每個 Kopia 和 Restic 儲存庫都受到新密碼的保護，而且 Trident Protect 暫停的排程已重新啟用。
+
+
+
+[[monitor-password-rotation]]
+== 監控密碼輪替
+
+您可以查看密碼輪換的進度並確認是否已完成。
+
+.步驟
+. 查看 AppVault：
++
+[source, console]
+----
+kubectl -n trident-protect get appvault my-vault --output yaml
+----
+. 在輸出結果中，查看該 `status.vaultPasswordRotation`部分。旋轉過程中，它看起來像這樣：
++
+[source, yaml]
+----
+status:
+  vaultPasswordRotation:
+    state: Rotating
+    rotated: 3
+    pending: 1
+    message: <message>
+----
++
+下表說明各欄位：
+
++
+|===
+| 欄位 | 說明 
+
+
+| status.vaultPasswordRotation.state | 目前的旋轉狀態。 
+
+
+| status.vaultPasswordRotation.rotated | 現在使用新密碼的儲存庫數量。 
+
+
+| status.vaultPasswordRotation.pending | 因為備份或還原正在使用而跳過的儲存庫數量。 
+
+
+| status.vaultPasswordRotation.message | 最新進度或故障訊息。 
+|===
+
+
+.結果
+當下列所有條件都成立時，輪替即完成：
+
+* `status.vaultPasswordRotation` 不存在。
+* `status.previousRepositoryPasswordSecretRef` 為空。
+* `status.repositoryPasswordSecretRef` 符合 `spec.vaultPasswordSecretRef`。
+
+
+.接下來呢？
+如果輪替未完成，請檢查下列事項：
+
+* *輪換未開始*： `spec.enableRotation` 可能是  `false`。將其設為  `true`，然後將  `spec.vaultPasswordSecretRef` 設定為新的 Secret。
+* *儲存庫處於擱置狀態*：備份或還原作業仍在使用這些儲存庫。請等待作業完成。Trident Protect 會自動重試擱置中的儲存庫。
+* *由於另一個 AppVault 擁有鎖定，因此輪換不會開始*：請參閱 <<管理共享儲存區的 AppVaults 輪換>>。
+* *訊息欄位報告故障*：解決訊息中所述的問題。輪替會從停止的位置繼續。
+
+
+
+
+[[migrate-from-datamoverpasswordsecretref]]
+== 從 dataMoverPasswordSecretRef 移轉
+
+如果現有的 AppVault 使用較舊的 `spec.dataMoverPasswordSecretRef`欄位，您可以將其移至 `spec.vaultPasswordSecretRef`。
+
+.關於這項工作
+Trident Protect 保留 `spec.dataMoverPasswordSecretRef`以提供向後相容性。請將 `spec.vaultPasswordSecretRef`用於新的 AppVaults。
+
+.步驟
+. 將 `spec.dataMoverPasswordSecretRef`及其 Secret 保留在原處。
+. 使用  `spec.vaultPasswordSecretRef` 將密碼輪替為新的 Secret。請依照 <<輪換保存庫密碼>> 中的步驟操作。
+. 輪替結束後，請從 AppVault 移除 `spec.dataMoverPasswordSecretRef`。
+. 如果沒有其他項目使用舊的 Secret，請將其刪除。
+
+
+
+
+[[manage-rotation-for-appvaults-that-share-a-bucket]]
+== 管理共享儲存區的 AppVaults 輪換
+
+如果多個 AppVaults 使用同一個儲存桶和前綴，則只有其中一個可以輪換密碼。
+
+.關於這項工作
+密碼輪替使用名為 `password-rotation.lock`的鎖定檔案。鎖定會記錄允許輪替儲存區和前置碼密碼之 AppVault 的 UID。如果第二個 AppVault 具有 `spec.enableRotation: true`，且鎖定指定了不同的 AppVault，則第二個 AppVault 無法進行輪替。
+
+.步驟
+[role="tabbed-block"]
+====
+.將輪替轉移至另一個 AppVault
+--
+. 在擁有該鎖的 AppVault 上，清除 `spec.enableRotation`：
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault <current-owner> --type merge --patch '
+spec:
+  enableRotation: false
+'
+----
+. 等待鎖被移除。
+. 在接下來應該輪替的 AppVault 上，將 `spec.enableRotation`設為 `true`：
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault <new-owner> --type merge --patch '
+spec:
+  enableRotation: true
+'
+----
+
+
+--
+.移除由已刪除的 AppVault 所留下的鎖定
+--
+如果擁有該鎖的 AppVault 已不存在，且該鎖未被移除（例如在當機之後），請使用下列步驟。
+
+. 從您儲存桶的 AppVault 前綴中刪除 `password-rotation.lock`檔案。
+. 在應該輪替的 AppVault 上，將 `spec.enableRotation`設定為 `true`：
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault <appvault-name> --type merge --patch '
+spec:
+  enableRotation: true
+'
+----
+
+
+--
+====
+
+
+[[related-information]]
+== 相關資訊
+
+* link:trident-protect-appvault-custom-resources.html["使用Trident Protect AppVault 物件來管理儲存桶。"]
+* link:trident-protect-customize-installation.html["自訂Trident Protect 安裝"]
+* link:trident-protect-protect-apps.html["保護應用程式"]
+* link:trident-protect-restore-apps.html["使用Trident Protect 恢復應用程式"]
+

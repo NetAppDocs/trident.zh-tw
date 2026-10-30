@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/gcnv-ontap-mode.html 
 keywords: trident, google cloud netapp volumes, gcnv, ontap-mode, expert mode, ontap-san, ontap-nas, proxy, tech preview, backend configuration 
-summary: 設定 Trident ontap-san 和 ontap-nas 後端，以便在 Google Cloud NetApp Volumes ONTAP 模式儲存池上佈建儲存。此功能在 Trident 26.06 中為技術預覽版。 
+summary: 設定 Trident ontap-san 和 ontap-nas 後端，以便在 Google Cloud NetApp Volumes ONTAP 模式儲存池上佈建儲存。此功能在 Trident 26.10 中為技術預覽版。 
 ---
 = 設定 Google Cloud NetApp Volumes ONTAP 模式儲存池
 :allow-uri-read: 
@@ -15,7 +15,7 @@ summary: 設定 Trident ontap-san 和 ontap-nas 後端，以便在 Google Cloud 
 
 [NOTE]
 ====
-此功能在 Trident 26.06 中為技術預覽版。技術預覽版功能不支援在生產環境中使用。在正式上市 （GA） 之前，其功能、組態欄位和支援的矩陣可能會有所變更。
+此功能在 Trident 26.10 中為技術預覽版。技術預覽功能不支援在生產環境中使用。在正式上市 （GA） 之前，其功能、組態欄位和支援的矩陣可能會有所變更。
 
 ====
 
@@ -67,9 +67,9 @@ Trident 重複使用現有的  `ontap-san` 和  `ontap-nas` 驅動程式邏輯�
 [[configure-the-backend]]
 == 配置後端
 
-A `TridentBackendConfig` requires `credentials`。對於 ONTAP 模式，此金鑰保存 GCP 代理憑證，而不是 ONTAP `managementLIF` / `username` / `password`。 `svm` 是可選的：每個 GCNV ONTAP 模式集區目前都有一個 SVM，如果省略，Trident 會從集區中衍生它。
+A `TridentBackendConfig` 需要 `credentials` 參照 Kubernetes Secret。對於 ONTAP 模式，此 Secret 提供 GCP Proxy 存取的認證資料，而非 ONTAP `managementLIF` / `username` / `password`。根據身分驗證方法的不同，它可以包含服務帳戶金鑰欄位，也可以是空白。 `svm` 是選用的：每個 GCNV ONTAP 模式資源池目前都有一個 SVM，如果省略，Trident 會從資源池衍生出該 SVM。
 
-使用與原生 GCNV 相同的服務帳戶模式：非敏感欄位位於 `gcnv.apiKey`、 `private_key`，以及 secret 中的 `private_key_id`。參見link:../trident-use/gcnv-examples.html["Google Cloud NetApp Volumes 設定範例"^]。
+對於服務帳戶金鑰驗證，請使用與原生 GCNV 相同的模式：非敏感欄位位於 `gcnv.apiKey`中， `private_key`和 `private_key_id`位於 secret 中。請參閱 link:../trident-use/gcnv-examples.html["Google Cloud NetApp Volumes 設定範例"^]。對於工作負載身分資源池或 GKE 雲端身分驗證，請參閱 <<authentication>> 中的範例。
 
 .ontap-san 後端
 [source, yaml]
@@ -89,7 +89,7 @@ spec:
   gcnv:
     proxyURL: "https://netapp.googleapis.com"
     projectNumber: "<project-number>"
-    location: "<region-or-zone>"
+    location: "<pool-location>"
     poolID: "<pool-id>"
   svm: "<svm-name>"
 ----
@@ -111,7 +111,7 @@ spec:
   gcnv:
     proxyURL: "https://netapp.googleapis.com"
     projectNumber: "<project-number>"
-    location: "<region-or-zone>"
+    location: "<pool-location>"
     poolID: "<pool-id>"
     apiKey:
       type: service_account
@@ -122,6 +122,7 @@ spec:
       token_uri: "https://oauth2.googleapis.com/token"
       auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs"
       client_x509_cert_url: "<client-x509-cert-url>"
+  svm: "<svm-name>"
 ----
 .秘密
 [source, yaml]
@@ -144,46 +145,144 @@ stringData:
 請勿將 `private_key`或 `private_key_id`放入 `TridentBackendConfig`規格中——CRD 會拒絕它們。對於區塊儲存，請使用 `ontap-san`搭配相同的 `gcnv`和憑證模式。
 
 ====
- svm: "<svm-name>"
-[listing]
+
+
+[[authentication]]
+== 驗證
+
+Trident 會依照下列順序解析 Proxy 存取認證資料：
+
+. 工作負載身分資源池（WIP）
+. 服務帳戶金鑰
+. 應用程式預設認證資料（ADC）
+
+
+對於本次技術預覽，請遵循以下做法：
+
+* 優先選擇工作負載身分資源池（如果可用）。
+* 不要將原始私鑰嵌入到版本控制的後端檔案中。將認證資料儲存在 Kubernetes Secret 中。
+* 對服務帳戶套用最小權限 IAM 範圍。
+
+
+ `location`中的 `gcnv`區塊必須與資源池的位置相符：區域性資源池使用 zone，地區性資源池使用 region。
+
+
+
+[[workload-identity-pool]]
+=== 工作負載身分資源池
+
+將  `gcnv.wipCredential` 用於在  `TridentBackendConfig` 上設定的明確外部帳戶聯盟。在 OpenShift 上，Trident 會將權杖投射到  `/var/run/secrets/wif-token/token`；這是 Trident 為 OpenShift WIF 投射的唯一權杖路徑，因此請將其用於  `credential_source.file`。如 link:gcnv.html#openshift-wif["設定 Google Cloud NetApp Volumes 與工作負載身分聯盟"] 所述，使用 WIF 對象安裝 Trident。 `credentials` 欄位仍參照 Secret，但 Secret 不得包含  `private_key`。
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gcnv-ontap-empty
+  namespace: trident
+type: Opaque
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-ontap-nas-wip
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: gcnv-ontap-nas-wip
+  useREST: true
+  nasType: nfs
+  nfsMountOptions: nfsvers=4.1
+  credentials:
+    name: gcnv-ontap-empty
+    type: secret
+  gcnv:
+    proxyURL: "https://netapp.googleapis.com"
+    projectNumber: "<project-number>"
+    location: "<pool-location>"
+    poolID: "<pool-id>"
+    wipCredential:
+      type: external_account
+      audience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<wif-pool-id>/providers/<provider-id>"
+      subject_token_type: "urn:ietf:params:oauth:token-type:jwt"
+      token_url: "https://sts.googleapis.com/v1/token"
+      service_account_impersonation_url: "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/<service-account-email>:generateAccessToken"
+      credential_source:
+        file: "/var/run/secrets/wif-token/token"
 ----
 
-== Authentication
 
-Trident resolves credentials for proxy access in the following order:
+[[gke-cloud-identity]]
+=== GKE 雲端身分
 
-. Workload Identity Pool (WIP)
-. Service account key
-. Application Default Credentials (ADC)
+對於 GKE，請在安裝時依照 link:gcnv.html#use-gke-workload-identity["使用 GKE 工作負載身分"] 中的說明設定 Trident 的雲端身分。後端使用應用程式預設認證資料（ADC）；請省略 `gcnv.apiKey`和 `gcnv.wipCredential`。 `credentials` 欄位仍然參照 Secret，但請勿在其中放置 `private_key`。
 
-For this Tech Preview, use the following practices:
-
-* Prefer Workload Identity Pool where it is available.
-* Do not embed raw private keys in version-controlled backend files. Store credentials in a Kubernetes secret.
-* Apply least-privilege IAM scoping to the service account.
-
-== Validation and initialization behavior
-
-Trident validates an ONTAP-mode backend during initialization and fails fast rather than partially initializing.
-
-Backend initialization fails if a required `gcnv` field is missing, the driver is unsupported for ONTAP-mode, or credential resolution fails.
-
-== Known limitations
-
-* This feature is a Tech Preview. Behavior and the supported matrix can change before GA.
-* ZAPI fallback is not used in ONTAP-mode.
-* Protocol and node-readiness requirements still apply. For example, iSCSI workflows require the node-side prerequisites described in link:../trident-use/worker-node-prep.html[Prepare the worker node].
-* Existing ONTAP and GCNV environment constraints still apply.
-
-== Upgrade and compatibility
-
-ONTAP-mode is opt-in per backend through the `gcnv` configuration block:
-
-* Existing non-GCNV ONTAP backends are unaffected.
-* Mixed deployments that combine direct ONTAP backends and ONTAP-mode proxy backends are supported through backend-level configuration. Each backend is configured independently.
-* To stop using ONTAP-mode, remove or replace the affected backends. No global switch is required.
-
-== What's next?
-
-Apply secret before TBC; use `kubectl apply` and `-n trident` to match examples.
+[source, yaml]
 ----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gcnv-ontap-empty
+  namespace: trident
+type: Opaque
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-ontap-nas-wi
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: gcnv-ontap-nas-wi
+  useREST: true
+  nasType: nfs
+  nfsMountOptions: nfsvers=4.1
+  credentials:
+    name: gcnv-ontap-empty
+    type: secret
+  gcnv:
+    proxyURL: "https://netapp.googleapis.com"
+    projectNumber: "<project-number>"
+    location: "<pool-location>"
+    poolID: "<pool-id>"
+----
+
+
+[[validation-and-initialization-behavior]]
+== 驗證和初始化行為
+
+Trident 在初始化期間驗證 ONTAP 模式後端，並快速失敗而不是部分初始化。
+
+如果缺少必要 `gcnv`欄位、驅動程式不支援 ONTAP 模式或認證資料解析失敗，則後端初始化失敗。
+
+
+
+[[known-limitations]]
+== 已知限制
+
+* 此功能目前處於技術預覽階段。在 GA 前，其行為和支援的對照表可能會有所更改。
+* ONTAP 模式下不使用 ZAPI 回退機制。
+* 協定和節點就緒要求仍然適用。例如，iSCSI 工作流程需要 link:../trident-use/worker-node-prep.html["準備工作節點"] 中所述的節點端先決條件。
+* 現有的 ONTAP 和 GCNV 環境限制仍然適用。
+
+
+
+
+[[upgrade-and-compatibility]]
+== 升級和相容性
+
+ONTAP 模式可透過 `gcnv`組態區塊按後端選擇啟用：
+
+* 現有的非 GCNV ONTAP 後端不受影響。
+* 透過後端層級的組態，支援結合直接 ONTAP 後端和 ONTAP 模式 Proxy 後端的混合部署。每個後端都是獨立設定的。
+* 若要停止使用 ONTAP 模式，請移除或取代受影響的後端。不需要全域交換器。
+
+
+
+
+[[whats-next]]
+== 接下來呢？
+
+在 TBC 之前套用機密；使用  `kubectl apply` 和  `-n trident` 來符合範例。

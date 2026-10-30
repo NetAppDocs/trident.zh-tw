@@ -168,7 +168,7 @@ Trident 支援使用和 `ontap-nas-flexgroup`驅動程式進行 Volume 匯入 `o
 
 [NOTE]
 ====
-* 該 `ontap-nas-economy`驅動程式在 qtree 層級管理儲存，因此本身不支援匯入 FlexVol volume。若要使用該 `ontap-nas-economy`驅動程式匯入 qtree，請參閱<<import-qtrees,導入 qtrees>>（技術預覽版）。當 Trident 匯入 qtree 時，也會將包含該 qtree 的父 FlexVol 匯入為儲存貯體。
+* 若要使用 `ontap-nas-economy`驅動程式匯入 qtree，請參閱<<import-qtrees,匯入 NFS qtree>>。當 Trident 匯入 qtree 時，也會將父 FlexVol 作為包含該 qtree 的儲存桶匯入。qtree 必須單獨匯入。
 * 。 `ontap-nas` 和 `ontap-nas-flexgroup` 驅動程式不允許重複的磁碟區名稱。
 
 
@@ -274,10 +274,10 @@ spec:
 
 [NOTE]
 ====
-Qtree 導入是 Trident 26.06 中的技術預覽功能。技術預覽功能不支援在生產環境中使用。
+Qtree 導入是 Trident 26.10 中的技術預覽功能。技術預覽功能不支援在生產環境中使用。
 
 ====
-從 Trident 26.06 開始，您可以使用  `ontap-nas-economy` 驅動程式將現有的 ONTAP qtree 匯入 Trident。請以 FlexVol volume 和 qtree 名稱（格式為  `flexvol/qtree`）以及包含該 qtree 的後端 UUID 來識別 qtree。<<總覽與考量>> 中的一般匯入注意事項也適用於 qtree 匯入。
+您可以使用  `ontap-nas-economy` 驅動程式將現有的 ONTAP qtree 匯入 Trident。請以  `flexvol/qtree` 格式的 FlexVol Volume 和 qtree 名稱，以及包含該 qtree 的後端 UUID 來識別 qtree。<<總覽與考量>> 中的一般匯入考量也適用於 qtree 匯入。
 
 .使用 tridentctl 導入 qtree
 以  `flexvol/qtree` 格式將 qtree 指定為磁碟區名稱。以下範例會從後端  `ontap_nas_economy` 上的 FlexVol volume `flexvol1` 匯入 qtree `qtree1`：

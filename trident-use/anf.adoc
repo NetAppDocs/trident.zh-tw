@@ -25,6 +25,7 @@ Trident 支援多種 Azure 雲端環境中的 Azure NetApp Files 後端。
 
 * Azure 商業版
 * Azure Government（Azure Government / MAG）
+* Azure 中國
 
 
 部署 Trident 或設定 Azure NetApp Files 後端時、請確保 Azure Resource Manager 和驗證端點與您的 Azure 雲端環境相符。
@@ -105,7 +106,7 @@ spec:
 
 [listing]
 ----
-helm install trident trident-operator-100.2602.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
+helm install trident trident-operator-100.2610.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
 ----
 --
 .<code>tridentctl</code>

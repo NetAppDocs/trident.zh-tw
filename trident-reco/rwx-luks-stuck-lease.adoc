@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/rwx-luks-stuck-lease.html 
+keywords: LUKS, RWX, Lease, cryptsetup, troubleshooting, remediation 
+summary: '識別並安全地修復 ReadWriteMany (RWX) Linux 統一金鑰設定 (LUKS) Volume 的卡住的 Kubernetes 租約。' 
+---
+= 修正 RWX Linux 統一金鑰設定（LUKS）Volume 卡住的租約
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果節點在持有其 Kubernetes 租約時發生故障，則 ReadWriteMany (RWX) Linux 統一金鑰設定 (LUKS) Volume 可能會被封鎖。刪除租約前，請確認沒有 `cryptsetup`作業仍在執行；在作業期間將其刪除可能會使 LUKS 標頭面臨風險。
+
+
+
+[[understand-the-lease]]
+== 了解租約
+
+Trident 使用 Kubernetes 租約來確保同一時間只有一個節點可以 `cryptsetup`對 RWX LUKS Volume 執行命令。租約在 Trident 命名空間中建立，租約名稱即為 PersistentVolume（PV）名稱。持有者身分用於識別執行作業的節點。
+
+Trident 會在作業成功後刪除租約。如果作業失敗， Trident 會保留租約，以便只有同一個節點可以重試。租約不會自動過期或續約。帶有原因的警告事件 `LeaseRetained`包含有關失敗作業的詳細資訊。
+
+
+
+[[identify-a-potentially-stuck-lease]]
+== 識別可能卡住的租約
+
+症狀可能包括 pod 卡在 `ContainerCreating`或 `Terminating`、Volume 擴充失敗，或暫時性鎖定錯誤。
+
+. 找到受影響的 pod 所使用的 PVC：
++
+[source, console]
+----
+kubectl get pod -n <app-namespace> <pod-name> \
+  -o jsonpath='{.spec.volumes[*].persistentVolumeClaim.claimName}'
+----
+. 找出繫結至 PVC 的 PV：
++
+[source, console]
+----
+kubectl get pvc -n <app-namespace> <pvc-name> \
+  -o jsonpath='{.spec.volumeName}'
+----
+. 列出 Trident 命名空間中的租約，並識別具有 PV 名稱的租約：
++
+[source, console]
+----
+kubectl get lease -n <trident-namespace>
+----
+. 檢查相符的租約，包括其持有人、存在時間和事件：
++
+[source, console]
+----
+kubectl describe lease -n <trident-namespace> <pv-name>
+----
+
+
+`cryptsetup` 操作通常會在幾秒鐘內完成。超過 5 到 10 分鐘的租約可能表示發生死結。檢查  `LeaseRetained` 事件是否有重複的錯誤，識別持有者節點，並檢查節點健全狀況：
+
+[source, console]
+----
+kubectl get nodes
+kubectl get pods -A -o wide --field-selector spec.nodeName=<lease-holder-node>
+----
+如果節點運作正常且租約沒有警告事件，請在斷定租約卡住之前，檢查持有節點上的 Trident 節點 pod 記錄：
+
+[source, console]
+----
+kubectl get pods -n <trident-namespace> -o wide \
+  --field-selector spec.nodeName=<lease-holder-node>
+kubectl logs -n <trident-namespace> <trident-node-pod> -c trident-main
+----
+如果底層節點或網路問題可以修復，請先進行修復。當 Trident 成功完成作業時，Lease 即可解除。
+
+
+
+[[safely-resolve-the-stuck-lease]]
+== 安全解決卡住的租約
+
+[IMPORTANT]
+====
+請勿在租約持有者可能仍在執行 `cryptsetup`操作時刪除租約。來自不同節點且未由租約協調的並行 `cryptsetup`命令可能會毀損 LUKS 標頭。
+
+====
+使用與節點狀況相符的修復方案：
+
+* **持有者節點已發生故障並已斷電：** 識別該節點持有的租約，並刪除受影響的租約。如果節點在其工作負載重新排程之前恢復，請允許 Trident 完成其作業並版本租約。如果工作負載已移動，請等待其在已復原節點上的 Pod 完全終止，確認死結仍然存在，然後移除過期的租約。
+* **持有者節點已失去控制平面連線：**該節點可能仍在執行工作負載。建議在刪除租約之前先關閉該節點。如果該節點仍然可以存取，請停止該節點上的 Trident 節點 Container ，或從其記錄中確認它無法取得或刪除租約且未執行 `cryptsetup`。Trident 需要存取 Kubernetes API 才能在每次操作前取得租約；連線遺失後，它將無法啟動其他操作。在考慮刪除之前，請從建立租約起至少等待五分鐘，以便任何正在進行的命令都能完成。
+* **持有節點和網路運作正常：** 檢查租約警告事件和 Trident 節點日誌，以確定故障操作。如果需要將受影響的工作負載移動到另一個節點，請隔離持有節點，刪除受影響的應用程式 Pod （不要強制刪除），等待它們終止，然後解除隔離節點。只有在確認原始操作不再執行後，才能刪除租約。
+
+
+只有在確認安全無虞後，才能刪除租約：
+
+[source, console]
+----
+kubectl delete lease -n <trident-namespace> <pv-name>
+----
+修復後，監控受影響的 Pod 和 Volume 操作。如果租約再次保留，請調查租約事件中報告的 cryptsetup 錯誤並解決根本問題。

@@ -1,0 +1,124 @@
+---
+sidebar: sidebar 
+permalink: trident-use/refresh-nvme-data-lifs.html 
+keywords: Trident, NVMe, NVMe/TCP, data LIF, ONTAP SAN, ASA r2 
+summary: 設定 Trident 以重新整理已發布 Volume 的 NVMe 資料 LIF。 
+---
+= 重新整理 NVMe 資料 LIFs
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+啟用 NVMe 資料 LIF 重新整理，讓已發佈的 NVMe Volume 能夠使用已新增、移除或指派新位址的 LIF，而無需重新建立後端或重新啟動 Trident。
+
+
+
+[[overview]]
+== 總覽
+
+當您新增 ONTAP SAN 後端時，Trident 會發現 SVM 的 NVMe 資料 LIF。預設情況下，Trident 會保留這組 LIF，直到您再次新增後端或重新啟動 Trident。
+
+將 `enableDataLIFRefresh`設定為 `true`，以便在 Trident 執行時重新整理 NVMe 資料 LIF。已發佈的 NVMe Volume 接著會使用已新增、已移除或已指派新位址的 LIF。
+
+此選項為安裝參數，而非後端組態參數。預設為停用。
+
+從 Trident 26.10 開始，可使用 NVMe 資料 LIF 重新整理。
+
+此功能適用於：
+
+* `ontap-san` 搭配  `sanType: nvme` 於統一的 ONTAP 上。
+* `ontap-san`在 ASA r2 上使用 NVMe/TCP。
+
+
+[CAUTION]
+====
+同時移除或取代所有資料 LIF 會造成中斷。如果您打算移除或取代所有資料 LIF，請確保先部署一個替代 LIF，以避免資料存取中斷。
+
+====
+
+
+[[enable-nvme-data-lif-refresh]]
+== 啟用 NVMe 資料 LIF 重新整理
+
+
+
+[[trident-operator]]
+=== Trident運算子
+
+若要進行新的安裝，請在 `TridentOrchestrator` spec 中設定 `enableDataLIFRefresh`：
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableDataLIFRefresh: true
+----
+套用清單：
+
+[source, console]
+----
+kubectl apply -f tridentorchestrator_cr.yaml
+----
+對於現有安裝，請修補 `TridentOrchestrator`：
+
+[source, console]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"enableDataLIFRefresh":true}}'
+----
+驗證所應用的值：
+
+[source, console]
+----
+kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableDataLIFRefresh}'
+----
+
+
+[[helm]]
+=== 掌舵
+
+對於全新安裝，請設定 Helm 值：
+
+[source, console]
+----
+helm install trident netapp-trident/trident-operator \
+  --namespace trident --create-namespace \
+  --set enableDataLIFRefresh=true
+----
+對於現有的 Helm 安裝，請使用啟用的值升級版本：
+
+[source, console]
+----
+helm upgrade trident netapp-trident/trident-operator \
+  --namespace trident \
+  --reuse-values \
+  --set enableDataLIFRefresh=true
+----
+您也可以在 Helm 值檔案中設定 `enableDataLIFRefresh: true`，並透過 `-f <values-file>`將其傳遞給 `helm upgrade`。
+
+
+
+[[tridentctl]]
+=== 試用
+
+對於全新安裝，請使用  `--enable-datalif-refresh` 旗標：
+
+[source, console]
+----
+tridentctl install --enable-datalif-refresh -n trident
+----
+若要在現有 `tridentctl`安裝中啟用此選項，請解除安裝 Trident 並使用該旗標重新安裝。解除安裝前，請遵循 link:../trident-managing-k8s/uninstall-trident.html["解除安裝Trident"] 中的注意事項。
+
+[source, console]
+----
+tridentctl uninstall -n trident
+tridentctl install --enable-datalif-refresh -n trident
+----
+
+NOTE: 此 `--enable-datalif-refresh`標誌是安裝選項，不會顯示在 `tridentctl install --help`中。

@@ -162,6 +162,8 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 | useOpenshiftServiceCA | 布林值 | 啟用與 OpenShift 原生 Service CA Operator 的整合，以便為 Trident Protect 准入 Webhook 自動建立和注入 TLS 憑證。設為 `true`時，Service CA Operator 將自動管理 Webhook TLS 憑證。僅在 OpenShift 叢集上使用。（預設值： `false`） 
 |===
+若要加密快照和備份中繼資料，請參閱link:trident-protect-encrypt-appvault-metadata.html["加密 Trident Protect 快照與備份的 AppVault 中繼資料"]。
+
 您可以使用 YAML 設定檔或命令列標誌來設定這些選項：
 
 [role="tabbed-block"]

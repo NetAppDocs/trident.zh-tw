@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-restore-settings.html 
-keywords: trident, protect, restore, data, backup 
+keywords: trident, protect, restore, data, backup, mac address, retain-mac-address 
 summary: 您可以使用註解、命名空間設定和儲存選項來自訂Trident Protect 復原作業。 
 ---
 = 使用進階Trident Protect 恢復設定
@@ -145,4 +145,7 @@ storageClassMapping:
 
 
 | protect.trident.netapp.io/pvc-bind-timeout-sec | 字串 | 等待新建立的持久卷聲明 (PVC) 到達的最大時間（以秒為單位） `Bound`操作失敗前的階段。適用於所有還原 CR 類型（備份還原、備份就地還原、快照還原、快照就地還原）。如果您的儲存後端或叢集經常需要更多時間，請使用更高的值。 | 1200（20分鐘） 
+
+
+| protect.trident.netapp.io/retain-mac-address | 字串 | 對於 KubeVirt 虛擬機器，請設定為 `"true"`以在還原時保留第一個網路介面的 MAC 位址，例如當應用程式授權綁定到該介面時。適用於所有還原 CR 類型以及 AppMirrorRelationship （請在提升關係之前設定）。預設情況下， Trident Protect 會移除此 MAC 位址以防止衝突。如果來源虛擬機器仍在同一網路上運行，請先將其關閉或還原到隔離的網路，以避免複製的 MAC 位址。 | 未設定（MAC 位址已移除） 
 |===

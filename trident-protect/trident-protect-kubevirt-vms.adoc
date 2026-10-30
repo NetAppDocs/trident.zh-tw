@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-kubevirt-vms.html 
-keywords: kubevirt, openshift virtualization, virtual machine, vm, backup, restore, includedvirtualmachines 
-summary: 使用 Trident Protect 保護 OpenShift Virtualization 上的 KubeVirt 虛擬機器。備份命名空間中的所有 VM，或依名稱指定特定的 VM。從備份或快照歸檔中選擇性地還原個別 VM。 
+keywords: kubevirt, openshift virtualization, virtual machine, vm, backup, restore, includedvirtualmachines, mac address, retain-mac-address 
+summary: 使用 Trident Protect 保護 OpenShift Virtualization 上的 KubeVirt 虛擬機器。備份命名空間中的所有虛擬機器，或依名稱指定特定虛擬機器。從備份或快照歸檔中選擇性地還原個別虛擬機器。 
 ---
 = 使用 Trident Protect 保護 KubeVirt 虛擬機器
 :hardbreaks:
@@ -41,9 +41,13 @@ Trident Protect 支援兩種定義要保護的 KubeVirt 虛擬機器的方式。
 * 使用 `includedClusterScopedResources`以包含相容的叢集範圍資源，例如 `StorageClass`物件。
 
 
+[NOTE]
+====
+* Trident Protect 可在資料保護作業期間凍結和解凍 KubeVirt 虛擬機器檔案系統，以確保資料一致性。如需組態詳細資料，請參閱 link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["使用 KubeVirt VM 保護資料"]。
+* 若要在同一時間點為虛擬機器的所有磁碟建立快照，請使用 Volume 群組快照。請參閱 link:trident-protect-volume-group-snapshots.html["搭配 Trident Protect 使用 Volume 群組快照"]。
 
-NOTE: Trident Protect 可在資料保護作業期間凍結和解凍 KubeVirt 虛擬機器檔案系統，以確保資料一致性。如需組態詳細資料，請參閱 link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["使用 KubeVirt VM 保護資料"]。
 
+====
 
 
 [[resources-collected-during-backup-and-snapshot]]
@@ -182,9 +186,13 @@ spec:
 
 | Pod (`virt-launcher`） | 當 pod 具有 `kubevirt.io=virt-launcher`標籤時跳過。 
 |===
+[NOTE]
+====
+* Trident Protect 會依照預先定義的順序復原 KubeVirt 資源，以避免相依性問題。CDI DataVolumes (`cdi.kubevirt.io`） 會優先復原，以確保在建立虛擬機器物件之前，虛擬機器磁碟資料已可供使用。之後，VirtualMachines (`kubevirt.io`） 會在 VirtualMachineInstances 之前復原。
+* 預設情況下， Trident Protect 會移除每個已還原虛擬機器的第一個網路介面的 MAC 位址。若要保留它，請使用  `protect.trident.netapp.io/retain-mac-address` 註解。請參閱 link:trident-protect-restore-settings.html#supported-annotations["使用進階Trident Protect 恢復設定"]。
 
-NOTE: Trident Protect 會依照預先定義的順序復原 KubeVirt 資源，以避免相依性問題。CDI DataVolumes (`cdi.kubevirt.io`） 會優先復原，以確保在建立虛擬機器物件之前，虛擬機器磁碟資料已可供使用。之後，VirtualMachines (`kubevirt.io`） 會在 VirtualMachineInstances 之前復原。
 
+====
 
 
 [[dynamic-vm-protection-with-label-selectors]]
@@ -583,6 +591,7 @@ tridentctl-protect create application <application_name> \
 * link:trident-protect-protect-apps.html["保護應用程式"]
 * link:trident-protect-restore-apps.html["使用Trident Protect 恢復應用程式"]
 * link:trident-protect-restore-settings.html["使用進階還原設定"]
+* link:trident-protect-use-snapmirror-replication.html["使用NetApp SnapMirror和Trident Protect 複製應用程式"]
 * link:trident-protect-cli.html["安裝Trident Protect CLI 插件"]
 * link:trident-protect-appvault-custom-resources.html["使用 AppVault 物件來管理貯體"]
 

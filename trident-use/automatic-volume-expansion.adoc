@@ -16,6 +16,8 @@ summary: 使用 Trident Autogrow 政策設定和管理自動磁碟區擴充。
 * 磁碟區可達到的最大大小
 
 
+Trident Autogrow 原則會擴充 PVC。這與 link:ontap-autosize.html["ONTAP Volume 自動調整規模"] 不同，後者會擴充基礎 FlexVol 而不改變 PVC 大小。
+
 
 NOTE: 當超過定義的使用率臨界值時，磁碟區大小會自動增加。磁碟區大小永遠不會自動減少。
 

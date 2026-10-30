@@ -12,7 +12,7 @@ summary: 您可以啟用 Linux 統一金鑰設定（ LUKS ）來加密 Trident �
 
 
 [role="lead"]
-您可以啟用 Linux 統一金鑰設定（ LUKS ）來加密 Trident 上的 ONTAP SAN 和 ONTAP SAN 經濟磁碟區。Trident 支援使用複雜密碼的旋轉和磁碟區擴充、適用於使用 LUKS 加密的磁碟區。
+Linux 統一金鑰設定 (LUKS) 是一種磁碟加密規範。Trident 使用 LUKS 為 ONTAP SAN 和 ONTAP SAN ECONOMY Volume 提供每個 Volume 的主機端加密，並支援密碼片語輪替與 Volume 擴充。
 
 在 Trident 中， LUKS 加密的磁碟區使用 AES-XTS-plain64 cypher 和模式link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^]，如所建議。
 
@@ -95,6 +95,48 @@ stringData:
   luks-passphrase: secretA
 ----
 
+
+
+
+[[use-luks-with-rwx-raw-block-volumes]]
+== 將 LUKS 與 RWX 原始區塊 Volume 一起使用
+
+從 Trident 26.10 開始，您可以將 LUKS 加密與 iSCSI 支援的原始區塊 Volume 搭配使用，這些 Volume 使用 `ReadWriteMany` (RWX) 存取模式連接到多個 Kubernetes 節點。這對於需要在即時移轉期間將相同加密 Volume 連接到目的地節點，同時仍連接到來源節點的工作負載（例如 KubeVirt 虛擬機器）非常有用。
+
+RWX LUKS 支援僅限於原始區塊 Volume。不支援檔案系統模式的 RWX LUKS Volume。應用程式負責協調對解密資料的並行存取；Trident 僅負責協調 LUKS 作業。
+
+如 <<啟用LUKS加密>> 所述，在後端、StorageClass 和密碼 Secret 上設定 LUKS。然後使用  `volumeMode: Block` 和  `ReadWriteMany` 建立 PVC：
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-rwx-pvc
+  namespace: my-app
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Block
+  storageClassName: san-luks-rwx
+  resources:
+    requests:
+      storage: 10Gi
+----
+多個節點上的 Pod 可以將此 PVC 作為原始區塊裝置附加。Trident 在裝置首次附件時使用 LUKS2 進行格式化，並在後續節點上開啟現有的加密 Volume。支援現有的 LUKS 操作，包括密碼輪換和 Volume 擴充。
+
+
+
+[[why-trident-serializes-luks-operations]]
+=== 為什麼 Trident 會對 LUKS 作業進行序列化
+
+LUKS2 在區塊裝置的開頭儲存其加密標頭的備援副本。 `cryptsetup` 當偵測到副本存在差異時，即使在看似唯讀的命令執行期間，也能修理標頭。它的鎖定機制僅限於節點，無法協調其他節點上的作業。如果一個節點正在更新標頭，而另一個節點執行  `cryptsetup`，則第二個節點可能會觸發標頭修理並中斷更新，這可能會導致標頭毀損。
+
+為了防止同時存取標頭， Trident 為每個 RWX LUKS Volume 使用 Kubernetes 租約。在節點對 Volume 執行任何 `cryptsetup`命令之前，必須持有該租約。Trident 在操作成功後會釋放租約。如果在持有租約期間有其他節點要求操作， Trident 將傳回可重試的錯誤， Kubernetes 稍後會重試。對不同 Volume 的操作是獨立的。
+
+如果  `cryptsetup` 作業失敗，Trident 會故意保留租約，以便只有同一節點才能重試。帶有原因  `LeaseRetained` 的警告事件會記錄此故障。租約不會自動過期；系統管理員只有在確認其持有節點上沒有執行  `cryptsetup` 作業後，才應移除租約。如需恢復步驟，請參閱 <<rwx-luks-stuck-lease,修正 RWX Linux 統一金鑰設定（LUKS）Volume 卡住的租約>>。
+
+由於節點輪流開啟 Volume，因此在許多不同節點上啟動工作負載所需的時間可能比使用未加密 Volume 更長。Kubernetes 會在目前作業完成後重試暫時性鎖定錯誤。在大規模橫向擴充期間，Pod 可能會停留在 `ContainerCreating`更長時間；同一個節點上的工作負載可以共享單一開啟的裝置對應。
 
 
 

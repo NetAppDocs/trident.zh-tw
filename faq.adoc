@@ -384,7 +384,7 @@ Kubernetes從1.10版開始自動啟用PVc保護。
 [[can-i-grow-nfs-pvcs-that-were-created-by-trident]]
 === 我可以擴充 Trident 所建立的 NFS PVCS 嗎？
 
-是的。您可以擴充 Trident 所建立的 PVC 。請注意、Volume自動擴充ONTAP 是不適用於Trident的功能。
+是的。您可以擴充由 Trident 建立的 NFS PVC。Trident Autogrow 原則可以根據容量臨界值自動擴充 PVC。ONTAP Volume 自動調整規模是分隔的，並適用於支援的 ONTAP SAN 驅動程式：它會擴充後端 FlexVol 而不變更 PVC 大小。如需詳細資訊，請參閱 link:trident-use/ontap-autosize.html["ONTAP Volume 自動調整規模"^]。
 
 
 

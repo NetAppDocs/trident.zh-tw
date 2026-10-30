@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-use-snapmirror-replication.html
 keywords: trident, protect, netapp, snapmirror, data, asynchronous, replication, clusters 
 summary: 使用Trident Protect，您可以利用NetApp SnapMirror技術的非同步複製功能，將資料和應用程式變更從一個儲存後端複製到另一個儲存後端，無論是在同一叢集內還是在不同叢集之間。 
 ---
-= 使用NetApp SnapMirror和Trident Protect 複製應用程式
+= 使用 Trident Protect 設定和管理應用程式複寫
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -382,6 +382,7 @@ NOTE: 使用 CR 時，請在套用 CR 之前手動建立目標命名空間。Tri
 .. 設定下列屬性：
 +
 *** * metadata.name:* （必要） AppMirrorRelationship 自訂資源的名稱。
+*** *metadata.annotations.protect.trident.netapp.io/retain-mac-address*：（選用）設定為 `"true"` 以保留目的地叢集上 KubeVirt 虛擬機器的 MAC 位址。請參閱 link:trident-protect-restore-settings.html#supported-annotations["使用進階Trident Protect 恢復設定"]。
 *** * spec.destinationAppVaultRef*: （ _required _ ）此值必須符合目的地叢集上目的地應用程式的 AppVault 名稱。
 *** * spec.namespaceMapping*: （ _required _ ）目的地和來源命名空間必須符合各自應用程式 CR 中定義的應用程式命名空間。
 *** *spec.sourceAppVaultRef* ：（ _required _ ）此值必須符合來源應用程式的 AppVault 名稱。
@@ -476,7 +477,15 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 
 使用Trident Protect，您可以將複製的應用程式故障轉移到目標叢集。此過程會停止複製關係，並將應用程式在目標叢集上連線。如果來源叢集上的應用程式正在運行， Trident Protect 不會停止該應用程式。
 
+此程序會容錯移轉至最新的快照。若要容錯移轉至較舊的快照，請參閱 link:trident-protect-failover-older-snapshot.html["使用 Trident Protect 容錯移轉到較早的快照"]。
+
 .步驟
+. （選用）若要保留 KubeVirt 虛擬機器的 MAC 位址，請在提升 AppMirrorRelationship 之前對其進行註解。請參閱 link:trident-protect-restore-settings.html#supported-annotations["使用進階Trident Protect 恢復設定"]。
++
+[source, console]
+----
+kubectl annotate appmirrorrelationship <relationship_name> -n <application_namespace> protect.trident.netapp.io/retain-mac-address="true"
+----
 . 在目標叢集上，編輯 AppMirrorRelationship CR 檔案（例如 `trident-protect-relationship.yaml`），並將 * spec.desiredState* 的值變更為 `Promoted`。
 . 儲存 CR 檔案。
 . 套用 CR ：

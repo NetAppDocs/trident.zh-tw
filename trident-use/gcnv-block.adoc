@@ -38,11 +38,49 @@ NOTE: SAN 驅動程式僅支援區塊工作負載。若要資源配置 NAS Volum
 
 WIF 將投射的 Kubernetes 服務帳戶權杖交換為短期的 Google Cloud 認證資料。Trident 在呼叫 Google Cloud NetApp Volumes API 時，會使用這些認證資料來模擬 Google Cloud 服務帳戶。
 
-為 OpenShift 叢集設定 Google Cloud Workload Identity Pool 和 OIDC 供應商。供應商發行者必須符合權杖的 `iss`宣告，其屬性對應必須將 `assertion.sub`對應至 `google.subject`，且其允許的對象必須符合權杖的 `aud`宣告。
+為 OpenShift 叢集設定 Google Cloud Workload Identity Pool 和 OIDC 供應商。供應商發行者必須與權杖的 `iss`宣告相符，且其屬性對應必須將 `assertion.sub`對應至 `google.subject`。
 
-將 Trident 將要模擬的 Google Cloud 服務帳戶上的 `roles/iam.workloadIdentityUser` 角色，授予 Trident 控制器服務帳戶的 WIF 主體。對於預設的 Trident 控制器服務帳戶，權杖主旨為 `system:serviceaccount:trident:trident-controller`；請使用為您的安裝所設定的主旨。在包含 Google Cloud NetApp Volumes 資源的專案上，授予被模擬的服務帳戶 `roles/netapp.admin` 或等效權限。
+安裝 Trident 時，將供應商資源名稱設定為 WIF 對象。這會使 Trident 專案控制器服務帳戶權杖於 `/var/run/secrets/wif-token/token`。
 
-Trident 控制器必須能在 `/var/run/secrets/wif-token/token`存取投影的權杖。將 `wipCredentialConfig.audience` 設定為與權杖及供應商允許的對象相同的對象。將下列段落新增至如下所示之 SAN 後端的 `spec`，並將預留位置替換為您環境中的值：
+.Trident運算子
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  cloudProvider: GCP
+  gcpWIFAudience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+.掌舵
+[source, console]
+----
+helm install trident <trident-operator-package> \
+  --namespace trident \
+  --create-namespace \
+  --set cloudProvider=GCP \
+  --set-string gcpWIFAudience="//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+.試用
+[source, console]
+----
+tridentctl install \
+  --namespace trident \
+  --cloud-provider GCP \
+  --gcp-wif-audience "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+請為 Trident 安裝和 `wipCredentialConfig.audience`使用相同的對象。請勿同時設定 GKE `cloudIdentity` 或 `--cloud-identity`。請勿修補控制器 Deployment 來新增 projected token；Trident 營運者可以覆寫該變更。
+
+[IMPORTANT]
+====
+在 OpenShift Dedicated 上，OIDC 供應商可以是與其他 OpenShift 元件共享的。如果供應商的 `allowedAudiences`清單為空，Google 會接受供應商的規範資源名稱（有或沒有 `https://`前綴），因此上述對象無需更改供應商。請勿僅為 Trident 設定明確的對象清單。如果供應商已有明確的對象，請在保留所有現有值的情況下附加 Trident 對象。替換清單可能會阻止其他 OpenShift 元件交換權杖。
+
+====
+在 Trident 將要模擬的 Google Cloud 服務帳戶上，授予 Trident 控制器服務帳戶的 WIF 主體 `roles/iam.workloadIdentityUser`角色。對於預設的 Trident 控制器服務帳戶，權杖主旨為 `system:serviceaccount:trident:trident-controller`；請使用為您的安裝所設定的主旨。在包含 Google Cloud NetApp Volumes 資源的專案上，授予被模擬的服務帳戶 `roles/netapp.admin`或等效權限。
+
+將以下程式碼段新增至 SAN 後端的 `spec`：
 
 [source, yaml]
 ----

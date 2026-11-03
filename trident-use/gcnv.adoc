@@ -110,6 +110,11 @@ tridentctl install \
 
 WIF 將投射的 Kubernetes 服務帳戶 Token 交換為短期的 Google Cloud 認證資料。Trident 使用這些認證資料來模擬 Google Cloud 服務帳戶；該服務帳戶的 IAM 角色會授權其 Google Cloud NetApp Volumes API 呼叫。這可避免在後端組態中儲存長期的服務帳戶金鑰。
 
+[IMPORTANT]
+====
+在 OpenShift Dedicated 上，OIDC 供應商是可以與其他 OpenShift 元件共享的。如果供應商的 `allowedAudiences`清單為空，Google 會接受供應商的規範資源名稱（有或沒有 `https://`前綴），因此 Trident 對象無需更改供應商。請勿僅為 Trident 設定明確的對象清單。如果供應商已包含明確的對象，請在保留所有現有值的情況下附加 Trident 對象。替換清單可能會阻止其他 OpenShift 元件交換權杖。
+
+====
 
 
 ==== 準備 OpenShift 叢集
@@ -197,11 +202,6 @@ oc -n trident get deploy trident-controller -o yaml
 
 為叢集設定 Google Cloud Workload Identity Pool 和 OIDC 供應商。供應商發行者必須與權杖的 `iss`宣告相符，且其屬性對應必須將 `assertion.sub`對應至 `google.subject`。供應商的允許對象必須與投射權杖的 `aud`宣告相符。
 
-[CAUTION]
-====
-對於 OSD，請勿替換或限制共享的供應商的對象清單。當 `allowedAudiences`為空時，Google 會接受供應商的規範資源名稱（無論是否帶有 `https://`前綴）。設定 `--allowed-audiences`會取代該預設清單，並可能阻止其他 OSD 元件交換權杖。僅當供應商已擁有明確的對象清單時才新增對象，並保留所有現有值。請勿向 OSD 的共享的供應商新增屬性條件。請參閱 Google Cloud link:https://docs.cloud.google.com/iam/docs/reference/rest/v1/projects.locations.workloadIdentityPools.providers#Oidc["OIDC 供應商參考"^]。
-
-====
 僅在使用 OIDC 探索時，才需要公開 `.well-known/openid-configuration`和 JWKS 端點。Google 也支援使用 `jwksJson`或 `--jwk-json-path`直接上傳 JWKS。
 
 在 Trident 將要模擬的 Google Cloud 服務帳戶上，授予 WIF 主體  `roles/iam.workloadIdentityUser` 角色。對於權杖主旨  `system:serviceaccount:trident:trident-controller`，主體具有以下形式：

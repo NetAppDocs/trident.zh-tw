@@ -24,6 +24,11 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 了解 NetApp Trident 和 Trident Protect 的新特性，包括增強功能、修復和棄用。
 
+[WARNING]
+====
+請勿從 Trident 25.10 或任何更早版本升級至 Trident 26.10.0。在啟動過程中，Trident 節點 Pod 可能會分離仍在使用的磁碟區。受影響的 Pod 可能會因錯誤 `volume ... is not staged`而失敗。請等待包含此修復程式的版本後再進行升級。如需詳細資訊，請參閱 link:known-issues.html["已知問題"]。
+
+====
 
 
 [[trident]]

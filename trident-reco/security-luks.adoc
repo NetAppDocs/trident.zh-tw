@@ -134,7 +134,7 @@ LUKS2 在區塊裝置的開頭儲存其加密標頭的備援副本。 `cryptsetu
 
 為了防止同時存取標頭， Trident 為每個 RWX LUKS Volume 使用 Kubernetes 租約。在節點對 Volume 執行任何 `cryptsetup`命令之前，必須持有該租約。Trident 在操作成功後會釋放租約。如果在持有租約期間有其他節點要求操作， Trident 將傳回可重試的錯誤， Kubernetes 稍後會重試。對不同 Volume 的操作是獨立的。
 
-如果  `cryptsetup` 作業失敗，Trident 會故意保留租約，以便只有同一節點才能重試。帶有原因  `LeaseRetained` 的警告事件會記錄此故障。租約不會自動過期；系統管理員只有在確認其持有節點上沒有執行  `cryptsetup` 作業後，才應移除租約。如需恢復步驟，請參閱 <<rwx-luks-stuck-lease,修正 RWX Linux 統一金鑰設定（LUKS）Volume 卡住的租約>>。
+如果  `cryptsetup` 作業失敗，Trident 會故意保留租約，以便只有同一節點才能重試。帶有原因  `LeaseRetained` 的警告事件會記錄此故障。租約不會自動過期；系統管理員只有在確認其持有節點上沒有執行  `cryptsetup` 作業後，才應移除租約。如需恢復步驟，請參閱 link:rwx-luks-stuck-lease.html["修正 RWX Linux 統一金鑰設定（LUKS）Volume 卡住的租約"]。
 
 由於節點輪流開啟 Volume，因此在許多不同節點上啟動工作負載所需的時間可能比使用未加密 Volume 更長。Kubernetes 會在目前作業完成後重試暫時性鎖定錯誤。在大規模橫向擴充期間，Pod 可能會停留在 `ContainerCreating`更長時間；同一個節點上的工作負載可以共享單一開啟的裝置對應。
 

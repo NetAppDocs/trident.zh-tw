@@ -103,7 +103,7 @@ Trident 支援多種 Azure 雲端環境中的 Azure NetApp Files 後端。
 ====
 
 
-* Azure `location` 至少包含一個 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["委派的子網路"^]。從Trident 22.01起 `location` 參數是後端組態檔最上層的必填欄位。會忽略虛擬資源池中指定的位置值。
+* 包含至少一個 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["委派的子網路"^]的 Azure `location`。 `location`參數必須在後端組態檔案的最上層指定。在虛擬集區中指定的位置值將被忽略。
 * 以供使用 `Cloud Identity`請取得 `client ID` 從 https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities["使用者指派的託管身分識別"^] 並在中指定該 ID `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`。
 
 

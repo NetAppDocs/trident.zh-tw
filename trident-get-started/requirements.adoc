@@ -279,8 +279,8 @@ link:../trident-reference/ports.html["Trident 連接埠"]
 
 
 
-[[container-images-required-for-trident-26-10-0]]
-=== Trident 26.10.0 所需的容器映像
+[[container-images-required-for-trident-26-10-1]]
+=== Trident 26.10.1 所需的容器映像
 
 [cols="2"]
 |===
@@ -288,9 +288,9 @@ link:../trident-reference/ports.html["Trident 連接埠"]
 
 
 | v1.27.0、v1.28.0、v1.29.0、v1.30.0、v1.31.0、v1.32.0、v1.33.0、v1.34.0、v1.35.0、v1.36.0、v1.37.0  a| 
-* docker.io/netapp/trident:26.10.0
+* docker.io/netapp/trident:26.10.1
 * docker.io/netapp/trident-autosupport:26.10
-* docker.io/netapp/trident-operator:26.10.0 （選用）
+* docker.io/netapp/trident-operator:26.10.1 （選用）
 * registry.k8s.io/sig-storage/csi-attacher:v4.11.0
 * registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.17.0
 * registry.k8s.io/sig-storage/csi-provisioner:v6.3.0

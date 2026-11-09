@@ -18,13 +18,6 @@ summary: 以下是此版本的已知問題。
 
 
 
-[[trident-node-pods-might-detach-in-use-volumes-during-upgrade-to-26-10-0]]
-== 升級到 26.10.0 期間，Trident 節點 Pod 可能會分離正在使用的磁碟區
-
-請勿從 Trident 25.10 或任何更早版本升級至 Trident 26.10.0。在啟動過程中，Trident 節點 Pod 可能會分離仍在使用的磁碟區。受影響的 Pod 可能會失敗並顯示錯誤 `volume ... is not staged`。修復程式正在開發中。請等待包含此修復程式的版本後再進行升級。
-
-
-
 [[volumes-remain-attached-after-upgrading-from-trident-22-10-or-earlier]]
 == 從 Trident 22.10 或更早版本升級後，Volume 仍保持附加狀態
 

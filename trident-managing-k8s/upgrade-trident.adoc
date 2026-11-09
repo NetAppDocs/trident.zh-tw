@@ -21,11 +21,6 @@ summary: Trident 遵循為期四個月的發行步調、每年提供三個主要
 
 升級至最新版的 Trident 時、請考慮下列事項：
 
-[WARNING]
-====
-請勿從 Trident 25.10 或任何更早版本升級至 Trident 26.10.0。在啟動過程中，Trident 節點 Pod 可能會分離仍在使用的磁碟區。受影響的 Pod 可能會因錯誤而失敗 `volume ... is not staged`。即使升級在支援的四個版本範圍內，此問題仍然適用。請等待包含此修復程式的版本後再進行升級。如需詳細資訊，請參閱 link:../known-issues.html["已知問題"]。
-
-====
 * 在指定的 Kubernetes 叢集中、所有命名空間都應該只安裝一個 Trident 執行個體。
 * Trident 23.07 及更新版本需要 v1 Volume 快照、不再支援 Alpha 或 beta 快照。
 * 升級時、 Trident 必須提供 `parameter.fsType`使用中的 `StorageClasses`資訊。您可以在不中斷現有磁碟區的情況下刪除及重新建立 `StorageClasses`磁碟區。
@@ -52,9 +47,6 @@ Trident 版本遵循日期 `YY.MM`命名慣例、其中「是」是年份的最�
 
 
 
-
-
-NOTE: 在 OpenShift Container Platform 上使用 Trident 運算子進行升級時、您應升級至 Trident 21.01.1 或更新版本。隨21.01.0一起發行的Trident運算子包含已在21.01.1中修正的已知問題。如需詳細資訊、請參閱 https://github.com/NetApp/trident/issues/517["GitHub問題詳細資料"^]。
 
 
 

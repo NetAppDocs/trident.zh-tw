@@ -78,8 +78,8 @@ Trident 安裝程式套件會建立 Trident Pod 、設定用於維持其狀態�
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.10.0/trident-installer-26.10.0.tar.gz
-tar -xf trident-installer-26.10.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.10.0/trident-installer-26.10.1.tar.gz
+tar -xf trident-installer-26.10.1.tar.gz
 cd trident-installer
 ----
 
@@ -102,14 +102,14 @@ cd trident-installer
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.10 --trident-image <your-registry>/trident:26.10.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.10 --trident-image <your-registry>/trident:26.10.1
 ----
 --
 .不同登錄中的映像
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <csi-registry> --autosupport-image <autosupport-registry>/trident-autosupport:26.10 --trident-image <trident-registry>/trident:26.10.0
+./tridentctl install -n trident --image-registry <csi-registry> --autosupport-image <autosupport-registry>/trident-autosupport:26.10 --trident-image <trident-registry>/trident:26.10.1
 ----
 --
 ====
@@ -130,7 +130,7 @@ INFO Created Trident daemonset.
 INFO Waiting for Trident pod to start.
 INFO Trident pod started.                          namespace=trident pod=trident-controller-679648bd45-cv2mx
 INFO Waiting for Trident REST interface.
-INFO Trident REST interface is up.                 version=26.10.0
+INFO Trident REST interface is up.                 version=26.10.1
 INFO Trident installation succeeded.
 ....
 ----
@@ -157,7 +157,7 @@ trident-controller-679648bd45-cv2mx   6/6     Running   0          5m29s
 trident-node-linux-vgc8n              2/2     Running   0          5m29s
 ----
 
-NOTE: 如果安裝程式未成功完成或 `trident-controller-<generated id>` (`trident-csi-<generated id>`在 23.01 之前的版本中未顯示 *Running* 狀態，則表示平台未安裝。請使用 `-d`來link:../troubleshooting.html#unsuccessful-trident-deployment-using-tridentctl["開啟偵錯模式"]並排查問題。
+NOTE: 如果安裝程式未成功完成或 `trident-controller-<generated id>`沒有 *Running* 狀態，則平台未安裝。請使用 `-d`來link:../troubleshooting.html#unsuccessful-trident-deployment-using-tridentctl["開啟偵錯模式"]並疑難排解問題。
 
 
 
@@ -173,7 +173,7 @@ NOTE: 如果安裝程式未成功完成或 `trident-controller-<generated id>` (
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.10.0        | 26.10.0        |
+| 26.10.1        | 26.10.1        |
 +----------------+----------------+
 ----
 

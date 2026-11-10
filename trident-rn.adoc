@@ -49,7 +49,7 @@ WARNING: 安裝程式壓縮檔中提供的Linux試用版（tridentctl）二進�
 
 [WARNING]
 ====
-請勿升級到 Trident 26.10.1。在啟動過程中，Trident 節點 Pod 可能會分離仍在使用的磁碟區。受影響的 Pod 可能會失敗並顯示錯誤  `volume ... is not staged`。此問題已在 Trident 26.10.1 中修復。請改為升級到 Trident 26.10.1 或更新版本。
+請勿升級到 Trident 26.10.0。在啟動過程中，Trident 節點 Pod 可能會分離仍在使用的磁碟區。受影響的 Pod 可能會失敗並顯示錯誤  `volume ... is not staged`。此問題已在 Trident 26.10.1 中修復。請改為升級到 Trident 26.10.1 或更新版本。
 
 ====
 
